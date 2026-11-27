@@ -68,7 +68,6 @@ var enter_button:Button
 var color_materials:Dictionary={}
 var orb:AtlasTexture
 var slot_style:StyleBoxTexture
-var fist_material:ShaderMaterial
 var character_preview:SubViewportContainer
 var preview_body:Sprite3D
 var preview_camera:Camera3D
@@ -98,7 +97,6 @@ func _ready():
  name="EquipmentHub";process_mode=Node.PROCESS_MODE_ALWAYS;theme=MenuSkin.theme()
  set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
  read_loadouts()
- fist_material=ShaderMaterial.new();fist_material.shader=TINT;fist_material.set_shader_parameter("tint",Color(1.12,1.12,1.12))
  var background=TextureRect.new();background.texture=preload("res://assets/ui/maroon/blue_cross_gate_title_roster.png")
  background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;background.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED
  background.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(background);background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -184,6 +182,8 @@ func _ready():
  detail.max_lines_visible=3;detail.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;detail.clip_text=true
  status=text("",Vector2(24,728),Vector2(860,23),14)
  button("Back",Vector2(1265,17),Vector2(143,34),game.back_from_equipment)
+ if game.equipment_from_game and not game.model.falan_area.is_empty():
+  button("任務道具",Vector2(1095,17),Vector2(150,34),show_quest_items).name="QuestItemsButton"
  enter_button=button("Enter Map",Vector2(909,664),Vector2(139,46),enter_map);enter_button.name="EnterEquipmentMap"
  if game.equipment_from_game:enter_button.text="Return"
  for id in Gear.COLORS:
@@ -450,7 +450,7 @@ func describe(data:Dictionary)->String:
 func fill_control(hit:Button,id:String,empty:String="",skin:bool=false):
  var icon:TextureRect=hit.get_node("GearIcon") if hit.has_node("GearIcon") else hit.get_node("ItemIcon")
  var data=item_data(id) if not id.is_empty() or skin else {}
- icon.texture=data.get("icon");icon.material=fist_material if id=="weapon:unarmed" else color_materials.get(id);icon.modulate=Color.WHITE
+ icon.texture=data.get("icon");icon.material=color_materials.get(id);icon.modulate=Color.WHITE
  var description=describe(data) if not data.is_empty() else empty
  hit.accessibility_name=description;hit.set_meta("description",description);hit.set_meta("icon",icon.texture);hit.set_meta("material",icon.material)
 func refresh():
@@ -493,11 +493,11 @@ func refresh():
  if is_instance_valid(pet_picker):pet_picker.visible=page=="pets"
  if is_instance_valid(pet_picker):
   pet_picker.selected=Pets.sanitized(game.settings.forest_pet_loadout);pet_picker.target_slot=selected_pet_slot;pet_picker.refresh()
- var supported=Gear.ITEMS.keys().filter(func(id):return Gear.ITEMS[id].has("weapon") and id not in Gear.CHEST_SWORDS and Gear.can_equip(wearer_key,id,settings))
+ var supported=Gear.ITEMS.keys().filter(func(id):return Gear.ITEMS[id].has("weapon") and id not in Gear.CHEST_WEAPONS and Gear.can_equip(wearer_key,id,settings))
  for i in allowed_icons.size():
   var icon=allowed_icons[i];icon.visible=i<supported.size();icon.texture=Gear.ITEMS[supported[i]].icon if icon.visible else null
   icon.position=Vector2(48+i*24,296)
-  icon.material=fist_material if icon.visible and supported[i]=="weapon:unarmed" else null
+  icon.material=null
   var description=describe(item_data(supported[i])) if icon.visible else ""
   icon.accessibility_name=description;icon.set_meta("description",description);icon.set_meta("icon",icon.texture)
  var equipped:Dictionary=draft.get(wearer_key,{})
@@ -657,3 +657,15 @@ func apply_changes()->bool:
 
 func enter_map():
  if apply_changes():game.enter_equipped_map()
+
+func show_quest_items():
+ if has_node("QuestItems"):return
+ var bag=load("res://scripts/forest/forest_quest_items.gd").new();bag.hub=self;add_child(bag)
+
+func use_quest_item(id:int):
+ if not game.equipment_from_game or game.model.falan_area.is_empty() or not apply_changes():return
+ var owner=game
+ if preload("res://scripts/forest/crowd/east_region_sprites.gd").owns_model(game.model):
+  preload("res://scripts/forest/crowd/east_region_sprites.gd").prepare(game.model)
+ game.enter_equipped_map()
+ load("res://scripts/forest/forest_east_events.gd").use_item.call_deferred(owner,id)

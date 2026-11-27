@@ -49,6 +49,24 @@ const TILES={
  "architecture_red_roof":Vector2(0,1408),
  "shop_medallion":Vector2(128,1408),
  "shop_shield":Vector2(256,1408),
+ "10003_gable_rosette":Vector2(384,1408),
+ "native_bar_sign":Vector2(0,1536),
+ "native_baker_sign":Vector2(128,1536),
+ "native_weapon_sign":Vector2(256,1536),
+ "native_inn_sign":Vector2(384,1536),
+ "native_house_sign":Vector2(0,1664),
+ "magic_side_window":Vector2(128,1664),
+ "10311_stripes":Vector2(256,1664),
+ "10311_shirt":Vector2(384,1664),
+ "10311_socks":Vector2(0,1792),
+ "10311_trousers":Vector2(128,1792),
+}
+const CLOTH_TOP={
+ "10311_cloth":0.109375000,
+ "10311_stripes":0.109375000,
+ "10311_shirt":0.109375000,
+ "10311_socks":0.187500000,
+ "10311_trousers":0.109375000,
 }
 const LEGACY={
  Vector2i(-15,-24):["falan_shop",90,0.92,4,10078],

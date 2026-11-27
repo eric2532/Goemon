@@ -35,6 +35,7 @@ func run():
    check(pool.all[orb.pool_key].size()>=2,"The pool prepares two overlapping level-one Qi casts")
    var misses=pool.misses;shots.clear()
    for cast_index in 2:
+    p.mana=p.max_mana
     orb.clear_cooldowns();orb.start_cast()
     for tick in 180:orb.tick(DT)
    check(shots.size()==2 and shots.all(func(shot):return shot.pool_live),"Two level-one casts retain their two projectiles across the native gestures")
@@ -68,6 +69,7 @@ func run():
   p.spell_loadout.cancel();p.active_ability.cancel(true);p.active_ability.clear_cooldowns();p.attack_chain.reset()
   army.clear();game.model.enemies.clear();army.refresh_kits();fx.effects.clear();victims.clear();await frames(2);game.enemies=game.enemies.filter(is_instance_valid)
   var victim=spawn(Vector3(0,0,-3.5));var before=victim.hp;var kit=p.active_ability
+  p.mana=p.max_mana
   kit.start_combo();kit.ticket.skill_count=1;kit.ticket.combo_splash_radius=0
   for i in 300:
    kit.tick(DT);army.flush_presentation()

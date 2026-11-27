@@ -26,6 +26,7 @@ struct Unit {
     Handle escort_leader=0;
     int escort_slot=-1;
     double escort_refresh=0;
+    bool combined_attached=false;
     Vec3 target_goal;
     Vec3 approach_minimum,approach_maximum;
     int64_t approach_target=0;
@@ -58,6 +59,8 @@ struct Unit {
     uint64_t guardian_status_draws=0,guardian_death_draws=0,guardian_accuracy_draws=0,guardian_combo_draws=0,guardian_ward_draws=0;
     uint64_t falken_draws=0,falken_eligible=0;
     uint64_t falken_death_draws=0,falken_family_draws=0;
+    std::array<uint8_t,100> evasion_bag{};
+    int evasion_draw=100;
     double dodge_chance=0,dodge_left=0,dodge_cooldown=0;
     Vec3 dodge_direction;
     double counter_chance=0,counter_contact=0,counter_duration=0;
@@ -78,12 +81,17 @@ struct Unit {
     float ice_visual() const {return frozen>0?1.f:ice_chill>0?.42f:ice_thaw>0?-float(ice_thaw/2)*ice_strength:0.f;}
     double pose_time=0,walk_phase=0;
     double habaru_pressure=0,habaru_gap=0,habaru_left=0,habaru_control_left=0;int habaru_phase=0;
-    double retaliation=0;int64_t retaliation_source=0;
+    double retaliation=0;int64_t retaliation_source=0;float retaliation_range=28;
     double shot_left=0,recovery_left=0,landing_left=0,flash_left=0;
     int pose_row=-1,hound_attack_direction=-1;
     double hound_roam_left=0,hound_return_left=-1,pet_rush_left=0;
     bool hound_strolling=false,hound_focused=false;
+    int beast_pet_attacks=-1;
+    double beast_pet_seek_left=0;
+    int64_t beast_pet_rush_target=0;
     std::array<int,3> pet_skills{};
+    int pet_group_mask=0;
+    uint64_t pet_skill_bag=0;
     double pet_mana=0;
     double pet_health_bonus=0,pet_damage_bonus=0;
     double pet_move_multiplier=1,pet_attack_multiplier=1,pet_mana_bonus=0;
@@ -106,6 +114,7 @@ struct Unit {
     mutable int external_row=-1;
     int external_kind=-1,soldier_phase=0,soldier_shots=0;
     double phase_tick=0,attack_tick=0;
+    double crowd_attack_pressure=0,crowd_attack_wait=0;
     bool action_active=false,just_started=false;
     Vec3 knockback,motion_impulse;
     float knockback_decay=8;
@@ -172,6 +181,7 @@ public:
     bool set_pet_mana(Handle handle,double mana);
     bool set_pet_growth(Handle handle,double health_bonus,double damage_bonus);
     bool set_pet_training(Handle handle,double movement,double attack,double mana_bonus,bool heal);
+    bool set_pet_skill_groups(Handle handle,int mask);
     bool set_mirror(Handle handle,int actions,float speed,float reach,Vec3 approach);
     std::vector<Unit> snapshot() const;
     const std::vector<Unit>& packed_source() const{return units_;}

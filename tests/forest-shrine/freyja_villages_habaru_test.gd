@@ -1608,8 +1608,8 @@ func check_il_habaru_alyut():
  check(Tour.area(game.model)==Tour.Regions.canonical_area("il_village"),"Il shares the outdoor map on foot")
  if Tour.area(game.model)!=Tour.Regions.canonical_area("il_village"):return
  village_entries(6)
- var shore=game.world.find_child("IlArchivedShore",true,false)
- check(is_instance_valid(shore) and shore.mesh.get_surface_count()==1,"Il renders its original shoreline")
+ var shores=game.world.find_children("NativeGraphic_125*","MultiMeshInstance3D",true,false).filter(func(node):return node.get_meta("source_graphic",0)<12536)
+ check(not shores.is_empty() and shores.all(func(node):return node.multimesh.mesh.get_surface_count()==1),"Il renders its original shoreline caps")
  var scale_:float=game.model.falan_scale
  if DisplayServer.get_name()!="headless":
   await shot("Il to Alyut/il-village-shore",village_world(Vector3(148,170,145),"il_village"),village_world(Vector3(0,5,8),"il_village"),63)
@@ -1972,9 +1972,13 @@ func check_east_il_road():
  for i in 18:await physics_frame
  Input.action_release("move_forward")
  check((archive*map_position()).x>475*3+1,"Forward continues east after the gate landing")
- await position_at(Vector2(3,Tour.Frontier.INNER_EDGE.east_gate+1))
- await position_at(Vector2(3,Tour.Frontier.INNER_EDGE.east_gate-1))
- check(Tour.area(game.model)=="city" and map_position().distance_to(Vector2(-138,-372))<.35,"The exterior return lands at the original city cell (277,88)")
+ game.camera_rig.yaw=0.0
+ Input.action_press("move_forward")
+ for i in 280:
+  await physics_frame
+  if Tour.area(game.model)=="city":break
+ Input.action_release("move_forward")
+ check(Tour.area(game.model)=="city" and map_position().distance_to(Vector2(-138,-372))<.35,"Walking back through East Gate lands at the original city cell (277,88)")
  if Tour.area(game.model)!="city":return
  await position_at(Tour.Frontier.to_city("east_gate",Vector2(3,edge-1)))
  await position_at(Tour.Frontier.to_city("east_gate",Vector2(3,edge+1)))
@@ -2197,8 +2201,11 @@ func check_ruby_boss():
  await approach_black_prayer()
  if game.model.falan_floor!=15003:return
 
- check(game.world.find_child("BlueCGYellowDiamond",true,false)!=null,"The suspicious rock has the original yellow diamond")
- await room(Tour.Prayer.ENTRY)
+ # Local art/combat fixture inputs; the separate source-route fixture acquires these naturally.
+ var events=load("res://scripts/forest/forest_east_events.gd");var source_items:Dictionary=get_meta(events.ITEMS,{})
+ events.set_item(source_items,18420,1);events.set_item(source_items,18421,1);source_items["source_item_birth_18420"]=Time.get_unix_time_from_system();set_meta(events.ITEMS,source_items)
+ await ruby_fixture_event("6302",["YES"])
+ check(game.model.falan_floor==Tour.Prayer.ENTRY,"Source rock condition leads to original16507")
  await check_black_prayer_floors()
  await room(Ruby.ROOM)
  if game.model.falan_floor!=Ruby.ROOM:return
@@ -2214,23 +2221,21 @@ func check_ruby_boss():
  check(is_instance_valid(props) and props.get_children().filter(func(prop):return prop.get_meta("blue_cg_serial")==17206).size()==3,
   "The three original barred panels are present")
  var caps=props.get_children().filter(func(prop):return prop.get_meta("blue_cg_serial")==15819)
- check(caps.size()==4 and caps.all(func(prop):return prop is MeshInstance3D and prop.position.y>6.0),"Original overhead stone caps use raised 3D geometry")
+ check(caps.is_empty() and is_instance_valid(game.world.find_child("ArchivedRoomWalls",true,false)),"Black source occlusion uses the existing solid wall tops without floating cap overlays")
  var arches=props.get_children().filter(func(prop):return prop.get_meta("blue_cg_serial") in [17683,17684])
  check(arches.size()==6 and arches.all(func(prop):return prop is MeshInstance3D and prop.position.y>6.0),"Six source arch headers use raised solid geometry without isometric billboard tops")
- check(map_position().distance_to(Vector2(42,-57))<.5,"The last maze arrives at the original palace entrance (39,5)")
+ check(map_position().distance_to(Vector2(42,-57))<.5,"The preserved adjacent stair landing is39,6 beside source endpoint39,5")
  if DisplayServer.get_name()!="headless":
   await shot("Original Ruby/ruby-barred-entry",game.model.world_point(Vector2(-3,29),5.5),
    game.model.world_point(Vector2(-3,17),3.2),64)
  var pose:Transform3D=game.player.global_transform
  pose.origin=game.model.world_point(Vector2(-3,21),.32)
  check(game.player.test_move(pose,game.model.world_point(Vector2(-3,15),.32)-pose.origin),"The original barred tiles block walking")
- var model_before=game.model
- await position_at(Vector2(-3,27))
- await position_at(Vector2(-3,21))
- check(game.model==model_before and map_position().distance_to(Vector2(-3,15))<.5,
-  "The silent guard lets Kaz cross the bars without changing floors")
+ await ruby_fixture_event("6305",["YES"])
+ check(game.model.falan_floor==Ruby.ROOM and map_position().distance_to(Vector2(-3,12))<.5,
+  "Source guard consumes proof and warps across the original barrier to24,29")
  game.tuning.invincible=true
- await position_at(Vector2(-3,-6))
+ await ruby_fixture_event("81000",[])
  var runtime=game.army_runtime
  var actors:Array=game.model.enemies.values()
  var boss=actors.filter(func(row):return row.ruby_slot==0)
@@ -2286,9 +2291,11 @@ func check_ruby_boss():
  for i in 6:await physics_frame
  check(get_meta(Ruby.SLAIN,{}).size()==10,"The run records all ten defeated enemies")
  check(not game.dungeon_boss_nearby(),"The camera can return to exploration framing after victory")
- await room(3351)
- await room(3350)
- await room(3352)
+ check(game.model.falan_floor==16509,"Original source victory uses the separate post-palace map")
+ await ruby_fixture_event("6308",["NEXT","OK"])
+ check(game.model.falan_floor==3351,"Fresh candle selects original source reward room")
+ await ruby_fixture_event("6310",["YES"])
+ check(game.model.falan_floor==3352,"Source reward actor returns to the research room")
  await room(3350)
  await cave_exit("sokia_coast")
  var point_out=Tour.Regions.frame("sokia_coast")*map_position()
@@ -2303,8 +2310,11 @@ func check_black_prayer_floors():
   check(game.model.falan_floor==id,"Every Black Prayer floor is playable")
   for i in 4:await physics_frame
   var actors:Array=game.model.enemies.values()
-  check(actors.size()==Tour.Prayer.PATROL_COUNT,"The maze uses 96 native Ghost and Bloody Blade patrols")
-  check(actors.all(func(row):return row.has("black_prayer_slot") and row.skin in [1,2] and row.level>=20 and row.level<=23 and game.army_runtime.handles.has(row.id)),"Maze population retains original species and reference levels")
+  var source=preload("res://scripts/forest/forest_south_kili_population.gd")
+  check(source.encounters_own(game.model) and game.model.waves.patrol_source==Ruby,"The maze uses its source group movement/native owner")
+  check(actors.is_empty(),"Stationary stair arrival does not generate the retired96-actor static pool")
+  var zone:Dictionary=source.zone_at(id,Vector2i(9,9))
+  check(zone.groups.map(func(choice):return str(choice[0]))==["prayer:15006","prayer:15004","prayer:15005"],"Each floor retains mixed, Ghost-only and Blade-only source groups")
   check(not preload("res://scripts/forest/crowd/army_kit_data.gd").from_model(game.model).ruby_boss,"Maze escorts never acquire Ruby's boss abilities")
   var stairs=game.world.find_children("HabaruStair_*","Node3D",true,false)
   check(stairs.size()==2 and stairs.all(func(node):return node.get_meta("blue_cg_serial") in [17974,17975]),"Both original maze stair types have solid 3D geometry")
@@ -2318,11 +2328,8 @@ func check_black_prayer_floors():
   var rocks=game.world.find_child("BlackPrayerNativeRockScatter",true,false)
   check(rocks!=null and rocks.get_meta("rock_count",0)>0,"Native grey rock silhouettes replace old scenery")
   if id==prayer.FLOORS[0]:
-   var dead:Dictionary=actors[0]
-   game.army_runtime.damage_enemy(dead.id,dead.max_hp*2)
-   for i in 5:await physics_frame
-   check(get_meta(prayer.SLAIN,{}).has(dead.black_prayer_slot),"Maze kills persist by floor and slot")
-   check(get_meta(Ruby.SLAIN,{}).is_empty(),"Maze kills cannot unlock Ruby's reward rooms")
+   var old_slots:Dictionary=get_meta(prayer.SLAIN,{}).duplicate(true)
+   check(get_meta(Ruby.SLAIN,{}).is_empty(),"Ordinary maze encounters cannot unlock Ruby's reward rooms")
    var seed_:int=game.model.seed_value
    var before=prayer.walk_mask(id,seed_)
    await position_at(prayer.point(warp[1])+Vector2.LEFT*4.0)
@@ -2332,7 +2339,8 @@ func check_black_prayer_floors():
    await walk_habaru_threshold(prayer.point(prayer.stairs(prayer.FLOORS[1],game.model.seed_value)[0]),Vector2.DOWN)
    check(game.model.falan_floor==id,"Kaz walks back up the recovered 3D stairs")
    for i in 4:await physics_frame
-   check(game.model.enemies.size()==Tour.Prayer.PATROL_COUNT-1 and game.model.enemies.values().all(func(row):return row.black_prayer_slot!=dead.black_prayer_slot),"Backtracking does not resurrect a defeated patrol")
+   check(game.model.enemies.values().all(func(row):return not row.has("black_prayer_slot")),"Backtracking retains source encounters without resurrecting static posts")
+   check(get_meta(prayer.SLAIN,{})==old_slots,"Backtracking preserves old static-slot save compatibility")
    check(prayer.walk_mask(id,game.model.seed_value)==before,"Backtracking preserves the same maze")
   if id in [prayer.FLOORS[0],prayer.FLOORS[2],prayer.FLOORS.back()] and DisplayServer.get_name()!="headless":
    var at=prayer.point(prayer.room_center(Vector2i(0,3)))
@@ -2340,10 +2348,18 @@ func check_black_prayer_floors():
    await shot("black-prayer-floor-"+str(prayer.FLOORS.find(id)+1),game.model.world_point(at+Vector2(5,5),7.3),game.model.world_point(at+Vector2(0,-1),1.3),85)
 
 func room_locked_ruby():
- var door=game.model.get_meta("falan_links").filter(func(link):return link.get("floor")==3351)[0]
- await position_at(door.at)
- await walk_through_entry()
- check(game.model.falan_floor==Ruby.ROOM,"The reward rooms stay locked while Ruby's party lives")
+ check(game.model.falan_floor==Ruby.ROOM and not game.model.get_meta("falan_links",[]).any(func(link):return link.get("floor") in [3350,3351,3353]),"No legacy reward doorway bypasses Ruby's source victory/return actors")
+
+func ruby_fixture_event(id:String,answers:Array):
+ var events=load("res://scripts/forest/forest_east_events.gd")
+ Tour.RubyEvents.action(game,"black_prayer:"+id)
+ var remaining=answers.duplicate()
+ for i in 40:
+  var session:Dictionary=game.get_meta(events.SESSION,{})
+  if session.get("status","")!="window":break
+  var answer=remaining.pop_front() if not remaining.is_empty() else "NEXT" if "NEXT" in session.pending.choices else "OK"
+  events.respond(game,int(session.serial),answer)
+ for i in 6:await physics_frame
 
 func check_forest_grave():
  check_imur_mazes()
@@ -3126,6 +3142,15 @@ func check_coastal_room(id:int):
   var distance=maxf(info[0].x,info[0].y)*2.3*game.model.falan_scale
   var folder="Kili Original Houses" if id in [3801,3802,3803,3807] else "Coastal Village Rooms"
   await shot(folder+"/room-"+str(id),point+Vector3(-distance*.45,distance*.82,distance*.60),point,58)
+
+func coastal_building_bounds(node:Node3D)->AABB:
+ if node is MeshInstance3D:return node.global_transform*node.mesh.get_aabb()
+ var fit=load("res://scripts/forest/forest_falan_proportions.gd")
+ var points=fit.node_points(node)
+ assert(not points.is_empty(),"A compound native building must retain visible geometry")
+ var bounds=AABB(points[0],Vector3.ZERO)
+ for p in points:bounds=bounds.expand(p)
+ return node.global_transform*bounds
 
 func coastal_exterior_preview(area:String):
  check_coastal_village(area)

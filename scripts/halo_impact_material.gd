@@ -57,9 +57,14 @@ static func tag_terrain(body:StaticBody3D,model,mesh:Mesh):
  var ranges:Array=[]
  var end=0
  for slot in mesh.get_surface_count():
-  var arrays=mesh.surface_get_arrays(slot)
-  var indices=arrays[Mesh.ARRAY_INDEX]
-  var count=indices.size() if indices!=null and not indices.is_empty() else arrays[Mesh.ARRAY_VERTEX].size()
+  var count:int
+  if mesh is ArrayMesh:
+   var indices:int=mesh.surface_get_array_index_len(slot)
+   count=indices if indices>0 else mesh.surface_get_array_len(slot)
+  else:
+   var arrays=mesh.surface_get_arrays(slot)
+   var indices=arrays[Mesh.ARRAY_INDEX]
+   count=indices.size() if indices!=null and not indices.is_empty() else arrays[Mesh.ARRAY_VERTEX].size()
   end+=count/3
   var material="stone"
   var shader=mesh.surface_get_material(slot)

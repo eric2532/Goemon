@@ -162,5 +162,37 @@
       36,
       39
     ]
+  },
+  "boxing-gloves-red": {
+    "kind": "original generated artwork",
+    "tool": "built-in image_gen",
+    "approval": "2026-11-25: option A, classic red",
+    "master": "assets/ui/crossgate/weapons/source/boxing-gloves-red-master.png",
+    "master_sha256": "0c1d5ef511cdb6505b893fb3c50bda2dc95e1805f22200c5a0f7d29c02def868",
+    "file": "assets/ui/crossgate/weapons/defaults/boxing-gloves-red.png",
+    "png_sha256": "2b34c995afbc8a2bb82688d0a18a1971e510c967092b4fc1ba07de6bd99f2107",
+    "size": [
+      48,
+      48
+    ],
+    "crop": [
+      93,
+      69,
+      1143,
+      1220
+    ],
+    "art_size": [
+      35,
+      38
+    ],
+    "art_position": [
+      6,
+      5,
+      41,
+      43
+    ],
+    "preparation": "Crop to alpha > 16 bounds, fit within 38x38 using nearest-neighbor sampling, center on a transparent 48x48 canvas; retain original generated alpha.",
+    "prompt": "assets/ui/crossgate/weapons/source/boxing-gloves-red-prompt.md",
+    "design": "User-selected classic red leather boxing gloves, ivory cuffs and laces. Shared weapon:unarmed Equipment and HUD icon; earlier fist art preserved."
   }
 }

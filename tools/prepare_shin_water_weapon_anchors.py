@@ -51,7 +51,7 @@ def prepare():
      head=guard[(direction*120,0)]
     assert head is not None,('Missing native head anchor',kind,pose,raw[0],source_key)
     p,x,y,w,h,ox,oy=frame;route='res://'+str((folder/f'atlas-{p}.png').relative_to(ROOT));new[route].setdefault((x,y),(round(head[0]-ox*4),round(head[1]-oy*4)))
-  for file in [folder/'motions.json',*(folder/f'atlas-{p}.png'for p in range(manifest['pages'])),folder/'item.png',*folder.glob('projectile.png')]:dependencies[str(file.relative_to(ROOT))]=digest(file)
+  for file in [folder/'motions.json',*(folder/f'atlas-{p}.png'for p in range(manifest['pages'])),folder/'item.png',*folder.glob('projectile.png'),*folder.glob('contact-wave.png')]:dependencies[str(file.relative_to(ROOT))]=digest(file)
  data=bytearray();updated={};prefix='res://'+str(TARGET.relative_to(ROOT))+'/'
  for route,(offset,count)in tables.items():
   if route.startswith(prefix)and route[len(prefix):].count('/')>0:continue

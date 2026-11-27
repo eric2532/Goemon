@@ -20,7 +20,7 @@ REVIEW = ROOT / "build/Other Files/Asset Toolkit/Falan Architecture"
 PIXEL_HEIGHT=.045
 GABLE_EDGE={10003:1,10005:1,10006:1,10007:1,10009:1,10049:1,10050:0,
             10076:0,10077:0,10078:0,10079:0,10080:0,10081:1,10082:1,
-            10083:0,10084:0,10304:0,10305:1,10306:1,10308:1,10309:0,10605:1,10609:0}
+            10083:0,10084:0,10304:0,10305:1,10306:1,10308:1,10309:0,10310:1,10605:1,10609:0}
 
 # The projecting porch, ivy, or chimney obscures these main gable boundaries.
 # Reviewed points remain in native pixels rather than guessed world angles.
@@ -33,6 +33,9 @@ OCCLUDED_GABLES={
  10078:[(1,174),(27,172),(55,165),(73,156),(80,136),(84,123),(92,121),(99,129),(105,157),(115,194),(130,239),(146,266),(159,280)],
  10084:[(1,174),(27,172),(55,165),(73,156),(80,136),(84,123),(92,121),(99,129),(105,157),(115,194),(130,239),(146,266),(159,280)],
  10306:[(197,282),(216,255),(234,216),(245,179),(249,144),(255,123),(263,121),(272,136),(279,156),(304,167),(351,174)],
+ # The blue balcony hood below this gable is not part of the main roof profile.
+ 10310:[(275,338),(290,321),(307,298),(325,267),(339,234),(344,204),(347,183),(351,164),
+        (360,161),(370,166),(383,180),(391,200),(402,221),(420,231),(442,236),(462,242)],
 }
 OCCLUDED_GABLES[10050]=[(376-x,y)for x,y in reversed(OCCLUDED_GABLES[10049])]
 OCCLUDED_GABLES[10304]=OCCLUDED_GABLES[10077]
@@ -45,6 +48,7 @@ FOUNDATIONS={
  10304:[(30,320),(158,407),(321,300)],
  10084:[(30,300),(156,410),(321,303)],
 }
+OCCLUDED_GABLES[10003]=[(198,283),(215,258),(234,217),(244,184),(248,149),(254,126),(262,123),(270,134),(278,155),(300,165),(350,174)]
 
 
 def line(points, sign):
@@ -154,12 +158,15 @@ def roof_profile(image,family,floor,edge,origin,serial):
     a=(a[0]-direction[0]*2,a[1]-direction[1]*2)
     b=(b[0]+direction[0]*2,b[1]+direction[1]*2)
     pa,pb=projected(a,origin),projected(b,origin)
+    # Bays can skew the plinth fit. Roof axes follow the original 32/24 tile basis.
+    slope=-.75 if edge==1 else .75
+    pb=(pb[0],pa[1]+(pb[0]-pa[0])*slope)
+    b=local(pb,origin)
     profile=[]
     if serial in OCCLUDED_GABLES:
         pixels=OCCLUDED_GABLES[serial]
         a=(a[0],a[1]);b=(b[0],b[1])
         # Roof eaves extend to the original painted boundary at either end.
-        slope=(pb[1]-pa[1])/(pb[0]-pa[0])
         first=(pixels[0][0],pa[1]+(pixels[0][0]-pa[0])*slope)
         last=(pixels[-1][0],pa[1]+(pixels[-1][0]-pa[0])*slope)
         a=local(first,origin);b=local(last,origin)
@@ -204,6 +211,8 @@ def prepare(source):
     import cg_library as library
     meta=json.loads((OUT/"city_building_surfaces.json").read_text())
     graphics={r["reference_graphic"]:r["runtime_family"]for r in meta["bindings"]}
+    # This house has no saved placeholder; its NPC-based conditional interior remains unverified.
+    graphics[10310]=17
     REVIEW.mkdir(parents=True,exist_ok=True)
     result={};images={}
     for serial,family in sorted(graphics.items()):

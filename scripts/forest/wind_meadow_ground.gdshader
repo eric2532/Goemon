@@ -1,4 +1,6 @@
 shader_type spatial;
+#include "res://scripts/forest/forest_route_finish.gdshaderinc"
+uniform float archive_floor_weight = .91;
 uniform sampler2D roads : filter_linear, repeat_disable;
 uniform sampler2D detail_mask : filter_linear, repeat_disable;
 uniform vec4 tomato_plot;
@@ -6,9 +8,17 @@ uniform bool use_mountain_surface=false;
 uniform vec4 detail_bounds=vec4(0.0);
 uniform bool use_courtyard_paving=false;
 uniform bool clip_archive_land=false;
+uniform bool use_native_land_visibility=false;
+uniform sampler2D native_land_visibility : filter_nearest, repeat_disable;
+uniform vec4 native_visibility_bounds=vec4(0.0);
 uniform bool use_coastal_sand=false;
 uniform bool use_ghana_palette=false;
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+// The castle and city paving never share a layout. Leave a texture unit for WebGL shadows.
+#define courtyard_paving city_paving_atlas
+#else
 uniform sampler2D courtyard_paving : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
+#endif
 uniform bool use_city_paving=false;
 uniform vec4 city_paving_bounds=vec4(0.0);
 uniform vec4 city_gate_frame=vec4(0.0);
@@ -41,6 +51,10 @@ void fragment(){
  vec3 map_pos=world/map_scale;
  if(adjoining_city_clipped(map_pos.xz))discard;
  map_pos=(map_frame*vec4(map_pos,1.0)).xyz;
+ if(use_native_land_visibility){
+  vec2 uv=(map_pos.xz-native_visibility_bounds.xy)/native_visibility_bounds.zw;
+  if(any(lessThan(uv,vec2(0.0))) || any(greaterThanEqual(uv,vec2(1.0))) || texture(native_land_visibility,uv).g<.5) discard;
+ }
  if(clip_village && (any(lessThan(map_pos.xz,village_bounds.xy)) || any(greaterThanEqual(map_pos.xz,village_bounds.zw)))) discard;
  float patch=sin(map_pos.x*.031+sin(map_pos.z*.043)*1.8)*.5+.5;
  float brush=sin(map_pos.x*1.8+sin(map_pos.z*2.7)*2.0)*sin(map_pos.z*3.1)*.009;
@@ -99,10 +113,11 @@ void fragment(){
  }
  ALBEDO=mix(ALBEDO,courtyard.rgb*(.92+brush*6.0),courtyard.a*(1.0-rock));
  vec4 archive=freyja_surface(map_pos.xz,false);
- if(!cabin_plot) ALBEDO=mix(ALBEDO,archive.rgb*(.97+brush*3.0),archive.a*(1.0-rock)*.91);
+ if(!cabin_plot) ALBEDO=mix(ALBEDO,archive.rgb*(.97+brush*3.0),archive.a*(1.0-rock)*archive_floor_weight);
  if(arena_floor && courtyard.a<.5) ALBEDO=castle_stone(map_pos,normal_world);
  if(arena_floor) ALBEDO=mix(ALBEDO,castle_stone(map_pos,normal_world),smoothstep(.002,.015,1.0-normalize(normal_world).y));
  if(show_grid){vec2 grid=abs(fract((map_pos.xz+3.0)/6.0)-.5);ALBEDO*=1.0-.13*max(smoothstep(.48,.5,grid.x),smoothstep(.48,.5,grid.y));}
+ ALBEDO=mix(ALBEDO,route_tint*(.94+patch*.12),route_weight(world)*(1.0-rock)*(1.0-courtyard.a)*mix(1.0,.25,path));
  ALBEDO=attack_range_ink(ALBEDO,world,normal_world);
  ROUGHNESS=1.0;
 }

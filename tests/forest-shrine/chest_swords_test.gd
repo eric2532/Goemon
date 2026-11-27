@@ -37,6 +37,7 @@ func run():
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
  await setup_fixture(doc.data)
  for node in [game,game.player,game.camera_rig,game.army_runtime]:node.set_process(false);node.set_physics_process(false)
+ game.update_character_tuning(37,"accuracy",100)
  game.settings.forest_pet_loadout=[];game.settings.forest_level_up_cards=false
  game.model.waves.patrol_posts.clear();game.model.waves.crossgate_pet_test=true
  game.training_dummy.home=Vector3(0,-1000,0);game.training_dummy.position=game.training_dummy.home
@@ -53,22 +54,22 @@ func run():
  loot.sword_bag.clear();loot.rng.seed=812
  for cycle in 3:
   var found=[]
-  for i in 6:found.append(loot.draw_sword())
-  found.sort();var expected=Gear.CHEST_SWORDS.duplicate();expected.sort()
+  for i in Gear.CHEST_WEAPONS.size():found.append(loot.draw_sword())
+  found.sort();var expected=Gear.CHEST_WEAPONS.duplicate();expected.sort()
   check(found==expected,"Each complete shuffle bag draws every sword exactly once")
  loot.sword_bag.clear()
- for i in 6:
+ for i in Gear.CHEST_WEAPONS.size():
   reset_case();loot.clear();p.hp=1
-  check(loot.spawn_chest(i%3,home,"sword-%d"%i),"Spawn existing chest variant")
+  check(loot.spawn_chest(i%3,home,"sword-%d"%i,true),"Spawn existing chest variant");loot.slots[0].reward="weapon";loot.slots[0].bonus=""
   var before=game.settings.chest_swords.size()
   check(loot.open_nearest() and game.settings.chest_swords.size()==before+1,"Chest grants and saves a new sword")
   check(p.hp==1 and p.food_buff_stacks.values().all(func(value):return value==0),"Sword replaces food without healing or buffing")
   check(loot.opened_chests.has("sword-%d"%i) and loot.nearest()==-1,"Chest consumed once after saved reward")
- check(game.settings.chest_swords==Gear.CHEST_SWORDS,"All six swords are collected")
+ check(game.settings.chest_swords==Gear.CHEST_WEAPONS,"All chest weapons are collected")
  var collected=game.settings.chest_swords.duplicate();game.load_settings()
  check(game.settings.chest_swords==collected,"Collection survives settings reload")
  reset_case();loot.clear();game.settings.chest_swords=[]
- loot.sword_bag=["weapon:SW082"];loot.spawn_chest(0,home,"save-retry")
+ loot.sword_bag=["weapon:SW082"];loot.spawn_chest(0,home,"save-retry",true);loot.slots[0].reward="weapon";loot.slots[0].bonus=""
  var path=game.settings_path;game.settings_path="user://missing-chest-swords-directory/save.cfg"
  loot.open_nearest()
  check(game.settings.chest_swords.is_empty() and loot.slots[0].active and loot.slots[0].sword=="weapon:SW082" and not loot.opened_chests.has("save-retry"),"Failed save keeps the same reward, chest and prior inventory")

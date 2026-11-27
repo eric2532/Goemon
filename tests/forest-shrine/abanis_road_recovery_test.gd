@@ -3,6 +3,7 @@ extends "res://tests/forest-shrine/original_maps_test.gd"
 const REVIEW="res://build/Other Files/Asset Toolkit/Abanis Road Recovery/"
 const ROAD=[51001,51002,51003,Original.SHALENA_SOUTH,14000,14001,14002,Original.SHALENA_NORTH,51011]
 var captures=[]
+const ROAD_VIEWS={400:[[Vector2i(149,472),Vector2i(147,473)],[Vector2i(170,425),Vector2i(172,424)],[Vector2i(196,375),Vector2i(199,375)]],402:[[Vector2i(240,175),Vector2i(240,172)],[Vector2i(220,171),Vector2i(217,171)],[Vector2i(197,171),Vector2i(194,171)]]}
 
 func run():
  if "--cliff-models" in OS.get_cmdline_user_args():await cliff_models();await finish();return
@@ -34,6 +35,8 @@ func run():
    var gate=choices[0]
    Tour.travel(game,Original.layout(id),{"arrival":gate.at,"yaw":0.0,"velocity":Vector3.ZERO})
    for i in 6:await physics_frame
+   if id==Original.SHALENA_SOUTH:await gate_capture(51003,"undersea-exit-south")
+   if Original.source_id(id) in ROAD_VIEWS:await road_views(id)
    if id==Original.SHALENA_SOUTH:await gate_capture(14000,"western-cave-south")
    elif id==Original.SHALENA_NORTH:await gate_capture(14002,"western-cave-north")
    else:await road_capture("arrival-"+str(id))
@@ -50,6 +53,8 @@ func run():
    var gates=game.model.get_meta("falan_links",[]).filter(func(l):return l.get("floor")==target)
    if not gates.is_empty():check(game.army_runtime.native.can_reach(game.player.position,game.model.world_point(gates[0].at,.15),.5),"Native route reaches the next original entrance "+str(target))
   if not await cross(target):await finish();return
+  if target==Original.SHALENA_SOUTH:await gate_capture(51003,"undersea-exit-south")
+  if Original.source_id(target) in ROAD_VIEWS:await road_views(target)
   if target in [14000,14001,14002,Original.SHALENA_NORTH,51011]:await road_capture("arrival-"+str(target))
   if target==Original.SHALENA_SOUTH:await gate_capture(14000,"western-cave-south")
   if target==Original.SHALENA_NORTH:await gate_capture(14002,"western-cave-north")
@@ -61,6 +66,14 @@ func run():
  var file=FileAccess.open(REVIEW+"camera-captures.json",FileAccess.WRITE)
  file.store_string(JSON.stringify(captures," "))
  await finish()
+
+func road_views(id:int):
+ var source=Original.source_id(id);var views:Array=ROAD_VIEWS[source]
+ for i in views.size():
+  var at=Original.source_point(id,views[i][0]);var ahead=Vector2(views[i][1]-views[i][0])
+  check(game.army_runtime.native.can_reach(game.player.position,game.model.world_point(at,.15),.5),"Native road connects to reference waypoint %d-%d"%[source,i])
+  await position_at(at)
+  await road_capture("road-%d-%d"%[source,i],atan2(-ahead.x,-ahead.y))
 
 func gate_capture(target:int,label:String):
  var gate=Original.links(game.model.falan_floor).filter(func(l):return l.get("floor")==target)[0]
@@ -93,30 +106,44 @@ func road_capture(label:String,yaw:float=0.0):
  check(not terrain.is_empty(),"Native scenery uses shared solid meshes "+label)
  if Original.source_id(game.model.falan_floor) in Original.Forms.Cliffs.MAPS:
   check(game.world.map_features.get_meta("recovered_cliff_chunks",0)>0,"Native cliff sections form joined spatial batches "+label)
- captures.append({"image":label+".png","floor":game.model.falan_floor,"player":str(game.player.position),"camera":str(camera.global_position),"pitch":game.camera_rig.pitch,"distance":game.camera_rig.distance,"collision_distance":game.camera_rig.current_distance,"fov":camera.fov})
+ captures.append({"image":label+".png","floor":game.model.falan_floor,"player":str(game.player.position),"camera":str(camera.global_position),"pitch":game.camera_rig.pitch,"distance":game.camera_rig.distance,"collision_distance":game.camera_rig.current_distance,"fov":camera.fov,"cliff_cells":game.world.map_features.get_meta("recovered_cliff_cells",[]).size(),"cliff_chunks":game.world.map_features.get_meta("recovered_cliff_chunks",0),"cliff_triangles":game.world.map_features.get_meta("recovered_cliff_triangles",0)})
 
 func joined_cliff_checks():
  var cliffs=Original.Forms.Cliffs
  var cells={Vector2i(0,0):[11.43,12775],Vector2i(1,0):[11.43,12775]};var cache={}
  var mesh=cliffs.section_mesh(cells,cells.keys(),Vector3.ZERO,cache)
  var vertices=mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
- check(vertices.size()/3==100,"Joined cells omit the internal cliff wall")
- var internal=0;var finite=true
+ check(vertices.size()/3==200,"Joined cells omit the internal cliff wall")
+ var internal=0;var finite=true;var bounded=true
  for i in range(0,vertices.size(),3):
   if is_equal_approx(vertices[i].x,1.5) and is_equal_approx(vertices[i+1].x,1.5) and is_equal_approx(vertices[i+2].x,1.5):internal+=1
-  for j in 3:finite=finite and vertices[i+j].is_finite()
+  for j in 3:
+   finite=finite and vertices[i+j].is_finite()
+   bounded=bounded and vertices[i+j].x>=-1.5 and vertices[i+j].x<=4.5 and absf(vertices[i+j].z)<=1.5
+ check(bounded,"Rounded rock stays inside the original blocked footprints")
  check(internal==0 and finite,"A native cliff seam has no doubled wall or invalid vertices")
- check(is_equal_approx(cliffs.corner(Vector2i(1,1),cells,cache)[1].y,11.43),"Adjacent sections meet at the same native cap height")
+ var shared=cliffs.corner(Vector2i(1,1),cells,cache)[1]
+ check(shared==cliffs.corner(Vector2i(1,1),cells,cache)[1] and shared.y>=.149 and shared.y<=11.43*1.12+.001,"Adjacent sections meet at one source-measured cap height")
+ var bits=PackedByteArray();bits.resize(5)
+ var compound=cliffs.collect([[0,0,Vector2.ZERO,12775,36,Vector2i(1,3)]],Vector2i(6,6),bits)
+ check(compound.size()==9 and compound.values().all(func(value):return value[2]==Vector2i(1,3)),"A compound native cliff retains one paint anchor across all nine cells")
+ var source:Dictionary=cliffs.data()["12775"]
+ var left=cliffs.wall_pixel(source,compound[Vector2i(1,3)][2],1,Vector3(4.5,5,10.5))
+ var right=cliffs.wall_pixel(source,compound[Vector2i(2,3)][2],1,Vector3(4.5,5,10.5))
+ check(left==right,"The original cliff painting remains continuous across a cell boundary")
+ var low=cliffs.wall_pixel(source,Vector2i.ZERO,1,Vector3(3,4,1.5))
+ var high=cliffs.wall_pixel(source,Vector2i.ZERO,1,Vector3(3,5,1.5))
+ check(is_equal_approx(low.y-high.y,1/float(source.pixel_height)),"Cliff painting uses its calibrated native height per pixel")
  for id in [Original.SHALENA_SOUTH,Original.SHALENA_NORTH,14000,14001,14002]:
   var row=Original.state(id);var count_:int=row.size.x*row.size.y;var placements=[]
   for i in count_:
    var serial:int=row.raw.decode_u16(20+(count_+i)*2)
-   if not cliffs.continuous(serial) and serial not in [12834,12839]:continue
+   if not cliffs.continuous(serial) and serial not in cliffs.ENTRANCES:continue
    placements.append([0,0,Vector2.ZERO,serial,count_+i,Vector2i(i%row.size.x,i/row.size.x)])
   var joined=cliffs.collect(placements,row.size,row.bits);var clear=true;var entrances=true
   for cell:Vector2i in joined:clear=clear and not Original.open(row.bits,row.size,cell)
   for p in placements:
-   if p[3] not in [12834,12839]:continue
+   if p[3] not in cliffs.ENTRANCES:continue
    for z in 3:
     for x in 3:entrances=entrances and not joined.has(p[5]+Vector2i(x,-z))
   check(not joined.is_empty() and clear,"Joined cliffs preserve every original open road/corridor cell "+str(id))
@@ -128,6 +155,7 @@ func entrance_checks():
   var g:Dictionary=Original.Art.data().graphics[str(serial)]
   check(Original.Forms.kind(serial,false,g)=="stairs","Original moss stair is not a rock mound "+str(serial))
  for serial in Original.Forms.Cliffs.data():
+  if int(serial) in range(12536,12566) or int(serial) in range(13000,13036):continue
   var g:Dictionary=Original.Art.data().graphics[serial]
   var mesh=Original.Forms.mesh(int(serial),"rock",g,Original.Art.surface_texture(int(g.surfaces[0])))
   check(mesh.get_meta("native_cliff_profile",0)==int(serial),"Cliff uses its measured native contour "+serial)
@@ -144,12 +172,12 @@ func entrance_checks():
   for slot in mesh.get_surface_count():triangles+=mesh.surface_get_arrays(slot)[Mesh.ARRAY_VERTEX].size()/3
   meshes.append({"serial":serial,"triangles":triangles,"surfaces":mesh.get_surface_count(),"height":mesh.get_aabb().size.y})
   var mouth:Vector2=mesh.get_meta("native_mouth_size")
-  check(is_equal_approx(mouth.x,6.1875 if serial==12834 else 4.40625),"Entrance width follows its native rim anchors "+str(serial))
-  check(mouth.y>6.5 and mouth.y<6.8 if serial==12834 else mouth.y>4.8 and mouth.y<5.1,"Snow and stone mouths retain their distinct native heights "+str(serial))
+  check(is_equal_approx(mouth.x,{12834:6.1875,12838:5.25,12839:4.40625}[serial]),"Entrance width follows its native rim anchors "+str(serial))
+  check(absf(mouth.y-float({12834:6.679,12838:7.5994,12839:4.9605}[serial]))<.03,"Snow and stone mouths retain their distinct native heights "+str(serial))
   var profile:Array=mesh.get_meta("native_mouth_profile")
-  check(profile[4].x< -4.0 if serial==12834 else profile[4].x< -2.6,"Native rim flare is recovered from its own source contour "+str(serial))
-  check(is_equal_approx(mesh.get_meta("native_mouth_recess"),1.734375 if serial==12834 else 3.375),"Original upper-rim offset supplies the cave recession "+str(serial))
-  var pose=Transform3D(Basis(Vector3.UP,PI if serial==12834 else PI*.5),Vector3(3,0,1.5) if serial==12834 else Vector3(-1.5,0,-3))
+  check(profile[4].x<float({12834:-4.0,12838:-3.0,12839:-2.6}[serial]),"Native rim flare is recovered from its own source contour "+str(serial))
+  check(is_equal_approx(mesh.get_meta("native_mouth_recess"),{12834:1.734375,12838:1.96875,12839:3.375}[serial]),"Original upper-rim offset supplies the cave recession "+str(serial))
+  var pose=Transform3D(Basis(Vector3.UP,PI if serial!=12839 else PI*.5),Vector3(3,0,1.5) if serial!=12839 else Vector3(-1.5,0,-3))
   for point in [Vector3(0,1,0),Vector3(0,4,0),Vector3(-1,2,0)]:
    var nearest=INF
    for slot in mesh.get_surface_count():

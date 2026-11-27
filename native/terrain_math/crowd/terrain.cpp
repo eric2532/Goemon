@@ -41,7 +41,7 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
     auto same=[](const auto& a,const auto& b){return a.size()==b.size()&&(a.empty()||!std::memcmp(a.data(),b.data(),a.size()*sizeof(a[0])));};
     bool same_surface=ready_&&data.width==data_.width&&data.spacing==data_.spacing&&data.route_spacing==data_.route_spacing&&
         !std::memcmp(&data.origin,&data_.origin,sizeof(Vec3))&&!std::memcmp(&data.bounds_min,&data_.bounds_min,sizeof(Vec3))&&!std::memcmp(&data.bounds_max,&data_.bounds_max,sizeof(Vec3))&&
-        same(data.heights,data_.heights)&&same(data.covered,data_.covered)&&same(data.pieces,data_.pieces)&&same(data.layer_min,data_.layer_min)&&same(data.layer_max,data_.layer_max);
+        same(data.heights,data_.heights)&&same(data.covered,data_.covered)&&same(data.diagonal_flips,data_.diagonal_flips)&&same(data.pieces,data_.pieces)&&same(data.layer_min,data_.layer_min)&&same(data.layer_max,data_.layer_max);
     auto air_prefix=[](const NavigationData& d){size_t n=0;while(n+2<d.air_faces.size()&&(n/3>=d.air_owner.size()||d.air_owner[n/3]<0))n+=3;return n;};
     size_t prefix=air_prefix(data);
     bool same_air_base=same_surface&&air_->base_faces&&prefix==air_prefix(data_)&&(!prefix||!std::memcmp(data.air_faces.data(),data_.air_faces.data(),prefix*sizeof(Vec3)));
@@ -52,6 +52,11 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
     obstacle_visited_.assign(data_.obstacle_min.size(),0);obstacle_visit_=0;
     ready_=std::isfinite(data_.spacing)&&data_.spacing>0&&std::isfinite(data_.route_spacing)&&data_.route_spacing>=1&&data_.route_spacing<=64&&finite(data_.origin);
     if(data_.width>0&&(data_.width<2||int64_t(data_.width)*data_.width>int64_t(data_.heights.size())||data_.covered.size()!=data_.heights.size()))ready_=false;
+    if(!data_.diagonal_flips.empty()){
+        if(data_.width<2||data_.diagonal_flips.size()!=size_t(data_.width)*data_.width)ready_=false;
+        else for(size_t i=0;i<data_.diagonal_flips.size();++i)
+            if(data_.diagonal_flips[i]>1||(data_.diagonal_flips[i]&&(i%data_.width==size_t(data_.width-1)||i/data_.width==size_t(data_.width-1)))){ready_=false;break;}
+    }
     minimum_=data_.origin;
     float extent=data_.width>0?(data_.width-1)*data_.spacing:480;
     maximum_=minimum_+Vec3{extent,0,extent};
@@ -59,9 +64,32 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
     maximum_.x=std::min(maximum_.x,data_.bounds_max.x);maximum_.z=std::min(maximum_.z,data_.bounds_max.z);
     if(data_.obstacle_min.size()!=data_.obstacle_max.size()||data_.layer_min.size()!=data_.layer_max.size()||data_.pieces.size()%10)ready_=false;
     if(!ready_)return;
+    if(!same_surface){
+        piece_grid_.clear();piece_bounds_.clear();piece_visited_.assign(data_.pieces.size()/10,0);piece_visit_=0;
+        for(size_t i=0;i<data_.pieces.size();i+=10){
+            const float* p=data_.pieces.data()+i;
+            bool valid=true;for(int n=0;n<10;++n)valid=valid&&std::isfinite(p[n]);
+            if(!valid)continue;
+            if(p[4]<0||p[5]<=0||p[6]>p[7])continue;
+            float length2=p[2]*p[2]+p[3]*p[3];
+            float lo_x=minimum_.x,lo_z=minimum_.z,hi_x=maximum_.x,hi_z=maximum_.z;
+            if(length2>0&&std::isfinite(length2)){
+                float ax=p[0]+p[2]*p[6]/length2,az=p[1]+p[3]*p[6]/length2;
+                float bx=p[0]+p[2]*p[7]/length2,bz=p[1]+p[3]*p[7]/length2;
+                float tolerance=.002f/std::sqrt(length2);
+                float pad_x=std::abs(p[3])*p[4]/length2+tolerance,pad_z=std::abs(p[2])*p[4]/length2+tolerance;
+                lo_x=std::max(minimum_.x,std::min(ax,bx)-pad_x);hi_x=std::min(maximum_.x,std::max(ax,bx)+pad_x);
+                lo_z=std::max(minimum_.z,std::min(az,bz)-pad_z);hi_z=std::min(maximum_.z,std::max(az,bz)+pad_z);
+            }else if(!std::isfinite(length2)||p[6]>0||p[7]<0)continue;
+            if(!std::isfinite(lo_x)||!std::isfinite(lo_z)||!std::isfinite(hi_x)||!std::isfinite(hi_z)||lo_x>hi_x||lo_z>hi_z)continue;
+            piece_bounds_.push_back({lo_x,lo_z,hi_x,hi_z});
+            for(int x=int(std::floor(lo_x/OBSTACLE_CELL));x<=int(std::floor(hi_x/OBSTACLE_CELL));++x)
+                for(int z=int(std::floor(lo_z/OBSTACLE_CELL));z<=int(std::floor(hi_z/OBSTACLE_CELL));++z)piece_grid_[key(x,z)].push_back(i);
+        }
+    }
     // A triangle stays inside its vertex range. Certify covered neighbourhoods
     // once; slopes, holes, rampart pieces and other layers keep exact sampling.
-    if(!same_surface&&data_.width>0&&data_.pieces.empty()){
+    if(!same_surface&&data_.width>0){
         int w=data_.width;field_spans_.assign(size_t(w)*w,INFINITY);
         for(int z=2;z<w-3;++z)for(int x=2;x<w-3;++x){
             double low=INFINITY,high=-INFINITY;bool covered=true;
@@ -71,6 +99,15 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
                 low=std::min(low,h);high=std::max(high,h);
             }
             if(covered)field_spans_[size_t(z)*w+x]=high-low+1e-6*(1+std::max(std::abs(low),std::abs(high)));
+        }
+        // Exact piece sampling is required only near explicit support; retain
+        // the existing flat-field certificate everywhere else.
+        for(const auto& box:piece_bounds_){
+            int x0=std::max(0,int(std::floor((box[0]-data_.origin.x)/data_.spacing))-4);
+            int z0=std::max(0,int(std::floor((box[1]-data_.origin.z)/data_.spacing))-4);
+            int x1=std::min(w-1,int(std::ceil((box[2]-data_.origin.x)/data_.spacing))+3);
+            int z1=std::min(w-1,int(std::ceil((box[3]-data_.origin.z)/data_.spacing))+3);
+            for(int z=z0;z<=z1;++z)for(int x=x0;x<=x1;++x)field_spans_[size_t(z)*w+x]=INFINITY;
         }
     }
     for(size_t i=0;i<data_.obstacle_min.size();++i){
@@ -82,7 +119,7 @@ void Terrain::configure(NavigationData data,const Terrain* shared_air){
     bool shared=shared_air&&shared_air!=this&&shared_air->ready_&&data_.width==shared_air->data_.width&&data_.spacing==shared_air->data_.spacing&&
         !std::memcmp(&data_.origin,&shared_air->data_.origin,sizeof(Vec3))&&
         !std::memcmp(&data_.bounds_min,&shared_air->data_.bounds_min,sizeof(Vec3))&&!std::memcmp(&data_.bounds_max,&shared_air->data_.bounds_max,sizeof(Vec3))&&
-        same(data_.heights,shared_air->data_.heights)&&same(data_.covered,shared_air->data_.covered)&&
+        same(data_.heights,shared_air->data_.heights)&&same(data_.covered,shared_air->data_.covered)&&same(data_.diagonal_flips,shared_air->data_.diagonal_flips)&&
         same(data_.pieces,shared_air->data_.pieces)&&same(data_.layer_min,shared_air->data_.layer_min)&&same(data_.layer_max,shared_air->data_.layer_max)&&
         same(data_.air_faces,shared_air->data_.air_faces)&&same(data_.air_owner,shared_air->data_.air_owner);
     if(shared)air_=shared_air->air_;
@@ -114,22 +151,31 @@ double Terrain::height(float x,float z,int layer) const{
         auto a=data_.layer_min[i],b=data_.layer_max[i];
         return x>=a.x-.001&&x<=b.x+.001&&z>=a.z-.001&&z<=b.z+.001?double(a.y):NAN;
     }
-    double result=0;
+    double result=0;bool uncovered=false;
     if(data_.width>0){
         float px=(x-data_.origin.x)/data_.spacing,pz=(z-data_.origin.z)/data_.spacing;
         int ix=int(std::floor(px)),iz=int(std::floor(pz));
         if(ix<0||iz<0||ix>=data_.width-1||iz>=data_.width-1)return NAN;
         int at=iz*data_.width+ix;
-        if(!data_.covered[at]||!data_.covered[at+1]||!data_.covered[at+data_.width]||!data_.covered[at+data_.width+1])return NAN;
-        double u=std::clamp(double(px)-ix,0.0,1.0),v=std::clamp(double(pz)-iz,0.0,1.0);
-        double h00=data_.heights[at],h10=data_.heights[at+1],h01=data_.heights[at+data_.width],h11=data_.heights[at+data_.width+1];
-        result=u+v<=1?h00+(h10-h00)*u+(h01-h00)*v:h11+(h01-h11)*(1-u)+(h10-h11)*(1-v);
+        uncovered=!data_.covered[at]||!data_.covered[at+1]||!data_.covered[at+data_.width]||!data_.covered[at+data_.width+1];
+        if(uncovered)result=NAN;
+        else{
+            double u=std::clamp(double(px)-ix,0.0,1.0),v=std::clamp(double(pz)-iz,0.0,1.0);
+            double h00=data_.heights[at],h10=data_.heights[at+1],h01=data_.heights[at+data_.width],h11=data_.heights[at+data_.width+1];
+            if(!data_.diagonal_flips.empty()&&data_.diagonal_flips[at])
+                result=u>=v?h00+(h10-h00)*u+(h11-h10)*v:h00+(h11-h01)*u+(h01-h00)*v;
+            else result=u+v<=1?h00+(h10-h00)*u+(h01-h00)*v:h11+(h01-h11)*(1-u)+(h10-h11)*(1-v);
+        }
     }
-    for(size_t i=0;i<data_.pieces.size();i+=10){
+    auto found=piece_grid_.find(key(int(std::floor(x/OBSTACLE_CELL)),int(std::floor(z/OBSTACLE_CELL))));
+    if(found==piece_grid_.end())return result;
+    for(size_t i:found->second){
         const float* p=data_.pieces.data()+i;float ox=x-p[0],oz=z-p[1];
         float along=ox*p[2]+oz*p[3],side=-ox*p[3]+oz*p[2];
         if(along<p[6]-.001||along>p[7]+.001||std::abs(side)>p[4]+.001||p[5]<=0)continue;
-        result=std::max(result,double(p[8])+(double(p[9])-p[8])*std::clamp(double(along)/p[5],0.0,1.0));
+        double top=double(p[8])+(double(p[9])-p[8])*std::clamp(double(along)/p[5],0.0,1.0);
+        if(!std::isfinite(top))continue;
+        result=uncovered?top:std::max(result,top);uncovered=false;
     }
     return result;
 }
@@ -153,7 +199,7 @@ bool Terrain::obstacles_clear(Vec3 p,float radius) const{
     }
     return true;
 }
-bool Terrain::clear(Vec3 p,float radius,int layer) const{
+bool Terrain::clear(Vec3 p,float radius,int layer,bool check_objects) const{
     double center=height(p.x,p.z,layer);if(!std::isfinite(center))return false;
     if(layer==0&&!field_spans_.empty()&&radius>=0&&radius<=data_.spacing*2&&
        p.x-radius>=minimum_.x&&p.z-radius>=minimum_.z&&p.x+radius<=maximum_.x&&p.z+radius<=maximum_.z){
@@ -161,10 +207,10 @@ bool Terrain::clear(Vec3 p,float radius,int layer) const{
         // Check actual float32 endpoints, including rounding at cell borders.
         if(field_spans_[size_t(z)*data_.width+x]<=.15+radius*.35&&
            std::floor((p.x-radius-data_.origin.x)/data_.spacing)>=x-2&&std::floor((p.x+radius-data_.origin.x)/data_.spacing)+1<=x+3&&
-           std::floor((p.z-radius-data_.origin.z)/data_.spacing)>=z-2&&std::floor((p.z+radius-data_.origin.z)/data_.spacing)+1<=z+3){p.y=float(center);return obstacles_clear(p,radius);}
+           std::floor((p.z-radius-data_.origin.z)/data_.spacing)>=z-2&&std::floor((p.z+radius-data_.origin.z)/data_.spacing)+1<=z+3){p.y=float(center);return !check_objects||obstacles_clear(p,radius);}
     }
     for(auto axis:axes){double h=height(p.x+axis.x*radius,p.z+axis.z*radius,layer);if(!std::isfinite(h)||std::abs(h-center)>.15+radius*.35)return false;}
-    p.y=float(center);return obstacles_clear(p,radius);
+    p.y=float(center);return !check_objects||obstacles_clear(p,radius);
 }
 bool Terrain::swept_obstacles_clear(Vec3 from,Vec3 to,float radius) const{
     if(++obstacle_visit_==0){std::fill(obstacle_visited_.begin(),obstacle_visited_.end(),0);obstacle_visit_=1;}
@@ -182,9 +228,9 @@ bool Terrain::swept_obstacles_clear(Vec3 from,Vec3 to,float radius) const{
     }
     return true;
 }
-bool Terrain::segment(Vec3 from,Vec3 to,float radius,int layer) const{
+bool Terrain::segment(Vec3 from,Vec3 to,float radius,int layer,bool check_objects) const{
     if(navigation_profile.enabled)++navigation_profile.segments;
-    if(!swept_obstacles_clear(from,to,radius))return false;
+    if(check_objects&&!swept_obstacles_clear(from,to,radius))return false;
     float distance=std::hypot(to.x-from.x,to.z-from.z);int count=std::max(1,int(std::ceil(distance/.7f)));
     double previous=height(from.x,from.z,layer);if(!std::isfinite(previous))return false;
     bool inspect_edges=layer<=0&&data_.width>0&&distance>.7f;
@@ -199,7 +245,7 @@ bool Terrain::segment(Vec3 from,Vec3 to,float radius,int layer) const{
     for(int i=1;i<=count;++i){
         Vec3 p=from+(to-from)*(float(i)/count);double h=height(p.x,p.z,layer);
         float travel=std::hypot(p.x-old.x,p.z-old.z);
-        if(!std::isfinite(h)||std::abs(h-previous)>.15+travel*.35||!clear(p,radius,layer))return false;
+        if(!std::isfinite(h)||std::abs(h-previous)>.15+travel*.35||!clear(p,radius,layer,check_objects))return false;
         certify(p);
         old=p;previous=h;
     }
@@ -207,21 +253,68 @@ bool Terrain::segment(Vec3 from,Vec3 to,float radius,int layer) const{
     if(inspect_edges&&!certified){
         // Body clearance is piecewise linear; its extrema occur at terrain triangle edges.
         Vec3 offsets[9]{};for(int i=0;i<8;++i)offsets[i+1]=axes[i]*radius;
-        for(int sample=0;sample<9;++sample)for(int axis=0;axis<3;++axis){
+        for(int sample=0;sample<9;++sample)for(int axis=0;axis<(data_.diagonal_flips.empty()?3:4);++axis){
             Vec3 offset=offsets[sample];
             auto coordinate=[&](Vec3 p){
                 double x=(double(p.x)+offset.x-data_.origin.x)/data_.spacing;
                 double z=(double(p.z)+offset.z-data_.origin.z)/data_.spacing;
-                return axis==0?x:axis==1?z:x+z;
+                return axis==0?x:axis==1?z:axis==2?x+z:x-z;
             };
             double a=coordinate(from),b=coordinate(to);
             for(double edge=std::floor(std::min(a,b))+1;edge<std::max(a,b);++edge){
                 float t=float((edge-a)/(b-a));
                 Vec3 p=from+(to-from)*t;
-                if(sample==0){if(!clear(p,radius,layer))return false;}
+                if(axis>=2&&!data_.diagonal_flips.empty()){
+                    float px=(p.x+offset.x-data_.origin.x)/data_.spacing,pz=(p.z+offset.z-data_.origin.z)/data_.spacing;
+                    int ix=int(std::floor(px)),iz=int(std::floor(pz));
+                    if(ix<0||iz<0||ix>=data_.width-1||iz>=data_.width-1)continue;
+                    bool flipped=data_.diagonal_flips[size_t(iz)*data_.width+ix]!=0;
+                    if(flipped!=(axis==3))continue;
+                }
+                if(sample==0){if(!clear(p,radius,layer,check_objects))return false;}
                 else{
                     double center=height(p.x,p.z,layer),foot=height(p.x+offset.x,p.z+offset.z,layer);
                     if(!std::isfinite(foot)||!std::isfinite(center)||std::abs(foot-center)>.15+radius*.35)return false;
+                }
+            }
+        }
+    }
+    if(layer<=0&&!piece_grid_.empty()&&!certified){
+        // Fine source lips may be narrower than the ordinary .7m interval.
+        // Test their exact boundaries using local buckets, without allocating
+        // candidate lists or scanning every prepared support piece.
+        if(++piece_visit_==0){std::fill(piece_visited_.begin(),piece_visited_.end(),0);piece_visit_=1;}
+        Vec3 offsets[9]{};for(int i=0;i<8;++i)offsets[i+1]=axes[i]*radius;
+        int x0=int(std::floor(std::max(minimum_.x,std::min(from.x,to.x)-radius-.002f)/OBSTACLE_CELL));
+        int z0=int(std::floor(std::max(minimum_.z,std::min(from.z,to.z)-radius-.002f)/OBSTACLE_CELL));
+        int x1=int(std::floor(std::min(maximum_.x,std::max(from.x,to.x)+radius+.002f)/OBSTACLE_CELL));
+        int z1=int(std::floor(std::min(maximum_.z,std::max(from.z,to.z)+radius+.002f)/OBSTACLE_CELL));
+        for(int x=x0;x<=x1;++x)for(int z=z0;z<=z1;++z){
+            auto bucket=piece_grid_.find(key(x,z));if(bucket==piece_grid_.end())continue;
+            for(size_t index:bucket->second){
+                if(piece_visited_[index/10]==piece_visit_)continue;piece_visited_[index/10]=piece_visit_;
+                const float* piece=data_.pieces.data()+index;
+                for(int sample=0;sample<9;++sample)for(int axis=0;axis<2;++axis){
+                    Vec3 offset=offsets[sample];
+                    auto coordinate=[&](Vec3 p){float ox=p.x+offset.x-piece[0],oz=p.z+offset.z-piece[1];return axis?double(-ox*piece[3]+oz*piece[2]):double(ox*piece[2]+oz*piece[3]);};
+                    double a=coordinate(from),b=coordinate(to);if(std::abs(b-a)<1e-12)continue;
+                    double edges[]{axis?-piece[4]-.001:piece[6]-.001,axis?piece[4]+.001:piece[7]+.001};
+                    for(double edge:edges){
+                        double t=(edge-a)/(b-a);if(t<=0||t>=1)continue;
+                        double epsilon=.00005/std::abs(b-a);double old_height=NAN;Vec3 old_point{};
+                        for(double at:{std::max(0.0,t-epsilon),std::min(1.0,t+epsilon)}){
+                            Vec3 p=from+(to-from)*float(at);double center=height(p.x,p.z,layer);
+                            if(!std::isfinite(center))return false;
+                            if(sample==0){
+                                if(!clear(p,radius,layer,check_objects))return false;
+                                if(std::isfinite(old_height)&&std::abs(center-old_height)>.15+std::hypot(p.x-old_point.x,p.z-old_point.z)*.35)return false;
+                                old_height=center;old_point=p;
+                            }else{
+                                double foot=height(p.x+offset.x,p.z+offset.z,layer);
+                                if(!std::isfinite(foot)||std::abs(foot-center)>.15+radius*.35)return false;
+                            }
+                        }
+                    }
                 }
             }
         }

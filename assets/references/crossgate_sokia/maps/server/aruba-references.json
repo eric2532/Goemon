@@ -1,0 +1,32 @@
+[
+  {
+    "file": "15518_devi4",
+    "path": "gmsv/data/map/15518_devi4",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15518_devi4",
+    "git_blob_sha": "1180fa8e98f4cc7f650133624d2948fa825dee9b",
+    "sha256": "2c0ae94b619092a82ac0e74f4a5bd587187c1d3b66c20106abbcd589bc92324e",
+    "bytes": 40044,
+    "map": 15518,
+    "size": [
+      100,
+      100
+    ],
+    "authority": "Exact pinned CGMSV LS2MAP; recorded client planes/flags remain independently preserved."
+  },
+  {
+    "file": "15519_devi4",
+    "path": "gmsv/data/map/15519_devi4",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15519_devi4",
+    "git_blob_sha": "af4d68799e5daefe8d3e98951beb775f7c956379",
+    "sha256": "61e39465056d5bfb5062e3cd6006714e196411013f95dc11bc7c8b415e55f9ea",
+    "bytes": 10044,
+    "map": 15519,
+    "size": [
+      50,
+      50
+    ],
+    "authority": "Exact pinned CGMSV LS2MAP; recorded client planes/flags remain independently preserved."
+  }
+]

@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 from PIL import Image
 import build_falan_room_art as rooms
-from build_freyja_destinations import load_map, VENOA_ROOMS, KILI_ROOMS
+from build_freyja_destinations import load_map, VENOA_ROOMS, KILI_ROOMS, GHANA_ROOMS
 
 # Wall/eave and roof rise, measured in pixels at the original near corner.
 BUILDINGS = {
@@ -58,6 +58,21 @@ KINDS = {
     16817:'coast_tool',17195:'coast_candles',17561:'coast_picture',
 }
 STAIRS={12000,12001,12002}
+NATIVE_FAMILIES={
+    10432:'open_box',10441:'shelf',10447:'chest',10505:'coast_picture',10506:'detail_flat_panel',
+    10507:'coast_picture',10508:'detail_flat_panel',10517:'coast_pot',10522:'detail_candles',
+    10527:'coast_picture',11006:'regional_hanging_tools',11025:'chair',11030:'detail_flat_panel',
+    11033:'inn_sack',11034:'detail_flat_panel',11035:'detail_flat_panel',11103:'coast_picture',
+    11127:'coast_hanging',11139:'barrel',16006:'chair',16175:'crate',16187:'coast_basket',
+    16190:'coast_basket',16209:'plant',16277:'counter',16516:'detail_piano',16519:'coast_pot',
+    16534:'shelf',16542:'coast_basket',16559:'table',16588:'shelf',16607:'table',
+    16609:'coast_pot',16631:'coast_hammock',16638:'detail_flat_panel',16648:'coast_bird',
+    16654:'detail_flat_panel',16655:'detail_flat_panel',16656:'detail_flat_panel',
+    16806:'coast_picture',17605:'coast_picture',17627:'detail_flat_panel',17639:'coast_post',
+}
+KINDS.update({s:'coast_native' for s in NATIVE_FAMILIES})
+KINDS[10023]='coast_native';NATIVE_FAMILIES[10023]='spill_barrel'
+WALLS.update({16784,16845,16871,16873})
 
 
 def atlas(library, lookup, serials, path, width):
@@ -77,7 +92,7 @@ def atlas(library, lookup, serials, path, width):
 
 def build(library,lookup,output):
     interiors={};used=set();counts={};grounds={}
-    for ident in sorted((VENOA_ROOMS|KILI_ROOMS)-{2100,3200}):
+    for ident in sorted((VENOA_ROOMS|KILI_ROOMS|GHANA_ROOMS)-{2100,3200,3000}):
         w,h,ground,objects,_=load_map(library,ident)
         grounds[ident]=ground
         rows=[]
@@ -112,6 +127,11 @@ def build(library,lookup,output):
         if name=='coastal_building_art':
             lines+=['const PROFILES={']+[f' {s}:Vector2({h},{r}),' for s,(h,r) in BUILDINGS.items()]+['}']
         else:
+            lines+=['const NATIVE={']
+            for serial in sorted(used & NATIVE_FAMILIES.keys()):
+                e=lookup[serial]
+                lines.append(f' {serial}:{{"origin":[{e["x"]},{e["y"]}],"footprint":[{max(1,e["east"])},{max(1,e["south"])}],"ground":false,"family":"{NATIVE_FAMILIES[serial]}"}},')
+            lines+=['}']
             lines+=['const FLOORS={']+[f' {ident}:"{rooms.pack_grid(floor_index.get(s,0) for s in ground)}",' for ident,ground in grounds.items()]+['}']
             lines+=['const ROOMS={']
             for ident,rows in interiors.items():lines += [f' {ident}:[',*rows,' ],']

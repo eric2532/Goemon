@@ -1,0 +1,138 @@
+[
+  {
+    "id": 101502,
+    "key": "original:2898",
+    "name": "果凍史萊姆",
+    "height": 0.7,
+    "skin": 0,
+    "bank": "university"
+  },
+  {
+    "id": 101803,
+    "key": "original:2947",
+    "name": "烈風哥布林",
+    "height": 0.7,
+    "skin": 1,
+    "bank": "university"
+  },
+  {
+    "id": 101823,
+    "key": "original:2955",
+    "name": "破壞狂",
+    "height": 1.0,
+    "skin": 2,
+    "bank": "university"
+  },
+  {
+    "id": 110750,
+    "key": "puk2:332",
+    "name": "青龍",
+    "height": 2.0,
+    "skin": 3,
+    "bank": "university"
+  },
+  {
+    "id": 101911,
+    "key": "original:2969",
+    "name": "佛利波羅",
+    "height": 1.8,
+    "skin": 4,
+    "bank": "university"
+  },
+  {
+    "id": 100602,
+    "key": "original:2755",
+    "name": "阿魯巴斯",
+    "height": 1.1,
+    "skin": 5,
+    "bank": "university"
+  },
+  {
+    "id": 101213,
+    "key": "original:2845",
+    "name": "惡魔",
+    "height": 1.1,
+    "skin": 6,
+    "bank": "university"
+  },
+  {
+    "id": 101212,
+    "key": "original:2844",
+    "name": "墮天使",
+    "height": 1.1,
+    "skin": 7,
+    "bank": "university"
+  },
+  {
+    "id": 101420,
+    "key": "original:2887",
+    "name": "綠色口臭鬼",
+    "height": 0.8,
+    "skin": 8,
+    "bank": "university"
+  },
+  {
+    "id": 101521,
+    "key": "original:2905",
+    "name": "寶貝炸彈",
+    "height": 0.6,
+    "skin": 9,
+    "bank": "university"
+  },
+  {
+    "id": 101204,
+    "key": "original:2840",
+    "name": "迷你石像怪",
+    "height": 0.8,
+    "skin": 10,
+    "bank": "university"
+  },
+  {
+    "id": 101241,
+    "key": "original:2848",
+    "name": "掃把蝙蝠",
+    "height": 0.85,
+    "skin": 11,
+    "bank": "university"
+  },
+  {
+    "id": 105046,
+    "key": "ex:45",
+    "name": "希爾弗",
+    "height": 1.2,
+    "skin": 12,
+    "bank": "university"
+  },
+  {
+    "id": 101500,
+    "key": "original:2896",
+    "name": "史萊姆",
+    "height": 0.7,
+    "skin": 13,
+    "bank": "university"
+  },
+  {
+    "id": 101501,
+    "key": "original:2897",
+    "name": "液態史萊姆",
+    "height": 0.7,
+    "skin": 14,
+    "bank": "university"
+  },
+  {
+    "id": 101503,
+    "key": "original:2899",
+    "name": "布丁史萊姆",
+    "height": 0.7,
+    "skin": 15,
+    "bank": "university"
+  },
+  {
+    "id": 101413,
+    "key": "original:2886",
+    "name": "人魔草",
+    "height": 0.8,
+    "skin": 16,
+    "bank": "university"
+  }
+]

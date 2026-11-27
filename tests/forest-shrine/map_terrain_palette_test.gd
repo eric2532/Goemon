@@ -57,8 +57,8 @@ func run():
   await key(KEY_1+slot%9)
   check(editor.tool==kind and editor.palette_buttons[slot%9].button_pressed,kind+": real page/number key selects the module")
   check(editor.rotation_field.editable and not editor.size_field.editable and editor.height_field.editable,kind+": module controls expose quarter turns and height")
-  editor.rotation_field.value=0;editor.height_field.value=1;editor.height_field.value=0;await key(KEY_R)
-  check(editor.placement_rotation==1 and editor.rotation_field.value==90,kind+": R rotates the placement ghost 90 degrees")
+  editor.rotation_field.value=0;editor.height_field.value=1;editor.height_field.value=0;await key(KEY_T)
+  check(editor.placement_rotation==1 and editor.rotation_field.value==90,kind+": T rotates the placement ghost 90 degrees")
   var cell=Vector2(-24+(index%2)*10,-8+(index/2)*8);var point=Vector3(cell.x*6,0,cell.y*6)
   await top_view(point);var mouse=InputEventMouseMotion.new();mouse.position=game.camera_rig.camera.unproject_position(point);root.warp_mouse(mouse.position);await settle();editor.tick(1.0/60)
   check(editor.terrain_cell==cell and game.world.preview.visible and game.world.ghost_kind==kind,kind+": native scene preview follows the snapped cursor")
@@ -80,7 +80,7 @@ func run():
   check(not hit.is_empty() and absf(hit.position.y-probe.y)<.025,kind+": committed physics agrees with navigation height")
   editor.choose_piece("");await top_view(probe);await click_world(probe)
   check(editor.selection.get("group")=="ramparts" and editor.selection.get("index")==first,kind+": clicking the physical deck selects its module")
-  await key(KEY_R)
+  await key(KEY_T)
   check(editor.document.data.ramparts[first].kit.rotation==2 and game.model.ramparts.size()==first+count,kind+": rotating a selected junction keeps all its segments")
   placed.append(first);index+=1
  var last=placed.back();var part:Dictionary=game.model.ramparts[last+1];var p=Vector2(part.ax+part.bx,part.az+part.bz)*3

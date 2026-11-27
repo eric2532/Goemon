@@ -29,7 +29,7 @@ func check_east_il_road():
     check(expected.get(at,-1)==serial and not seen.has(at),"Each native house renders once with the correct original graphic")
     check(pose.basis.is_equal_approx(Basis(Vector3.UP,PI*.5)),"Source projection keeps its original world orientation")
     seen[at]=true
- if DisplayServer.get_name()!="headless":check(seen.size()==72,"All 72 native source house stations render")
+ if DisplayServer.get_name()!="headless":check(seen.size()==73,"All 73 native source house stations render")
  for serial in Architecture.Data.GRAPHICS:
   var mesh:Mesh=Architecture.prepare(serial);var triangles=0
   for part in mesh.get_surface_count():

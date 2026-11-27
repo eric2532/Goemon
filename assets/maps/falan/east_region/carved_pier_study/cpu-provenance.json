@@ -1,0 +1,12 @@
+{
+  "inferred_not_recovered": true,
+  "resource": "res://assets/maps/falan/east_region/carved_pier_study/inferred-masonry-albedo-v1.res",
+  "resource_sha256": "083fb53129ec908a46aeb2ed03b1e3240439a7f8c4aaecc577e00f3c11eb9eb0",
+  "rgba_sha256": "b604b9fd53090987e1caea986f7d6df7e07391339948a534874eac6538dd8865",
+  "size": [
+    1254,
+    1254
+  ],
+  "source": "res://assets/maps/falan/east_region/carved_pier_study/inferred-masonry-albedo-v1.png",
+  "source_sha256": "59b7ae89e9ea14a95e5055849197594027e0d61587fe6b56e304120f95df8b2c"
+}

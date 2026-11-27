@@ -1,0 +1,22 @@
+{
+  "../falan/sokia/fixed/atlas-0.png": {
+    "resource": "sokia_server/cpu-pages/prayer/falan-sokia-fixed-atlas-0.res",
+    "resource_sha256": "5241897c90d6a59b36827064aa74294efcbd0135e3466eeccedd7ee7fc22b979",
+    "rgba_sha256": "6cf4986596a717076d13f7352710d9c6ee82fb1e4e6d15e870b0ae4a3e488a1b",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "c8672521b99fb13405b9a83ed065711edc74531f31188dbcd830a956356f148f"
+  },
+  "atlas-0.png": {
+    "resource": "sokia_server/cpu-pages/prayer/atlas-0.res",
+    "resource_sha256": "37bf50f6ac0de8b9f814f03f1b3947bfe2f70cda55d4b731b74a96d57530436f",
+    "rgba_sha256": "7de1362bc5850b5597a87cadc4acb33eff19d04755f2892bb0c104626b4bb9c6",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "abad308e04d4f42b705e3241cd46b655c38b28cd80f26a6d8603c5236f5e2dcf"
+  }
+}

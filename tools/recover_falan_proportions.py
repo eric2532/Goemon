@@ -70,7 +70,7 @@ def recover(source):
   records[key]={'graphic':serial,'center':center,'source_rect':rect,'parts':len(parts),'rgba_hashes':used}
   if components:records[key]['components']=[[left+a-sx,top+b-sy,c-a,d-b]for a,b,c,d in components]
  for serial,r in arch['graphics'].items():
-  row=next(r for r in arch['bindings']if r['reference_graphic']==int(serial));reference('house_'+serial,int(serial),row['source_center'])
+  row=next(r for r in arch['bindings']+arch['unmarked']if r['reference_graphic']==int(serial));reference('house_'+serial,int(serial),row['source_center'])
  done=set()
  for r in old['composites']:
   s=r['reference_graphic']
@@ -115,4 +115,4 @@ if __name__=='__main__':
   atlas.save(OUT/'city_civic_source_paint.png',optimize=True);alpha.save(OUT/'city_civic_source_mask.png',optimize=True)
   with Image.open(OUT/'city_architecture.png')as houses:houses.getchannel('A').save(OUT/'city_house_projection_mask.png',optimize=True)
   path.with_suffix('.gd').write_text(data);path.with_suffix('.json').write_text(json.dumps(meta,indent=2)+'\n')
- print('PASS: measured',len(records),'source archetypes covering 89 city buildings')
+ print('PASS: measured',len(records),'source archetypes covering 90 city buildings')

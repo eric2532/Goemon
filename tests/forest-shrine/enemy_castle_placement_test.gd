@@ -30,8 +30,8 @@ func run():
  check(game.world.ghost_art.has_node("SkullpionStatue/CarvedSkullpion"),"Castle placement previews the same destructible Skullpion statue")
  var meshes=game.world.ghost_art.find_children("*","MultiMeshInstance3D",true,false)
  check(not meshes.is_empty(),"The preview reuses the batched castle walls")
- var event=InputEventKey.new();event.physical_keycode=KEY_R;event.pressed=true;game._unhandled_input(event)
- check(game.build_rotation==1,"R rotates the preparation placement")
+ var event=InputEventKey.new();event.physical_keycode=KEY_T;event.pressed=true;game._unhandled_input(event)
+ check(game.build_rotation==1,"T rotates the preparation placement")
  game.build_rotation=0
  game.settings.volume=.65
  var sound_cursor=game.placement_audio.voice_cursor

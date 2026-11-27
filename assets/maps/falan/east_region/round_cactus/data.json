@@ -1,0 +1,511 @@
+{
+  "schema": 1,
+  "scope": "PRIVATE four-form reverse repair prototype, no live hook.",
+  "source_catalogs": {
+    "assets/maps/original_crossgate/catalog.json": "ae20ed5db45e1ecfee1a8e97c4ae222677fbbaafb2d184156a28c6c8438100c0",
+    "assets/maps/original_crossgate/university/catalog.json": "3fb16095671047cec17293370fbed92825ae1c0f023d120dfb6af256f9aea518",
+    "assets/maps/falan/sokia/fixed/catalog.json": "f48e550e36117b96cc5ca02912fc16c38f803843c38c75834e93c0ecc9d5bf39",
+    "assets/maps/original_crossgate/elsa/catalog.json": "27dd26c1d446649ac34df80d0dcc94bf812a5932a7fe9fc7794b513f87230861",
+    "assets/maps/original_crossgate/east/catalog.json": "554a2dbae3de1aaae3b05f5bde293c5c5d01054f5f68cc1d8efd3fa85379e0bc"
+  },
+  "graphics": {
+    "11746": {
+      "graphic": 11746,
+      "origin": [
+        -23,
+        -39
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "cf2772a42f369c7bca679e78d76ad4b35b27034d17c88235c74dd73feb63be9b",
+      "source_size": [
+        44,
+        58
+      ],
+      "detail_attachments": [],
+      "part_grains": [
+        "11746-grain.png"
+      ],
+      "derived_rgba_sha256": {
+        "11746-body.png": "f87801ff5b2fc09905c6efbc74a3209fb4247576e3686fb4144a3c6896ba8f40",
+        "11746-detail.png": "3dbbfc0479640bfde6c3cde8b11864ebf64236a07eb2b17f7ed40c033fc84aae",
+        "11746-grain.png": "83ae7af453df6a56dc7e431cb908beba701b41dde8686d6df85b289cfae450ba",
+        "11746-ground.png": "b3db48df77691472274fd627c1b6c0456000bbd616c5aa883cc94b46b992c65d"
+      },
+      "polygon": [
+        [
+          22,
+          0
+        ],
+        [
+          34,
+          2
+        ],
+        [
+          42,
+          12
+        ],
+        [
+          43,
+          27
+        ],
+        [
+          37,
+          44
+        ],
+        [
+          26,
+          52
+        ],
+        [
+          15,
+          49
+        ],
+        [
+          7,
+          44
+        ],
+        [
+          1,
+          27
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "parts": [
+        [
+          0,
+          0,
+          43,
+          52
+        ]
+      ],
+      "grain_box": [
+        18,
+        17,
+        30,
+        32
+      ],
+      "profile": [
+        [
+          0,
+          0.65
+        ],
+        [
+          0.15,
+          0.94
+        ],
+        [
+          0.65,
+          1
+        ],
+        [
+          0.88,
+          0.85
+        ],
+        [
+          1,
+          0.12
+        ]
+      ],
+      "inference": "Existing round-profile primitive fits measured native plant bounds; ribs and hidden rounded continuation are inferred. Sand stays flat. Independent body-only grain repeats around the hidden volume; the blue/olive pair retains separate observed body palettes. Flower/body/ground are an exact three-way native RGBA partition; flower attachment uses its last opaque source pixel."
+    },
+    "11782": {
+      "graphic": 11782,
+      "origin": [
+        -34,
+        -27
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "fcc611d8579ee3ac43810c14f31474c204ea743b85aac75140290b2233bc7b4d",
+      "source_size": [
+        48,
+        42
+      ],
+      "detail_attachments": [],
+      "part_grains": [
+        "11782-grain.png"
+      ],
+      "derived_rgba_sha256": {
+        "11782-body.png": "cb40c18573d1291012ddf35ca6b5241989f0fdc8b63bf701a1cf9e37782a3d00",
+        "11782-detail.png": "984fc6fc8cf4f61760fe37cd3a6e06ff5b6de957d3b1769ea839d23121ef62ec",
+        "11782-grain.png": "cc7f73e7cdd1b79fd2b936fce431a60d9774f5169d22aedcf45158176d272704",
+        "11782-ground.png": "732de679eede1c83e35b6f751a7cd4104ab16d4109208a98d52b7af18c750dbc"
+      },
+      "polygon": [
+        [
+          23,
+          0
+        ],
+        [
+          35,
+          5
+        ],
+        [
+          43,
+          16
+        ],
+        [
+          47,
+          25
+        ],
+        [
+          42,
+          32
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          19,
+          35
+        ],
+        [
+          6,
+          31
+        ],
+        [
+          2,
+          22
+        ],
+        [
+          4,
+          12
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "parts": [
+        [
+          0,
+          0,
+          47,
+          35
+        ]
+      ],
+      "grain_box": [
+        17,
+        7,
+        29,
+        19
+      ],
+      "profile": [
+        [
+          0,
+          0.85
+        ],
+        [
+          0.18,
+          1
+        ],
+        [
+          0.52,
+          0.95
+        ],
+        [
+          0.82,
+          0.6
+        ],
+        [
+          1,
+          0.13
+        ]
+      ],
+      "inference": "Existing round-profile primitive fits measured native plant bounds; ribs and hidden rounded continuation are inferred. Sand stays flat. Independent body-only grain repeats around the hidden volume; the blue/olive pair retains separate observed body palettes. Flower/body/ground are an exact three-way native RGBA partition; flower attachment uses its last opaque source pixel."
+    },
+    "11785": {
+      "graphic": 11785,
+      "origin": [
+        -23,
+        -37
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "74ae42a6bf2dbc7b2a933bc5b27ca6dcf923e9fd194d2a3cd963ae58d00a80cc",
+      "source_size": [
+        44,
+        45
+      ],
+      "detail_attachments": [
+        [
+          21.0,
+          11.5
+        ]
+      ],
+      "part_grains": [
+        "11785-grain.png"
+      ],
+      "derived_rgba_sha256": {
+        "11785-body.png": "4e348e961d6940ababc59e50b1b287b3122dbf4c13f2e030635df5b80a27d9b3",
+        "11785-detail-0.png": "c9c9fe7ebcb1b2baafae875598c98dd4aab9186b95464b0d870710285ea82480",
+        "11785-detail.png": "2fa25e6f87f06cca7479753b89920671cddb77c0225c57ff41a1dba9fd455fa7",
+        "11785-grain.png": "2d7dff4920187369d0a13432ea70cc60764876ff6ef1f6193b84107b449f2131",
+        "11785-ground.png": "8b6d682c3f8307f2fffaaec58aef871fed0d1cf1737deeec592c4b17bb98cba9"
+      },
+      "polygon": [
+        [
+          21,
+          0
+        ],
+        [
+          29,
+          4
+        ],
+        [
+          36,
+          9
+        ],
+        [
+          42,
+          20
+        ],
+        [
+          43,
+          30
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          23,
+          40
+        ],
+        [
+          10,
+          37
+        ],
+        [
+          2,
+          31
+        ],
+        [
+          1,
+          20
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          14,
+          6
+        ]
+      ],
+      "parts": [
+        [
+          0,
+          7,
+          44,
+          40
+        ]
+      ],
+      "grain_box": [
+        16,
+        13,
+        30,
+        28
+      ],
+      "details": [
+        [
+          13,
+          0,
+          30,
+          12
+        ]
+      ],
+      "profile": [
+        [
+          0,
+          0.7
+        ],
+        [
+          0.2,
+          0.96
+        ],
+        [
+          0.5,
+          1
+        ],
+        [
+          0.8,
+          0.72
+        ],
+        [
+          1,
+          0.12
+        ]
+      ],
+      "inference": "Existing round-profile primitive fits measured native plant bounds; ribs and hidden rounded continuation are inferred. Sand stays flat. Independent body-only grain repeats around the hidden volume; the blue/olive pair retains separate observed body palettes. Flower/body/ground are an exact three-way native RGBA partition; flower attachment uses its last opaque source pixel."
+    },
+    "11786": {
+      "graphic": 11786,
+      "origin": [
+        -19,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "0b9cc861a63613de1cae859caffd87a0dd50c79b3d1520ad3d256f6aa35a62d9",
+      "source_size": [
+        48,
+        51
+      ],
+      "detail_attachments": [
+        [
+          31.666666666666668,
+          29.5
+        ]
+      ],
+      "part_grains": [
+        "11786-grain.png",
+        "11786-grain-1.png"
+      ],
+      "derived_rgba_sha256": {
+        "11786-body.png": "948a8781a78bab3f43a875aa18cc781e5e3fde3659eede52d024874839ff92a6",
+        "11786-detail-0.png": "2f25a1b077dbd19df090266ff41ec5bbe40138638eaca5e514e1585c77ccd631",
+        "11786-detail.png": "e56d99c63d3f9b513bef117a908a16008bd9f98d13e6db0f2de9220f1f1a42bf",
+        "11786-grain-1.png": "2c40628eb4d86a1ed6b73040996f96d3e9ba7127692381374c079f4863788b31",
+        "11786-grain.png": "31258798a54a4bfa17a9b9cadb2eff3be379917f3949be309afa126341325f5e",
+        "11786-ground.png": "c8560f61fc9c1d606eb34df146823a8e211f04e35c644112d21b06a40ab19dec"
+      },
+      "polygon": [
+        [
+          20,
+          0
+        ],
+        [
+          31,
+          3
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          39,
+          23
+        ],
+        [
+          45,
+          31
+        ],
+        [
+          47,
+          41
+        ],
+        [
+          41,
+          47
+        ],
+        [
+          26,
+          49
+        ],
+        [
+          14,
+          43
+        ],
+        [
+          5,
+          33
+        ],
+        [
+          1,
+          24
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          8,
+          4
+        ]
+      ],
+      "parts": [
+        [
+          0,
+          0,
+          39,
+          38
+        ],
+        [
+          20,
+          25,
+          47,
+          48
+        ]
+      ],
+      "grain_box": [
+        11,
+        10,
+        24,
+        24
+      ],
+      "part_grain_boxes": [
+        [
+          11,
+          10,
+          24,
+          24
+        ],
+        [
+          29,
+          32,
+          39,
+          41
+        ]
+      ],
+      "details": [
+        [
+          28,
+          18,
+          42,
+          30
+        ]
+      ],
+      "profile": [
+        [
+          0,
+          0.68
+        ],
+        [
+          0.2,
+          0.96
+        ],
+        [
+          0.5,
+          1
+        ],
+        [
+          0.8,
+          0.72
+        ],
+        [
+          1,
+          0.12
+        ]
+      ],
+      "inference": "Existing round-profile primitive fits measured native plant bounds; ribs and hidden rounded continuation are inferred. Sand stays flat. Independent body-only grain repeats around the hidden volume; the blue/olive pair retains separate observed body palettes. Flower/body/ground are an exact three-way native RGBA partition; flower attachment uses its last opaque source pixel."
+    }
+  }
+}

@@ -58,8 +58,17 @@ static func collision(serial:int)->AABB:
 static func prepare(serial:int)->Mesh:
  if meshes.has(serial):return meshes[serial]
  var row:Array=Data.GRAPHICS[serial]
- var source:Mesh=HouseParts.shape("falan_townhouse",row[8])
+ var source:Mesh=HouseParts.shape("falan_townhouse",row[8],serial)
  var result=HouseParts.surface_mesh(source,Basis(Vector3.UP,0.0 if row[3]==1 else -PI*.5))
  result=Proportions.fitted(result,"house_%d"%serial)
  meshes[serial]=result
  return result
+
+static func entry(serial:int)->Dictionary:
+ var row:Array=Data.GRAPHICS[serial];var raw:Array=HouseParts.raw_entry(serial)
+ var turn=Basis(Vector3.UP,0.0 if row[3]==1 else -PI*.5)
+ var fit:Transform3D=Proportions.Data.FITS["house_%d"%serial]
+ var city_turn=Basis(Vector3.UP,PI*.5)
+ var at:Vector3=city_turn*(fit*(turn*raw[0]))
+ var normal:Vector3=city_turn*turn*raw[1]
+ return {"at":Vector2(at.x,at.z),"direction":Vector2(normal.x,normal.z)}

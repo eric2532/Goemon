@@ -23,6 +23,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2404/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2401/"
       }
     },
     "100034": {
@@ -43,6 +46,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2410/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2407/"
       }
     },
     "100040": {
@@ -63,6 +69,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2416/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2413/"
       }
     },
     "100046": {
@@ -83,6 +92,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2422/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2419/"
       }
     },
     "100049": {
@@ -108,6 +120,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-933/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-816/"
       }
     },
     "100918": {
@@ -128,6 +143,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-787/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-784/"
       }
     },
     "100969": {
@@ -148,6 +166,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-385/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-586/"
       }
     },
     "105564": {
@@ -168,6 +189,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-429/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-426/"
       }
     },
     "105570": {
@@ -188,6 +212,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-435/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-432/"
       }
     },
     "105608": {
@@ -208,6 +235,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-423/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-420/"
       }
     },
     "109146": {
@@ -245,6 +275,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-902/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-841/"
       }
     },
     "108921": {
@@ -330,6 +363,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2545/"
       }
     },
     "100256": {
@@ -350,6 +386,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2551/"
       }
     },
     "100262": {
@@ -370,6 +409,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2557/"
       }
     },
     "100268": {
@@ -390,6 +432,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2563/"
       }
     },
     "105700": {
@@ -410,6 +455,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-811/"
       }
     },
     "105706": {
@@ -430,6 +478,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-894/"
       }
     },
     "105943": {
@@ -450,6 +501,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-480/"
       }
     },
     "105949": {
@@ -470,6 +524,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-486/"
       }
     },
     "119255": {
@@ -490,6 +547,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-100/"
       }
     },
     "120274": {
@@ -510,6 +570,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1133/"
       }
     },
     "100656": {
@@ -530,6 +593,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-1541/"
       }
     },
     "100737": {
@@ -550,6 +616,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-1768/"
       }
     },
     "100743": {
@@ -570,6 +639,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-1774/"
       }
     },
     "105250": {
@@ -590,6 +662,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-170/"
       }
     },
     "105256": {
@@ -610,6 +685,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-176/"
       }
     },
     "105262": {
@@ -630,6 +708,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-182/"
       }
     },
     "105268": {
@@ -650,6 +731,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-188/"
       }
     },
     "105718": {
@@ -670,6 +754,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-920/"
       }
     },
     "105754": {
@@ -690,6 +777,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-501/"
       }
     },
     "105766": {
@@ -710,6 +800,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-513/"
       }
     },
     "120256": {
@@ -730,6 +823,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1115/"
       }
     },
     "120262": {
@@ -750,6 +846,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1121/"
       }
     },
     "120268": {
@@ -770,6 +869,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1127/"
       }
     },
     "100650": {
@@ -790,6 +892,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-628/"
       }
     },
     "105760": {
@@ -810,6 +915,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-507/"
       }
     },
     "105603": {
@@ -830,11 +938,17 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-474/"
       }
     },
     "111691": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-1174/"
       }
     }
   },
@@ -860,6 +974,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-601/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-598/"
       }
     }
   },
@@ -882,6 +999,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/original-2427/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2425/"
       }
     },
     "100056": {
@@ -902,6 +1022,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/original-2433/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2431/"
       }
     },
     "100062": {
@@ -922,6 +1045,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/original-2439/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2437/"
       }
     },
     "100068": {
@@ -942,6 +1068,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/original-2445/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2443/"
       }
     },
     "100175": {
@@ -962,6 +1091,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-845/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-919/"
       }
     },
     "100181": {
@@ -982,6 +1114,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-821/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-852/"
       }
     },
     "100187": {
@@ -1002,6 +1137,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-961/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-853/"
       }
     },
     "100193": {
@@ -1022,6 +1160,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk2-367/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-817/"
       }
     },
     "100200": {
@@ -1042,6 +1183,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-835/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-844/"
       }
     },
     "100206": {
@@ -1062,6 +1206,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-848/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-956/"
       }
     },
     "100212": {
@@ -1082,6 +1229,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-908/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-918/"
       }
     },
     "100450": {
@@ -1102,6 +1252,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-756/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-754/"
       }
     },
     "100978": {
@@ -1122,6 +1275,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/v3-494/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-627/"
       }
     },
     "105573": {
@@ -1142,6 +1298,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-440/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-438/"
       }
     },
     "105610": {
@@ -1162,6 +1321,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-359/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-357/"
       }
     },
     "105616": {
@@ -1182,6 +1344,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-365/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-363/"
       }
     },
     "105622": {
@@ -1202,6 +1367,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-371/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-369/"
       }
     },
     "105628": {
@@ -1222,6 +1390,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-377/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-375/"
       }
     },
     "105634": {
@@ -1242,6 +1413,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-383/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-381/"
       }
     },
     "105737": {
@@ -1262,6 +1436,9 @@
       },
       "axe": {
         "root": "res://assets/characters/crossgate/weapons/puk3-481/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-483/"
       }
     },
     "105742": {
@@ -1282,6 +1459,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-491/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-489/"
       }
     },
     "105748": {
@@ -1302,6 +1482,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/puk3-497/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-495/"
       }
     },
     "100462": {
@@ -1334,7 +1517,12 @@
         "root": "res://assets/characters/crossgate/shin/900050/kunai/"
       },
       "boomerang": {
-        "root": "res://assets/characters/crossgate/shin/900050/boomerang/"
+        "root": "res://assets/characters/crossgate/weapons/boomerang/water-shin-original/"
+      },
+      "water-dragon-boomerang": {
+        "root": "res://assets/characters/crossgate/shin/900050/boomerang/",
+        "base_weapon": "boomerang",
+        "projectile": "water_dragon_boomerang"
       }
     }
   },
@@ -1362,6 +1550,9 @@
     "118986": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-941/"
       }
     },
     "118987": {
@@ -1415,6 +1606,9 @@
       },
       "staff": {
         "root": "res://assets/characters/crossgate/weapons/original-2427/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2425/"
       }
     },
     "100053": {
@@ -1435,6 +1629,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2428/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2425/"
       }
     },
     "100882": {
@@ -1455,6 +1652,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-772/"
       }
     },
     "105050": {
@@ -1475,6 +1675,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-50/"
       }
     },
     "105056": {
@@ -1495,6 +1698,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-56/"
       }
     },
     "105062": {
@@ -1515,6 +1721,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-62/"
       }
     },
     "105068": {
@@ -1535,6 +1744,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-68/"
       }
     },
     "120346": {
@@ -1555,6 +1767,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-979/"
       }
     },
     "120352": {
@@ -1575,6 +1790,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-985/"
       }
     },
     "106756": {
@@ -1595,6 +1813,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-554/"
       }
     },
     "120418": {
@@ -1612,6 +1833,9 @@
       },
       "polearm": {
         "native": 4
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-649/"
       }
     },
     "100299": {
@@ -1627,11 +1851,17 @@
     "120383": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-1003/"
       }
     },
     "120382": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-1004/"
       }
     },
     "120445": {
@@ -1662,6 +1892,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-306/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-303/"
       }
     },
     "105486": {
@@ -1685,6 +1918,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-294/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-291/"
       }
     },
     "105492": {
@@ -1708,6 +1944,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-300/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-297/"
       }
     },
     "105696": {
@@ -1731,6 +1970,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-444/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-441/"
       }
     },
     "106052": {
@@ -1754,6 +1996,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-389/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-386/"
       }
     },
     "106058": {
@@ -1777,6 +2022,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-395/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-392/"
       }
     },
     "106064": {
@@ -1800,6 +2048,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-401/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-398/"
       }
     },
     "106070": {
@@ -1823,6 +2074,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-407/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-404/"
       }
     },
     "106182": {
@@ -1846,6 +2100,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-881/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-878/"
       }
     },
     "106188": {
@@ -1869,6 +2126,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-887/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-884/"
       }
     },
     "106477": {
@@ -1892,6 +2152,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-679/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-676/"
       }
     },
     "119308": {
@@ -1915,6 +2178,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1189/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-112/"
       }
     },
     "120234": {
@@ -1938,6 +2204,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1189/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1089/"
       }
     }
   },
@@ -1960,6 +2229,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-625/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-622/"
       }
     },
     "100942": {
@@ -1980,6 +2252,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-418/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-429/"
       }
     }
   },
@@ -2002,6 +2277,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-677/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-674/"
       }
     },
     "100230": {
@@ -2022,6 +2300,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-683/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-680/"
       }
     },
     "100774": {
@@ -2042,6 +2323,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-800/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-797/"
       }
     },
     "105430": {
@@ -2062,6 +2346,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-239/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-236/"
       }
     },
     "105824": {
@@ -2082,6 +2369,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-474/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-471/"
       }
     },
     "105830": {
@@ -2102,6 +2392,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-480/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-477/"
       }
     },
     "105837": {
@@ -2122,6 +2415,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-534/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-531/"
       }
     },
     "106275": {
@@ -2142,6 +2438,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-533/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-530/"
       }
     },
     "106281": {
@@ -2162,6 +2461,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-539/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-536/"
       }
     },
     "106287": {
@@ -2182,6 +2484,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-545/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-542/"
       }
     },
     "106293": {
@@ -2202,6 +2507,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-551/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-548/"
       }
     },
     "106625": {
@@ -2222,6 +2530,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-715/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-712/"
       }
     },
     "111669": {
@@ -2247,6 +2558,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-958/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-955/"
       }
     },
     "120387": {
@@ -2277,6 +2591,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-783/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-780/"
       }
     },
     "120490": {
@@ -2297,6 +2614,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-789/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-786/"
       }
     },
     "106706": {
@@ -2329,6 +2649,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-336/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-333/"
       }
     },
     "105212": {
@@ -2349,6 +2672,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-342/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-339/"
       }
     },
     "105907": {
@@ -2369,6 +2695,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-102/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-99/"
       }
     },
     "106125": {
@@ -2389,6 +2718,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-461/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-458/"
       }
     },
     "106131": {
@@ -2409,6 +2741,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-467/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-464/"
       }
     },
     "106137": {
@@ -2429,6 +2764,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-473/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-470/"
       }
     },
     "106143": {
@@ -2449,6 +2787,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-479/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-476/"
       }
     },
     "106550": {
@@ -2469,6 +2810,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-697/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-694/"
       }
     }
   },
@@ -2491,6 +2835,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk2-1279/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-1276/"
       }
     },
     "105194": {
@@ -2511,6 +2858,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-324/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-321/"
       }
     },
     "105800": {
@@ -2531,6 +2881,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-450/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-447/"
       }
     },
     "105806": {
@@ -2551,6 +2904,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-456/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-453/"
       }
     },
     "106025": {
@@ -2571,6 +2927,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-365/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-362/"
       }
     },
     "106031": {
@@ -2591,6 +2950,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-371/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-368/"
       }
     },
     "106037": {
@@ -2611,6 +2973,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-377/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-374/"
       }
     },
     "106043": {
@@ -2631,6 +2996,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-383/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-380/"
       }
     },
     "106228": {
@@ -2651,6 +3019,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-905/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-902/"
       }
     },
     "106450": {
@@ -2671,6 +3042,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-673/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-670/"
       }
     },
     "106762": {
@@ -2691,6 +3065,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-450/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-560/"
       }
     },
     "119300": {
@@ -2711,6 +3088,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-121/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-118/"
       }
     },
     "120244": {
@@ -2731,6 +3111,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1106/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1103/"
       }
     },
     "120250": {
@@ -2751,6 +3134,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1112/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1109/"
       }
     },
     "120466": {
@@ -2771,6 +3157,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-765/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-762/"
       }
     },
     "120472": {
@@ -2791,6 +3180,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-771/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-768/"
       }
     },
     "120478": {
@@ -2811,6 +3203,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ch1-777/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-774/"
       }
     }
   },
@@ -2833,6 +3228,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-629/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-626/"
       }
     },
     "100537": {
@@ -2853,6 +3251,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-635/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-632/"
       }
     },
     "100543": {
@@ -2873,6 +3274,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-641/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-638/"
       }
     },
     "100556": {
@@ -2893,6 +3297,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-647/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-644/"
       }
     },
     "105200": {
@@ -2913,6 +3320,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-330/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-327/"
       }
     },
     "106234": {
@@ -2933,6 +3343,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-911/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-908/"
       }
     },
     "106375": {
@@ -2953,6 +3366,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-629/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-626/"
       }
     },
     "106381": {
@@ -2973,6 +3389,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-635/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-632/"
       }
     },
     "106387": {
@@ -2993,6 +3412,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-641/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-638/"
       }
     },
     "106393": {
@@ -3013,6 +3435,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-647/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-644/"
       }
     },
     "106725": {
@@ -3033,6 +3458,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-739/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-736/"
       }
     }
   },
@@ -3055,6 +3483,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2644/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2641/"
       }
     },
     "100356": {
@@ -3075,6 +3506,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2650/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2647/"
       }
     },
     "100362": {
@@ -3095,6 +3529,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2656/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2653/"
       }
     },
     "100368": {
@@ -3115,6 +3552,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/original-2662/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2659/"
       }
     },
     "100792": {
@@ -3135,6 +3575,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-818/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-815/"
       }
     },
     "105350": {
@@ -3155,6 +3598,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-269/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-266/"
       }
     },
     "105356": {
@@ -3175,6 +3621,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-275/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-272/"
       }
     },
     "105362": {
@@ -3195,6 +3644,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-281/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-278/"
       }
     },
     "105368": {
@@ -3215,6 +3667,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-287/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-284/"
       }
     },
     "105585": {
@@ -3235,6 +3690,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-459/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-456/"
       }
     },
     "105901": {
@@ -3255,6 +3713,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-ex-96/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-93/"
       }
     },
     "120172": {
@@ -3275,6 +3736,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1190/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1028/"
       }
     },
     "120178": {
@@ -3295,6 +3759,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1196/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1193/"
       }
     },
     "109912": {
@@ -3320,6 +3787,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-640/"
       }
     },
     "100798": {
@@ -3340,6 +3810,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-821/"
       }
     },
     "120428": {
@@ -3379,6 +3852,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-486/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-576/"
       }
     },
     "100930": {
@@ -3399,6 +3875,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-550/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-565/"
       }
     },
     "105688": {
@@ -3419,6 +3898,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/puk3-438/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-435/"
       }
     },
     "106000": {
@@ -3439,6 +3921,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-341/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-338/"
       }
     },
     "106006": {
@@ -3459,6 +3944,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-347/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-344/"
       }
     },
     "106012": {
@@ -3479,6 +3967,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-353/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-350/"
       }
     },
     "106018": {
@@ -3499,6 +3990,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/ex-359/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-356/"
       }
     },
     "106425": {
@@ -3519,11 +4013,17 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/joy-667/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-664/"
       }
     },
     "111619": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-1102/"
       }
     },
     "120370": {
@@ -3544,6 +4044,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1006/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1003/"
       }
     },
     "120376": {
@@ -3564,6 +4067,9 @@
       },
       "polearm": {
         "root": "res://assets/characters/crossgate/weapons/v3-1012/"
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1009/"
       }
     },
     "111617": {
@@ -3601,6 +4107,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-122/"
       }
     },
     "100125": {
@@ -3621,6 +4130,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2497/"
       }
     },
     "100131": {
@@ -3641,6 +4153,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2503/"
       }
     },
     "100137": {
@@ -3661,6 +4176,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2509/"
       }
     },
     "100143": {
@@ -3681,6 +4199,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2515/"
       }
     },
     "100224": {
@@ -3701,6 +4222,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-674/"
       }
     },
     "100600": {
@@ -3721,6 +4245,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-616/"
       }
     },
     "105131": {
@@ -3741,6 +4268,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-128/"
       }
     },
     "105137": {
@@ -3761,6 +4291,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-134/"
       }
     },
     "105143": {
@@ -3781,6 +4314,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-140/"
       }
     },
     "105591": {
@@ -3801,6 +4337,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-462/"
       }
     },
     "105818": {
@@ -3821,6 +4360,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-465/"
       }
     },
     "105850": {
@@ -3841,6 +4383,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-352/"
       }
     },
     "105856": {
@@ -3861,6 +4406,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-358/"
       }
     },
     "100218": {
@@ -3881,6 +4429,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-668/"
       }
     },
     "100481": {
@@ -3901,6 +4452,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-822/"
       }
     },
     "100487": {
@@ -3921,6 +4475,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-828/"
       }
     },
     "100493": {
@@ -3941,6 +4498,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-834/"
       }
     },
     "100506": {
@@ -3961,6 +4521,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1270/"
       }
     },
     "100937": {
@@ -3981,6 +4544,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-826/"
       }
     },
     "100949": {
@@ -4001,6 +4567,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-832/"
       }
     },
     "109876": {
@@ -4033,6 +4602,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-194/"
       }
     },
     "100275": {
@@ -4053,6 +4625,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2569/"
       }
     },
     "100281": {
@@ -4073,6 +4648,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2575/"
       }
     },
     "100287": {
@@ -4093,6 +4671,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2581/"
       }
     },
     "100293": {
@@ -4113,6 +4694,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2587/"
       }
     },
     "100475": {
@@ -4133,6 +4717,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-760/"
       }
     },
     "100984": {
@@ -4153,6 +4740,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-621/"
       }
     },
     "105281": {
@@ -4173,6 +4763,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-200/"
       }
     },
     "105287": {
@@ -4193,6 +4786,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-206/"
       }
     },
     "105293": {
@@ -4213,6 +4809,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-212/"
       }
     },
     "105640": {
@@ -4233,6 +4832,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-387/"
       }
     },
     "105646": {
@@ -4253,6 +4855,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-393/"
       }
     },
     "105652": {
@@ -4273,6 +4878,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-399/"
       }
     },
     "105658": {
@@ -4293,6 +4901,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-405/"
       }
     },
     "105664": {
@@ -4313,6 +4924,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-411/"
       }
     },
     "105725": {
@@ -4333,6 +4947,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-901/"
       }
     },
     "105731": {
@@ -4353,6 +4970,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-886/"
       }
     },
     "105784": {
@@ -4373,6 +4993,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-519/"
       }
     },
     "105843": {
@@ -4393,6 +5016,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-345/"
       }
     },
     "105955": {
@@ -4413,6 +5039,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-492/"
       }
     },
     "105961": {
@@ -4433,6 +5062,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-498/"
       }
     },
     "120328": {
@@ -4453,6 +5085,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-961/"
       }
     },
     "120334": {
@@ -4473,6 +5108,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-967/"
       }
     },
     "120340": {
@@ -4493,6 +5131,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-973/"
       }
     },
     "100961": {
@@ -4513,6 +5154,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-838/"
       }
     },
     "100997": {
@@ -4533,6 +5177,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-844/"
       }
     },
     "106708": {
@@ -4565,6 +5212,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-218/"
       }
     },
     "100300": {
@@ -4585,6 +5235,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2593/"
       }
     },
     "100306": {
@@ -4605,6 +5258,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2599/"
       }
     },
     "100312": {
@@ -4625,6 +5281,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2605/"
       }
     },
     "100318": {
@@ -4645,6 +5304,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2611/"
       }
     },
     "100431": {
@@ -4665,6 +5327,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-698/"
       }
     },
     "100500": {
@@ -4685,6 +5350,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-766/"
       }
     },
     "100990": {
@@ -4705,6 +5373,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-507/"
       }
     },
     "105306": {
@@ -4725,6 +5396,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-224/"
       }
     },
     "105312": {
@@ -4745,6 +5419,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-230/"
       }
     },
     "105318": {
@@ -4765,6 +5442,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-236/"
       }
     },
     "105442": {
@@ -4785,6 +5465,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-249/"
       }
     },
     "105967": {
@@ -4805,6 +5488,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-504/"
       }
     },
     "105973": {
@@ -4825,6 +5511,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-510/"
       }
     },
     "106781": {
@@ -4845,6 +5534,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-81/"
       }
     },
     "120448": {
@@ -4865,6 +5557,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-744/"
       }
     },
     "120454": {
@@ -4885,6 +5580,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-750/"
       }
     },
     "120460": {
@@ -4905,6 +5603,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ch1-756/"
       }
     },
     "105798": {
@@ -4925,6 +5626,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-850/"
       }
     },
     "106793": {
@@ -4945,6 +5649,9 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-63/"
       }
     },
     "115258": {
@@ -4972,11 +5679,1648 @@
       },
       "polearm": {
         "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2797/"
       }
     },
     "120443": {
       "unarmed": {
         "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-665/"
+      }
+    }
+  },
+  "52": {
+    "100000": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2377/"
+      }
+    },
+    "100006": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2383/"
+      }
+    },
+    "100012": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2389/"
+      }
+    },
+    "100018": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2395/"
+      }
+    },
+    "100425": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-748/"
+      }
+    },
+    "100756": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-779/"
+      }
+    },
+    "100972": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-597/"
+      }
+    },
+    "105000": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-2/"
+      }
+    },
+    "105006": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-8/"
+      }
+    },
+    "105012": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-14/"
+      }
+    },
+    "105018": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-20/"
+      }
+    },
+    "105549": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-414/"
+      }
+    },
+    "105606": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-662/"
+      }
+    },
+    "120160": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1015/"
+      }
+    },
+    "120168": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-1022/"
+      }
+    },
+    "120384": {
+      "unarmed": {
+        "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-1755/"
+      }
+    },
+    "120385": {
+      "unarmed": {
+        "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-1756/"
+      }
+    },
+    "900060": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-650/"
+      }
+    },
+    "900061": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-656/"
+      }
+    }
+  },
+  "53": {
+    "100400": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2689/"
+      }
+    },
+    "100406": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2695/"
+      }
+    },
+    "100412": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2701/"
+      }
+    },
+    "100418": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2707/"
+      }
+    },
+    "100487": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-534/"
+      }
+    },
+    "100612": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-740/"
+      }
+    },
+    "100618": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-746/"
+      }
+    },
+    "100631": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-752/"
+      }
+    },
+    "100637": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-758/"
+      }
+    },
+    "100750": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-652/"
+      }
+    },
+    "105400": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-314/"
+      }
+    },
+    "105406": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-320/"
+      }
+    },
+    "105412": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-326/"
+      }
+    },
+    "105418": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-332/"
+      }
+    },
+    "105454": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-261/"
+      }
+    },
+    "105884": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-866/"
+      }
+    },
+    "106775": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-419/"
+      }
+    }
+  },
+  "54": {
+    "100100": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2473/"
+      }
+    },
+    "100106": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2479/"
+      }
+    },
+    "100112": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2485/"
+      }
+    },
+    "100118": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/original-2491/"
+      }
+    },
+    "100230": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-680/"
+      }
+    },
+    "100236": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-686/"
+      }
+    },
+    "100242": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-692/"
+      }
+    },
+    "100493": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-450/"
+      }
+    },
+    "100575": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-610/"
+      }
+    },
+    "100780": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-803/"
+      }
+    },
+    "100786": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-809/"
+      }
+    },
+    "105100": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-98/"
+      }
+    },
+    "105106": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-104/"
+      }
+    },
+    "105118": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-116/"
+      }
+    },
+    "105436": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-243/"
+      }
+    },
+    "105112": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-110/"
+      }
+    },
+    "115257": {
+      "unarmed": {
+        "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/update-ex-1912/"
+      }
+    },
+    "124999": {
+      "sword": {
+        "native": 0
+      }
+    }
+  },
+  "55": {
+    "100909": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-372/"
+      }
+    },
+    "105466": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-273/"
+      }
+    },
+    "105472": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-279/"
+      }
+    },
+    "105478": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-ex-285/"
+      }
+    },
+    "105670": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-561/"
+      }
+    },
+    "105676": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-567/"
+      }
+    },
+    "105682": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-573/"
+      }
+    },
+    "106250": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-506/"
+      }
+    },
+    "106256": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-512/"
+      }
+    },
+    "106262": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-518/"
+      }
+    },
+    "106268": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/ex-524/"
+      }
+    },
+    "106600": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/joy-706/"
+      }
+    },
+    "106768": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-523/"
+      }
+    },
+    "111676": {
+      "unarmed": {
+        "native": 0
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk2-1159/"
+      }
+    },
+    "120358": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-991/"
+      }
+    },
+    "120364": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/v3-997/"
+      }
+    },
+    "120447": {
+      "staff": {
+        "native": 0
+      }
+    },
+    "120433": {
+      "axe": {
+        "native": 0
+      },
+      "bow": {
+        "native": 1
+      },
+      "sword": {
+        "native": 2
+      },
+      "staff": {
+        "native": 3
+      },
+      "polearm": {
+        "native": 4
+      }
+    },
+    "120400": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-561/"
+      }
+    },
+    "120406": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-567/"
+      }
+    },
+    "120412": {
+      "unarmed": {
+        "native": 0
+      },
+      "axe": {
+        "native": 1
+      },
+      "bow": {
+        "native": 2
+      },
+      "sword": {
+        "native": 3
+      },
+      "staff": {
+        "native": 4
+      },
+      "polearm": {
+        "native": 5
+      },
+      "boomerang": {
+        "root": "res://assets/characters/crossgate/weapons/boomerang/puk3-573/"
       }
     }
   }

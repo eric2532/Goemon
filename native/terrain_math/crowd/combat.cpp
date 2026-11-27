@@ -39,6 +39,8 @@ constexpr double ENEMY_CHARGE_WINDUP_TIME=.8,ENEMY_CHARGE_RUSH_TIME=.82,ENEMY_CH
 constexpr double REACTIVE_GUARD_TIME=.95,PRESSURE_GUARD_TIME=1.15,BLOCKED_HIT_GUARD_CAP=.85;
 constexpr double ENEMY_GUARD_BREAK_TIME=.459,ENEMY_GUARD_BREAK_COOLDOWN=3.0,GUARD_BREAK_DAMAGE=1.2;
 constexpr float ENEMY_CHARGE_SPEED=15.f;
+constexpr double BEAST_PET_SEARCH_TIME=.25,BEAST_PET_PURSUIT_TIME=3.0;
+constexpr float BEAST_PET_RUSH_SPEED=40.f,BEAST_PET_SUMMON_RANGE=60.f;
 float charge_contact(const Unit& u,const ExternalTarget& hero,Vec3 from,Vec3 to){
     const Vec3 front=u.dash_direction*std::max(.75f,u.radius*.9f)+Vec3{0,1,0};
     const Vec3 low=hero.body_bounds()?hero.minimum:hero.foot+Vec3{-.35f,.35f,-.35f};
@@ -98,8 +100,35 @@ bool Combat::configure(KitData data,Crowd* crowd){
     if(crowd)for(const auto& unit:crowd->units_)if(unit.alive&&unit.body_scale!=1)include_body_bounds(unit);
     enabled_=true;return true;
 }
-void Combat::clear(){hound_approaches_.clear();hound_approach_units_.clear();pet_sequence_targets_.clear();hero_dodge_threat_={};skullpions_.clear();nearest_entries_.clear();nearest_nodes_.clear();nearest_revision_=UINT64_MAX;nearest_contact_tests_=0;nearest_position_reads_=0;projectiles_.clear();pulses_.clear();counters_.clear();threats_.clear();mirror_targets_.clear();first_taunt_=latest_taunt_=0;enemy_guard_break_owner_=0;enemy_guard_break_ready_=0;rescues_.clear();bodyguards_.clear();hero_rescuing_=false;hero_bodyguard_bag_=0;events_.clear();set_targets({});shelters_.clear();}
+void Combat::clear(){hound_approaches_.clear();hound_approach_units_.clear();pet_sequence_targets_.clear();hero_dodge_threat_={};skullpions_.clear();nearest_entries_.clear();nearest_nodes_.clear();nearest_revision_=UINT64_MAX;nearest_contact_tests_=0;nearest_position_reads_=0;projectiles_.clear();pulses_.clear();counters_.clear();threats_.clear();mirror_targets_.clear();first_taunt_=latest_taunt_=0;enemy_guard_break_owner_=0;enemy_guard_break_ready_=0;rescues_.clear();bodyguards_.clear();hero_rescuing_=false;hero_bodyguard_bag_=0;events_.clear();combined_power_active_=false;combined_power_members_={};set_targets({});shelters_.clear();}
 void Combat::spawned(Unit& u){if(enabled_&&u.team==1&&u.kind==8&&!data_.dragoon.empty())u.leap_left=data_.dragoon[D_LEAP_CD];if(enabled_&&u.shelter_mode==2)u.status|=data_.status_bits[6];if(pet_skin_count(u.kind))u.pose_row=0;if(u.team==1&&escort_kind(u.kind))u.pet_mana=data_.pet_mana;pose_frame(u);}
+bool Combat::queue_beast_pet_attacks(Crowd& crowd,int64_t handle,int64_t count){
+    auto* u=crowd.unit(handle);
+    if(!enabled_||!u||u->team!=1||u->kind!=HOUND_KIND||u->hp<=0||count<=0||
+       count>INT32_MAX-std::max(0,u->beast_pet_attacks))return false;
+    if(u->beast_pet_attacks<0){
+        if(u->pet_skill==PET_BEE_FLURRY)finish_pet_flurry(crowd,*u);
+        pet_sequence_targets_.erase(u->handle);
+        if(u->pet_skill||u->counter_active||u->combined_attached){
+            u->action_active=false;u->just_started=false;u->action=data_.actions[0];u->action_time=0;
+        }
+        u->pet_skill=0;u->pet_combo_left=0;u->counter_active=u->counter_pending=u->combined_attached=u->bodyguard_followup=false;
+        u->action_hits.clear();u->hound_order=HOUND_DEFEND;u->hound_focused=false;
+        u->has_goal=false;u->routing=false;u->think_left=0;u->hound_return_left=-1;u->external_kind=-1;
+        u->beast_pet_attacks=0;
+    }
+    if(u->beast_pet_attacks==0){
+        u->beast_pet_seek_left=BEAST_PET_PURSUIT_TIME;
+        u->beast_pet_rush_target=0;
+        u->think_left=0;
+    }
+    u->beast_pet_attacks+=int(count);
+    return true;
+}
+void Combat::begin_beast_pet_attack(Unit& u){
+    --u.beast_pet_attacks;u.beast_pet_seek_left=BEAST_PET_PURSUIT_TIME;
+    begin(u);
+}
 bool Combat::begin_enemy_arrival(Crowd& crowd,Handle handle){
     auto* u=crowd.unit(handle);if(!enabled_||!u||u->team!=0||!pet_skin_count(u->kind)||u->hp<=0)return false;
     if(u->action==GUARDIAN_ARRIVAL)return true;
@@ -249,7 +278,7 @@ bool Combat::habaru_decide(Crowd& crowd,Unit& u,double dt){
     if(u.habaru_pressure+1e-8<1.8)return false;
     Vec3 foot;
     if(!target(crowd,u,foot)){choose_target(crowd,u);if(!target(crowd,u,foot))return false;}
-    if(u.guard_radius>0&&horizontal(u.position,u.guard_post)>2*u.guard_radius)return false;
+    if(u.guard_radius>0&&!player_map_swarm()&&horizontal(u.position,u.guard_post)>2*u.guard_radius)return false;
     u.yaw=std::atan2(u.position.x-foot.x,u.position.z-foot.z);
     u.habaru_phase=1;u.habaru_left=.85;u.habaru_pressure=u.habaru_gap=0;
     u.stun=0;u.knockback={};u.motion_impulse={};u.pending_drift=0;u.has_goal=false;
@@ -560,12 +589,34 @@ void Combat::zombie_explode(Crowd& crowd,Unit& u,double dt){
     u.invuln=0;
     Hit sacrifice;sacrifice.amount=u.hp;sacrifice.source_id=u.logical_id;hit(crowd,u.handle,sacrifice);
 }
+double Combat::evasion_chance(const Unit& u) const {
+    return u.team==0&&u.kind>=0&&u.kind<ENEMY_KIND_COUNT&&!data_.enemy_evasion.empty()?data_.enemy_evasion[u.kind]:0;
+}
 HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     auto u=crowd.unit(handle);if(!u)return {};
     HitResult result{false,false,u->hp};
     if(u->shelter_mode==2)return result;
+    if(!std::isfinite(incoming.accuracy))return result;
     if(!std::isfinite(incoming.amount)||incoming.amount<0||!std::isfinite(incoming.status_seconds)||incoming.status_seconds<0)return result;
     if(u->action==GUARDIAN_ARRIVAL)return result;
+    if(u->team==0&&incoming.amount>0&&!incoming.magical&&!incoming.intercepted&&incoming.source_id!=u->logical_id&&u->invuln<=0){
+        const double chance=std::clamp(evasion_chance(*u)-incoming.accuracy,0.0,100.0);
+        bool missed=chance>=100;
+        if(chance>0&&chance<100){
+            // Draw each percentage marble once before refilling; no per-attacker target scans.
+            if(u->evasion_draw==100){
+                std::iota(u->evasion_bag.begin(),u->evasion_bag.end(),uint8_t(0));
+                for(int i=99;i>0;--i)std::swap(u->evasion_bag[i],u->evasion_bag[std::min(i,int(random(*u)*(i+1)))]);
+                u->evasion_draw=0;
+            }
+            const double marble=u->evasion_bag[u->evasion_draw++];
+            missed=marble+(chance==std::floor(chance)?0:random(*u))<chance;
+        }
+        if(missed){
+            Event event;event.kind=STATUS_EVENT;event.action_index=802;event.position=u->position;event.unit_kind=u->kind;event.source_id=u->logical_id;emit(event);
+            return result;
+        }
+    }
     if(!incoming.intercepted&&u->team==1&&rescue(crowd,handle,incoming,{}))return {true,false,u->hp};
     const Vec3 incoming_flat{incoming.direction.x,0,incoming.direction.z};
     const auto frontal=[&]{return finite(incoming_flat)&&length(incoming_flat)>.001f&&
@@ -581,8 +632,8 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     if(ruby_boss(*u)&&u->invuln<=0&&(incoming.amount>0||(incoming.magical&&incoming.status_seconds>0))&&ruby_defense(crowd,*u,incoming,result))return result;
     if(!incoming.intercepted&&incoming.amount>0&&u->dodge_chance>0&&incoming.source_id!=u->logical_id){
         if(u->dodge_left>0){queue_counter(crowd,*u,incoming);return result;}
-        // Committed strikes and controlled bosses stay punishable; ordinary enemies have zero chance.
-        if(u->dodge_cooldown<=0&&u->invuln<=0&&u->stun<=0&&u->frozen<=0&&!u->action_active&&!u->blocking&&random(*u)<u->dodge_chance){
+        // Reactive movement stays separate from general evasion; committed strikes remain punishable.
+        if(u->dodge_cooldown<=0&&u->invuln<=0&&u->stun<=0&&u->frozen<=0&&!u->action_active&&!u->blocking&&random(*u)<std::clamp(u->dodge_chance-(incoming.magical?0:incoming.accuracy/100.0),0.0,1.0)){
             auto away=Vec3{incoming.direction.x,0,incoming.direction.z};
             u->dodge_direction=length(away)>.001f&&finite(away)?normalized(away):Vec3{std::sin(u->yaw),0,std::cos(u->yaw)};
             u->dodge_left=40.0/60;u->dodge_cooldown=3;
@@ -701,6 +752,21 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
             event.death_launch=finite(incoming_flat)&&length(incoming_flat)>.001f?normalized(incoming_flat):Vec3{-std::sin(u->yaw),0,-std::cos(u->yaw)};
         }
         event.kind=DEATH;if(pet_skin_count(u->kind))event.action_index=u->pose_row;event.position=u->position;event.direction={std::sin(u->yaw),0,std::cos(u->yaw)};emit(event);if(boss)skullpions_.erase(handle);crowd.despawn(handle);return result;}
+    if(u->team==0&&incoming.provoke){
+        u->retaliation=4;u->retaliation_source=incoming.source_id;u->retaliation_range=28;u->think_left=0;
+        if(incoming.projectile){
+            Vec3 source=u->position;
+            auto found=crowd.ids_.find(incoming.source_id);
+            if(found!=crowd.ids_.end()&&crowd.units_[found->second].team==1)source=crowd.units_[found->second].position;
+            else if(hero_row_>=0&&targets_[hero_row_].id==incoming.source_id)source=targets_[hero_row_].foot;
+            else for(auto row:target_groups_[3])if(targets_[row].id==incoming.source_id){source=targets_[row].foot;break;}
+            const float distance=horizontal(source,u->position);
+            u->retaliation_range=std::max(28.f,distance+8);
+            // Give a distant hit enough pursuit time to reach ordinary awareness.
+            const float speed=u->kind>=0&&u->kind<ENEMY_KIND_COUNT?soldiers_[u->kind].speed:0;
+            u->retaliation+=distance/std::max(1.f,speed*.35f);
+        }
+    }
     if(light_pressure&&u->frozen<=0){
         if(guarded){
             u->guard_left=std::min(u->guard_left,BLOCKED_HIT_GUARD_CAP);
@@ -723,7 +789,6 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
         u->blocking=false;u->guard_left=0;u->guard_reaction=0;
         u->stun=std::max(u->stun,16.0/30);u->action_active=false;u->action_time=0;u->has_goal=false;
         u->action_hits.clear();u->pending_drift=0;u->motion_impulse={};
-        if(incoming.provoke){u->retaliation=4;u->retaliation_source=incoming.source_id;u->think_left=0;}
         // Front-load marked melee hits; other skills retain their contact spacing.
         u->knockback=normalized(Vec3{incoming.direction.x,0,incoming.direction.z})*(incoming.heavy?3.0f:1.2f);
         u->knockback_decay=incoming.responsive_recoil?12:8;
@@ -738,7 +803,7 @@ HitResult Combat::hit(Crowd& crowd,int64_t handle,const Hit& incoming){
     return result;
 }
 void Combat::queue_counter(Crowd& crowd,Unit& u,const Hit& hit){
-    if(u.counter_chance<=0||(guardian(u)&&hit.magical)||hit.counter||!hit.provoke||hit.amount<=0||hit.source_id==u.logical_id)return;
+    if(u.beast_pet_attacks>=0||u.counter_chance<=0||(guardian(u)&&hit.magical)||hit.counter||!hit.provoke||hit.amount<=0||hit.source_id==u.logical_id)return;
     if(u.patrol_counter){
         if(u.counter_pending||u.counter_active||u.patrol_counter_cooldown>0||hit.magical||hit.projectile)return;
         if(bag_draw(u.patrol_counter_bag,0b11111,random(u))!=0)return;
@@ -766,7 +831,7 @@ bool Combat::begin_counter(Crowd& crowd,Unit& u){
             auto attacker=crowd.ids_.find(u.counter_source);
             if(attacker==crowd.ids_.end()||crowd.units_[attacker->second].team!=1||crowd.units_[attacker->second].shelter_mode==2)return false;
         }
-        u.retaliation_source=u.counter_source;u.retaliation=4;choose_target(crowd,u);
+        u.retaliation_source=u.counter_source;u.retaliation=4;u.retaliation_range=28;choose_target(crowd,u);
         if(!target(crowd,u,foot)||u.external_kind==2)return false;
     }
     const auto* geometry=pet_geometry(u);
@@ -811,12 +876,15 @@ void Combat::advance_counter(Crowd& crowd,Unit& u,double dt){
         if(u.kind==4)boss_enter(u,0,u.position);
     }
 }
-void Combat::set_targets(std::vector<ExternalTarget> targets,double camera_yaw,double player_speed,int64_t hound_order,int64_t hound_order_serial,int64_t hound_focus_target){
+void Combat::set_targets(std::vector<ExternalTarget> targets,double camera_yaw,double player_speed,int64_t hound_order,int64_t hound_order_serial,int64_t hound_focus_target,Vec3 attack_move){
+    const bool new_move=hound_order_serial_!=hound_order_serial||!finite(hound_attack_move_);
+    hound_attack_move_=hound_order==HOUND_ATTACK&&!hound_focus_target&&finite(attack_move)&&std::abs(attack_move.x)<=1e6f&&std::abs(attack_move.y)<=1e6f&&std::abs(attack_move.z)<=1e6f?attack_move:Vec3{NAN,0,0};
     hound_order_serial_=hound_order_serial;
     if(std::isfinite(camera_yaw))hound_camera_yaw_=std::remainder(camera_yaw,2*M_PI);
     hound_player_speed_=std::isfinite(player_speed)?std::clamp(player_speed,0.0,18.0):0;
-    hound_order_=hound_order==HOUND_ATTACK?HOUND_ATTACK:hound_order==HOUND_RETURN?HOUND_RETURN:hound_order==HOUND_HOLD?HOUND_HOLD:HOUND_DEFEND;
+    hound_order_=hound_order==HOUND_COMBINED?HOUND_COMBINED:hound_order==HOUND_ATTACK?HOUND_ATTACK:hound_order==HOUND_RETURN?HOUND_RETURN:hound_order==HOUND_HOLD?HOUND_HOLD:HOUND_DEFEND;
     hound_focus_target_=hound_order_==HOUND_ATTACK?hound_focus_target:0;
+    if(hound_order_!=HOUND_COMBINED){combined_power_active_=false;combined_power_members_={};}
     Vec3 previous_hero=hound_hero_row_>=0?targets_[hound_hero_row_].foot:Vec3{NAN,0,0};
     targets_=std::move(targets);++target_revision_;hero_row_=taunt_row_=hound_hero_row_=-1;
     for(auto& group:target_groups_)group.clear();
@@ -828,6 +896,7 @@ void Combat::set_targets(std::vector<ExternalTarget> targets,double camera_yaw,d
         if(row.taunting&&row.hp>0&&taunt_row_<0)taunt_row_=int(i);
     }
     hound_escort_lead_={};
+    if(new_move&&hound_hero_row_>=0)hound_attack_origin_=targets_[hound_hero_row_].foot;
     if(hound_hero_row_>=0&&finite(previous_hero)){
         Vec3 travel=targets_[hound_hero_row_].foot-previous_hero;travel.y=0;
         if(length(travel)<2)hound_escort_lead_=normalized(travel)*float(hound_player_speed_*.16);
@@ -1035,8 +1104,10 @@ int Combat::snow_health_preference(const Unit& unit) const{
 }
 // One meter per map kill, capped so distant armies keep their objectives.
 float Combat::player_aggro_bonus() const{return hero_row_>=0?float(std::clamp(targets_[hero_row_].aggro_kills,0,42)):0;}
+bool Combat::player_map_swarm() const{return hero_row_>=0&&targets_[hero_row_].map_swarm;}
 void Combat::choose_target(Crowd& crowd,Unit& unit){
     const float hero_range=28+player_aggro_bonus();
+    const bool swarm=player_map_swarm();
     auto previous_handle=unit.target_handle;auto previous_id=unit.external_target;int previous_kind=unit.external_kind;
     enemy_unit_claims_.resize(crowd.units_.size());enemy_external_claims_.resize(targets_.size());
     auto claim=[&](int row,int64_t handle,int delta){
@@ -1084,10 +1155,10 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
         auto found=crowd.ids_.find(unit.retaliation_source);
         if(found!=crowd.ids_.end()){
             auto& other=crowd.units_[found->second];
-            if(other.alive&&other.team==1&&other.shelter_mode!=2&&horizontal(other.position,unit.position)<28)selected=select(-1,other.handle);
+            if(other.alive&&other.team==1&&other.shelter_mode!=2&&horizontal(other.position,unit.position)<unit.retaliation_range)selected=select(-1,other.handle);
         }
-        if(!selected)for(auto row:target_groups_[3])if(targets_[row].id==unit.retaliation_source&&horizontal(targets_[row].foot,unit.position)<28){selected=select(int(row),0);if(selected)break;}
-        if(!selected&&hero_row_>=0&&horizontal(targets_[hero_row_].foot,unit.position)<=28)selected=select(hero_row_,0);
+        if(!selected)for(auto row:target_groups_[3])if(targets_[row].id==unit.retaliation_source&&horizontal(targets_[row].foot,unit.position)<unit.retaliation_range){selected=select(int(row),0);if(selected)break;}
+        if(!selected&&hero_row_>=0&&horizontal(targets_[hero_row_].foot,unit.position)<=(targets_[hero_row_].id==unit.retaliation_source?unit.retaliation_range:28))selected=select(hero_row_,0);
     }
     float score=INFINITY;int priority=-1;
     if(!selected){
@@ -1105,7 +1176,7 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
         }
         if(hero_row_>=0){
             float distance=horizontal(targets_[hero_row_].foot,unit.position);
-            if(distance<=hero_range)target_candidates_.push_back({hero_row_,0,distance_score(hero_row_,0,distance),distance<=28||assault||snow_party?5:0});
+            if(swarm||distance<=hero_range)target_candidates_.push_back({hero_row_,0,distance_score(hero_row_,0,distance),distance<=28||assault||snow_party?5:0});
         }
         std::stable_sort(target_candidates_.begin(),target_candidates_.end(),preferred);
         bool committed=false;
@@ -1118,7 +1189,7 @@ void Combat::choose_target(Crowd& crowd,Unit& unit){
         }
         auto best_handle=unit.target_handle;auto best_id=unit.external_target;int best_kind=unit.external_kind;Vec3 best_goal=unit.target_goal;
         if(crowd.counts_[1]>0&&(!committed||(assault&&priority<5))){
-            float extent=assault||priority>0?28:std::max(28.0f,std::isfinite(score)?score:3e8f);
+            float extent=swarm||assault||priority>0?28:std::max(28.0f,std::isfinite(score)?score:3e8f);
             for(float radius=std::min(28.0f,extent);;radius=std::min(radius*2,extent)){
                 Vec3 pad{radius,3e8f,radius};target_candidates_.clear();
                 for(auto handle:crowd.query(unit.position-pad,unit.position+pad,1,false)){
@@ -1185,9 +1256,22 @@ void Combat::pet_cue(const Unit& unit,int sound,double tick){
     sound%=10000;
     if(sound==0)return;
     Event event;event.kind=STATUS_EVENT;event.source_id=unit.logical_id;event.unit_kind=unit.kind;
-    event.position=unit.position;event.action_index=HOUND_CUE_BASE+sound;event.source_tick=tick;emit(event);
+    event.position=unit.position;event.action_index=sound==HOUND_BLINK_CUE?HOUND_BLINK_CUE:HOUND_CUE_BASE+sound;event.source_tick=tick;emit(event);
+}
+bool Combat::crowd_melee_enemy(const Unit& u) const{
+    return u.team==0&&u.kind>=0&&u.kind<ENEMY_KIND_COUNT&&soldiers_[u.kind].active&&
+        soldiers_[u.kind].kit[17]!=FIRE&&u.kind!=4&&u.kind!=17&&u.kind!=18&&
+        !habaru_boss(u)&&!zombie_boss(u)&&!grave_boss(u)&&!ruby_boss(u)&&!undersea_boss(u);
+}
+double Combat::crowd_attack_pressure(const Unit& u) const{
+    const auto* hero=external_target(u);
+    if(!crowd_melee_enemy(u)||u.target_handle||!hero||hero->kind!=0||
+       horizontal(u.position,hero->foot)>12||std::abs(u.position.y-hero->foot.y)>3.5f)return 0;
+    return std::clamp((nearby_hero_melee_-3)/5.0,0.0,1.0);
 }
 void Combat::begin(Unit& unit){
+    // Freeze the tradeoff per ordinary swing; crowd changes cannot retime its contact.
+    unit.crowd_attack_pressure=unit.counter_active||unit.handle==enemy_guard_break_owner_?0:crowd_attack_pressure(unit);
     unit.action_active=true;unit.just_started=true;unit.phase_tick=0;unit.attack_tick=0;unit.action_time=0;unit.soldier_shots=0;
     if(unit.team==1&&escort_kind(unit.kind)){unit.pet_rush_left=5.0/32;++unit.attack_serial;}
     unit.primary_hit=false;
@@ -1229,7 +1313,7 @@ void Combat::pet_skill_event(Crowd& crowd,const Unit& u,EventKind kind){
     event.amount=u.pet_skill==PET_BEE_FLURRY?1.0:1.0/std::max(1,contacts);event.source_tick=u.attack_tick/30;emit(event);
 }
 bool Combat::pet_flurry_ready(Crowd& crowd,const Unit& u) const{
-    if(u.kind!=HOUND_KIND||u.hound_order==HOUND_HOLD||u.pet_cooldowns[PET_BEE_FLURRY-1]>0||u.pet_mana+1e-8<pet_skill_cost(PET_BEE_FLURRY))return false;
+    if(u.kind!=HOUND_KIND||u.beast_pet_attacks>=0||u.hound_order==HOUND_HOLD||u.pet_cooldowns[PET_BEE_FLURRY-1]>0||u.pet_mana+1e-8<pet_skill_cost(PET_BEE_FLURRY))return false;
     bool equipped=false;
     for(int slot=0;slot<3;++slot)equipped|=u.pet_skills[slot]==PET_BEE_FLURRY&&(u.pet_ready_mask&(1<<slot));
     auto foe=crowd.unit(u.target_handle);if(!equipped||!foe||foe->hp<=0)return false;
@@ -1313,7 +1397,7 @@ bool Combat::pet_combo_blink(Crowd& crowd,Unit& u){
     return false;
 }
 int Combat::pet_ranged_slots(const Unit& u) const{
-    if(u.kind!=HOUND_KIND)return 0;
+    if(u.kind!=HOUND_KIND||u.beast_pet_attacks>=0)return 0;
     int slots=0;
     for(int slot=0;slot<3;++slot){
         const int skill=u.pet_skills[slot];
@@ -1331,17 +1415,46 @@ bool Combat::pet_ranged_contact(Crowd& crowd,const Unit& u,const Unit& enemy) co
 bool Combat::pet_begin(Crowd& crowd,Unit& u,int ranged_slots,bool allow_melee){
     const bool contact=allow_melee&&melee_contact(crowd,u);
     if(u.kind!=HOUND_KIND){if(contact)begin(u);return contact;}
+    if(u.beast_pet_attacks>=0){
+        if(!contact||u.beast_pet_attacks==0)return false;
+        begin_beast_pet_attack(u);return true;
+    }
     bool continuing=u.pet_skill==2&&u.pet_combo_left>0;
     if(!continuing){
-        std::array<int,3> ready{};int count=0;
+        uint64_t ready=0,ranged=0,groups=0;
         for(int slot=0;slot<3;++slot){int skill=u.pet_skills[slot];
             if(skill==PET_BODYGUARD)continue;
             if(pet_ranged_skill(skill)){
-                if(ranged_slots&(1<<slot))ready[count++]=skill;
-            }else if(u.afflictions[5]<=0&&skill&&(u.pet_ready_mask&(1<<slot))&&u.pet_cooldowns[skill-1]<=0&&u.pet_mana+1e-8>=pet_skill_cost(skill)&&!(skill==2&&u.hound_order==HOUND_HOLD)&&(skill==PET_BEE_FLURRY?pet_flurry_ready(crowd,u):contact))ready[count++]=skill;
+                if(ranged_slots&(1<<slot)){
+                    ready|=uint64_t(1)<<skill;ranged|=uint64_t(1)<<skill;
+                    if(skill>=6&&skill<=9&&(u.pet_group_mask&(1<<slot)))groups|=uint64_t(1)<<skill;
+                }
+            }else if(u.afflictions[5]<=0&&skill&&(u.pet_ready_mask&(1<<slot))&&u.pet_cooldowns[skill-1]<=0&&u.pet_mana+1e-8>=pet_skill_cost(skill)&&!(skill==2&&u.hound_order==HOUND_HOLD)&&(skill==PET_BEE_FLURRY?pet_flurry_ready(crowd,u):contact))ready|=uint64_t(1)<<skill;
         }
-        if(!count&&!contact)return false;
-        u.pet_skill=count?ready[std::min(count-1,int(random(u)*count))]:0;
+        if(!ready&&!contact)return false;
+        const auto* enemy=crowd.unit(u.target_handle);
+        double normal=soldier_damage(u)*u.enemy_damage_scale;
+        if(enemy){
+            if(enemy->blocking)normal*=.25;
+            if(enemy->avatar_left>0)normal/=1.3;
+            if(enemy->kind==4&&!data_.skullpion.empty()&&enemy->action!=107)normal*=.15;
+        }
+        // Save MP only in current melee contact; never abandon a committed combo.
+        const bool finish=contact&&enemy&&enemy->hp>0&&enemy->hp<=normal&&
+            enemy->ruby_ward[0]==0&&enemy->ruby_holy_left<=0;
+        uint64_t preferred=0;
+        if(!finish&&groups&&enemy){
+            const Vec3 span{data_.pet_ranged_reach,data_.pet_ranged_reach,data_.pet_ranged_reach};
+            // Elemental casts cap their victim list: count clear, in-range targets, not splash guesses.
+            for(auto handle:crowd.query(u.position-span,u.position+span,0,false)){
+                if(handle==enemy->handle)continue;
+                const auto* other=crowd.unit(handle);
+                if(other&&pet_ranged_contact(crowd,u,*other)){preferred=groups;break;}
+            }
+        }
+        if(!preferred&&!contact)preferred=ranged;
+        if(!preferred)preferred=ready;
+        u.pet_skill=finish?0:preferred?bag_draw(u.pet_skill_bag,preferred,random(u)):0;
         u.pet_combo_left=u.pet_skill==2?u.pet_combo_limit:0;u.action_hits.clear();
     }
     if(u.pet_skill==PET_BEE_FLURRY){
@@ -1408,7 +1521,7 @@ bool Combat::enemy_guard(Crowd& crowd,Unit& u,double dt){
         (swing_source!=u.guard_seen_source||opponent->attack_serial!=u.guard_seen_attack);
     if(!new_swing&&!pressured&&u.guard_left<=0&&u.guard_reaction<=0)return false;
     if(u.stun>0||u.frozen>0||u.action_active||!opponent||!opponent->targetable||opponent->hp<=0||
-       (u.guard_radius>0&&(horizontal(u.position,u.guard_post)>2*u.guard_radius||horizontal(opponent->foot,u.guard_post)>2*u.guard_radius))){
+       (u.guard_radius>0&&!player_map_swarm()&&(horizontal(u.position,u.guard_post)>2*u.guard_radius||horizontal(opponent->foot,u.guard_post)>2*u.guard_radius))){
         u.blocking=false;u.guard_left=0;u.guard_reaction=0;return false;
     }
     if(u.guard_left>0){
@@ -1464,7 +1577,9 @@ void Combat::before_move(Crowd& crowd,double delta){
     joint_clock_+=delta;
     const float aggro_bonus=player_aggro_bonus();
     threats_.clear();mirror_targets_.clear();first_taunt_=0;latest_taunt_=0;
-    hound_escort_query_radius_=0;hound_claims_.clear();hound_searches_left_=3;nearby_hero_pursuers_=0;
+    hound_escort_query_radius_=0;hound_claims_.clear();hound_searches_left_=3;nearby_hero_pursuers_=0;nearby_hero_melee_=0;
+    beast_pet_rush_count_=0;
+    beast_pet_candidates_ready_=false;
     hound_approaches_.resize(crowd.units_.size());hound_approach_units_.clear();
     const Unit* focused_enemy=crowd.unit(hound_focus_target_);
     bool focus_reachable=false;
@@ -1487,13 +1602,16 @@ void Combat::before_move(Crowd& crowd,double delta){
     enemy_unit_claims_.assign(crowd.units_.size(),0);enemy_external_claims_.assign(targets_.size(),0);
     bool has_commanded_pet=false;bodyguards_.clear();
     for(const auto& u:crowd.units_)if(u.alive){
-        if(u.team==1&&u.kind==HOUND_KIND&&u.hp>0&&std::any_of(u.pet_skills.begin(),u.pet_skills.end(),[](int skill){return skill==PET_BODYGUARD;}))bodyguards_.push_back(u.handle);
+        if(u.team==1&&u.kind==HOUND_KIND&&u.hp>0&&u.beast_pet_attacks<0&&std::any_of(u.pet_skills.begin(),u.pet_skills.end(),[](int skill){return skill==PET_BODYGUARD;}))bodyguards_.push_back(u.handle);
         if(u.team==0){
             if(auto other=crowd.unit(u.target_handle);other&&other->team==1)++enemy_unit_claims_[uint32_t(other->handle)];
             else if(auto other=external_target(u)){
                 ++enemy_external_claims_[size_t(other-targets_.data())];
                 Vec3 foot;
-                if(other->kind==0&&target(crowd,u,foot)&&horizontal(u.position,foot)<=28&&std::abs(u.position.y-foot.y)<=3.5f)++nearby_hero_pursuers_;
+                if(other->kind==0&&target(crowd,u,foot)&&horizontal(u.position,foot)<=28&&std::abs(u.position.y-foot.y)<=3.5f){
+                    ++nearby_hero_pursuers_;
+                    if(crowd_melee_enemy(u)&&horizontal(u.position,foot)<=12)++nearby_hero_melee_;
+                }
             }
         }
         if(u.mirror_actions>0&&u.target_handle)mirror_targets_.push_back(u.target_handle);
@@ -1594,7 +1712,9 @@ void Combat::before_move(Crowd& crowd,double delta){
             }
         }
         u.patrol_counter_cooldown=std::max(0.0,u.patrol_counter_cooldown-dt);
-        if((u.counter_pending||u.counter_active)&&begin_counter(crowd,u))continue;
+        const bool redirect=u.team==1&&escort_kind(u.kind)&&hound_order_==HOUND_ATTACK&&(finite(hound_attack_move_)||hound_focus_target_)&&
+            (u.hound_order!=hound_order_||u.hound_order_serial!=hound_order_serial_);
+        if(!redirect&&(u.counter_pending||u.counter_active)&&begin_counter(crowd,u))continue;
         if(data_.enemy_charge&&u.team==0){
             if(u.enemy_charge_cooldown>0)u.enemy_charge_cooldown=std::max(0.,u.enemy_charge_cooldown-dt);
             if(u.action_active&&enemy_charge_action(u.action)){u.has_goal=false;continue;}
@@ -1617,10 +1737,11 @@ void Combat::before_move(Crowd& crowd,double delta){
         if(u.action==ZOMBIE_CHARGE)continue;
         if(u.stun>0){u.action=data_.actions[6];continue;}
         if(u.action_active){u.has_goal=false;continue;}
+        u.crowd_attack_wait=crowd_attack_pressure(u)>0?std::max(0.0,u.crowd_attack_wait-dt):0;
         if(guardian(u)&&(u.blocking||u.ruby_holy_left>0)){u.action=data_.actions[13];u.has_goal=false;continue;}
         if(data_.enemy_charge&&!enemy_charge_owner_&&u.light_recoil_grace<=0&&begin_enemy_charge(crowd,u))continue;
         u.action=data_.actions[0];u.think_left-=dt;
-        if(u.guard_radius>0){
+        if(u.guard_radius>0&&!player_map_swarm()){
             const auto& profile=soldiers_[u.kind];
             const bool returning=horizontal(u.position,u.guard_post)>2*u.guard_radius;
             const auto* hero=hero_row_>=0?&targets_[hero_row_]:nullptr;
@@ -1749,19 +1870,22 @@ void Combat::before_move(Crowd& crowd,double delta){
         const auto* geometry=pet_geometry(u);
         bool reach=u.kind==1?gun_contact(crowd,u):horizontal(u.position,foot)<=profile.range*(geometry?geometry[6]:1)&&std::abs(foot.y-u.position.y)<=3.5f&&melee_contact(crowd,u);
         if(facing&&reach){
+            if(u.crowd_attack_wait>1e-8&&crowd_attack_pressure(u)>0){u.has_goal=false;continue;}
             if(!begin_enemy_guard_break(u))begin(u);
             continue;
         }
         float speed=profile.speed;
+        const bool arena_slime=data_.slime_approach_boost&&u.kind==SLIME_KIND;
         const bool player_approach=u.external_kind==0&&!u.target_handle&&u.kind!=4&&u.kind!=17&&u.kind!=18&&
             !habaru_boss(u)&&!zombie_boss(u)&&!grave_boss(u)&&!ruby_boss(u)&&!undersea_boss(u);
         if(player_approach){
             // Count close pursuits once per tick; distant arrivals do not create their own slowdown.
             float crowding=std::clamp(float(nearby_hero_pursuers_-1)/9.f,0.f,1.f);
-            float nearby=1-.65f*crowding;
+            float nearby=(arena_slime?1.5f:1.f)*(1-.65f*crowding);
+            float distant=arena_slime?4.f:3.f;
             float approach=std::clamp((horizontal(u.position,foot)-40.f)/80.f,0.f,1.f);
-            speed*=nearby+(3-nearby)*approach*approach*(3-2*approach);
-        }else if(data_.slime_approach_boost&&u.kind==SLIME_KIND){
+            speed*=nearby+(distant-nearby)*approach*approach*(3-2*approach);
+        }else if(arena_slime){
             float approach=std::clamp((horizontal(u.position,foot)-40.f)/80.f,0.f,1.f);
             speed*=1+2*approach*approach*(3-2*approach);
         }
@@ -1770,6 +1894,7 @@ void Combat::before_move(Crowd& crowd,double delta){
     // Multiple Codes in one frame coalesce to one retarget pass. A later Code
     // wins immediately; ordinary reacquisition still picks the oldest taunter.
     if(latest_taunt_)for(auto& u:crowd.units_)if(u.alive&&u.team==0&&u.kind>=0&&u.kind<ENEMY_KIND_COUNT&&soldiers_[u.kind].active&&u.action!=ZOMBIE_CHARGE&&!(habaru_boss(u)&&u.habaru_phase)){u.target_handle=latest_taunt_;u.external_kind=-1;u.action_active=false;u.action=data_.actions[0];u.action_time=0;u.has_goal=false;u.routing=false;u.think_left=0;}
+    if(beast_pet_rush_count_)land_beast_pet_rushes(crowd);
 }
 void Combat::mirror_decide(Crowd& crowd,Unit& u,double dt){
     if(dt<=0)return;
@@ -1830,6 +1955,8 @@ void Combat::mirror_decide(Crowd& crowd,Unit& u,double dt){
 }
 void Combat::deliver(Crowd& crowd,const Unit& unit,double amount,bool projectile,Vec3 origin){
     amount*=unit.enemy_damage_scale;
+    if(!projectile&&!unit.target_handle&&unit.external_kind==0&&!unit.counter_active&&!enemy_charge_action(unit.action)&&unit.handle!=enemy_guard_break_owner_)
+        amount*=1+.5*unit.crowd_attack_pressure;
     if(unit.target_handle){
         auto victim=crowd.unit(unit.target_handle);if(!victim)return;
         double before=victim->hp;Vec3 foot;target(crowd,unit,foot);Hit hit;
@@ -1881,7 +2008,7 @@ void Combat::advance(Crowd& crowd,Unit& u,double delta){
                 if((before+1e-8>=tick||after+1e-8<tick)&&!(starting&&tick==0))continue;
                 int cue=int(timeline[3+i*2]);if(!starting)pet_cue(u,cue,tick);
                 bool contact=u.kind!=HOUND_KIND?(cue>=10000?companion_contact_cue(cue):(cue==135||cue==138||cue==164||cue==165)):companion_contact_cue(cue);
-                if(!contact)continue;
+                if(!contact||(combined_member(u)&&u.combined_attached))continue;
                 if(u.team==1&&u.kind==HOUND_KIND&&u.pet_skill){
                     if(pet_ranged_skill(u.pet_skill)){
                         const auto* enemy=crowd.unit(u.target_handle);
@@ -1936,6 +2063,7 @@ void Combat::advance(Crowd& crowd,Unit& u,double delta){
         else if(phase==FIRE)u.soldier_phase=++u.soldier_shots<3?FIRE:RELOAD;
         else{
             u.action_active=false;u.action=data_.actions[0];u.action_time=0;
+            u.crowd_attack_wait=u.crowd_attack_pressure>0?.75+1.25*u.crowd_attack_pressure:0;
             u.light_recoil_grace=0;
             if(u.pet_skill!=2)u.pet_skill=0;
             Event event;event.kind=DONE;event.source_id=u.logical_id;event.source_tick=u.attack_tick;event.position=u.position;emit(event);break;
@@ -2057,7 +2185,7 @@ bool Combat::begin_enemy_charge(Crowd& crowd,Unit& u){
     const auto& hero=targets_[hero_row_];
     const float gap=horizontal(u.position,hero.foot), minimum=std::max(4.5f,u.radius+1.f);
     if(!hero.targetable||hero.hp<=0||gap<minimum||gap>std::max(10.f,minimum+4.f)||std::abs(u.position.y-hero.foot.y)>2.5f||
-       (u.guard_radius>0&&(horizontal(u.position,u.guard_post)>2*u.guard_radius||horizontal(hero.foot,u.guard_post)>2*u.guard_radius)))return false;
+       (u.guard_radius>0&&!player_map_swarm()&&(horizontal(u.position,u.guard_post)>2*u.guard_radius||horizontal(hero.foot,u.guard_post)>2*u.guard_radius)))return false;
     const Vec3 toward{(hero.foot.x-u.position.x)/gap,0,(hero.foot.z-u.position.z)/gap};
     const int layer=u.support_layer>=0?u.support_layer:crowd.terrain.choose_layer(u.position);
     if(layer<0||!crowd.terrain.ray_clear(u.position+Vec3{0,1,0},hero.foot+Vec3{0,1,0})||
@@ -2094,7 +2222,7 @@ void Combat::advance_enemy_charge(Crowd& crowd,Unit& u,double dt){
             u.primary_hit=true;
             const double damage=u.kind==4&&!data_.skullpion.empty()?data_.skullpion[1]:soldiers_[u.kind].damage;
             deliver(crowd,u,damage,false,u.dash_previous);
-            if(hero->guarding){u.action=ENEMY_CHARGE_RECOVERY;u.action_time=0;return;}
+            u.action=ENEMY_CHARGE_RECOVERY;u.action_time=0;return;
         }
         if(u.action_time+1e-8>=ENEMY_CHARGE_RUSH_TIME||horizontal(u.dash_previous,u.position)<.0001f){
             u.action=ENEMY_CHARGE_RECOVERY;u.action_time=0;return;
@@ -2157,6 +2285,7 @@ void Combat::warn_projectile(Crowd& crowd,const Projectile& shot){
 void Combat::after_move(Crowd& crowd,double delta){
     hero_dodge_threat_={};
     if(!enabled_)return;
+    if(combined_power_active_)combined_power_elapsed_+=delta;
     pulses(crowd,delta);
     for(auto& u:crowd.units_)if(u.alive&&(u.team==0||escort_kind(u.kind))&&u.action_active){
         if(u.action==GUARDIAN_ARRIVAL)continue;
@@ -2196,7 +2325,12 @@ void Combat::after_move(Crowd& crowd,double delta){
         if(u.kind==4&&!data_.skullpion.empty())boss_advance(crowd,u);
         else if(u.kind==17&&!data_.dark_lumina.empty())lumina_advance(crowd,u,u.live_delta*u.attack_slow_factor);
         else if(u.kind==18&&!data_.finale_meta.empty())finale_advance(crowd,u,u.live_delta*u.attack_slow_factor);
-        else advance(crowd,u,attack_delta*u.attack_slow_factor);
+        else if(combined_member(u)&&u.combined_attached&&!combined_power_struck_){
+            const double contact=std::max(0.,combined_contact_tick(u)-.001);
+            const double tick=contact*std::min(1.,combined_power_elapsed_/combined_power_windup_);
+            advance(crowd,u,std::max(0.,tick-u.phase_tick)/30);
+        }else advance(crowd,u,attack_delta*u.attack_slow_factor);
+        if(combined_member(u)&&u.combined_attached&&!u.action_active)combined_wait_pose(u);
         if(guardian(u)&&u.guardian_tech==50&&!u.action_active)begin(u);
         if(habaru_boss(u)&&u.habaru_phase==2&&!u.action_active){
             u.habaru_phase=3;u.habaru_left=1.2;u.habaru_pressure=u.habaru_gap=0;
@@ -2255,28 +2389,70 @@ bool Combat::pet_landing_clear(Crowd& crowd,const Unit& u,Vec3 point) const{
     // Reuse the tick's pet list; a teleport invalidates the army query grid.
     for(auto slot:hound_approach_units_){
         const auto& other=crowd.units_[slot];
-        if(!other.alive||other.handle==u.handle||std::abs(other.position.y-point.y)>=3)continue;
+        if(!other.alive||other.handle==u.handle||std::abs(other.position.y-point.y)>=3||
+           (other.beast_pet_attacks>=0&&other.age==0))continue;
         if(horizontal(other.position,point)<.98f*(u.radius+other.radius))return false;
     }
     return true;
 }
-bool Combat::pet_contact_goal(Crowd& crowd,const Unit& u,const Unit& enemy,Vec3& goal){
+bool Combat::pet_contact_goal(Crowd& crowd,const Unit& u,const Unit& enemy,Vec3& goal,Vec3 preferred,bool direct_landing){
     auto& ground=crowd.allied_terrain;int layer=u.support_layer<0?ground.choose_layer(u.position):u.support_layer;
     if(layer<0)return false;
-    Vec3 away=u.position-enemy.position;away.y=0;away=normalized(away);
+    if(direct_landing)preferred={-std::sin(enemy.yaw),0,-std::cos(enemy.yaw)};
+    Vec3 away=length(preferred)>.001f?preferred:u.position-enemy.position;away.y=0;away=normalized(away);
     if(length(away)<.001f)away={0,0,1};
     Unit probe;probe.team=u.team;probe.kind=u.kind;probe.pose_row=u.pose_row;probe.target_handle=enemy.handle;
-    for(float angle:{0.f,1.0471976f,-1.0471976f,2.0943952f,-2.0943952f}){
+    if(direct_landing)probe.body_scale=u.body_scale;
+    for(float angle:{0.f,1.0471976f,-1.0471976f,2.0943952f,-2.0943952f,float(M_PI)}){
+        if(!direct_landing&&angle==float(M_PI))break;
         Vec3 side=rotated_y(away,angle);
         Vec3 contact=enemy_contact(enemy,enemy.position+side*100+Vec3{0,1,0});
         for(float stand:{u.radius+.15f,u.radius*.7f}){
             Vec3 point=contact+side*stand;point.y=float(ground.height(point.x,point.z,layer));
             if(!finite(point)||std::abs(point.y-enemy.position.y)>=5||!ground.clear(point,u.radius,layer))continue;
             Vec3 toward=enemy.position-point;probe.position=point;probe.yaw=std::atan2(-toward.x,-toward.z);
-            if(melee_contact(crowd,probe)&&ground.reachable(u.position,point,u.radius,layer)){goal=point;return true;}
+            if(!melee_contact(crowd,probe))continue;
+            if(direct_landing){
+                bool reserved=false;
+                for(size_t i=0;i<beast_pet_rush_count_;++i){
+                    const auto& pending=beast_pet_rushers_[i];
+                    const auto* other=crowd.unit(pending.pet);
+                    if(other&&other->handle!=u.handle&&std::abs(pending.point.y-point.y)<3&&
+                       horizontal(pending.point,point)<.98f*(u.radius+other->radius)){reserved=true;break;}
+                }
+                // Summoning bypasses intervening objects. Ground support and strike cover still apply.
+                if(reserved||!pet_landing_clear(crowd,u,point)||!ground.segment(u.position,point,u.radius,layer,/*check_objects=*/false))continue;
+            }else if(!ground.reachable(u.position,point,u.radius,layer))continue;
+            goal=point;return true;
         }
     }
     return false;
+}
+void Combat::land_beast_pet_rushes(Crowd& crowd){
+    // Finish target selection before moving pets so the shared grid rebuilds once.
+    for(size_t i=0;i<beast_pet_rush_count_;++i){
+        const auto& landing=beast_pet_rushers_[i];
+        auto* pet=crowd.unit(landing.pet);
+        if(!pet||pet->hp<=0||pet->beast_pet_attacks<=0||pet->action_active)continue;
+        const auto* enemy=crowd.unit(landing.target);
+        if(!enemy||enemy->hp<=0||enemy->shelter_mode==2||pet->target_handle!=landing.target||
+           !pet_landing_clear(crowd,*pet,landing.point)){
+            if(landing.arriving){pet->beast_pet_attacks=0;pet->target_handle=0;}
+            continue;
+        }
+        const Vec3 toward=enemy->position-landing.point;
+        Unit probe;probe.kind=pet->kind;probe.team=pet->team;probe.pose_row=pet->pose_row;probe.body_scale=pet->body_scale;
+        probe.target_handle=landing.target;probe.position=landing.point;probe.yaw=std::atan2(-toward.x,-toward.z);
+        if(!melee_contact(crowd,probe)){
+            if(landing.arriving){pet->beast_pet_attacks=0;pet->target_handle=0;}
+            continue;
+        }
+        const int layer=pet->support_layer<0?crowd.allied_terrain.choose_layer(pet->position):pet->support_layer;
+        crowd.set_pose(pet->handle,landing.point,probe.yaw);
+        pet->support_layer=layer;pet->velocity=pet->pose_velocity={};pet->routing=false;
+        if(landing.arriving)pet->age+=pet->live_delta;
+        begin_beast_pet_attack(*pet);
+    }
 }
 bool Combat::pet_surround_goal(Crowd& crowd,Unit& u,const Unit& enemy,Vec3& goal){
     auto& approach=hound_approaches_[uint32_t(u.handle)];
@@ -2316,33 +2492,57 @@ bool Combat::pet_surround_goal(Crowd& crowd,Unit& u,const Unit& enemy,Vec3& goal
     if(has_waiting){approach.goal=goal=waiting;approach.anchor=enemy.position;approach.ready=true;return true;}
     approach.ready=false;return false;
 }
-int64_t Combat::guard_enemy(Crowd& crowd,Unit& u,float escort_radius,const std::vector<int64_t>* skipped){
+bool Combat::attack_move_enemy(const Unit& u,const Unit& enemy) const{
+    if(!finite(hound_attack_move_))return true;
+    if(horizontal(u.position,enemy.position)>24)return false;
+    // Keep local player protection, but do not hunt unrelated enemies behind the advance.
+    if(hound_hero_row_>=0&&!enemy.target_handle&&enemy.external_kind==0&&enemy.external_target==targets_[hound_hero_row_].id)return true;
+    if(horizontal(u.position,hound_attack_move_)<=10)return horizontal(enemy.position,hound_attack_move_)<=18;
+    Vec3 direction=hound_attack_move_-hound_attack_origin_;direction.y=0;
+    const float distance=length(direction);direction=normalized(direction);
+    Vec3 offset=enemy.position-hound_attack_origin_;offset.y=0;
+    Vec3 progress=u.position-hound_attack_origin_;progress.y=0;
+    const float along=dot(offset,direction);
+    const float behind=u.target_handle==enemy.handle?0.f:dot(progress,direction)-6.f;
+    return along>=std::max(horizontal(offset,{})*.35f,behind)&&along<=distance+10&&
+        horizontal(enemy.position,hound_attack_origin_+direction*std::clamp(along,0.f,distance))<=14;
+}
+int64_t Combat::guard_enemy(Crowd& crowd,Unit& u,float escort_radius,const std::vector<int64_t>* skipped,Vec3* summon_landing){
     bool escort=escort_kind(u.kind)&&hound_hero_row_>=0;
+    const bool beast=u.beast_pet_attacks>=0;
     const bool holding=escort&&u.hound_order==HOUND_HOLD;
     const int ranged_slots=escort?pet_ranged_slots(u):0;
-    Vec3 center=escort?u.position:u.guard_post;
+    Vec3 center=summon_landing?targets_[hound_hero_row_].foot:escort?u.position:u.guard_post;
+    const float radius=summon_landing?BEAST_PET_SUMMON_RANGE:escort?escort_radius:u.guard_radius;
     if(!escort)for(auto row:target_groups_[2])if(targets_[row].assault_priority==2){center=targets_[row].foot;break;}
     int layer=u.support_layer<0?crowd.allied_terrain.choose_layer(u.position):u.support_layer;
     if(layer<0)layer=0;
     Vec3 from=u.position;from.y=float(crowd.allied_terrain.height(from.x,from.z,layer));
     auto inside=[&](const Unit& other){
-        return escort?horizontal(other.position,center)<=escort_radius&&std::abs(other.position.y-center.y)<5:
+        if(escort&&!beast&&hound_order_==HOUND_ATTACK&&!attack_move_enemy(u,other))return false;
+        return escort?horizontal(other.position,center)<=radius&&std::abs(other.position.y-u.position.y)<5:
             std::max(std::abs(other.position.x-center.x),std::abs(other.position.z-center.z))<=u.guard_radius;
     };
     auto eligible=[&](const Unit& other){
         if(other.hp<=0||!inside(other))return false;
+        if(summon_landing)return pet_contact_goal(crowd,u,other,*summon_landing,{},true);
         if((ranged_slots&&pet_ranged_contact(crowd,u,other))||crowd.allied_terrain.reachable(from,other.position,u.radius,layer))return true;
         Vec3 goal;return escort&&pet_contact_goal(crowd,u,other,goal);
     };
     if(escort&&hound_order_==HOUND_ATTACK&&hound_focus_target_){
         auto foe=crowd.unit(hound_focus_target_);
-        return foe&&foe->team==0&&foe->shelter_mode!=2&&eligible(*foe)?foe->handle:0;
+        if(foe&&foe->team==0&&foe->shelter_mode!=2&&eligible(*foe))return foe->handle;
+        if(!beast)return 0;
     }
     if(!escort)if(auto other=crowd.unit(nearest_enemy(crowd,u.position));other&&eligible(*other))return other->handle;
-    float radius=escort?escort_radius:u.guard_radius;
     Vec3 pad{radius,3e8f,radius};
+    if(summon_landing&&!beast_pet_candidates_ready_){
+        beast_pet_candidates_=crowd.query(center-pad,center+pad,0,false);
+        beast_pet_candidates_ready_=true;
+    }
+    const auto nearby=summon_landing?std::vector<int64_t>{}:crowd.query(center-pad,center+pad,0,false);
     target_candidates_.clear();
-    for(auto handle:crowd.query(center-pad,center+pad,0,false)){
+    for(auto handle:summon_landing?beast_pet_candidates_:nearby){
         auto other=crowd.unit(handle);if(!other||other->hp<=0||other->shelter_mode==2||!inside(*other)||(skipped&&std::find(skipped->begin(),skipped->end(),handle)!=skipped->end()))continue;
         if(holding){
             Unit probe;probe.team=u.team;probe.kind=u.kind;probe.pose_row=u.pose_row;probe.position=u.position;probe.target_handle=handle;
@@ -2361,7 +2561,9 @@ int64_t Combat::guard_enemy(Crowd& crowd,Unit& u,float escort_radius,const std::
     std::sort(target_candidates_.begin(),target_candidates_.end(),[&](const TargetCandidate& a,const TargetCandidate& b){return a.priority!=b.priority?a.priority>b.priority:a.distance!=b.distance?a.distance<b.distance:crowd.unit(a.handle)->logical_id<crowd.unit(b.handle)->logical_id;});
     for(auto candidate:target_candidates_){
         auto other=crowd.unit(candidate.handle);
-        if(crowd.allied_terrain.reachable(from,other->position,u.radius,layer)||(ranged_slots&&pet_ranged_contact(crowd,u,*other))){
+        const bool reachable=summon_landing?eligible(*other):crowd.allied_terrain.reachable(from,other->position,u.radius,layer)||
+            (ranged_slots&&pet_ranged_contact(crowd,u,*other));
+        if(reachable){
             if(escort&&candidate.handle!=u.target_handle){
                 auto old=std::find(hound_claims_.begin(),hound_claims_.end(),u.target_handle);
                 if(old!=hound_claims_.end())hound_claims_.erase(old);
@@ -2372,17 +2574,181 @@ int64_t Combat::guard_enemy(Crowd& crowd,Unit& u,float escort_radius,const std::
     }
     return 0;
 }
+int Combat::combined_slot(const Unit& u) const{
+    if(hound_order_!=HOUND_COMBINED||hound_hero_row_<0||!u.alive||u.team!=1||u.kind!=HOUND_KIND||u.hp<=0||u.beast_pet_attacks>=0)return -1;
+    const auto& ids=targets_[hound_hero_row_].pet_formation_ids;
+    auto slot=std::find(ids.begin(),ids.end(),u.logical_id);
+    return slot!=ids.end()&&slot-ids.begin()<5?int(slot-ids.begin()):-1;
+}
+bool Combat::combined_can_strike(const Unit& pet) const{
+    return combined_slot(pet)>=0&&pet.stun<=0&&pet.frozen<=0&&pet.bodyguard_left<=0&&!pet.bodyguard_followup&&
+        pet.dodge_left<=0&&!pet.counter_active&&pet.shelter_mode==0&&pet.afflictions[1]<=0&&pet.afflictions[2]<=0;
+}
+uint8_t Combat::combined_prepare(Crowd& crowd,int64_t target_handle){
+    auto* enemy=crowd.unit(target_handle);
+    if(!enemy||enemy->hp<=0||enemy->shelter_mode==2||hound_hero_row_<0)return 0;
+    const auto& hero=targets_[hound_hero_row_];
+    if(horizontal(hero.foot,enemy->position)>120||!crowd.allied_terrain.ray_clear(hero.foot+Vec3{0,1,0},enemy_contact(*enemy,hero.foot+Vec3{0,1,0})))return 0;
+    uint8_t ready=0;
+    Vec3 front=hero.foot-enemy->position;front.y=0;front=normalized(front);
+    if(length(front)<.001f)front=normalized(hero.pet_formation_facing*-1.f);
+    if(length(front)<.001f)front={0,0,1};
+    const Vec3 right{front.z,0,-front.x};
+    // Six positions around the enemy leave its front for the player.
+    constexpr Vec3 posts[]={{-.8660254f,0,.5f},{.8660254f,0,.5f},{0,0,-1},{-.8660254f,0,-.5f},{.8660254f,0,-.5f}};
+    for(auto id:hero.pet_formation_ids){
+        auto found=crowd.ids_.find(id);if(found==crowd.ids_.end())continue;
+        auto& pet=crowd.units_[found->second];
+        if(!combined_can_strike(pet))continue;
+        const int slot=combined_slot(pet);
+        Vec3 landing;
+        if(!pet_contact_goal(crowd,pet,*enemy,landing,right*posts[slot].x+front*posts[slot].z)||
+           !crowd.allied_terrain.ray_clear(pet.position+Vec3{0,1,0},landing+Vec3{0,1,0}))continue;
+        Vec3 toward=enemy->position-landing;
+        crowd.set_pose(pet.handle,landing,std::atan2(-toward.x,-toward.z));
+        pet.pet_skill=0;pet.pet_combo_left=0;pet.counter_active=false;pet.bodyguard_followup=false;
+        pet.target_handle=target_handle;pet.has_goal=false;pet.velocity={};pet.pose_velocity={};pet.combined_attached=true;
+        pet.goal=landing;
+        pet.hound_order=HOUND_COMBINED;pet.hound_order_serial=hound_order_serial_;
+        combined_pose(pet);pet_cue(pet,HOUND_BLINK_CUE,0);
+        pose_frame(pet);
+        ready|=1u<<slot;
+    }
+    return ready;
+}
+void Combat::combined_pose(Unit& pet){
+    pet.hound_attack_direction=-1;
+    begin(pet);pet.just_started=false;pet.pet_rush_left=0;
+}
+bool Combat::combined_member(const Unit& u) const{
+    return combined_power_active_&&u.team==1&&u.kind==HOUND_KIND&&u.beast_pet_attacks<0&&
+        std::find(combined_power_members_.begin(),combined_power_members_.end(),u.handle)!=combined_power_members_.end();
+}
+void Combat::combined_wait_pose(Unit& u){
+    u.action_active=false;u.action=data_.actions[1];u.has_goal=false;u.goal=u.position;
+    u.phase_tick=std::max(0.,double(pet_timeline(u)[0])-.001);u.action_time=u.phase_tick/30;
+}
+double Combat::combined_contact_tick(const Unit& u) const{
+    const auto* timeline=pet_timeline(u);
+    for(int i=0;i<int(timeline[1]);++i)if(companion_contact_cue(int(timeline[3+i*2])))return timeline[2+i*2];
+    return timeline[0];
+}
+bool Combat::begin_combined_power(Crowd& crowd,int64_t target,double windup){
+    if(!enabled_||!std::isfinite(windup)||windup<0||hound_order_!=HOUND_COMBINED||hound_hero_row_<0)return false;
+    combined_power_struck_=false;combined_power_elapsed_=0;combined_power_windup_=std::max(.001,windup);
+    combined_power_members_={};
+    const auto prepared=combined_prepare(crowd,target);
+    const auto& hero=targets_[hound_hero_row_];
+    for(size_t i=0;i<hero.pet_formation_ids.size()&&i<5;++i){
+        auto found=crowd.ids_.find(hero.pet_formation_ids[i]);if(found==crowd.ids_.end())continue;
+        auto& u=crowd.units_[found->second];if(!combined_can_strike(u))continue;
+        combined_power_members_[i]=u.handle;
+        if(!(prepared&(1u<<i))){
+            u.target_handle=0;u.external_kind=-1;u.has_goal=false;u.goal=u.position;
+            u.hound_order=HOUND_COMBINED;u.hound_order_serial=hound_order_serial_;
+            combined_pose(u);
+        }
+        u.combined_attached=true;
+    }
+    combined_power_active_=true;return true;
+}
+int Combat::strike_combined_power(Crowd& crowd){
+    if(!combined_power_active_||combined_power_struck_)return false;
+    combined_power_struck_=true;int landed=0;
+    for(auto handle:combined_power_members_)if(auto u=crowd.unit(handle);u&&combined_can_strike(*u)&&u->action_active){
+        const double contact=combined_contact_tick(*u);
+        advance(crowd,*u,std::max(0.,contact+.000001-u->phase_tick)/30);
+        const auto* timeline=pet_timeline(*u);bool connected=false;
+        // A group stroke settles this pet's normal contacts once; recovery never delivers delayed hits.
+        for(int i=0;i<int(timeline[1]);++i)if(companion_contact_cue(int(timeline[3+i*2]))&&melee_contact(crowd,*u)){
+            auto victim=crowd.unit(u->target_handle);double before=victim?victim->hp:0;
+            deliver(crowd,*u,soldier_damage(*u),false,u->position);
+            connected|=victim&&victim->hp<before;
+        }
+        landed+=connected;
+    }
+    return landed;
+}
+bool Combat::combined_power_ready(Crowd& crowd) const{
+    if(!combined_power_active_)return true;
+    if(hound_hero_row_>=0&&targets_[hound_hero_row_].combined_player_attacking)return false;
+    for(auto handle:combined_power_members_)if(auto u=crowd.unit(handle);u&&u->hp>0&&u->beast_pet_attacks<0&&
+        (u->action_active||u->counter_active||u->bodyguard_left>0||u->bodyguard_followup))return false;
+    return true;
+}
+bool Combat::end_combined_power(Crowd& crowd){
+    auto members=combined_power_members_;combined_power_active_=false;combined_power_members_={};
+    for(auto handle:members)if(auto u=crowd.unit(handle)){
+        const int slot=combined_slot(*u);if(slot<0)continue;
+        u->action_active=false;u->action=data_.actions[0];u->action_time=0;u->target_handle=0;u->has_goal=false;
+        u->velocity=u->pose_velocity={};
+        combined_guard(crowd,*u,0,slot);crowd.set_pose(u->handle,u->goal,u->yaw);
+        pet_cue(*u,HOUND_BLINK_CUE,0);
+    }
+    return true;
+}
+void Combat::combined_guard(Crowd& crowd,Unit& u,double dt,int slot){
+    const auto& hero=targets_[hound_hero_row_];
+    Vec3 forward=hero.pet_formation_facing;forward.y=0;forward=normalized(forward);
+    if(length(forward)<.001f)forward={0,0,-1};
+    const auto offset=COMBINED_FORMATION_POSTS[slot];
+    Vec3 spread=Vec3{-forward.z,0,forward.x}*offset.x+forward*offset.z;
+    Vec3 post=hero.foot;
+    auto& ground=crowd.allied_terrain;
+    int layer=ground.choose_layer(hero.foot);
+    // Combined pets share the player's movement; cover compresses the formation instead of creating a trailing route.
+    for(float fit:{1.f,.75f,.5f,.25f}){
+        Vec3 candidate=hero.foot+spread*fit;candidate.y=float(ground.height(candidate.x,candidate.z,layer));
+        if(layer>=0&&finite(candidate)&&std::abs(candidate.y-hero.foot.y)<4&&ground.clear(candidate,u.radius,layer)&&
+           ground.ray_clear(hero.foot+Vec3{0,1,0},candidate+Vec3{0,1,0})){post=candidate;break;}
+    }
+    u.combined_attached=true;
+    if(combined_power_active_){
+        if(combined_member(u)){
+            if(!u.action_active)combined_wait_pose(u);
+            u.has_goal=false;return;
+        }
+    }
+    u.action_active=false;u.counter_active=false;u.action=data_.actions[0];u.action_time=0;u.pet_skill=0;u.target_handle=0;
+    u.yaw=std::atan2(-forward.x,-forward.z);
+    u.goal=post;u.guard_post=post;u.has_goal=true;
+}
 void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
     if(dt<=0)return;
-    const auto order=hound_order_;
+    const bool beast=u.beast_pet_attacks>=0;
+    const auto order=beast?HOUND_DEFEND:hound_order_;
     const bool commanded_attack=order==HOUND_ATTACK;
+    const bool attack_move=commanded_attack&&finite(hound_attack_move_);
+    const bool redirect_attack=commanded_attack&&(attack_move||hound_focus_target_);
     const bool commanded_hold=order==HOUND_HOLD;
-    const bool new_order=u.hound_order!=order||u.hound_order_serial!=hound_order_serial_;
+    const bool new_order=!beast&&(u.hound_order!=order||u.hound_order_serial!=hound_order_serial_);
+    const int combined=combined_slot(u);
+    if(combined>=0&&(u.bodyguard_followup||u.counter_active||u.dodge_left>0)){
+        u.combined_attached=false;
+    }
+    const bool finishing_reaction=u.action_active&&!combined_member(u)&&u.hound_order==HOUND_COMBINED&&!new_order;
+    if(combined>=0&&u.bodyguard_left<=0&&!u.bodyguard_followup&&u.dodge_left<=0&&!u.counter_active&&!finishing_reaction&&u.stun<=0&&u.frozen<=0){
+        if(new_order){
+            if(u.pet_skill==PET_BEE_FLURRY)finish_pet_flurry(crowd,u);
+            u.hound_order=order;u.hound_order_serial=hound_order_serial_;u.hound_focused=false;
+            u.pet_skill=0;u.pet_combo_left=0;u.counter_active=false;u.action_hits.clear();
+        }
+        combined_guard(crowd,u,dt,combined);return;
+    }
+    if(new_order&&u.hound_order==HOUND_COMBINED){
+        u.combined_attached=false;u.action_active=false;u.target_handle=0;u.has_goal=false;
+    }
     const bool commanded_return=order==HOUND_RETURN&&(new_order||u.hound_return_left>=0);
-    const bool release_focus=commanded_attack&&!hound_focus_target_&&u.hound_focused;
-    // Let a committed strike or sequence finish before releasing its focused target.
-    if(new_order&&!(release_focus&&(u.action_active||u.pet_skill==2||u.pet_skill==PET_BEE_FLURRY))){
+    const bool release_focus=commanded_attack&&!hound_focus_target_&&(u.hound_focused||attack_move);
+    // Fresh cursor commands interrupt combat; ordinary hunt releases still finish their strike.
+    if(new_order&&!(release_focus&&!redirect_attack&&(u.action_active||u.pet_skill==2||u.pet_skill==PET_BEE_FLURRY))){
         u.bodyguard_followup=false;
+        if(redirect_attack){
+            pet_sequence_targets_.erase(u.handle);
+            u.action_active=false;u.action=data_.actions[0];u.action_time=u.phase_tick=0;u.just_started=false;
+            u.counter_pending=u.counter_active=false;u.pet_skill=0;u.pet_combo_left=0;u.pet_flurry_charge=0;
+            u.pet_rush_left=0;u.pending_drift=0;u.motion_impulse={};u.action_hits.clear();
+        }
         if((commanded_return||commanded_hold)&&u.pet_skill==PET_BEE_FLURRY)finish_pet_flurry(crowd,u);
         u.hound_order_serial=hound_order_serial_;
         u.hound_order=order;
@@ -2396,7 +2762,7 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
             u.target_handle=0;u.action_active=false;u.has_goal=false;u.approach_ready=false;
             u.hound_strolling=false;u.hound_return_left=-1;u.think_left=0;u.guard_post=u.position;
         }else if(commanded_attack){
-            if(release_focus){
+            if(release_focus||hound_focus_target_){
                 auto claim=std::find(hound_claims_.begin(),hound_claims_.end(),u.target_handle);
                 if(claim!=hound_claims_.end())hound_claims_.erase(claim);
                 u.target_handle=0;u.has_goal=false;u.approach_ready=false;
@@ -2412,6 +2778,20 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
     if(u.stun>0){
         if(u.pet_skill==PET_BEE_FLURRY)finish_pet_flurry(crowd,u);
         u.action_active=false;u.has_goal=false;u.action=data_.actions[6];return;
+    }
+    if(beast&&!u.action_active){
+        u.beast_pet_seek_left=std::max(0.,u.beast_pet_seek_left-dt);
+        if(u.beast_pet_attacks==0){u.target_handle=0;u.has_goal=false;u.action=data_.actions[0];return;}
+        if(u.dodge_left>0){u.has_goal=false;return;}
+        if(u.age==0){
+            Vec3 landing;
+            u.has_goal=false;
+            u.target_handle=beast_pet_rush_count_<beast_pet_rushers_.size()?guard_enemy(crowd,u,u.guard_radius,nullptr,&landing):0;
+            if(!u.target_handle){u.beast_pet_attacks=0;return;}
+            u.beast_pet_rush_target=u.target_handle;
+            beast_pet_rushers_[beast_pet_rush_count_++]={u.handle,u.target_handle,landing,true};
+            return;
+        }
     }
     if(u.pet_skill==PET_BEE_FLURRY){u.has_goal=false;return;}
     if(u.kind==HOUND_KIND&&u.pet_skill==2&&!commanded_return&&!commanded_hold){
@@ -2433,7 +2813,7 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
         u.yaw+=std::clamp(turn,-step,step);
         return std::abs(turn)<.35f;
     };
-    if(u.bodyguard_followup){
+    if(!beast&&u.bodyguard_followup){
         const auto* enemy=crowd.unit(u.target_handle);Vec3 goal;
         if(!enemy||enemy->hp<=0||!pet_contact_goal(crowd,u,*enemy,goal))u.bodyguard_followup=false;
         else if(melee_contact(crowd,u)){
@@ -2482,13 +2862,16 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
         if(pet_contact_goal(crowd,u,*enemy,contact_goal))contact_goal_target=enemy->handle;
         else enemy=nullptr;
     }
-    if(!enemy||enemy->hp<=0||enemy->shelter_mode==2||(!commanded_attack&&horizontal(enemy->position,u.position)>u.guard_radius)){
+    if(!enemy||enemy->hp<=0||enemy->shelter_mode==2||(!u.action_active&&attack_move&&!attack_move_enemy(u,*enemy))||(!commanded_attack&&horizontal(enemy->position,u.position)>u.guard_radius)){
         if(u.target_handle){
-            u.target_handle=0;u.action_active=false;u.think_left=0;u.approach_ready=false;u.has_goal=false;
-            u.hound_return_left=commanded_attack?-1:.15+.35*random(u);
+            u.target_handle=0;u.think_left=0;u.approach_ready=false;u.has_goal=false;
+            if(!beast)u.action_active=false;
+            u.hound_return_left=commanded_attack||beast?-1:.15+.35*random(u);
         }
         enemy=nullptr;
     }
+    // An input commits a complete animation even if its target dies or moves away.
+    if(beast&&u.action_active&&!enemy){u.has_goal=false;return;}
     if(u.action_active&&commanded_attack&&hound_focus_target_&&u.target_handle!=hound_focus_target_){
         u.think_left=0;
         u.has_goal=false;
@@ -2497,11 +2880,17 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
     u.think_left-=dt;
     // Recheck nearby enemies after a kill and while regrouping.
     bool refresh=u.think_left<=0;
-    if(refresh){
+    if(refresh&&!(attack_move&&new_order)){
         u.think_left=(running?.14:.22)+.12*random(u);
         if(commanded_attack&&hound_focus_target_&&!u.action_active){
             if(!enemy||enemy->handle!=hound_focus_target_){u.target_handle=guard_enemy(crowd,u,120);enemy=crowd.unit(u.target_handle);u.routing=false;}
             u.hound_return_left=-1;
+        }else if(!enemy&&attack_move){
+            u.think_left=.06+.04*random(u);
+            if(hound_searches_left_>0){
+                --hound_searches_left_;
+                u.target_handle=guard_enemy(crowd,u,24);enemy=crowd.unit(u.target_handle);
+            }else u.think_left=0;
         }else if(!enemy&&u.hound_return_left<0&&commanded_attack){
             if(hound_searches_left_>0){
                 --hound_searches_left_;
@@ -2524,9 +2913,34 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
             }else u.think_left=0;
         }else if(!commanded_attack&&!commanded_return&&!u.action_active){
             auto threatens_player=[&](const Unit& foe){return !foe.target_handle&&foe.external_kind==0&&foe.external_target==targets_[hound_hero_row_].id;};
-            if(!enemy||!threatens_player(*enemy)){
+            const auto focus=beast?hound_focus_target_:0;
+            if(beast&&!enemy&&u.beast_pet_seek_left>0&&u.slow_factor>=1&&u.confusion_left<=0&&length(u.knockback)<=.1f&&
+               beast_pet_rush_count_<beast_pet_rushers_.size()){
+                Vec3 landing;
+                if(auto target=guard_enemy(crowd,u,u.guard_radius,nullptr,&landing)){
+                    u.target_handle=target;u.beast_pet_rush_target=target;u.hound_return_left=-1;u.has_goal=false;
+                    beast_pet_rushers_[beast_pet_rush_count_++]={u.handle,target,landing,false};
+                    return;
+                }
+            }
+            if(!enemy||!threatens_player(*enemy)||(focus&&focus!=enemy->handle)){
                 auto candidate=crowd.unit(guard_enemy(crowd,u,u.guard_radius));
-                if(candidate&&(!enemy||threatens_player(*candidate))){u.target_handle=candidate->handle;enemy=candidate;u.hound_return_left=-1;}
+                if(candidate&&(!enemy||threatens_player(*candidate)||candidate->handle==focus)){u.target_handle=candidate->handle;enemy=candidate;u.hound_return_left=-1;}
+            }
+        }
+    }
+    if(beast&&!u.action_active){
+        if(u.beast_pet_seek_left<=0||(!enemy&&u.beast_pet_seek_left<=BEAST_PET_PURSUIT_TIME-BEAST_PET_SEARCH_TIME)){
+            u.beast_pet_attacks=0;u.target_handle=0;u.has_goal=false;u.action=data_.actions[0];return;
+        }
+        if(!enemy){u.has_goal=false;u.action=data_.actions[0];return;}
+        if(u.beast_pet_rush_target!=enemy->handle&&u.slow_factor>=1&&u.confusion_left<=0&&length(u.knockback)<=.1f&&
+           beast_pet_rush_count_<beast_pet_rushers_.size()){
+            u.beast_pet_rush_target=enemy->handle;
+            Vec3 landing;
+            if(!melee_contact(crowd,u)&&pet_contact_goal(crowd,u,*enemy,landing,{},true)){
+                beast_pet_rushers_[beast_pet_rush_count_++]={u.handle,enemy->handle,landing,false};
+                u.has_goal=false;return;
             }
         }
     }
@@ -2567,7 +2981,9 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
             const int layer=u.support_layer<0?ground.choose_layer(u.position):u.support_layer;
             if(layer>=0&&!ground.clear(goal,u.radius,layer))pet_contact_goal(crowd,u,*enemy,goal);
         }
-        bool planted=!surrounding||horizontal(u.position,goal)<.25f;
+        // Clear contact takes priority over walking around to a reserved surround post.
+        bool planted=!surrounding||horizontal(u.position,goal)<.25f||
+            (melee_contact(crowd,u)&&pet_landing_clear(crowd,u,u.position));
         if(planted||ranged||pet_flurry_ready(crowd,u)){
             if(face(toward)&&pet_begin(crowd,u,ranged,planted))return;
         }else face(goal-u.position);
@@ -2581,11 +2997,26 @@ void Combat::hound_guard(Crowd& crowd,Unit& u,double dt){
             const float body_gap=horizontal(u.position,enemy->position)-enemy->radius-u.radius;
             speed=std::max(speed,profile.speed+std::clamp((std::min(gap,body_gap)-1.f)*3.f,0.f,10.f));
         }
-        crowd.set_goal(u.handle,goal,speed*(u.kind==BEAR_KIND?1.f:data_.hound_move_scale));
+        speed*=u.kind==BEAR_KIND?1.f:data_.hound_move_scale;
+        crowd.set_goal(u.handle,goal,beast?std::max(BEAST_PET_RUSH_SPEED,speed):speed);
         return;
     }
 
     u.action=data_.actions[0];
+    if(attack_move){
+        Vec3 goal=hound_attack_move_;
+        Vec3 direction=goal-hound_attack_origin_;direction.y=0;direction=normalized(direction);
+        if(slot!=hero.pet_formation_ids.end()&&index<5){
+            const auto post=PARTY_FORMATION_POSTS[index];
+            goal=goal+Vec3{-direction.z,0,direction.x}*post.x+direction*post.z;
+        }
+        u.hound_strolling=false;u.hound_return_left=-1;
+        if(horizontal(u.position,goal)>1){
+            face(goal-u.position);
+            crowd.set_goal(u.handle,goal,(profile.speed+8)*(u.kind==BEAR_KIND?1.f:data_.hound_move_scale));
+        }else u.has_goal=false;
+        return;
+    }
     if(player_moving)u.hound_strolling=false;
     else if(!u.has_goal)u.hound_roam_left-=dt;
     bool moved=horizontal(u.target_goal,formation)>(player_moving?.8f:2.f);
@@ -2890,11 +3321,14 @@ void Combat::ninja_begin(Unit& u,Vec3 aim){
 }
 bool Combat::move_special(Crowd& crowd,Unit& u,double dt,Vec3& next){
     if(u.bodyguard_left>0){next=u.position;return true;}
+    if(combined_slot(u)>=0&&u.combined_attached&&!u.counter_active&&u.dodge_left<=0&&u.stun<=0&&u.frozen<=0){
+        next=u.goal;return true;
+    }
     if(u.team==0&&u.action_active&&enemy_charge_action(u.action)){
         if(u.action==ENEMY_CHARGE_RUSH&&u.stun<=0){
             u.dash_previous=u.position;
             const auto step=u.dash_direction*float(ENEMY_CHARGE_SPEED*u.slow_factor*std::min(dt,ENEMY_CHARGE_RUSH_TIME-u.action_time));
-            if(u.guard_radius<=0||horizontal(u.position+step,u.guard_post)<=2*u.guard_radius)
+            if(u.guard_radius<=0||player_map_swarm()||horizontal(u.position+step,u.guard_post)<=2*u.guard_radius)
                 next=crowd.terrain.direct_move(u.position,step,u.radius,u.support_layer);
         }
         return true;

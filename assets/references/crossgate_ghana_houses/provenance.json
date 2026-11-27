@@ -1,0 +1,69 @@
+{
+  "repository": "https://github.com/awafer/crossgate",
+  "revision": "6e5794f591ae40838e86d3229e4d930c7ce297b4",
+  "files": [
+    {
+      "name": "03804_room",
+      "path": "gmsv/data/map/03804_room",
+      "sha": "75a4590a42a277a29d423e5bb63b7d388147c0d6",
+      "sha256": "b026c28b28ca8c358c646c0deb4fb82850df5d42fcbe16a38872ab03372ffa63"
+    },
+    {
+      "name": "03805_room",
+      "path": "gmsv/data/map/03805_room",
+      "sha": "0cbabda36fd6a138e802655ee628b4f2d0ac77cf",
+      "sha256": "9f93230e891a5740a476b0f8bd121f602417adf73efad02091dfaabf7469b74a"
+    },
+    {
+      "name": "03806_room",
+      "path": "gmsv/data/map/03806_room",
+      "sha": "3fabbe561cd0dd310684c8fc40967f1e74e36e08",
+      "sha256": "0969637f63b805181a09a3c977f0f1608a495e294b11eb42661d37469b30aac9"
+    }
+  ],
+  "limits": "Classic server layouts; original BlueCG client snapshots for these IDs are absent. No live BlueCG parity or dialogue authenticity is claimed.",
+  "source_doors": {
+    "3804": {
+      "entrance": [
+        76,
+        79
+      ],
+      "threshold": [
+        3,
+        10
+      ],
+      "return": [
+        76,
+        79
+      ]
+    },
+    "3805": {
+      "entrance": [
+        85,
+        69
+      ],
+      "threshold": [
+        12,
+        16
+      ],
+      "return": [
+        85,
+        69
+      ]
+    },
+    "3806": {
+      "entrance": [
+        38,
+        63
+      ],
+      "threshold": [
+        10,
+        14
+      ],
+      "return": [
+        36,
+        64
+      ]
+    }
+  }
+}

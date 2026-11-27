@@ -7,6 +7,7 @@ const Shapes=preload("res://scripts/forest/forest_falan_building_shapes.gd")
 const STOCKADES={11140:Vector2(20,64),11142:Vector2(24,62),11143:Vector2(28,60),11145:Vector2(30,60),11146:Vector2(28,56)}
 const WATER_PROPS=[11464,11481,11482,11483]
 const BENCHES=[10037,11041]
+const TOMBS=[11048,11050,11051,11053,11056,11058,11062,11470,11471,11473,11474]
 # Foot, cap centre, native cap radius, and opaque cap/stem paint rectangles.
 const MUSHROOMS={
  11098:[[Vector2(6,20),Vector2(4,12),4.8,Rect2(1,9,4,3),Rect2(7,17,1,1)],
@@ -16,7 +17,11 @@ const MUSHROOMS={
         [Vector2(16,22),Vector2(15,12),5.2,Rect2(12,10,5,3),Rect2(14,18,1,1)],
         [Vector2(21,11),Vector2(21,4),4.2,Rect2(18,1,5,3),Rect2(21,7,1,1)],
         [Vector2(27,20),Vector2(26,10),5.0,Rect2(23,8,5,3),Rect2(24,16,1,1)],
-        [Vector2(12,29),Vector2(10,21),4.0,Rect2(8,19,5,3),Rect2(10,26,1,1)]]
+        [Vector2(12,29),Vector2(10,21),4.0,Rect2(8,19,5,3),Rect2(10,26,1,1)]],
+ 1260342:[[Vector2(20,29),Vector2(14,12),13.,Rect2(8,5,9,7),Rect2(18,24,3,3),.30],
+          [Vector2(30,34),Vector2(36,24),10.,Rect2(31,19,7,5),Rect2(27,30,3,3),.24]],
+ 1260347:[[Vector2(50,61),Vector2(54,19),33.,Rect2(43,11,16,12),Rect2(48,48,8,7),.80],
+          [Vector2(33,58),Vector2(18,41),16.,Rect2(11,34,9,7),Rect2(28,52,5,4),.40]]
 }
 # Visible face axis and ground-plane offset, measured from the native stone base line.
 const WALLS={11140:[false,-.71875],11142:[false,-.765625],11143:[false,-.8125],11145:[true,1.03125],11146:[true,1.078125],11333:[false,-1.4063],11334:[false,-1.4063],11335:[true,1.0938],11336:[true,1.1172],11337:[true,1.1172],11338:[true,1.1172],11339:[true,1.1719],11340:[true,1.1563],11341:[false,-.5156],11342:[false,-.7344],11343:[false,-.7578],11344:[false,-.75],11345:[false,-.6719],11346:[false,-.9219],11347:[true,.9531],11348:[false,-1.4063],11349:[false,-1.4063],11350:[true,1.0938],11351:[true,1.1172],11352:[true,1.1172],11353:[true,1.1172],11354:[true,1.1719],11355:[true,1.1563],11356:[false,-.5156],11358:[false,-.7578],11361:[false,-.9219],11362:[true,.9531]}
@@ -28,6 +33,50 @@ const BARRELS={
 
 static var wall_outlines:Dictionary={}
 static var mushroom_material:ShaderMaterial
+static var tomb_outlines:Dictionary={}
+static var tomb_materials:Dictionary={}
+
+static func tomb_mesh(serial:int,g:Dictionary)->Mesh:
+ if tomb_outlines.is_empty():tomb_outlines=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/falan/tina/wall-outlines.json")).graves
+ var record:Dictionary=tomb_outlines[str(serial)]
+ assert(record.source_rgba_sha256==g.rgba_sha256,"Regenerate stale original grave contours")
+ var native=Harbor.skin(g);var edges=Harbor.skin(g);var low=INF;var profiles=[]
+ var axis=Vector3.BACK;var depth=.14 if serial in [11048,11051,11471] else .10
+ # The original 11062 slab/headstone join passes through source pixel (29,43).
+ var plane=Harbor.point(Vector2(29,43),depth+.02,g).x if serial==11062 else 0.0
+ for part in record.parts:
+  var profile=PackedVector2Array();var flat:bool=part.flat
+  for pixel in part.points:
+   var p=Harbor.point(Vector2(pixel[0],pixel[1]),depth+.02,g) if flat else Harbor.sign_point(Vector2(pixel[0],pixel[1]),g,axis)
+   if flat:profile.append(Vector2(p.x,-p.z))
+   else:
+    p.z-=plane;p.y-=plane*1.6
+    profile.append(Vector2(p.z,p.y));low=minf(low,p.y)
+  profiles.append([profile,flat])
+ if low==INF or serial==11062:low=0.0
+ for section in profiles:
+  var profile:PackedVector2Array=section[0];var flat:bool=section[1]
+  if not flat:
+   for i in profile.size():profile[i].y-=low
+  var turn=Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP) if flat else Basis(Vector3.UP,-PI*.5)
+  var origin=Vector3.UP*(depth*.5+.02) if flat else Vector3(plane+depth*.5,0,0)
+  var shape=Shapes.extrude(profile,depth);var arrays=shape.surface_get_arrays(0)
+  for i in arrays[Mesh.ARRAY_VERTEX].size():
+   var p:Vector3=turn*arrays[Mesh.ARRAY_VERTEX][i]+origin
+   var n:Vector3=turn*arrays[Mesh.ARRAY_NORMAL][i]
+   if arrays[Mesh.ARRAY_NORMAL][i].z>.9:
+    native.projected_vertex(p,n,p+(Vector3.ZERO if flat else Vector3.UP*low))
+   else:
+    var pixel=Vector2(record.edge_pixel[0],record.edge_pixel[1])
+    edges.surface.set_normal(n);edges.surface.set_uv((native.graphic[0].position+pixel)/native.texture.get_size());edges.surface.add_vertex(p)
+ var face=native.finish();var back=edges.finish()
+ if not tomb_materials.has(g.page):
+  var material=face.surface_get_material(0).duplicate();material.set_shader_parameter("original_palette",false)
+  material.set_shader_parameter("base_color",Color(.85,.85,.85))
+  var brush=Image.create(1,1,false,Image.FORMAT_RGBA8);brush.fill(Color(.5,.5,.5))
+  material.set_shader_parameter("brush_texture",ImageTexture.create_from_image(brush));tomb_materials[g.page]=material
+ back.surface_set_material(0,tomb_materials[g.page])
+ var result=Tina.join(face,back,Transform3D.IDENTITY);result.set_meta("source_grave_components",record.parts.size());return result
 
 static func plank(native,wood,pixels:Array,height:float,g:Dictionary,supports:Array=[0,1,2,3])->Array:
  var points=[]
@@ -95,7 +144,8 @@ static func mushrooms_mesh(serial:int,g:Dictionary)->Mesh:
  for record in MUSHROOMS[serial]:
   var foot=Harbor.point(record[0],.02,g);var high=(record[0].y-record[1].y)*Harbor.PIXEL_HEIGHT
   var cap=Harbor.point(record[1],high,g);var delta=cap-foot
-  var stem=Transform3D(Basis(Quaternion(Vector3.UP,delta.normalized())).scaled_local(Vector3(.10,delta.length(),.10)),(foot+cap)*.5)
+  var stem_width:float=record[5] if record.size()>5 else .10
+  var stem=Transform3D(Basis(Quaternion(Vector3.UP,delta.normalized())).scaled_local(Vector3(stem_width,delta.length(),stem_width)),(foot+cap)*.5)
   native_primitive(native,Harbor.Parts.cylinder,stem,record[4])
   var radius=record[2]*3/(32*sqrt(2.0))
   native_primitive(native,Geo.sphere_mesh,Transform3D(Basis.IDENTITY.scaled(Vector3(radius*2,radius*.95,radius*2)),cap),record[3])
@@ -106,6 +156,8 @@ static func mushrooms_mesh(serial:int,g:Dictionary)->Mesh:
   var brush=Image.create(1,1,false,Image.FORMAT_RGBA8);brush.fill(Color(.5,.5,.5))
   mushroom_material.set_shader_parameter("brush_texture",ImageTexture.create_from_image(brush))
  result.surface_set_material(0,mushroom_material)
+ if serial in [1260342,1260347]:
+  result=load("res://scripts/forest/forest_falan_proportions.gd").transformed(result,Transform3D(Basis.IDENTITY.scaled(Vector3(1,.045/Harbor.PIXEL_HEIGHT,1)),Vector3.ZERO))
  result.set_meta("source_mushroom_count",MUSHROOMS[serial].size());return result
 
 static func wall_mesh(serial:int,g:Dictionary)->Mesh:

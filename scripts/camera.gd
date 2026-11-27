@@ -13,6 +13,7 @@ var yaw=0.0
 var pitch=0.36
 var distance=14.0
 var current_distance=14.0
+var unobstructed_distance=14.0 # Diagnostic: actual requested orbit after indoor/cave limits.
 var follow=Vector3.ZERO
 var impulse=0.0
 var sens=1.0
@@ -33,6 +34,7 @@ var third_person_pitch=0.36
 var third_person_fov=63.0
 var first_person_recoil=0.0
 var viewed_character_id=-1
+var water_camera=preload("res://scripts/forest/forest_original_water_camera.gd").new()
 
 func framing_scale()->float:
 	return (6.0 if player.character_id==27 else 2.3*preload("res://scripts/forest/dark_lumina_kit.gd").SCALE if player.character_id==29 else 1.0)*sqrt(player.growth_multiplier())
@@ -162,6 +164,8 @@ func update_camera(delta: float,preview: bool=false):
 	var town=game.world.get("furnished_town")
 	if is_instance_valid(town):town.update_cutaway(player.global_position,yaw)
 	var indoors=is_instance_valid(town) and town.indoor
+	if indoors:water_camera.sync(game.world.get("map_features"),town.camera_exclusions)
+	else:water_camera.sync(game.world.get("map_features"))
 	var cave_limit:float=game.cave_camera_limit() if game.has_method("cave_camera_limit") else 0.0
 	var speed=Vector2(player.velocity.x,player.velocity.z).length()
 	var input=player.smoke_move if player.smoke_mode else Input.get_vector("move_left","move_right","move_forward","move_back")
@@ -202,16 +206,15 @@ func update_camera(delta: float,preview: bool=false):
 	if cave_limit>0.0:shoulder*=.65
 	var anchor=follow+shoulder+(Vector3.UP*crosshair_focus_rise*framing if aiming else Vector3.ZERO)
 	if aiming and (anchor-follow).length_squared()>.01:
-		var lateral=PhysicsRayQueryParameters3D.create(follow,anchor,1)
-		if indoors:lateral.exclude=town.camera_exclusions
+		var lateral=water_camera.lateral;lateral.from=follow;lateral.to=anchor
 		var side_hit=get_world_3d().direct_space_state.intersect_ray(lateral)
 		if not side_hit.is_empty():anchor=follow+(anchor-follow).normalized()*maxf(0,follow.distance_to(side_hit.position)-.38)
 	var offset=Vector3(sin(yaw)*cos(view_pitch),sin(view_pitch),cos(yaw)*cos(view_pitch))
 	var safe=desired
+	unobstructed_distance=desired
 	# Five parallel probes protect the camera volume at doorway and cave edges.
 	for probe in [Vector3.ZERO,Vector3(0.24,0,0),Vector3(-0.24,0,0),Vector3(0,0.22,0),Vector3(0,-0.22,0)]:
-		var query=PhysicsRayQueryParameters3D.create(anchor+probe,anchor+offset*desired+probe,1)
-		if indoors:query.exclude=town.camera_exclusions
+		var query=water_camera.probe;query.from=anchor+probe;query.to=anchor+offset*desired+probe
 		var hit=get_world_3d().direct_space_state.intersect_ray(query)
 		if not hit.is_empty(): safe=minf(safe,maxf(0.55,anchor.distance_to(hit.position)-0.38))
 	current_distance=lerpf(current_distance,safe,1-exp(-delta*(32 if safe<current_distance else 6)))

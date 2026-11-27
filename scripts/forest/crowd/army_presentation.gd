@@ -40,6 +40,8 @@ const TWO_BIRDS_FRAMES=6
 const TWO_BIRDS_FRAME_TIME=5.0/60
 const BLADE_DANCE_FRAMES=6
 const BLADE_DANCE_FRAME_TIME=5.0/60
+const WATER_BOOMERANG_FRAMES=3
+const WATER_BOOMERANG_FRAME_TIME=1.0/12
 const CONTACT_PIXEL_SIZE=.02
 const ENEMY_GUARD_BREAK_WINDUP=723
 const ENEMY_GUARD_RAISED=724
@@ -113,6 +115,7 @@ func configure(owner_:Node,shared_meshes:Dictionary={}):
   ["shin_two_birds_ex",preload("res://assets/characters/crossgate/skill_tiers/111054.png"),8,2],
   ["maze_assassination",preload("res://assets/characters/crossgate/maze/assassination-kill.png"),1],
   ["maze_blade_dance",preload("res://assets/characters/crossgate/maze/blade-dance-impact.png"),BLADE_DANCE_FRAMES],
+  ["water-boomerang-wave",preload("res://assets/characters/crossgate/shin/900050/boomerang/contact-wave.png"),WATER_BOOMERANG_FRAMES,8],
  ]:
   var rows:int=sheet[3] if sheet.size()>3 else 1
   var mesh=QuadMesh.new();mesh.size=sheet[1].get_size()/Vector2(sheet[2],rows)*CONTACT_PIXEL_SIZE
@@ -364,6 +367,10 @@ func present(events:Array,snapshot:Dictionary={}):
    play_sound(event.position,preload("res://assets/audio/crossgate/cgefc01.wav"),1.0,65.0,true,true)
   var kind=str(event.get("kind",""));var point:Vector3=event.get("position",Vector3.ZERO)
   var type:int=event.get("unit_kind",-1)
+  if kind=="status" and event.get("action_index",0)==802:
+   var missed=label_damage(point+Vector3.UP*2,0)
+   if missed!=null:missed.text="MISS";missed.font=ThemeDB.fallback_font;missed.font_size=28
+   continue
   if kind=="status" and event.action_index==ENEMY_GUARD_RAISED:
    show_guard_cue(event.ticket_id,type)
    continue
@@ -565,6 +572,7 @@ func present(events:Array,snapshot:Dictionary={}):
    var direction:Vector3=event.get("direction",Vector3.BACK)
    corpses.append({"age":0.0,"life":1.0,"kind":Roles.VAMBEE_LEGS,"position":point,"velocity":Vector3.ZERO,"yaw":atan2(direction.x,direction.z),"pitch":0.0,"tumble":false})
   if kind=="death":
+   if int(event.get("xp_reward_tenths",0))>0:label_experience(point,event.xp_reward_tenths)
    if event.has("overkill_target") and corpses.size()>=corpse_capacity:
     for i in corpses.size():
      if not corpse_held(corpses[i]):corpses.remove_at(i);break
@@ -785,6 +793,19 @@ func blade_dance_burst(enemy:Ninja,at:Vector3):
  if not game.forest_point_visible(at):return
  var center:Vector3=enemy.combat_bounds().get_center() if enemy.has_method("combat_bounds") else AttackChain.aim_point(enemy)
  add_effect("maze_blade_dance",center,BLADE_DANCE_FRAMES*BLADE_DANCE_FRAME_TIME,6.0)
+func water_boomerang_burst(at:Vector3,facing:int,scale_:float):
+ if not hit_visible(at,get_viewport().get_camera_3d()):return
+ var burst=add_effect("water-boomerang-wave",at,WATER_BOOMERANG_FRAMES*WATER_BOOMERANG_FRAME_TIME,scale_)
+ if not burst.is_empty():burst.facing=facing
+func label_experience(at:Vector3,reward_tenths:int)->Label3D:
+ if reward_tenths<=0:return null
+ var label=label_damage(at,0,false,false,false,null,false,4.0)
+ if label!=null:
+  label.text="+%d EXP"%roundi(reward_tenths/10.0)
+  label.font=BATTLE_TEXT_FONT;label.font_size=32;label.pixel_size=.0012
+  label.modulate=Color("ce8cff");label.outline_size=5;label.outline_modulate=Color("29143f")
+ return label
+
 func label_damage(at:Vector3,amount:float,heavy:bool=false,critical:bool=false,healing:bool=false,follow:Hero=null,priority:bool=false,height:float=1.6,screen_only:bool=true)->Label3D:
  if is_instance_valid(game) and not game.forest_point_visible(at):return null
  at+=Vector3.UP*height
@@ -1039,6 +1060,10 @@ func draw_effects():
   if key=="maze_blade_dance":
    poses.append(Transform3D(contact_basis.scaled(Vector3.ONE*scale_),record.position+contact_basis*Vector3(0,0,.10)))
    colors.append(Color(floorf(record.age/BLADE_DANCE_FRAME_TIME),contact_fade,0,0))
+   continue
+  if key=="water-boomerang-wave":
+   poses.append(Transform3D(contact_basis.scaled(Vector3.ONE*scale_),record.position+contact_basis.z*.08))
+   colors.append(Color(record.facing*WATER_BOOMERANG_FRAMES+mini(WATER_BOOMERANG_FRAMES-1,floori(record.age/WATER_BOOMERANG_FRAME_TIME)),contact_fade,0,0))
    continue
   if key in ["guard-break","guard-break-ex"]:
    poses.append(Transform3D(contact_basis.scaled(Vector3.ONE*scale_),record.position+contact_basis*Vector3(.5,.5,2)*CONTACT_PIXEL_SIZE))

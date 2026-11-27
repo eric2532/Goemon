@@ -27,6 +27,21 @@ func run():
  environment.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;environment.environment.ambient_light_color=Color.WHITE;environment.environment.ambient_light_energy=.8;stage.add_child(environment)
  var light=DirectionalLight3D.new();light.rotation_degrees=Vector3(-48,-35,0);stage.add_child(light)
  camera=Camera3D.new();stage.add_child(camera);camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.keep_aspect=Camera3D.KEEP_HEIGHT
+ if not baseline:
+  var targets={10003:[["native_house_sign",Vector2(29,235),16]],10005:[["native_baker_sign",Vector2(74,229.5),58],["native_house_sign",Vector2(31,235),16]],10049:[["native_bar_sign",Vector2(81.5,193.5),57],["native_house_sign",Vector2(173,325),17]],10050:[["native_bar_sign",Vector2(297,192),58]],10078:[["native_weapon_sign",Vector2(259,206),48]],10080:[["native_inn_sign",Vector2(273,172),52]],10306:[["native_house_sign",Vector2(29,224),16]]}
+  for serial in targets:
+   var mesh:Mesh=Architecture.prepare(serial);var a=mesh.surface_get_arrays(0)
+   for target in targets[serial]:
+    var tile:Vector2=Architecture.HouseParts.Data.TILES[target[0]];var pixels=[]
+    for i in a[Mesh.ARRAY_VERTEX].size():
+     if a[Mesh.ARRAY_TEX_UV2][i]==tile:pixels.append(Fit.project(Basis(Vector3.UP,PI*.5)*a[Mesh.ARRAY_VERTEX][i])-Fit.References.RECTS["house_%d"%serial].position)
+    check(pixels.size()==6,"Native plaque has one independent panel: %d %s"%[serial,target[0]])
+    if pixels.size()!=6:continue
+    var center=Vector2.ZERO;var low=INF;var high=-INF
+    for pixel:Vector2 in pixels:center+=pixel;low=minf(low,pixel.x);high=maxf(high,pixel.x)
+    check((center/6).distance_to(target[1])<2.0,"Plaque follows original pixel station: %d %s"%[serial,target[0]])
+    var visible_fraction=48.0/112.0 if target[0]=="native_house_sign" else 1.0
+    check(absf((high-low)*visible_fraction-target[2])<1.0,"Plaque width follows original art: %d %s"%[serial,target[0]])
  for serial in [10079,10078,10083]:
   var model=MeshInstance3D.new();model.mesh=Architecture.prepare(serial);model.rotation.y=PI*.5;stage.add_child(model)
   check(is_same(model.mesh,Architecture.prepare(serial)),"Repeated houses reuse their mesh")
@@ -37,9 +52,31 @@ func run():
    if serial in [10079,10078]:check(tiles.has(Architecture.HouseParts.Data.TILES.shop_medallion),"Colored shop retains its original gable ornament")
    check(tiles.has(Architecture.HouseParts.Data.TILES.shop_shield)==(serial==10079),"Armor shield stays on the matching green shop family")
    if serial==10079:
-    var raw=Transform3D(Basis(Vector3.UP,PI*.5),Vector3.ZERO)*Fit.Data.FITS["house_10079"]*Transform3D(Basis(Vector3.UP,-PI*.5),Vector3.ZERO)
-    check(Fit.project(raw*Architecture.HouseParts.GREEN_SHIELD_CENTER).distance_to(Fit.References.RECTS["house_10079"].position+Vector2(258,186))<2.0,"Shield anchor matches its original source pixel station")
+    var vertices:PackedVector3Array=model.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+    var center=Vector3.ZERO;var count=0
+    for i in tiles.size():
+     if tiles[i]==Architecture.HouseParts.Data.TILES.shop_shield:center+=vertices[i];count+=1
+    check(count>0,"Native shield has its own facade feature")
+    if count>0:
+     center/=count
+     var row:Array=Architecture.Data.GRAPHICS[serial]
+     var pixel=Fit.project(Basis(Vector3.UP,PI*.5)*center)-Fit.References.RECTS["house_10079"].position
+     check(pixel.distance_to(Vector2(258,186))<2.0,"Shield anchor follows its original source pixel station")
   await capture(model,"house_%d"%serial,Fit.mesh_points(model.mesh))
+ if not baseline:
+  Civic.build(stage,Vector3.ZERO,Civic.SHELLS[Vector2i(1,-35)])
+  var inn:Node3D=stage.get_children()[-1];inn.position=Vector3.ZERO
+  for row in [["inn_sign",Vector2(142.5,169.5),Vector2(75,49),Vector2(0,58)],["inn_side_sign",Vector2(316.5,242),Vector2(67,-42),Vector2(0,48)]]:
+   var panel:Node3D=inn.find_child("Recovered_"+row[0],true,false)
+   check(panel!=null,"Inn retains its original independent plaque: "+row[0])
+   if panel==null:continue
+   var pose=inn.global_transform.affine_inverse()*panel.global_transform
+   var center=Fit.project(pose.origin)-Fit.References.RECTS.civic_1101.position
+   var across=Fit.project(pose*Vector3(.5,0,0))-Fit.project(pose*Vector3(-.5,0,0))
+   var down=Fit.project(pose*Vector3(0,-.5,0))-Fit.project(pose*Vector3(0,.5,0))
+   check(center.distance_to(row[1])<1.0,"Inn plaque centre matches original art: "+row[0])
+   check(across.distance_to(row[2])<1.0 and down.distance_to(row[3])<1.0,"Inn plaque corners match original art: "+row[0])
+  inn.queue_free();await process_frame
  var spec:Array=Civic.SHELLS[Vector2i(-12,-44)]
  Civic.build(stage,Vector3.ZERO,spec)
  var bank:Node3D=stage.get_children()[-1];bank.position=Vector3.ZERO

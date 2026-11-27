@@ -5,7 +5,7 @@ const Corridors=preload("res://assets/maps/falan/holy_decree_corridors.gd")
 const Encounters=preload("res://assets/maps/original_crossgate/maze_encounters.gd")
 const HOUSE=51021
 const CELLAR=51022
-const PAST=51023
+const PAST=4332
 const WEST_ROAD=51024
 const GUARDIAN_FLOORS=[51025,51026,51027,51028,51029,51030]
 const CORRIDOR_BASE=51100
@@ -19,6 +19,8 @@ const TITLES={
 const HOUSE_LOT=0
 const ABANIS_WEST_GATE=Vector2(-39,-3)
 const BLADE="holy_decree_blade"
+const STRAWBERRY="holy_decree_strawberry"
+const REWARDS="holy_decree_rewards"
 const COMPLETE="holy_decree_complete"
 const SIZE=Vector2i(23,24)
 const ORIGIN=Vector2(-33,-33)
@@ -69,7 +71,7 @@ static func maze(id:int,run_seed:int)->Dictionary:
   return cached
  var row=Recovered.state(id,run_seed)
  var number=floor_number(id)
- var previous=Recovered.SHALENA_NORTH if number==1 else floor_id(number-1)
+ var previous=24008 if number==1 else 24068+(number-1)/10 if number%10==1 else floor_id(number-1)
  var entries=Recovered.links(previous,run_seed).filter(func(link):return link.get("floor")==id)
  assert(not entries.is_empty(),"Recovered maze floor needs its original approach")
  var start=Vector2i(((entries[0].arrival-row.origin)/3.0).round())

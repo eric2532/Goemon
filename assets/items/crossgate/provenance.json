@@ -118,5 +118,235 @@
     ],
     "rgba_sha256": "92ad834decdeb15f87de559c50ef1c591d96694003a750dabb21f5f3d275f7f1",
     "png_sha256": "1c5125bc0648bccdbcd0472d377206cecfb3a60b521a13acb59458622930bd48"
+  },
+  "vitality-bread": {
+    "pack": "original",
+    "row": 14981,
+    "size": [
+      32,
+      39
+    ],
+    "rgba_sha256": "281f6ef77bf29c14bdebb83e344226b838fb44d53a9131ea0e146cbb71b0bc48",
+    "png_sha256": "6f0cc796032e46bbfa4cd310f04995bc6f94fd54a753a591ab95de655a261dab"
+  },
+  "power-steak": {
+    "pack": "original",
+    "row": 15045,
+    "size": [
+      64,
+      39
+    ],
+    "rgba_sha256": "dee3af2b60c0b72dabce05ebad25162f283639d9c7209de545692731bbd7c142",
+    "png_sha256": "d7197088d78b95925f11dbecd1717a0c3bba712b74b2c232d709ccb50ba892ff"
+  },
+  "sage-jelly": {
+    "pack": "original",
+    "row": 14989,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "215bb93a08cb9d76804f2d7746f4bb4e884e369781eca248055b4084d9bc6a4e",
+    "png_sha256": "d9a99ba3360667ce7346b9dcdeb293363ff148ec5105a20d7b6840dbe75e017f"
+  },
+  "sage-soup": {
+    "pack": "original",
+    "row": 15008,
+    "size": [
+      56,
+      35
+    ],
+    "rgba_sha256": "6a3565900ee1884861e9ce8e3cb4d55b26b552e9d6897c1a603a95426b5c29c9",
+    "png_sha256": "c86dd50fdf3666833e71eb1a9fcfcd78f790afa1dbfb804932a61de4b363c460"
+  },
+  "swift-sushi": {
+    "pack": "original",
+    "row": 14995,
+    "size": [
+      44,
+      36
+    ],
+    "rgba_sha256": "90e40b29e9b678817d17a1afc5c5a07bc22963b6a9eec06908fce760523d9915",
+    "png_sha256": "6c51d73186923ef6c8c02ea621056cd799c503519501669643fa75036e0ee426"
+  },
+  "iron-meatballs": {
+    "pack": "original",
+    "row": 15057,
+    "size": [
+      64,
+      39
+    ],
+    "rgba_sha256": "3fb62af4f29f966333ac34623ce5498e841dbf8df0466093774b153d7c0f4b7a",
+    "png_sha256": "4bcbf33bcb342987e092d667503626fbb2561369d9505b78565777fd5f24849d"
+  },
+  "ward-jelly": {
+    "pack": "original",
+    "row": 14987,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "6140ab064e774167a9dfb5c43e7f006e2c9890aa415efb567bafa0a866e15342",
+    "png_sha256": "a997955f76d1817a79d53fe65fa562e37a96dd54e52697d5f385c147121ba41e"
+  },
+  "ward-soup": {
+    "pack": "original",
+    "row": 15007,
+    "size": [
+      56,
+      35
+    ],
+    "rgba_sha256": "0f0751ad4367306cdc412b31b64d0595cc3b0094ec36b0c6e6eac93afc0c5011",
+    "png_sha256": "b8cd16f08348c8651ebd54981adfab97d2ddfbf717f0eb7384538f728dbaf05c"
+  },
+  "lucky-cake": {
+    "pack": "original",
+    "row": 14994,
+    "size": [
+      32,
+      31
+    ],
+    "rgba_sha256": "9b89c261f41012825d173b9dad4d369639e8cc73afee7ba9003a6c58655e2dd5",
+    "png_sha256": "9a44eac55e511375e2daf084ac8794e66bb9c94b1fc73b4814c977406bf32fd2"
+  },
+  "feather-parfait": {
+    "pack": "original",
+    "row": 15038,
+    "size": [
+      40,
+      42
+    ],
+    "rgba_sha256": "efa03c2aba1401a3ad3777b9b4050821f57884108121a57b28174a020070db4a",
+    "png_sha256": "ddda0b60dbf81f7b4889eba3e75f66daaf4f3802cf47fe30571f2bcb1ee3607b"
+  },
+  "duelist-fish": {
+    "pack": "original",
+    "row": 15021,
+    "size": [
+      60,
+      23
+    ],
+    "rgba_sha256": "2e92d9b146ec3403f18bc4af896d7d40dc018dad02b2f2b89ba620d9a8f70ac0",
+    "png_sha256": "de73590d11d9840d9eab671facb9299422bb4644b6f5a5db8320152628359f8c"
+  },
+  "focus-riceball": {
+    "pack": "original",
+    "row": 15065,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "55016c6a0c4ddd2ed09f9a37d1004fc1b708ce5aa59548f26762a98d01f66a58",
+    "png_sha256": "9781377bfcac8eaa60a90bbd7b8f37e7973b7fc16ef907fd036c143df3ccfc51"
+  },
+  "growth-rice": {
+    "pack": "original",
+    "row": 15070,
+    "size": [
+      48,
+      42
+    ],
+    "rgba_sha256": "42f674629f26f51d81ff5ca11bcbe12f4aa24254e7e3d9f6fc6a36c2965a8b03",
+    "png_sha256": "00e08a3f2cc86094841faa9ca12919e6abc11171d66d80695e5effbe8e8de37a"
+  },
+  "royal-feast": {
+    "pack": "original",
+    "row": 15058,
+    "size": [
+      56,
+      41
+    ],
+    "rgba_sha256": "0be0d5a116c2e624158ee4522f42da81b2aef5ca12b9d7f0fa2ed038728662df",
+    "png_sha256": "218cd406b669eda95d3efc9f422bc1523d054921bf42353dd3a89f460bed0a6a"
+  },
+  "pet-stew": {
+    "pack": "original",
+    "row": 15052,
+    "size": [
+      52,
+      39
+    ],
+    "rgba_sha256": "dbdaea710c91727c9edebf3ce026b31b393dc3ee83e7ddaedee83cf055e36f30",
+    "png_sha256": "f2bce482504e7e2bcb49a304940f31e6a5d7644beb6319b541eaee4499e4af27"
+  },
+  "pet-skewers": {
+    "pack": "original",
+    "row": 15061,
+    "size": [
+      40,
+      43
+    ],
+    "rgba_sha256": "ae8cd6bf5aed664fdf2cbbdb53ea37e3e439fc8fd1346ad4fca15c5d9cebb52a",
+    "png_sha256": "f903bbbbcb987cb9dedcb8ef010862275642734b2a5a9f432733f3f5cb755f05"
+  },
+  "pet-melon": {
+    "pack": "original",
+    "row": 15043,
+    "size": [
+      36,
+      30
+    ],
+    "rgba_sha256": "8f8756e1e38f62c47ac990a4bc3ba28459855303c24a48afcd8c7fe98e10f49e",
+    "png_sha256": "8001bffa01135ecfdf7706c4745970d6652bae93cea6934faef5fad259e6b45c"
+  },
+  "pet-mana-broth": {
+    "pack": "original",
+    "row": 15066,
+    "size": [
+      52,
+      44
+    ],
+    "rgba_sha256": "5846fc0f335a795255e777a510adece7685c9a55a3f5572e74ec575777caadcf",
+    "png_sha256": "6d7d13c9a0082a8b568079128724c676470fa150a40561ac48ee83a538292bc7"
+  },
+  "pet-feast": {
+    "pack": "original",
+    "row": 15082,
+    "size": [
+      64,
+      41
+    ],
+    "rgba_sha256": "5d0cd15f8cd09e4368981386516159721d625a6e9c4910ef5e514455539fee9a",
+    "png_sha256": "f5d6c4b5385784974098128e38354b379a3bd0c71b75b394214ccd5a07147b22"
+  },
+  "melon-bread": {
+    "pack": "original",
+    "row": 15043,
+    "size": [
+      36,
+      30
+    ],
+    "rgba_sha256": "8f8756e1e38f62c47ac990a4bc3ba28459855303c24a48afcd8c7fe98e10f49e",
+    "png_sha256": "8001bffa01135ecfdf7706c4745970d6652bae93cea6934faef5fad259e6b45c"
+  },
+  "red-jelly": {
+    "pack": "original",
+    "row": 14988,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "742bd14a79be9f5003ee3bb7a0774fbbe7a484da7be1efa2834b7315fedf3aa6",
+    "png_sha256": "466793a107ebe1232828ba8aae7509aa34d5773d50f250ef4044a77983df4e2e"
+  },
+  "blue-jelly": {
+    "pack": "original",
+    "row": 14989,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "215bb93a08cb9d76804f2d7746f4bb4e884e369781eca248055b4084d9bc6a4e",
+    "png_sha256": "d9a99ba3360667ce7346b9dcdeb293363ff148ec5105a20d7b6840dbe75e017f"
+  },
+  "green-jelly": {
+    "pack": "original",
+    "row": 14987,
+    "size": [
+      52,
+      40
+    ],
+    "rgba_sha256": "6140ab064e774167a9dfb5c43e7f006e2c9890aa415efb567bafa0a866e15342",
+    "png_sha256": "a997955f76d1817a79d53fe65fa562e37a96dd54e52697d5f385c147121ba41e"
   }
 }

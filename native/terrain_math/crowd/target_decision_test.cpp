@@ -224,5 +224,32 @@ int main(){
   pack.combat.set_targets({player,base});TargetDecisionTest::choose(pack,unit);
   assert(unit.external_kind==2);++checks;
  }
+ // Map swarms admit the distant player but keep local combat and explicit priorities.
+ {
+  Crowd pack;pack.configure(32,32);pack.set_navigation(ground());
+  auto enemy=pack.spawn(1,0,SLIME_KIND,{0,0,0},100,1);auto& unit=*pack.unit(enemy);
+  auto player=point(0,{120,0,0},0);player.map_swarm=true;
+  auto far_pet=pack.spawn(-1,1,12,{0,0,80},10000,.5);
+  pack.combat.set_targets({player});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==0&&!unit.target_handle);++checks;
+  auto pet=pack.spawn(-2,1,12,{0,0,-6},10000,.5);
+  TargetDecisionTest::choose(pack,unit);assert(unit.target_handle==pet);++checks;
+  TargetDecisionTest::choose(pack,unit);assert(unit.target_handle==pet);++checks;
+  player.taunting=true;pack.combat.set_targets({player});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==0&&!unit.target_handle);++checks;
+  player.taunting=false;pack.combat.set_targets({player});unit.retaliation=4;unit.retaliation_source=-2;
+  TargetDecisionTest::choose(pack,unit);assert(unit.target_handle==pet);++checks;
+  unit.retaliation=0;pack.despawn(pet);pack.despawn(far_pet);
+  auto taunter=point(88,{0,0,-10},3);taunter.taunting=true;
+  pack.combat.set_targets({player,taunter});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind==3&&unit.external_target==88);++checks;
+  player.targetable=false;pack.combat.set_targets({player});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind<0&&!unit.target_handle);++checks;
+  player.targetable=true;player.hp=0;pack.combat.set_targets({player});TargetDecisionTest::choose(pack,unit);
+  assert(unit.external_kind<0&&!unit.target_handle);++checks;
+  auto blocked=ground();enclose(blocked);pack.set_navigation(blocked);pack.set_pose(enemy,{-40,0,0},0);
+  player.hp=100;player.foot=player.minimum=player.maximum={};pack.combat.set_targets({player});
+  TargetDecisionTest::choose(pack,unit);assert(unit.external_kind<0&&!unit.target_handle);++checks;
+ }
  std::cout<<"ARMY_TARGET_DECISION_RESULT checks="<<checks<<" failures=0\n";
 }

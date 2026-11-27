@@ -14,6 +14,7 @@ const Stairs=preload("res://scripts/forest/forest_habaru_stairs.gd")
 const Floor=preload("res://assets/maps/falan/black_prayer/floors.png")
 const Walls=preload("res://assets/maps/falan/black_prayer/walls.png")
 const PalaceWall=preload("res://assets/maps/falan/black_prayer/palace_wall.png")
+const PalaceWalls=preload("res://assets/maps/falan/black_prayer/palace-walls.png")
 const Rock=preload("res://assets/maps/falan/black_prayer/rock.png")
 const StoneUp=preload("res://assets/maps/falan/black_prayer/stair_17974.png")
 const StoneDown=preload("res://assets/maps/falan/black_prayer/stair_17975.png")
@@ -21,6 +22,21 @@ const Forms=preload("res://scripts/forest/forest_freyja_destination_art.gd")
 const Fort=preload("res://scripts/forest/forest_stone_fort.gd")
 const Boxes=preload("res://scripts/forest/forest_static_boxes.gd")
 const Meadow=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
+const Proportions=preload("res://scripts/forest/forest_falan_proportions.gd")
+const PalaceProps=preload("res://assets/maps/falan/ruby_room_props.gd")
+const PalacePropPaint=preload("res://assets/maps/falan/ruby_room_props.png")
+static var palace_proportions:Dictionary={}
+static var palace_fits:Dictionary={}
+static var gate_mesh:Mesh
+
+static func palace_data()->Dictionary:
+ if palace_proportions.is_empty():palace_proportions=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/falan/black_prayer/palace-proportions.json"))
+ return palace_proportions
+
+static func palace_void(root:Node3D,size_:Vector2i,origin:Vector2):
+ var mesh=PlaneMesh.new();mesh.size=Vector2(size_)*3.
+ var paint=StandardMaterial3D.new();paint.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;paint.albedo_color=Color("101010")
+ Geo.mesh(root,mesh,Vector3(origin.x+(size_.x-1)*1.5,-.02,origin.y+(size_.y-1)*1.5),paint).name="RubyUnrecordedVoidBacking"
 static var stair_materials={}
 static var arch_mesh:ArrayMesh
 static var scenery_meshes:Dictionary={}
@@ -33,7 +49,6 @@ static var armor_materials:Dictionary={}
 static var armor_paint:ShaderMaterial
 static var flower_parts:Dictionary={}
 static var flower_material:StandardMaterial3D
-
 static func floors(id:int,size:Vector2i)->PackedByteArray:
  if id==Prayer.ENTRY:return Prayer.Data.ENTRANCE_FLOOR.hex_decode()
  var tiles=PackedByteArray()
@@ -96,19 +111,18 @@ static func scatter(root:Node3D,id:int,bits:PackedByteArray,run_seed:int):
  node.set_meta("source_serials",Vector2i(15011,15020))
  node.set_meta("rock_count",count_)
 
-static func bars(root:Node3D,center:Vector2,serial:int):
+static func bars(root:Node3D,center:Vector2,serial:int,cell:Vector2i=Vector2i.ZERO):
  var group=Node3D.new()
  group.name="RubyIronBars"
  group.position=Vector3(center.x,0,center.y)
  group.set_meta("blue_cg_serial",serial)
+ group.set_meta("source_cell",cell)
  root.add_child(group)
- var boxes=Boxes.new()
- var iron=Fort.material(Color("555b5c"))
- var edge=Fort.material(Color("858d8b"))
- for x in [-1.28,1.28]:boxes.add(Vector3(x,4.0,0),Vector3(.18,8,.20),iron)
- for x in range(-4,5):boxes.add(Vector3(x*.29,4.0,0),Vector3(.075,7.8,.09),iron)
- for y in [.4,3.0,6.5,7.8]:boxes.add(Vector3(0,y,0),Vector3(2.75,.13,.16),edge)
- boxes.build(group)
+ if gate_mesh==null:
+  var paint=SourceMesh.new([PalaceProps.GRAPHICS[serial][0],Vector2(34,162)],PalacePropPaint,1.0/Proportions.VERTICAL)
+  paint.box(AABB(Vector3(-1.5,0,-1.5),Vector3(3,138.0/Proportions.VERTICAL,3)))
+  gate_mesh=paint.finish()
+ Geo.mesh(group,gate_mesh,Vector3.ZERO,null)
 
 static func arch(root:Node3D,center:Vector2,cell:Vector2i,serial:int,material:Material):
  if arch_mesh==null:arch_mesh=preload("res://scripts/forest/forest_freyja_art.gd").arch_mesh(.60)
@@ -120,6 +134,63 @@ static func arch(root:Node3D,center:Vector2,cell:Vector2i,serial:int,material:Ma
  arch_.rotation.y=PI*.5 if serial==17683 else 0.0
  arch_.set_meta("blue_cg_serial",serial)
  arch_.set_meta("source_cell",cell)
+
+static func fit_palace_props(group:Node3D,origin:Vector2):
+ palace_data()
+ for node in group.get_children():
+  var serial=int(node.get_meta("blue_cg_serial",0))
+  if serial==0 or node is Sprite3D:continue
+  var g:Dictionary=palace_proportions.graphics[str(serial)]
+  var span=Vector2(g.span[0],g.span[1]);var cell:Vector2i=node.get_meta("source_cell",Vector2i.ZERO)
+  var at=origin+(Vector2(cell)-Vector2(0,span.y-1)+(span-Vector2.ONE)*.5)*3.
+  var center=Vector3(at.x,0,at.y)
+  var local_pose=Transform3D(node.basis,node.position-center)
+  if not palace_fits.has(serial):
+   var points:Array[Vector3]=[]
+   if node is MeshInstance3D:points.append_array(Proportions.mesh_points(node.mesh,local_pose))
+   for part in node.find_children("*","MeshInstance3D",true,false):
+    var pose:Transform3D=group.global_transform.affine_inverse()*part.global_transform
+    pose.origin-=center
+    points.append_array(Proportions.mesh_points(part.mesh,pose))
+   for part in node.find_children("*","MultiMeshInstance3D",true,false):
+    for i in part.multimesh.instance_count:
+     var pose:Transform3D=group.global_transform.affine_inverse()*part.global_transform*part.multimesh.get_instance_transform(i)
+     pose.origin-=center
+     points.append_array(Proportions.mesh_points(part.multimesh.mesh,pose))
+   for part in node.find_children("*","Sprite3D",true,false):
+    var pose:Transform3D=group.global_transform.affine_inverse()*part.global_transform
+    pose.origin-=center
+    var extent:Vector2=part.texture.get_size()*part.pixel_size*.5
+    for x in [-1,1]:
+     for y in [-1,1]:points.append(pose*Vector3(x*extent.x/sqrt(2.),y*extent.y,x*extent.x/sqrt(2.)))
+   if points.is_empty():continue
+   var b:Array=g.bounds
+   palace_fits[serial]=Proportions.measure(points,"",Basis(Vector3.UP,PI*.5),Rect2(b[0],b[1],b[2],b[3]))
+   if serial in [15819,16130,16131,16132,16137,17683,17684,16218,16219]:
+    # Elevated headers use vertical translation; ground-anchored props keep their feet down.
+    var shift:Vector3=palace_fits[serial].origin
+    palace_fits[serial].origin=Vector3((shift.x+shift.z)*.5,-(shift.z-shift.x)*Proportions.FLOOR/Proportions.VERTICAL,(shift.x+shift.z)*.5)
+  node.transform=Transform3D(Basis.IDENTITY,center)*palace_fits[serial]*local_pose
+  node.set_meta("ruby_source_fit",serial)
+ # Resolve source-camera depth ambiguity against the visible support, preserving the exact projection.
+ for node in group.get_children():
+  var serial=int(node.get_meta("blue_cg_serial",0))
+  if serial in [16130,16131,16132]:
+   var cell:Vector2i=node.get_meta("source_cell")
+   var back:float=(node.transform*node.mesh.get_aabb()).end.x
+   var dx=origin.x+(cell.x+1)*3.-1.5-.015-back
+   node.position+=Vector3(dx,-2*dx*Proportions.FLOOR/Proportions.VERTICAL,-dx)
+  elif serial in [16218,16219]:
+   var support:Node3D=null;var distance=INF
+   for candidate in group.get_children():
+    if candidate.get_meta("blue_cg_serial",0) not in [16204,16205]:continue
+    var d=Vector2(node.position.x-candidate.position.x,node.position.z-candidate.position.z).length_squared()
+    if d<distance:support=candidate;distance=d
+   assert(support!=null and distance<25.,"A native elevated bouquet must retain its nearby stool")
+   var dy:float=(support.transform*support.mesh.get_aabb()).end.y-node.position.y
+   var depth=dy*Proportions.VERTICAL/(2*Proportions.FLOOR)
+   node.position+=Vector3(-depth,dy,depth)
+   node.set_meta("ruby_native_support",support.get_meta("source_cell"))
 
 static func turned(paint,at:Vector3,profile:Array,part:String):
  paint.part=part
@@ -396,11 +467,6 @@ static func curtain(serial:int)->Mesh:
     var next=curtain_point(serial,at.x,at.y)+Vector3(0,0,.075)
     Parts.rod(gold,previous,next,.045);previous=next
   Parts.oval(gold,p,Vector3(.09,.09,.09));previous_uv=sample
- # Existing canopy bars and pleated-panel construction, fitted to the original two-cell prop.
- for i in 12:
-  var x=-wide*.5+i*wide/11
-  var y=7.50-.55*sin(i/11.0*PI) if serial==16465 else 7.0+.80*i/11.0-.40*sin(i/11.0*PI)
-  Parts.rod(gold,Vector3(x,y,-1.2),Vector3(x,y+.20,.80),.045)
  var rgb:Array=Scenery.COLORS.curtain_gold
  gold.set_material(Fort.material(Color(rgb[0],rgb[1],rgb[2]),false));gold.index();gold.commit(mesh)
  court_relief("curtain_frieze_"+str(serial),mesh,Transform3D(Basis.IDENTITY,Vector3(0,0,.88)),Vector2(5.55,1.05))

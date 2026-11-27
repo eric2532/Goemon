@@ -201,7 +201,7 @@ def project_boss_overlay(image, center_x, center_y):
     return tile
 
 
-def project_wall(image, entry, right, cave=False):
+def project_wall(image, entry, right, cave=False, background=(127, 115, 94)):
     """Undo the 24-pixel diagonal rise of one vertical face of a wall sprite."""
     tile = Image.new("RGBA" if cave else "RGB", (WALL_WIDTH, WALL_HEIGHT))
     center = -entry["x"]
@@ -228,7 +228,7 @@ def project_wall(image, entry, right, cave=False):
                 # The back faces of the isometric sprites are solid shadow.
                 tile.putpixel((x, y), (*pixel[:3], pixel[3] if max(pixel[:3]) > 39 else 0))
             else:
-                tile.putpixel((x, y), pixel[:3] if pixel[3] >= 128 else (127, 115, 94))
+                tile.putpixel((x, y), pixel[:3] if pixel[3] >= 128 else background)
     return tile
 
 
@@ -502,7 +502,7 @@ def build(magic, out):
     for ident in (1155, 13001, 16501):
         freyja_doors.setdefault(ident,set()).update((x,z) for _,_,x,z in sites[ident])
     for ident, protected in freyja_doors.items():
-        if ident not in TITLES or ident == 2307 or ident in tomato.LAND:
+        if ident not in TITLES or ident in tomato.LAND:
             continue
         width, height, ground, objects, _ = load_map(library, ident)
         walk = navigation_grid(width, height, ground, objects, lookup)

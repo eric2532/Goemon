@@ -183,9 +183,9 @@ func run():
  await physics_frame
  before_cue=game.voice_idx
  right_click()
- check(army.hound_order_serial==serial+1 and army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK and game.voice_idx==before_cue,"An empty right click clears focus and hunts without a target cue")
+ check(army.hound_order_serial==serial+1 and army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK and game.voice_idx==before_cue,"An empty right click clears focus and attack moves without a target cue")
  await aim(enemy);key(KEY_TAB)
- check(kit.locked_primary_enemy()==enemy,"Tab locks the native enemy for both clicks")
+ check(kit.locked_primary_enemy()==enemy,"Tab locks the native enemy for the player's attacks")
  game.player.set_auto_attack(true)
  Input.action_press("heavy_attack")
  check(game.player.auto_attack_running(),"Holding right click leaves Tab auto-attack active")
@@ -198,7 +198,7 @@ func run():
  camera.look_at(camera.global_position+Vector3.UP+Vector3.FORWARD*.1)
  await physics_frame
  right_click()
- check(army.hound_focus_target==marked and not kit.is_attacking(),"Right click uses the Tab lock while aiming away")
+ check(army.hound_focus_target==0 and army.hound_attack_move.is_finite() and kit.locked_primary_enemy()==enemy and not kit.is_attacking(),"Right click follows the cursor while preserving the player's Tab lock")
  key(KEY_Z);await aim(enemy)
  var wall=StaticBody3D.new()
  var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(3,8,3);shape.shape=box
@@ -206,7 +206,7 @@ func run():
  wall.global_position=game.player.global_position.lerp(bounds.get_center(),.5)+Vector3.UP
  await physics_frame;await physics_frame
  right_click()
- check(army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK,"A covered enemy cannot be marked and the pack hunts instead")
+ check(army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK,"A covered enemy cannot be marked and the pack attack moves instead")
  wall.queue_free();await physics_frame;await physics_frame
  game.paused=true;right_click();game.paused=false
  check(army.hound_focus_target==0,"Right click is ignored while paused")
@@ -259,7 +259,7 @@ func run():
   check(army.hound_focus_target==0 and not ui.pet_focus_marker.visible and pets.all(func(h):return army.unit_state(h).target_id==0),"Z clears focus and recalls the whole group")
   game.camera_rig.camera.look_at(home+Vector3.UP*100);await physics_frame
   right_click()
-  check(army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK,"Right click on empty sky starts the ordinary hunt")
+  check(army.hound_focus_target==0 and army.hound_order==army.HoundOrder.ATTACK,"Right click on empty sky starts a directional advance")
  check(game.crowd.army.presentation.get_child_count()==nodes and int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT))<=resources+2,"Repeated marks reuse presentation nodes/resources")
  if not skill.is_empty():
   print("PET_BLINK_SPACING samples=",blink_samples," min_spacing=",blink_spacing)
@@ -276,12 +276,12 @@ func run():
  check(alternatives.size()>=2 and pets.all(func(h):return army.unit_state(h).target_id==98100),"The pack starts focused while other reachable enemies are alive")
  camera.look_at(camera.global_position+Vector3.UP+Vector3.FORWARD*.1);await physics_frame
  right_click();ui.sync_pet_focus_marker()
- check(not ui.pet_focus_marker.visible,"Hunt clears the red focus marker immediately")
+ check(not ui.pet_focus_marker.visible,"Attack move clears the red focus marker immediately")
  await tick(240)
  var pursuits=pets.map(func(h):return army.unit_state(h).target_id)
- check(army.unit_state(marked).hp>0 and pursuits.any(func(id):return id>=98200) and not pursuits.all(func(id):return id==pursuits[0]),"Empty right click spreads pets across living enemies after focus")
+ check(army.unit_state(marked).hp>0 and pursuits.any(func(id):return id>=98200) and not pursuits.all(func(id):return id==pursuits[0]),"Empty right click selects nearby enemies along the advance after focus")
  right_click();await tick(30)
- check(pets.map(func(h):return army.unit_state(h).target_id)==pursuits,"Another empty click keeps valid hunt pursuits stable")
+ check(pets.map(func(h):return army.unit_state(h).target_id)==pursuits,"Another empty click keeps valid directional pursuits stable")
  for alternative in alternatives:army.despawn(alternative)
  await aim(enemy);right_click();await tick(1)
  army.begin_integration(DT,true);ui.sync_pet_focus_marker()

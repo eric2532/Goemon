@@ -1,7 +1,7 @@
 extends RefCounted
 ## One prepared field and mesh owns both sides of the canal bridge.
 const Regions=preload("res://scripts/forest/forest_freyja_regions.gd")
-const MASK=preload("res://assets/maps/falan/east_road_surface.png")
+const MASK=preload("res://assets/maps/falan/freyja_residual/data.gd").SURFACES.east_gate
 const ORIGIN=Vector2(-675,-204)
 const STEP=3.0
 const CITY_BRIDGE=Rect2(-6,63,18,90)
@@ -9,11 +9,16 @@ const CANAL=Rect2(1660.5,694.5,18,9)
 static var prepared:Resource
 static var ground_mesh:ArrayMesh
 
-static func mask()->Texture2D:return Regions.joined_mask("east_gate",MASK,ORIGIN)
+static func mask()->Texture2D:return preload("res://assets/maps/falan/freyja_residual/data.gd").surface("east_gate")
 
 static func field()->Resource:
  if prepared!=null:return prepared
- var image=mask().get_image()
+ var surface=mask()
+ var image:Image=surface.get_meta("source_cpu_image") if surface.has_meta("source_cpu_image") else surface.get_image()
+ prepared=build_field(image)
+ return prepared
+
+static func build_field(image:Image)->Resource:
  var count=maxi(image.get_width(),image.get_height())
  var heights=PackedFloat32Array();heights.resize(count*count)
  var bed=heights.duplicate()
@@ -37,9 +42,9 @@ static func field()->Resource:
    covered[i]=int(tile.r<.5)
    if CITY_BRIDGE.has_point(at) or CANAL.has_point(source):
     heights[i]=6.0;bed[i]=0.0;covered[i]=1;bridges[i]=1
- prepared=Resource.new()
- for row in [["width",count],["spacing",STEP],["heights",heights],["bed",bed],["covered",covered],["bridges",bridges]]:prepared.set_meta(row[0],row[1])
- return prepared
+ var result=Resource.new()
+ for row in [["width",count],["spacing",STEP],["heights",heights],["bed",bed],["covered",covered],["bridges",bridges]]:result.set_meta(row[0],row[1])
+ return result
 
 static func mesh()->ArrayMesh:
  if ground_mesh!=null:return ground_mesh

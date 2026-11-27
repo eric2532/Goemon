@@ -2,8 +2,10 @@ extends RefCounted
 ## An optional art file can change atlas paths and frame rectangles, not the motion clock.
 
 static func paths(root:String,data:Dictionary)->Array[String]:
- if data.has("art_pages"):return data.art_pages
  var result:Array[String]=[]
+ if data.has("art_pages"):
+  result.assign(data.art_pages)
+  return result
  for i in int(data.pages):result.append(root+"atlas-%d.png"%i)
  if data.get("has_cast_atlas",false):
   for i in int(data.get("cast_pages",1)):result.append(root+"cast-%d.png"%i)

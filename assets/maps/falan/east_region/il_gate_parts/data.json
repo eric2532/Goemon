@@ -1,0 +1,686 @@
+{
+  "schema": 1,
+  "scope": "PRIVATE two original gate leaves/posts; pure scenery meshes only. No collider, door, route, map or NPC behavior.",
+  "source_catalogs": {
+    "assets/maps/original_crossgate/catalog.json": "ae20ed5db45e1ecfee1a8e97c4ae222677fbbaafb2d184156a28c6c8438100c0",
+    "assets/maps/original_crossgate/university/catalog.json": "3fb16095671047cec17293370fbed92825ae1c0f023d120dfb6af256f9aea518",
+    "assets/maps/falan/sokia/fixed/catalog.json": "f48e550e36117b96cc5ca02912fc16c38f803843c38c75834e93c0ecc9d5bf39",
+    "assets/maps/original_crossgate/elsa/catalog.json": "27dd26c1d446649ac34df80d0dcc94bf812a5932a7fe9fc7794b513f87230861",
+    "assets/maps/original_crossgate/east/catalog.json": "554a2dbae3de1aaae3b05f5bde293c5c5d01054f5f68cc1d8efd3fa85379e0bc"
+  },
+  "reused_grain": {
+    "path": "assets/textures/edo/wood.png",
+    "file_sha256": "3e4ff0c21857141af4452ec33c7ee6f7eedc3a3d5e412ba0c58a85e2ae19d054"
+  },
+  "reused_plaster": {
+    "path": "assets/textures/edo/plaster.png",
+    "file_sha256": "a3f189a15e4ccb761dd7e27081520958bf81fd2cf365705a321705050b366d38"
+  },
+  "graphics": {
+    "11077": {
+      "graphic_id": 11077,
+      "native_rgba_sha256": "10155c717c84e4feff26e1063a890ac8c9da7cc40e3db6e76b5434339f628f32",
+      "origin": [
+        -22,
+        -151
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        64,
+        174
+      ],
+      "leaf_polygon": [
+        [
+          4,
+          146
+        ],
+        [
+          0,
+          35
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          4,
+          26
+        ],
+        [
+          6,
+          23
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          10,
+          19
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          18,
+          10
+        ],
+        [
+          20,
+          9
+        ],
+        [
+          22,
+          7
+        ],
+        [
+          24,
+          5
+        ],
+        [
+          26,
+          3
+        ],
+        [
+          28,
+          2
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          32,
+          1
+        ],
+        [
+          34,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          38,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          44,
+          0
+        ],
+        [
+          46,
+          2
+        ],
+        [
+          48,
+          4
+        ],
+        [
+          50,
+          4
+        ],
+        [
+          52,
+          6
+        ],
+        [
+          54,
+          8
+        ],
+        [
+          54,
+          120
+        ]
+      ],
+      "arch": [
+        [
+          0,
+          35
+        ],
+        [
+          2,
+          30
+        ],
+        [
+          4,
+          26
+        ],
+        [
+          6,
+          23
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          10,
+          19
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          18,
+          10
+        ],
+        [
+          20,
+          9
+        ],
+        [
+          22,
+          7
+        ],
+        [
+          24,
+          5
+        ],
+        [
+          26,
+          3
+        ],
+        [
+          28,
+          2
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          32,
+          1
+        ],
+        [
+          34,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          38,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          42,
+          0
+        ],
+        [
+          44,
+          0
+        ],
+        [
+          46,
+          2
+        ],
+        [
+          48,
+          4
+        ],
+        [
+          50,
+          4
+        ],
+        [
+          52,
+          6
+        ],
+        [
+          54,
+          8
+        ]
+      ],
+      "leaf_plane_slope": -0.52,
+      "leaf_plane_offset": -14.36,
+      "leaf_thickness": 0.22,
+      "post_height_pixels": 104,
+      "post_body_top_pixels": 97,
+      "post_base_pixels": 8,
+      "shift": 0,
+      "leaf_bottom": [
+        [
+          4,
+          146
+        ],
+        [
+          54,
+          120
+        ]
+      ],
+      "post_feet": [
+        [
+          4,
+          157
+        ],
+        [
+          22,
+          168
+        ],
+        [
+          40,
+          158
+        ]
+      ],
+      "post_polygon": [
+        [
+          4,
+          54
+        ],
+        [
+          22,
+          44
+        ],
+        [
+          40,
+          54
+        ],
+        [
+          40,
+          161
+        ],
+        [
+          22,
+          173
+        ],
+        [
+          4,
+          162
+        ]
+      ],
+      "stone_sample": [
+        11,
+        74,
+        19,
+        89
+      ],
+      "wood_sample": [
+        39,
+        65,
+        47,
+        79
+      ],
+      "derived_rgba_sha256": {
+        "11077-leaf-back.png": "e985658fac852de4d1a7837098ead02d8adfdff46bea34dc1c9d75ac134c74d6",
+        "11077-native.png": "10155c717c84e4feff26e1063a890ac8c9da7cc40e3db6e76b5434339f628f32",
+        "11077-wood.png": "7ed80a424488ba6d3ede217d341601bbb6823c22dff8ae5ceca5028af0cf0fd5",
+        "11077-post-front.png": "31feaeeac1ead48cd851b8bcea437ab07b78cab56cf9222de2f1f636a7c54fb1",
+        "11077-stone.png": "b8ec210322c4efece197cbe049c1c49847536a28576ce7c018365117d7980d76",
+        "11077-ground.png": "8a604b5fe8bd122d45907293667df810a11a5aecb88c0106599a1544138237bb",
+        "11077-leaf-front.png": "0b89d372e345c24bd1a51881d74c1c9d9fe6351b1d691ca45fd22fe0e437d165"
+      }
+    },
+    "11078": {
+      "graphic_id": 11078,
+      "native_rgba_sha256": "96b8a7895830ee5a139a203f3d5982154360792e9f1c62361f3cbda4d672b133",
+      "origin": [
+        -30,
+        -136
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        92,
+        154
+      ],
+      "leaf_polygon": [
+        [
+          32,
+          146
+        ],
+        [
+          28,
+          35
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          32,
+          26
+        ],
+        [
+          34,
+          23
+        ],
+        [
+          36,
+          22
+        ],
+        [
+          38,
+          19
+        ],
+        [
+          40,
+          16
+        ],
+        [
+          42,
+          14
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          48,
+          9
+        ],
+        [
+          50,
+          7
+        ],
+        [
+          52,
+          5
+        ],
+        [
+          54,
+          3
+        ],
+        [
+          56,
+          2
+        ],
+        [
+          58,
+          1
+        ],
+        [
+          60,
+          1
+        ],
+        [
+          62,
+          0
+        ],
+        [
+          64,
+          0
+        ],
+        [
+          66,
+          0
+        ],
+        [
+          68,
+          0
+        ],
+        [
+          70,
+          0
+        ],
+        [
+          72,
+          0
+        ],
+        [
+          74,
+          2
+        ],
+        [
+          76,
+          4
+        ],
+        [
+          78,
+          4
+        ],
+        [
+          80,
+          6
+        ],
+        [
+          82,
+          8
+        ],
+        [
+          82,
+          120
+        ]
+      ],
+      "arch": [
+        [
+          28,
+          35
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          32,
+          26
+        ],
+        [
+          34,
+          23
+        ],
+        [
+          36,
+          22
+        ],
+        [
+          38,
+          19
+        ],
+        [
+          40,
+          16
+        ],
+        [
+          42,
+          14
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          48,
+          9
+        ],
+        [
+          50,
+          7
+        ],
+        [
+          52,
+          5
+        ],
+        [
+          54,
+          3
+        ],
+        [
+          56,
+          2
+        ],
+        [
+          58,
+          1
+        ],
+        [
+          60,
+          1
+        ],
+        [
+          62,
+          0
+        ],
+        [
+          64,
+          0
+        ],
+        [
+          66,
+          0
+        ],
+        [
+          68,
+          0
+        ],
+        [
+          70,
+          0
+        ],
+        [
+          72,
+          0
+        ],
+        [
+          74,
+          2
+        ],
+        [
+          76,
+          4
+        ],
+        [
+          78,
+          4
+        ],
+        [
+          80,
+          6
+        ],
+        [
+          82,
+          8
+        ]
+      ],
+      "leaf_plane_slope": -0.52,
+      "leaf_plane_offset": 11.04,
+      "leaf_thickness": 0.22,
+      "post_height_pixels": 104,
+      "post_body_top_pixels": 97,
+      "post_base_pixels": 8,
+      "shift": 28,
+      "leaf_bottom": [
+        [
+          32,
+          146
+        ],
+        [
+          82,
+          120
+        ]
+      ],
+      "post_feet": [
+        [
+          1,
+          132
+        ],
+        [
+          18,
+          143
+        ],
+        [
+          34,
+          133
+        ]
+      ],
+      "post_polygon": [
+        [
+          1,
+          30
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          34,
+          30
+        ],
+        [
+          34,
+          135
+        ],
+        [
+          18,
+          146
+        ],
+        [
+          0,
+          136
+        ]
+      ],
+      "stone_sample": [
+        8,
+        50,
+        16,
+        65
+      ],
+      "wood_sample": [
+        65,
+        60,
+        73,
+        74
+      ],
+      "derived_rgba_sha256": {
+        "11078-stone.png": "08cffc372776b58aa247d7fe23299c2cd922303566159ddad57417d317be1ec2",
+        "11078-native.png": "96b8a7895830ee5a139a203f3d5982154360792e9f1c62361f3cbda4d672b133",
+        "11078-post-front.png": "98413408b59b1577e5b967fef3e5f44a613f8477a1790375fc7fce419f2992e4",
+        "11078-leaf-back.png": "0b274906c96cf6834aed7a8780a6127b7711a4273ce07ebdc076b212317c4c16",
+        "11078-wood.png": "c53c643484470f38685575d915ca2c3313274a299f97beb9855a7b09468674ca",
+        "11078-ground.png": "a1454bd562a6c4503e452ac7bb7691eb4dac0a5b856341876c73e67e8d7667dc",
+        "11078-leaf-front.png": "b97adc75fe06a9d6737f1e3fc5d5aac753dd30dc0faa9c389d02f232994e2bdb"
+      }
+    }
+  },
+  "inferences": [
+    "Native front RGB/alpha is partitioned exactly across leaf/post/ground; original file remains intact.",
+    "Observed arched outline, opening orientation and post footprints determine solid parts. Unseen leaf thickness, post rear uses existing fine plaster grain with the native pale-mortar palette, repeated brick rhythm and back hinges inferred from the observed design.",
+    "The original signed image origins and2x1footprints stay unchanged; no new door or collider is authored."
+  ]
+}

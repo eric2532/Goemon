@@ -28,9 +28,12 @@ var attack_materials:Array=[]
 var attack_range=preload("res://scripts/forest/player_attack_range.gd").new()
 var scenery_chunks:Dictionary={}
 var freyja_foliage:Node3D
+var travel_layout:Dictionary={}
+var city_scenery:Dictionary={}
 var forest_root: Node3D
 var deposit_root: Node3D
 var map_features: Node3D
+var defer_map=false
 var habaru_ladder
 var portal_nodes: Array=[]
 var painterly_preview_enabled=false
@@ -58,9 +61,10 @@ func _ready():
 	base_ground=Geo.box(self,Vector3(-3,-.3,-3),Vector3(480,.6,480),ground_material)
 	base_ground_collision=Art.solid(self,Vector3(0,-1,0),Vector3(500,2,500),1,"leaves")
 	base_ground_collision.set_meta("halo_ground_model",model)
-	make_forest()
-	make_deposits()
-	make_map_features()
+	if not defer_map:
+		make_forest()
+		make_deposits()
+		make_map_features()
 	rally_ring=Geo.torus(self,Vector3.ZERO,29.8,30.05,Geo.mat("f4cf78",0,.6));rally_ring.hide()
 	preview_space=Node3D.new();preview_space.scale=Vector3.ONE*model.falan_scale;add_child(preview_space)
 	preview=Node3D.new();preview_space.add_child(preview)
@@ -68,10 +72,11 @@ func _ready():
 	preview_mesh=Geo.box(preview,Vector3(0,.16,0),Vector3(6,.2,6),material)
 	ghost_material=material.duplicate();ghost_material.albedo_color.a=.35
 	sight_ring=Geo.torus(preview,Vector3(0,.12,0),5.95,6.05,Geo.mat("d9c386",0,.3));preview.hide()
-	sync(0)
+	if not defer_map:sync(0)
 	painterly_pilot=preload("res://scripts/forest/forest_painterly_pilot.gd").new(self)
-	painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
-	apply_map_environment()
+	if not defer_map:
+		painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
+		apply_map_environment()
 func apply_map_environment():
 	get_parent().explorer_clock.restore()
 	restore_chamber_lighting()
@@ -145,6 +150,7 @@ func restore_chamber_lighting():
 	chamber_lighting.clear()
 func set_painterly_preview(value: bool):
 	painterly_preview_enabled=value
+	if not is_instance_valid(map_features):return
 	restore_map_environment()
 	if painterly_pilot!=null:painterly_pilot.set_enabled(value and model.terrain_source!="wind_meadow")
 	apply_map_environment()
@@ -157,7 +163,22 @@ func make_deposits():
 			Geo.sphere(node,p,Vector3(4,3,3.5),Geo.mat("818478"))
 			Geo.spike(node,p+Vector3(0,1,.8),p+Vector3(.6,3.1,1),.6,Geo.mat("e7bb5b",.3,.2))
 		deposit_nodes[cell]=node
-func reload_map():
+func apply_player_scenery_passage():
+	var player=get_parent().get("player") as CharacterBody3D
+	if not is_instance_valid(player):return
+	# Keep each collider on its existing layer for combat, navigation and the camera.
+	for body in get_tree().get_nodes_in_group(Art.PLAYER_PASSABLE_SCENERY):
+		if not is_ancestor_of(body):continue
+		var remove_exception=player.remove_collision_exception_with.bind(body)
+		if body.tree_exiting.is_connected(remove_exception):continue
+		player.add_collision_exception_with(body)
+		body.tree_exiting.connect(remove_exception,CONNECT_ONE_SHOT)
+func reload_map(layout:Dictionary={}):
+	travel_layout=layout
+	if not city_scenery.is_empty():
+		var cached:Node3D=city_scenery.root
+		if cached.get_parent()!=null:cached.get_parent().remove_child(cached)
+		if layout.is_empty():discard_city_scenery()
 	var game=get_parent()
 	if game.get("enemy_objectives")!=null:
 		for target in game.enemy_objective_targets:game.enemies.erase(target)
@@ -174,11 +195,14 @@ func reload_map():
 	for node in [forest_root,deposit_root,map_features]:
 		if is_instance_valid(node):remove_child(node);node.queue_free()
 	deposit_nodes.clear();fog_materials=[ground_material]
+	base_ground_collision.set_meta("halo_ground_model",model)
 	preview_space.scale=Vector3.ONE*model.falan_scale
 	make_forest();make_deposits();make_map_features();revision=-1;preview.hide();sync(0);update_fog()
+	apply_player_scenery_passage()
 	if painterly_pilot!=null:painterly_pilot.set_enabled(painterly_preview_enabled and model.terrain_source!="wind_meadow")
 	apply_map_environment()
 func can_reuse_map(next_model)->bool:
+	if not is_instance_valid(map_features):return false
 	for key in ["terrain_source","terrain_detail","falan_area","falan_floor","terrain_scale","map_expansion","raised_castle","roads","portals","deposits"]:
 		if model.get(key)!=next_model.get(key):return false
 	if model.terrain_source!="wind_meadow" and model.ramparts!=next_model.ramparts:return false
@@ -227,7 +251,11 @@ func make_map_features():
 		playable_bounds=model.world_bounds().grow(-3)
 		var indoor=preload("res://scripts/forest/forest_falan_interior.gd")
 		var cave_walls=indoor.build(map_features,model.falan_floor,model.seed_value)
-		if indoor.Original.owns(model.falan_floor):base_ground_collision.collision_layer=0
+		if indoor.Original.owns(model.falan_floor):
+			base_ground_collision.collision_layer=0
+			var recovered=indoor.Original.state(model.falan_floor,model.seed_value)
+			# Source collision walls own the edge; the generic inset cut off recorded exit rows.
+			playable_bounds=Rect2(recovered.origin-Vector2.ONE*1.5,Vector2(recovered.size)*3.0).grow(3.0)
 		if indoor.Dungeons.roofed(model.falan_floor):
 			indoor.build_ceiling(map_features,model.falan_floor)
 		var stair_cells:Array=[indoor.Prayer.stairs(model.falan_floor,model.seed_value)[1]] if model.falan_floor in indoor.Prayer.FLOORS else indoor.RoomArt.HabaruStairs.DOWN_CELLS.get(model.falan_floor,[])
@@ -278,7 +306,7 @@ func make_map_features():
 	if model.has_enemy_camps():
 		playable_bounds=Rect2(Vector2(-234,-234)*model.terrain_scale*model.map_expansion,Vector2(468,468)*model.terrain_scale*model.map_expansion)
 		if model.falan_road.is_empty():preload("res://scripts/forest/forest_camp_prototype.gd").build(self)
-	if model.falan_road=="east_gate":playable_bounds=model.terrain.mask_bounds()
+	if model.falan_road=="east_gate" or model.falan_area=="south_lakes":playable_bounds=model.terrain.mask_bounds()
 	playable_bounds=Rect2(playable_bounds.position*model.falan_scale,playable_bounds.size*model.falan_scale)
 	if model.terrain_detail==model.Arena.ID:
 		playable_bounds=model.terrain.arena_bounds()
@@ -305,10 +333,45 @@ func fog_material(color: Color,ground_: bool=false)->ShaderMaterial:
 	mat.set_shader_parameter("visibility_map",fog_texture);mat.set_shader_parameter("base_color",color)
 	mat.set_shader_parameter("ground_surface",ground_)
 	fog_materials.append(mat);return mat
+func discard_city_scenery():
+	if city_scenery.is_empty():return
+	var cached:Node3D=city_scenery.root
+	if cached.get_parent()!=null:cached.get_parent().remove_child(cached)
+	cached.free()
+	city_scenery.clear()
+
+func _exit_tree():
+	if not city_scenery.is_empty() and city_scenery.root.get_parent()==null:discard_city_scenery()
+
+func mount_city_scenery(parent:Node3D,source_model,layout:Dictionary,vista:bool):
+	var meadow=preload("res://scripts/forest/forest_wind_meadow_art.gd")
+	if travel_layout.is_empty() or layout.is_empty():
+		meadow.trees({"model":source_model,"scenery_chunks":{},"fog_materials":[]},parent)
+		return
+	if city_scenery.get("layout",{})!=layout:
+		discard_city_scenery()
+		var root=Node3D.new()
+		root.name="FalanCityScenery"
+		var context={"model":source_model,"scenery_chunks":{},"fog_materials":[]}
+		parent.add_child(root)
+		meadow.trees(context,root)
+		var anchors=[]
+		for body in root.find_children("*","StaticBody3D",true,false):
+			if body.has_meta("map_scenery_cell"):anchors.append([body,body.get_meta("map_scenery_cell")])
+		city_scenery={"layout":layout.duplicate(true),"root":root,"anchors":anchors,"fog_materials":context.fog_materials}
+	else:
+		parent.add_child(city_scenery.root)
+	for row in city_scenery.anchors:
+		if vista:row[0].remove_meta("map_scenery_cell")
+		else:row[0].set_meta("map_scenery_cell",row[1])
+	if not vista:fog_materials.append_array(city_scenery.fog_materials)
+
 func make_forest():
 	forest_root=Node3D.new();forest_root.name="MapForest";forest_root.scale=Vector3.ONE*model.falan_scale;add_child(forest_root);scenery_chunks.clear()
 	if model.terrain_source=="wind_meadow":
-		preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root);return
+		if model.falan_area=="city" and not travel_layout.is_empty():mount_city_scenery(forest_root,model,travel_layout,false)
+		else:preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root)
+		return
 	make_rocks()
 	var layers=[]
 	for i in range(4):
@@ -327,7 +390,7 @@ func make_forest():
 			var transform=Transform3D(Basis(Vector3.UP,deg_to_rad(model.tree_rotations.get(cell,0))).scaled(Vector3.ONE*scale_),model.scenery_point(cell)+Vector3(0,height*scale_,0))
 			layers[i].multimesh.set_instance_transform(index,transform)
 		var box:AABB=model.scenery_obstacles[cell]
-		Art.solid(forest_root,box.get_center(),box.size,1,"wood").set_meta("map_scenery_cell",cell)
+		Art.solid(forest_root,box.get_center(),box.size,1,"wood",true).set_meta("map_scenery_cell",cell)
 		index+=1
 func make_rocks():
 	var groups={}
@@ -337,7 +400,7 @@ func make_rocks():
 			if not groups.has(kind):groups[kind]=[]
 			groups[kind].append(Transform3D(Basis(Vector3.UP,deg_to_rad(item.rotation)).scaled(Vector3.ONE*item.scale*model.Scenery.visual_scale(kind)),point_))
 			var box:AABB=model.scenery_obstacles[cell]
-			Art.solid(forest_root,box.get_center(),box.size,1,model.Scenery.material(kind)).set_meta("map_scenery_cell",cell)
+			Art.solid(forest_root,box.get_center(),box.size,1,model.Scenery.material(kind),model.Scenery.player_passable(kind)).set_meta("map_scenery_cell",cell)
 	for kind in groups:preload("res://scripts/forest/forest_wind_meadow_assets.gd").batch(forest_root,model.Scenery.asset(kind),groups[kind],model.Scenery.wind(kind))
 func show_scenery_preview(kind:String,cell:Vector2i,scale_:float,rotation_:float,valid:bool,height:float=0):
 	var box=preload("res://scripts/forest/forest_scenery.gd").bounds(kind,scale_,rotation_)
@@ -398,8 +461,10 @@ func show_preview(kind: String,cell: Vector2i,rotation_: int,valid: bool):
 	ghost_material.albedo_color=Color(.43,.88,.65,.4) if valid else Color(.92,.31,.21,.4)
 	sight_ring.scale=Vector3.ONE*model.SIGHT[kind]
 func reload_scenery():
+	if not city_scenery.is_empty() and city_scenery.root.get_parent()==forest_root:discard_city_scenery()
 	if model.terrain_source=="wind_meadow":preload("res://scripts/forest/forest_wind_meadow_art.gd").trees(self,forest_root)
 	else:remove_child(forest_root);forest_root.queue_free();make_forest()
+	apply_player_scenery_passage()
 func refresh_castle_build_site(index:int):
 	reload_scenery()
 	add_enemy_castle(index)

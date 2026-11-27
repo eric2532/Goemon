@@ -4,6 +4,7 @@ extends "res://scripts/forest/forest_wind_meadow_terrain.gd"
 const ID="freyja_west_gate"
 const Regions=preload("res://scripts/forest/forest_freyja_regions.gd")
 const MASK=preload("res://assets/maps/freyja_west_gate/layout_mask.png")
+const Residual=preload("res://assets/maps/falan/freyja_residual/data.gd")
 const SURFACES={
  "freyja":[preload("res://assets/maps/falan/west_approach_surface.png"),Vector2(-480,-204)],
  "city":[preload("res://assets/maps/falan/city_surface.png"),Vector2(-402,-438)],
@@ -20,20 +21,29 @@ const BRIDGES={"freyja":BRIDGE,"east_gate":Rect2(-6,63,18,90),"south_gate":Rect2
 const IL_BRIDGE_SOURCE=Rect2(1660.5,694.5,18,9)
 const EastRoad=preload("res://scripts/forest/forest_east_road.gd")
 const Sokia=preload("res://scripts/forest/forest_sokia_scenery.gd")
+const VenoaField=preload("res://assets/maps/falan/venoa_field/data.gd")
 static var fields:Dictionary={}
+static var recent_geometry:Dictionary={}
 var variant="freyja"
 
 func uses_baked_geometry()->bool:return false
-func uses_baked_apron()->bool:return not Sokia.owns(variant) and variant not in ["city","il_village","kili","venoa"] and variant not in Regions.TOMATO_LAND and not BRIDGES.has(variant) and not Regions.Data.RIDGES.has(variant)
+func uses_baked_apron()->bool:return not Sokia.owns(variant) and variant not in ["city","il_village","laruka","kili","venoa","ghana"] and variant not in Regions.TOMATO_LAND and not BRIDGES.has(variant) and not Regions.Data.RIDGES.has(variant)
 func mesh_heights()->PackedFloat32Array:return terrain_field().get_meta("bed")
 func mask_texture()->Texture2D:
  if variant=="east_gate":return EastRoad.mask()
+ if Residual.Full.SURFACES.has(variant):return Residual.surface(variant)
+ if variant=="laruka":return preload("res://assets/maps/falan/il_laruka/data.gd").LARUKA_MASK
  if Sokia.owns(variant):return Sokia.MASKS[variant]
- if Regions.Sites.VILLAGES.has(variant):return Regions.Sites.VILLAGES[variant][3]
+ if Regions.Sites.VILLAGES.has(variant):return Regions.village_mask(variant)
  if Regions.Data.REGIONS.has(variant):return Regions.joined_mask(variant,Regions.Data.REGIONS[variant][2],-(Regions.Data.REGIONS[variant][2].get_size()-Vector2.ONE)*1.5)
  return SURFACES[variant][0]
+func mask_image()->Image:
+ if Residual.Full.SURFACES.has(variant):return Residual.image(variant)
+ if Sokia.owns(variant):return Sokia.mask_image(variant)
+ var surface=mask_texture()
+ return surface.get_meta("source_cpu_image") if surface.has_meta("source_cpu_image") else surface.get_image()
 func mask_origin()->Vector2:
- if variant=="east_gate":return EastRoad.ORIGIN
+ if Residual.Full.ORIGINS.has(variant):return Residual.Full.ORIGINS[variant]
  if Regions.Sites.VILLAGES.has(variant):return Regions.Sites.VILLAGES[variant][2]
  return -(mask_texture().get_size()-Vector2.ONE)*1.5 if Regions.Data.REGIONS.has(variant) else SURFACES[variant][1]
 func mask_bounds()->Rect2:return Rect2(mask_origin()-Vector2.ONE*1.5,mask_texture().get_size()*3.0)
@@ -55,11 +65,12 @@ func terrain_field()->Resource:
  if variant=="east_gate":return EastRoad.field()
  if fields.has(variant):return fields[variant]
  var source=super.terrain_field()
- var mask=mask_texture().get_image()
+ var mask=mask_image()
  var count:int=source.get_meta("width")
  var step:float=source.get_meta("spacing")
  var origin=mask_origin()
- var start=Vector2i((origin+Vector2.ONE*480.0)/step)
+ var start=Vector2i((origin+Vector2.ONE*240.*horizontal_scale*expansion)/step)
+ assert(start.x>=0 and start.y>=0 and start.x+mask.get_width()<=count and start.y+mask.get_height()<=count,"Native mask exceeds its terrain field")
  var bridge=bridge_bounds()
  var joined=Regions.GATE_FRAMES.has(variant)
  var outlying=Regions.Data.REGIONS.has(variant)
@@ -70,7 +81,7 @@ func terrain_field()->Resource:
  var crossings:PackedByteArray=source.get_meta("bridges")
  if Sokia.owns(variant):crossings=crossings.duplicate();crossings.fill(0)
  var mountain=variant in Regions.TOMATO_LAND
- if variant in ["city","castle","il_village"] or mountain or Sokia.owns(variant):
+ if variant in ["city","castle","il_village","laruka","south_lakes"] or mountain or Sokia.owns(variant):
   land=land.duplicate()
   coverage=coverage.duplicate()
   land.fill(0.0)
@@ -111,7 +122,7 @@ func terrain_field()->Resource:
    else:
     land[i]=bed[i]
     if paint.r>.5 and bed[i]<WATER_HEIGHT:coverage[i]=0
-    elif (variant in ["city","castle","il_village"] or mountain or Sokia.owns(variant)) and paint.a>.5:coverage[i]=1
+    elif (variant in ["city","castle","il_village","laruka","south_lakes"] or mountain or Sokia.owns(variant)) and paint.a>.5:coverage[i]=1
    if variant in ["east_gate","east_coast"] and IL_BRIDGE_SOURCE.has_point(archive_frame*point):
     bed[i]=0.0
     crossings[i]=1
@@ -138,8 +149,25 @@ func terrain_field()->Resource:
 func coordinate(x:float,z:float)->Vector2:
  return (Vector2(x,z)-EastRoad.ORIGIN)/EastRoad.STEP if variant=="east_gate" else super.coordinate(x,z)
 
+func geometry_entry()->Dictionary:
+ # Keep a small set of exact terrain derivatives for backtracking through exits.
+ var key=[terrain_field(),horizontal_scale,expansion]
+ var entry:Dictionary=recent_geometry.get(key,{})
+ recent_geometry.erase(key)
+ recent_geometry[key]=entry
+ if recent_geometry.size()>3:recent_geometry.erase(recent_geometry.keys()[0])
+ return entry
+
 func mesh()->ArrayMesh:
- return EastRoad.mesh() if variant=="east_gate" else super.mesh()
+ if variant=="east_gate":return EastRoad.mesh()
+ var entry=geometry_entry()
+ if not entry.has("mesh"):entry.mesh=super.mesh()
+ return entry.mesh
+
+func collision()->ConcavePolygonShape3D:
+ var entry=geometry_entry()
+ if not entry.has("collision"):entry.collision=super.collision()
+ return entry.collision
 
 func _building_ground_info(cells:Array)->Dictionary:
  var bridge=bridge_bounds()

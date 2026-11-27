@@ -8,19 +8,20 @@ func check_il_habaru_alyut():
   await open_area(row[0])
   await site(row[1],row[2])
   village_entries(row[4])
-  var houses=game.world.find_children("BlueCGVillageBuilding_*","MeshInstance3D",true,false)
+  var houses=game.world.find_children("BlueCGVillageBuilding_*","Node3D",true,false)
   check(houses.size()==row[3],"Every original village building remains present")
   var seen={}
   for house in houses:
-   check(house.scale==Vector3.ONE,"Fitting is baked before texture coordinates are measured")
+   if house is MeshInstance3D:check(house.scale==Vector3.ONE,"Fitting is baked before texture coordinates are measured")
    check_uvs(house)
    var serial:int=house.get_meta("source_graphic")
    if seen.has(serial):continue
    seen[serial]=true
    if DisplayServer.get_name()=="headless":continue
-   var size_:Vector3=house.mesh.get_aabb().size*game.model.falan_scale
+   var bounds=coastal_building_bounds(house)
+   var size_:Vector3=bounds.size
    var radius=maxf(maxf(size_.x,size_.z),size_.y)*1.12+8
-   var target:Vector3=house.global_position+Vector3.UP*size_.y*.47
+   var target:Vector3=bounds.get_center()
    for i in 4:
     var angle=PI*.25+i*PI*.5
     var eye=target+Vector3(sin(angle)*radius,radius*.47,cos(angle)*radius)
@@ -30,8 +31,14 @@ func check_il_habaru_alyut():
    await room(row[1])
  print("VILLAGE_BUILDING_WRAP_RESULT failures=",errors)
 
-func check_uvs(house:MeshInstance3D):
- var mesh:Mesh=house.mesh
+func check_uvs(house:Node3D):
+ if house.get_meta("source_graphic",0)==10607:
+  check(house.find_children("*","MeshInstance3D",true,false).any(func(n):return n.get_meta("office_source_body",false)),"The guild uses its shared closed native facade")
+  var panes=house.find_children("*","MeshInstance3D",true,false).filter(func(n):return n.get_meta("falan_source_feature","") in ["office_side_near","office_side_far"])
+  check(panes.size()==2,"The guild retains its two source-painted upper side windows")
+  return
+ check(house is MeshInstance3D,"Other village houses retain their shared single-mesh contract")
+ var mesh:Mesh=(house as MeshInstance3D).mesh
  check(mesh.surface_get_material(0).get_shader_parameter("atlas_tile_pixels")==128.0,"Buildings use isolated rectified paint tiles")
  var arrays:Array=mesh.surface_get_arrays(0)
  var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]

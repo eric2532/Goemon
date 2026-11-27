@@ -39,7 +39,8 @@ func _ready():
  body.visible_characters=0
  hint=label("Space · 顯示全文",Vector2(1030,823),Vector2(290,30),22)
  hint.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
- options=HBoxContainer.new();options.position=Vector2(88,818);options.size=Vector2(900,42);options.add_theme_constant_override("separation",12);canvas.add_child(options)
+ var choices_scroll=ScrollContainer.new();choices_scroll.position=Vector2(88,818);choices_scroll.size=Vector2(1264,56);choices_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;choices_scroll.follow_focus=true;canvas.add_child(choices_scroll)
+ options=HBoxContainer.new();options.add_theme_constant_override("separation",12);choices_scroll.add_child(options)
  entry=LineEdit.new();entry.position=Vector2(88,771);entry.size=Vector2(1210,38);entry.max_length=120;entry.placeholder_text="輸入留言（最多 120 字）";canvas.add_child(entry)
  entry.add_theme_font_override("font",MenuSkin.FONT);entry.add_theme_font_size_override("font_size",24)
  entry.text_submitted.connect(func(_text):

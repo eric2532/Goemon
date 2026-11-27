@@ -12,7 +12,7 @@ inline bool magical_attack(int kind,int action,bool projectile){return kind==18|
 class Crowd;
 struct Unit;
 struct Hit {
-    double amount=0,status_seconds=0;
+    double amount=0,status_seconds=0,accuracy=0;
     int64_t source_id=0,ticket_id=0;
     Vec3 direction,impulse;double flinch=0;bool add_impulse=false;
     bool projectile=false,heavy=false,critical=false,provoke=true,responsive_recoil=false;
@@ -25,7 +25,7 @@ struct Hit {
 struct HitResult {bool accepted=false,dead=false;double hp=0;};
 struct DodgeThreat {double seconds=-1;int64_t source_id=0;Vec3 origin;bool charge=false;};
 enum EventKind{MELEE,MUZZLE,BULLET,DONE,DAMAGE,DEATH,EXTERNAL_DAMAGE,PROJECTILE_IMPACT,STATUS_EVENT,LANDING_PULSE,SHIELD_COUNTER,ATTACK_STARTED,PET_SKILL_STARTED,PET_SKILL_CONTACT,PET_SKILL_MOVE};
-enum HoundOrder{HOUND_DEFEND,HOUND_ATTACK,HOUND_RETURN,HOUND_HOLD};
+enum HoundOrder{HOUND_DEFEND,HOUND_ATTACK,HOUND_RETURN,HOUND_HOLD,HOUND_COMBINED};
 struct Event {
     uint64_t serial=0;
     EventKind kind=MELEE;
@@ -58,11 +58,13 @@ struct ShelterTarget {int64_t id=0;Vec3 entrance,center;int64_t damage_serial=0;
 struct ExternalTarget {int64_t id=0;int kind=0;Vec3 foot;double hp=0;bool targetable=true,taunting=false;Vec3 minimum,maximum;int64_t ignore_building=-1;
     int assault_priority=0;
     int aggro_kills=0;
+    bool map_swarm=false;
     int64_t attack_serial=0;Vec3 attack_facing;float attack_reach=0;
     bool guarding=false,evading=false;
     bool bodyguard=false;
     int bodyguard_level=1;
     Vec3 pet_formation_facing;std::vector<int64_t> pet_formation_ids;
+    bool combined_player_attacking=false;
     bool body_bounds() const{return kind==0&&maximum.x>minimum.x&&maximum.y>minimum.y&&maximum.z>minimum.z;}
 };
 class Combat {
@@ -70,6 +72,8 @@ public:
     bool configure(KitData data,Crowd* crowd=nullptr);
     void spawned(Unit& unit);
     bool begin_enemy_arrival(Crowd& crowd,int64_t handle);
+    bool queue_beast_pet_attacks(Crowd& crowd,int64_t handle,int64_t count);
+    double evasion_chance(const Unit& unit) const;
     double pet_max_mana() const {return data_.pet_mana;}
     double hound_health() const {return data_.hound_hp>0?data_.hound_hp:soldiers_[HOUND_KIND].hp;}
     void retired(int64_t handle){skullpions_.erase(handle);pet_sequence_targets_.erase(handle);}
@@ -89,10 +93,26 @@ public:
     void set_shelters(std::vector<ShelterTarget> shelters){shelters_=std::move(shelters);}
     void rest_tick(Crowd& crowd,double delta);
     void clear_events(){events_.clear();}
-    void set_targets(std::vector<ExternalTarget> targets,double camera_yaw=2.356194490192345,double player_speed=0,int64_t hound_order=HOUND_DEFEND,int64_t hound_order_serial=0,int64_t hound_focus_target=0);
+    void set_targets(std::vector<ExternalTarget> targets,double camera_yaw=2.356194490192345,double player_speed=0,int64_t hound_order=HOUND_DEFEND,int64_t hound_order_serial=0,int64_t hound_focus_target=0,Vec3 attack_move={NAN,0,0});
     int64_t hound_focus_target() const{return hound_focus_target_;}
     void include_body_bounds(const Unit& unit);
+    bool begin_combined_power(Crowd& crowd,int64_t target,double windup);
+    int strike_combined_power(Crowd& crowd);
+    bool combined_power_ready(Crowd& crowd) const;
+    bool end_combined_power(Crowd& crowd);
 private:
+    int combined_slot(const Unit& unit) const;
+    bool combined_can_strike(const Unit& unit) const;
+    void combined_guard(Crowd& crowd,Unit& unit,double delta,int slot);
+    uint8_t combined_prepare(Crowd& crowd,int64_t target);
+    void combined_pose(Unit& unit);
+    bool combined_member(const Unit& unit) const;
+    void combined_wait_pose(Unit& unit);
+    double combined_contact_tick(const Unit& unit) const;
+    bool combined_power_active_=false;
+    bool combined_power_struck_=false;
+    double combined_power_windup_=0,combined_power_elapsed_=0;
+    std::array<int64_t,5> combined_power_members_{};
     struct Rescue {int64_t guard=0,drain=0;Vec3 from,to;Hit hit;Event external;double left=.18;};
     std::vector<Rescue> rescues_;
     std::vector<int64_t> bodyguards_;
@@ -109,6 +129,13 @@ private:
     double joint_clock_=0;
     friend struct JointAttackTest;
     bool pet_flurry_ready(Crowd& crowd,const Unit& unit) const;
+    void begin_beast_pet_attack(Unit& unit);
+    void land_beast_pet_rushes(Crowd& crowd);
+    struct BeastPetLanding {int64_t pet,target;Vec3 point;bool arriving;};
+    std::array<BeastPetLanding,5> beast_pet_rushers_{};
+    size_t beast_pet_rush_count_=0;
+    std::vector<int64_t> beast_pet_candidates_;
+    bool beast_pet_candidates_ready_=false;
     bool pet_flurry_blink(Crowd& crowd,Unit& unit);
     void advance_pet_flurry(Crowd& crowd,Unit& unit,double delta);
     friend struct TimedDodgeTest;
@@ -123,6 +150,7 @@ private:
     void warn_projectile(Crowd& crowd,const Projectile& shot);
     friend struct NearestQueryTest;
     friend struct PetGeometryTest;
+    friend struct PetSkillSelectionTest;
     friend struct TargetDecisionTest;
     friend struct SkullpionTest;
     friend struct DarkLuminaTest;
@@ -185,6 +213,8 @@ private:
     HoundOrder hound_order_=HOUND_DEFEND;
     int64_t hound_order_serial_=0;
     int64_t hound_focus_target_=0;
+    Vec3 hound_attack_move_{NAN,0,0},hound_attack_origin_{};
+    bool attack_move_enemy(const Unit& unit,const Unit& enemy) const;
     float hound_escort_query_radius_=0;
     int hound_searches_left_=0;
     std::vector<int64_t> hound_claims_,hound_escort_neighbors_;
@@ -207,9 +237,9 @@ private:
     const ExternalTarget* external_target(const Unit& unit) const;
     std::vector<ShelterTarget> shelters_;
     int64_t nearest_enemy(Crowd& crowd,Vec3 origin,const std::array<int64_t,4>* hunt_skips=nullptr);
-    int64_t guard_enemy(Crowd& crowd,Unit& unit,float escort_radius=0,const std::vector<int64_t>* skipped=nullptr);
+    int64_t guard_enemy(Crowd& crowd,Unit& unit,float escort_radius=0,const std::vector<int64_t>* skipped=nullptr,Vec3* summon_landing=nullptr);
     bool pet_surround_goal(Crowd& crowd,Unit& unit,const Unit& enemy,Vec3& goal);
-    bool pet_contact_goal(Crowd& crowd,const Unit& unit,const Unit& enemy,Vec3& goal);
+    bool pet_contact_goal(Crowd& crowd,const Unit& unit,const Unit& enemy,Vec3& goal,Vec3 preferred={},bool direct_landing=false);
     bool pet_landing_clear(Crowd& crowd,const Unit& unit,Vec3 point) const;
     bool shelter(Crowd& crowd,Unit& unit,double delta,bool active=true);
     Vec3 bunker_face(const Crowd& crowd,const ShelterTarget& bunker,Vec3 target) const;
@@ -238,12 +268,16 @@ private:
     void regen_pet_mana(Unit& unit,double delta);
     void choose_target(Crowd& crowd,Unit& unit);
     float player_aggro_bonus() const;
+    bool player_map_swarm() const;
     void march_on_base(Crowd& crowd,Unit& unit);
     bool target_approach(Crowd& crowd,const Unit& unit,Vec3& goal);
     struct TargetCandidate {int row=-1;int64_t handle=0;float distance=0;int priority=0;};
     std::vector<TargetCandidate> target_candidates_;
     std::vector<int> enemy_unit_claims_,enemy_external_claims_;
     int nearby_hero_pursuers_=0;
+    int nearby_hero_melee_=0;
+    bool crowd_melee_enemy(const Unit& unit) const;
+    double crowd_attack_pressure(const Unit& unit) const;
     bool target(Crowd& crowd,const Unit& unit,Vec3& foot) const;
     bool melee_contact(Crowd& crowd,const Unit& unit) const;
     bool gun_contact(Crowd& crowd,const Unit& unit) const;

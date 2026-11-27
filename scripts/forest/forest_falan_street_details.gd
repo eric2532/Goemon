@@ -8,6 +8,7 @@ const Atlas=preload("res://assets/maps/falan/city_street_surfaces.png")
 const PlanterAtlas=preload("res://assets/maps/falan/city_planter_art.png")
 const LeafAtlas=preload("res://assets/maps/falan/city_planter_leaves.png")
 const Assets=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
+const OriginalArt=preload("res://scripts/forest/forest_original_map_art.gd")
 static var meshes:Dictionary={}
 static var canopies:Dictionary={}
 
@@ -71,8 +72,50 @@ static func foliage(serial:int)->Mesh:
  mesh.surface_set_material(0,material);canopies[serial]=mesh
  return mesh
 
+static func laundry_point(pixel:Vector2)->Vector3:
+ # Native 11004, relative to its compound-footprint centre in the city frame.
+ var x=(pixel.x-51.0)/(32.0/3.0)+.25
+ var y=((x+.25)*8.0-(pixel.y-109.0))/sqrt(2.0*(pow(32.0/3.0,2)-64.0))
+ return Vector3(x,y,.25)
+
+static func laundry_mesh()->Mesh:
+ Parts.prepare_primitives()
+ var frame=SurfaceTool.new();frame.begin(Mesh.PRIMITIVE_TRIANGLES)
+ var feet=[Vector3(-3.921875,0,.296875),Vector3(4.421875,0,.203125)]
+ var height=76.0/sqrt(2.0*(pow(32.0/3.0,2)-64.0))
+ for foot:Vector3 in feet:
+  Parts.rod(frame,foot,foot+Vector3.UP*height,.12)
+  for y in [.13,height-1.35,height-.94,height-.15]:
+   Parts.rod(frame,foot+Vector3.UP*(y-.06),foot+Vector3.UP*(y+.06),.20)
+  Parts.oval(frame,foot+Vector3.UP*(height+.12),Vector3(.45,.24,.45))
+ Parts.rod(frame,feet[0]+Vector3.UP*6.65,feet[1]+Vector3.UP*6.65,.075)
+ var objects=[frame.commit()]
+ for pixels in [[Vector2(12,19),Vector2(57,49),Vector2(62,53),Vector2(63,76),Vector2(63,94),Vector2(58,99),Vector2(50,96),Vector2(15,72),Vector2(13,68)],
+                [Vector2(70,62),Vector2(90,76),Vector2(88,91),Vector2(86,114),Vector2(80,110),Vector2(79,90),Vector2(76,108),Vector2(70,105),Vector2(67,87)]]:
+  var outline=PackedVector2Array()
+  for pixel:Vector2 in pixels:
+   var p=laundry_point(pixel);outline.append(Vector2(p.x,p.y))
+  objects.append(Shapes.extrude(outline,.05))
+ var g:Dictionary=OriginalArt.data().graphics["11004"]
+ var texture:Texture2D=load(OriginalArt.ROOT+OriginalArt.data().pages[int(g.page)])
+ var rect=Rect2(g.rect[0],g.rect[1],g.rect[2],g.rect[3])
+ var skin=SourceMesh.new([rect,Vector2(51,109),Vector2.ONE,0],texture,1.0/sqrt(2.0*(pow(32.0/3.0,2)-64.0)))
+ for object in objects:
+  var a=object.surface_get_arrays(0);var indices=a[Mesh.ARRAY_INDEX]
+  var shift=Vector3.ZERO if object==objects[0] else Vector3.BACK*.25
+  for i in (indices.size() if indices!=null and not indices.is_empty() else a[Mesh.ARRAY_VERTEX].size()):
+   var index:int=indices[i] if indices!=null and not indices.is_empty() else i
+   var point:Vector3=a[Mesh.ARRAY_VERTEX][index]+shift
+   skin.projected_vertex(point,a[Mesh.ARRAY_NORMAL][index],Vector3(-point.z,point.y,point.x))
+ var result=skin.finish()
+ result.set_meta("original_graphic",11004)
+ return result
+
 static func prepare(serial:int)->Mesh:
  if meshes.has(serial):return meshes[serial]
+ if serial==11004:
+  meshes[serial]=laundry_mesh()
+  return meshes[serial]
  Parts.prepare_primitives()
  var frame=SurfaceTool.new();frame.begin(Mesh.PRIMITIVE_TRIANGLES)
  var planter=serial in [10426,10427,10452,10453]

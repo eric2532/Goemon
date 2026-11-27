@@ -1,0 +1,330 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10095": {
+      "serial": 10095,
+      "kit": "native_door",
+      "size": [
+        84,
+        191
+      ],
+      "visible": [
+        0,
+        0,
+        71,
+        189
+      ],
+      "origin": [
+        -18,
+        -176
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "pack": "original",
+      "row": 250987,
+      "source_rgba_sha256": "10332f8ab32319dc10906b3a7322fa8f285e49078ba0faaef480331caeaacc4c",
+      "source_floor_pixels": [
+        [
+          68,
+          139
+        ],
+        [
+          6,
+          188
+        ]
+      ],
+      "floor_edge": [
+        [
+          -1.3125,
+          0.1875
+        ],
+        [
+          4.65625,
+          0.03125
+        ]
+      ],
+      "outline_pixels": [
+        [
+          0,
+          49
+        ],
+        [
+          1,
+          48
+        ],
+        [
+          11,
+          40
+        ],
+        [
+          55,
+          7
+        ],
+        [
+          62,
+          2
+        ],
+        [
+          65,
+          0
+        ],
+        [
+          67,
+          0
+        ],
+        [
+          70,
+          3
+        ],
+        [
+          70,
+          137
+        ],
+        [
+          68,
+          139
+        ],
+        [
+          38,
+          163
+        ],
+        [
+          9,
+          186
+        ],
+        [
+          6,
+          188
+        ],
+        [
+          2,
+          187
+        ],
+        [
+          0,
+          185
+        ]
+      ],
+      "depth": 0.18,
+      "removed_shadow_pixels": 504
+    },
+    "10096": {
+      "serial": 10096,
+      "kit": "native_door",
+      "size": [
+        84,
+        188
+      ],
+      "visible": [
+        0,
+        0,
+        73,
+        188
+      ],
+      "origin": [
+        -53,
+        -175
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "pack": "original",
+      "row": 250988,
+      "source_rgba_sha256": "cf33d67033a0179a6617154126391533633870c91df24347e5b389495aa74e34",
+      "source_floor_pixels": [
+        [
+          70,
+          187
+        ],
+        [
+          4,
+          139
+        ]
+      ],
+      "floor_edge": [
+        [
+          -0.046875,
+          -4.546875
+        ],
+        [
+          0.046875,
+          1.546875
+        ]
+      ],
+      "outline_pixels": [
+        [
+          0,
+          76
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          17,
+          7
+        ],
+        [
+          61,
+          40
+        ],
+        [
+          71,
+          48
+        ],
+        [
+          72,
+          49
+        ],
+        [
+          72,
+          185
+        ],
+        [
+          70,
+          187
+        ],
+        [
+          65,
+          187
+        ],
+        [
+          63,
+          186
+        ],
+        [
+          34,
+          163
+        ],
+        [
+          4,
+          139
+        ],
+        [
+          2,
+          137
+        ],
+        [
+          0,
+          79
+        ]
+      ],
+      "depth": 0.18,
+      "removed_shadow_pixels": 61
+    },
+    "17642": {
+      "serial": 17642,
+      "kit": "native_door",
+      "size": [
+        56,
+        135
+      ],
+      "visible": [
+        0,
+        0,
+        56,
+        135
+      ],
+      "origin": [
+        -29,
+        -140
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "pack": "original",
+      "row": 12996,
+      "source_rgba_sha256": "e2aad733b30ad9a635e79de918d1774273dba46753d45d8781c8a1cfe4da16e5",
+      "source_floor_pixels": [
+        [
+          55,
+          134
+        ],
+        [
+          2,
+          95
+        ]
+      ],
+      "floor_edge": [
+        [
+          1.546875,
+          -4.078125
+        ],
+        [
+          1.59375,
+          0.84375
+        ]
+      ],
+      "outline_pixels": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          52,
+          37
+        ],
+        [
+          55,
+          40
+        ],
+        [
+          55,
+          134
+        ],
+        [
+          54,
+          134
+        ],
+        [
+          2,
+          95
+        ],
+        [
+          0,
+          9
+        ]
+      ],
+      "depth": 0.18,
+      "removed_shadow_pixels": 0
+    }
+  },
+  "status": "Candidate source/reverse review, no runtime dispatch.",
+  "reuse": [
+    "Existing closed Shapes.extrude door sections",
+    "Independent clean native Tina fence timber tile at fixed1.4m pitch, grain along the leaf; no mirrored knob/rear doorway"
+  ],
+  "inferred": [
+    "Native outline, ground-edge endpoints, original source anchor and footprint are observed. Ground-edge height0 and the closed leaf depth/hidden wood finish are reconstructed.",
+    "Source-facing paint remains literal. These mesh-only leaves do not create a new opening, trigger, collision or route."
+  ],
+  "scope": "Only three exact East source closed door leaves; other-region owners remain unchanged."
+}

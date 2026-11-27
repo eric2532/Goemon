@@ -1,5 +1,13 @@
 # 海洞 to 熊洞 scenery
 
+The expanded [索奇亞 + 維諾亞村 goal](../sokia/README.md#required-索奇亞--維諾亞村-goal-scope--2026-11-26)
+requires the entire surrounding outdoor area, every source-confirmed entrance
+and each map/zone/floor's complete original encounter roster, including rare
+variants, mixed groups and bosses. Historical road-only exclusions and completed
+visual reviews below do not complete that goal. Missing maps, missing enemy art
+and unverified encounter rules must stay separate and open; verify scenery from
+fixed gameplay cameras and representative fights through direct triggers.
+
 The original reference is the adjacent Magic Power archive: Freyja `100.dat`,
 熊洞 `11000/11001/11002/11022.dat`, cliff graphic 12543 and the original
 13324–13359 cave rock family. Original art, maps, navigation, stairs and bear
@@ -52,3 +60,105 @@ including its undersea recess. Kili's existing source banks remain separate.
 This changes visual surfaces only; the original coast collision, source cells
 and mouth profile stay with their current owners. Review evidence is under
 `build/Other Files/Asset Toolkit/Kili Village Recovery/`.
+
+## Source-based village forms — 2026-11-23
+
+The current user workflow is source-supported changes by connected area, with
+short in-game review notes. Do not generate further walkthroughs or verification
+screenshots for this pass; the user will review on a later source launch.
+
+The editable form records are `FORMS` in `tools/recover_venoa_buildings.py`.
+They record native foundation stations, visible gable curves, opposite ridge
+stations and roof-furniture positions for graphics 11276/11279/11280/11283/11284/
+11286. `venoa_buildings.*` contains the generated paint, provenance and runtime
+records. The original archive and `coastal_building_art.png` remain unchanged.
+Changing form records does not change the maps, door markers or physical plans.
+
+`forest_venoa_buildings.gd` reuses the coastal source mesh/round-part builder and
+Tina's source-painted roof clipping. It prepares one immutable mesh per graphic.
+The existing coastal loader supplies all seven placements and keeps their old
+collision boxes. Other atlases/custom data retain their existing building path.
+The old uniform roof/chimney recipe is excluded for these canonical Venoa forms.
+
+Review locations:
+
+- Chimney houses: native flared roofs, paired hollow pots and open stone flues.
+- Pink-roofed residence: two raised dormers, with the wider rear eave curve.
+- Long equipment shop: raised facade, support posts, cross-gable and both entry
+  stair surfaces. Its existing door links and collision remain authoritative.
+- Bell building: corrected roof axis, pitched timber belfry, bell and yard wall.
+
+Native pixels establish the visible forms. Hidden depth, obscured foundations,
+rear faces, concealed structural details and the single-view-to-3D conversion
+remain inferred. These edits have not been accepted as a 1:1 appearance match.
+
+Native wall graphics 11252–11265 now share `solid_native_paint` with the building
+preparer. It removes boundary-connected gray-71 checkerboard ground shadow,
+then reuses the existing opaque edge extension. It preserves all other opaque
+RGB, including black/green flue interiors and dark wood carving. The earlier
+brightness filter was incorrect and has been replaced. Source RGBA hashes and
+removed shadow counts are stored in both provenance files.
+
+```sh
+python3 tools/recover_venoa_walls.py
+python3 tools/recover_venoa_buildings.py
+python3 tools/recover_venoa_walls.py --check
+python3 tools/recover_venoa_buildings.py --check
+python3 tests/forest-shrine/test_venoa_paint.py
+/Users/eric/Desktop/Play\ Goemon.command --headless --script res://tests/forest-shrine/explore_venoa_buildings_test.gd
+/Users/eric/Desktop/Play\ Goemon.command --headless --script res://tests/forest-shrine/explore_southern_walls_test.gd
+python3 tools/goemon_assets.py check
+```
+
+The focused checks cover source-station projection, mesh reuse, usable normals,
+all seven building placements and their seven old physical shapes; the wall
+fixture covers 164 placements/physical shapes. They produce no captures. Asset
+checks do not establish visual acceptance, frame time or long-session behavior.
+Current logs are under `build/Other Files/Asset Toolkit/Explore Visual Match/`.
+
+
+The final source-camera correction converts the internal .045 m/pixel geometry
+once to physical height 1/sqrt(2*((32/3)²-8²)). UV stations and native paint remain
+unchanged, and inverse-transpose normals preserve shading. Both the six building
+forms and fourteen wall forms receive this correction; no collision changes.
+The fixed area list and reference-gap handoff are in the parent Falan README.
+
+
+## Ruby-region visual reconstruction — 2026-11-25
+
+The current request explicitly requires fixed-view review. Its scoped visual
+owner is `scripts/forest/forest_ruby_region_art.gd`, prepared by
+`tools/prepare_ruby_region_art.py`. Source trees/palms/fences retain native cells,
+fit measured visible bounds and reuse the existing flora, palm and fence masters
+with owned palette materials. Existing seven Venoa house placements/forms and
+Kili’s native flat-roof kit remain authoritative. Kili/coastal wall ornament
+paint is an owned derivative over the existing meshes.
+
+The 12536–12565 cliff family now uses each actual native graphic’s contour and
+whole visible paint instead of repeated generic clusters within Venoa and the
+reviewed Southern Lakes/Sokia Coast bounds. Only visual duplicates are omitted;
+the original physical plans and obstacle owner remain. Source black void is
+excluded from rock geometry, and hidden surface depth/color remain a recorded
+3D adaptation. Other routes retain their existing visual path.
+
+The complete recipe, fixed-camera metadata, per-map findings and limitations are
+under `build/Other Files/Asset Toolkit/Ruby Region Reconstruction/`. Do not
+interpret a matched source bound as proof of exact foliage volume or terrain
+height; native maps contain no authoritative walkable heightfield.
+
+
+Single palm crowns additionally fit the original leaf width/height already
+measured in `sokia/details.gd`, independently of whole-tree bounds, retaining
+the original trunk attachment. Their owned derivative is not stored in the
+shared palm cache. Traced and compound crowns keep their existing geometry.
+Owned two-sided frond materials apply only to batches fully within this region.
+The existing Sokia source/master preservation check still verifies the reused
+recipe, source paint, curves and original palm model. Crown depth is a fitted
+adaptation from one view; it is not recovered original depth.
+
+The named cave approaches at Southern Lakes (341,496) and Sokia Coast
+(237,265) still expose a source-depth blocker: the fitted cliff volumes can
+overhang/obscure the recessed mouth from the low gameplay camera. Native open
+cells and original isometric bounds are known; their true solid depth/elevation
+is not. These views remain explicit unresolved visual mismatches in the handoff,
+despite passing transition checks. Do not certify those entrances as 1:1.

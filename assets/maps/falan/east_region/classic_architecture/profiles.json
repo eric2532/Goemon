@@ -1,0 +1,784 @@
+{
+  "scope": "Authoritative bounded native architecture enrollment. Only source_specific_reuse currently dispatches; all other family rows remain pending measured/reused geometry. Original source layout/doors/colliders unchanged.",
+  "groups": [
+    {
+      "family": "city_blue_roof_houses",
+      "ids": [
+        10302,
+        10310
+      ],
+      "graphics": 2,
+      "compatible_existing_contract": "City architecture measured10310 shell / Falan house masters; retain native dormers, doors and source fit."
+    },
+    {
+      "family": "timber_fence_open_panels",
+      "ids": [
+        10449,
+        10450,
+        10451,
+        10454,
+        10455,
+        10458,
+        10459,
+        10460,
+        10461
+      ],
+      "graphics": 9,
+      "compatible_existing_contract": "Tina.fence_arms/fence; Il/Laruka.bar and rails; closed bars at measured source endpoints, correct corner/open side."
+    },
+    {
+      "family": "iron_fence_posts_and_grilles",
+      "ids": [
+        10417,
+        10482,
+        10483,
+        10484,
+        10485,
+        10486,
+        10487,
+        10488
+      ],
+      "graphics": 8,
+      "compatible_existing_contract": "Court.ironwork and the completed10474/75 East fence source-fit method; open bars, not a slab."
+    },
+    {
+      "family": "lamp_posts_and_ornate_signposts",
+      "ids": [
+        10419,
+        10424,
+        10429,
+        10707,
+        10709,
+        10712,
+        10713,
+        10715,
+        10718,
+        10719,
+        10720,
+        10721
+      ],
+      "graphics": 12,
+      "compatible_existing_contract": "FalanLamps rod/lantern and existing sign arms; native ornament relief only over real post/crossarm."
+    },
+    {
+      "family": "sandstone_piers_and_columns",
+      "ids": [
+        10620,
+        10622,
+        10623,
+        10631,
+        10632,
+        11230,
+        11231,
+        11232,
+        11233,
+        11234,
+        11235,
+        11237,
+        11238,
+        11239,
+        11240,
+        11244,
+        11245
+      ],
+      "graphics": 17,
+      "compatible_existing_contract": "CoastalBuildings.kili_round, Fort column/block and measured roof/coping contours; source-native fronts and tiled full backs."
+    },
+    {
+      "family": "huge_curved_palace_wall_sections",
+      "ids": [
+        10725,
+        10726,
+        10727,
+        10728,
+        10729
+      ],
+      "graphics": 5,
+      "compatible_existing_contract": "Existing Palace/Coastal circular wall rings; measured native radius/footprint and contour, not a source billboard or cube."
+    },
+    {
+      "family": "wells",
+      "ids": [
+        11002,
+        11071,
+        11229
+      ],
+      "graphics": 3,
+      "compatible_existing_contract": "Jenova.well, Tina.stone cylinder/ring and Il/Laruka timber roof/bar parts; open source well mouth."
+    },
+    {
+      "family": "small_sheds_and_watchtower",
+      "ids": [
+        11014,
+        11032,
+        11044
+      ],
+      "graphics": 3,
+      "compatible_existing_contract": "Existing whole compatible stable/shed/watchtower masters first; Il/Laruka pitched roof, timber bar and rail parts."
+    },
+    {
+      "family": "native_door_gate_leaves",
+      "ids": [
+        10691,
+        10692,
+        11074,
+        11075,
+        11076,
+        11077,
+        11079,
+        11080
+      ],
+      "graphics": 8,
+      "compatible_existing_contract": "Tina door/frame parts + Shapes.extrude exact door leaf; native hinge/post stone separated, no new routes."
+    },
+    {
+      "family": "grave_slabs_and_obelisks",
+      "ids": [
+        11047,
+        11052,
+        11057,
+        11567,
+        11569,
+        11570,
+        11571
+      ],
+      "graphics": 7,
+      "compatible_existing_contract": "Tina.Street tomb_mesh and Shapes.extrude native crest; closed slab thickness and individual bases."
+    },
+    {
+      "family": "sandstone_pedestals",
+      "ids": [
+        11131,
+        11132,
+        11133,
+        11136,
+        11137,
+        11138
+      ],
+      "graphics": 6,
+      "compatible_existing_contract": "Fort/Court closed blocks with measured step courses and pyramid cap from native contour."
+    },
+    {
+      "family": "broken_stone_timber_ruin_walls",
+      "ids": [
+        11141,
+        11144,
+        11147,
+        11148,
+        11149,
+        11251,
+        11252,
+        11253,
+        11254,
+        11255,
+        11256,
+        11257,
+        11258,
+        11259,
+        11260,
+        11261,
+        11262,
+        11263,
+        11264,
+        11265,
+        11266,
+        11267,
+        11711,
+        11713,
+        11714,
+        11715,
+        11716,
+        11717,
+        11718,
+        11719,
+        11720,
+        11721,
+        11722,
+        11724,
+        11725,
+        11726,
+        11727,
+        11728,
+        11729
+      ],
+      "graphics": 39,
+      "compatible_existing_contract": "EastRuins closed source-contour strips/caps + Il/Laruka bars; native broken silhouette and independent stone back; no new walk obstacles."
+    },
+    {
+      "family": "existing_native_village_house_masters",
+      "ids": [
+        11271,
+        11275,
+        11276,
+        11281,
+        11287,
+        11288,
+        11289,
+        11290,
+        11292,
+        11293,
+        11294,
+        11295,
+        11297,
+        11298
+      ],
+      "graphics": 14,
+      "compatible_existing_contract": "Frozen East village11271/75; Il/Laruka11281; Venoa11276; CoastalBuildings.KILI_GRAPHICS whole source masters; measured compatible shed variants11287/88. Keep village/West owners preempting."
+    },
+    {
+      "family": "stone_interior_wall_panels",
+      "ids": [
+        15804,
+        15805,
+        15809,
+        15810,
+        15811,
+        15815,
+        15816,
+        15819,
+        15823,
+        15835,
+        15840,
+        15846,
+        15851,
+        15852,
+        15853,
+        15857,
+        15858,
+        15860,
+        15863,
+        15864,
+        15865,
+        15867,
+        15869,
+        15870,
+        15875,
+        15876,
+        15877,
+        15882
+      ],
+      "graphics": 28,
+      "compatible_existing_contract": "Sokia house room_wall source profile convention; native measured wall plane/corner/column caps, independent tiled back, never whole-depth cube."
+    },
+    {
+      "family": "stairs_and_open_floor_hatches",
+      "ids": [
+        13998,
+        13999,
+        15887,
+        15888,
+        16270,
+        16610,
+        16614,
+        16615,
+        17961,
+        17962,
+        17963,
+        17964,
+        17965,
+        17966,
+        17967,
+        17968,
+        17969,
+        17972,
+        17973,
+        17976,
+        17977,
+        17980,
+        17982,
+        17983,
+        17984,
+        17985,
+        17992,
+        17993,
+        17995,
+        17996,
+        17997,
+        17998
+      ],
+      "graphics": 32,
+      "compatible_existing_contract": "HabaruStairs stepped/open shaft contract and native plan contours. Source stair portal/landing and collision unchanged; empty hatch stays open."
+    },
+    {
+      "family": "ornate_interior_piers",
+      "ids": [
+        16252,
+        16253,
+        16254,
+        17130,
+        17361,
+        17362,
+        17363,
+        17365,
+        17368,
+        17369,
+        17370,
+        17387,
+        17502,
+        17503
+      ],
+      "graphics": 14,
+      "compatible_existing_contract": "Fort/Coastal column/ring/block pieces with measured source profiles; independently sampled cap/bands/back. Root18aliased columns excluded."
+    },
+    {
+      "family": "fireplace_surrounds",
+      "ids": [
+        16659,
+        16660
+      ],
+      "graphics": 2,
+      "compatible_existing_contract": "Existing Civic/Inn/Coastal fireplace mantel and native measured opening/frame; source hearth kept recessed."
+    },
+    {
+      "family": "windows_and_plaster_timber_interior_sections",
+      "ids": [
+        16545,
+        16710,
+        16712,
+        16736,
+        16956,
+        16958,
+        16959,
+        16961,
+        16962,
+        16963,
+        16964,
+        16965,
+        16966,
+        16967,
+        16968,
+        16969,
+        16970,
+        16971,
+        16972,
+        16973,
+        16986,
+        16987,
+        17554,
+        17555,
+        17556,
+        17557,
+        17558,
+        17559,
+        17599,
+        17606,
+        17611,
+        17612,
+        17614,
+        17616,
+        17623,
+        17641,
+        17642
+      ],
+      "graphics": 37,
+      "compatible_existing_contract": "Sokia room-wall and Tina window/frame/arch modules; measured native wall/trim/corner planes and original window apertures; tiled full backs."
+    },
+    {
+      "family": "hanging_curtain_sections",
+      "ids": [
+        17207,
+        17209
+      ],
+      "graphics": 2,
+      "compatible_existing_contract": "BlackPrayer curtain mesh / existing regional_curtain contract, source cloth folds and complete reverse."
+    },
+    {
+      "family": "supported_signs",
+      "ids": [
+        10410,
+        10411,
+        10412,
+        10415,
+        10416,
+        10425,
+        10521,
+        11024,
+        11025,
+        11104,
+        11111,
+        11112,
+        11123,
+        11125,
+        11498
+      ],
+      "graphics": 15,
+      "compatible_existing_contract": "OriginalMapDetails.sign_mesh plus Il/Laruka.bar; native readable board relief on measured real support."
+    },
+    {
+      "family": "hedge_arches",
+      "ids": [
+        10464,
+        10470,
+        10472
+      ],
+      "graphics": 3,
+      "compatible_existing_contract": "Court/Fort arch opening and source native leafy clusters; modular frame/pot caps, organic complete back."
+    }
+  ],
+  "total_graphics": 266,
+  "preserve": [
+    "East object-layer narrow hook only",
+    "All earlier map/source-cell-specific owners preempt",
+    "Original source anchors/footprints/native facing",
+    "Existing collision/navigation/door/quest owners",
+    "Hidden thickness/back/detail recorded as inference"
+  ],
+  "aliased_additional_request": {
+    "ids": [
+      1233253,
+      1233254,
+      1233259,
+      1233263,
+      1233283,
+      1233284,
+      1233285,
+      1233286,
+      1233287,
+      1233173,
+      1233174,
+      1235000,
+      1235001,
+      1235002,
+      1235003,
+      1235004,
+      1235005,
+      1235007,
+      1235008,
+      1235009,
+      1235010
+    ],
+    "reuse": "Annex porch/gable kit, existing3262 hut, Coastal/Tina round house and fluted columns, closed source-measured timber wall piers",
+    "not_ours_root_columns": [
+      1235141,
+      1235142,
+      1235143,
+      1235144,
+      1235145,
+      1235151,
+      1235152,
+      1235153,
+      1235154,
+      1235155,
+      1235156,
+      1235160,
+      1235183,
+      1235184,
+      1235185,
+      1235186,
+      1235187,
+      1235188
+    ]
+  },
+  "ready_groups": [
+    "existing_native_village_house_masters",
+    "supported_signs"
+  ],
+  "source_specific_reuse": {
+    "10310": "city_house",
+    "11271": "east_village",
+    "11275": "east_village",
+    "11276": "venoa_house",
+    "11281": "il_house",
+    "11289": "kili_house",
+    "11290": "kili_house",
+    "11292": "kili_house",
+    "11293": "kili_house",
+    "11294": "kili_house",
+    "11295": "kili_house",
+    "11297": "kili_house",
+    "11298": "kili_house",
+    "11230": "kili_wall",
+    "11231": "kili_wall",
+    "11232": "kili_wall",
+    "11233": "kili_wall",
+    "11234": "kili_wall",
+    "11235": "kili_wall",
+    "11237": "kili_wall",
+    "11238": "kili_wall",
+    "11239": "kili_wall",
+    "11240": "kili_wall",
+    "11244": "kili_wall",
+    "11245": "kili_wall",
+    "11252": "venoa_wall",
+    "11253": "venoa_wall",
+    "11254": "venoa_wall",
+    "11255": "venoa_wall",
+    "11256": "venoa_wall",
+    "11257": "venoa_wall",
+    "11258": "venoa_wall",
+    "11259": "venoa_wall",
+    "11260": "venoa_wall",
+    "11261": "venoa_wall",
+    "11262": "venoa_wall",
+    "11263": "venoa_wall",
+    "11264": "venoa_wall",
+    "11265": "venoa_wall",
+    "10410": "supported_sign",
+    "10411": "supported_sign",
+    "10412": "supported_sign",
+    "10415": "supported_sign",
+    "10416": "supported_sign",
+    "10425": "supported_sign",
+    "10521": "supported_sign",
+    "11024": "supported_sign",
+    "11025": "supported_sign",
+    "11104": "supported_sign",
+    "11111": "supported_sign",
+    "11112": "supported_sign",
+    "11123": "supported_sign",
+    "11125": "supported_sign",
+    "11498": "supported_sign",
+    "10449": "timber_fence",
+    "10450": "timber_fence",
+    "10451": "timber_fence",
+    "10454": "timber_fence",
+    "10455": "timber_fence",
+    "10458": "timber_fence",
+    "10459": "timber_fence",
+    "10460": "timber_fence",
+    "10461": "timber_fence",
+    "10417": "iron_fence",
+    "10482": "iron_fence",
+    "10483": "iron_fence",
+    "10484": "iron_fence",
+    "10485": "iron_fence",
+    "10486": "iron_fence",
+    "10487": "iron_fence",
+    "10488": "iron_fence",
+    "10620": "measured_pier",
+    "10622": "measured_pier",
+    "10623": "measured_pier",
+    "10631": "measured_pier",
+    "10632": "measured_pier",
+    "11131": "measured_pier",
+    "11132": "measured_pier",
+    "11133": "measured_pier",
+    "11136": "measured_pier",
+    "11137": "measured_pier",
+    "11138": "measured_pier",
+    "16252": "measured_pier",
+    "16253": "measured_pier",
+    "16254": "measured_pier",
+    "17130": "measured_pier",
+    "17387": "measured_pier",
+    "17502": "measured_pier",
+    "17503": "measured_pier",
+    "10075": "city_magic_shop"
+  },
+  "native_reclassification": {
+    "10497": "Native high-resolution source confirms open wooden container, transferred to Root furniture scope; no architecture runtime dispatch."
+  },
+  "fence_frames": {
+    "10449": {
+      "style": "slat",
+      "arms": [
+        "x",
+        "-z"
+      ],
+      "length": 2.7,
+      "posts": 3,
+      "lengths": [
+        3.3,
+        1.5
+      ],
+      "stations": [
+        4,
+        2
+      ]
+    },
+    "10450": {
+      "style": "slat",
+      "arms": [
+        "z"
+      ],
+      "length": 5.4,
+      "posts": 5,
+      "segments": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5.4
+          ],
+          5
+        ],
+        [
+          [
+            0,
+            0
+          ],
+          [
+            2.1,
+            0
+          ],
+          3
+        ],
+        [
+          [
+            0,
+            5.4
+          ],
+          [
+            2.1,
+            5.4
+          ],
+          3
+        ]
+      ]
+    },
+    "10451": {
+      "style": "slat",
+      "arms": [
+        "x",
+        "-z"
+      ],
+      "length": 2.7,
+      "posts": 3,
+      "lengths": [
+        1.5,
+        3.3
+      ],
+      "stations": [
+        2,
+        4
+      ]
+    },
+    "10454": {
+      "style": "picket",
+      "arms": [
+        "z"
+      ],
+      "length": 2.7,
+      "posts": 3
+    },
+    "10455": {
+      "style": "picket",
+      "arms": [
+        "z"
+      ],
+      "length": 2.7,
+      "posts": 3
+    },
+    "10458": {
+      "style": "picket",
+      "arms": [
+        "z"
+      ],
+      "length": 2.4,
+      "posts": 2
+    },
+    "10459": {
+      "style": "picket",
+      "arms": [
+        "x",
+        "-z"
+      ],
+      "length": 2.4,
+      "posts": 2
+    },
+    "10460": {
+      "style": "picket",
+      "arms": [
+        "x"
+      ],
+      "length": 2.4,
+      "posts": 2
+    },
+    "10461": {
+      "style": "picket",
+      "arms": [
+        "-x",
+        "z"
+      ],
+      "length": 2.4,
+      "posts": 2
+    },
+    "10417": {
+      "style": "grille",
+      "arms": [
+        "z"
+      ]
+    },
+    "10482": {
+      "style": "post",
+      "arms": [
+        "x"
+      ],
+      "partial": true
+    },
+    "10483": {
+      "style": "post",
+      "arms": [
+        "-z"
+      ],
+      "partial": true
+    },
+    "10484": {
+      "style": "grille",
+      "arms": [
+        "z"
+      ]
+    },
+    "10485": {
+      "style": "corner",
+      "arms": [
+        "x",
+        "-z"
+      ]
+    },
+    "10486": {
+      "style": "grille",
+      "arms": [
+        "x"
+      ]
+    },
+    "10487": {
+      "style": "corner",
+      "arms": [
+        "x",
+        "-z"
+      ]
+    },
+    "10488": {
+      "style": "corner",
+      "arms": [
+        "x",
+        "-z"
+      ]
+    }
+  },
+  "round_piers": [
+    17502,
+    17503
+  ],
+  "typed_additional_classic_ids": [
+    10075,
+    10095,
+    10096,
+    11701,
+    11702,
+    11704,
+    11707,
+    11708,
+    11710,
+    17111,
+    17112,
+    17113,
+    17114,
+    17115,
+    17116,
+    17117,
+    17118,
+    17119,
+    17120,
+    17121,
+    17122,
+    17123,
+    17124,
+    17125,
+    17126
+  ]
+}

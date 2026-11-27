@@ -1,0 +1,908 @@
+{
+  "schema": 1,
+  "graphics": {
+    "1233284": {
+      "serial": 1233284,
+      "source": 43500,
+      "source_cell": [
+        108,
+        101
+      ],
+      "size": [
+        280,
+        436
+      ],
+      "origin": [
+        -86,
+        -252
+      ],
+      "native_composite_crop": [
+        314,
+        398,
+        594,
+        834
+      ],
+      "source_foreground_rgba_sha256": "2b34e30cee18dfec9775af3d9128f1bc16c88e77f4a2b4e80974661d9764b731",
+      "source_raw_sha256": "1f5e12aec4d034409b4a24d86ffb783bc8aeb31873941d2105c4cb8bd6adab16",
+      "source_walk_sha256": "30d36d44305b8048d553686c126b5180ee74212d900a9d60634d6ffe36761ad7",
+      "background_context_tuples": [
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            99
+          ],
+          "native_graphic": 25571,
+          "graphic": 1225571,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "aa168b5b893cfa890d3b0a34b74e59816788748fdbc011c2de00eab55c850b96",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            99
+          ],
+          "native_graphic": 25572,
+          "graphic": 1225572,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "81ed98b32918aaeaf56deaf5de3599714d1f2189f46c86a6ed1522d72b04820d",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            100
+          ],
+          "native_graphic": 25573,
+          "graphic": 1225573,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "b5344a1418ac3496f4bcfe2277de3431e211874273fb53259d6d7a49993990dd",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            100
+          ],
+          "native_graphic": 25574,
+          "graphic": 1225574,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "4b0dd5e392c58c0fc05e1aacdeeb23cb6d23116293b48686c3c7d49108c18efe",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            100
+          ],
+          "native_graphic": 25575,
+          "graphic": 1225575,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "d9c9234911ab87df99a05f6930d4944bd1f58b2b2794d38619402737cd04fe5b",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            100
+          ],
+          "native_graphic": 25576,
+          "graphic": 1225576,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "40500a8beaa70ae4adf0372f88d022ef799eddbb3bf4293afe08c5c955ca4b69",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            100
+          ],
+          "native_graphic": 25577,
+          "graphic": 1225577,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "a6d04d0efee18dc4f9ff6f7b605bc91a2ff32a18a6c691412ed24242131b8699",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            101
+          ],
+          "native_graphic": 25578,
+          "graphic": 1225578,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "77c6e8cb15612ab2352ed219982e4bffc4e91189e81561e20db0957c852d4a1e",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            101
+          ],
+          "native_graphic": 25579,
+          "graphic": 1225579,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "c9892b80143a7281b24f0c0bc37f8e67d7739315e67406c8dd90ab3412d9a3cd",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            101
+          ],
+          "native_graphic": 25580,
+          "graphic": 1225580,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "50657c526884e3aef009fa2e496ddb99707ac41db856950c0cf837398032cb35",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            101
+          ],
+          "native_graphic": 25581,
+          "graphic": 1225581,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "23cf9f744eb08f5bf835f815ce061a25323a9a307b2df584aa957faab2873306",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            101
+          ],
+          "native_graphic": 25582,
+          "graphic": 1225582,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "9be2d167c291a3d4ca94b9d900c0ad524d2791f7d46b786047acf9611b9c37d7",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            111,
+            101
+          ],
+          "native_graphic": 25583,
+          "graphic": 1225583,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "ff3095fd851d6b382a3c9ec1e584d4eeb60edcdfac71304294173f2d7f10949f",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            105,
+            102
+          ],
+          "native_graphic": 25585,
+          "graphic": 1225585,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "0fddbc8e20e4bb941fffa054012a61c72a8f17249e6a218d96c7fc02705e69f3",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            102
+          ],
+          "native_graphic": 25586,
+          "graphic": 1225586,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "2b60a9cf505f559b3fd3343b64cd0171c35cf4745af2a224138925445200267a",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            102
+          ],
+          "native_graphic": 25587,
+          "graphic": 1225587,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "1dd5cbc0fd6644647d972a85d304f96f9d1fa4e7e0348d6920033d4a69ddcf91",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            102
+          ],
+          "native_graphic": 25588,
+          "graphic": 1225588,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "f04bdd4d5327db4425eeb54656d88128effec957e44e72309716380d29e2b3c5",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            102
+          ],
+          "native_graphic": 25589,
+          "graphic": 1225589,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "54732b3faba42fb2cc0a181cb6f37bd704bcd4ae71584eff5825470306ad540e",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            102
+          ],
+          "native_graphic": 25590,
+          "graphic": 1225590,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "aa527dc940bae21e9833032ee8ca9cfd1a7e2c93c8302ad316715ad42b181a1e",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            111,
+            102
+          ],
+          "native_graphic": 25591,
+          "graphic": 1225591,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "d9ced45ea0997027cec09ec92acbf257539b6979485af6ef2700ddcefa9a75c2",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            105,
+            103
+          ],
+          "native_graphic": 25594,
+          "graphic": 1225594,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "89f89cbfc1b495b6e29e53fab35563d1c068ead5dab696f271638f2768baf7d7",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            103
+          ],
+          "native_graphic": 25595,
+          "graphic": 1225595,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "aef236037e6f4df27a248a0bcff58ee6dabab406a32443d880d52eabfba03bf0",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            103
+          ],
+          "native_graphic": 25596,
+          "graphic": 1225596,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "e887280c29b9623112eac65bf2a123268da66947024e51879822b79efc51b78f",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            103
+          ],
+          "native_graphic": 25597,
+          "graphic": 1225597,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "601b332fa9d95a329da746ef5d6dccae5ebc677ef30cd0469f129036b5bfabe1",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            103
+          ],
+          "native_graphic": 25598,
+          "graphic": 1225598,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "867a7d19e2f0097fc644f46682750c12bad4bc6dc1ac50acde7122a653bfa1d8",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            103
+          ],
+          "native_graphic": 25599,
+          "graphic": 1225599,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "32931cc959c0e32ebcd09fa3eea6a02e4219dfcd4fe8b569f4523d5038e1b2ee",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            111,
+            103
+          ],
+          "native_graphic": 25600,
+          "graphic": 1225600,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "7ac0151108f3b171a661173d015d05d77d92d07686ef095fa59524ef580844e4",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            105,
+            104
+          ],
+          "native_graphic": 25603,
+          "graphic": 1225603,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "28274a71d8f4e95ce71d9d664f32190f3f7817ae6427e9a8474a5508eb6b1258",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            104
+          ],
+          "native_graphic": 25604,
+          "graphic": 1225604,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "d35e6a894e80d00f17f8ecdfef213f1aecec5e6dc74b54c78ba74cfa8278dcd0",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            104
+          ],
+          "native_graphic": 25605,
+          "graphic": 1225605,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "775bfa6899609e46c620c70a34a096ee6989681cd5a0806481afb88658a91613",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            104
+          ],
+          "native_graphic": 25606,
+          "graphic": 1225606,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "343e9724557ac3c6ac99bf854554ae528534708716dbfb43ab06768073ce9979",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            104
+          ],
+          "native_graphic": 25607,
+          "graphic": 1225607,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "a5598d4299a205c887daa74bc641e395a7f821e08cab867bbf8ac4dfba6e5e70",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            104
+          ],
+          "native_graphic": 25608,
+          "graphic": 1225608,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "0607552a0420e509ec9113c20725e5dc55cd4af618aa8296c77aba68869c528c",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            111,
+            104
+          ],
+          "native_graphic": 25609,
+          "graphic": 1225609,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "40313668f9db3818b9aa7c195cf5e339a13d2a7bd8083d0f21d4ac19f0ae3b9f",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            105,
+            105
+          ],
+          "native_graphic": 25610,
+          "graphic": 1225610,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "03d74faa984be344744b43054ebf45163d4fab1b2d97e50c514b8fd0fb5e165e",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            105
+          ],
+          "native_graphic": 25611,
+          "graphic": 1225611,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "7a9bff0b3aa474cff55dcd8eb0322b5c6432be427b0cb2058b456f43fbd68612",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            105
+          ],
+          "native_graphic": 25612,
+          "graphic": 1225612,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "61ec7f80d28cdb687bb314d203f7b84d638e0521449d4552a3b8777f1989b56c",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            105
+          ],
+          "native_graphic": 25613,
+          "graphic": 1225613,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "6708238748fd1eeb93c68f278375a67c863a35938b8a63955f2b8a2ebab2e1ff",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            105
+          ],
+          "native_graphic": 25614,
+          "graphic": 1225614,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "ad7d850d267ee7e48b895e9bf0340c699deb22b9bc67702ca90f56d933ba97b3",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            105
+          ],
+          "native_graphic": 25615,
+          "graphic": 1225615,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "6e74469de01d5c879f9eac946b22e2dd99944c697fb3252734c96d5f254bf28e",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            106,
+            106
+          ],
+          "native_graphic": 25617,
+          "graphic": 1225617,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "11eb5e3be3c8f4554e36a1a7db528058d9799d173d16ae8edcd68b088c9b23e5",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            107,
+            106
+          ],
+          "native_graphic": 25618,
+          "graphic": 1225618,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "b6818a7ea6037de4bef068c9938d4f74313f5774bb5d57bb204bc4e130ec6c45",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            108,
+            106
+          ],
+          "native_graphic": 25619,
+          "graphic": 1225619,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "be624a10937187801a576da13899e51b37d549f1b181c8a7214c6d941d4d6e0d",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            109,
+            106
+          ],
+          "native_graphic": 25620,
+          "graphic": 1225620,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "992c1fbc8e87284d1e05f76c174c2a3fdb9c86e8765d8b7086a79e3ff77a19f5",
+          "original_open": false
+        },
+        {
+          "layer": 0,
+          "cell": [
+            110,
+            106
+          ],
+          "native_graphic": 25621,
+          "graphic": 1225621,
+          "origin": [
+            -32,
+            -24
+          ],
+          "rgba_sha256": "50ffe6cda9b15c53cab200323d713a95af96b24afa150f9cfd453b81d253d698",
+          "original_open": false
+        }
+      ],
+      "source_foot_samples": [
+        [
+          33,
+          390
+        ],
+        [
+          120,
+          339
+        ],
+        [
+          -94,
+          314
+        ]
+      ],
+      "fitted_foot_ring_center_xz": [
+        -6.6968885490679195,
+        0.2254394792382917
+      ],
+      "floor_center_pixel": [
+        16.97120992181732,
+        307.3786242264497
+      ],
+      "floor_level_pixels": 54,
+      "body": {
+        "base": [
+          16.97120992181732,
+          253.3786242264497
+        ],
+        "level_pixels": 54,
+        "height_pixels": 92,
+        "diameter": 205,
+        "material": "timber",
+        "window": "tree_window",
+        "profile": [
+          [
+            0,
+            0.98
+          ],
+          [
+            0.08,
+            1
+          ],
+          [
+            0.92,
+            1
+          ],
+          [
+            1,
+            0.98
+          ]
+        ]
+      },
+      "roof": {
+        "base": [
+          16.97120992181732,
+          161.3786242264497
+        ],
+        "level_pixels": 146,
+        "height_pixels": 112,
+        "diameter": 248,
+        "material": "leaf_roof_gold",
+        "profile": [
+          [
+            0,
+            1
+          ],
+          [
+            0.08,
+            1.02
+          ],
+          [
+            0.27,
+            0.95
+          ],
+          [
+            0.5,
+            0.77
+          ],
+          [
+            0.75,
+            0.49
+          ],
+          [
+            0.9,
+            0.24
+          ],
+          [
+            1,
+            0.08
+          ]
+        ]
+      },
+      "pilings": [
+        [
+          33,
+          390
+        ],
+        [
+          120,
+          339
+        ],
+        [
+          -94,
+          314
+        ]
+      ],
+      "stairs": {
+        "near": [
+          [
+            -103,
+            352
+          ],
+          [
+            -88,
+            368
+          ]
+        ],
+        "far": [
+          [
+            -69,
+            299
+          ],
+          [
+            -46,
+            316
+          ]
+        ],
+        "height_pixels": 54,
+        "steps": 7
+      },
+      "finial_outline": [
+        [
+          16,
+          -3
+        ],
+        [
+          27,
+          -1
+        ],
+        [
+          38,
+          15
+        ],
+        [
+          49,
+          21
+        ],
+        [
+          52,
+          40
+        ],
+        [
+          41,
+          53
+        ],
+        [
+          52,
+          67
+        ],
+        [
+          35,
+          82
+        ],
+        [
+          -1,
+          74
+        ],
+        [
+          -17,
+          53
+        ],
+        [
+          -8,
+          35
+        ],
+        [
+          2,
+          33
+        ],
+        [
+          9,
+          21
+        ]
+      ],
+      "water_alpha_pixels_removed_from_paint": 22253,
+      "native_rgb_crop_sha256": "135b5191f74d1b202b1815b97df23100efb849ea091d1c96ca19fa964f57f9cd",
+      "front_rgba_sha256": "8f17cdf5a1f36cbfb52ed273138a8ae6c3b4ae62b9c5f1a7fda46a44966eb11a"
+    }
+  },
+  "status": "Private one-form source-angle candidate; no runtime dispatch or BG skip.",
+  "source_contract_sha256": "85910661b79918522e49111579e305e9160c03bac7588243a9fba38a63a4e47d",
+  "reuse": [
+    "Existing EastArt round_body curved profiles and closed caps",
+    "Existing Coastal/Harbor turned timber and stairs primitives",
+    "Existing native leaf_roof_gold, timber and tree_window tiles",
+    "Existing Shapes closed contour extrusion for the native finial"
+  ],
+  "inferred": [
+    "A circular support ring is fitted to three manually observed native foot pixels; hidden rear piling and round depth remain inferred.",
+    "54pixel loft floor, body/eave heights, curved roof rings, seven closed treads and hidden back joinery are measured reconstruction candidates, not recovered 3D.",
+    "This prototype changes no floor/nav/warp/collider and cannot certify physical stair traversal.",
+    "The gold-only paint alpha omits blue water. All retained RGB comes from the untouched native layered source; no slate-roof masking rule is inferred."
+  ]
+}

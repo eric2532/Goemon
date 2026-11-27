@@ -1,0 +1,9 @@
+# Cape prerequisite source package
+
+The existing original-map owner loads client-preserving hybrids for 15517, 15520, 15524, 15528 and 15529. All five remain review-only. Recorded client tuples and every flag are exact; pinned server layers fill 125, 8,203, 32, 3 and 9 cells respectively. Only 15 missing original graphic records are packed here; shared source art stays under its previous owners.
+
+The existing NPC, dialogue and Cape/native battle owners consume 18 source actors. The 13 scoped room NPCs appear at their exact source anchors. Actual F checks cover the held-item route into 15524, through both halls to 15525, and the existing 18599 to 18600 gate exchange. The fixture supplies 18598 explicitly; this does not prove natural acquisition. Original raw drop rate 100 has no authenticated execution denominator, and the malformed `EV_rk_ushi06` line 19 remains guarded. Equipment/title conditions are not bypassed.
+
+The Bear uses the existing companion 135 entry, `original:2807`, with its prepared pages selected during West Lakes setup and restored after visiting 15526. No native bank, source pixels, attack clocks, renderer, target selection or combat balance was changed. Map 15524 reuses the existing cave family at all 148 source wall anchors, preserving every older cliff station, profile and texture.
+
+`tools/prepare_sokia_cape_access.py --check` reproduces the canonical package; `--output PATH` supports isolated preparation before publication. Source branches, native checks, fixed normal-camera views, original-pixel composites and explicit remaining geometry/rule gaps are recorded in `build/Other Files/Asset Toolkit/Sokia Venoa Coverage/Cape access/checkpoint.json`. The generic cliff pillars on 15517 are rejected; stairs, lab furnishings and complete hall geometry review remain required. Passing technical checks does not activate these maps or complete the regional goal.

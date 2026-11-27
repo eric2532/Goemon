@@ -281,7 +281,7 @@ func run():
  game.settings_path=settings_path
  game.show_equipment_hub(true);await frames(3)
  var hub=game.equipment_hub;hub.show_page("accessories")
- check(hub.collection.size()==12 and hub.collection.all(func(id):return Gear.ITEMS[id].icon!=null and not hub.describe(Gear.ITEMS[id]).is_empty()),"All twelve original numbered icons and effect descriptions appear")
+ check(hub.collection.size()==Gear.ITEMS.values().filter(func(item):return item.get("category","")=="accessories").size() and hub.collection.all(func(id):return Gear.ITEMS[id].icon!=null and not hub.describe(Gear.ITEMS[id]).is_empty()),"All accessory icons and effect descriptions appear")
  hub.selected_slot="accessory:5";hub.selected_item="accessory:21817";hub.equip_selected()
  check(p.accessory_bonuses.get("movement_speed")==3.0 and hub.accessory_buttons["accessory:5"].get_node("GearIcon").texture==Gear.ITEMS["accessory:21817"].icon,"The equipment UI equips the selected original shoes immediately")
  await accessory_picture("speed-shoes-equipped")

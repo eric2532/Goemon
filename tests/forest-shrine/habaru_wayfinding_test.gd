@@ -64,30 +64,20 @@ func check_il_habaru_alyut():
   check(village_root!=null,"The complete village shares the playable countryside")
   var joined_terrain=game.world.find_child("WindMeadowValley",true,false)
   check(joined_terrain.get_child(0).material_override.get_shader_parameter("use_connected_village")==true,"Village ground paint is part of the outdoor terrain")
-  check(frontage!=null,"The village reuses Falan's street furniture and gardens")
-  if frontage!=null:
-   var signs=frontage.find_children("VillageServiceSign*","Label3D",true,false)
-   check(signs.size()==row[5],"Every village service has a readable sign")
-   var positions:Array=frontage.get_meta("placements",[])
-   print("VILLAGE_FRONTAGES ",row[3]," services=",signs.size()," furnished_positions=",positions.size())
-   check(positions.size()>=row[5]*3,"Each village has furnished frontages and planted beds")
-   for at:Vector2 in positions:
-    check(game.model.get_meta("falan_links").all(func(link):return (Tour.Regions.village_transform(row[3])*at).distance_to(link.at)>3.0),"Street furniture preserves door and gate clearance")
-   check(frontage.find_children("*","CollisionObject3D",true,false).is_empty(),"New scenery leaves existing navigation and collision ownership intact")
+  check(frontage==null,"Native villages exclude the authored service furniture and planted beds")
+  check(game.world.find_children("VillageServiceSign*","Label3D",true,false).is_empty(),"Authored service boards are absent from the source-based village scenery")
   if DisplayServer.get_name()!="headless":
    var s:float=game.model.falan_scale
    var p=Vector3(8,22,56) if row[3]=="il_village" else Vector3(-5,20,25)
    var target=Vector3(-20,10,14) if row[3]=="il_village" else Vector3(-33,8,-15)
    await shot("Habaru Wayfinding/"+row[3]+"-street",village_world(p,row[3]),village_world(target,row[3]),65)
-   var sign_=frontage.find_child("VillageServiceSign",true,false)
-   if sign_!=null:
-    await shot("Habaru Wayfinding/"+row[3]+"-frontage",sign_.global_position+Vector3(8,3,10),sign_.global_position-Vector3.UP,65)
    var seen={}
-   for house in game.world.find_children("BlueCGVillageBuilding_*","MeshInstance3D",true,false):
+   for house in game.world.find_children("BlueCGVillageBuilding_*","Node3D",true,false):
     var id:int=house.get_meta("source_graphic")
     if seen.has(id):continue
     seen[id]=true
-    await shot("Village Fidelity/"+row[3]+"-building-"+str(id),house.global_position+Vector3(-24,22,24),house.global_position+Vector3.UP*8,65)
+    var center=coastal_building_bounds(house).get_center()
+    await shot("Village Fidelity/"+row[3]+"-building-"+str(id),center+Vector3(-24,22,24),center,65)
   for id in ([2001,2002,2010,2012,2013,2014] if row[3]=="il_village" else [2401,2420,2410,2421,2412]):
    await room(id)
    await room(row[4])

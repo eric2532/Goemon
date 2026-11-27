@@ -220,6 +220,7 @@ void Crowd::rest_allies(){
         if(escort_kind(u.kind)){u.dodge_chance=old.dodge_chance;u.counter_chance=old.counter_chance;}
         u.bodyguard_level=old.bodyguard_level;u.bodyguard_bag=old.bodyguard_bag;
         u.pet_skills=old.pet_skills;u.pet_cooldowns=old.pet_cooldowns;u.pet_ready_mask=7;
+        u.pet_group_mask=old.pet_group_mask;u.pet_skill_bag=old.pet_skill_bag;
         u.pet_cast_serial=old.pet_cast_serial;u.pet_combo_limit=old.pet_combo_limit;if(u.kind==HOUND_KIND)u.action_hits.reserve(std::max(32,u.pet_combo_limit));
         // Prepared hero bodies and their action leases survive between waves.
         u.mirror_actions=old.mirror_actions;u.mirror_speed=old.mirror_speed;u.mirror_reach=old.mirror_reach;u.mirror_spell_reach=old.mirror_spell_reach;u.mirror_approach=old.mirror_approach;u.mirror_busy=old.mirror_busy;
@@ -247,7 +248,11 @@ bool Crowd::set_pet_skills(Handle h,const std::vector<int32_t>& skills,int combo
         if(u->pet_skill==PET_BEE_FLURRY)combat.finish_pet_flurry(*this,*u);
         u->pet_skill=0;u->pet_combo_left=0;u->action_active=false;u->action_time=0;u->action=0;u->action_hits.clear();
     }
-    u->pet_skills=next;u->pet_ready_mask=7;return true;
+    u->pet_skills=next;u->pet_ready_mask=7;u->pet_group_mask=0;u->pet_skill_bag=0;return true;
+}
+bool Crowd::set_pet_skill_groups(Handle h,int mask){
+    auto u=unit(h);if(!u||u->team!=1||u->kind!=HOUND_KIND||mask<0||mask>7)return false;
+    u->pet_group_mask=mask;return true;
 }
 bool Crowd::set_pet_mana(Handle h,double mana){
     auto u=unit(h);
@@ -280,7 +285,7 @@ bool Crowd::set_pet_skill_ready(Handle h,int mask){
 bool Crowd::set_mirror(Handle h,int actions,float speed,float reach,Vec3 approach){
     auto u=unit(h);
     // Recovered heroes reuse pooled bodies; character 41 remains retired.
-    if(!u||u->team!=1||u->kind<101||u->kind>151||u->kind==141||actions<1||actions>7||!std::isfinite(speed)||speed<0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
+    if(!u||u->team!=1||u->kind<101||u->kind>155||u->kind==141||actions<1||actions>7||!std::isfinite(speed)||speed<0||speed>200||!std::isfinite(reach)||reach<=0||reach>200)return false;
     if(!bounded(approach))return false;
     // A zero approach opts into ranged attacks from the current position.
     bool ranged=dot(approach,approach)==0;

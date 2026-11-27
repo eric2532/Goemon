@@ -72,7 +72,7 @@ func run():
   p.select_character(id);game.update_character_tuning(id,"critical_chance",0)
   for weapon in Gear.allowed(id,game.settings):
    check(game.save_equipment_loadouts({Gear.character_key(id):{"1":"weapon:"+weapon}},game.settings.skill_item_loadouts,game.settings.cosmetic_loadouts),"Equip %d %s"%[id,weapon])
-   check(p.character_id==id and p.model.current_weapon()==weapon,"The requested fighter appearance and weapon are actually active")
+   check(p.character_id==id and p.model.current_weapon()==Gear.allowed(id,game.settings)[weapon].get("base_weapon",weapon),"The requested fighter appearance and weapon are actually active")
    army.clear();game.model.enemies.clear();army.refresh_kits();await frames(2)
    var row=spawn(Vector3(0,0,-1.6));var enemy=row.target
    var other=spawn(Vector3(3,0,-1.6)).target

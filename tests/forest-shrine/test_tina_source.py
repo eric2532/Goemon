@@ -27,6 +27,25 @@ class TinaSourceTest(unittest.TestCase):
             for x,y in row['outline']:
                 self.assertTrue(0<=x<=g['rect'][2] and 0<=y<=g['rect'][3],serial)
 
+    def test_prepared_graves_preserve_visible_components_and_stone_pigment(self):
+        catalog=json.loads((ROOT/'assets/maps/original_crossgate/catalog.json').read_text())
+        rows=json.loads((ROOT/'assets/maps/falan/tina/wall-outlines.json').read_text())['graves']
+        self.assertEqual(set(rows),set(map(str,[11048,11050,11051,11053,11056,11058,11062,11470,11471,11473,11474])))
+        for serial,row in rows.items():
+            g=catalog['graphics'][serial]
+            self.assertEqual(row['source_rgba_sha256'],g['rgba_sha256'])
+            self.assertTrue(row['outlines'])
+            self.assertTrue(row['parts'])
+            if serial=='11050':self.assertTrue(all(p['flat'] for p in row['parts']))
+            if serial=='11062':self.assertEqual({p['flat'] for p in row['parts']},{True,False})
+            for outline in row['outlines']:
+                self.assertGreaterEqual(len(outline),3)
+                for x,y in outline:self.assertTrue(0<=x<=g['rect'][2] and 0<=y<=g['rect'][3],serial)
+            with Image.open(ROOT/'assets/maps/original_crossgate'/catalog['pages'][g['page']]) as atlas:
+                x,y=row['edge_pixel'];pixel=atlas.convert('RGBA').getpixel((g['rect'][0]+int(x),g['rect'][1]+int(y)))
+            self.assertEqual(pixel[3],255)
+            self.assertNotEqual(pixel[:3],(71,71,71))
+
     def test_shared_roof_paint_is_snow_not_a_blue_shadow(self):
         surfaces=json.loads((ROOT/'assets/maps/original_crossgate/building-surfaces.json').read_text())
         serial,quad,*_=surfaces['patches']['snowroof']

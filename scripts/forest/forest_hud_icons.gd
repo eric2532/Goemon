@@ -9,6 +9,7 @@ const STATS={
 	"attack_speed":preload("res://assets/ui/crossgate/stats/attack_speed.svg"),
 	"defense":preload("res://assets/ui/crossgate/stats/defense.svg"),
 	"reduction":preload("res://assets/ui/crossgate/stats/reduction.svg"),
+	"accuracy":preload("res://assets/ui/crossgate/stats/accuracy.svg"),
 	"critical_chance":preload("res://assets/ui/crossgate/stats/critical_chance.svg"),
 	"dodge_chance":preload("res://assets/ui/crossgate/stats/dodge_chance.svg"),
 	"counter_chance":preload("res://assets/ui/crossgate/stats/counter_chance.svg"),

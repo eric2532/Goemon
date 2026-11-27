@@ -2,6 +2,7 @@ shader_type spatial;
 render_mode cull_back;
 #include "res://scripts/forest/attack_range.gdshaderinc"
 #include "res://scripts/forest/castle_stone.gdshaderinc"
+#include "res://scripts/forest/forest_route_finish.gdshaderinc"
 uniform bool use_castle_stone = false;
 uniform float roof_cutaway_height = 0.0;
 uniform vec4 stone_color : source_color = vec4(.48,.51,.48,1.0);
@@ -114,6 +115,7 @@ void fragment() {
 		color=mix(color,vec3(.74,.86,.93)*(.84+grain*.31),frost);
 	}
 	if(use_castle_stone) color=castle_stone(stone_point,stone_normal);
+	if(use_cliff_face)color=mix(color,route_tint*(.88+grain*.18),route_weight(stone_point));
 	ALBEDO=attack_range_ink(color,stone_point,stone_normal);
 	ROUGHNESS=.96;SPECULAR=.18;
 }

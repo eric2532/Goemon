@@ -42,7 +42,7 @@ static func cask(target,at:Vector3,axis:Vector3,length_:float,radius:float,paint
  for y in [length_*.17,length_*.80]:Tina.Parts.kili_round(body,Vector3.UP*y,[Vector2(radius*1.01,0),Vector2(radius*1.01,.10)])
  var mesh=body.finish();target.surface.append_from(mesh,0,Transform3D(Basis(Quaternion(Vector3.UP,axis)),at-axis*length_*.5))
 
-static func boat_mesh(serial:int,g:Dictionary)->Mesh:
+static func boat_mesh(serial:int,g:Dictionary,open_shelter:bool=false)->Mesh:
  var native=skin(g);var wood=structure();var white=serial==11500
  var hull_paint="tina_boat_white" if white else "tina_boat_red"
  var rail_paint="tina_boat_green" if white else "tina_boat_blue"
@@ -84,18 +84,52 @@ static func boat_mesh(serial:int,g:Dictionary)->Mesh:
  rod(wood,bow,pole_base+Vector3.UP*(pole_height-.2),.035,"tina_boat_white")
  if white:
   var roof=[Vector2(49,145),Vector2(92,111),Vector2(136,139),Vector2(94,171)];var points=[]
-  var cabin_height=33*PIXEL_HEIGHT
-  for pixel:Vector2 in roof:points.append(point(pixel,cabin_height,g))
-  Tina.outward_quad(native,points.duplicate(),roof.duplicate(),Vector3.UP)
+  var cabin_height=3.3
+  var roof_heights=[4.1,5.5,4.8,5.5]
+  for i in 4:points.append(point(roof[i],roof_heights[i] if open_shelter else cabin_height,g))
+  if open_shelter:
+   # The source is an open, three-post shelter, with two roof slopes and a net.
+   # Its painted eaves fix the silhouette; deck contact fixes the support depth.
+   for face in [[0,1,3],[1,2,3]]:
+    var normal:Vector3=(points[face[2]]-points[face[0]]).cross(points[face[1]]-points[face[0]]).normalized()
+    if normal.y<0:face.reverse();normal=-normal
+    for i in face:
+     native.surface.set_normal(normal);native.surface.set_uv((native.graphic[0].position+roof[i])/native.texture.get_size());native.surface.add_vertex(points[i])
+   var supports=[]
+   var deck=PackedVector2Array()
+   for pixel:Vector2 in polygon:
+    var p=point(pixel,0,g);deck.append(Vector2(p.x,p.z))
+   for entry in [[Vector2(55,184),4.0],[Vector2(94,226),5.5],[Vector2(123,194),4.7]]:
+    var base=point(entry[0],.08,g);var top=base+Vector3.UP*entry[1]
+    var foot=Vector2(base.x,base.z)
+    if not Geometry2D.is_point_in_polygon(foot,deck):
+     var closest=Vector2.ZERO;var distance=INF
+     for i in deck.size():
+      var candidate=Geometry2D.get_closest_point_to_segment(foot,deck[i],deck[(i+1)%deck.size()])
+      if candidate.distance_squared_to(foot)<distance:closest=candidate;distance=candidate.distance_squared_to(foot)
+     var center=Vector2.ZERO
+     for p:Vector2 in deck:center+=p/deck.size()
+     foot=closest.lerp(center,.02);base.x=foot.x;base.z=foot.y
+    assert(Geometry2D.is_point_in_polygon(foot,deck),"Boat shelter supports must meet their own deck")
+    supports.append(base);rod(wood,base,top,.12,"tina_fence_wood")
+   for y in [1.45,2.85]:
+    rod(wood,supports[0]+Vector3.UP*y,supports[1]+Vector3.UP*y,.085,"tina_fence_wood")
+    rod(wood,supports[1]+Vector3.UP*y,supports[2]+Vector3.UP*y,.085,"tina_fence_wood")
+  else:Tina.outward_quad(native,points.duplicate(),roof.duplicate(),Vector3.UP)
   for i in 4:
    var j=(i+1)%4
    var a:Vector3=points[i];var b:Vector3=points[j]
-   Tina.painted_quad(native,a-Vector3.UP*cabin_height,a,b,b-Vector3.UP*cabin_height,[roof[i]+Vector2(0,33),roof[i],roof[j],roof[j]+Vector2(0,33)])
+   if not open_shelter:Tina.painted_quad(native,a-Vector3.UP*cabin_height,a,b,b-Vector3.UP*cabin_height,[roof[i]+Vector2(0,33),roof[i],roof[j],roof[j]+Vector2(0,33)])
    rod(wood,a,b,.055,"timber")
   # The original net is kept on the cabin face, with a separate raised hanging edge.
   var net=[Vector2(94,151),Vector2(111,151),Vector2(111,216),Vector2(94,216)]
-  var at=point(Vector2(102,216),.20,g)
-  Tina.outward_quad(native,[at+Vector3(0,2.925,-.7),at+Vector3(0,2.925,.7),at+Vector3(0,0,.7),at+Vector3(0,0,-.7)],net,Vector3.LEFT)
+  if open_shelter:
+   var net_points=[]
+   for i in 4:net_points.append(point(net[i],4.8 if i<2 else .3,g))
+   Tina.outward_quad(native,net_points,net,Vector3.LEFT)
+  else:
+   var at=point(Vector2(102,216),.20,g)
+   Tina.outward_quad(native,[at+Vector3(0,2.925,-.7),at+Vector3(0,2.925,.7),at+Vector3(0,0,.7),at+Vector3(0,0,-.7)],net,Vector3.LEFT)
   for pixel in [Vector2(165,277),Vector2(187,291)]:cask(wood,point(pixel,1.05,g)+Vector3.RIGHT*2.0,Vector3.RIGHT,2.5,1.0)
  else:
   cask(wood,point(Vector2(193,287),1.05,g)+Vector3.RIGHT*1.8,Vector3.UP,1.9,1.12)

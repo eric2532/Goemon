@@ -33,6 +33,10 @@ int main(){
  h=legacy.spawn(1,0,SLIME_KIND,{0,0,0},2000,.5f);legacy.unit(h)->yaw=0;legacy.combat.set_targets({hero});hit=false;
  for(int i=0;i<180;++i){legacy.step(1.0/60);for(const auto& event:legacy.combat.events())if(event.kind==EXTERNAL_DAMAGE)hit=true;}
  assert(hit);
+ for(int cue:{111,141,158,302}){
+  for(int tag:{10000,20000}){auto source=d;source.slime_attacks[3]=tag+cue;assert(valid_kit_data(source));}
+  auto source=d;source.slime_attacks[3]=cue;assert(!valid_kit_data(source));
+ }
  d.slime_attacks[3]=29999;assert(!c.combat.configure(d));
  std::cout<<"TINA_CUES_RESULT source contact/audio, damage and invalid-cue rejection passed\n";
 }

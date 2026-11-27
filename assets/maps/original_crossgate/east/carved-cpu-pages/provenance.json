@@ -1,0 +1,12 @@
+{
+  "east/atlas-13.png": {
+    "resource": "east/carved-cpu-pages/east-atlas-13.res",
+    "resource_sha256": "5ec3c156bdbb47d90244e7ff320a397db77b4cb7b66195dc1390b07df4064daf",
+    "rgba_sha256": "7edc9e72949ab9c82bb2c100cd28a3288e3811c6c81177e47b1ab4d6a0261192",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "e33a76aa6f5d677333732a4288c06f6b695b43f5a74a4b5f3edf224033382ff9"
+  }
+}

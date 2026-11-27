@@ -29,19 +29,98 @@ const CaveEntrance=preload("res://scripts/forest/forest_original_cave_entrance.g
 const Cliffs=preload("res://scripts/forest/forest_original_cliffs.gd")
 const HEIGHT_PER_PIXEL=.045
 const WALLS=[15827,15828,15829,15833,15834,17685,17686,17687,17688,17689,17690,17691,17692,17693,17694,17695,17696,17697,17698]
-const STAIRS=[12000,12001,12002,12003,13268,13269,13270,13271,17952,17953,17954,17955,17956,17957]
-const CUT_FLOOR=[12002,12003,13269,13271,13997,15891,15892,17953,17955,17957,17971,17987]
+const STAIRS=[12000,12001,12002,12003,13996,13997,13268,13269,13270,13271,17952,17953,17954,17955,17956,17957,17964,17966,17972,17974,17975,17984,17996]
+const CUT_FLOOR=[12002,12003,13269,13271,13997,15891,15892,17953,17955,17957,17971,17975,17987]
+const WIND_COLUMNS=[17309,17311,17315,17317]
+const ICE_COLUMNS=[17252,17253,17254,17255,17256,17258,17259,17260,17261,17262,17263,17264,17265,17267,17269,17271,17273,17275,17277,17279,17283,17285,17309,17311,17315,17317]
+const ICE_PANELS=[13901,13902,13903,13905,13906,13907,13909,13911,17250,17251,17266,17268,17270,17272,17274,17276,17278,17280,17281,17282,17284,17286,17287,17288,17294,17295,17296,17297,17298,17299,17300,17301,17302,17303,17304,17305,17306,17346,17347,17348,17349,17350,17351,17352,17353,17354,17355,17356,17357]
+const REGIONAL_PROFILES=[10047,10048,10315,11054,11055,11060,11061,11587,11588,11589,11590,16134,16137,16235,17603,17310,17316,17362,17364,17312,17314,17360,17366]
 static var meshes:Dictionary={}
 static var stone_materials:Dictionary={}
 static var building_material:ShaderMaterial
 static var jenova_material:ShaderMaterial
 static var mineral_materials:Dictionary={}
+static var ice_contours:Dictionary={}
+
+static func east_fallback_owned(serial:int)->bool:
+ return serial in [10474,10475,11150,11151] or serial in range(11188,11209) or serial in range(1235161,1235168)
+
+static func ice_panel_mesh(serial:int,g:Dictionary)->Mesh:
+ if ice_contours.is_empty():ice_contours=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/falan/university_region/ice_walls.json"))
+ var row:Dictionary=ice_contours[str(serial)];var art=preload("res://scripts/forest/forest_original_map_art.gd")
+ var paint:Dictionary=art.data().graphics[str(int(row.paint))]
+ assert(row.source_rgba_sha256==paint.rgba_sha256,"Regenerate measured native ice contours")
+ var skin=Source.new([Rect2(paint.rect[0],paint.rect[1],paint.rect[2],paint.rect[3]),-Vector2(paint.origin[0],paint.origin[1]),Vector2.ONE,0],art.solid_texture(int(paint.page)),HEIGHT_PER_PIXEL)
+ var axis=Vector3.RIGHT if row.along_x else Vector3.BACK;var normal=axis.cross(Vector3.UP)
+ var center=Vector3((float(g.footprint[0])-1.)*1.5,0,(1.-float(g.footprint[1]))*1.5)
+ var base=normal*center.dot(normal);var profiles=[];var low=0.
+ for outline in row.outlines:
+  var profile=PackedVector2Array()
+  for pixel in outline:
+   var across=(float(pixel[0])+float(paint.origin[0]))*3./32.-base.x-base.z
+   var point=axis*across+base
+   var y=((point.z-point.x)*8.-float(pixel[1])-float(paint.origin[1]))*HEIGHT_PER_PIXEL
+   profile.append(Vector2(across,y));low=minf(low,y)
+  profiles.append(profile)
+ if row.get("hanging",false):low=0.
+ var depth:float=row.get("depth",.48);var turn=Basis(Vector3.UP,atan2(-axis.z,axis.x))
+ for profile in profiles:
+  var shape=Shapes.extrude(profile,depth);var arrays=shape.surface_get_arrays(0)
+  for i in arrays[Mesh.ARRAY_VERTEX].size():
+   var point:Vector3=turn*arrays[Mesh.ARRAY_VERTEX][i]+base-normal*depth*.5-Vector3.UP*low
+   var n:Vector3=turn*arrays[Mesh.ARRAY_NORMAL][i]
+   var sample=point-normal*(point-base).dot(normal)+Vector3.UP*low
+   skin.projected_vertex(point,n,sample)
+ var mesh=skin.finish();mesh.set_meta("native_ice_contour",serial)
+ return mesh
 
 static func kind(serial:int,floor_:bool,g:Dictionary)->String:
- if serial<1000 or g.family=="void":return "void"
+ if serial<1000 and not floor_ or g.family=="void":return "void"
  if g.get("shore_bank",false):return "bank"
  if serial in range(5000,5009):return "water"
  if floor_ or g.ground:return "floor"
+ if serial in ICE_COLUMNS:return "university_ice_column"
+ if serial in ICE_PANELS:return "university_ice_panel"
+ if serial in REGIONAL_PROFILES:return "regional_native_profile"
+ if serial in [10029,10031]:return "regional_potted_tree"
+ if serial==10316:return "regional_pylon"
+ if serial in [10445,10447]:return "chest"
+ if serial==10448:return "bench"
+ if serial in [10506,10508,11049,17664,30127]:return "detail_flat_panel"
+ if serial==10578:return "detail_candles"
+ if serial==11012:return "coast_logs"
+ if serial==11072:return "detail_well"
+ if serial==11139:return "barrel"
+ if serial==11585:return "pillar"
+ if serial==15022:return "boulder"
+ if serial in [10476,10478]:return "grille"
+ if serial==10490:return "coast_display"
+ if serial in [10505,11028,11030]:return "detail_flat_panel"
+ if serial==11085:return "detail_trough"
+ if serial in [11472,11572,11573]:return "obelisk"
+ if serial==11494:return "regional_sign"
+ if serial in [11547,11549] or serial in range(11788,11792):return "fern"
+ if serial in [11550,11551]:return "leafy_stems"
+ if serial in range(15000,15011) or serial in range(15563,15599) or serial in [15678,15693,15694]:return "boulder"
+ if serial in [15184,15185,15186,15189,15190] or serial in range(15256,15281):return "bone_pile"
+ if serial in [15320,15323,15324]:return "gem"
+ if serial in [13466,15848,15859,15885,17649,17651]:return "room_wall"
+ if serial==15889:return "detail_stairs"
+ if serial==17663:return "detail_books"
+ if serial==15890:return "detail_pit"
+ if serial in [16083,16084]:return "shelf"
+ if serial in [16100,16128]:return "regional_royal_fixture"
+ if serial==16259:return "room_wall"
+ if serial==16271:return "university_ice_column"
+ if serial==16634:return "regional_hanging_tools"
+ if serial==16737:return "coast_picture"
+ if serial==16860:return "table"
+ if serial in [17196,17198]:return "lectern"
+ if serial in [17205,17206]:return "regional_curtain"
+ if serial==10602:return "regional_hospital"
+ if serial in [10700,10701]:return "regional_ice_fort"
+ if serial==17308:return "ice_dragon_column"
+ if serial==17307:return "ice_stairwell"
  if serial in Street.STOCKADES:return "detail_palisade"
  if serial in Street.WALLS:return "ruin_wall"
  if serial==10055:return "open_box"
@@ -61,7 +140,7 @@ static func kind(serial:int,floor_:bool,g:Dictionary)->String:
  if serial==16583:return "drawers"
  if serial==16555:return "stove"
  if serial==10023:return "spill_barrel"
- if serial==15329:return "gem"
+ if serial in [15321,15325,15327,15329]:return "gem"
  if serial==10556:return "loose_bottles"
  if serial==11013:return "coast_logs"
  if serial==16929:return "coast_post"
@@ -86,9 +165,11 @@ static func kind(serial:int,floor_:bool,g:Dictionary)->String:
  if serial in STAIRS:return "stairs"
  if serial in range(10050,10100) or serial in range(11600,11625):return "tree"
  if serial in range(11400,11452) or serial in [11015,11083,11084]:return "building"
+ if g.family=="room_wall":return "room_wall"
  if serial in range(12500,13400):return "rock"
  if serial in WALLS or serial in range(10650,10690):return "wall"
- if serial==10428:return "lamp"
+ if serial in [10428,10429]:return "lamp"
+ if serial==1233164:return "detail_sign"
  if serial in [10427,10452,10453]:return "planter"
  if serial in range(11625,11711) or serial in range(12160,12181):return "flowers"
  if serial in range(11300,11363):return "pillar"
@@ -120,9 +201,34 @@ static func append(skin,shape:Mesh,pose:Transform3D=Transform3D.IDENTITY):
     skin.surface.add_vertex(p)
 
 
-static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
- var key=[serial,family]
+static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D,route_cliff:bool=false,east_prop:bool=false)->Mesh:
+ var key=[serial,family,route_cliff] if serial in range(13000,13036) else [serial,family]
+ if east_prop:key.append("east_native_family")
  if meshes.has(key):return meshes[key]
+ if serial==12115:
+  meshes[key]=load("res://scripts/forest/forest_native_rock_cluster.gd").mesh(g)
+  return meshes[key]
+ if serial in [17964,17966,17972,17984,17996]:
+  meshes[key]=load("res://scripts/forest/forest_native_stairs.gd").mesh(serial)
+  return meshes[key]
+ if serial==11112:
+  # The same preserved hanging hospital board already has a native alpha solid.
+  meshes[key]=load("res://scripts/forest/forest_east_village_props.gd").mesh(serial)
+  return meshes[key]
+ if serial in [11626,12160,12169,12170,12171,12175,12176,12177,12178,12179,12180,12181,11087,11088,11089,11090,11091,11092,11108,11109]:
+  meshes[key]=load("res://scripts/forest/forest_native_garden.gd").mesh(serial,g)
+  return meshes[key]
+ if east_prop and east_fallback_owned(serial):
+  meshes[key]=load("res://scripts/forest/forest_east_fallback_families.gd").mesh(serial,g)
+  return meshes[key]
+ if family in ["university_ice_panel","regional_native_profile"]:
+  meshes[key]=ice_panel_mesh(serial,g);return meshes[key]
+ if family in ["regional_potted_tree","regional_pylon","regional_sign","regional_hanging_tools","regional_curtain","regional_royal_fixture","regional_hospital","regional_ice_fort"]:
+  meshes[key]=regional_fixture(serial,family,g,texture);return meshes[key]
+ if g.has("cut") and family!="floor":
+  var art=load("res://scripts/forest/forest_original_map_art.gd")
+  meshes[key]=load("res://scripts/forest/forest_elsa_scenery.gd").mesh(serial,g,load(art.ROOT+art.data().pages[int(g.page)]))
+  return meshes[key]
  if serial in [16193,16196] and family=="armor":
   meshes[key]=Palace.Sculptures.armor(serial)
   return meshes[key]
@@ -146,7 +252,7 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
  skin.projection_center=center
  if serial in CaveEntrance.IDS:
   meshes[key]=CaveEntrance.mesh(serial,g,height);return meshes[key]
- if family=="rock" and Cliffs.owns(serial):
+ if family=="rock" and Cliffs.owns(serial) and serial not in range(12536,12566) and (serial not in range(13000,13036) or route_cliff):
   meshes[key]=Cliffs.mesh(serial,g);return meshes[key]
  if serial==11314:
   var source_art=preload("res://scripts/forest/forest_original_map_art.gd")
@@ -165,6 +271,8 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
   meshes[key]=Street.water_prop(serial,g);return meshes[key]
  if serial in Street.WALLS:
   meshes[key]=Street.wall_mesh(serial,g);return meshes[key]
+ if serial in Street.TOMBS:
+  meshes[key]=Street.tomb_mesh(serial,g);return meshes[key]
  if serial in Street.BENCHES:
   meshes[key]=Street.bench_mesh(serial,g);return meshes[key]
  if serial in Street.MUSHROOMS:
@@ -224,10 +332,52 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
    height=maxf(.15,height-24.0*HEIGHT_PER_PIXEL)
    center.y+=12.0*HEIGHT_PER_PIXEL
   skin.projection_center=center
- if family in ["floor","water","detail_flat_panel"]:
+ if family=="ice_dragon_column":
+  # Reuse the existing round column and winged stone creature, keeping native paint/placement.
+  var radius=1.12;var column=height*.72
+  Buildings.kili_round(skin,center,[Vector2(radius*1.12,0),Vector2(radius*1.12,.2),Vector2(radius,.34),Vector2(radius,column-.2),Vector2(radius*1.1,column-.12),Vector2(radius*1.1,column)])
+  for step in 9:
+   var angle=-PI*.25+step*PI/6.;var next=angle+PI/6.;var y=(step+1)*height*.055
+   var a=center+Vector3(cos(angle)*radius,0,sin(angle)*radius);var b=center+Vector3(cos(next)*radius,0,sin(next)*radius)
+   var c=center+Vector3(cos(next)*radius*2.5,0,sin(next)*radius*2.5);var e=center+Vector3(cos(angle)*radius*2.5,0,sin(angle)*radius*2.5)
+   skin.quad(a+Vector3.UP*y,b+Vector3.UP*y,c+Vector3.UP*y,e+Vector3.UP*y)
+   skin.quad(e,e+Vector3.UP*y,c+Vector3.UP*y,c)
+   skin.quad(a,a+Vector3.UP*y,e+Vector3.UP*y,e)
+   skin.quad(c,c+Vector3.UP*y,b+Vector3.UP*y,b)
+  sculpture(skin,"gargoyle",3.0,2.1,height*.34,center+Vector3.UP*column)
+ elif family=="ice_stairwell":
+  # The source is an open, stepped square shaft, not a filled pedestal.
+  for step in 4:
+   var radius=3.-step*.38;var y=.12+step*.31;var width=.38
+   for side in [-1,1]:
+    skin.box(AABB(center+Vector3(-radius,y,side*radius-width*.5),Vector3(radius*2,.32,width)))
+    skin.box(AABB(center+Vector3(side*radius-width*.5,y,-radius),Vector3(width,.32,radius*2)))
+ elif family=="university_ice_column":
+  # The source's opaque black faces mark unseen backs. Reuse the matching painted face there.
+  var opposite={17269:17264,17275:17265}
+  if opposite.has(serial):
+   var painted:Dictionary=preload("res://scripts/forest/forest_original_map_art.gd").data().graphics[str(opposite[serial])]
+   skin=Source.new([Rect2(painted.rect[0],painted.rect[1],painted.rect[2],painted.rect[3]),-Vector2(painted.origin[0],painted.origin[1]),Vector2.ONE,0],preload("res://scripts/forest/forest_original_map_art.gd").solid_texture(int(painted.page)),HEIGHT_PER_PIXEL)
+  # Joined Wind drawings share17309's body; their wider crops include attached walls.
+  var fit:Dictionary=preload("res://scripts/forest/forest_original_map_art.gd").data().graphics["17309"] if serial in WIND_COLUMNS else g
+  if serial in WIND_COLUMNS:height=source_height(fit)
+  var radius=float(fit.rect[2])*3./32./(2.*sqrt(2.))*.84
+  var levels=[Vector2(radius*.86,0),Vector2(radius,.16),Vector2(radius,.34),Vector2(radius*.72,.55),Vector2(radius*.67,height-.4),Vector2(radius*.87,height-.22),Vector2(radius*.87,height)]
+  Buildings.kili_round(skin,center,levels)
+  if serial in [17277,17279,17283]:
+   skin.box(AABB(center+Vector3(-radius,height-.65,-radius),Vector3(radius*2,.65,radius*2)))
+ elif family in ["floor","water","detail_flat_panel"]:
   var level=-2.10 if family=="water" else .035 if family=="detail_flat_panel" else .012
   if family=="water":skin.graphic[1].y+=level/HEIGHT_PER_PIXEL
-  skin.quad(Vector3(-1.5,level,1.5-d),Vector3(w-1.5,level,1.5-d),Vector3(w-1.5,level,1.5),Vector3(-1.5,level,1.5))
+  if family=="floor" and g.has("cut"):
+   # CUT backgrounds are rectangular screen patches on alternating cells, spanning two logical diamonds.
+   var corners=[]
+   for pixel in [Vector2.ZERO,Vector2(rect.size.x,0),rect.size,Vector2(0,rect.size.y)]:
+    var native:Vector2=pixel+Vector2(g.origin[0],g.origin[1])
+    corners.append(Vector3(native.x*3.0/64.0-native.y/16.0,level,native.x*3.0/64.0+native.y/16.0))
+   skin.graphic[1].y+=level/HEIGHT_PER_PIXEL
+   skin.quad(corners[0],corners[1],corners[2],corners[3])
+  else:skin.quad(Vector3(-1.5,level,1.5-d),Vector3(w-1.5,level,1.5-d),Vector3(w-1.5,level,1.5),Vector3(-1.5,level,1.5))
  elif family=="bank":
   var depth=maxf(.2,(float(g.rect[3])+float(g.origin[1])-24)*HEIGHT_PER_PIXEL)
   # Walkable caps stay at the source ground level; painted rock descends to water.
@@ -313,8 +463,8 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
     skin.box(AABB(Vector3(-1.5+i*w/3, height,1.5-d),Vector3(w/6,.65,d)))
  elif family=="stairs":
   var stage=Node3D.new()
-  var base=12002 if serial==12003 else 17954 if serial==17956 else 17955 if serial==17957 else 13268 if serial==13270 else 13269 if serial==13271 else serial
-  Stairs.build(stage,0,Vector2i.ZERO,Vector2.ZERO,base,StandardMaterial3D.new())
+  var base=12002 if serial==12003 else 17954 if serial in [17956,17974] else 17955 if serial in [17957,17975] else 13268 if serial==13270 else 13269 if serial==13271 else serial
+  Stairs.build(stage,0,Vector2i.ZERO,Vector2.ZERO,base,StandardMaterial3D.new(),null,6 if serial in [17964,17966,17972,17984,17996] else 5)
   var stair:Node3D=stage.get_child(0)
   if serial==12003:stair.rotation.y=-PI*.5
   for part:MeshInstance3D in stage.find_children("*","MeshInstance3D",true,false):append(skin,part.mesh,stair.transform*part.transform)
@@ -349,6 +499,8 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
   else:Crags.crag_cluster(tool,center,Vector2(w,d),height,serial)
   tool.generate_normals()
   var model=tool.commit()
+  if family=="gem" and serial!=15329:
+   append(skin,model);meshes[key]=skin.finish();return meshes[key]
   if family in ["ice","gem"]:
    if not mineral_materials.has(family):
     var material=load("res://scripts/forest/forest_frostpass_art.gd").ice_surface(51009,true)
@@ -392,7 +544,25 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
  elif family in ["coast_rug","coast_picture"]:
   var span=Vector3(w,.04,d) if family=="coast_rug" else Vector3(w*.92,height,.10) if w>=d else Vector3(.10,height,d*.92)
   skin.box(AABB(center+Vector3(-span.x*.5,.025,-span.z*.5),span))
- elif family=="barrel":Buildings.kili_round(skin,center,[Vector2(w*.33,0),Vector2(w*.42,height*.18),Vector2(w*.46,height*.50),Vector2(w*.42,height*.82),Vector2(w*.33,height)])
+ elif family=="chest" and serial in [10445,10447]:
+  # Reuse the shared box/profile primitives with this chest's own paint, not another room's gold trim.
+  var high=height*.62 if serial==10447 else height
+  skin.box(AABB(center+Vector3(-w*.42,0,-d*.42),Vector3(w*.84,high,d*.84)))
+  if serial==10447:
+   var outline=PackedVector2Array([Vector2(-w*.42,high),Vector2(w*.42,high)])
+   for i in range(1,8):
+    var angle=PI*float(i)/8.
+    outline.append(Vector2(cos(angle)*w*.42,high+sin(angle)*(height-high)))
+   append(skin,Shapes.extrude(outline,d*.84),Transform3D(Basis.IDENTITY,center))
+ elif family=="barrel":
+  Buildings.kili_round(skin,center,[Vector2(w*.33,0),Vector2(w*.42,height*.18),Vector2(w*.46,height*.50),Vector2(w*.42,height*.82),Vector2(w*.33,height)])
+  if serial==11139:
+   var p=Vector3(-1.05,0,.75)
+   Buildings.kili_round(skin,p,[Vector2(.34,0),Vector2(.42,height*.37),Vector2(.32,height*.37),Vector2(.27,height*.12)])
+   for i in 3:
+    var pose=Transform3D(Basis(Vector3.BACK,(i-1)*.12),Vector3(-1.1+i*.15,0,-.55))
+    var stave=BoxMesh.new();stave.size=Vector3(.09,height*1.25,.09)
+    append(skin,stave,pose.translated_local(Vector3.UP*height*.625))
  elif family=="basin":append(skin,Chamber.maze_basin(),Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*height/1.56),center))
  elif family in ["plant","arena_flower"]:
   append(skin,Shapes.urn_mesh(),Transform3D(Basis.IDENTITY.scaled(Vector3(1.6,1.3,1.6)),center))
@@ -405,9 +575,17 @@ static func mesh(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
    w*=fit;d*=fit
   meshes[key]=furnishing(serial,family,w,d,height,center)
   return meshes[key]
+ elif east_prop and family=="prop":
+  meshes[key]=load("res://scripts/forest/forest_east_region_art.gd").minor_prop_mesh(serial,g)
+  return meshes[key]
  else:
   skin.box(AABB(Vector3(-1.5,0,1.5-d),Vector3(w,height,d)))
- var result=skin.finish()
+ var result=skin.finish(family in ["floor","water","detail_flat_panel"])
+ if family in ["ice_dragon_column","ice_stairwell"]:
+  var stage=Node3D.new();var node=MeshInstance3D.new();node.mesh=result;stage.add_child(node)
+  var native=Source.new([rect,-Vector2(g.origin[0],g.origin[1]),Vector2.ONE,0],texture,HEIGHT_PER_PIXEL);native.projection_center=center
+  append_fitted(native,stage,w,d,height,center,g)
+  result=native.finish();result.set_meta("native_ice_landmark",serial)
  if g.has("cap_pixel") and family in ["wall","room_wall"]:
   var arrays=result.surface_get_arrays(0)
   var uv=(Vector2(g.rect[0],g.rect[1])+Vector2(g.cap_pixel[0],g.cap_pixel[1])+Vector2.ONE*.5)/texture.get_size()
@@ -426,12 +604,69 @@ static func source_height(g:Dictionary)->float:
  var ground_span=(span-2)*12.0+span*12.0*visible
  return maxf(.15,(-float(g.origin[1])-ground_span)*HEIGHT_PER_PIXEL)
 
+static func regional_fixture(serial:int,family:String,g:Dictionary,texture:Texture2D)->Mesh:
+ var rect=Rect2(g.rect[0],g.rect[1],g.rect[2],g.rect[3]);var height=source_height(g)
+ var center=Vector3((float(g.footprint[0])-1.)*1.5,0,(1.-float(g.footprint[1]))*1.5)
+ var skin=Source.new([rect,-Vector2(g.origin[0],g.origin[1]),Vector2.ONE,0],texture,HEIGHT_PER_PIXEL);skin.projection_center=center
+ var stage=Node3D.new();var boxes=Boxes.new();Lamps.prepare_primitives()
+ var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+ if family=="regional_hospital":
+  # Same source10602 hospital already reconstructed in Falan; reuse that complete facade.
+  load("res://scripts/forest/forest_falan_civic_exterior.gd").build(stage,Vector3.ZERO,[1111,"falan_townhouse",90,Vector2.ZERO,Vector3(22,17,13.6)])
+ elif family=="regional_royal_fixture":
+  load("res://scripts/forest/forest_black_prayer_art.gd").furniture(stage,Vector2i.ZERO,Vector2.ZERO,Vector2i.ONE,serial)
+ elif family=="regional_curtain":
+  Geo.mesh(stage,load("res://scripts/forest/forest_black_prayer_art.gd").curtain(16465 if serial==17205 else 16466),Vector3.ZERO,null)
+ elif family=="regional_ice_fort":
+  var tower:PackedScene=load("res://assets/models/environments/wind_meadow/buildings/round_gate_tower.tscn")
+  for side in ([-1,1] if serial==10700 else [0]):
+   var node=tower.instantiate();stage.add_child(node);node.position.x=side*6.
+  if serial==10700:
+   boxes.add(Vector3(0,19.7,0),Vector3(7.1,1.1,1.5),Fort.material())
+   boxes.add(Vector3(0,20.45,0),Vector3(7.5,.4,1.9),Fort.material())
+   boxes.build(stage)
+   # Its native base is behind the anchor, not floating167 screen pixels above it.
+   center+=Vector3(1,0,-1)*maxf(0.,-float(g.origin[1]+g.rect[3]))/16.
+   skin.projection_center=center
+ elif family=="regional_potted_tree":
+  var radius=.72
+  Buildings.kili_round(skin,center,[Vector2(radius*.7,0),Vector2(radius*.78,.12),Vector2(radius,.75),Vector2(radius*1.04,.82),Vector2(radius*1.04,.93)])
+  Lamps.rod(tool,center+Vector3.UP*.7,center+Vector3.UP*height*.52,.09)
+  for i in 5:
+   var t=i/4.;Lamps.oval(tool,center+Vector3(sin(i*2.4)*.13,lerpf(1.15,height*.88,t),cos(i*2.4)*.10),Vector3(lerpf(1.55,.55,t),height*.31,lerpf(1.45,.52,t)))
+ elif family=="regional_pylon":
+  Buildings.kili_round(skin,center,[Vector2(.60,0),Vector2(.60,.12),Vector2(.44,.25),Vector2(.40,height*.72),Vector2(.54,height*.78),Vector2(.50,height*.91),Vector2(.20,height)])
+ elif family=="regional_sign":
+  Lamps.rod(tool,center,center+Vector3.UP*height*.85,.075)
+  Lamps.oval(tool,center+Vector3.UP*height*.78,Vector3(2.6,height*.30,.22))
+ elif family=="regional_hanging_tools":
+  var base=maxf(0.,-float(g.origin[1]+g.rect[3]))*HEIGHT_PER_PIXEL
+  Lamps.rod(tool,center+Vector3(-1.3,base+height,0),center+Vector3(1.3,base+height,0),.055)
+  for i in 3:
+   var p=center+Vector3((i-1)*.9,base+height*(.40+.10*(i%2)),0)
+   Lamps.rod(tool,p,p+Vector3.UP*height*(.55-.10*(i%2)),.025)
+   Lamps.oval(tool,p,Vector3(.38,.58,.24))
+ if stage.get_child_count()>0:
+  append_fitted(skin,stage,float(g.footprint[0])*3.,float(g.footprint[1])*3.,height,center,g)
+ else:
+  stage.free()
+  if family!="regional_pylon":append(skin,tool.commit())
+ var result=skin.finish();result.set_meta("regional_native_graphic",serial);return result
+
 static func append_fitted(skin,stage:Node3D,w:float,d:float,height:float,center:Vector3,native_graphic:Dictionary={},preserve_volume:bool=false)->Mesh:
  var parts=[];var bounds=AABB();var first=true
  for node in stage.find_children("*","GeometryInstance3D",true,false):
+  if not (node is MeshInstance3D or node is MultiMeshInstance3D or node is Sprite3D):continue
   var pose:Transform3D=node.transform;var parent=node.get_parent()
   while parent!=stage:pose=parent.transform*pose;parent=parent.get_parent()
-  var model:Mesh=node.mesh if node is MeshInstance3D else node.multimesh.mesh
+  var model:Mesh
+  var material:Material=node.material_override
+  if node is Sprite3D:
+   # Whole reused civic/royal models include small painted ornaments alongside solid meshes.
+   var quad=QuadMesh.new();quad.size=Vector2(node.texture.get_size())*node.pixel_size;model=quad
+   if material==null:material=Source.material(node.texture)
+   pose.origin+=pose.basis*Vector3(node.offset.x,node.offset.y,0)*node.pixel_size
+  else:model=node.mesh if node is MeshInstance3D else node.multimesh.mesh
   var poses=[Transform3D.IDENTITY]
   if node is MultiMeshInstance3D:
    poses.clear()
@@ -439,7 +674,7 @@ static func append_fitted(skin,stage:Node3D,w:float,d:float,height:float,center:
   for instance:Transform3D in poses:
    var transform_=pose*instance;var box=transform_*model.get_aabb()
    bounds=box if first else bounds.merge(box);first=false
-   parts.append([model,transform_,node.material_override])
+   parts.append([model,transform_,material])
  assert(not parts.is_empty(),"Recovered furnishing must contain solid geometry")
  var fit=Vector3(w/maxf(.01,bounds.size.x),height/maxf(.01,bounds.size.y),d/maxf(.01,bounds.size.z))
  var transform_=Transform3D(Basis.IDENTITY.scaled(fit),center-Vector3(bounds.get_center().x,bounds.position.y,bounds.get_center().z)*fit)
@@ -503,7 +738,10 @@ static func furnishing(serial:int,family:String,w:float,d:float,height:float,cen
   else:shape=Furniture.desk(w,d,false)
   var node=Geo.mesh(stage,shape,Vector3.ZERO,null)
   if family in ["shelf","rack","coast_cabinet","coast_display","coast_apothecary","coast_weapons"]:node.rotation.y=-PI*.5 if w>=d else PI
- elif family.begins_with("coast_"):Coastal.furnish(stage,boxes,Vector3.ZERO,Vector2(w,d),serial,family,{})
+ elif family.begins_with("coast_"):
+  var groups={}
+  Coastal.furnish(stage,boxes,Vector3.ZERO,Vector2(w,d),serial,family,groups)
+  if not groups.is_empty():Coastal.batch(stage,groups)
  elif family.begins_with("inn_"):Inn.furnish(stage,boxes,Vector3.ZERO,w,d,w>d,serial,family)
  elif family.begins_with("civic_"):Civic.furnish(stage,boxes,Vector3.ZERO,w>d,maxf(w,d),family,serial)
  elif family in ["armor","brazier","state_bed"]:Palace.furnishing(stage,boxes,Vector3.ZERO,family,serial)
@@ -813,7 +1051,7 @@ static func building(skin,serial:int,w:float,d:float,height:float,native=null,un
   var ring=Source.new([],skin.texture,skin.pixel_height);ring.tiles=skin.tiles
   Tina.circular(native,ring,serial,w,d,height)
   if serial==11402:Jenova.round_details(ring,w,height)
-  append(skin,ring.finish(),Transform3D(Basis.IDENTITY.scaled(Vector3(1,1,d/w)),Vector3.ZERO))
+  append(skin,ring.finish(),Transform3D(Basis.IDENTITY.scaled(Vector3.ONE if serial in [11413,11414] else Vector3(1,1,d/w)),Vector3.ZERO))
   return
  if serial in [11450,11451,11083,11084,11015]:
   var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES);Lamps.prepare_primitives()

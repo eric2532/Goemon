@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "graphics": {
+    "1235180": {
+      "size": [
+        52,
+        139
+      ],
+      "bounds": [
+        0,
+        0,
+        50,
+        132
+      ],
+      "origin": [
+        -24,
+        -120
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "c276a5ca100826bea175c2b34fc39063a3b953be7c36585a147593446c41715b",
+      "metal": "gold",
+      "glass": "blue"
+    },
+    "1235181": {
+      "size": [
+        52,
+        139
+      ],
+      "bounds": [
+        0,
+        0,
+        50,
+        132
+      ],
+      "origin": [
+        -24,
+        -120
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "8d5ee674dfb1c35c275352042c3820a90ff131225460c7d8f5cfd5676d49a559",
+      "metal": "copper",
+      "glass": "amber"
+    },
+    "1235182": {
+      "size": [
+        52,
+        141
+      ],
+      "bounds": [
+        0,
+        0,
+        49,
+        132
+      ],
+      "origin": [
+        -23,
+        -122
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "829b5811ec55df4fe4034be20a54bca801922275de50bfb579b26043bd20436a",
+      "metal": "iron",
+      "glass": "blue"
+    }
+  },
+  "inferred": [
+    "Unseen glass curvature, rear metal support and underside continue the observed round construction. Source fronts and original placement/footprints remain unchanged."
+  ],
+  "scope": "Three source-confirmed ceremonial hourglass scenery forms, without event behavior."
+}

@@ -24,9 +24,9 @@ func check_frontier_patrols():
   for id in ids:runtime.damage_enemy(id,100000)
   runtime.dispatch_events()
   game.paused=false
-  for i in 60:await physics_frame
+  for i in 300:await physics_frame
   check(ids.all(func(id):return not runtime.handles.has(id)),"Every defeated patrol retires its old native handle")
-  check(game.model.enemies.size()>=count,"Defeated patrol posts refill through the existing native arrival queue")
+  check(game.model.enemies.size()>=count,"Defeated patrol posts refill through the existing native arrival queue at the slower swarm rate")
   print("ADVENTURE_DENSITY ",area," original_posts=",original," prepared=",waves.patrol_posts.size()," live=",count)
   if DisplayServer.get_name()!="headless" and area=="north_coast":
    var s:float=game.model.falan_scale

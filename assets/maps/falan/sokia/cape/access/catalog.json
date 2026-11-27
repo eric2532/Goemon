@@ -1,0 +1,5995 @@
+{
+  "schema": 1,
+  "page_indices": "local",
+  "requires": [
+    "east"
+  ],
+  "maps": {
+    "BlueCrossgate/map/0/15517.dat": {
+      "group": "sokia_cape_access",
+      "sokia_visual_only": true,
+      "title": "森林小路",
+      "size": [
+        50,
+        50
+      ],
+      "id": 15517,
+      "outdoor": true,
+      "raw": "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",
+      "sha256": "a820879d75aa12edcfc268c4bcdd441a46601625c0f904b714c00da0f856b5fb",
+      "bytes": 15020,
+      "walk": "eNptj7FKxEAYhCfEQ1A0NiJW8Q2uvUaCT7I+gVdL0I2d4EOclXaWntUlPoFiY6GSgEW62zSygc3uuBtb/+KDmWF+/h9oKHaAgrUE4JSIgCfzTuA0t3GM3X7zDJi9HnQnaIqsSUnJq5ZGucljXbpy/8hpoV6+LS8kL7W2hkyta6nulVnxo/xZ0XfWcy7IJWvthdVf3ruLbpXi1kbxJvR0DwNdDlQt/QVYcOI5MPXsmHhWzDxBFTiUcQiWf8E0WL0LbMZ2IbeDcCIZg2wMfHHWkca/QbqoiFnyulqneDhPKNGr44FRczMPzc/nwO4wLKty/DO/nZ6Srw==",
+      "recorded": 2375,
+      "cells": 2500,
+      "warp_cells": [
+        [
+          39,
+          15
+        ],
+        [
+          8,
+          38
+        ]
+      ],
+      "visible_bounds": {
+        "12517": [
+          -21,
+          -12,
+          53,
+          37
+        ],
+        "11779": [
+          -9,
+          -37,
+          19,
+          27
+        ],
+        "12518": [
+          -32,
+          -13,
+          64,
+          84
+        ],
+        "11787": [
+          -32,
+          -23,
+          56,
+          43
+        ],
+        "12300": [
+          -23,
+          -43,
+          46,
+          59
+        ],
+        "11789": [
+          -27,
+          -36,
+          55,
+          48
+        ],
+        "11788": [
+          -19,
+          -21,
+          37,
+          35
+        ],
+        "12301": [
+          -23,
+          -27,
+          48,
+          39
+        ],
+        "11792": [
+          -33,
+          -28,
+          65,
+          46
+        ],
+        "11793": [
+          -19,
+          -21,
+          40,
+          35
+        ],
+        "11794": [
+          -20,
+          -16,
+          38,
+          27
+        ],
+        "12302": [
+          -27,
+          -30,
+          59,
+          54
+        ],
+        "12299": [
+          -25,
+          -39,
+          53,
+          54
+        ],
+        "12309": [
+          -32,
+          -28,
+          61,
+          56
+        ],
+        "12310": [
+          -26,
+          -25,
+          56,
+          50
+        ],
+        "11791": [
+          -32,
+          -29,
+          65,
+          49
+        ],
+        "12520": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12521": [
+          -32,
+          -24,
+          49,
+          49
+        ],
+        "12522": [
+          -32,
+          -13,
+          64,
+          36
+        ],
+        "12523": [
+          -17,
+          -24,
+          49,
+          47
+        ],
+        "12525": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12559": [
+          -99,
+          -360,
+          195,
+          383
+        ],
+        "12527": [
+          -32,
+          -11,
+          49,
+          35
+        ],
+        "12254": [
+          -20,
+          -26,
+          42,
+          42
+        ],
+        "12519": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12532": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12255": [
+          -19,
+          -23,
+          41,
+          39
+        ],
+        "12533": [
+          -32,
+          -24,
+          52,
+          57
+        ],
+        "12535": [
+          -19,
+          -24,
+          51,
+          47
+        ],
+        "12561": [
+          -96,
+          -360,
+          195,
+          383
+        ],
+        "100": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5516": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12256": [
+          -17,
+          -23,
+          24,
+          37
+        ],
+        "5517": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5518": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6777": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6778": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6779": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6780": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6781": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6782": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6783": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6784": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6785": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12257": [
+          -28,
+          -20,
+          31,
+          27
+        ],
+        "5626": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12563": [
+          -99,
+          -360,
+          195,
+          387
+        ],
+        "12258": [
+          -20,
+          -19,
+          47,
+          35
+        ],
+        "11790": [
+          -30,
+          -27,
+          61,
+          41
+        ],
+        "12564": [
+          -96,
+          -360,
+          191,
+          386
+        ],
+        "12248": [
+          -75,
+          -104,
+          139,
+          133
+        ],
+        "12259": [
+          -34,
+          -54,
+          71,
+          76
+        ],
+        "12557": [
+          -99,
+          -360,
+          195,
+          386
+        ],
+        "12558": [
+          -96,
+          -300,
+          192,
+          323
+        ],
+        "12260": [
+          -29,
+          -31,
+          67,
+          57
+        ],
+        "11235": [
+          -28,
+          -152,
+          58,
+          174
+        ],
+        "6867": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6868": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6869": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6870": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6871": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12500": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "6873": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6874": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6875": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6876": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6877": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6878": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6879": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6880": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6881": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6882": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12506": [
+          -32,
+          -11,
+          64,
+          82
+        ],
+        "6884": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6885": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6886": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6887": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6888": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6889": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6890": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12514": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "6892": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6893": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6894": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6895": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6896": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6897": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6898": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6899": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6900": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6901": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6902": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12526": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "6904": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12529": [
+          -19,
+          -12,
+          51,
+          38
+        ],
+        "6906": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12530": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "12531": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "6909": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5374": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6911": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5375": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6910": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6914": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6913": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12550": [
+          -97,
+          -360,
+          197,
+          375
+        ],
+        "6919": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6920": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12551": [
+          -96,
+          -360,
+          191,
+          387
+        ],
+        "6922": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6923": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12552": [
+          -96,
+          -300,
+          176,
+          327
+        ],
+        "6925": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6926": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6927": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12553": [
+          -96,
+          -299,
+          111,
+          322
+        ],
+        "12554": [
+          -15,
+          -233,
+          31,
+          16
+        ],
+        "6930": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12555": [
+          -15,
+          -299,
+          111,
+          322
+        ],
+        "12556": [
+          -86,
+          -299,
+          182,
+          328
+        ],
+        "6933": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6934": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6935": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6936": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12560": [
+          -96,
+          -360,
+          192,
+          382
+        ],
+        "6938": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12562": [
+          -96,
+          -360,
+          196,
+          386
+        ],
+        "6940": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6941": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6942": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6944": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6945": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6946": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6947": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6948": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11150": [
+          -72,
+          -196,
+          137,
+          216
+        ],
+        "6950": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6952": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11151": [
+          -57,
+          -169,
+          132,
+          194
+        ],
+        "6954": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6957": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6958": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11152": [
+          -52,
+          -159,
+          107,
+          182
+        ],
+        "6960": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6961": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6962": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11153": [
+          -48,
+          -148,
+          112,
+          166
+        ],
+        "6964": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6965": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6966": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6967": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6968": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6969": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11154": [
+          -55,
+          -137,
+          105,
+          151
+        ],
+        "6971": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6972": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6973": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "6974": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12510": [
+          -32,
+          -18,
+          64,
+          41
+        ],
+        "12512": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12515": [
+          -32,
+          -14,
+          51,
+          43
+        ],
+        "10085": [
+          -95,
+          -225,
+          202,
+          244
+        ],
+        "10086": [
+          -121,
+          -233,
+          223,
+          252
+        ],
+        "10087": [
+          -101,
+          -238,
+          215,
+          257
+        ],
+        "10088": [
+          -124,
+          -267,
+          231,
+          286
+        ],
+        "10089": [
+          -109,
+          -263,
+          216,
+          282
+        ],
+        "10090": [
+          -104,
+          -263,
+          204,
+          282
+        ],
+        "10091": [
+          -76,
+          -220,
+          175,
+          239
+        ],
+        "10092": [
+          -101,
+          -238,
+          215,
+          257
+        ],
+        "10093": [
+          -80,
+          -226,
+          183,
+          245
+        ],
+        "10094": [
+          -91,
+          -185,
+          165,
+          204
+        ],
+        "5489": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5493": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5494": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12511": [
+          -26,
+          -24,
+          58,
+          67
+        ],
+        "5497": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5500": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5505": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5506": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5507": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5000": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5001": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5002": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5003": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5004": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5005": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5006": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5007": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5008": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5009": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5010": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5011": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5012": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5013": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5014": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5015": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5016": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5017": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5018": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5019": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5020": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5021": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5022": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5023": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5024": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5025": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5026": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11164": [
+          -49,
+          -179,
+          101,
+          203
+        ],
+        "11165": [
+          -53,
+          -49,
+          110,
+          53
+        ],
+        "11167": [
+          -18,
+          -44,
+          47,
+          71
+        ],
+        "11168": [
+          -56,
+          -56,
+          111,
+          74
+        ],
+        "12513": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12501": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "5045": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5046": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5047": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5048": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5049": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5050": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5051": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5052": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5053": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12502": [
+          -32,
+          -11,
+          64,
+          82
+        ],
+        "5055": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5056": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5057": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5058": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12503": [
+          -32,
+          -13,
+          50,
+          36
+        ],
+        "12504": [
+          -15,
+          6,
+          30,
+          17
+        ],
+        "12505": [
+          -18,
+          -14,
+          50,
+          46
+        ],
+        "5069": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12507": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "11217": [
+          -22,
+          -35,
+          69,
+          52
+        ],
+        "5075": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11219": [
+          -25,
+          -15,
+          44,
+          30
+        ],
+        "11220": [
+          -25,
+          -11,
+          43,
+          26
+        ],
+        "12246": [
+          -33,
+          -31,
+          55,
+          51
+        ],
+        "5079": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12509": [
+          -32,
+          -24,
+          53,
+          57
+        ],
+        "5081": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5594": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5595": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5596": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5597": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5598": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5599": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5088": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5600": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5601": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5602": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5603": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5605": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5604": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5607": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5608": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5609": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5610": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5606": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5612": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5613": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5614": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5615": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5616": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5617": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5611": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5619": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5620": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5621": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5622": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5623": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5624": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5625": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5087": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5627": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5628": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "5629": [
+          -32,
+          -24,
+          64,
+          47
+        ]
+      },
+      "solid_bounds": {
+        "12517": [
+          -21,
+          -12,
+          53,
+          37
+        ],
+        "12518": [
+          -32,
+          -13,
+          64,
+          84
+        ],
+        "12520": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12521": [
+          -32,
+          -24,
+          49,
+          49
+        ],
+        "12522": [
+          -32,
+          -13,
+          64,
+          36
+        ],
+        "12523": [
+          -17,
+          -24,
+          49,
+          47
+        ],
+        "12525": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12559": [
+          -99,
+          -350,
+          131,
+          362
+        ],
+        "12527": [
+          -32,
+          -11,
+          49,
+          35
+        ],
+        "12519": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12532": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12533": [
+          -32,
+          -24,
+          52,
+          57
+        ],
+        "12535": [
+          -19,
+          -24,
+          51,
+          47
+        ],
+        "12561": [
+          -65,
+          -346,
+          164,
+          303
+        ],
+        "12563": [
+          -99,
+          -347,
+          180,
+          374
+        ],
+        "12564": [
+          -89,
+          -349,
+          184,
+          375
+        ],
+        "12557": [
+          -99,
+          -347,
+          180,
+          373
+        ],
+        "12558": [
+          -81,
+          -300,
+          161,
+          46
+        ],
+        "12500": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12506": [
+          -32,
+          -11,
+          64,
+          82
+        ],
+        "12514": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "12526": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "12529": [
+          -19,
+          -12,
+          51,
+          38
+        ],
+        "12530": [
+          -32,
+          -12,
+          64,
+          83
+        ],
+        "12531": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12550": [
+          -97,
+          -350,
+          197,
+          365
+        ],
+        "12551": [
+          -89,
+          -349,
+          184,
+          376
+        ],
+        "12552": [
+          -87,
+          -297,
+          167,
+          324
+        ],
+        "12553": [
+          -80,
+          -299,
+          86,
+          65
+        ],
+        "12554": [
+          -7,
+          -233,
+          23,
+          6
+        ],
+        "12555": [
+          -10,
+          -299,
+          89,
+          64
+        ],
+        "12556": [
+          -86,
+          -298,
+          174,
+          327
+        ],
+        "12560": [
+          -87,
+          -323,
+          168,
+          345
+        ],
+        "12562": [
+          -87,
+          -349,
+          187,
+          375
+        ],
+        "12510": [
+          -32,
+          -18,
+          64,
+          41
+        ],
+        "12512": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12515": [
+          -32,
+          -14,
+          51,
+          43
+        ],
+        "12511": [
+          -26,
+          -24,
+          58,
+          67
+        ],
+        "12513": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12501": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12502": [
+          -32,
+          -11,
+          64,
+          82
+        ],
+        "12503": [
+          -32,
+          -13,
+          50,
+          36
+        ],
+        "12504": [
+          -15,
+          6,
+          30,
+          17
+        ],
+        "12505": [
+          -18,
+          -14,
+          50,
+          46
+        ],
+        "12507": [
+          -32,
+          -24,
+          64,
+          95
+        ],
+        "12509": [
+          -32,
+          -24,
+          53,
+          57
+        ]
+      },
+      "void_cliffs": [],
+      "cap_pixels": {},
+      "wall_caps": {},
+      "restored_raw": "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",
+      "restored_sha256": "4b5ef2c975ccd5482714b219a41199bf0785ca107245509ada82a2eb23798799",
+      "source_completion": {
+        "recorded": 2375,
+        "cells": 2500,
+        "completed": 125,
+        "preserved_client_variations": 0,
+        "compatible": true,
+        "layout_complete": true
+      },
+      "layout_complete": true,
+      "layout_reference": {
+        "file": "server/15517_plant",
+        "path": "gmsv/data/map/15517_plant",
+        "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15517_plant",
+        "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+        "git_blob": "b8411df0b35f0c46462233f2b66ee0bcad6373ed",
+        "bytes": 10044,
+        "sha256": "98fbbb1cc77517c01b62e51acc831c307669be993336840868b670bac611d358",
+        "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+      },
+      "source_floor_object_sha256": "bf7636267b7bcb71f4955544dabd96b46965638cca43515ee03db27a6f799147",
+      "source_background_serials": [
+        100
+      ],
+      "gate_status": "Review-only layout preparation; original conditions are not activated by this catalog."
+    },
+    "BlueCrossgate/map/0/15520.dat": {
+      "group": "sokia_cape_access",
+      "sokia_visual_only": true,
+      "title": "阿魯巴斯的研究所",
+      "size": [
+        100,
+        100
+      ],
+      "id": 15520,
+      "outdoor": false,
+      "raw": "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",
+      "sha256": "d08eed894b6e1a4d2ed059b9bc2a35ac700f525b0b633e504f1e10e5fb79691c",
+      "bytes": 60020,
+      "walk": "eNrFkz1v1EAQhsdZkRUSnDsaTrclJVSQIrrtaKmSKkV+AFJSJtKRdSSkk+joUSL+AR0Nkn2koKBIESEkKGxEcUp1jo7Tmpy9w7trhygFNVP4Yx/POx+eIfqX1ZoMrlHFEWXMzYxZJaxwxDk79taCaXjuAF+DzjwwdACPTkoW11KG3BWgPSoE4gaQSBoSlRHuRE54oPABjgwNy8dlVMZ4gZRgqYhFBwyA9mBnkSK0ASgsb/ISL5Y1HfCM3wfAorjgTROAWacBPFogxXbJTgUp84hW4RH5GKkHhgbXQBaRzyp4CBr4dG+AKw8Kad/02LOiQpnOAGQbPEbNxVSmNt5aDCpLNATgifn+Uh0hgZit2mo+89l+6VLkOPnyxLhjOeNlalVt50/57cPa93qyYZ5P81ffQt+3Fqf33Pmw8VVNDI+j/uVKdhdSlTXV/PWzDzliRKs6McfL3vJ2qAPgPH037tIdHvPp/kpbYGHP0zeKVv+CnxEL71HAY71XagA02IO2JQHUvU5KA8zIBfBrCjCoAHpszBEAw6PAn3hQMbmZWSMHsLpLFoMmCkjtJPEuGqG9lHNLNyc3FtsZRklPTRxijGjghLM+ePlRFguUrRL0OB7ht0MbrRf1V4l5YK2T3GT8grY9EFUTjzJZ/oAHAE8ATGWbCwBdnyE32SMDcKLRy/ni1tJe1rr+BJ08PzQY+hOD7s+bpvLaHqR5nkpoB3B/lNHvAGQJ8WACMVgBxohRKmpBcsqiP8IcARCyyiaC+n58EJz66wAjqqk6FB6oTGaxL7BPHaAEQNKdLPZgDfsoykOOakK8jA2pSqNMNLFmCSA6AGv8xfjF4W6HsXclt5tyBfwKtQAHlW7vfvcSv38B6H+A/2l/AIVhXwA=",
+      "recorded": 1797,
+      "cells": 10000,
+      "warp_cells": [
+        [
+          49,
+          55
+        ]
+      ],
+      "visible_bounds": {
+        "16652": [
+          -12,
+          -28,
+          25,
+          40
+        ],
+        "10038": [
+          -51,
+          -71,
+          79,
+          77
+        ],
+        "16305": [
+          -32,
+          -34,
+          63,
+          57
+        ],
+        "17024": [
+          -41,
+          -93,
+          85,
+          92
+        ],
+        "16006": [
+          -20,
+          -54,
+          42,
+          70
+        ],
+        "16007": [
+          -21,
+          -56,
+          44,
+          72
+        ],
+        "16009": [
+          -18,
+          -43,
+          41,
+          59
+        ],
+        "11018": [
+          -29,
+          -52,
+          73,
+          75
+        ],
+        "16031": [
+          -26,
+          -49,
+          56,
+          71
+        ],
+        "17232": [
+          -22,
+          -77,
+          53,
+          97
+        ],
+        "17083": [
+          -11,
+          -138,
+          29,
+          153
+        ],
+        "17085": [
+          -12,
+          -149,
+          30,
+          162
+        ],
+        "17087": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17088": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17089": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17090": [
+          -18,
+          -175,
+          73,
+          189
+        ],
+        "17091": [
+          -53,
+          -174,
+          76,
+          189
+        ],
+        "17605": [
+          -28,
+          -118,
+          26,
+          45
+        ],
+        "16078": [
+          -93,
+          -196,
+          125,
+          219
+        ],
+        "16080": [
+          -32,
+          -235,
+          173,
+          264
+        ],
+        "17108": [
+          -51,
+          -67,
+          70,
+          80
+        ],
+        "16084": [
+          -128,
+          -240,
+          181,
+          265
+        ],
+        "12002": [
+          -37,
+          -27,
+          75,
+          57
+        ],
+        "11036": [
+          -28,
+          -28,
+          59,
+          47
+        ],
+        "17128": [
+          -32,
+          -197,
+          70,
+          220
+        ],
+        "17140": [
+          -31,
+          -114,
+          127,
+          135
+        ],
+        "17142": [
+          -31,
+          -298,
+          198,
+          325
+        ],
+        "17143": [
+          -68,
+          -139,
+          104,
+          167
+        ],
+        "17144": [
+          -29,
+          -397,
+          192,
+          421
+        ],
+        "10023": [
+          -30,
+          -33,
+          60,
+          63
+        ],
+        "10495": [
+          -21,
+          -137,
+          56,
+          156
+        ],
+        "11007": [
+          -38,
+          -43,
+          64,
+          58
+        ],
+        "1282": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1283": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1284": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1285": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1286": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1287": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1288": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1289": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1290": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1291": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1292": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1293": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1294": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1295": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16650": [
+          -9,
+          -23,
+          22,
+          35
+        ],
+        "1297": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1298": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1299": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1300": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1301": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1302": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1303": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1304": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1305": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1306": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1307": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1308": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1309": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1310": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1311": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1312": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1313": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1314": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1315": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1316": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1317": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1318": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1319": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1320": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1321": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1322": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1323": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1324": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1325": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1326": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1327": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1328": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1329": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1330": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1331": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1332": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1333": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1334": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1335": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1336": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1337": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1338": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1339": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1340": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1341": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1342": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1343": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1344": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1345": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1346": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1347": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1348": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1349": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1350": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1351": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1352": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1353": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1354": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1355": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1356": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1357": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1358": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1359": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1360": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1361": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1362": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1363": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1364": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1365": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1366": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1367": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1368": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1369": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1370": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1371": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1372": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1373": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1374": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1375": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1376": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1377": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1378": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1379": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1380": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1381": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1382": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1383": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1384": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1385": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1386": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1387": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1388": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1389": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1390": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1391": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1392": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1393": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1394": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1395": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1396": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1397": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1398": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1399": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1400": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1401": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1402": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1403": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1404": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1405": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1406": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1407": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1408": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1409": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1410": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1411": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1412": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1413": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1414": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1415": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1416": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1417": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1418": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1419": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1420": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1421": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "11067": [
+          -13,
+          -78,
+          122,
+          94
+        ],
+        "15256": [
+          -32,
+          -25,
+          63,
+          51
+        ],
+        "15257": [
+          -36,
+          -20,
+          72,
+          41
+        ],
+        "15265": [
+          -19,
+          -11,
+          38,
+          36
+        ],
+        "15268": [
+          -14,
+          -25,
+          50,
+          38
+        ],
+        "15269": [
+          -38,
+          -22,
+          74,
+          52
+        ],
+        "15270": [
+          -22,
+          -25,
+          50,
+          60
+        ],
+        "15271": [
+          -39,
+          -30,
+          79,
+          47
+        ],
+        "15272": [
+          -37,
+          -29,
+          59,
+          54
+        ],
+        "15273": [
+          -23,
+          -26,
+          42,
+          46
+        ],
+        "15274": [
+          -29,
+          -21,
+          50,
+          28
+        ],
+        "15276": [
+          -30,
+          -21,
+          54,
+          49
+        ],
+        "10539": [
+          -12,
+          -24,
+          24,
+          36
+        ],
+        "15281": [
+          -29,
+          -19,
+          57,
+          45
+        ],
+        "16306": [
+          -33,
+          -29,
+          65,
+          52
+        ],
+        "16307": [
+          -32,
+          -29,
+          64,
+          52
+        ],
+        "16308": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16309": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "16310": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16311": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "15283": [
+          -31,
+          -29,
+          67,
+          46
+        ],
+        "15282": [
+          -11,
+          -30,
+          48,
+          56
+        ],
+        "10568": [
+          4,
+          -145,
+          26,
+          62
+        ],
+        "15284": [
+          -26,
+          -29,
+          56,
+          53
+        ],
+        "16316": [
+          -32,
+          -25,
+          66,
+          49
+        ],
+        "16317": [
+          -32,
+          -29,
+          64,
+          52
+        ],
+        "16318": [
+          -32,
+          -29,
+          65,
+          52
+        ],
+        "16319": [
+          -32,
+          -41,
+          64,
+          64
+        ],
+        "16320": [
+          -33,
+          -42,
+          66,
+          65
+        ],
+        "16321": [
+          -32,
+          -31,
+          64,
+          54
+        ],
+        "16323": [
+          -32,
+          -31,
+          64,
+          54
+        ],
+        "16328": [
+          -33,
+          -42,
+          65,
+          65
+        ],
+        "16330": [
+          -64,
+          -92,
+          128,
+          115
+        ],
+        "10032": [
+          -56,
+          -90,
+          92,
+          105
+        ],
+        "16174": [
+          -24,
+          -43,
+          47,
+          60
+        ],
+        "10541": [
+          -56,
+          -70,
+          74,
+          86
+        ],
+        "17193": [
+          14,
+          -102,
+          46,
+          52
+        ],
+        "17194": [
+          -36,
+          -87,
+          117,
+          101
+        ],
+        "10033": [
+          -56,
+          -142,
+          127,
+          157
+        ],
+        "10542": [
+          -20,
+          -31,
+          44,
+          47
+        ],
+        "10557": [
+          10,
+          -95,
+          33,
+          35
+        ],
+        "17210": [
+          -19,
+          -56,
+          46,
+          73
+        ],
+        "10553": [
+          -11,
+          -24,
+          26,
+          36
+        ],
+        "17520": [
+          -32,
+          -157,
+          75,
+          113
+        ],
+        "17017": [
+          -32,
+          -67,
+          64,
+          90
+        ],
+        "17018": [
+          -32,
+          -67,
+          64,
+          78
+        ],
+        "17019": [
+          -32,
+          -67,
+          64,
+          90
+        ],
+        "17020": [
+          -32,
+          -67,
+          64,
+          90
+        ],
+        "17531": [
+          -23,
+          -97,
+          45,
+          112
+        ],
+        "16008": [
+          -21,
+          -44,
+          43,
+          60
+        ],
+        "11017": [
+          -29,
+          -50,
+          70,
+          74
+        ],
+        "17046": [
+          -20,
+          -43,
+          51,
+          62
+        ],
+        "17047": [
+          -21,
+          -46,
+          50,
+          61
+        ],
+        "16034": [
+          -28,
+          -49,
+          61,
+          72
+        ],
+        "17586": [
+          -55,
+          -119,
+          145,
+          130
+        ],
+        "10556": [
+          21,
+          -86,
+          25,
+          28
+        ],
+        "17603": [
+          3,
+          -118,
+          27,
+          48
+        ],
+        "17093": [
+          -24,
+          -74,
+          56,
+          95
+        ],
+        "17606": [
+          -29,
+          -121,
+          27,
+          48
+        ],
+        "17095": [
+          -24,
+          -73,
+          56,
+          94
+        ],
+        "17094": [
+          -24,
+          -74,
+          56,
+          95
+        ],
+        "17604": [
+          3,
+          -118,
+          26,
+          45
+        ],
+        "16079": [
+          -32,
+          -235,
+          173,
+          264
+        ],
+        "16086": [
+          -128,
+          -240,
+          181,
+          265
+        ],
+        "16088": [
+          -128,
+          -240,
+          181,
+          265
+        ],
+        "16090": [
+          -128,
+          -240,
+          181,
+          265
+        ],
+        "12001": [
+          -31,
+          -62,
+          62,
+          84
+        ],
+        "16099": [
+          -16,
+          -75,
+          52,
+          99
+        ],
+        "16100": [
+          -19,
+          -88,
+          40,
+          103
+        ],
+        "10552": [
+          -12,
+          -35,
+          31,
+          48
+        ],
+        "16120": [
+          -65,
+          -78,
+          104,
+          104
+        ],
+        "1296": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "10561": [
+          18,
+          -103,
+          27,
+          39
+        ],
+        "10567": [
+          3,
+          -144,
+          26,
+          69
+        ],
+        "16815": [
+          -28,
+          -85,
+          42,
+          92
+        ],
+        "10571": [
+          -46,
+          -105,
+          31,
+          48
+        ],
+        "10554": [
+          18,
+          -105,
+          31,
+          48
+        ],
+        "10573": [
+          -42,
+          -86,
+          25,
+          28
+        ],
+        "10574": [
+          -48,
+          -89,
+          33,
+          35
+        ],
+        "16173": [
+          -24,
+          -28,
+          49,
+          46
+        ],
+        "10576": [
+          -56,
+          -102,
+          51,
+          54
+        ],
+        "10577": [
+          -54,
+          -95,
+          49,
+          47
+        ],
+        "10578": [
+          -47,
+          -105,
+          27,
+          39
+        ]
+      },
+      "solid_bounds": {},
+      "void_cliffs": [],
+      "cap_pixels": {
+        "17087": [
+          32,
+          0
+        ],
+        "17088": [
+          32,
+          0
+        ],
+        "17089": [
+          32,
+          0
+        ],
+        "17128": [
+          39,
+          0
+        ]
+      },
+      "wall_caps": {},
+      "restored_raw": "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",
+      "restored_sha256": "a02e11215d2409b6e1a3f1f6174b8efbb4cd15c1405cedaefb695af47fcbb89a",
+      "source_completion": {
+        "recorded": 1797,
+        "cells": 10000,
+        "completed": 8203,
+        "preserved_client_variations": 0,
+        "compatible": true,
+        "layout_complete": true
+      },
+      "layout_complete": true,
+      "layout_reference": {
+        "file": "server/15520_devi4",
+        "path": "gmsv/data/map/15520_devi4",
+        "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15520_devi4",
+        "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+        "git_blob": "d8fa85f966a348b65ed50388c4462f741878bebb",
+        "bytes": 40044,
+        "sha256": "9acdaddb94368536d0391c0a6ec1d3f5472902390fa49c60d768e9b212dbf424",
+        "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+      },
+      "source_floor_object_sha256": "d3c26832579b29119b7cdcf66eefe55b45d7bfcbf8ea0c1311efad660c6d0501",
+      "source_background_serials": [
+        100
+      ],
+      "gate_status": "Review-only layout preparation; original conditions are not activated by this catalog."
+    },
+    "BlueCrossgate/map/0/15524.dat": {
+      "group": "sokia_cape_access",
+      "sokia_visual_only": true,
+      "title": "峽之洞窟",
+      "size": [
+        30,
+        30
+      ],
+      "id": 15524,
+      "outdoor": false,
+      "raw": "eNrtlM1y0zAQx8WVJyiUuKFMG9qS2mVpQtITF27M8BA8huM6jh38cS7wKOXGS3DhwLPw19qy5S9iZzrTgUYa25JWv93V7sof3n18JLJmZI8Qn7bu/zJrG3qv7ipLlVzkspWxMHz0uMbL2WdIEsM1lhgpqchkrhHhcSFZ4h1rtBxds24HUg863JyVsjVrC7BHjqQWR/MwwuoS76rfko2x383XEmh2sHMBSz4onzW6zCpP1jkb8DiVpB6G6DG6/AbQEmk7VOSUz7EWm5Rdwb6D0zmw6EEe1KJXxEpnE+yVxArvBZ8+wFobG5ZYF1QIiw5TPmaBdlrd5yLzSuIhqg6ICNbW0CLztq6cVrFlr2UdLLDbx1t6GuKrn9cu1YbyX8lW2BtxDSScn2t40lSp9buQ6pW5lRlK+Nx2R1bF2ucY25nn3e+gzScOYDE9cV824oqRGVr2ZJPsboSIU9SDtZnz8MTwelmq5c3sKqM8vrl+i2XRYjXgO+twdYYtlkWjVQ99wZYTvmXyb9G9NoLSP2LRqzbshntzt/9ncW/sQ2wzekIXdMR9SG3SC/6+pbLsKd1aamZV+BkdY2Zo8oKWZNWSldNjJgeWLj3LZM9Z9t0qszfmHvyTXh7nek/phAZ0SS9pL7O8T0oygOxNzYOf+WiaySSRjkf8Nsjk7zm0NkfzNNuR7knZOT2jQmfhR7UdaOv7pGbS8lkuGbWwU219RGo/Ndg9sr6ZX82m2KY5U3bnHLmhpkmIYS3uSvuMXtOEXmi2JnRF7ecdWL/MgzxSlxopxGFONrFj68Ysx6qtHSLP1SzLqjCp282oxvqAut8qonJVTXuwhd3h++3tVnO7qY21u/PFTG/kq450mqVxVh2/ze6WZd3UV62GP9Hm/PTJ0xw1J2tjgu8J/ynkzNAq7+/tvFRHc/BXJP6X9mPrvmN37I7dsXfMPt7F6iGz4j7YP8IwdLo=",
+      "sha256": "cbf6e3dc6053e2cdc156ef93d0c4079764901b2564c21cce18383380a37ba8ba",
+      "bytes": 5420,
+      "walk": "eNpljMEJgDAQBCcqXIoQYicpyRLuSksjQkrIUzB45uVDFxZm57Hwy0nHTas21jvH2cWKh60psSe4hOLQ9lGBHkChpHfaATUPHGqZvu8Pg1EaoQ==",
+      "recorded": 868,
+      "cells": 900,
+      "warp_cells": [
+        [
+          16,
+          19
+        ]
+      ],
+      "visible_bounds": {
+        "13080": [
+          -31,
+          -162,
+          65,
+          180
+        ],
+        "13081": [
+          -32,
+          -162,
+          66,
+          188
+        ],
+        "13082": [
+          -32,
+          -149,
+          68,
+          177
+        ],
+        "13083": [
+          -32,
+          -149,
+          46,
+          172
+        ],
+        "13084": [
+          -15,
+          -127,
+          29,
+          12
+        ],
+        "12317": [
+          -32,
+          -23,
+          56,
+          45
+        ],
+        "12318": [
+          -32,
+          -29,
+          65,
+          49
+        ],
+        "13085": [
+          -15,
+          -149,
+          47,
+          172
+        ],
+        "13088": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13089": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13086": [
+          -32,
+          -149,
+          64,
+          175
+        ],
+        "13087": [
+          -35,
+          -162,
+          67,
+          189
+        ],
+        "12320": [
+          -24,
+          -38,
+          43,
+          55
+        ],
+        "13093": [
+          -32,
+          -162,
+          65,
+          187
+        ],
+        "13094": [
+          -32,
+          -149,
+          60,
+          174
+        ],
+        "13095": [
+          -32,
+          -150,
+          48,
+          173
+        ],
+        "13096": [
+          -15,
+          -132,
+          30,
+          17
+        ],
+        "13097": [
+          -15,
+          -152,
+          47,
+          175
+        ],
+        "13098": [
+          -31,
+          -149,
+          63,
+          176
+        ],
+        "13099": [
+          -38,
+          -162,
+          70,
+          190
+        ],
+        "12325": [
+          -10,
+          -29,
+          19,
+          40
+        ],
+        "13101": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13102": [
+          -32,
+          -149,
+          64,
+          172
+        ],
+        "13103": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13104": [
+          -34,
+          -162,
+          70,
+          185
+        ],
+        "13105": [
+          -32,
+          -162,
+          67,
+          186
+        ],
+        "13106": [
+          -32,
+          -149,
+          66,
+          175
+        ],
+        "13107": [
+          -32,
+          -149,
+          46,
+          172
+        ],
+        "13108": [
+          -15,
+          -134,
+          29,
+          19
+        ],
+        "13109": [
+          -15,
+          -149,
+          47,
+          172
+        ],
+        "13110": [
+          -28,
+          -149,
+          60,
+          176
+        ],
+        "13111": [
+          -42,
+          -162,
+          74,
+          190
+        ],
+        "13112": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13113": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13114": [
+          -32,
+          -150,
+          64,
+          173
+        ],
+        "13115": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "13090": [
+          -32,
+          -151,
+          64,
+          174
+        ],
+        "13091": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "12333": [
+          -10,
+          -60,
+          22,
+          77
+        ],
+        "100": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "13100": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "7804": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7805": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7806": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7807": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7808": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7809": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7810": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7811": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7812": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7813": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7814": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7815": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7816": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7817": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7818": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "7819": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12181": [
+          -28,
+          -34,
+          53,
+          46
+        ],
+        "12182": [
+          -28,
+          -36,
+          55,
+          49
+        ],
+        "12183": [
+          -24,
+          -39,
+          49,
+          49
+        ],
+        "12184": [
+          -25,
+          -49,
+          49,
+          65
+        ],
+        "12472": [
+          -14,
+          -56,
+          52,
+          75
+        ],
+        "12473": [
+          -28,
+          -38,
+          60,
+          68
+        ],
+        "17952": [
+          -30,
+          -62,
+          62,
+          87
+        ],
+        "12250": [
+          -28,
+          -26,
+          46,
+          26
+        ],
+        "12254": [
+          -20,
+          -26,
+          42,
+          42
+        ]
+      },
+      "solid_bounds": {
+        "13080": [
+          -31,
+          -151,
+          65,
+          169
+        ],
+        "13081": [
+          -21,
+          -151,
+          55,
+          177
+        ],
+        "13082": [
+          -20,
+          -149,
+          56,
+          177
+        ],
+        "13083": [
+          -20,
+          -147,
+          28,
+          20
+        ],
+        "13084": [
+          -9,
+          -127,
+          16,
+          4
+        ],
+        "13085": [
+          -11,
+          -149,
+          27,
+          21
+        ],
+        "13088": [
+          -20,
+          -148,
+          43,
+          171
+        ],
+        "13089": [
+          -4,
+          -153,
+          22,
+          33
+        ],
+        "13086": [
+          -32,
+          -147,
+          54,
+          173
+        ],
+        "13087": [
+          -35,
+          -151,
+          56,
+          178
+        ],
+        "13093": [
+          -24,
+          -151,
+          57,
+          176
+        ],
+        "13094": [
+          -20,
+          -147,
+          48,
+          172
+        ],
+        "13095": [
+          -17,
+          -150,
+          33,
+          27
+        ],
+        "13096": [
+          -14,
+          -131,
+          24,
+          5
+        ],
+        "13097": [
+          -15,
+          -152,
+          30,
+          25
+        ],
+        "13098": [
+          -31,
+          -142,
+          58,
+          169
+        ],
+        "13099": [
+          -38,
+          -156,
+          64,
+          184
+        ],
+        "13101": [
+          3,
+          -151,
+          14,
+          43
+        ],
+        "13102": [
+          -17,
+          -149,
+          33,
+          16
+        ],
+        "13103": [
+          -16,
+          -151,
+          23,
+          24
+        ],
+        "13104": [
+          -34,
+          -152,
+          70,
+          175
+        ],
+        "13105": [
+          -21,
+          -151,
+          56,
+          175
+        ],
+        "13106": [
+          -21,
+          -146,
+          55,
+          172
+        ],
+        "13107": [
+          -16,
+          -149,
+          22,
+          22
+        ],
+        "13108": [
+          -10,
+          -134,
+          24,
+          10
+        ],
+        "13109": [
+          -14,
+          -149,
+          30,
+          22
+        ],
+        "13110": [
+          -28,
+          -138,
+          50,
+          165
+        ],
+        "13111": [
+          -42,
+          -152,
+          62,
+          180
+        ],
+        "13112": [
+          -22,
+          -132,
+          43,
+          155
+        ],
+        "13113": [
+          -6,
+          -153,
+          22,
+          27
+        ],
+        "13114": [
+          -17,
+          -149,
+          26,
+          17
+        ],
+        "13115": [
+          -16,
+          -150,
+          25,
+          25
+        ],
+        "13090": [
+          -16,
+          -151,
+          32,
+          19
+        ],
+        "13091": [
+          -21,
+          -151,
+          22,
+          51
+        ],
+        "13100": [
+          -20,
+          -137,
+          40,
+          160
+        ]
+      },
+      "void_cliffs": [],
+      "cap_pixels": {
+        "13080": [
+          31,
+          0
+        ],
+        "13081": [
+          32,
+          0
+        ],
+        "13082": [
+          13,
+          0
+        ],
+        "13083": [
+          15,
+          0
+        ],
+        "13085": [
+          31,
+          0
+        ],
+        "13088": [
+          32,
+          0
+        ],
+        "13089": [
+          32,
+          0
+        ],
+        "13086": [
+          50,
+          0
+        ],
+        "13087": [
+          34,
+          0
+        ],
+        "13093": [
+          32,
+          0
+        ],
+        "13094": [
+          13,
+          0
+        ],
+        "13095": [
+          15,
+          1
+        ],
+        "13097": [
+          18,
+          1
+        ],
+        "13098": [
+          48,
+          0
+        ],
+        "13099": [
+          37,
+          0
+        ],
+        "13101": [
+          32,
+          0
+        ],
+        "13102": [
+          48,
+          0
+        ],
+        "13103": [
+          32,
+          0
+        ],
+        "13104": [
+          34,
+          0
+        ],
+        "13105": [
+          32,
+          0
+        ],
+        "13106": [
+          13,
+          0
+        ],
+        "13107": [
+          15,
+          0
+        ],
+        "13109": [
+          31,
+          0
+        ],
+        "13110": [
+          45,
+          0
+        ],
+        "13111": [
+          41,
+          0
+        ],
+        "13112": [
+          32,
+          0
+        ],
+        "13113": [
+          32,
+          0
+        ],
+        "13114": [
+          37,
+          0
+        ],
+        "13115": [
+          32,
+          0
+        ],
+        "13090": [
+          37,
+          1
+        ],
+        "13091": [
+          32,
+          0
+        ],
+        "13100": [
+          32,
+          0
+        ]
+      },
+      "wall_caps": {},
+      "restored_raw": "eNrtVEty00AQFVtOEAiWTajEJMGRQhMbOys27KjiEBxDUiTbsmVrHeAoYccl2LDgLLxufTyjTyylqKLAnilJM9P9+vVv9OHdx0dGOsz0+bSj0zHVeb9Ul/N+ZrrmHHNdkvNuCUls+maAlSrltW+u8PiQBHivFTmvbsS2B+kUNnxNthBrIXR4xVY8xcMVTgO8y347YFmKrWTGsOxB0wXTHKi5WPQFm7Etcmwo62zHHkaYa0z+hrCyUjSyzGWrtRY9Y2fg9xCdB8Yp5GEpe0U7yS6GLiNmeLsSfYizOmykYX2gIjB6gppjFyrR6lx6xR0wBsDNoB8jzkjqtqjRLlpawtMAfK54GuGrxlvVOZv1DLor6YFY6nMDT6o6ta6zubZcoVjidhpis1zPJcdO6nmbW8URh2BMIm6LXUnHcIWCltg4vRsR8rRqgXUEN8WzhteB1svbsbMUNZWbO2/MnLCGcmc96c6oMTOzTjFdYY7llvHfonlvhNo/wm0VcV23/+tzV8eYntAlHcvsUZ30Ur5vSZc9pTs729kF/JhOsDMV+QbNyCKTnaMHguzYqvQ8lT0X2Tdbx95aB/CPvTzJ7Z7RKXXoil7SQcp8SJmkA9mbkgc/8tUolTEiWfflbZIl3wtYrc7mWaqR6CTYCT2jjc2NH8XRVc4PKdsx83ku6ddgR8p5nzJ9quA9tr9aX6yq3CY1y3gnkrmeYskweqW8Z9bH9JqG9ELhGtI11cfbsX9a3TxTVwrSMI5yZBV2YN9aeq7qxhHqXKwyd4VFzW5GMdddan6riPSuGrXAbnh77x/OW6zttjFQ7s5nK7mRrxqikyoN0u74ZTVn5r4pn9oVf6Lt9WlTpwl6jntjiO+p/Cl4Zyqdd/+40PpoAvw1Gf/L+P7gucfusXvsHvuHsY/3udplrPE3sL8BbjWBOg==",
+      "restored_sha256": "c8125d73164e2ffa1302d7336b6a2a9daecda567c48a6e30dc8d9bf30344591f",
+      "source_completion": {
+        "recorded": 868,
+        "cells": 900,
+        "completed": 32,
+        "preserved_client_variations": 0,
+        "compatible": true,
+        "layout_complete": true
+      },
+      "layout_complete": true,
+      "layout_reference": {
+        "file": "server/15524_usi",
+        "path": "gmsv/data/map/15524_usi",
+        "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15524_usi",
+        "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+        "git_blob": "4f08bd08ffddbe72707962b7e7c53dc3b1744a3f",
+        "bytes": 3644,
+        "sha256": "a593fea21f56fc8092eba67d13ca82d6f68a9df1ad14390b2aa11a88815e3d67",
+        "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+      },
+      "source_floor_object_sha256": "e5cfdeab82e188eb71508c4ffc98414afccf6fac28eeeb9d2bec957ac52a0c63",
+      "source_background_serials": [
+        100
+      ],
+      "gate_status": "Review-only layout preparation; original conditions are not activated by this catalog."
+    },
+    "BlueCrossgate/map/0/15528.dat": {
+      "group": "sokia_cape_access",
+      "sokia_visual_only": true,
+      "title": "牛之殿堂",
+      "size": [
+        30,
+        30
+      ],
+      "id": 15528,
+      "outdoor": false,
+      "raw": "eNrtlb1OG0EQx8/WNZHmGSIRgpzgJCahoKDxbGfjW0ARVAiJLonNhwBBSxmlSOWW1EHC5IsHoDZ9nidze3e+ndv1kbUxCHT7186udvZ3Mzt3Xge4UvLi9jTuD7edQJO0BA01hrMP8BE+kULbNrycDUgSWmoMZx0493tKF/6u4eXsCmkVltUYzvbgh/9T6Zd/YHg5m+bTULYDv/0/SpcUN+vlbJpPS9k92IF9UmgPDC9n03yWle3ANnE7yu4a3vw6c9atzjxn1zrrrGud9Zzd6sxZtzrznO+uzpydXJ2z4nGzXpN9Ds9gmvqUhdV9NvYFVOAdzMMMzXnO3GdjX8MrqFJ/aYmr++xx5+nZs0Pipj4b+xbmSDV4Y4mr+05urc5m4zm73bqHcDTQMXiPppXvTX3RF2uaFsUC9TWxLiRZOViRah6qKUImYTdF9iynmFqzBRrrWqX1MdjFCcb9K/SxHJ88GoexG7W8iJHXkjPqEZK2aTzrG96U8xnyMf+8UYQSjl/n78jH0d/vVs2FTc4ZnYRXbPRv4+Y6T+p71tkAWxigxGR8j212vlVMd0jsD36/Ka/eCK11jTy6Ilz3vC/1z/UAUy5hZVzXmUqWrNDKQjVa/1qXFjbA/znpE8yLm996dVdW/zLkyHHpnrOwXHx/1pt/Z2dZ2y5v6H1/He+/HhppnH+ksdirQoUKFSpU6JbkPTz2H/NvKJo=",
+      "sha256": "119efbc5010081ee763096566b58d3fa943ceeea529ff755ab3eb537ee51955b",
+      "bytes": 5420,
+      "walk": "eNpjYICDB///y//4/5/93///jf//1z+o/47g3q0Hy97/C+H+rUdSzMhQx8DwWJ75wN/bjB/+2zP8+S/PAJQ5AJL5w8jAUM+ADAB4HDqq",
+      "recorded": 897,
+      "cells": 900,
+      "warp_cells": [],
+      "visible_bounds": {
+        "16640": [
+          -24,
+          -21,
+          47,
+          34
+        ],
+        "16641": [
+          -23,
+          -21,
+          47,
+          34
+        ],
+        "16642": [
+          -22,
+          -21,
+          47,
+          34
+        ],
+        "16649": [
+          -15,
+          -26,
+          40,
+          45
+        ],
+        "3105": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3106": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3107": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3108": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3109": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "10021": [
+          -26,
+          -34,
+          60,
+          49
+        ],
+        "3111": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3112": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3113": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3114": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3115": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3116": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3117": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3118": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3119": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3120": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3121": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3122": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3123": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16951": [
+          -33,
+          -155,
+          69,
+          178
+        ],
+        "11063": [
+          -23,
+          -43,
+          69,
+          55
+        ],
+        "16955": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "3145": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3146": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3147": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3148": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3149": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3150": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3151": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3152": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3153": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "16970": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16716": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16973": [
+          -33,
+          -162,
+          65,
+          185
+        ],
+        "16974": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16717": [
+          -32,
+          -162,
+          64,
+          186
+        ],
+        "16718": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16721": [
+          -32,
+          -162,
+          64,
+          177
+        ],
+        "16723": [
+          -32,
+          -162,
+          57,
+          185
+        ],
+        "16981": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16982": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "12124": [
+          -11,
+          -21,
+          36,
+          29
+        ],
+        "12126": [
+          -29,
+          -5,
+          33,
+          27
+        ],
+        "16990": [
+          -33,
+          -145,
+          10,
+          150
+        ],
+        "12129": [
+          -18,
+          -4,
+          49,
+          29
+        ],
+        "3176": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3177": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3178": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3179": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3180": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3181": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3182": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3183": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3184": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12139": [
+          -27,
+          -18,
+          36,
+          29
+        ],
+        "3186": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3187": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3188": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3190": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3191": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3200": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16520": [
+          -23,
+          -46,
+          48,
+          64
+        ],
+        "16522": [
+          -19,
+          -70,
+          40,
+          90
+        ],
+        "16526": [
+          -58,
+          -178,
+          91,
+          98
+        ],
+        "17044": [
+          -32,
+          -108,
+          64,
+          131
+        ],
+        "16797": [
+          -26,
+          -164,
+          81,
+          69
+        ],
+        "16798": [
+          -55,
+          -161,
+          81,
+          69
+        ],
+        "16808": [
+          -13,
+          -55,
+          31,
+          67
+        ],
+        "16809": [
+          -13,
+          -53,
+          31,
+          65
+        ],
+        "17064": [
+          -31,
+          -128,
+          91,
+          144
+        ],
+        "1196": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1197": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1198": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1199": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1200": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1201": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1202": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1203": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1204": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16557": [
+          -31,
+          -163,
+          54,
+          109
+        ],
+        "17098": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17099": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17110": [
+          -10,
+          -45,
+          31,
+          56
+        ],
+        "10023": [
+          -30,
+          -33,
+          60,
+          63
+        ]
+      },
+      "solid_bounds": {},
+      "void_cliffs": [],
+      "cap_pixels": {
+        "16951": [
+          43,
+          0
+        ],
+        "16955": [
+          32,
+          0
+        ],
+        "16716": [
+          32,
+          0
+        ],
+        "16974": [
+          32,
+          0
+        ],
+        "16717": [
+          32,
+          0
+        ],
+        "16718": [
+          32,
+          0
+        ],
+        "16721": [
+          32,
+          0
+        ],
+        "16723": [
+          31,
+          0
+        ],
+        "16981": [
+          32,
+          0
+        ],
+        "16982": [
+          32,
+          0
+        ],
+        "16990": [
+          9,
+          0
+        ],
+        "17098": [
+          32,
+          0
+        ],
+        "17099": [
+          32,
+          0
+        ]
+      },
+      "wall_caps": {},
+      "restored_raw": "eNrtlL1OG0EQxw90TaR5BqSEIAcMGEJBQePZDuJbgxBUCIkOggMIELSUEQWVW6iDFBK+HoDa9Hke5vbufDu3yzlrMAh0+9fOrHbu55mdO2+A831ePAbi+XbHEcyRvsGs8uFqHTbgOym0m0aUswFJQk35cNWA3/6F0h9/24hydp60AHXlw9UO/PUvla78PSPK2bSeWWUbcO3fKN1S3myUs2k9NWV3YAt2SaHdM6KcTeupK9uAH8RtKbttRPP7zFm3PvOaXfuss6591mt26zNn3frMa365PnO2d33OiufNRk32M3yCQZofLawes7FfoARfYQqGaM1r5jEbOwajUKY5bMmrx+x5p+i3Rx7Jm8Zs7CRMkCowbsmrx46erc/m4DW73br7cNDWIXjvZvS/mlqiJZY0zYhpmktiWUiysr0j1TrUnAiZhF0V2bOcYmrNEWisa5eWn8DO9DDvP6H7/vjkkX+MXankZYyilppRz5CMVeO3zrBTzefIff55owx9+PQ+/0Luu3+/axUXNjlndBLese6/jc597tX3rLMB1jBAiYlfxE12vgVMn5DYav9/U169EdprGnU0RbjvecfVn9UAUy5hZdzXoVKWLNHOdDnaP6lKCxvg/5z0A+blzR8XVVdW/zJk13npnrOwXPz5bDT/zs6ybvf9ffz8fcdMLy3vrlChQoUKFXomeW+PfQAgfiig",
+      "restored_sha256": "6dd7e676516a63a1dd86c6d9678d211d061fae1be2e2177a3aa8cb42900b2f84",
+      "source_completion": {
+        "recorded": 897,
+        "cells": 900,
+        "completed": 3,
+        "preserved_client_variations": 0,
+        "compatible": true,
+        "layout_complete": true
+      },
+      "layout_complete": true,
+      "layout_reference": {
+        "file": "server/15528_usi",
+        "path": "gmsv/data/map/15528_usi",
+        "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15528_usi",
+        "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+        "git_blob": "5030ba2a496082fd3fdb42b2c78b9db4702bfc76",
+        "bytes": 3644,
+        "sha256": "15f94ac4207f41b6f8118dbca95ee097a6dd5e0d7274404149dccf1ccab33d7c",
+        "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+      },
+      "source_floor_object_sha256": "26ddc2803490e8441e21a73e14ee12adb6c8be4dd63eeb45a941febec6a7374b",
+      "source_background_serials": [
+        100
+      ],
+      "gate_status": "Review-only layout preparation; original conditions are not activated by this catalog."
+    },
+    "BlueCrossgate/map/0/15529.dat": {
+      "group": "sokia_cape_access",
+      "sokia_visual_only": true,
+      "title": "牛之殿堂",
+      "size": [
+        30,
+        30
+      ],
+      "id": 15529,
+      "outdoor": false,
+      "raw": "eNrtlTtPHDEQx5doG6T5DJESQMczx6OgoLnZDnJrQAgqhESXwPEQIGgpoxRU10IdpJDw+gDUR5+CT5Oxd5f1rH0LvmNBSOu/PLY8+9sZz/p8IS70eHH7GPf3245hjvQVZtUoZ9/gO2yQpN00vJwNSQLqapSzBvz2L5T++DuGl7MLpEWYV6Oc7cJf/1Lpyt83vJxN85lVtgHX/o3SLcXNejmb5lNXdhe2YY8k7b7h5Wyaz7yyDdgiblvZHcObX2fOutWZ5+xaZ511rbOes1udOetWZ57z69WZs8XVOSseN+s12X74DH3UP1lY3WdjB6ECkzAFAzTnOXOfjR2DURihPmSJq/vscafo3cNt4qY+GzsB46QqfLHE1X3HL1Zns/Gc3W7dAzgkybiHcATut/ZBh1zR7cObqRW0gmVNM8E09eVgJRBkxeOKUHOpuUAyCbsWZPdyiqk1W6ixrlVa6YKdKTDuP1p9iEf6lvHOo7Edu1rNixh5LTmjHiFpa8a7zvCpnM+Rj/n7jSL0YPd1/oV87Pz7rldd2GSf0U54xTo/G0/XuajzrLMh1jFEgcm4hJtsf4uYPiGw9fj7TXn1RWitaeTRDOS65/2s/aiFmHIJK+K6DlSyZIVWpkei9ZOasLAhPmenvZgXN79daDl7z2L1kyEcWXbPWVgu/nzWq7PmnZ1lbU95be/7+/i+umcngbOd/yd1xd6VKlWqVKnC5JWsA+u9BfsfRkUnMA==",
+      "sha256": "d8c660c8433ed88de726101d2f8ae124857ca44c8bc05badc2fac5d2a65a9eb8",
+      "bytes": 5420,
+      "walk": "eNpjYICDB///y//4/5/93///jf//1z+o/47g3q0Hy97/C+H+rUdSzMhQx8DwWJ75wN/bjB/+2zP8+S/PAJQ5AJL5w8jAUA80mx1uCwB4Yjqx",
+      "recorded": 891,
+      "cells": 900,
+      "warp_cells": [],
+      "visible_bounds": {
+        "16640": [
+          -24,
+          -21,
+          47,
+          34
+        ],
+        "16641": [
+          -23,
+          -21,
+          47,
+          34
+        ],
+        "16642": [
+          -22,
+          -21,
+          47,
+          34
+        ],
+        "16649": [
+          -15,
+          -26,
+          40,
+          45
+        ],
+        "3105": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3106": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3107": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3108": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3109": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "10021": [
+          -26,
+          -34,
+          60,
+          49
+        ],
+        "3111": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3112": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3113": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3114": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3115": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3116": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3117": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3118": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3119": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3120": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3121": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3122": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3123": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16951": [
+          -33,
+          -155,
+          69,
+          178
+        ],
+        "11063": [
+          -23,
+          -43,
+          69,
+          55
+        ],
+        "16955": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "3145": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3146": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3147": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3148": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3149": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3150": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3151": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3152": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "3153": [
+          -32,
+          -24,
+          64,
+          48
+        ],
+        "16970": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16716": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16973": [
+          -33,
+          -162,
+          65,
+          185
+        ],
+        "16974": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16717": [
+          -32,
+          -162,
+          64,
+          186
+        ],
+        "16718": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16721": [
+          -32,
+          -162,
+          64,
+          177
+        ],
+        "16723": [
+          -32,
+          -162,
+          57,
+          185
+        ],
+        "16981": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "16982": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "12124": [
+          -11,
+          -21,
+          36,
+          29
+        ],
+        "12126": [
+          -29,
+          -5,
+          33,
+          27
+        ],
+        "16990": [
+          -33,
+          -145,
+          10,
+          150
+        ],
+        "12129": [
+          -18,
+          -4,
+          49,
+          29
+        ],
+        "3176": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3177": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3178": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3179": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3180": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3181": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3182": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3183": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3184": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "12139": [
+          -27,
+          -18,
+          36,
+          29
+        ],
+        "3186": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3187": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3188": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3190": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3191": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "3200": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16520": [
+          -23,
+          -46,
+          48,
+          64
+        ],
+        "16522": [
+          -19,
+          -70,
+          40,
+          90
+        ],
+        "16526": [
+          -58,
+          -178,
+          91,
+          98
+        ],
+        "17044": [
+          -32,
+          -108,
+          64,
+          131
+        ],
+        "16797": [
+          -26,
+          -164,
+          81,
+          69
+        ],
+        "16798": [
+          -55,
+          -161,
+          81,
+          69
+        ],
+        "16808": [
+          -13,
+          -55,
+          31,
+          67
+        ],
+        "16809": [
+          -13,
+          -53,
+          31,
+          65
+        ],
+        "17064": [
+          -31,
+          -128,
+          91,
+          144
+        ],
+        "1196": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1197": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1198": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1199": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1200": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1201": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1202": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1203": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "1204": [
+          -32,
+          -24,
+          64,
+          47
+        ],
+        "16557": [
+          -31,
+          -163,
+          54,
+          109
+        ],
+        "17098": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17099": [
+          -32,
+          -162,
+          64,
+          185
+        ],
+        "17110": [
+          -10,
+          -45,
+          31,
+          56
+        ],
+        "10023": [
+          -30,
+          -33,
+          60,
+          63
+        ]
+      },
+      "solid_bounds": {},
+      "void_cliffs": [],
+      "cap_pixels": {
+        "16951": [
+          43,
+          0
+        ],
+        "16955": [
+          32,
+          0
+        ],
+        "16716": [
+          32,
+          0
+        ],
+        "16974": [
+          32,
+          0
+        ],
+        "16717": [
+          32,
+          0
+        ],
+        "16718": [
+          32,
+          0
+        ],
+        "16721": [
+          32,
+          0
+        ],
+        "16723": [
+          31,
+          0
+        ],
+        "16981": [
+          32,
+          0
+        ],
+        "16982": [
+          32,
+          0
+        ],
+        "16990": [
+          9,
+          0
+        ],
+        "17098": [
+          32,
+          0
+        ],
+        "17099": [
+          32,
+          0
+        ]
+      },
+      "wall_caps": {},
+      "restored_raw": "eNrtlDtP3EAQxw1yE2k+AxIk6HjmCBQUNDfuIOeFUwRVhESXhOOhgKClRBRUtFAHiTd8AOq7niKfJrNrG+94Fx97YFAk7187s9rx72Z27NsQF3q8ePTF8/8dezBH+gqzysvVD/gJv0jSrhpRzoYkAXXl5aoJZ/650oW/YUQ5u0BqwLzycrUJl/6V0rW/ZUQ5m9Yzq2wTbvxbpTvKm41yNq2nruwmrMNvkrRbRpSzaT3zyjZhjbh1ZTeMaH6fOevWZ16za5911rXPes1ufeasW595zW/XZ84W1+eseN5s1GQ/wQB8pNlvYfWYjR2CCkzCFAzSmtfMYzZ2HMZglOawJa8es+edot8eeSJvGrOxX2CCVIXPlrx6bO/V+mwOXrPbrbsNOySZdwd2wf3W3u6SK3r0vptaQStY1DQTTNNcDJYCQVY87gi1lpoLJJOwy0H2LMeYWnOEGuvapaUXsDMF5n2g3b+xp3cZnzzyT7Hfq3kZo6ilZtQzJGPZ+K0T7FTzKXKff94oQw++vM9/kPvu3+9K1YVNzhmdhHes+2+jc5+L+p51NsQ6higw8d9wlZ2vgekTAluP/9+UV2+E9o6MOo4Cue95B7X9Wogpl7Ai7utgJUtWaGd6NNo/rAkLG+JzTvoB8/Lmj/OaK6t/GaLrvHTPWVgu/nw2mn9nZ1m3+74d31ftjpneWt59qVKlSpUqTF7JOrDee7D/ANNVJ0I=",
+      "restored_sha256": "87ed5ed2232048460079e463c334a8e7e996613ee3779e7d975bceaf4f7dea2f",
+      "source_completion": {
+        "recorded": 891,
+        "cells": 900,
+        "completed": 9,
+        "preserved_client_variations": 0,
+        "compatible": true,
+        "layout_complete": true
+      },
+      "layout_complete": true,
+      "layout_reference": {
+        "file": "server/15529_usi",
+        "path": "gmsv/data/map/15529_usi",
+        "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15529_usi",
+        "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+        "git_blob": "e9d872ec0f6944eeda7a419814af85778310e9d6",
+        "bytes": 3644,
+        "sha256": "f7fb1926aa035ce71cfe3f64373769783c05ca73418f4559439d2336357413ca",
+        "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+      },
+      "source_floor_object_sha256": "f2a788f38327309fb558937b25f877f6d077b867ec438f72d9c4252ae4d57476",
+      "source_background_serials": [
+        100
+      ],
+      "gate_status": "Review-only layout preparation; original conditions are not activated by this catalog."
+    }
+  },
+  "graphics": {
+    "6867": {
+      "page": 0,
+      "rect": [
+        2,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4491,
+      "rgba_sha256": "5d88bde7023e210fe3b1a6d41b1b63e400b400e5da5c9abbb3e112b6fdd7097a"
+    },
+    "6868": {
+      "page": 0,
+      "rect": [
+        70,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4492,
+      "rgba_sha256": "167a7984b179ed8908969636626bf2b1ef8757358b53c041fbd834275d8bcf2a"
+    },
+    "6871": {
+      "page": 0,
+      "rect": [
+        138,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4495,
+      "rgba_sha256": "87cb02a79dba01f6c500de9ca3cf270ba258ed3c01d1da595374ed2e041780d2"
+    },
+    "6873": {
+      "page": 0,
+      "rect": [
+        206,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4497,
+      "rgba_sha256": "11fb54698eaedeb342223d3ce98a2ce378fad4577d5ad2e5babdb2d24a026ee2"
+    },
+    "6879": {
+      "page": 0,
+      "rect": [
+        274,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4503,
+      "rgba_sha256": "9f5d9997345ce7a4254fb9d42b22c4a05872d0e14e2c10e5d2482eed8ed786d6"
+    },
+    "6887": {
+      "page": 0,
+      "rect": [
+        342,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4511,
+      "rgba_sha256": "d7737434794dd8eb523a4c5d4fc3ab3ab789f23a6af1165ef9f992adfb1df8b6"
+    },
+    "6894": {
+      "page": 0,
+      "rect": [
+        410,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4518,
+      "rgba_sha256": "11537a91e94688fcc176308ae3e18f221f876d685a54288f47a5f53a5fb8f6e9"
+    },
+    "6895": {
+      "page": 0,
+      "rect": [
+        478,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4519,
+      "rgba_sha256": "dc902326d2ec1dd6a60ee82c6158eb6ace20b9c2eb367ff39abcea7e81ebd379"
+    },
+    "6897": {
+      "page": 0,
+      "rect": [
+        546,
+        2,
+        64,
+        47
+      ],
+      "origin": [
+        -32,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 4521,
+      "rgba_sha256": "d1fd29f2d1fd73984524fd89ad28f1b1835572b216312465f3fe210e99f59cc1"
+    },
+    "10552": {
+      "page": 0,
+      "rect": [
+        614,
+        2,
+        32,
+        48
+      ],
+      "origin": [
+        -12,
+        -35
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 7738,
+      "rgba_sha256": "f286f11219a498741dae9c474a94f82497b171c422338fe5ecc6f83e146e559c"
+    },
+    "16034": {
+      "page": 0,
+      "rect": [
+        650,
+        2,
+        64,
+        72
+      ],
+      "origin": [
+        -28,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 12662,
+      "rgba_sha256": "ecbd08ab7f9f5942dc2ad2de0a5f58a602d9bffae54a2bcf616f9283706582c4"
+    },
+    "16088": {
+      "page": 0,
+      "rect": [
+        718,
+        2,
+        184,
+        265
+      ],
+      "origin": [
+        -128,
+        -240
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "ground": 0,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12716,
+      "rgba_sha256": "278c9f6e88b0b7e7e3973bf59ff81c0eace26d86e49df927e90236d9c5390881"
+    },
+    "16090": {
+      "page": 0,
+      "rect": [
+        906,
+        2,
+        184,
+        265
+      ],
+      "origin": [
+        -128,
+        -240
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "ground": 0,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12718,
+      "rgba_sha256": "d20b96d041a6b608eb33e6e1a42077c7eb05ea9087028656938c73676746977b"
+    },
+    "16099": {
+      "page": 0,
+      "rect": [
+        1094,
+        2,
+        52,
+        99
+      ],
+      "origin": [
+        -16,
+        -75
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": 0,
+      "family": "",
+      "pack": "original",
+      "row": 12727,
+      "rgba_sha256": "a9204db11f678993678b5b4b357972a4b5442f4e481793c21c1804b6fce8f83d"
+    },
+    "17143": {
+      "page": 0,
+      "rect": [
+        1150,
+        2,
+        104,
+        167
+      ],
+      "origin": [
+        -68,
+        -139
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": 0,
+      "family": "civic_stall",
+      "pack": "original",
+      "row": 13229,
+      "rgba_sha256": "b8f602bfcbeaf9ff5cd34a0013137562fc8e4823193bdc426124c3db39101ba3"
+    }
+  },
+  "pages": [
+    "../falan/sokia/cape/access/atlas-0.png"
+  ],
+  "surface_pages": [],
+  "solid_pages": [
+    "../falan/sokia/cape/access/solid-0.png"
+  ]
+}

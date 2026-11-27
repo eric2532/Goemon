@@ -117,6 +117,15 @@ func start_cast():
  if not basic_attack and not hero.spend_skill_mana(spell_id):return
  hero.facing=hero.combat_attack_direction()
  ticket=hero.attack_chain.begin(spell_id);ticket.projectile=kind.is_empty() or kind=="wind"
+ if not hero.ai_controlled and game.has_method("enemy_near_crosshair"):
+  var reach=SPIRIT_RANGE if spell_id==SPIRIT_ID else RANGE*range_multiplier()
+  var target:Ninja=game.enemy_near_crosshair(reach+game.camera_rig.camera.global_position.distance_to(hero.global_position))
+  if target!=null and hero.global_position.distance_squared_to(target.global_position)>reach*reach:target=null
+  if target==null and hero.active_ability.has_method("locked_primary_enemy"):target=hero.active_ability.locked_primary_enemy()
+  if target!=null and hero.global_position.distance_squared_to(target.global_position)<=reach*reach:
+   ticket.aim_target=weakref(target)
+   var toward=target.global_position-hero.global_position;toward.y=0
+   if not toward.is_zero_approx():hero.facing=toward.normalized()
  ticket.magical=kind in ["fire","ice","wind","meteor"]
  if basic_attack:Skills.decorate(hero,ticket,spell_id,1)
  if not kind.is_empty() and ticket.has("skill_rules"):
@@ -255,8 +264,21 @@ func set_charge_frame(source_frame:float):
 func range_multiplier()->float:
  return (KAZI_RANGE_MULTIPLIER if hero.RogueRoster.uses_crossgate_spells(hero.character_id) else 1.0)*float(hero.accessory_bonuses.get("range",1.0))
 
+func aim_target()->Ninja:
+ var reference:WeakRef=ticket.get("aim_target")
+ return reference.get_ref() as Ninja if reference!=null else null
+
+func focused_target(origin:Vector3,reach:float,terrain_exclude:Array[RID]=[])->Ninja:
+ var target=aim_target()
+ if not is_instance_valid(target) or target.dead or target.hp<=0 or hero.global_position.distance_squared_to(target.global_position)>reach*reach:return null
+ if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(target):return null
+ if (kind.is_empty() or not hero.RogueRoster.uses_crossgate_spells(hero.character_id)) and not AttackChain.clear_line(hero,origin,AttackChain.aim_point(target,origin),terrain_exclude):return null
+ return target
+
 func nearest_targets(origin:Vector3,terrain_exclude:Array[RID],limit:int=SHOTS,preferred:Ninja=null)->Array[Ninja]:
  var reach=float(ticket.get("pet_cast_reach",RANGE*range_multiplier()))
+ var focus=focused_target(origin,reach,terrain_exclude) if preferred==null else null
+ if focus!=null:return [focus]
  var candidates=[]
  for enemy in AttackChain.enemy_candidates(game,origin if preferred==null else hero.global_position,reach):
   if not is_instance_valid(enemy) or enemy.dead:continue
@@ -300,20 +322,22 @@ func release_volley(preferred:Ninja=null):
    ticket.element_targets=targets.duplicate()
    ticket.element_target_ids={}
    for enemy in targets:ticket.element_target_ids[enemy.get_instance_id()]=true
- if ticket.has("magic_result"):ticket.magic_result.pending+=targets.size()
+ var focused=preferred==null and targets.size()==1 and targets[0]==aim_target()
+ if ticket.has("magic_result"):ticket.magic_result.pending+=count_ if focused and kind.is_empty() else targets.size()
  var height=BASE_DIAMETER if punches() else caster_height()*EFFECT_SIZE
  var flight_life=Shot.LIFE*range_multiplier()
  var stray_ticket=ticket
- if (kind.is_empty() or kind=="wind") and targets.size()<count_ and ticket.has("magic_result"):
+ if not focused and (kind.is_empty() or kind=="wind") and targets.size()<count_ and ticket.has("magic_result"):
   stray_ticket=ticket.duplicate();stray_ticket.erase("magic_result")
  if not kind.is_empty():
   release_element(origin,targets,height*ELEMENT_RELEASE_SCALE,flight_life,stray_ticket);return
  var damage=Skills.damage(hero,ticket,DAMAGE*float(ticket.get("native_strike_fraction",1.0)))*hero.damage_multiplier()
  for i in count_:
-  var target:Ninja=targets[i] if i<targets.size() else null
+  var target:Ninja=targets[0] if focused else targets[i] if i<targets.size() else null
   var forward=hero.facing.rotated(Vector3.UP,(i-(count_-1)*.5)*.14)
-  var direction=(AttackChain.aim_point(target,origin)-origin).normalized() if target!=null else forward
+  var direction=(Shot.flight_aim_point(target,origin)-origin).normalized() if target!=null else forward
   pool.launch(hero,Shot,projectile_profile(),{"position":origin,"velocity":direction*SPEED,"target":target,
+   "target_range":float(ticket.get("pet_cast_reach",RANGE*range_multiplier())),
    "flight_life":flight_life if target!=null else Shot.LIFE,"terrain_exclude":terrain_exclude,
    "effect_height":height,"damage":damage,"attack_ticket":ticket if target!=null else stray_ticket,"start_delay":randf_range(0.0,.05) if i>0 else 0.0,"burst_index":i%Element.BURSTS.size()})
 
@@ -340,18 +364,19 @@ func release_moon(preferred:Ninja=null):
  count_=release_count(count_)
  if count_<=0:return
  var targets=nearest_targets(origin,terrain_exclude,maxi(1,base_count),preferred)
+ var focused=preferred==null and targets.size()==1 and targets[0]==aim_target()
  origin=hero.global_position+Vector3.UP*Moon.GROUND_CLEARANCE
  var forward=hero.facing.slide(Vector3.UP).normalized()
  var muzzle=origin+forward*.95*hero.contact_size_multiplier()
  if AttackChain.clear_line(hero,origin,muzzle,terrain_exclude):origin=muzzle
- if ticket.has("magic_result"):ticket.magic_result.pending+=mini(targets.size(),base_count)
+ if ticket.has("magic_result"):ticket.magic_result.pending+=base_count if focused else mini(targets.size(),base_count)
  var stray=ticket.duplicate()
  stray.erase("magic_result")
  var damage=Skills.damage(hero,ticket,MOON_DAMAGE*float(ticket.get("native_strike_fraction",1.0)))*hero.damage_multiplier()
  var flight_life=RANGE*range_multiplier()/Moon.SPEED+.5
  sound("cg_moon_release")
  for i in count_:
-  var target:Ninja=targets[i] if i<targets.size() else null
+  var target:Ninja=targets[0] if focused else targets[i] if i<targets.size() else null
   if i>=base_count and not targets.is_empty():
    target=targets[(i-base_count)%targets.size()]
    if ticket.has("magic_result"):ticket.magic_result.pending+=1
@@ -372,7 +397,8 @@ func tick_spirit(delta:float):
    if frame!=charge_fx.frame:set_charge_frame(frame)
   elif before+.000001<SPIRIT_RELEASE:
    charge_fx.hide()
-   spirit_targets=AttackChain.enemy_candidates(game,hero.global_position,SPIRIT_RANGE)
+   var focus=focused_target(hero.global_position+Vector3.UP*caster_height()*.5,SPIRIT_RANGE)
+   spirit_targets=[focus] if focus!=null else AttackChain.enemy_candidates(game,hero.global_position,SPIRIT_RANGE)
    if is_same(spirit_targets,game.enemies):spirit_targets=spirit_targets.duplicate()
    spirit_index=0
    spirit_ticket=ticket
@@ -382,7 +408,8 @@ func tick_spirit(delta:float):
 
 func release_spirit(preferred:Ninja=null):
  var reach=float(ticket.get("pet_cast_reach",SPIRIT_RANGE))
- var candidates=AttackChain.enemy_candidates(game,hero.global_position,reach)
+ var focus=focused_target(hero.global_position+Vector3.UP*caster_height()*.5,reach) if preferred==null else null
+ var candidates=[focus] if focus!=null else AttackChain.enemy_candidates(game,hero.global_position,reach)
  if spirit_targets.is_empty():spirit_ticket=ticket;spirit_index=0
  if preferred!=null and preferred in candidates:
   spirit_targets.append(preferred)
@@ -438,8 +465,10 @@ func release_element(origin:Vector3,targets:Array[Ninja],height:float,flight_lif
  count_+=extra
  var delays=stagger_delays(base_count if kind=="wind" else targets.size())
  if kind=="wind":
+  var focused=targets.size()==1 and targets[0]==aim_target()
+  if focused and ticket.has("magic_result"):ticket.magic_result.pending+=base_count-1
   for i in count_:
-   var target:Ninja=targets[i] if i<targets.size() else null
+   var target:Ninja=targets[0] if focused else targets[i] if i<targets.size() else null
    if i>=base_count and not targets.is_empty():target=targets[(i-base_count)%targets.size()]
    var direction=(AttackChain.aim_point(target,origin)-origin).normalized() if target!=null else hero.facing.rotated(Vector3.UP,(i-(count_-1)*.5)*.14)
    var spread=Vector3.ZERO

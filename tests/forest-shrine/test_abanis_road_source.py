@@ -67,6 +67,37 @@ class AbanisRoadSource(unittest.TestCase):
         self.assertIn([402,183,161,4300,37,70], warps)
         self.assertIn([4300,37,71,402,183,162], warps)
 
+    def test_route_cliff_fill_preserves_paths_and_entrance_footprints(self):
+        from prepare_field_assets import navigation_grid
+        plan=json.loads((ROOT/'assets/maps/falan/west_route_scenery.json').read_text())
+        lookup=lib.serial_index();maps={}
+        for name, area in plan['maps'].items():
+            ident=area['source']
+            if ident not in maps:
+                if ident==100:
+                    with lib.connection() as db:
+                        key=db.execute("SELECT id FROM files WHERE path='BlueCrossgate/map/0/100.dat'").fetchone()[0]
+                    raw=lib.source_file(key)[1].read_bytes()
+                else:
+                    row=self.catalog['maps'][f'BlueCrossgate/map/0/{ident}.dat']
+                    raw=zlib.decompress(base64.b64decode(row.get('restored_raw',row['raw'])))
+                w,h,floor,objects,flags=lib.parse_map(raw)
+                walk=navigation_grid(w,h,floor,objects,lookup)
+                mouths=set()
+                for i,serial in enumerate(objects):
+                    if serial not in (12834,12838,12839):continue
+                    g=lookup[serial]
+                    mouths.update((i%w+x,i//w-y) for x in range(max(1,g['east'])) for y in range(max(1,g['south'])))
+                maps[ident]=(w,h,floor,objects,walk,mouths)
+            w,h,floor,objects,walk,mouths=maps[ident]
+            filled={(x,y) for x,y,*_ in area['cliff_fill']}
+            self.assertTrue(filled.isdisjoint(mouths),name)
+            self.assertTrue(all(0<=x<w and 0<=y<h and not walk[y*w+x] for x,y in filled),name)
+            for x,y,serial in area['trees']+area['banks']:
+                self.assertEqual(objects[y*w+x],serial,(name,x,y))
+            for x,y,serial,_ in area['details']:
+                self.assertEqual(objects[y*w+x],serial,(name,x,y))
+
     def test_prepared_cliffs_keep_native_dimensions_and_art(self):
         sys.path.insert(0, str(ROOT / "tools"))
         from prepare_abanis_cliffs import prepare
@@ -74,18 +105,29 @@ class AbanisRoadSource(unittest.TestCase):
         rebuilt, paint = prepare()
         self.assertEqual(prepared, rebuilt)
         self.assertEqual(Image.open(ROOT / "assets/maps/original_crossgate/cliff-paint.png").convert("RGBA").tobytes(), paint.tobytes())
-        self.assertEqual(len(prepared["profiles"]), 120)
+        self.assertEqual(len(prepared["profiles"]), 186)
+        self.assertEqual(set(prepared["entrance_paint"]), {"12834","12838","12839"})
+        self.assertEqual(set(prepared["cap_paint"]), {"rock","snow","cave","undersea","freyja"})
+        for x,y,w,h in prepared["cap_paint"].values():
+            self.assertEqual((w,h),(128,128))
+            self.assertEqual(paint.crop((x,y,x+w,y+h)).getchannel("A").getextrema(),(255,255))
         for serial, row in prepared["profiles"].items():
-            g = self.catalog["graphics"][serial]
+            g = prepared['extra_graphics'].get(serial,self.catalog["graphics"].get(serial))
             self.assertEqual(row["rgba_sha256"], g["rgba_sha256"])
             self.assertEqual(len(row["vertices"]), row["sides"]*row["levels"])
             self.assertEqual(len(row["uv_pixels"]), len(row["vertices"]))
             self.assertGreaterEqual(row["crown"][1]+.001,max(v[1] for v in row["vertices"][-row["sides"]:]))
             self.assertGreater(row["pixel_height"], 0)
             x,y,w,h = row["paint_rect"]
+            self.assertEqual(len(row["columns"]),w)
+            self.assertEqual(len(row["contour_top"]),w)
+            self.assertTrue(all(0<=value<h for value in row["contour_top"]))
+            self.assertIn(str(row["paint_source"]),prepared["profiles"])
+            for low,high in row["columns"]:self.assertTrue(0<=low<=high<h)
             for u,v in row["uv_pixels"]:
                 self.assertTrue(.5 <= u <= w-.5 and .5 <= v <= h-.5)
-            original = lib.image_from_record(g["pack"],g["row"])
+            source = lib.serial_index()[int(serial)]
+            original = lib.image_from_record(source["pack"],source["row"])
             for v in range(h):
                 for u in range(w):
                     r,gg,b,a = original.getpixel((u,v))

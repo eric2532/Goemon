@@ -1,0 +1,195 @@
+[
+  {
+    "id": 101020,
+    "name": "大地鼠",
+    "key": "original:2812",
+    "height": 0.55,
+    "skin": 0,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101022,
+    "name": "火焰鼠",
+    "key": "original:2814",
+    "height": 0.55,
+    "skin": 1,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101330,
+    "name": "土蜘蛛",
+    "key": "original:2872",
+    "height": 0.6,
+    "skin": 2,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101332,
+    "name": "火蜘蛛",
+    "key": "original:2874",
+    "height": 0.6,
+    "skin": 3,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101720,
+    "name": "地龍蜥",
+    "key": "original:2940",
+    "height": 0.8,
+    "skin": 4,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101722,
+    "name": "火龍蜥",
+    "key": "original:2942",
+    "height": 0.8,
+    "skin": 5,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101301,
+    "name": "紅蠍",
+    "key": "original:2859",
+    "height": 0.6,
+    "skin": 6,
+    "family": "sokia_region"
+  },
+  {
+    "id": 101211,
+    "name": "血魔",
+    "key": "original:2843",
+    "height": 1.3452380952380953,
+    "skin": 7,
+    "family": "sokia_region",
+    "source_body_pixels": 113,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101613,
+    "name": "謎之箱",
+    "key": "original:2920",
+    "height": 0.7380952380952381,
+    "skin": 8,
+    "family": "sokia_region",
+    "source_body_pixels": 62,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101214,
+    "name": "守護者",
+    "key": "original:2846",
+    "height": 1.75,
+    "skin": 9,
+    "family": "sokia_region",
+    "source_body_pixels": 147,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101921,
+    "name": "最終決戰型牛鬼",
+    "key": "original:2973",
+    "height": 1.5714285714285714,
+    "skin": 10,
+    "family": "sokia_region",
+    "source_body_pixels": 132,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101031,
+    "name": "巨狼",
+    "key": "original:2819",
+    "height": 1.4897435897435896,
+    "skin": 11,
+    "family": "sokia_region",
+    "source_body_pixels": 83,
+    "fit_reference": "existing hounds HOUND_PIXEL_SIZE*HOUND_SCALE"
+  },
+  {
+    "id": 101121,
+    "name": "鬼靈",
+    "key": "original:2833",
+    "height": 1.15,
+    "skin": 12,
+    "family": "sokia_region",
+    "source_body_pixels": 52,
+    "fit_reference": "existing black_prayer explore HEIGHTS[2]",
+    "native_action_sources": {
+      "3": 1
+    },
+    "native_action_adaptation": "Original2833 run3 is one transparent frame in each direction; native continuous locomotion reuses the same actor's original walk1. Raw run3 remains in the untouched archive."
+  },
+  {
+    "id": 101923,
+    "name": "牛鬼公主",
+    "key": "original:2975",
+    "height": 2.1785714285714284,
+    "source_body_pixels": 183,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    },
+    "prepared_from": {
+      "bank": "east_region",
+      "skin": 1
+    }
+  },
+  {
+    "id": 100553,
+    "name": "帝國兵的亡靈",
+    "key": "original:1159",
+    "height": 0.8333333333333334,
+    "source_body_pixels": 70,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    },
+    "prepared_from": {
+      "bank": "east_region",
+      "skin": 58
+    }
+  },
+  {
+    "id": 100678,
+    "name": "帝國兵的亡靈",
+    "key": "original:1189",
+    "height": 0.9642857142857143,
+    "source_body_pixels": 81,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    },
+    "prepared_from": {
+      "bank": "east_region",
+      "skin": 59
+    }
+  },
+  {
+    "id": 100452,
+    "name": "杰特",
+    "key": "original:2719",
+    "height": 1.0232558139534884,
+    "source_body_pixels": 88,
+    "fit_reference": "existing Shin100450 pixel scale GOEMON_HEIGHT/86; joy754 is pixel-identical"
+  },
+  {
+    "id": 100527,
+    "name": "梅兹",
+    "key": "original:2737",
+    "height": 0.9879518072289156,
+    "source_body_pixels": 82,
+    "fit_reference": "existing Maze/Kaz pixel scale GOEMON_HEIGHT/83; joy598 is pixel-identical"
+  }
+]

@@ -1,5 +1,197 @@
 # Falan painted architecture
 
+## City reconstruction and visual continuation — 2026-11-26
+
+The completed source layout and visual pass cover all 11 districts, with documented source blockers.
+The current resume point is `progress.json` in
+`build/Other Files/Asset Toolkit/Falan City Reconstruction/Visual Continuation/`.
+Its district checklist, source/before/current sheets and per-door archive audit
+separate confirmed source evidence from inferred geometry. Do not use a passing
+layout test as a visual sign-off.
+
+The scope has 92 original component stations / 90 building owners, 41 reusable
+archetypes, 80 archived grids (77 city rooms plus annexes 1540/1541/1542), 81,052
+navigation cells and 237 scoped warp records. The city map's last nine rows are
+empty. The source building 10310 at cell (97,153), local centre (45,162), is
+restored through the existing unmarked-building path. No countryside, palace
+interior or Elsa quest is rebuilt. Existing NPCs, conversations and room owners
+remain in place.
+
+Keep HouseParts and the current landmark owners authoritative. The 57 sloped
+house stations use 22 original roof contours, independent of skewed plinths.
+Rounded caps, boxed dormers, polygonal bays, curved canopies, closed timber
+arches, deep fascia, native small signs and two-storey frontage retain separate
+roof, wall and trim surfaces. Landmark changes cover cathedral belfries/spires,
+bank roof details, the inn's original front and red side placards and projecting
+gable, hospital rear glazing, workshop cross-gables and villa terrace/balcony
+frontages, plus five recovered two-sided laundry panels on 10311. Horizontal terrace faces opt out of the local wall-brick mask.
+There is no whole-building picture projection. The normal camera and reachable
+side/rear captures were reviewed for holes, blank walls, buried features,
+stretched paint and wrong sprite fragments.
+
+Regenerate surfaces with `tools/recover_falan_buildings.py` (58 patches) and
+`tools/recover_falan_landmarks.py` (19 panels). The 10313 clock is source centre
+(312,417), not the neighbouring balcony rail. Its masked feature and corrected
+physical aspect have an independent source-station regression check. Preserve
+original image pixels and source hashes. The inn placards use fixed source-quad
+stations; the office uses fixed `OFFICE_FRAME`. Never feed regenerated fits back
+into runtime authoring. Regenerate `city_proportion_fit.gd` through the existing
+`falan_proportion_prepare.gd` when building bounds change.
+
+Native doorway triggers and IDs stay authoritative. All 63 saved ordinary-house
+owners retain their visible opening; the 31 reusable-house approaches now align
+with those openings while keeping room 0 and their own return context. One old
+duplicate yields to the source 10309 house owning room 1542. The inn check reads
+the actual rendered arch origin and enters source room 1101 through that point.
+A shared automatic-NPC guard skips unmapped room 0 because it has no source cell;
+it does not change valid original-map events.
+
+Six mapped city rooms (1810/1811/1156/1182/1181/1172) were omitted by the old
+blocked-cell fixture filter. Their 193 original placements /100 graphics now have
+a scoped recovery in `tools/recover_falan_city_rooms.py`,
+`assets/maps/falan/city_room_fixtures.{json,png}` and
+`forest_falan_city_room_fixtures.gd`. All six source/reverse and actual Explore
+camera views were reviewed; final bed and evergreen changes were recaptured.
+The batch reuses OriginalMapSolids, Furniture, Coastal, Bank, Details, MarketGoods
+and the existing source-shaped `crossgate_flora/cg_evergreen.glb` model. Original
+object stations and footprints include walkable benches/stools. Never add these
+room IDs to Coastal.Data.ROOMS: that would switch their floor/rotation contract.
+The new owner deliberately returns no furnished-cell exclusions: original floor/wall
+layers already own these boundaries. All six navigation/static-collision hashes
+remain identical to the frozen baseline. Native hotspot/profile fitting preserves
+raised contents; thin wall art has plain solid backs. The conifer uses a small
+clay pot and static private foliage material. Furniture depth and this tree variant
+are inferred continuations. Shared masters, original pixels and routes are intact.
+
+The archived floor and wall layers remain present in all 80 rooms; their original
+grids/returns are checked. Existing detailed furnishings and interior owners are
+preserved. This continuation is not a new visual sign-off of every furnishing.
+The remaining 31 generic entries have no coordinate-matched unrestricted route
+in the checked static, inverse, NPC and rental references. Each anchor, old and
+current approach, checked records and missing source are logged in
+`fallback-audit.json` and `FALLBACKS.md`. Graphic 10310 has raw maps
+1193/1194/21005 and two conditional Warp records. Three EV_ijk dialogue scripts
+were recovered from a second pinned archive, but Warp opcode 15/item 18380 branch
+polarity and fallback selection remain unverified. Preserve existing behavior.
+
+Unseen backs, roof/wall thickness, rear glazing, the low occluded inn corner and
+physical height/depth are inferred continuations of the confirmed drawing.
+Do not call them verified 1:1. Do not invent rooms, routes or quest semantics.
+
+`forest_falan_cathedral_batch.gd` prepares immutable geometry by existing
+material and reuses it on returns. Its independent preservation run reduced
+1,283 authored geometry nodes to 13 batches and retained 86,208 oriented
+triangles, original materials, UVs and colours (maximum vertex error .000032,
+normal error .000124). This is a structure result, not a measured FPS gain.
+The latest ordinary-house inventory is 68,506 prepared triangles / 48 surfaces;
+repeated city returns use those cached meshes. Historical figures below describe
+their recorded revisions, not a fresh performance or long-session result.
+
+Reproduce through the desktop launcher, with no app export:
+
+```sh
+python3 tools/audit_falan_city.py
+python3 -m unittest discover -s tests/forest-shrine -p test_falan_architecture.py
+python3 -m unittest discover -s tests/forest-shrine -p test_falan_proportions.py
+python3 -m unittest discover -s tests/forest-shrine -p test_falan_city_room_fixtures.py
+python3 tools/recover_falan_city_rooms.py --check
+"/Users/eric/Desktop/Play Goemon.command" --headless --script res://tests/forest-shrine/falan_proportion_prepare.gd -- --check
+"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/falan_visual_match_review.gd
+"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/falan_city_layout_test.gd -- --east-il-road
+"/Users/eric/Desktop/Play Goemon.command" --headless --script res://tests/forest-shrine/falan_city_layout_test.gd -- --east-il-road
+```
+
+The isolated source review uses an always-rendered SubViewport so another
+fullscreen game cannot stall its captures. `--only=special_10313` limits that
+review to one asset. City `--only-view=inn-side` recaptures one fixed view into a
+separate focused report, retaining the full 61-view runtime record. The 18
+`play-*` views use the actual Explore rig and current distance/FOV/pitch. Wider
+views and native source views complement them when a roof is above the normal
+camera. No full walking tour, app export or performance soak is implied.
+
+## Visible Falan masonry finish — 2026-11-23
+
+For this exterior fidelity pass, the user asked us to ignore fully concealed
+surfaces. The visible fabric/flower pattern came partly from the generic ground
+brush applied over stone. Private fort masonry and foundation materials now set
+`use_brush_finish` false; the shared shader default stays true. A larger clean
+stone crop from original 10643 replaces the mirrored seven-by-nine-pixel sample.
+Native palette integration and edge-only blending retain source tone without a
+fourfold mirror motif. The existing world-axis mapping uses a 2.25 by 2.706-metre
+span. Existing facade coursing is masked to broad stone, excluding trim and detail
+backings. Four buttress archetypes now reuse the green base texture at sixteen
+placements. Original detail art and all source measurement records remain.
+
+Every oriented triangle and all 22 bounds are verified unchanged. The measured
+kit is 88,990 triangles / 115 surfaces: zero additional triangles and four
+additional cached surfaces for the green bases. Texture/material counts and the
+128-by-128 masonry texture memory remain unchanged. The existing caches and
+placement batches own the work; the alpha mask is prepared during setup. This
+is a visible art repair, not a measured gameplay speed improvement.
+
+Evidence is in `Falan Exterior Fidelity/Visible Masonry/` under Asset Toolkit:
+source/before/current comparisons, all 22 front/rear sheets, twelve gate captures,
+source hashes and geometry preservation. Fresh checks pass 22 art tests, recovery
+of 22 originals, a 319-asset audit with zero read errors, three preservation groups,
+22 rendered variants, 7,697 desktop gate checks, 7,685 headless gate checks and
+1,800 city checks. Physical closure and winding pass. The shared brush default
+and private material overrides are checked. Existing shutdown resource/RID
+messages remain. The finish combines source-derived wear, reconstructed coursing
+and dynamic light; it is not a pixel-for-pixel copy of baked source shading.
+No app export, long-session soak or army frame-time benchmark was run. The user
+then asked us to finish the current work and stop; this pass is closed.
+
+## Falan tower raster shading and hidden band joins — 2026-11-23
+
+Magnified palette dithering made lower tower slits, the curved stone band and
+small footings look iridescent. `tools/recover_falan_forts.py` now applies the
+existing native-stone treatment to thirteen slit crops, eight band segments and
+two footing crops. It retains their native mean hue and luminance structure with
+restrained contrast. Across those 23 patches, mean colour-noise standard deviation
+falls from 23.66 to 0.574 RGB units (97.6% lower); the largest average RGB channel
+change is 0.1094/255. These are offline texture measurements, not renderer colour
+identity. The shared repair reaches fourteen archetypes and 181 placements.
+
+Round towers had two unseen band joins only 0.045 metres high, while the recovered
+front/rear strip spans four native pixels. The existing closed sector now uses
+`4/Fit.VERTICAL`, about 0.400892 metres, with endpoint offsets +1.5 and -2.5 native
+pixels. Twelve closed template joins cover 84 joins at 42 round-tower stations.
+Tests check closure, outward volume, endpoint cross-sections and paint backing.
+A plain-stone candidate showed a colour jump in macro review. A 64-by-48 strip
+now interpolates the native left/right edge profiles across the outward join
+faces. It occupies unused space in the same 544-by-216 arrow-detail atlas; its
+source record is `course_join`, with runtime rectangle `ROUND_COURSE_JOIN`.
+Known source faces retain their 0.05-pixel UV controls. The unseen span is an
+explicit interpolation, not independently recovered rear artwork.
+
+The kit is 88,990 triangles / 111 surfaces: 144 additional painted triangles
+across the six round archetypes, or 1,008 across their 42 placements. There are
+no new textures, materials, scene owners or frame loops. Archetype caches, closed
+sectors, shared materials and placement batches remain the owners. All 22 complete
+bounds and green foundation bounds are unchanged; only six geometry records
+change. Twenty-one other fort PNGs remain byte-identical, including stained glass,
+heraldry and cloth. The 314 masonry returns retain 11,280 triangles / two surfaces.
+This is a visual repair, not a measured gameplay speed improvement.
+
+Evidence is in `Falan Exterior Fidelity/Hidden Faces and Shading/` under Asset
+Toolkit: atlas comparisons, four hidden-join close-ups, all-variant front/rear
+sheets, twelve gate views, source hashes and topology. Fresh checks pass 22 art
+tests, recovery of 22 graphics, a 319-asset audit with zero read errors, three
+preservation groups, 22 rendered variants, 7,697 desktop gate checks, 7,685 headless
+gate checks and 1,800 city checks. All physical variants remain closed, outward
+and consistently wound. Earlier 202 shaft-edge, 63 coping and crown samples
+remain. Selected logs have no script errors; fixture shutdown resource/RID
+messages remain. Historical plain-join and strict chroma-extrema attempts are
+kept separately from final evidence.
+
+Verify through Play Goemon at all three gates, then inspect round-tower side
+angles: the band should keep its height through both joins and blend into the
+native faces. Lower slit texture should read as dark recesses. Original source
+files remain intact. One view cannot certify unseen depth; broad masonry,
+baked lighting and microscopic raster differences still prevent a complete 1:1
+claim. No app export, long-session soak or army frame-time benchmark was run.
+Earlier sections retain their historical results.
+
 ## Falan foundation-strip caps and feet — 2026-11-23
 
 The previous foundation-strip pass omitted the wider end cap and projecting

@@ -27,17 +27,21 @@ var skills:Array[String]=[]
 var offer:Array[String]=[]
 var offer_rarities:Array[int]=[]
 var choices=0
-const STAT_NAMES={"vitality":"Vitality","attack":"Attack","magic_power":"Magic power","attack_speed":"Attack Speed","defense":"Defense","magic_defense":"Magic defense","critical_chance":"Critical Chance","dodge_chance":"Dodge","counter_chance":"Counter attack"}
+const STAT_NAMES={"vitality":"Vitality","attack":"Attack","magic_power":"Magic power","attack_speed":"Attack Speed","defense":"Defense","magic_defense":"Magic defense","critical_chance":"Critical Chance","dodge_chance":"Dodge","counter_chance":"Counter attack","accuracy":"Accuracy"}
+var food_ranks:Dictionary={}
+var pet_food_ranks:Dictionary={}
+var food_levels=0
+var pet_food_levels:Dictionary={}
 var stat_points=0
 const SKILL_FOOD_STEP=.05
 var skill_food_stacks=0
 var skill_levels:Dictionary={}
 var pet_skill_levels:Dictionary={}
 var pet_experience:Dictionary={}
-const PET_STATS={"vitality":"+30 maximum HP","mana":"+10 maximum MP","damage":"+10% base attack and skill damage","attack_speed":"+10% attack speed","speed":"+5% move speed","dodge_chance":"+1% dodge (max 100%)","counter_chance":"+1% counter (max 100%)"}
+# Retain existing run bonuses; new pet growth needs no allocated points.
 var pet_stat_ranks:Dictionary={}
 var skill_modifiers:Dictionary={}
-var stat_ranks={"vitality":0,"attack":0,"magic_power":0,"attack_speed":0,"defense":0,"magic_defense":0,"critical_chance":0,"dodge_chance":0,"counter_chance":0}
+var stat_ranks={"vitality":0,"attack":0,"magic_power":0,"attack_speed":0,"defense":0,"magic_defense":0,"critical_chance":0,"dodge_chance":0,"counter_chance":0,"accuracy":0}
 var cards_enabled=true:
 	set(enabled):
 		cards_enabled=enabled
@@ -49,24 +53,42 @@ func reset(_direct_levels:bool=false):
 	super.reset(false)
 	ranks.clear();skills.clear();offer.clear();offer_rarities.clear();rarity_bag.clear();choices=0
 	stat_points=0
+	food_ranks.clear();pet_food_ranks.clear();food_levels=0;pet_food_levels.clear()
 	skill_food_stacks=0
 	skill_levels.clear();pet_skill_levels.clear();pet_experience.clear();pet_stat_ranks.clear();skill_modifiers.clear()
 	for id in stat_ranks:stat_ranks[id]=0
+
+func apply_food_progress(saved:Dictionary):
+	food_ranks=saved.get("stats",{}).duplicate()
+	pet_food_ranks=saved.get("pets",{}).duplicate(true)
+	var next_levels:int=saved.get("levels",0)
+	grant_food_levels(self,maxi(0,next_levels-food_levels));food_levels=next_levels
+	for key in pet_food_ranks:
+		var next_pet_levels:int=pet_food_ranks[key].get("levels",0)
+		if next_pet_levels>pet_food_levels.get(key,0):
+			if not pet_experience.has(key):pet_experience[key]=Experience.new()
+			grant_food_levels(pet_experience[key],next_pet_levels-pet_food_levels.get(key,0))
+		pet_food_levels[key]=next_pet_levels
+
+static func grant_food_levels(xp,amount:int):
+	# Award a whole level's XP, retaining progress and the normal level-up rewards.
+	for i in mini(amount,Experience.MAX_LEVEL-xp.level):xp.award_kills(xp.kills_required())
 
 func spend_stat(id:String)->bool:
 	if stat_points<=0 or not stat_ranks.has(id):return false
 	if id in ["critical_chance","dodge_chance","counter_chance"] and stat_chance_bonus(id)>=100:return false
 	stat_points-=1;stat_ranks[id]+=1
 	return true
-func stat_health_bonus()->float:return 20.0*(level-1)+100.0*stat_ranks.vitality
-func stat_regeneration()->float:return 1.0*stat_ranks.vitality
-func stat_damage_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_ranks.attack
-func stat_magic_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_ranks.magic_power
-func stat_attack_multiplier()->float:return 1.0+.10*stat_ranks.attack_speed
-func stat_defense()->float:return 2.0*(level-1)+10.0*stat_ranks.defense
-func stat_magic_defense()->float:return 2.0*(level-1)+10.0*stat_ranks.magic_defense
+func stat_health_bonus()->float:return 20.0*(level-1)+100.0*stat_rank("vitality")
+func stat_regeneration()->float:return 1.0*stat_rank("vitality")
+func stat_damage_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_rank("attack")
+func stat_magic_multiplier()->float:return 1.0+.03*(level-1)+.15*stat_rank("magic_power")
+func stat_attack_multiplier()->float:return 1.0+.10*stat_rank("attack_speed")
+func stat_defense()->float:return 2.0*(level-1)+10.0*stat_rank("defense")
+func stat_magic_defense()->float:return 2.0*(level-1)+10.0*stat_rank("magic_defense")
 func stat_critical_chance_bonus()->float:return stat_chance_bonus("critical_chance")
-func stat_chance_bonus(id:String)->float:return float(stat_ranks[id])
+func stat_rank(id:String)->int:return stat_ranks.get(id,0)+food_ranks.get(id,0)
+func stat_chance_bonus(id:String)->float:return float(stat_rank(id))
 func skill_food_multiplier()->float:return 1.0+SKILL_FOOD_STEP*skill_food_stacks
 func stat_incoming_multiplier(extra_defense:float=0.0,defense_factor:float=1.0,magical:bool=false)->float:
 	var defense=stat_magic_defense() if magical else stat_defense()
@@ -81,22 +103,13 @@ func pet_growth(key:String,per_level:float)->float:
 	if xp==null:return 0.0
 	var levels:float=xp.level-1
 	return per_level*levels/(1.0+levels/20.0)
-func pet_rank(key:String,id:String)->int:return pet_stat_ranks.get(key,{}).get(id,0)
-func pet_points(key:String)->int:
-	var xp=pet_experience.get(key)
-	var spent=0
-	for rank in pet_stat_ranks.get(key,{}).values():spent+=rank
-	return (xp.level-1 if xp!=null else 0)-spent
-func can_spend_pet_stat(key:String,id:String)->bool:
-	if id=="passive":
-		var passive=Pets.passive(Pets.skin(key))
-		return passive.get("upgrade",false) and pet_points(key)>0 and (passive.stat=="regeneration" or Pets.passive_value(Pets.skin(key),pet_passive_level(key))<100)
-	return PET_STATS.has(id) and pet_points(key)>0 and (id not in ["dodge_chance","counter_chance"] or pet_rank(key,id)<100)
-func spend_pet_stat(key:String,id:String)->bool:
-	if not can_spend_pet_stat(key,id):return false
-	var ranks_:Dictionary=pet_stat_ranks.get_or_add(key,{})
-	ranks_[id]=pet_rank(key,id)+1
-	return true
+func pet_rank(key:String,id:String)->int:return pet_stat_ranks.get(key,{}).get(id,0)+pet_food_ranks.get(key,{}).get(id,0)
+func pet_points(_key:String)->int:return 0
+func can_spend_pet_stat(_key:String,_id:String)->bool:return false
+func spend_pet_stat(_key:String,_id:String)->bool:return false
+func pet_mana_bonus(key:String)->float:return minf(980.0,pet_growth(key,3.0)+10.0*pet_rank(key,"mana"))
+func pet_health_bonus(key:String)->float:return Pets.BASE_HEALTH*pet_growth(key,.16 if Pets.category(Pets.skin(key))=="Dragon lizards" else .08)+30.0*pet_rank(key,"vitality")
+func pet_damage_bonus(key:String)->float:return Pets.BASE_DAMAGE*(pet_growth(key,.20 if Pets.category(Pets.skin(key)) in ["Mantises","Bees"] else .10)+.10*pet_rank(key,"damage"))
 func pet_passive_level(key:String)->int:return 1+pet_rank(key,"passive")
 func party_passive_bonus(selected:Array,stat:String)->float:
 	var bonus=0.0
@@ -104,7 +117,7 @@ func party_passive_bonus(selected:Array,stat:String)->float:
 		var skin=Pets.skin(key);var passive=Pets.passive(skin)
 		if passive.get("stat","")==stat:bonus+=Pets.passive_value(skin,pet_passive_level(key))
 	return bonus
-func pet_damage_multiplier(key:String)->float:return multiplier("pet_damage")+pet_growth(key,.10)+.10*pet_rank(key,"damage")
+func pet_damage_multiplier(key:String)->float:return multiplier("pet_damage")+pet_damage_bonus(key)/Pets.BASE_DAMAGE
 func award_pet_enemy(key:String,reward_tenths:int)->int:
 	if reward_tenths<=0:return 0
 	if not pet_experience.has(key):pet_experience[key]=Experience.new()

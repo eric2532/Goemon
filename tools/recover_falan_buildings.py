@@ -21,16 +21,16 @@ PATCHES = {
     "10606_window": (10606, [(66,322),(91,336),(91,382),(66,368)], True, (50,90)),
     "10606_gate": (10606, [(297,326),(342,299),(342,399),(297,426)], True, (50,110)),
     "10311_window": (10311, [(310,239),(337,223),(337,261),(310,277)], True, (50,90)),
-    "10311_cloth": (10311, [(231,151),(285,151),(285,213),(231,213)], True, (85,100)),
+    "10311_cloth": ("10311_blanket", [(240,139),(283,168),(283,217),(240,188)], True, (85,100)),
     "10312_window": (10312, [(39,190),(62,204),(62,254),(39,240)], True, (45,90)),
     "10312_vines": (10312, [(270,393),(291,405),(291,465),(270,453)], True, (35,100)),
     "10313_window": (10313, [(97,388),(123,404),(123,451),(97,435)], True, (45,90)),
-    "10313_emblem": (10313, [(245,413),(271,397),(271,431),(245,447)], True, (75,85)),
+    "10313_emblem": ("10313_clock", [(294,405),(330,383),(330,431),(294,453)], True, (75,85)),
     "10314_window": (10314, [(235,448),(257,435),(257,476),(235,489)], True, (50,90)),
 
     "magic_stone": (10075, [(52,320),(60,320),(60,328),(52,328)], False, (64,64)),
     "magic_roof": (10075, [(200,200),(216,200),(216,216),(200,216)], False, (96,64)),
-    "magic_sign": (10075, [(101,229),(150,260),(150,302),(101,271)], True, (90,85)),
+    "magic_sign": ("magic_sign", [(101,229),(150,260),(150,302),(101,271)], True, (90,85)),
     "magic_window": (10075, [(10,355),(36,371),(36,390),(10,374)], True, (80,60)),
     "smith_sign": (10301, [(220,270),(272,239),(272,275),(220,306)], True, (110,65)),
     "workshop_trade_sign": (10301, [(332,184),(385,152),(385,186),(332,218)], True, (110,65)),
@@ -60,8 +60,30 @@ PATCHES = {
     "architecture_red_roof": (10007, [(124,230),(184,266),(214,236),(154,200)], False, (96,64)),
     "shop_medallion": ("shop_medallion", [(73,150),(114,175),(114,226),(73,201)], True, (64,80)),
     "shop_shield": ("shop_shield", [(235,156),(280,140),(280,211),(235,227)], True, (64,96)),
+    "10003_gable_rosette": ("10003_gable_rosette", [(243,170),(275,151),(275,211),(243,230)], True, (64,112)),
+    "native_bar_sign": (10049, [(53,159),(110,196),(110,228),(53,191)], True, (112,64)),
+    "native_baker_sign": ("native_baker_sign", [(45,196),(103,232),(103,263),(45,227)], True, (112,64)),
+    "native_weapon_sign": ("native_weapon_sign", [(235,204),(283,174),(283,208),(235,238)], True, (112,64)),
+    "native_inn_sign": ("native_inn_sign", [(247,174),(299,141),(299,170),(247,203)], True, (112,64)),
+    "native_house_sign": (10003, [(21,216),(37,225),(37,254),(21,245)], True, (48,96)),
+    "magic_side_window": (10075, [(301,349),(329,332),(329,391),(301,408)], True, (48,104)),
+    "10311_stripes": ("10311_stripes", [(125,123),(151,139),(151,183),(125,167)], True, (60,100)),
+    "10311_shirt": ("10311_shirt", [(173,89),(207,109),(207,163),(173,143)], True, (72,100)),
+    "10311_socks": ("10311_socks", [(152,140),(174,153),(174,185),(152,172)], True, (72,80)),
+    "10311_trousers": ("10311_trousers", [(185,164),(219,184),(219,238),(185,218)], True, (72,100)),
 }
 FEATURE_MASKS = {
+    "10311_blanket": (10311, [(241,146),(248,150),(256,151),(265,156),(276,166),(281,175),(280,211),(273,208),(263,200),(252,190),(242,184)]),
+    "10311_stripes": (10311, [(127,126),(149,138),(149,177),(128,166)]),
+    "10311_shirt": (10311, [(176,98),(184,102),(190,100),(202,109),(204,121),(198,123),(197,150),(179,144),(180,118),(173,116)]),
+    "10311_socks": (10311, [(154,143),(160,146),(163,152),(163,162),(160,163),(160,168),(156,173),(152,172),(152,166),(154,156)]),
+    "10311_trousers": (10311, [(187,175),(205,184),(216,183),(218,190),(218,220),(209,226),(205,218),(204,201),(199,224),(190,219),(189,197),(186,185)]),
+    "10313_clock": (10313, [(318,398),(324,399),(328,404),(328,411),(325,420),(319,428),(311,433),(304,433),(299,428),(298,420),(302,411),(310,403)]),
+    "magic_sign": (10075, [(103,233),(109,230),(120,233),(132,241),(144,253),(150,263),(149,300),(143,303),(102,276)]),
+    "native_baker_sign": (10005, [(42,196),(52,196),(63,205),(90,220),(105,232),(110,245),(105,259),(96,261),(74,247),(53,234),(42,225)]),
+    "native_inn_sign": (10080, [(247,176),(250,165),(263,161),(267,154),(281,151),(286,144),(298,142),(303,146),(301,160),(298,171),(282,179),(278,188),(264,192),(258,202),(249,203),(244,197)]),
+    "10003_gable_rosette": (10003, [(244,204),(246,187),(251,174),(259,164),(267,160),(274,166),(274,184),(268,202),(259,216),(250,224),(244,219)]),
+    "native_weapon_sign": (10078, [(235,204),(283,174),(279,201),(270,215),(242,235)]),
     "shop_medallion": (10079, [(83,159),(93,165),(103,175),(109,188),(112,199),(110,209),
                                (104,214),(96,211),(87,203),(80,192),(76,178),(77,166)]),
     "shop_shield": (10079, [(237,164),(244,168),(251,169),(260,166),(270,159),(276,150),
@@ -91,9 +113,35 @@ def prepare(source):
             ImageDraw.Draw(mask).polygon(FEATURE_MASKS[serial][1], fill=255)
             image = image.copy()
             image.putalpha(ImageChops.multiply(image.getchannel('A'), mask))
+            if serial in ("10003_gable_rosette", "native_baker_sign"):
+                # Keep the warm carving/plaque, excluding the slate that occludes its edge.
+                image.putdata([(r,g,b,0 if b>r*.88 and b>g*.93 else a) for r,g,b,a in image.getdata()])
+            if serial == "native_inn_sign":
+                # Its pale grey face is part of the plaque, not blue roof slate.
+                image.putdata([(r,g,b,0 if b>r*1.25 and b>g*1.10 else a) for r,g,b,a in image.getdata()])
+                assert image.getpixel((270,170))[3] == 255
+            if serial == "10003_gable_rosette":
+                # Isolated pixels belong to the neighbouring timber, not the carved medallion.
+                alpha=image.getchannel('A');todo=set((x,y) for y in range(image.height) for x in range(image.width) if alpha.getpixel((x,y))>40)
+                groups=[]
+                while todo:
+                    group={todo.pop()};pending=list(group)
+                    for x,y in pending:
+                        for point in [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]:
+                            if point in todo:todo.remove(point);group.add(point);pending.append(point)
+                    groups.append(group)
+                keep=max(groups,key=len);assert len(keep)>100
+                alpha.putdata([alpha.getpixel((x,y)) if (x,y) in keep else 0 for y in range(image.height) for x in range(image.width)])
+                image.putalpha(alpha)
         images[serial] = image
     atlas, rows = surface_atlas(images, PATCHES)
     rows[1] = "## Generated by tools/recover_falan_buildings.py using shared native surface recovery."
+    rows += ["}", "const CLOTH_TOP={"]
+    for index,feature in enumerate(PATCHES):
+        if feature not in ('10311_cloth','10311_stripes','10311_shirt','10311_socks','10311_trousers'):continue
+        x=index%(atlas.width//128)*128;y=index//(atlas.width//128)*128
+        top=atlas.crop((x,y,x+128,y+128)).getchannel('A').getbbox()[1]/128
+        rows.append(f' "{feature}":{top:.9f},')
     rows += ["}", "const LEGACY={"]
     width, _, _, objects, _ = load_map(library, 1000)
     buildings = []

@@ -1,6 +1,11 @@
 extends "res://tests/forest-shrine/crossgate_primary_targeting_test.gd"
 const DASH_OUT="res://build/Other Files/Asset Toolkit/Accessories/Dash Boots/"
 
+func settle(character:int):
+ await super.settle(character)
+ # Arrival/contact checks must not depend on the enemy's separate evasion bag.
+ game.update_character_tuning(character,"accuracy",100)
+
 func dash_equipment(character:int,enabled:bool,weapon:String="sword",shoes:bool=false):
  var slots={"1":"weapon:"+weapon}
  if enabled:slots["accessory:1"]="accessory:dash-boots"
@@ -29,7 +34,7 @@ func boots_case(character:int):
  check(p.accessory_bonuses.get("attack_dash",0)==1,"Boots cache the dash permission for %d"%character)
  click_attack();await driver.advance(1,func(_dt):advance(6,false))
  var dashed:float=p.position.distance_to(home)
- check(kit.state.get("approach_dashing",false) and dashed>ordinary*1.3 and absf(dashed-kit.PRIMARY_RUSH_SPEED*p.movement_multiplier()*6*DT)<.002,"Boots dash immediately outside the old five-unit rush for %d: %.2f vs %.2f"%[character,dashed,ordinary])
+ check(kit.state.get("approach_dashing",false) and dashed>ordinary*1.3 and absf(dashed-kit.PRIMARY_DASH_SPEED*p.movement_multiplier()*6*DT)<.002,"Boots dash immediately outside the old five-unit rush for %d: %.2f vs %.2f"%[character,dashed,ordinary])
  check(p.model.current_clip.begins_with("3:") and p.invuln==0 and not p.timed_dodge.reacting,"Dash reuses the native run without dodge protection for %d"%character)
  if character==37:await dash_picture("shin-dashing")
  await driver.advance(1,func(_dt):
@@ -54,7 +59,7 @@ func boots_edges():
  var target=place_target(kit.primary_reach()+40)
  await aim_sword(target)
  click_attack();await driver.advance(1,func(_dt):advance(3,false))
- check(absf(p.position.distance_to(home)-kit.PRIMARY_RUSH_SPEED*p.movement_multiplier()*3*DT)<.002,"Speed Shoes multiply the equipped dash speed")
+ check(absf(p.position.distance_to(home)-kit.PRIMARY_DASH_SPEED*p.movement_multiplier()*3*DT)<.002,"Speed Shoes multiply the equipped dash speed")
  await driver.advance(1,func(_dt):advance(160,false))
  check(kit.primary_combo_hits==1 and p.model.weapon_combo_next==1,"Dash starts one Three-Weapon Combo step at normal contact range")
  kit.cancel(true);p.position=home;p.velocity=Vector3.ZERO;p.impact_pause=0
@@ -113,6 +118,8 @@ func ranged_boots(character:int,weapon:String):
 func run():
  create_timer(240).timeout.connect(func():printerr("DASH_BOOTS_TIMEOUT");quit(1))
  DirAccess.make_dir_recursive_absolute(DASH_OUT);root.size=Vector2i(1280,800)
+ check(Gear.ITEMS["accessory:dash-boots"].icon.resource_path.ends_with("/21903.png"),"Dash Boots use the selected original graphic 21903")
+ check(is_equal_approx(preload("res://scripts/crossgate_combat.gd").PRIMARY_DASH_SPEED,preload("res://scripts/crossgate_combat.gd").PRIMARY_RUSH_SPEED*1.5),"Equipped dash is 50% faster than the previous dash and ordinary final rush")
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow();await setup_fixture(doc.data)
  game.set_process(false);game.set_process_input(false);game.set_process_unhandled_input(false)
  game.camera_rig.set_process_input(false);game.camera_rig.set_process_unhandled_input(false)

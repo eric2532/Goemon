@@ -1,0 +1,122 @@
+[
+  {
+    "file": "11006_caveA",
+    "path": "gmsv/data/map/11006_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11006_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "43b6946bd87f0ad4432841644466df9884f8d8c3",
+    "bytes": 10044,
+    "sha256": "792b726ca19e1d0af505baf44b12a74010b8c72abfdcf63f6e478e7fe0163890",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11007_caveA",
+    "path": "gmsv/data/map/11007_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11007_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "0b218001407d964ed7443bc3a6271dd5514159cf",
+    "bytes": 10044,
+    "sha256": "5bd210bb46ed596577103f61ae421b4c31a76684d8f7ce8dc8aac51c022bda5f",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11008_caveA",
+    "path": "gmsv/data/map/11008_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11008_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "02de99948af96de839ece0f38ecd44305cd617fc",
+    "bytes": 10044,
+    "sha256": "16228ede11445818068c023cdaf84c7e245c6eb869ba7e1ac9b393953ad65d5b",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11009_caveA",
+    "path": "gmsv/data/map/11009_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11009_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "934ee87df25797513c1a3cb02f3626e48b1d7906",
+    "bytes": 10044,
+    "sha256": "dd0c3b0e50c3be9e1eaa417429eb12d6a526fe24a12f1262cfea9e131d043f6e",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11010_caveA",
+    "path": "gmsv/data/map/11010_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11010_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "e8864e22747050db7195c86814434fcba4552bc5",
+    "bytes": 10044,
+    "sha256": "e0780a4e006cc0988f4902ec0dc09b0091d4fb2c2bfe618f26f10c5605ab2573",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11011_caveA",
+    "path": "gmsv/data/map/11011_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11011_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "b3c1c45dbdbf3e326173bdcc046dd60187b88477",
+    "bytes": 10044,
+    "sha256": "86df71a5936123eefdb9630268d032c69be7f39c198fbe8238e1818a9e553271",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11012_cave_fA",
+    "path": "gmsv/data/map/11012_cave_fA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11012_cave_fA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "8d421d1032df57b18d6f6f6d3c8c02e1677700d3",
+    "bytes": 3644,
+    "sha256": "72fafd9bc02f782d5fc92df1fe3e110fc1afc8c3999434795fa3f259aa993485",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11013_bordA",
+    "path": "gmsv/data/map/11013_bordA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11013_bordA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "1e4946a46157b731bce0007dd1c92ec3285667a3",
+    "bytes": 6444,
+    "sha256": "73674bdede789bbcbe9aeab6fab4b18c8920f8a3897f1c36bbacfb7d39ea59c9",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11014_bordA",
+    "path": "gmsv/data/map/11014_bordA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11014_bordA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "aa3b07b21652c9703da59c8708ae91f533f57a16",
+    "bytes": 6444,
+    "sha256": "ecec519ec9b7a64c22c48e819aad85bbee2d9c9f8e9b1fce5028a78772bb40b1",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11500_caveA",
+    "path": "gmsv/data/map/11500_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11500_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "95ecf13f37bc2c28f025c35bf8485488b280d423",
+    "bytes": 6444,
+    "sha256": "8f9a24a8b2d0a8099a1c65b5e5b3bf36b933d9cbae1587c3d84659fdf3dc3f66",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11501_caveA",
+    "path": "gmsv/data/map/11501_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11501_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "b7dc7e012ac0d398ddd97339affa83e80cd972cf",
+    "bytes": 9644,
+    "sha256": "6eaf1d9d069da03d811b50cfc69f35cc46a7c054dd9a03b52253f4f6f858d29a",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "11502_caveA",
+    "path": "gmsv/data/map/11502_caveA",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11502_caveA",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "fed493b77ac4881938a05d0630cd864b1b91302c",
+    "bytes": 7044,
+    "sha256": "efba800d7c90c7e7fed3ec57b3df15740da37d4f2fd5cdfcf457a48c0ac764f7",
+    "qualification": "Pinned server LS2MAP bytes; not authenticated original production-server execution or client-release parity."
+  }
+]

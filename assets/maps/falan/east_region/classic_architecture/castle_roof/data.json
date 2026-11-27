@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "canonical_owner_y": 0.44899888641287294,
+  "source_door_height_pixels": 90,
+  "canonical_door_height_local": 4.05,
+  "native_canvas_rgba_sha256": "8c5c36c83230e90bdda999a0a0dceb550830f9f522e9f9121071997a5e408d1c",
+  "bands": [
+    {
+      "kind": "canopy",
+      "low": 9.1,
+      "high": 10.8,
+      "back_part": "plaster",
+      "observed_blue_fraction": 0.13724604966139956,
+      "observed_mean_rgb": [
+        96.37787810383747,
+        93.85598194130925,
+        79.73814898419865
+      ]
+    },
+    {
+      "kind": "canopy",
+      "low": 10.8,
+      "high": 13.0,
+      "back_part": "blue_roof",
+      "observed_blue_fraction": 0.7402482269503546,
+      "observed_mean_rgb": [
+        71.38031914893617,
+        101.9943853427896,
+        116.20803782505911
+      ]
+    },
+    {
+      "kind": "canopy",
+      "low": 13.0,
+      "high": 16.4,
+      "back_part": "plaster",
+      "observed_blue_fraction": 0.19928400954653938,
+      "observed_mean_rgb": [
+        164.77625298329355,
+        164.1282816229117,
+        146.270584725537
+      ]
+    },
+    {
+      "kind": "hall",
+      "low": 30.38,
+      "high": 33.08,
+      "back_part": "plaster",
+      "observed_blue_fraction": 0.25886402753872634,
+      "observed_mean_rgb": [
+        95.20481927710843,
+        102.09294320137694,
+        94.19277108433735
+      ]
+    },
+    {
+      "kind": "hall",
+      "low": 33.08,
+      "high": 35.7,
+      "back_part": "blue_roof",
+      "observed_blue_fraction": 0.7041978522616336,
+      "observed_mean_rgb": [
+        74.34266189391474,
+        104.53921249593232,
+        119.43638138626748
+      ]
+    },
+    {
+      "kind": "hall",
+      "low": 35.7,
+      "high": 39.4,
+      "back_part": "plaster",
+      "observed_blue_fraction": 0.21846726982437467,
+      "observed_mean_rgb": [
+        137.41697711548696,
+        139.10803618946247,
+        126.52634379989357
+      ]
+    }
+  ],
+  "source_sha256": {
+    "scripts/forest/forest_beast_castle.gd": "7c26ab47d8278da884ae0a8ecd21a9a46f2f27cb743f37c813a71a07809be887",
+    "assets/maps/original_crossgate/beast-castle.png": "482a99b8cfaf4af845e7fbcda32749b07aa48c59af7b3225acf34a16b4186a0e",
+    "assets/maps/original_crossgate/beast-castle-sculpture-surfaces.png": "6b99467ee78802862c35e90e8295b54d75edd46da97480cb569db0efe9894c8c",
+    "assets/maps/original_crossgate/beast-sculptures.gd": "aa3de5d4a894c1037dc0e296b9d7311c7548d5def4d44b3a2f65707fc3add7a5"
+  },
+  "inferred": [
+    "Unobserved roof faces continue independent existing native coping/plaster paint at fixed1.8m pitch.",
+    "All source71tuples and XZ vertices remain exact. Only the East derivative receives the canonical.045pixel-height owner conversion once; Source400/West master is unchanged."
+  ],
+  "scope": "Only the exact31954BeastCastle derivative, never a shared-master mutation."
+}

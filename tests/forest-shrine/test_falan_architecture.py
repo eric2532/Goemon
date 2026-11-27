@@ -30,11 +30,24 @@ class ArchitectureTest(unittest.TestCase):
             e=self.lookup[serial]
             originals.add((serial,3*(i//width-134)-1.5*(e['south']-1),3*(153-i%width)-1.5*(e['east']-1)))
         recovered={(r['reference_graphic'],*r['source_center'])for r in self.meta['bindings']+self.meta['unmarked']}
-        self.assertEqual(len(self.meta['graphics']),23)
+        self.assertEqual(len(self.meta['graphics']),24)
         self.assertEqual(len(self.meta['bindings']),63)
         self.assertEqual(recovered,originals)
-        self.assertEqual(len(self.meta['unmarked']),9)
-        self.assertEqual(len(recovered),72)
+        self.assertEqual(len(self.meta['unmarked']),10)
+        self.assertEqual(len(recovered),73)
+
+    def test_no_large_original_city_building_is_omitted(self):
+        from audit_falan_city import inventory
+        data, _ = inventory(MAGIC)
+        self.assertFalse(data['missing_buildings'])
+        self.assertEqual(len(data['rooms']),80)
+        self.assertTrue({1540,1541,1542}.issubset(row['id'] for row in data['rooms']))
+        self.assertFalse(any(1500<=row['id']<1540 for row in data['rooms']))
+        self.assertTrue(all(row['source_present'] for row in data['rooms']))
+        self.assertTrue(all(row['navigation_matches'] for row in data['rooms']))
+        self.assertTrue(all(edge['runtime_delta']<=3.01 for edge in data['warps']))
+        self.assertTrue(data['empty_trimmed_rows'])
+        self.assertIn({'reference_graphic':10310,'source_center':[45.0,162.0]},self.meta['unmarked'])
 
     def test_native_atlas_is_byte_preserved_and_solid_paint_keeps_visible_rgb(self):
         text=(ROOT/'assets/maps/falan/city_architecture.gd').read_text()
@@ -68,6 +81,8 @@ class ArchitectureTest(unittest.TestCase):
                 self.assertAlmostEqual(ox+(local[0]+local[1])*32/3,pixel[0])
                 self.assertAlmostEqual(oy+(local[1]-local[0])*8,pixel[1])
             profile=r['profile']
+            delta=[b-a for a,b in zip(r['roof_a'],r['roof_b'])]
+            self.assertAlmostEqual(delta[1 if r['gable_edge']==1 else 0],0,places=6,msg=serial)
             self.assertTrue(all(math.isfinite(v)for p in profile for v in p))
             self.assertTrue(all(a[0]<b[0]for a,b in zip(profile,profile[1:])))
             self.assertGreater(min(p[1]for p in profile),r['wall'])

@@ -4168,6 +4168,10 @@ const GARDEN_ORNAMENTS=[
  [Vector2(127.5,30),10036],
  [Vector2(181.5,60),10036],
 ]
+const GARDEN_LAUNDRY=[
+ [Vector2(-234,-159),11004],
+ [Vector2(129,132),11004],
+]
 const MARKET_GOODS=[
  [Vector2(-351,-99),11496],
  [Vector2(-348,117),11497],

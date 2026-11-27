@@ -1,0 +1,29 @@
+{
+  "59752": {
+    "size": [
+      399,
+      399
+    ],
+    "open": "eJzt1bENwCAQBEFciTuhMoomdAYtcJGlZyZfvT661gAAAAAAbjKftPjiGyMuelysIn+8cQHwD/txzn4AAAAAAAAAAAAAAACFbYwQCuk=",
+    "bounds": [
+      [
+        94,
+        106,
+        107,
+        119
+      ],
+      [
+        126,
+        138,
+        139,
+        151
+      ]
+    ],
+    "chamber_walk_cells": [
+      49,
+      49
+    ],
+    "layout_sha256": "f5511dd905ee2bc5c4362fcf57d1230f3b716302c295ba702fdc4bdc8e187729",
+    "limits": "Adds only the source Sylph arena and post-fight room; existing Elsa ownership remains authoritative elsewhere."
+  }
+}

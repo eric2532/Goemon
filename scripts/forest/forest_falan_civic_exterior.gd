@@ -8,6 +8,12 @@ const Mansion=preload("res://scripts/forest/forest_falan_mansion_art.gd")
 const Shapes=preload("res://scripts/forest/forest_falan_building_shapes.gd")
 const Carvings=preload("res://scripts/forest/forest_falan_carvings.gd")
 const Details=preload("res://scripts/forest/forest_falan_landmark_details.gd")
+const CathedralBatch=preload("res://scripts/forest/forest_falan_cathedral_batch.gd")
+# Fixed tracing units keep authored office planes independent of generated runtime fits.
+const OFFICE_FRAME=Transform3D(Basis(Vector3(1.036562085152,0,0),Vector3(0,1.444545507431,0),Vector3(0,0,1.036562085152)),Vector3(.156248286366,0,.759649097919))
+# Fixed source-quad stations; the measured fit is never fed back into authoring at runtime.
+const INN_FRONT_SIGN=Transform3D(Basis(Vector3(6.224434607843,0.501572489691,0.000000000000),Vector3(-0.456187320714,3.442164144939,-0.456187320714),Vector3(-0.009305012270,0.070211025490,0.880612641564)),Vector3(0.111415273093,12.127177914109,5.000000000000))
+const INN_SIDE_SIGN=Transform3D(Basis(Vector3(0.000000000000,-0.570754902062,-5.560494916340),Vector3(-0.462887531400,2.741962090317,-0.462887531400),Vector3(0.877808663379,0.088567632655,-0.014951648306)),Vector3(9.450000000000,9.760097078835,-0.102103563288))
 const SHELLS={
  Vector2i(-52,2):[1201,"falan_chapel",180,Vector2(-339,-3),Vector3(35.4,40,26.2)],
  Vector2i(-28,36):[1111,"falan_townhouse",90,Vector2(-168,214.5),Vector3(22,17,13.6)],
@@ -43,7 +49,7 @@ static func bounds(anchor:Vector2i,spec:Array)->AABB:
  box.position+=Vector3(offset.x,0,offset.y)
  return box
 
-static func build(parent:Node3D,p:Vector3,spec:Array):
+static func build(parent:Node3D,p:Vector3,spec:Array,batch_static:bool=false):
  var root=Node3D.new()
  root.name="FalanCivicFacade_%d"%spec[0]
  root.position=Vector3(spec[3].x,p.y,spec[3].y)
@@ -53,6 +59,9 @@ static func build(parent:Node3D,p:Vector3,spec:Array):
   var source:Array=Details.Data.FACADES[spec[0]]
   root.set_meta("falan_window_feature",source[1])
   root.set_meta("original_graphic",source[0])
+ if batch_static and spec[0]==1201 and CathedralBatch.restore(root):
+  Proportions.apply(root,"civic_1201")
+  return root
  var boxes=Boxes.new()
  var stone=Fort.material(Color("c1b59a"))
  var pale=Fort.material(Color("e0d5b8"))
@@ -87,54 +96,146 @@ static func build(parent:Node3D,p:Vector3,spec:Array):
     points.append(pose*p_+group.origin)
  root.set_meta("source_box_points",points)
  boxes.build(root)
+ if batch_static and spec[0]==1201:CathedralBatch.prepare(root)
  Proportions.apply(root,"civic_%d"%spec[0])
+ return root
+
+static func office_point(pixel:Vector2,height:float)->Vector3:
+ var fit:Transform3D=OFFICE_FRAME
+ var p=pixel+Proportions.References.RECTS.civic_1091.position
+ var sum_=(p.y+height*fit.basis.y.y*Proportions.VERTICAL)/Proportions.FLOOR
+ var difference=p.x/Proportions.HORIZONTAL
+ return fit.affine_inverse()*Vector3((sum_+difference)*.5,height*fit.basis.y.y,(sum_-difference)*.5)
+
+static func office_body(root:Node3D,boxes,stone:Material,pale:Material,trim:Material)->Array[Vector3]:
+ var corners:Array[Vector3]=[]
+ for pixel in [Vector2(27.5,98),Vector2(212,237),Vector2(331,143),Vector2(149,9.4535)]:
+  var p=office_point(pixel,14.43);p.y=0;corners.append(p)
+ var footprint=PackedVector2Array()
+ for p in corners:footprint.append(Vector2(p.x,p.z))
+ var height=12.586313
+ var body=Geo.mesh(root,Shapes.extrude(footprint,height),Vector3.UP*height*.5,stone)
+ body.rotation.x=PI*.5
+ body.set_meta("office_source_body",true)
+ for i in 4:
+  var a:Vector3=corners[i];var b:Vector3=corners[(i+1)%4]
+  var edge=b-a
+  for row in [[.12,.24,.15],[5.08,.32,.20],[11.976313,.32,.20],[12.975,1.35,.68]]:
+   var course=Geo.box(root,(a+b)*.5+Vector3.UP*row[0],Vector3(edge.length()+.18,row[1],row[2]),pale if row[0]>12 else trim)
+   course.rotation.y=-atan2(edge.z,edge.x)
+ # The four native rows contain seven, five, seven and five caps, sharing corners.
+ for pixel in [Vector2(27.5,98),Vector2(57,122),Vector2(88,145),Vector2(119,168),Vector2(150,191),Vector2(181,214),Vector2(212,237),
+               Vector2(242,213),Vector2(273,190),Vector2(304,167),Vector2(331,143),
+               Vector2(304,119),Vector2(272,95),Vector2(242,73),Vector2(211,51),Vector2(180,30),Vector2(149,9.4535),
+               Vector2(116,27),Vector2(85,51),Vector2(55,73)]:
+  var p=office_point(pixel,14.43)
+  boxes.add(p-Vector3.UP*.385,Vector3(1.14,.77,1.14),trim)
+ return corners
+
+static func office_wall_point(a:Vector3,b:Vector3,pixel:Vector2)->Vector3:
+ var fit:Transform3D=OFFICE_FRAME
+ var origin:Vector2=Proportions.References.RECTS.civic_1091.position
+ var pa=Proportions.project(fit*a)-origin
+ var pb=Proportions.project(fit*b)-origin
+ var t=inverse_lerp(pa.x,pb.x,pixel.x)
+ var at=a.lerp(b,t)
+ at.y=(lerpf(pa.y,pb.y,t)-pixel.y)/(Proportions.VERTICAL*fit.basis.y.y)
+ return at
 
 static func employment_office(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,base:Material,slate:Material,ridge:Material,copper:Material):
  var walnut=Fort.material(Color("715034"),false)
  var orange=Fort.material(Color("b25b32"),false)
  var plinth=Fort.material(Color("b6a98a"))
- boxes.add(Vector3(0,.42,-1.17),Vector3(20.55,.84,12.10),base)
- boxes.add(Vector3(0,5.08,-1.17),Vector3(19.52,10.16,11.64),stone)
- for y in [1.16,4.25,9.55]:
-  boxes.add(Vector3(0,y,-1.17),Vector3(19.79,.32,11.89),trim)
- roof(root,Vector3(0,9.77,-1.14),11.96,19.62,5.44,slate,ridge,PI*.5,Shapes.BARREL,stone)
+ var corners=office_body(root,boxes,stone,pale,trim)
+ var depth_shift=office_point(Vector2.ZERO,14.43)-office_point(Vector2.ZERO,13.6)
+ var ground_shift=Vector3(depth_shift.x,0,depth_shift.z)
+ var source_a=Proportions.project(OFFICE_FRAME*corners[0])-Proportions.References.RECTS.civic_1091.position
+ var source_b=Proportions.project(OFFICE_FRAME*corners[1])-Proportions.References.RECTS.civic_1091.position
+ # The native roof sits inside the parapet; its ridge is shorter than the wall below.
+ roof(root,Vector3(-.10,10.28,-1.53)+depth_shift,10.32,15.80,4.25,slate,ridge,PI*.5,Shapes.BARREL,stone)
+ # Native lower posts project beyond the wall corners and stop below the upper panes.
+ for post in [[Vector2(10,294),3.81],[Vector2(211,442),3.68],[Vector2(345,345),3.68]]:
+  var foot=office_point(post[0],0.0)
+  Geo.cylinder(root,foot+Vector3.UP*(post[1]-.22)*.5,.62,post[1]-.22,pale,false,.60).mesh.radial_segments=24
+  Geo.cylinder(root,foot+Vector3.UP*.16,.69,.20,trim).mesh.radial_segments=24
+  Geo.cylinder(root,foot+Vector3.UP*(post[1]-.30),.73,.17,trim).mesh.radial_segments=24
+  Geo.cylinder(root,foot+Vector3.UP*post[1],.69,.43,slate,false,.35).mesh.radial_segments=24
  for side in [-1,1]:
-  boxes.add(Vector3(0,10.0,-1.14+side*5.86),Vector3(20.04,1.35,.66),pale)
-  for i in 9:
-   boxes.add(Vector3((i-4)*2.26,10.87,-1.14+side*5.86),Vector3(.91,.77,.82),trim)
-  for z in [-6.41,-4.22,-2.03,.16,2.35,4.54]:
-   boxes.add(Vector3(side*9.73,10.87,z),Vector3(.89,.77,.86),trim)
-  boxes.add(Vector3(side*9.73,10.0,-1.08),Vector3(.68,1.35,11.72),pale)
-  for z in [-6.59,4.62]:
-   var p=Vector3(side*9.53,0,z)
+  for p in ([corners[3]] if side<0 else []):
    Geo.cylinder(root,p+Vector3.UP*2.82,.51,5.64,pale,false,.39).mesh.radial_segments=10
    Geo.cylinder(root,p+Vector3.UP*5.83,.65,.52,slate,false,.35)
-  window(root,Vector3(side*6.63,2.17,4.69),0,1.62,5.09,false)
-  roof(root,Vector3(side*6.63,7.17,4.64),2.53,1.24,.95,slate,trim,0.0,[],stone)
-  window(root,Vector3(side*9.79,4.54,-1.13),side*PI*.5,2.54,3.19,false)
-  Details.add(root,"office_rosette",Vector3(side*9.80,7.0,-4.40),Vector2(2.5,2.5),side*PI*.5)
-  var dormer=Vector3(side*4.68,11.55,4.0)
-  boxes.add(dormer,Vector3(1.28,1.43,1.66),slate)
+  var scale_:Vector3=OFFICE_FRAME.basis.get_scale()
+  var across=Proportions.HORIZONTAL*scale_.x
+  var vertical=Proportions.VERTICAL*scale_.y
+  var pane_bottom=Vector2(33.5,259.5) if side<0 else Vector2(171.5,362)
+  var pane_size=Vector2(21,83) if side<0 else Vector2(23,72)
+  var hood_eave=Vector2(30.5,186.5) if side<0 else Vector2(168,294)
+  var hood_size=Vector2(35,23.5) if side<0 else Vector2(36,24)
+  var u=pane_bottom.x+.232*across
+  var t=inverse_lerp(source_a.x,source_b.x,u)
+  var front:Vector3=corners[0].lerp(corners[1],t)
+  var ground_y=lerpf(source_a.y,source_b.y,t)
+  var bottom=(ground_y+.232*scale_.x*Proportions.FLOOR-pane_bottom.y)/vertical-.15
+  window(root,front+Vector3.UP*bottom,0,pane_size.x/(across*.92),pane_size.y/vertical+.22,false,"" if side<0 else "office_right_window")
+  var depth=(u-hood_eave.x)/across
+  var eave_height=(ground_y+depth*scale_.x*Proportions.FLOOR-hood_eave.y)/vertical
+  roof(root,front+Vector3(0,eave_height,depth-.31),hood_size.x/across,.62,hood_size.y/vertical,slate,walnut,0.0,Shapes.BARREL,slate)
+  if side<0:
+   window(root,Vector3(corners[0].x,4.54,-1.13),side*PI*.5,2.54,3.19,false)
+   Details.add(root,"office_rosette",Vector3(corners[3].x-.03,7.0,-4.40),Vector2(2.5,2.5),side*PI*.5)
+  else:
+   var edge:Vector3=corners[2]-corners[1]
+   var normal=Vector3(-edge.z,0,edge.x).normalized()
+   Details.add(root,"office_rosette",office_wall_point(corners[1],corners[2],Vector2(273,255.5))+normal*.03,Vector2(edge.length()*52.0/119.0,65.0/vertical),atan2(normal.x,normal.z))
+   var frieze=Carvings.add(root,"office_frieze",office_wall_point(corners[1],corners[2],Vector2(280,292))+normal*.025,Vector2(edge.length()*90.0/119.0,23.0/vertical),atan2(normal.x,normal.z))
+   frieze.material_override=Carvings.Source.material(Carvings.Data.ATLAS)
+   for pane in [["office_side_near",Vector2(234,271)],["office_side_far",Vector2(316,214)]]:
+    var at=office_wall_point(corners[1],corners[2],pane[1])
+    var size_=Vector2(edge.length()*10.0/119.0,46.0/vertical)
+    var backing=Geo.box(root,at+normal*.025,Vector3(size_.x,size_.y,.05),walnut)
+    backing.rotation.y=atan2(normal.x,normal.z)
+    Details.add(root,pane[0],at+normal*.052,size_,backing.rotation.y)
+  var dormer=Vector3(side*4.68,13.37,1.74)+depth_shift
+  boxes.add(dormer,Vector3(1.28,1.43,1.66),stone)
   roof(root,dormer+Vector3.UP*.60,1.65,1.83,1.03,slate,trim,0,Shapes.BARREL,stone)
-  window(root,Vector3(dormer.x,11.13,4.84),0,.65,1.0,false)
-  Carvings.add(root,"office_mask",Vector3(side*9.10,7.65,4.84),Vector2(.85,1.86))
-  var pennant=Vector3(side*4.33,6.86,4.76)
-  boxes.add(pennant,Vector3(.65,2.23,.08),orange)
-  boxes.add(pennant+Vector3(0,1.12,.065),Vector3(.87,.10,.16),copper)
- portal(root,boxes,Vector3(0,.54,4.71),3.18,4.87,trim)
+  if side<0:
+   Carvings.add(root,"office_mask",corners[0]+Vector3(.25,7.65,.12),Vector2(.85,1.86))
+  else:
+   var front_edge:Vector3=corners[1]-corners[0]
+   var front_normal=Vector3(-front_edge.z,0,front_edge.x).normalized()
+   Carvings.add(root,"office_mask",office_wall_point(corners[0],corners[1],Vector2(210,280.5))+front_normal*.03,Vector2(front_edge.length()*20.0/184.5,38.0/vertical),atan2(front_normal.x,front_normal.z))
+  var pennant=Vector3(-4.33 if side<0 else 2.36,8.55,4.76)+depth_shift
+  boxes.add(pennant,Vector3(.07,2.50,.65),orange)
+  boxes.add(pennant+Vector3.UP*1.25,Vector3(.16,.10,.87),copper)
+  for facing in [-1,1]:
+   Details.add(root,"office_pennant",pennant+Vector3.RIGHT*facing*.04,Vector2(.65,2.50),facing*PI*.5)
+ # Only the six lower windows visible in the native drawing are established.
+ for face in [[0,1,"office_lower_front",[[151,380.5,8,34],[177,400,8,35]]],
+              [1,2,"office_lower_side",[[243.5,395.5,7,34],[270.5,374,7,33],[295.5,355,7,33],[320.5,336.5,7,34]]]]:
+  var a:Vector3=corners[face[0]];var b:Vector3=corners[face[1]]
+  var edge=b-a
+  var normal=Vector3(-edge.z,0,edge.x).normalized()
+  var projected_width=absf(Proportions.project(OFFICE_FRAME*b).x-Proportions.project(OFFICE_FRAME*a).x)
+  var vertical=Proportions.VERTICAL*OFFICE_FRAME.basis.y.y
+  var yaw=atan2(normal.x,normal.z)
+  for slit in face[3]:
+   var center=office_wall_point(a,b,Vector2(slit[0],slit[1]))
+   var size_=Vector2(edge.length()*slit[2]/projected_width,slit[3]/vertical)
+   var backing=Geo.box(root,center+normal*.025,Vector3(size_.x,size_.y,.05),walnut)
+   backing.rotation.y=yaw
+   Details.add(root,face[2],center+normal*.052,size_,yaw)
+ portal(root,boxes,Vector3(0,.54,4.71)+ground_shift,3.18,5.70,trim)
  for row in [[.23,.46,3.26,1.16],[.46,.24,2.96,.99],[5.34,.42,3.47,1.18],[5.61,.19,3.24,1.14]]:
-  var arc=Geo.cylinder(root,Vector3(0,row[0],4.11),1.0,row[1],plinth)
+  var arc=Geo.cylinder(root,Vector3(0,row[0]+(.83 if row[0]>5 else 0),4.11)+ground_shift,1.0,row[1],plinth)
   arc.mesh.radial_segments=36
   arc.scale=Vector3(row[2],1,row[3]*2.72)
  for x in [-2.43,2.43]:
-  var p=Vector3(x,0,6.13)
-  Geo.cylinder(root,p+Vector3.UP*2.83,.23,5.02,walnut,false,.18)
-  for h in [.47,.79,4.99,5.12]:Geo.cylinder(root,p+Vector3.UP*h,.32,.15,copper)
- roof(root,Vector3(0,6.08,4.46),4.25,1.77,1.77,slate,trim,0.0,[],stone)
- boxes.add(Vector3(0,6.74,5.39),Vector3(2.59,.89,.13),walnut)
- for side in [-1,1]:
-  Geo.beam(root,Vector3(side*.88,6.51,5.47),Vector3(side*.33,6.95,5.47),.073,copper)
- boxes.add(Vector3(0,6.57,5.48),Vector3(.67,.10,.064),copper)
+  var p=Vector3(x,0,6.13)+ground_shift
+  Geo.cylinder(root,p+Vector3.UP*3.245,.23,5.85,walnut,false,.18)
+  for h in [.47,.79,4.99,5.12]:Geo.cylinder(root,p+Vector3.UP*(h+(.83 if h>4 else 0)),.32,.15,copper)
+ roof(root,Vector3(-.705,9.855,5.515)+depth_shift,5.425,1.77,2.60,slate,copper,0.0,Shapes.BARREL,slate)
+ boxes.add(Vector3(-.545,9.087,6.40)+depth_shift,Vector3(5.426,1.665,.13),walnut)
+ Details.add(root,"office_porch_face",Vector3(-.545,9.087,6.471)+depth_shift,Vector2(5.426,1.665))
 
 static func guild(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,base:Material,slate:Material,ridge:Material,copper:Material):
  var walnut=Fort.material(Color("6f4c33"),false)
@@ -147,7 +248,7 @@ static func guild(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,b
  boxes.add(Vector3(0,.37,-.15),Vector3(17.9,.74,14.35),base)
  boxes.add(Vector3(0,5.28,-1.01),Vector3(16.9,10.56,11.90),stone)
  boxes.add(Vector3(0,8.92,-.93),Vector3(17.39,.49,12.19),trim)
- roof(root,Vector3(0,9.85,-1.14),11.93,12.2,5.65,slate,ridge,0.0,[],stone)
+ roof(root,Vector3(0,9.85,-1.14),11.93,12.2,5.65,slate,ridge,0.0,Shapes.BARREL,stone)
  portal(root,boxes,Vector3(entrance,.72,4.96),3.72,6.12,pale)
  for i in 8:
   boxes.add(Vector3(entrance+(i-3.5)*.435,2.77,5.175),Vector3(.404,3.42,.032),door_red)
@@ -204,16 +305,16 @@ static func inn(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,bas
  var dark=Fort.material(Color("4c382d"),false)
  var brass=Fort.material(Color("d0a564"),false)
  var scarlet=Fort.material(Color("a7442f"),false)
- var doorway=-1.5
+ var doorway=.5
  boxes.add(Vector3(0,.42,0),Vector3(17.8,.84,14.5),base)
  boxes.add(Vector3(0,4.23,0),Vector3(15.94,8.46,13.47),stone)
  boxes.add(Vector3(0,1.37,0),Vector3(16.12,1.16,13.66),timber)
- roof(root,Vector3(0,8.03,-.27),14.10,17.2,6.15,inn_slate,trim,PI*.5,Shapes.INN_ROOF,stone)
+ roof(root,Vector3(0,8.03,-.27),14.10,17.2,6.15,inn_slate,trim,PI*.5,Shapes.INN_ROOF,stone,2.8)
  roof(root,Vector3(doorway,6.70,4.5),5.12,6.39,3.25,inn_slate,timber,0.0,[],stone)
  portal(root,boxes,Vector3(doorway,0,6.84),2.97,4.87,timber)
  for side in [-1,1]:
   var x=side*6.70
-  var tower=Vector3(x,0,5.05)
+  var tower=Vector3(x,0,6.65)
   for band in [[.36,.72,2.25,base],[3.05,5.50,2.16,pale],[5.80,.50,2.35,trim]]:
    Geo.cylinder(root,tower+Vector3.UP*band[0],band[2],band[1],band[3]).mesh.radial_segments=24
   for merlon in 8:
@@ -226,20 +327,46 @@ static func inn(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,bas
   boxes.add(flag+Vector3(0,0,.56),Vector3(.42,2.86,.09),scarlet)
   boxes.add(flag+Vector3(side*.12,0,.62),Vector3(.08,2.89,.036),brass)
   Geo.sphere(root,flag+Vector3(0,1.36,.75),Vector3.ONE*.21,brass)
-  var chimney=Vector3(side*5.05,11.32,-1.18)
-  boxes.add(chimney,Vector3(1.75,6.1,1.64),stone)
-  boxes.add(chimney+Vector3.UP*3.13,Vector3(2.18,.35,2.05),trim)
-  roof(root,chimney+Vector3.UP*3.20,2.20,2.23,.91,inn_slate,timber,PI*.5,[],stone)
   for z in [-4.06,1.1]:
    window(root,Vector3(side*7.99,3.11,z),side*PI*.5,1.48,2.88,false)
- roof(root,Vector3(7.35,6.48,-1.92),4.81,3.40,2.25,inn_slate,timber,PI*.5,[],stone)
- for z in [-4.03,.2]:
-  boxes.add(Vector3(8.04,3.03,z),Vector3(.40,6.06,.42),timber)
- var sign=Vector3(doorway,11.09,7.16)
- boxes.add(sign,Vector3(4.79,2.80,.23),dark)
- boxes.add(sign+Vector3.UP*1.40,Vector3(4.97,.14,.33),brass)
- boxes.add(sign-Vector3.UP*1.40,Vector3(4.97,.14,.33),brass)
- Details.add(root,"inn_sign",sign+Vector3(0,0,.15),Vector2(4.53,2.65))
+ # The source side frontage rises into a second broad gable with its red arched plaque.
+ var side_z=INN_SIDE_SIGN.origin.z
+ boxes.add(Vector3(8.45,4.25,side_z),Vector3(1.10,8.5,4.7),stone)
+ roof(root,Vector3(7.35,9.0,side_z),5.70,3.40,3.60,inn_slate,timber,PI*.5,Shapes.INN_ROOF,stone)
+ for z in [side_z-2.11,side_z+2.12]:
+  boxes.add(Vector3(9.02,4.5,z),Vector3(.40,9.0,.42),timber)
+  for y in [.30,.90,6.8,8.8]:Geo.cylinder(root,Vector3(9.02,y,z),.29,.16,brass)
+ for z in [side_z-.88,side_z+.88]:window(root,Vector3(9.04,2.6,z),PI*.5,1.6,3.6,false)
+ source_sign(root,"inn_side_sign",INN_SIDE_SIGN,PackedVector2Array([Vector2(-.47,-.42),Vector2(-.47,.22),Vector2(-.34,.34),Vector2(-.15,.415),Vector2(.15,.415),Vector2(.34,.34),Vector2(.47,.22),Vector2(.47,-.42)]),timber)
+ # Reachable unseen faces keep the confirmed glazing and timber rhythm, with no extra door.
+ window(root,Vector3(-8.65,10.0,-.27),-PI*.5,1.4,2.6,false)
+ for x in [-3.7,3.7]:window(root,Vector3(x,2.3,-6.80),PI,1.4,3.8,false)
+ source_sign(root,"inn_sign",INN_FRONT_SIGN,PackedVector2Array([Vector2(-.5,-.5),Vector2(-.5,.5),Vector2(.5,.5),Vector2(.5,-.5)]),dark)
+ for side in [-.42,.42]:
+  var top=INN_FRONT_SIGN*Vector3(side,-.5,0)
+  Geo.beam(root,Vector3(top.x,9.78,top.z),top,.065,timber)
+ roof_caps(root,Vector3(0,8.03,-.27),14.10,6.15,Shapes.INN_ROOF,[-5.05,5.05],PI*.5,inn_slate)
+
+static func source_sign(root:Node3D,feature:String,pose:Transform3D,outline:PackedVector2Array,wood:Material):
+ var backing=Geo.mesh(root,Shapes.extrude(outline,.12),pose.origin-pose.basis.z*.08,wood)
+ backing.basis=pose.basis
+ var face=Details.add(root,feature,pose.origin,Vector2.ONE)
+ face.basis=pose.basis
+
+static func roof_caps(root:Node3D,p:Vector3,width:float,height:float,profile:Array,stations:Array,yaw:float,slate:Material):
+ var parts=preload("res://scripts/forest/forest_falan_houses.gd")
+ var cross=[]
+ for side in [-1,1]:
+  var points=profile if side<0 else profile.duplicate()
+  if side>0:points.reverse()
+  for value:Vector2 in points:
+   var next=Vector2(side*value.x*width*.5,value.y*height)
+   if cross.is_empty() or next.distance_squared_to(cross[-1])>.00001:cross.append(next)
+ var skin=parts.SourceMesh.new([],parts.Atlas,.045);skin.tiles=parts.Data.TILES
+ for at in stations:parts.source_10003_beam(skin,at,cross,"blue_roof",true)
+ var mesh:Mesh=parts.surface_mesh(skin.finish())
+ mesh.surface_set_material(1,slate)
+ var node=Geo.mesh(root,mesh,p,null);node.rotation.y=yaw;node.set_meta("falan_original_roof_caps",true)
 
 static func bank(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,base:Material,slate:Material,ridge:Material,copper:Material):
  var dark=Fort.material(Color("374852"),false)
@@ -287,7 +414,9 @@ static func bank(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,ba
    boxes.add(Vector3(x,3.24,8.20),Vector3(.42,2.78,.10),copper)
   window(root,Vector3(x,height-3.69,8.17),0,1.56,3.27,false)
   roof(root,Vector3(x,height-.12,7.0),5.13,2.8,2.42,slate,slate,0,Shapes.BARREL,stone)
-  roof(root,Vector3(x,14.4,-4.6),3.35,3.7,1.65,slate,slate,0,Shapes.BARREL,stone)
+  roof(root,Vector3(x,17.25,-4.6),3.35,3.7,1.65,slate,slate,0,Shapes.BARREL,stone)
+  Carvings.add(root,"bank_frieze",Vector3(x,height-.10,8.49),Vector2(3.9,.70))
+ roof_caps(root,Vector3(0,12,0),15.3,6.6,Shapes.BARREL,[-7.2,-1.5,4.2],PI*.5,slate)
  for side in [-1,1]:
   var edge=side*10.24
   Shapes.bank_end(root,edge,pale,trim,dark)
@@ -310,32 +439,81 @@ static func bank(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,ba
 
 static func cathedral(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,base:Material,slate:Material,ridge:Material,copper:Material):
  boxes.add(Vector3(0,.39,0),Vector3(25.7,.78,34.3),base)
- boxes.add(Vector3(0,8.2,-.50),Vector3(16.4,16.4,33.3),stone)
- roof(root,Vector3(0,16.05,-.48),17.1,33.4,6.7,slate,trim,0.0,[],stone)
+ boxes.add(Vector3(0,9.0,-.50),Vector3(12.8,18.0,33.3),stone)
+ roof(root,Vector3(0,17.8,-.48),13.4,33.4,8.6,slate,trim,0.0,[],stone)
+ var arches=SurfaceTool.new();arches.begin(Mesh.PRIMITIVE_TRIANGLES)
+ Shapes.Parts.prepare_primitives()
  for side in [-1,1]:
   boxes.add(Vector3(side*9.57,5.85,-.25),Vector3(5.56,11.7,30.9),pale)
   boxes.add(Vector3(side*9.58,11.69,-.25),Vector3(5.94,.36,31.1),trim)
+  var aisle=SurfaceTool.new();aisle.begin(Mesh.PRIMITIVE_TRIANGLES)
+  for step in 6:
+   var t=float(step)/6;var u=float(step+1)/6
+   var a=Vector3(side*lerpf(6.40,12.56,t),lerpf(18.0,11.98,pow(t,.88)),-15.55)
+   var b=Vector3(side*lerpf(6.40,12.56,u),lerpf(18.0,11.98,pow(u,.88)),-15.55)
+   var span=Vector3.BACK*30.6
+   if side>0:quad(aisle,a,b,b+span,a+span)
+   else:quad(aisle,a,a+span,b+span,b)
+  aisle.generate_normals();Geo.mesh(root,aisle.commit(),Vector3.ZERO,slate)
   for z in [-10.6,-5.3,0.0,5.3,10.6]:
    window(root,Vector3(side*12.37,1.61,z),side*PI*.5,2.60,8.35,true)
    window(root,Vector3(side*8.23,12.34,z),side*PI*.5,1.51,3.80,true)
    var pier=Vector3(side*12.05,0,z-2.56)
-   boxes.add(pier+Vector3.UP*4.97,Vector3(1.77,9.94,1.32),pale)
+   boxes.add(pier+Vector3.UP*6.70,Vector3(1.77,13.40,1.32),pale)
    boxes.add(pier+Vector3.UP*.67,Vector3(1.96,1.34,1.58),base)
-   boxes.add(pier+Vector3.UP*10.04,Vector3(2.04,.45,1.58),trim)
-   Geo.beam(root,pier+Vector3.UP*10.11,Vector3(side*8.0,14.7,pier.z),.39,pale)
+   boxes.add(pier+Vector3.UP*13.50,Vector3(2.04,.45,1.58),trim)
+   var previous=pier+Vector3.UP*13.9
+   for step in range(1,9):
+    var t=step*PI/16
+    var next=Vector3(side*(12.05-5.9*(1.0-cos(t))),13.9+7.9*sin(t),pier.z)
+    Shapes.Parts.rod(arches,previous,next,.34);previous=next
+   roof(root,Vector3(side*12.0,11.83,z),4.9,1.13,3.6,slate,trim,side*PI*.5,[],pale)
+   window(root,Vector3(side*12.61,11.95,z),side*PI*.5,1.86,3.1,true,"cathedral_window")
   for z in [-13.95,13.95]:
    var tower=Vector3(side*10.43,0,z)
-   spire(root,tower,2.53,16.6 if z>0 else 17.3,stone,trim,slate,ridge,copper)
-   window(root,tower+Vector3(0,4.5,2.35 if z>0 else -2.35),0 if z>0 else PI,1.38,6.64,true)
-   window(root,tower+Vector3(side*2.36,4.5,0),side*PI*.5,1.38,6.64,true)
-  spire(root,Vector3(side*4.9,0,14.56),1.38,19.8,pale,trim,slate,ridge,copper)
-  spire(root,Vector3(side*3.72,19.8,-5.8),.82,8.7,stone,trim,slate,ridge,copper)
+   cathedral_belfry(root,tower,2.53,26.0 if z>0 else 27.2,stone,pale,trim,slate,ridge,copper)
+  spire(root,Vector3(side*5.2,0,14.56),1.38,31.0,pale,trim,slate,ridge,copper)
+  spire(root,Vector3(side*5.2,0,-14.0),1.30,32.6,pale,trim,slate,ridge,copper)
+  for z in [-9.2,-3.7,1.8,7.3]:
+   boxes.add(Vector3(side*6.5,18.8,z),Vector3(.35,4.8,.48),trim)
+   Geo.spike(root,Vector3(side*6.5,21.1,z),Vector3(side*6.5,22.7,z),.23,slate)
  boxes.add(Vector3(0,9.8,15.28),Vector3(7.4,19.6,3.94),pale)
  window(root,Vector3(0,8.65,17.29),0,4.38,8.90,true)
  portal(root,boxes,Vector3(0,0,17.32),3.68,6.88,trim)
- spire(root,Vector3(0,20.0,-5.7),3.43,11.8,stone,trim,slate,ridge,copper)
- for side in [-1,1]:
-  window(root,Vector3(side*3.13,24.4,-5.7),side*PI*.5,1.50,4.78,true)
+ # The archive shows one view; the reachable rear continues the nave's glazing and stone rhythm.
+ window(root,Vector3(0,6.2,-17.34),PI,3.4,8.6,true,"cathedral_window")
+ for side in [-1,1]:window(root,Vector3(side*4.6,2.0,-17.34),PI,1.55,7.5,true,"cathedral_window")
+ boxes.add(Vector3(0,11.7,-17.30),Vector3(12.8,.30,.30),trim)
+ boxes.add(Vector3(0,1.18,-17.30),Vector3(12.8,.30,.30),trim)
+ cathedral_belfry(root,Vector3(0,17.0,-5.7),3.43,21.0,stone,pale,trim,slate,ridge,copper)
+ for x in [-4.5,4.5]:
+  for z in [-8.0,7.0]:cathedral_belfry(root,Vector3(x,13.0,z),1.22,19.5,stone,pale,trim,slate,ridge,copper)
+ Geo.mesh(root,arches.commit(),Vector3.ZERO,pale).set_meta("falan_cathedral_flying_buttresses",true)
+
+static func cathedral_belfry(root:Node3D,p:Vector3,radius:float,height:float,stone:Material,pale:Material,trim:Material,slate:Material,ridge:Material,copper:Material):
+ var shaft=Geo.cylinder(root,p+Vector3.UP*height*.5,radius,height,stone,false,radius*.93)
+ shaft.mesh.radial_segments=8
+ for level in [.025,.08,.46,.51,.76,.96]:
+  Geo.cylinder(root,p+Vector3.UP*height*level,radius*1.04,.30,trim).mesh.radial_segments=8
+ for side in 4:
+  var yaw=side*PI*.5;var radial=Vector3(sin(yaw),0,cos(yaw))
+  window(root,p+radial*radius*.97+Vector3.UP*height*.15,yaw,radius*.62,height*.31,true,"cathedral_window")
+  window(root,p+radial*radius*.95+Vector3.UP*height*.57,yaw,radius*.55,height*.25,false,"cathedral_bell")
+  var flank=Vector3(radial.z,0,-radial.x)
+  for sign_ in [-1,1]:
+   var at=p+radial*radius*.95+flank*sign_*radius*.47
+   Geo.cylinder(root,at+Vector3.UP*height*.56,radius*.075,height*.72,pale,false,radius*.056).mesh.radial_segments=8
+ var previous=radius*1.12;var y=height
+ for section in [[.98,.36],[.90,.45],[.67,.53],[.32,.38],[.14,.19]]:
+  var rise:float=radius*section[1]
+  Geo.cylinder(root,p+Vector3.UP*(y+rise*.5),previous,rise,slate,false,radius*section[0]).mesh.radial_segments=8
+  previous=radius*section[0];y+=rise
+ for side in 4:
+  var yaw=side*PI*.5;var radial=Vector3(sin(yaw),0,cos(yaw))
+  window(root,p+radial*radius*.99+Vector3.UP*(height+.12),yaw,radius*.69,radius*.92,false,"cathedral_bell")
+  roof(root,p+radial*radius*.80+Vector3.UP*(height+radius*.95),radius*.84,radius*.86,radius*.36,slate,ridge,yaw)
+ Geo.sphere(root,p+Vector3.UP*(y+.15),Vector3.ONE*.34,trim)
+ Geo.spike(root,p+Vector3.UP*(y+.22),p+Vector3.UP*(y+1.65),.095,copper)
 
 static func hospital(root:Node3D,boxes,stone:Material,pale:Material,trim:Material,base:Material,slate:Material,ridge:Material,copper:Material):
  boxes.add(Vector3(0,.46,-.2),Vector3(13.45,.92,21.4),base)
@@ -349,6 +527,9 @@ static func hospital(root:Node3D,boxes,stone:Material,pale:Material,trim:Materia
   Geo.cylinder(root,buttress+Vector3.UP*7.67,1.0,2.10,trim,false,.26)
   boxes.add(Vector3(side*3.33,2.6,8.35),Vector3(2.43,5.2,4.29),pale)
   boxes.add(Vector3(side*3.33,5.11,8.35),Vector3(2.68,.47,4.49),trim)
+ # The rear is visible from the street; continue the source lancets instead of a blank slab.
+ for x in [-3.0,3.0]:window(root,Vector3(x,2.3,-10.40),PI,1.35,4.9,false)
+ window(root,Vector3(0,9.5,-11.30),PI,1.3,2.5,false)
  boxes.add(Vector3(0,7.68,7.39),Vector3(6.62,15.36,6.58),pale)
  for height in [5.56,11.47,15.1]:
   boxes.add(Vector3(0,height,7.39),Vector3(6.89,.29,6.85),trim)
@@ -380,7 +561,7 @@ static func spire(root:Node3D,p:Vector3,radius:float,height:float,stone:Material
  var bottom=radius
  var y=height
  for step in [[.94,.53],[.66,.48],[.39,.43],[.06,.45]]:
-  var rise:float=radius*step[1]
+  var rise:float=radius*step[1]*2.5
   var roof_part=Geo.cylinder(root,p+Vector3.UP*(y+rise*.5),bottom,rise,slate,false,radius*step[0])
   roof_part.mesh.radial_segments=8
   var line=Geo.cylinder(root,p+Vector3.UP*y,bottom+.054,.12,ridge)
@@ -390,7 +571,7 @@ static func spire(root:Node3D,p:Vector3,radius:float,height:float,stone:Material
  Geo.sphere(root,p+Vector3.UP*(y+.14),Vector3.ONE*.31,copper)
  Geo.spike(root,p+Vector3.UP*(y+.22),p+Vector3.UP*(y+1.17),.089,copper)
 
-static func roof(root:Node3D,p:Vector3,width:float,length_:float,height:float,slate:Material,trim:Material,yaw:float=0.0,profile:Array=[],gables:Material=null):
+static func roof(root:Node3D,p:Vector3,width:float,length_:float,height:float,slate:Material,trim:Material,yaw:float=0.0,profile:Array=[],gables:Material=null,front_inset:float=0.0):
  var holder=Node3D.new()
  holder.position=p
  holder.rotation.y=yaw
@@ -401,20 +582,29 @@ static func roof(root:Node3D,p:Vector3,width:float,length_:float,height:float,sl
  var end_surface=mesh if gables==null else ends
  var rims=SurfaceTool.new();rims.begin(Mesh.PRIMITIVE_TRIANGLES)
  Shapes.Parts.prepare_primitives()
- var rim_radius=.28 if root.get_meta("original_graphic",0)==10010 else .15
+ var rim_radius=.28 if root.get_meta("original_graphic",0)==10010 else .38 if root.get_meta("original_graphic",0)==10602 and width>10 else .15
  if profile.is_empty():profile=[Vector2(1,0),Vector2(.79,.12),Vector2(.57,.40),Vector2(.30,.72),Vector2(0,1)]
  for side in [-1,1]:
   for i in profile.size()-1:
    var a=Vector3(side*profile[i].x*width*.5,profile[i].y*height,-length_*.5)
    var b=Vector3(side*profile[i+1].x*width*.5,profile[i+1].y*height,-length_*.5)
    var dz=Vector3.BACK*length_
-   if side>0:quad(mesh,a,a+dz,b+dz,b)
-   else:quad(mesh,a,b,b+dz,a+dz)
+   var front_a=a+Vector3.BACK*(length_-front_inset*profile[i].y)
+   var front_b=b+Vector3.BACK*(length_-front_inset*profile[i+1].y)
+   if side>0:quad(mesh,a,front_a,front_b,b)
+   else:quad(mesh,a,b,front_b,front_a)
    Shapes.Parts.rod(rims,a,b,rim_radius)
-   Shapes.Parts.rod(rims,a+dz,b+dz,rim_radius)
+   if front_inset==0:Shapes.Parts.rod(rims,front_a,front_b,rim_radius)
    var toe=Vector3(0,0,a.z)
-   for point in ([a,b,toe,a+dz,toe+dz,b+dz] if side>0 else [a,toe,b,a+dz,b+dz,toe+dz]):
-    end_surface.add_vertex(point)
+   for point in ([a,b,toe] if side>0 else [a,toe,b]):end_surface.add_vertex(point)
+   var front_surface=mesh if front_inset>0 else end_surface
+   for point in ([front_a,toe+dz,front_b] if side>0 else [front_a,front_b,toe+dz]):front_surface.add_vertex(point)
+ if front_inset>0:
+  var corners=[Vector3(-width*.5,0,-length_*.5),Vector3(width*.5,0,-length_*.5),Vector3(width*.5,0,length_*.5),Vector3(-width*.5,0,length_*.5)]
+  for i in 4:
+   var a:Vector3=corners[i];var b:Vector3=corners[(i+1)%4]
+   quad(mesh,b+Vector3.DOWN*.12,b,a,a+Vector3.DOWN*.12)
+  quad(mesh,corners[3]+Vector3.DOWN*.12,corners[2]+Vector3.DOWN*.12,corners[1]+Vector3.DOWN*.12,corners[0]+Vector3.DOWN*.12)
  mesh.generate_normals()
  var result=mesh.commit();result.surface_set_material(0,slate)
  if gables!=null:
@@ -422,7 +612,7 @@ static func roof(root:Node3D,p:Vector3,width:float,length_:float,height:float,sl
  var roof_mesh=Geo.mesh(holder,result,Vector3.ZERO,null)
  roof_mesh.set_meta("falan_roof_profile",profile)
  Geo.mesh(holder,rims.commit(),Vector3.ZERO,trim).set_meta("falan_roof_rim",true)
- Geo.beam(holder,Vector3(0,height,-length_*.5),Vector3(0,height,length_*.5),.22,slate)
+ Geo.beam(holder,Vector3(0,height,-length_*.5),Vector3(0,height,length_*.5-front_inset),.22,slate)
 
 static func lancet()->Mesh:
  if lancet_mesh!=null:return lancet_mesh
@@ -437,7 +627,7 @@ static func lancet()->Mesh:
  lancet_mesh=mesh.commit()
  return lancet_mesh
 
-static func window(root:Node3D,p:Vector3,yaw:float,width:float,height:float,glass:bool):
+static func window(root:Node3D,p:Vector3,yaw:float,width:float,height:float,glass:bool,feature_override:String=""):
  var trim=Fort.material(Color("ded3b8"),false)
  var shadow=Fort.material(Color("293535"),false)
  var face=Node3D.new()
@@ -448,7 +638,7 @@ static func window(root:Node3D,p:Vector3,yaw:float,width:float,height:float,glas
  Geo.mesh(face,lancet(),Vector3.ZERO,trim).scale=Vector3(width+.42,height+.20,1)
  Geo.mesh(face,lancet(),Vector3(0,.11,.041),shadow).scale=Vector3(width,height-.05,1)
  if root.has_meta("falan_window_feature"):
-  var feature:String=root.get_meta("falan_window_feature")
+  var feature:String=root.get_meta("falan_window_feature") if feature_override.is_empty() else feature_override
   var pane=Geo.mesh(face,lancet(),Vector3(0,.15,.062),Details.material(feature))
   pane.scale=Vector3(width*.92,height-.22,1)
   pane.set_meta("falan_source_feature",feature)
@@ -472,7 +662,8 @@ static func window(root:Node3D,p:Vector3,yaw:float,width:float,height:float,glas
 static func portal(root:Node3D,boxes,p:Vector3,width:float,height:float,trim:Material):
  var wood=Fort.material(Color("67462f"),false)
  var gap=Fort.material(Color("34352f"),false)
- Geo.mesh(root,lancet(),p,trim).scale=Vector3(width+.85,height+.27,1)
+ var opening=Geo.mesh(root,lancet(),p,trim)
+ opening.scale=Vector3(width+.85,height+.27,1);opening.set_meta("falan_portal_origin",true)
  Geo.mesh(root,lancet(),p+Vector3(0,.08,.095),gap).scale=Vector3(width,height,1)
  for i in 8:
   var x=(i-3.5)*width*.117

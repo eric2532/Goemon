@@ -28,18 +28,23 @@ func enabled()->bool:
 	var hero=hero_owner.get_ref() if hero_owner!=null else null
 	return not is_instance_valid(hero) or hero.character_id!=1
 
-func make_ticket(action: String)->Dictionary:
+func make_ticket(action: String,base_only:bool=false)->Dictionary:
 	var hero=hero_owner.get_ref() if hero_owner!=null else null
-	var chance: float=hero.combat_tuning("critical_chance") if is_instance_valid(hero) else 0.0
-	var ticket={"allied":is_instance_valid(hero) and hero.ai_controlled,"source_hero":hero_owner,"action":action,"chain_enabled":enabled(),"generation":generation,"sequence":-1,"combo":enabled() and count>0,"bonus":false,"damage_multiplier":damage_multiplier(),"critical_chance":chance}
-	if is_instance_valid(hero):ticket.impact_scale=hero.hit_effect_scale()
+	var chance: float=hero.combat_tuning("critical_chance") if is_instance_valid(hero) and not base_only else 0.0
+	var ticket={"allied":is_instance_valid(hero) and hero.ai_controlled,"source_hero":hero_owner,"action":action,"chain_enabled":enabled(),"generation":generation,"sequence":-1,"combo":enabled() and count>0,"bonus":false,"damage_multiplier":1.0 if base_only else damage_multiplier(),"critical_chance":chance}
+	if is_instance_valid(hero):
+		ticket.impact_scale=hero.hit_effect_scale()
+		ticket.accuracy=hero.combat_tuning("accuracy")
+	if base_only:
+		ticket.base_damage_only=true
+		return ticket
 	if is_instance_valid(hero) and hero.spell_loadout!=null:hero.spell_loadout.decorate_ticket(ticket,action)
 	if is_instance_valid(hero):SkillBalance.decorate(hero,ticket,action)
 	return ticket
 
-func begin(action: String,move_key: String="")->Dictionary:
+func begin(action: String,move_key: String="",base_only:bool=false)->Dictionary:
 	previous=last_hit_action;current=action
-	active_ticket=make_ticket(action)
+	active_ticket=make_ticket(action,base_only)
 	var hero=hero_owner.get_ref() if hero_owner!=null else null
 	if is_instance_valid(hero) and is_instance_valid(hero.game) and hero.game.get("move_audio")!=null:
 		active_ticket["move_audio"]=hero.game.move_audio.begin(hero,action,move_key)
@@ -47,7 +52,7 @@ func begin(action: String,move_key: String="")->Dictionary:
 
 func bonus_ticket(source: Dictionary)->Dictionary:
 	var ticket={"allied":source.get("allied",false),"source_hero":source.get("source_hero"),"action":"red_slash","chain_enabled":source.get("chain_enabled",enabled()),"generation":source.get("generation",-1),"sequence":-1,"combo":false,"bonus":true,"damage_multiplier":source.get("damage_multiplier",1.0),"critical_chance":source.get("critical_chance",0.0)}
-	for key in ["skill_id","skill_size","skill_hit_area","skill_travel_speed","skill_damage","impact_scale"]:
+	for key in ["skill_id","skill_size","skill_hit_area","skill_travel_speed","skill_damage","impact_scale","accuracy"]:
 		if source.has(key):ticket[key]=source[key]
 	return ticket
 

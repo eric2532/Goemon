@@ -74,6 +74,7 @@ func mesh()->ArrayMesh:
    indices[at+3]=i+1;indices[at+4]=i+width+1;indices[at+5]=i+width
  var arrays=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_NORMAL]=normals;arrays[Mesh.ARRAY_INDEX]=indices
  expanded_mesh=ArrayMesh.new();expanded_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+ expanded_mesh.set_meta("source_surface_arrays",arrays)
  if uses_baked_apron():
   var source=load(asset_path("terrain.res",horizontal_scale))
   expanded_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,source.surface_get_arrays(1))
@@ -81,8 +82,23 @@ func mesh()->ArrayMesh:
 func collision()->ConcavePolygonShape3D:
  if uses_baked_geometry():return load(asset_path("collision.res",horizontal_scale))
  if expanded_collision==null:
-  var surface=ArrayMesh.new();surface.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,mesh().surface_get_arrays(0))
-  expanded_collision=surface.create_trimesh_shape()
+  var surface=mesh()
+  var arrays:Array=surface.get_meta("source_surface_arrays",[])
+  if not arrays.is_empty():
+   # Use the existing CPU triangles before a GPU readback can time out.
+   var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
+   var faces=PackedVector3Array();faces.resize(indices.size())
+   # Mesh.create_trimesh_shape also snaps via TriangleMesh at this resolution.
+   for i in indices.size():faces[i]=vertices[indices[i]].snappedf(.0001)
+   expanded_collision=ConcavePolygonShape3D.new();expanded_collision.set_faces(faces)
+   surface.remove_meta("source_surface_arrays")
+  else:
+   if surface.get_surface_count()>1:
+    # The decorative apron must stay outside the playable collision mesh.
+    var terrain_only=ArrayMesh.new()
+    terrain_only.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,surface.surface_get_arrays(0))
+    surface=terrain_only
+   expanded_collision=surface.create_trimesh_shape()
  return expanded_collision
 static func asset_path(file:String,scale_:float)->String:return "res://assets/maps/wind_meadow/"+("castles_large/" if scale_==3.0 else "castles/" if scale_==2.0 else "")+file
 func coordinate(x:float,z:float)->Vector2:return Vector2(x+240*horizontal_scale*expansion,z+240*horizontal_scale*expansion)/spacing

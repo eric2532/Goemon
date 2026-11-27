@@ -15,33 +15,46 @@ The import step also discovers the native terrain math library in `native/terrai
 The repeat-launch check is `tools/goemon_import_cache.py`. Its disposable snapshot
 lives in `.godot/goemon_import_snapshot.json` and is written only after a successful
 import. Added, edited, renamed or deleted source/import files, import settings,
-class/extension caches and an engine update trigger a refresh. Ignored asset
+class/extension cache content changes and an engine update trigger a refresh.
+Godot's byte-identical rewrites of its class cache are ignored. Ignored asset
 workbenches and `build/Other Files/` do not invalidate it. Delete the snapshot to
 force a refresh; never delete editable assets to speed up startup.
 
 ## Cross Gate browser preview
 
-Use the official Godot 4.6.1 export templates and activate Emscripten 4.0.20
-before building. The browser uses WebGL 2 and runs the existing C++ army
-simulation as threaded WebAssembly.
+From the same source checkout the desktop launcher uses, install the official
+Godot 4.6.1 export templates and activate Emscripten 4.0.20. The browser uses
+WebGL 2 and runs the native C++ army simulation as threaded WebAssembly.
 
 ```sh
-native/terrain_math/build.sh --web
-native/ed_psx_renderer/build.sh --web
-mkdir -p "build/Other Files/Cross Gate Web"
-godot --headless --path . --export-release "Cross Gate Web" "build/Other Files/Cross Gate Web/index.html"
+source "$HOME/.cache/cross-gate-web/emsdk/emsdk_env.sh"
+cross_gate_releases="$PWD/build/Other Files/Cross Gate Web Release"
+mkdir -p "$cross_gate_releases"
+cross_gate_export="$cross_gate_releases/$(date +%Y%m%d-%H%M%S)"
+tools/export_cross_gate_web.sh "$cross_gate_export"
+
 python3 -m venv ~/.cache/cross-gate-web/preview-venv
 ~/.cache/cross-gate-web/preview-venv/bin/python -m pip install "aiohttp>=3.10,<4"
-~/.cache/cross-gate-web/preview-venv/bin/python tools/serve_cross_gate_web.py
+~/.cache/cross-gate-web/preview-venv/bin/python tools/serve_cross_gate_web.py \
+  --export-dir "$cross_gate_export" --port 8062
 ```
 
-Open <http://127.0.0.1:8060/> on this Mac. The browser starts in **Freyja and
-Falan**. Its bundled adventure is a layout-only snapshot of the desktop
-Freyja and Falan test map. The preview includes Kaz, Uru, Bog, Saizo and
-Lancelot, their bundled weapon options, and the hound, mantis, dragon lizard
-and bee companion families. Browser saves are stored per site and browser
-profile. The full pack was 2.36 GiB and failed to fetch in Chrome. The city
-preview still needs about 850 MiB on the first visit.
+If Godot is installed elsewhere, run the export with
+`CROSS_GATE_GODOT=/absolute/path/to/Godot tools/export_cross_gate_web.sh "$cross_gate_export"`.
+The export checks the resource pack. Chrome downloads it in resumable ranges,
+checks each part against the SHA-256 in the export shell, and mounts the parts
+as one seekable pack. Completed parts can survive an interrupted load or reload
+in that profile's browser cache. Chrome fetches any missing or invalid part.
+The server can send the large engine module compressed, with the same decoded bytes.
+Open <http://127.0.0.1:8062/> on this Mac after starting the server. The server's
+default invocation still serves the earlier `build/Other Files/Cross Gate Web`
+path on port 8060. Use `--export-dir` for a versioned export.
+
+Choose **Freyja and Falan** from the browser title. Its bundled document
+contains the adventure layout. The current gameplay code and asset catalogs
+supply its routes, characters and encounters. Arena Slime Waves is desktop
+only. Browser saves are stored per origin and Chrome profile, so a new Quick
+Tunnel hostname has its own saves.
 
 Choose **Host Co-op**, select a fighter and enter the city. Copy the address
 from the browser's address bar. Up to three friends can open that address
@@ -50,10 +63,12 @@ the same area and contribute to one 20-hit practice target near the city
 spawn. Enemy combat, loot and progress elsewhere are managed by each
 player's game. The room closes when everyone leaves.
 
-For a shareable address, run the preview server and have an HTTPS reverse
-proxy forward both the website and the `/room` WebSocket to it. Preserve the
-public Host header. The server supplies these headers and serves the complete
-export directory, including the game pack and all four WebAssembly files.
+For a shareable address, point an HTTPS tunnel at the loopback preview server.
+Forward the website and the `/room` WebSocket with the public Host header.
+The server makes the export files available with these browser isolation
+headers. Keep the existing preview running while testing a new version. The
+new export is a candidate until the parity checks pass and Chrome loads that
+version through the public URL.
 
 ```http
 Cross-Origin-Opener-Policy: same-origin

@@ -15,6 +15,23 @@ const ANNEX_RETURNS={
  1422:[Vector2(-27,3),Vector2(18,-12)],
 }
 static var ring_arch:Mesh
+static var ring_meshes:Dictionary={}
+
+static func ring(root:Node3D,inner:float,outer:float,y:float,height:float,paint:Material):
+ var key=Vector3(inner,outer,height)
+ if not ring_meshes.has(key):
+  var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+  for i in 56:
+   var a=i*TAU/56;var b=(i+1)*TAU/56
+   var ia=Vector3(cos(a)*inner,0,sin(a)*inner);var ib=Vector3(cos(b)*inner,0,sin(b)*inner)
+   var oa=Vector3(cos(a)*outer,0,sin(a)*outer);var ob=Vector3(cos(b)*outer,0,sin(b)*outer)
+   var up=Vector3.UP*height
+   for face in [[oa,oa+up,ob+up,ob],[ib,ib+up,ia+up,ia],[ia+up,ib+up,ob+up,oa+up],[ia,oa,ob,ib]]:
+    face.reverse()
+    var normal=(face[2]-face[0]).cross(face[1]-face[0]).normalized()
+    for index in [0,1,2,0,2,3]:tool.set_normal(normal);tool.add_vertex(face[index])
+  ring_meshes[key]=tool.commit()
+ return Geo.mesh(root,ring_meshes[key],Vector3.UP*(y-height*.5),paint)
 
 static func surface_height(id:int,x:float,z:float)->float:
  var p=Vector2(x,z)
@@ -38,10 +55,11 @@ static func exterior(root:Node3D,boxes,stone:Material,pale:Material,trim:Materia
  if ring_arch==null:ring_arch=load("res://scripts/forest/forest_freyja_art.gd").arch_mesh(1.50,trim)
  root.scale.x=1.11
  for spec in [[.32,.64,11.91,base],[5.33,.44,11.58,trim],[10.75,.44,11.55,trim],[11.66,.49,11.28,pale]]:
-  var band=Geo.cylinder(root,Vector3.UP*spec[0],spec[2],spec[1],spec[3])
-  band.mesh.radial_segments=56
- Geo.cylinder(root,Vector3.UP*5.61,9.44,10.82,iron).mesh.radial_segments=32
- Geo.cylinder(root,Vector3.UP*10.51,10.86,.28,stone).mesh.radial_segments=56
+  ring(root,9.15,spec[2],spec[0],spec[1],spec[3])
+ ring(root,9.10,9.44,5.61,10.82,stone)
+ ring(root,9.15,10.86,10.51,.28,stone)
+ Geo.cylinder(root,Vector3.UP*.8,6.4,.24,stone).mesh.radial_segments=56
+ for tier in 4:ring(root,6.3+tier*.7,7.05+tier*.7,1.12+tier*.53,.54,pale if tier%2==0 else stone)
  for bay in 14:
   var yaw=bay*TAU/14-PI*.5
   var axis=Basis(Vector3.UP,yaw)

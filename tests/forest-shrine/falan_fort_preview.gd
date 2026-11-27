@@ -89,6 +89,16 @@ func run():
  for serial in ([10640,10643] if wall_review else [10655,10656] if hood_review else Parts.Data.PARTS.keys()):
   camera.size=900/(sqrt(2.0)*Fit.HORIZONTAL)
   var mesh=Parts.prepare(serial);var reference:Rect2=Parts.Data.PARTS[serial][1]
+  if Parts.stone_paint.get_shader_parameter("archive_triplanar")!=true or Parts.stone_paint.get_shader_parameter("uv_scale").distance_to(Vector2(1/Parts.Data.MASONRY_SPAN.x,-1/Parts.Data.MASONRY_SPAN.y))>.00001:failures+=1;printerr("FORT_MASONRY_WORLD_SCALE_FAIL ",serial)
+  if Parts.stone_paint.get_shader_parameter("use_brush_finish")!=false or Parts.base_paint.get_shader_parameter("use_brush_finish")!=false or Parts.Paint.material(Parts.Masonry).get_shader_parameter("use_brush_finish")!=true:failures+=1;printerr("FORT_MASONRY_BRUSH_ISOLATION_FAIL ",serial)
+  if Parts.stone_paint.get_shader_parameter("architecture_facade")!=true:failures+=1;printerr("FORT_STONE_COURSE_MATERIAL_FAIL ",serial)
+  if serial in range(10642,10646):
+   var has_green_base=false
+   for surface in mesh.get_surface_count():
+    if mesh.surface_get_material(surface).get_shader_parameter("base_texture")!=Parts.BasePaint:continue
+    var base_mesh=ArrayMesh.new();base_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,mesh.surface_get_arrays(surface));var base_bounds=base_mesh.get_aabb();has_green_base=true
+    if absf(base_bounds.position.y)>.0001 or base_bounds.end.y>mesh.get_aabb().end.y*.5:failures+=1;printerr("FORT_PIER_BASE_REGION_FAIL ",serial)
+   if not has_green_base:failures+=1;printerr("FORT_PIER_BASE_PAINT_FAIL ",serial)
   var data=mesh.surface_get_arrays(0)
   if data[Mesh.ARRAY_COLOR]==null or data[Mesh.ARRAY_COLOR].size()!=data[Mesh.ARRAY_VERTEX].size():failures+=1;printerr("FORT_REVERSE_PAINT_FAIL ",serial)
   for part in mesh.get_surface_count():
@@ -175,10 +185,23 @@ func run():
    var square=Parts.Data.WINDOWS.has(serial);var family="square" if square else "round"
    var lower=Parts.lower_details(serial,mesh.get_meta("falan_source_frame"));var solid=ArrayMesh.new();solid.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,lower.surface_get_arrays(0))
    if lower.get_meta("falan_arrow_panes")!=(12 if square else 14) or boundary_edges(solid)!=0 or volume(solid)<=.1:failures+=1;printerr("FORT_ARROW_SOLID_FAIL ",serial)
-   var faces=lower.surface_get_arrays(1);var vs:PackedVector3Array=faces[Mesh.ARRAY_VERTEX];var ns:PackedVector3Array=faces[Mesh.ARRAY_NORMAL];var uvs:PackedVector2Array=faces[Mesh.ARRAY_TEX_UV];var seen={}
+   var joins:Array=lower.get_meta("falan_course_joins")
+   if joins.size()!=(0 if square else 2):failures+=1;printerr("FORT_COURSE_JOIN_COUNT_FAIL ",serial)
+   for join:Dictionary in joins:
+    var join_tool=SurfaceTool.new();join_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+    for p:Vector3 in join.points:join_tool.add_vertex(p)
+    var join_mesh=join_tool.commit()
+    if boundary_edges(join_mesh)!=0 or volume(join_mesh)<=0:failures+=1;printerr("FORT_COURSE_JOIN_SOLID_FAIL ",serial)
+    for end:Vector3 in join.ends:
+     var low=INF;var high=-INF
+     for p:Vector3 in join.points:
+      if Vector2(p.x-end.x,p.z-end.z).length()<.04:low=minf(low,p.y);high=maxf(high,p.y)
+     if absf(low-(end.y-2.5/Fit.VERTICAL))>.0001 or absf(high-(end.y+1.5/Fit.VERTICAL))>.0001:failures+=1;printerr("FORT_COURSE_JOIN_PROFILE_FAIL ",serial)
+   var faces=lower.surface_get_arrays(1);var vs:PackedVector3Array=faces[Mesh.ARRAY_VERTEX];var ns:PackedVector3Array=faces[Mesh.ARRAY_NORMAL];var uvs:PackedVector2Array=faces[Mesh.ARRAY_TEX_UV];var seen={};var join_vertices=0
    for i in vs.size():
-    if ns[i].x+ns[i].z<=.01 and ns[i].y<.99:continue
     var pixel=uvs[i]*Vector2(Parts.ArrowDetails.get_size());var expected=Vector2.ZERO;var matched=false
+    if not square and Parts.Data.ROUND_COURSE_JOIN.grow(.001).has_point(pixel):join_vertices+=1;continue
+    if ns[i].x+ns[i].z<=.01 and ns[i].y<.99:continue
     for row in Parts.Data.LOWER_SLITS[family]:
      var rect:Rect2=row[0]
      if not rect.grow(.001).has_point(pixel):continue
@@ -196,6 +219,7 @@ func run():
    if seen.size()!=(6 if square else 7):failures+=1;printerr("FORT_ARROW_SOURCE_COUNT_FAIL ",serial)
    for i in range(0,vs.size(),3):
     if not backed_at(mesh,(vs[i]+vs[i+1]+vs[i+2])/3,ns[i]):failures+=1;printerr("FORT_ARROW_SKIN_BACKING_FAIL ",serial," triangle ",i/3);break
+   if (not square and join_vertices==0) or join_vertices%3!=0:failures+=1;printerr("FORT_COURSE_JOIN_PAINT_FAIL ",serial)
   if Parts.Data.WINDOWS.has(serial):
    var courses=Parts.square_courses();var solid=ArrayMesh.new();solid.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,courses.surface_get_arrays(0))
    if boundary_edges(solid)!=0 or volume(solid)<40:failures+=1;printerr("FORT_SQUARE_COURSE_CLOSED_FAIL ",serial)

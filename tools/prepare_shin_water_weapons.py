@@ -300,7 +300,7 @@ def prepare(source,only=None):
                         else:result=blue_theme(body);review[posekey]=None
                     prepared[ident]=result;poses[posekey]=result
                 result=prepared[ident];origin=ORIGIN
-                if action==5:
+                if action==5 and kind!='boomerang':
                     # Align the existing blue Gold Lightning wave to this weapon's actual contact/release.
                     phase=index/max(1,len(c['frames'])-1);contact=release/len(c['frames']);mapped=phase*.44/max(.001,contact) if phase<contact else .44+(phase-contact)*.56/max(.001,1-contact);wave=waves[f'5:{direction}'][min(24,round(mapped*24))]
                     if wave:
@@ -318,6 +318,18 @@ def prepare(source,only=None):
             if int(file.stem.split('-')[-1])>=pages:
                 file.unlink();file.with_suffix('.png.import').unlink(missing_ok=True)
         manifest=dict(key=key,id=900050,source_id=cg.actor(key)[0],weapon=kind,pages=pages,clips=clips,water_dragon=True,body_source=body_key,item_row=row,wave_source='puk2:1108',source_weapons={kind:key})
+        if kind=='boomerang':
+            manifest['wave_on_contact']=True
+            # Keep the recovered wave pixels separate from the caster's throw drawings.
+            cell=296;wave_atlas=Image.new('RGBA',(cell*3,cell*8))
+            for facing in range(8):
+                # These are the three wave samples already shown by this twelve-frame throw.
+                for frame,source_frame in enumerate((13,17,20)):
+                    wave=waves[f'5:{facing}'][source_frame]
+                    assert wave is not None and max(wave[0].size)<cell
+                    image=wave[0]
+                    wave_atlas.alpha_composite(image,(frame*cell+(cell-image.width)//2,facing*cell+(cell-image.height)//2))
+            wave_atlas.save(folder/'contact-wave.png')
         (folder/'motions.json').write_text(json.dumps(manifest,separators=(',',':'))+'\n');report[kind]=review;drawings[kind]=poses
         if thrown:
             sheet=Image.new('RGBA',(96*16,96))
@@ -331,8 +343,10 @@ def prepare(source,only=None):
             else:settings.write_text('[remap]\nimporter="texture"\ntype="CompressedTexture2D"\n[deps]\nsource_file="res://'+str(file.relative_to(ROOT))+'"\n[params]\ncompress/mode=0\nprocess/fix_alpha_border=true\nmipmaps/generate=false\n')
         print(f'{kind}: {len(clips)} clips, {len(unique)} drawings, {pages} pages; {sum(v is None for v in review.values())} occluded/unmeasurable poses',flush=True)
     (OUT/'weapon-fits.json').write_text(json.dumps(report,indent=2)+'\n')
-    routes={k:{'root':'res://'+str((OUT/k).relative_to(ROOT))+'/'}for k in KINDS};sword['prepared_weapons']=routes;(OUT/'motions.json').write_text(json.dumps(sword,separators=(',',':'))+'\n')
-    catalog_path=ART.parent/'weapons/catalog.json';catalog=json.loads(catalog_path.read_text());catalog['37']['900050']={'sword':{'native':0},**routes};catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
+    routes={k:{'root':'res://'+str((OUT/k).relative_to(ROOT))+'/'}for k in KINDS if k!='boomerang'}
+    routes['water-dragon-boomerang']={'root':'res://'+str((OUT/'boomerang').relative_to(ROOT))+'/', 'base_weapon':'boomerang','projectile':'water_dragon_boomerang'}
+    sword['prepared_weapons']=routes;(OUT/'motions.json').write_text(json.dumps(sword,separators=(',',':'))+'\n')
+    catalog_path=ART.parent/'weapons/catalog.json';catalog=json.loads(catalog_path.read_text());catalog['37']['900050'].update(routes);catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
     font=ImageFont.truetype('/System/Library/Fonts/STHeiti Medium.ttc',17)
     for kind,poses in drawings.items():
         for action,label in [(0,'idle'),(1,'walk'),(3,'run'),(5,'attack-counter')]:

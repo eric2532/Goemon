@@ -1,0 +1,19 @@
+{
+  "method": "Existing native surface crops softened into owned village materials; street floor paint filtered with unchanged UV layout",
+  "surface_source_sha256": "0023a5ae2b69ca1bd30d3e59ce02caf2e20f91cc0a7735ae4c4b8bb60092b515",
+  "ground_source_sha256": "7cd222cf483aa61be7354671db03f6e37dc64d0c25a1b829651799f564a70464",
+  "recipes": {
+    "wood": "tina_box_plank",
+    "trim": "tina_fence_wood",
+    "stone": "tina_ruin_stone",
+    "snowroof": "tina_soft_snow",
+    "blue": "blue_roof",
+    "green": "green_roof",
+    "brown": "brown_roof",
+    "door": "tina_round_door",
+    "pub_door": "tina_pub_door",
+    "sign": "tina_pub_sign",
+    "plaster": "plaster",
+    "log": "tina_log_bark"
+  }
+}

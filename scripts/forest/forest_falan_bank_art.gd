@@ -42,7 +42,7 @@ static func details(root:Node3D,boxes,origin:Vector2):
     Geo.mesh(root,lattice(),p,iron).name="FalanBankTellerGrille_%d"%row[0].x
    17533:
     Furniture.bank_bench(root,p)
-    Art.solid(root,p+Vector3.UP*.46,Vector3(2.98,.92,1.46),1,"wood")
+    Art.solid(root,p+Vector3.UP*.46,Vector3(2.98,.92,1.46),1,"wood",true)
    17642:
     p+=Vector3(-1.5,0,-1.43)
     boxes.add(p+Vector3.UP*1.7,Vector3(2.10,3.4,.17),dark)

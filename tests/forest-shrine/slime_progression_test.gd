@@ -5,7 +5,7 @@ func run():
 	var model=Model.new()
 	model.reset(42,{},JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/forest_wind_meadow.json")),false)
 	var waves=model.waves
-	check(waves.countdown_text().contains("29 PER SIDE EVERY 00:30"),"Preparation explains the slower waves")
+	check(waves.countdown_text().contains("ONE ARRIVAL EVERY 00:03"),"Preparation shows the spawn interval")
 	model.start_wave()
 	var totals=[29,58,116,174,261,348,464,580]
 	for index in totals.size():

@@ -14,6 +14,8 @@ const Undersea=preload("res://scripts/forest/crowd/undersea_sprites.gd")
 const Patrols=preload("res://scripts/forest/crowd/falan_frontier_sprites.gd")
 const Cursed=preload("res://scripts/forest/crowd/cursed_maze_sprites.gd")
 const Beast=preload("res://scripts/forest/crowd/beast_maze_sprites.gd")
+const University=preload("res://scripts/forest/crowd/university_region_sprites.gd")
+const East=preload("res://scripts/forest/crowd/east_region_sprites.gd")
 const Sites=preload("res://assets/maps/falan/freyja_destinations_data.gd")
 const STATUS={"frozen":1,"slow":2,"stunned":4,"invulnerable":8,"guard":16,"buff":32,"untargetable":64}
 static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:Node=null)->Dictionary:
@@ -28,10 +30,14 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  var ruby:bool=model.falan_floor==Ruby.ROOM or model.falan_floor in Prayer.FLOORS
  var falken:bool=Falken.Route.owns(model.falan_floor)
  var undersea:bool=Undersea.PATROLS.has(model.falan_floor)
- var frontier:bool=not model.waves.patrol_posts.is_empty()
+ var snow:bool=preload("res://scripts/forest/crowd/snow_region_sprites.gd").owns(model.falan_floor)
+ var university:bool=University.owns(model.falan_floor)
+ var eastern:bool=East.owns_model(model)
+ var elsa:bool=preload("res://scripts/forest/crowd/elsa_region_sprites.gd").owns(model.falan_floor)
+ var frontier:bool=not model.waves.patrol_posts.is_empty() or preload("res://scripts/forest/forest_south_kili_population.gd").encounters_own(model) or eastern
  var cursed:bool=Winter.Decree.floor_number(model.falan_floor)>0
  var beast:bool=Winter.Recovered.Beast.owns(model.falan_floor)
- var use_slimes:bool=bear_cave or habaru_passage or zombie or captain or tina_flowers or grave or ruby or falken or undersea or model.waves.crossgate_pet_test or frontier or cursed or beast
+ var use_slimes:bool=bear_cave or habaru_passage or zombie or captain or tina_flowers or grave or ruby or falken or undersea or model.waves.crossgate_pet_test or frontier or cursed or beast or snow or university or elsa
  if use_slimes:kinds.append(roles.SLIME)
  for kind in kinds:
   var stats:Dictionary=roles.stats(kind) if kind in [roles.GATEKEEPER_HOUND,roles.CAVE_BEAR] else model.waves.role_stats(kind)
@@ -46,6 +52,10 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
   if ruby and kind==roles.SLIME:stats.merge(Ruby.STATS,true)
   if falken and kind==roles.SLIME:stats.merge(Falken.STATS,true)
   if undersea and kind==roles.SLIME:stats.merge(Undersea.STATS,true)
+  if snow and kind==roles.SLIME:stats.merge(preload("res://scripts/forest/crowd/snow_region_sprites.gd").STATS,true)
+  if university and kind==roles.SLIME:stats.merge(University.STATS,true)
+  if eastern and kind==roles.SLIME:stats.merge(East.STATS,true)
+  if elsa and kind==roles.SLIME:stats.merge(preload("res://scripts/forest/crowd/elsa_region_sprites.gd").STATS,true)
   if cursed and kind==roles.SLIME:stats.merge(Cursed.STATS,true)
   if beast and kind==roles.SLIME:stats.merge(Beast.STATS,true)
   for key in ["hp","speed","damage","range","turn_speed","stride"]:profiles.append(stats[key])
@@ -54,6 +64,10 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  var source=preload("res://scripts/forest/forest_thirstquencher_combat.gd")
  var visual=preload("res://scripts/forest/forest_thirstquencher_visual.gd")
  var result={"skullpion":PackedFloat64Array([boss.speed,boss.damage]),"enemy_size":enemy_size,"soldier_kinds":kinds,"soldier_profiles":profiles,"actions":PackedInt32Array(ACTION.values()),"status_bits":PackedInt32Array(STATUS.values()),"phase_ticks":PackedFloat32Array([source._duration("melee_a"),source._duration("combo_prepare"),source._duration("melee_b"),source._duration("fire"),source._duration("reload")]),"contact_ticks":PackedFloat32Array([13,14,15,18]),"melee_from":visual.source_point(source.MELEE_FROM)*enemy_size,"melee_to":visual.source_point(source.MELEE_TO)*enemy_size,"muzzle":visual.source_point(source.MUZZLE)*enemy_size,"bullet_speed":8.64,"bullet_life":100.0/30,"bullet_tail":32*.01*visual.SCALE*enemy_size,"bullet_radius":.576,"damage_taken_multiplier":damage_taken_multiplier}
+ var evasion=PackedFloat64Array();evasion.resize(22);evasion.fill(5.0)
+ for kind in preload("res://scripts/forest/core_balance.gd").profile_types():
+  evasion[kind]=float(preload("res://scripts/forest/enemy_balance.gd").base_stats(model.balance,kind).dodge_chance)
+ result.enemy_evasion=evasion
  result.merge(preload("res://scripts/forest/dark_lumina_3_kit.gd").native())
  result.dark_lumina=preload("res://scripts/forest/dark_lumina_kit.gd").native()
  result.dark_lumina_spin=roles.Dark.native_spin(visual.data(roles.DARK_LUMINA_2))
@@ -70,6 +84,11 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  if model.falan_floor in Winter.SNOW_FLOORS:
   result.snow_patrol_skins=PackedInt32Array(Winter.creature_keys(model.falan_floor).map(func(key):return Pets.skin(key)))
  result.cave_sprites=Habaru if bear_cave or habaru_passage else Zombie if zombie else Captain if captain else Grave if grave else Ruby if ruby else Falken if falken else Undersea if undersea else model.waves.patrol_source if frontier else Cursed if cursed else Beast if beast else null
+ if snow:result.cave_sprites=preload("res://scripts/forest/crowd/snow_region_sprites.gd")
+ if university:result.cave_sprites=University
+ if eastern:result.cave_sprites=East
+ if elsa:result.cave_sprites=preload("res://scripts/forest/crowd/elsa_region_sprites.gd")
+ if model.falan_floor in [11000,11001,11002]:result.cave_sprites=preload("res://scripts/forest/crowd/venoa_route_sprites.gd")
  if tina_flowers:result.cave_sprites=preload("res://scripts/forest/crowd/tina_creatures.gd")
  var dimensions=preload("res://scripts/forest/crowd/pet_dimensions.gd")
  result.enemy_charge=dimensions.exploring(model)
@@ -77,7 +96,7 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  result.pet_geometry=dimensions.geometry(result.cave_sprites,dimensions.exploring(model),roles.MAP_ENEMY_SCALE)
  result.undersea_boss=model.falan_floor==Undersea.SOKIA
  result.slime_approach_boost=model.terrain_detail==model.Arena.ID and model.waves.crossgate_pet_test
- result.slime_guard=use_slimes and (result.cave_sprites in [null,Patrols,preload("res://scripts/forest/crowd/shalena_sprites.gd"),Undersea] or habaru_passage or model.falan_floor==Habaru.ROOM)
+ result.slime_guard=use_slimes and (result.cave_sprites in [null,Patrols,preload("res://scripts/forest/crowd/shalena_sprites.gd"),preload("res://scripts/forest/crowd/snow_region_sprites.gd"),preload("res://scripts/forest/crowd/elsa_region_sprites.gd"),preload("res://scripts/forest/crowd/sokia_region_sprites.gd"),University,East,Undersea] or habaru_passage or model.falan_floor==Habaru.ROOM)
  result.zombie_boss=model.falan_floor==Zombie.FINAL
  result.grave_boss=grave
  result.ruby_boss=model.falan_floor==Ruby.ROOM
@@ -87,7 +106,7 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  if result.cave_sprites!=null:result.slime_attacks=result.cave_sprites.timelines()
  elif use_slimes:result.slime_attacks=PackedFloat32Array(preload("res://scripts/forest/crowd/slime_sprites.gd").motions().timelines)
  if result.has("slime_attacks"):
-  result.slime_attacks=expanded_timelines(result.slime_attacks,int(result.cave_sprites.motions().get("timeline_stride",28)) if tina_flowers else 32 if frontier else 28)
+  result.slime_attacks=expanded_timelines(result.slime_attacks,int(result.cave_sprites.motions().get("timeline_stride",28 if ruby or tina_flowers or undersea else 32 if frontier or snow or university or elsa or model.falan_floor in [11000,11001,11002] else 28)) if result.cave_sprites!=null else 28,dimensions.CAVE_SKINS)
  var pose_meta=PackedInt32Array();var pose_rows=PackedInt32Array();var enemy_kits=PackedFloat32Array();var contact_ends=PackedFloat32Array()
  for kind in kinds:
   if kind in [roles.GATEKEEPER_HOUND,roles.SLIME,roles.CAVE_BEAR]:
@@ -199,7 +218,7 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
   result.ally_profiles[i*5+2]*=model.team_progression.multiplier("character_damage")
   result.ally_profiles[i*5+3]*=model.team_progression.multiplier("character_speed")
  return result
-static func expanded_timelines(source:PackedFloat32Array,stride:int=28)->PackedFloat32Array:
+static func expanded_timelines(source:PackedFloat32Array,stride:int=28,skins:int=0)->PackedFloat32Array:
  var target_stride:int=Pets.motions().timeline_stride
  assert(source.size()%stride==0 and stride<=target_stride)
  var result=PackedFloat32Array()
@@ -207,4 +226,8 @@ static func expanded_timelines(source:PackedFloat32Array,stride:int=28)->PackedF
  padding.resize(target_stride-stride)
  for at in range(0,source.size(),stride):
   result.append_array(source.slice(at,at+stride));result.append_array(padding)
+ if skins>0:
+  assert(result.size()<=skins*8*target_stride and result.size()>=8*target_stride)
+  var first=result.slice(0,8*target_stride)
+  while result.size()<skins*8*target_stride:result.append_array(first)
  return result

@@ -47,7 +47,7 @@ func run():
   var key=InputEventKey.new();key.physical_keycode=KEY_F;key.pressed=true;game._input(key)
   check(is_instance_valid(game.dialogue) and game.paused,"F opens shared paused conversation "+area)
   if is_instance_valid(game.dialogue):
-   check(game.dialogue.speaker==expected.name and game.dialogue.portrait.texture==expected.portrait,"Speaker and original appearance match "+area)
+   check(game.dialogue.speaker==expected.name and game.dialogue.portrait.texture==null,"Speaker name appears without a duplicate NPC model "+area)
    var badge=game.dialogue.canvas.get_children().filter(func(child):return child is Panel and child!=game.dialogue.panel)[0]
    var label=game.dialogue.canvas.get_children().filter(func(child):return child is Label and child.text==expected.name)[0]
    check(badge.get_rect().encloses(label.get_rect()),"Nameplate fits the complete speaker name "+area)

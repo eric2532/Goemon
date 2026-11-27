@@ -1,0 +1,12 @@
+[
+  {
+    "file": "enemyai.txt",
+    "path": "gmsv/data/enemyai.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/enemyai.txt",
+    "git_blob": "d6dc257ff7254222b05247d53aa7899dc9dc6072",
+    "sha256": "8777e483001ad0591770a638ea88d44f66a7e95ce3bcdf6d2b52ce650b6545e8",
+    "bytes": 213195,
+    "authority": "Pinned CGMSV source table; schema/behavior still requires interpretation."
+  }
+]

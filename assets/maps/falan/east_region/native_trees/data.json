@@ -1,0 +1,5742 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10058": {
+      "graphic": 10058,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "700a8a124b31bc8e59b9ff0c0e5637a9c40e34845e858681c162af2094510346",
+      "origin": [
+        -84,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        187,
+        294
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.13368459998882748,
+        0.32454141132923503,
+        0.08688320424740423
+      ],
+      "foliage_tint": [
+        0.5187043344380309,
+        0.5039306461415085,
+        0.6629483863402883
+      ],
+      "bark_tint": [
+        1.1918515828811103,
+        1.215947309699408,
+        1.2248867050387886
+      ],
+      "native_bark_samples": 1010,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10058,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            67.5,
+            277.5,
+            1.0
+          ],
+          [
+            76.5,
+            275.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            267.5,
+            1.0
+          ],
+          [
+            73.5,
+            267.5,
+            2.0
+          ],
+          [
+            78.5,
+            272.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            76.5,
+            285.5,
+            2.0
+          ],
+          [
+            78.5,
+            282.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            77.5,
+            235.5,
+            1.0
+          ],
+          [
+            84.5,
+            240.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            273.5,
+            6.0
+          ],
+          [
+            82.5,
+            274.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            273.5,
+            6.0
+          ],
+          [
+            84.5,
+            240.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            240.5,
+            6.0
+          ],
+          [
+            92.5,
+            239.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            88.5,
+            277.5,
+            7.0
+          ],
+          [
+            89.5,
+            290.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            90.5,
+            277.5,
+            7.0
+          ],
+          [
+            97.5,
+            284.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            276.5,
+            6.0
+          ],
+          [
+            100.5,
+            277.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            100.5,
+            277.5,
+            2.0
+          ],
+          [
+            101.5,
+            278.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            101.5,
+            278.5,
+            2.0
+          ],
+          [
+            104.5,
+            279.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        129.306,
+        103.091,
+        63.607
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 13,
+      "crown_junction": [
+        93.5,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10059": {
+      "graphic": 10059,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "63fbe7d4d991235dcb0f663dd51b8467611a591ed676b1fffb4105456ccbcab2",
+      "origin": [
+        -91,
+        -296
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        200,
+        310
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.13454134473919752,
+        0.2192718040942092,
+        0.19143810078856258
+      ],
+      "foliage_tint": [
+        0.5220285558933153,
+        0.3404735976997194,
+        1.4607377927779266
+      ],
+      "bark_tint": [
+        0.7126005202103619,
+        0.6408985175129569,
+        0.6818371779565027
+      ],
+      "native_bark_samples": 851,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10059,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            78.5,
+            292.5,
+            2.0
+          ],
+          [
+            83.5,
+            292.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            283.5,
+            1.0
+          ],
+          [
+            86.5,
+            288.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            263.5,
+            1.0
+          ],
+          [
+            89.5,
+            269.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            301.5,
+            1.0
+          ],
+          [
+            85.5,
+            297.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            87.5,
+            289.5,
+            6.0
+          ],
+          [
+            90.5,
+            290.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            90.5,
+            250.5,
+            1.0
+          ],
+          [
+            90.5,
+            252.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            90.5,
+            270.5,
+            5.0
+          ],
+          [
+            90.5,
+            274.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            259.5,
+            1.0
+          ],
+          [
+            92.5,
+            267.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            276.5,
+            5.0
+          ],
+          [
+            91.5,
+            281.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            283.5,
+            6.0
+          ],
+          [
+            91.5,
+            289.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            292.5,
+            7.0
+          ],
+          [
+            93.5,
+            293.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            275.5,
+            4.0
+          ],
+          [
+            98.5,
+            275.5,
+            3.0
+          ],
+          [
+            100.5,
+            277.5,
+            1.0
+          ],
+          [
+            100.5,
+            281.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            282.5,
+            5.0
+          ],
+          [
+            99.5,
+            282.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            294.5,
+            5.0
+          ],
+          [
+            95.5,
+            304.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            96.5,
+            293.5,
+            5.0
+          ],
+          [
+            101.5,
+            298.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            99.5,
+            282.5,
+            1.0
+          ],
+          [
+            100.5,
+            281.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            100.5,
+            291.5,
+            3.0
+          ],
+          [
+            110.5,
+            293.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            101.5,
+            298.5,
+            1.0
+          ],
+          [
+            102.5,
+            299.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            261.5,
+            1.0
+          ],
+          [
+            102.5,
+            263.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            299.5,
+            1.0
+          ],
+          [
+            105.5,
+            299.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        122.598,
+        95.207,
+        57.51
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 22,
+      "crown_junction": [
+        100.0,
+        285
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10060": {
+      "graphic": 10060,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "f084efe22098c6a2e71d28560f0e4f5f16fdd17a80cbfabb69d2bfc8474ad91f",
+      "origin": [
+        -81,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        185,
+        294
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.12065545508544855,
+        0.28873740630388617,
+        0.08074604925164641
+      ],
+      "foliage_tint": [
+        0.46815046408969874,
+        0.44833609100298355,
+        0.616119807256438
+      ],
+      "bark_tint": [
+        1.2014889102588606,
+        1.220894711881574,
+        1.248063749628221
+      ],
+      "native_bark_samples": 826,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10060,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            64.5,
+            277.5,
+            1.0
+          ],
+          [
+            73.5,
+            275.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            67.5,
+            267.5,
+            1.0
+          ],
+          [
+            70.5,
+            267.5,
+            2.0
+          ],
+          [
+            75.5,
+            272.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            74.5,
+            254.5,
+            2.0
+          ],
+          [
+            81.5,
+            254.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            74.5,
+            285.5,
+            1.0
+          ],
+          [
+            75.5,
+            282.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            76.5,
+            273.5,
+            6.0
+          ],
+          [
+            81.5,
+            273.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            81.5,
+            238.5,
+            3.0
+          ],
+          [
+            82.5,
+            237.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            81.5,
+            238.5,
+            3.0
+          ],
+          [
+            80.5,
+            245.5,
+            4.0
+          ],
+          [
+            82.5,
+            247.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            237.5,
+            2.0
+          ],
+          [
+            85.5,
+            238.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            258.5,
+            6.0
+          ],
+          [
+            83.5,
+            272.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            248.5,
+            6.0
+          ],
+          [
+            83.5,
+            250.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            257.5,
+            6.0
+          ],
+          [
+            92.5,
+            258.5,
+            1.0
+          ],
+          [
+            93.5,
+            264.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            251.5,
+            5.0
+          ],
+          [
+            91.5,
+            251.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            276.5,
+            7.0
+          ],
+          [
+            86.5,
+            290.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            271.5,
+            8.0
+          ],
+          [
+            87.5,
+            270.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            275.5,
+            8.0
+          ],
+          [
+            94.5,
+            282.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            86.5,
+            290.5,
+            1.0
+          ],
+          [
+            87.5,
+            291.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            89.5,
+            271.5,
+            6.0
+          ],
+          [
+            99.5,
+            278.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            242.5,
+            2.0
+          ],
+          [
+            92.5,
+            237.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            251.5,
+            1.0
+          ],
+          [
+            92.5,
+            252.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            243.5,
+            1.0
+          ],
+          [
+            94.5,
+            243.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            252.5,
+            1.0
+          ],
+          [
+            92.5,
+            254.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        129.474,
+        103.112,
+        64.106
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 24,
+      "crown_junction": [
+        92.5,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10061": {
+      "graphic": 10061,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "b50230dbd5e8e689587ddede2fa160ce9018a8f39ff7d21cfc63aa0cdead2dad",
+      "origin": [
+        -87,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        186,
+        294
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.15184570801171784,
+        0.32103309576966726,
+        0.10416947732317346
+      ],
+      "foliage_tint": [
+        0.5891705321186749,
+        0.49848312029400493,
+        0.7948485267723346
+      ],
+      "bark_tint": [
+        1.5397205351531171,
+        1.6657959414335124,
+        1.7388590954681025
+      ],
+      "native_bark_samples": 910,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10061,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            70.5,
+            277.5,
+            1.0
+          ],
+          [
+            79.5,
+            275.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            267.5,
+            1.0
+          ],
+          [
+            76.5,
+            267.5,
+            2.0
+          ],
+          [
+            81.5,
+            272.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            78.5,
+            236.5,
+            1.0
+          ],
+          [
+            83.5,
+            237.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            286.5,
+            1.0
+          ],
+          [
+            80.5,
+            284.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            273.5,
+            6.0
+          ],
+          [
+            87.5,
+            274.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            237.5,
+            2.0
+          ],
+          [
+            84.5,
+            238.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            238.5,
+            2.0
+          ],
+          [
+            84.5,
+            243.5,
+            2.0
+          ],
+          [
+            88.5,
+            247.5,
+            6.0
+          ],
+          [
+            87.5,
+            254.5,
+            6.0
+          ],
+          [
+            90.5,
+            272.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            273.5,
+            8.0
+          ],
+          [
+            96.5,
+            273.5,
+            5.0
+          ],
+          [
+            103.5,
+            277.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            277.5,
+            6.0
+          ],
+          [
+            92.5,
+            291.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            276.5,
+            7.0
+          ],
+          [
+            99.5,
+            282.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            277.5,
+            1.0
+          ],
+          [
+            104.5,
+            278.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            104.5,
+            278.5,
+            1.0
+          ],
+          [
+            107.5,
+            279.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        126.179,
+        99.427,
+        61.436
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 17,
+      "crown_junction": [
+        93.0,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10062": {
+      "graphic": 10062,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "5076ae875773c03cabcff090aa1cd12fa461fd6a628e48ea64c7fe1a071071e1",
+      "origin": [
+        -92,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        199,
+        294
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.12180939055615421,
+        0.32957406333192263,
+        0.09011961461918218
+      ],
+      "foliage_tint": [
+        0.47262780351672956,
+        0.5117450805618572,
+        0.6876432977686875
+      ],
+      "bark_tint": [
+        1.1050016916009775,
+        1.0888749671790954,
+        1.0243052026572455
+      ],
+      "native_bark_samples": 944,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10062,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            75.5,
+            277.5,
+            1.0
+          ],
+          [
+            85.5,
+            274.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            267.5,
+            1.0
+          ],
+          [
+            86.5,
+            272.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            285.5,
+            2.0
+          ],
+          [
+            86.5,
+            282.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            235.5,
+            1.0
+          ],
+          [
+            93.5,
+            241.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            87.5,
+            273.5,
+            5.0
+          ],
+          [
+            91.5,
+            275.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            276.5,
+            8.0
+          ],
+          [
+            94.5,
+            275.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            242.5,
+            7.0
+          ],
+          [
+            94.5,
+            272.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            275.5,
+            9.0
+          ],
+          [
+            96.5,
+            277.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            95.5,
+            273.5,
+            9.0
+          ],
+          [
+            101.5,
+            273.5,
+            4.0
+          ],
+          [
+            107.5,
+            276.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            96.5,
+            241.5,
+            5.0
+          ],
+          [
+            101.5,
+            241.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            96.5,
+            278.5,
+            6.0
+          ],
+          [
+            97.5,
+            290.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            277.5,
+            7.0
+          ],
+          [
+            104.5,
+            282.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            100.5,
+            235.5,
+            1.0
+          ],
+          [
+            102.5,
+            235.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        131.954,
+        105.341,
+        61.811
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 14,
+      "crown_junction": [
+        99.5,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10063": {
+      "graphic": 10063,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "46df0e791b665428f631c569fd0c89822c59ef3846a5155e2492f8f4afcf7bd5",
+      "origin": [
+        -92,
+        -294
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        191,
+        308
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.10991085253405336,
+        0.2347784828956718,
+        0.10077293605781111
+      ],
+      "foliage_tint": [
+        0.4264607562573203,
+        0.364551543980672,
+        0.7689317621857265
+      ],
+      "bark_tint": [
+        1.0593350523684708,
+        1.0301214697379546,
+        1.0437668222808394
+      ],
+      "native_bark_samples": 645,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10063,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            77.5,
+            291.5,
+            2.0
+          ],
+          [
+            85.5,
+            289.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            282.5,
+            1.0
+          ],
+          [
+            83.5,
+            282.5,
+            1.0
+          ],
+          [
+            87.5,
+            286.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            257.5,
+            1.0
+          ],
+          [
+            85.5,
+            258.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            258.5,
+            2.0
+          ],
+          [
+            86.5,
+            259.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            300.5,
+            1.0
+          ],
+          [
+            86.5,
+            296.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            86.5,
+            259.5,
+            1.0
+          ],
+          [
+            86.5,
+            263.5,
+            1.0
+          ],
+          [
+            88.5,
+            265.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            88.5,
+            265.5,
+            3.0
+          ],
+          [
+            89.5,
+            266.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            88.5,
+            287.5,
+            6.0
+          ],
+          [
+            90.5,
+            287.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            89.5,
+            266.5,
+            3.0
+          ],
+          [
+            92.5,
+            269.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            287.5,
+            6.0
+          ],
+          [
+            92.5,
+            277.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            288.5,
+            7.0
+          ],
+          [
+            91.5,
+            290.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            93.5,
+            270.5,
+            7.0
+          ],
+          [
+            93.5,
+            275.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            93.5,
+            276.5,
+            7.0
+          ],
+          [
+            102.5,
+            282.5,
+            2.0
+          ],
+          [
+            101.5,
+            287.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            292.5,
+            5.0
+          ],
+          [
+            97.5,
+            305.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            254.5,
+            1.0
+          ],
+          [
+            98.5,
+            253.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            291.5,
+            6.0
+          ],
+          [
+            101.5,
+            295.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            98.5,
+            253.5,
+            1.0
+          ],
+          [
+            99.5,
+            252.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            98.5,
+            260.5,
+            1.0
+          ],
+          [
+            99.5,
+            264.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            99.5,
+            252.5,
+            1.0
+          ],
+          [
+            101.5,
+            247.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            288.5,
+            2.0
+          ],
+          [
+            110.5,
+            290.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            296.5,
+            1.0
+          ],
+          [
+            105.5,
+            297.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            105.5,
+            247.5,
+            1.0
+          ],
+          [
+            105.5,
+            250.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        120.732,
+        92.835,
+        56.993
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 25,
+      "crown_junction": [
+        95.5,
+        283
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10064": {
+      "graphic": 10064,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "d488519e16f2c29409667de2c4817e56744322dee881357842e97622be0c99c4",
+      "origin": [
+        -87,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        183,
+        294
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.09412373081795752,
+        0.25727334724348294,
+        0.08769696560502567
+      ],
+      "foliage_tint": [
+        0.36520576904769364,
+        0.3994803731837911,
+        0.6691576621557269
+      ],
+      "bark_tint": [
+        0.9760827165709159,
+        0.9358223117396458,
+        0.921734636889869
+      ],
+      "native_bark_samples": 714,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10064,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            70.5,
+            277.5,
+            1.0
+          ],
+          [
+            80.5,
+            274.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            267.5,
+            1.0
+          ],
+          [
+            76.5,
+            267.5,
+            2.0
+          ],
+          [
+            81.5,
+            272.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            285.5,
+            1.0
+          ],
+          [
+            81.5,
+            282.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            273.5,
+            5.0
+          ],
+          [
+            86.5,
+            273.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            242.5,
+            4.0
+          ],
+          [
+            89.5,
+            249.5,
+            7.0
+          ],
+          [
+            89.5,
+            256.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            88.5,
+            272.5,
+            8.0
+          ],
+          [
+            89.5,
+            258.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            88.5,
+            276.5,
+            7.0
+          ],
+          [
+            91.5,
+            279.5,
+            4.0
+          ],
+          [
+            92.5,
+            291.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            90.5,
+            257.5,
+            6.0
+          ],
+          [
+            97.5,
+            257.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            104.5,
+            279.5,
+            1.0
+          ],
+          [
+            107.5,
+            279.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        124.843,
+        98.198,
+        60.063
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        91.5,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10065": {
+      "graphic": 10065,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "458d1dc6ec87249f9f31625df9b47a720a513415c6ee4aef475eca3fe22fe3ca",
+      "origin": [
+        -93,
+        -272
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        173,
+        288
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.10112974409351702,
+        0.30614436665415695,
+        0.07055689914231665
+      ],
+      "foliage_tint": [
+        0.392389524345363,
+        0.47536469342615106,
+        0.5383731278876123
+      ],
+      "bark_tint": [
+        0.8716606827119284,
+        0.8087545051228859,
+        0.8092123142798217
+      ],
+      "native_bark_samples": 675,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10065,
+      "ground_offset": 14.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            72.5,
+            271.5,
+            1.0
+          ],
+          [
+            82.5,
+            268.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            75.5,
+            261.5,
+            1.0
+          ],
+          [
+            78.5,
+            261.5,
+            2.0
+          ],
+          [
+            83.5,
+            266.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            81.5,
+            230.5,
+            1.0
+          ],
+          [
+            82.5,
+            231.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            231.5,
+            1.0
+          ],
+          [
+            85.5,
+            233.5,
+            2.0
+          ],
+          [
+            86.5,
+            246.5,
+            4.0
+          ],
+          [
+            88.5,
+            248.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            279.5,
+            1.0
+          ],
+          [
+            84.5,
+            275.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            267.5,
+            5.0
+          ],
+          [
+            89.5,
+            267.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            89.5,
+            249.5,
+            6.0
+          ],
+          [
+            91.5,
+            265.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            267.5,
+            9.0
+          ],
+          [
+            93.5,
+            269.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            266.5,
+            9.0
+          ],
+          [
+            97.5,
+            266.5,
+            5.0
+          ],
+          [
+            107.5,
+            272.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            93.5,
+            271.5,
+            6.0
+          ],
+          [
+            93.5,
+            278.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            241.5,
+            1.0
+          ],
+          [
+            94.5,
+            243.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            270.5,
+            7.0
+          ],
+          [
+            100.5,
+            276.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            100.5,
+            276.5,
+            1.0
+          ],
+          [
+            101.5,
+            277.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        116.784,
+        89.47,
+        54.553
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 17,
+      "crown_junction": [
+        86.5,
+        265
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10066": {
+      "graphic": 10066,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "bb3a3ea1d5525f6176f0a80f9ab7de6000fcf276eb742a573219b21ccc0eae73",
+      "origin": [
+        -67,
+        -218
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        145,
+        226
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.14826985025920264,
+        0.3340862838881898,
+        0.09877358054907287
+      ],
+      "foliage_tint": [
+        0.5752959877379572,
+        0.5187514167059556,
+        0.7536759999274165
+      ],
+      "bark_tint": [
+        1.0210483079972659,
+        1.005416193351737,
+        0.9978422558266151
+      ],
+      "native_bark_samples": 681,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10066,
+      "ground_offset": 6.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            53.5,
+            205.5,
+            1.0
+          ],
+          [
+            64.5,
+            206.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            56.5,
+            217.5,
+            1.0
+          ],
+          [
+            61.5,
+            214.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            65.5,
+            207.5,
+            5.0
+          ],
+          [
+            65.5,
+            210.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            65.5,
+            211.5,
+            6.0
+          ],
+          [
+            68.5,
+            216.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            68.5,
+            203.5,
+            8.0
+          ],
+          [
+            69.5,
+            195.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            68.5,
+            217.5,
+            3.0
+          ],
+          [
+            70.5,
+            223.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            204.5,
+            8.0
+          ],
+          [
+            74.5,
+            206.5,
+            5.0
+          ],
+          [
+            76.5,
+            211.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            216.5,
+            2.0
+          ],
+          [
+            75.5,
+            216.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            77.5,
+            215.5,
+            4.0
+          ],
+          [
+            82.5,
+            223.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            78.5,
+            212.5,
+            3.0
+          ],
+          [
+            90.5,
+            215.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        123.307,
+        96.393,
+        59.467
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 11,
+      "crown_junction": [
+        72.5,
+        214
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10067": {
+      "graphic": 10067,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "cef4c66e1ac4a2f4c74b91a546bf2b8122ac3780503029c3c7017352906d787d",
+      "origin": [
+        -67,
+        -234
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        150,
+        248
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.1263853344615917,
+        0.30251180237880354,
+        0.08334926765548863
+      ],
+      "foliage_tint": [
+        0.4903827426652484,
+        0.46972424077965547,
+        0.6359832487013949
+      ],
+      "bark_tint": [
+        1.1449603253789218,
+        1.1630255894568984,
+        1.1596470168345612
+      ],
+      "native_bark_samples": 694,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10067,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            50.5,
+            231.5,
+            1.0
+          ],
+          [
+            59.5,
+            228.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            53.5,
+            221.5,
+            1.0
+          ],
+          [
+            56.5,
+            221.5,
+            2.0
+          ],
+          [
+            60.5,
+            225.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            59.5,
+            240.5,
+            1.0
+          ],
+          [
+            61.5,
+            237.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            60.5,
+            228.5,
+            4.0
+          ],
+          [
+            62.5,
+            233.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            61.5,
+            225.5,
+            4.0
+          ],
+          [
+            64.5,
+            224.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            63.5,
+            234.5,
+            3.0
+          ],
+          [
+            70.5,
+            233.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            67.5,
+            221.5,
+            7.0
+          ],
+          [
+            68.5,
+            205.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            68.5,
+            222.5,
+            7.0
+          ],
+          [
+            72.5,
+            223.5,
+            6.0
+          ],
+          [
+            73.5,
+            229.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            71.5,
+            234.5,
+            3.0
+          ],
+          [
+            72.5,
+            245.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            232.5,
+            5.0
+          ],
+          [
+            80.5,
+            237.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            74.5,
+            230.5,
+            5.0
+          ],
+          [
+            85.5,
+            232.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            232.5,
+            1.0
+          ],
+          [
+            86.5,
+            233.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        120.117,
+        93.202,
+        57.068
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 14,
+      "crown_junction": [
+        75.0,
+        229
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10068": {
+      "graphic": 10068,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "152d52e6e42a4ff6473b1df0af907513b56ef8181515b88238c0455de344033e",
+      "origin": [
+        -75,
+        -205
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        151,
+        219
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.129378954956918,
+        0.3293544450819545,
+        0.08428226074205601
+      ],
+      "foliage_tint": [
+        0.5019981712689773,
+        0.5114040690214265,
+        0.6431023031442444
+      ],
+      "bark_tint": [
+        1.0108615025555157,
+        0.9866149037478772,
+        0.9975187092192823
+      ],
+      "native_bark_samples": 829,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10068,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            58.5,
+            202.5,
+            1.0
+          ],
+          [
+            68.5,
+            199.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            61.5,
+            192.5,
+            1.0
+          ],
+          [
+            64.5,
+            192.5,
+            2.0
+          ],
+          [
+            69.5,
+            197.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            67.5,
+            210.5,
+            1.0
+          ],
+          [
+            69.5,
+            207.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            198.5,
+            5.0
+          ],
+          [
+            75.5,
+            198.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            75.5,
+            184.5,
+            7.0
+          ],
+          [
+            77.5,
+            196.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            77.5,
+            200.5,
+            9.0
+          ],
+          [
+            79.5,
+            202.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            78.5,
+            197.5,
+            8.0
+          ],
+          [
+            83.5,
+            197.5,
+            5.0
+          ],
+          [
+            93.5,
+            203.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            204.5,
+            5.0
+          ],
+          [
+            80.5,
+            216.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            203.5,
+            6.0
+          ],
+          [
+            84.5,
+            207.5,
+            2.0
+          ],
+          [
+            88.5,
+            208.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        122.645,
+        95.707,
+        58.695
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        75.5,
+        203
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10069": {
+      "graphic": 10069,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "5683a67e67c9fda14eb161f11e7af67f3d849a92233058752c63388c6b113bf9",
+      "origin": [
+        -66,
+        -205
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        141,
+        221
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.10439118250231451,
+        0.2148056891336748,
+        0.19006837014529368
+      ],
+      "foliage_tint": [
+        0.4050441026534652,
+        0.3335388518730267,
+        1.4502862822985225
+      ],
+      "bark_tint": [
+        0.9298321992894445,
+        0.8622521231327156,
+        0.8641594431497759
+      ],
+      "native_bark_samples": 477,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10069,
+      "ground_offset": 14.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            49.5,
+            204.5,
+            2.0
+          ],
+          [
+            57.5,
+            202.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            52.5,
+            195.5,
+            1.0
+          ],
+          [
+            55.5,
+            195.5,
+            1.0
+          ],
+          [
+            59.5,
+            199.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            57.5,
+            211.5,
+            1.0
+          ],
+          [
+            58.5,
+            209.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            60.5,
+            200.5,
+            6.0
+          ],
+          [
+            64.5,
+            202.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            63.5,
+            182.5,
+            5.0
+          ],
+          [
+            65.5,
+            201.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            66.5,
+            204.5,
+            6.0
+          ],
+          [
+            69.5,
+            217.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            204.5,
+            5.0
+          ],
+          [
+            73.5,
+            208.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            202.5,
+            4.0
+          ],
+          [
+            73.5,
+            201.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            75.5,
+            209.5,
+            1.0
+          ],
+          [
+            77.5,
+            210.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        120.9,
+        93.222,
+        57.242
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 10,
+      "crown_junction": [
+        70.5,
+        204
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10070": {
+      "graphic": 10070,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "89819a8d0b7d1154b1cc1e73c72e6fb169bdd3c5bf170016f21edc5d5c9a013c",
+      "origin": [
+        -67,
+        -218
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        145,
+        225
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.09172416298254601,
+        0.20801663812749696,
+        0.14432806262882916
+      ],
+      "foliage_tint": [
+        0.3558953006982349,
+        0.32299717447593124,
+        1.1012721854841239
+      ],
+      "bark_tint": [
+        1.0373500924581587,
+        1.0197608689961866,
+        1.0108197898592959
+      ],
+      "native_bark_samples": 752,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10070,
+      "ground_offset": 5.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            54.5,
+            207.5,
+            2.0
+          ],
+          [
+            61.5,
+            206.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            54.5,
+            222.5,
+            1.0
+          ],
+          [
+            58.5,
+            219.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            58.5,
+            219.5,
+            1.0
+          ],
+          [
+            59.5,
+            218.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            59.5,
+            218.5,
+            2.0
+          ],
+          [
+            61.5,
+            216.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            63.5,
+            205.5,
+            5.0
+          ],
+          [
+            68.5,
+            207.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            191.5,
+            6.0
+          ],
+          [
+            69.5,
+            206.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            209.5,
+            9.0
+          ],
+          [
+            75.5,
+            217.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            207.5,
+            8.0
+          ],
+          [
+            78.5,
+            207.5,
+            4.0
+          ],
+          [
+            85.5,
+            210.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            75.5,
+            217.5,
+            2.0
+          ],
+          [
+            76.5,
+            218.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            76.5,
+            218.5,
+            2.0
+          ],
+          [
+            81.5,
+            221.5,
+            2.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        126.891,
+        100.403,
+        62.259
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 11,
+      "crown_junction": [
+        72.5,
+        214
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10071": {
+      "graphic": 10071,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "d86a4b6c76531305e0d4d682b3cba502f2a320e11d6af34c6ef3f54f2bc09d22",
+      "origin": [
+        -67,
+        -234
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        149,
+        248
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.12550031447168664,
+        0.25018945772109563,
+        0.09925853667607398
+      ],
+      "foliage_tint": [
+        0.4869488115702201,
+        0.3884808862166555,
+        0.7573763800483629
+      ],
+      "bark_tint": [
+        0.9289659004431299,
+        0.8778222014808625,
+        0.8710374944255243
+      ],
+      "native_bark_samples": 742,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10071,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            50.5,
+            231.5,
+            1.0
+          ],
+          [
+            60.5,
+            228.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            53.5,
+            221.5,
+            1.0
+          ],
+          [
+            56.5,
+            221.5,
+            2.0
+          ],
+          [
+            61.5,
+            226.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            59.5,
+            239.5,
+            1.0
+          ],
+          [
+            61.5,
+            236.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            62.5,
+            227.5,
+            5.0
+          ],
+          [
+            67.5,
+            227.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            68.5,
+            218.5,
+            8.0
+          ],
+          [
+            68.5,
+            226.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            216.5,
+            8.0
+          ],
+          [
+            70.5,
+            206.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            227.5,
+            8.0
+          ],
+          [
+            82.5,
+            229.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            229.5,
+            8.0
+          ],
+          [
+            71.5,
+            231.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            217.5,
+            7.0
+          ],
+          [
+            78.5,
+            218.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            71.5,
+            233.5,
+            5.0
+          ],
+          [
+            72.5,
+            245.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            72.5,
+            232.5,
+            6.0
+          ],
+          [
+            80.5,
+            238.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            229.5,
+            2.0
+          ],
+          [
+            83.5,
+            230.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            230.5,
+            2.0
+          ],
+          [
+            85.5,
+            232.5,
+            2.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        120.426,
+        93.34,
+        57.19
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 14,
+      "crown_junction": [
+        74.5,
+        229
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10072": {
+      "graphic": 10072,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "7015cf3eb6382c8f43461a30e73179236ca64afa6c97f565be3bba912ca22930",
+      "origin": [
+        -76,
+        -205
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        152,
+        219
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.2638139922281229,
+        0.32768561271726715,
+        0.13315637681206766
+      ],
+      "foliage_tint": [
+        1.0236142477560222,
+        0.508812794865089,
+        1.016028424632106
+      ],
+      "bark_tint": [
+        1.8807142542667852,
+        2.0874541013753607,
+        2.140075582568864
+      ],
+      "native_bark_samples": 1701,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10072,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            59.5,
+            203.5,
+            1.0
+          ],
+          [
+            65.5,
+            198.5,
+            1.0
+          ],
+          [
+            68.5,
+            198.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            62.5,
+            192.5,
+            1.0
+          ],
+          [
+            66.5,
+            192.5,
+            1.0
+          ],
+          [
+            70.5,
+            196.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            71.5,
+            196.5,
+            5.0
+          ],
+          [
+            75.5,
+            196.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            72.5,
+            180.5,
+            2.0
+          ],
+          [
+            73.5,
+            179.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            72.5,
+            180.5,
+            2.0
+          ],
+          [
+            72.5,
+            186.5,
+            2.0
+          ],
+          [
+            77.5,
+            191.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            179.5,
+            3.0
+          ],
+          [
+            79.5,
+            179.5,
+            3.0
+          ],
+          [
+            81.5,
+            181.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            78.5,
+            192.5,
+            8.0
+          ],
+          [
+            78.5,
+            194.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            79.5,
+            198.5,
+            5.0
+          ],
+          [
+            81.5,
+            216.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            189.5,
+            5.0
+          ],
+          [
+            81.5,
+            182.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            197.5,
+            6.0
+          ],
+          [
+            84.5,
+            197.5,
+            5.0
+          ],
+          [
+            95.5,
+            203.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            181.5,
+            4.0
+          ],
+          [
+            87.5,
+            181.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        125.908,
+        99.849,
+        61.469
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 16,
+      "crown_junction": [
+        76.0,
+        203
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10073": {
+      "graphic": 10073,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "4877c31d8e238068d01ceee88e394fa17daff9381306ba1d42c7e6359a759002",
+      "origin": [
+        -62,
+        -207
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        139,
+        211
+      ],
+      "asset": "crossgate_flora/cg_evergreen",
+      "native_leaf_mean_linear": [
+        0.12528815117361286,
+        0.3088009002093638,
+        0.09757450975991186
+      ],
+      "foliage_tint": [
+        0.48612560514009473,
+        0.4794896174704787,
+        0.7445266821545765
+      ],
+      "bark_tint": [
+        1.195371314104315,
+        1.1841616663057504,
+        1.20091914909407
+      ],
+      "native_bark_samples": 496,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10073,
+      "ground_offset": 2.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            51.5,
+            195.5,
+            1.0
+          ],
+          [
+            60.5,
+            200.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            54.5,
+            208.5,
+            2.0
+          ],
+          [
+            56.5,
+            206.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            61.5,
+            201.5,
+            7.0
+          ],
+          [
+            63.5,
+            200.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            64.5,
+            185.5,
+            7.0
+          ],
+          [
+            64.5,
+            195.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            64.5,
+            197.5,
+            8.0
+          ],
+          [
+            64.5,
+            199.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            65.5,
+            196.5,
+            7.0
+          ],
+          [
+            74.5,
+            196.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            65.5,
+            200.5,
+            8.0
+          ],
+          [
+            67.5,
+            202.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            67.5,
+            202.5,
+            6.0
+          ],
+          [
+            68.5,
+            203.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            69.5,
+            204.5,
+            5.0
+          ],
+          [
+            72.5,
+            208.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            70.5,
+            203.5,
+            4.0
+          ],
+          [
+            78.5,
+            203.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            72.5,
+            208.5,
+            2.0
+          ],
+          [
+            73.5,
+            209.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            209.5,
+            1.0
+          ],
+          [
+            76.5,
+            210.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        132.738,
+        105.987,
+        64.756
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        69.5,
+        204
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_evergreen"
+    },
+    "10074": {
+      "graphic": 10074,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "34d6fae7e704b03143454c11f9bc640186ba12fedb5db44f5d7eab5c5bf0beed",
+      "origin": [
+        -110,
+        -280
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        225,
+        294
+      ],
+      "asset": "crossgate_flora/cg_woodland",
+      "native_leaf_mean_linear": [
+        0.08857533158190967,
+        0.27643328086817054,
+        0.07347200953225301
+      ],
+      "foliage_tint": [
+        0.2177170917847136,
+        0.4332764124951411,
+        0.38816605586810615
+      ],
+      "bark_tint": [
+        1.1965878076905754,
+        1.0362972023379875,
+        0.6038139867270994
+      ],
+      "native_bark_samples": 1008,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10074,
+      "ground_offset": 12.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            94.5,
+            277.5,
+            2.0
+          ],
+          [
+            99.5,
+            277.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            99.5,
+            288.5,
+            2.0
+          ],
+          [
+            101.5,
+            285.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            101.5,
+            237.5,
+            2.0
+          ],
+          [
+            108.5,
+            240.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            274.5,
+            7.0
+          ],
+          [
+            105.5,
+            273.5,
+            8.0
+          ]
+        ],
+        [
+          [
+            106.5,
+            274.5,
+            8.0
+          ],
+          [
+            107.5,
+            278.5,
+            9.0
+          ]
+        ],
+        [
+          [
+            107.5,
+            272.5,
+            7.0
+          ],
+          [
+            109.5,
+            244.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            108.5,
+            279.5,
+            8.0
+          ],
+          [
+            110.5,
+            282.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            243.5,
+            5.0
+          ],
+          [
+            114.5,
+            242.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            276.5,
+            7.0
+          ],
+          [
+            113.5,
+            276.5,
+            6.0
+          ],
+          [
+            119.5,
+            281.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            284.5,
+            4.0
+          ],
+          [
+            111.5,
+            290.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            111.5,
+            283.5,
+            5.0
+          ],
+          [
+            114.5,
+            286.5,
+            2.0
+          ],
+          [
+            115.5,
+            291.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            119.5,
+            281.5,
+            2.0
+          ],
+          [
+            120.5,
+            282.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            120.5,
+            282.5,
+            1.0
+          ],
+          [
+            123.5,
+            283.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            123.5,
+            276.5,
+            1.0
+          ],
+          [
+            124.5,
+            277.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            125.5,
+            277.5,
+            1.0
+          ],
+          [
+            126.5,
+            278.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            126.5,
+            278.5,
+            1.0
+          ],
+          [
+            130.5,
+            279.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        135.444,
+        101.469,
+        33.912
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 18,
+      "crown_junction": [
+        112.5,
+        270
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_woodland"
+    },
+    "10085": {
+      "graphic": 10085,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "4db8dc1917286f63f423993cecf402df39c91014f5e293d267073f5db64202a8",
+      "origin": [
+        -95,
+        -225
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        202,
+        237
+      ],
+      "asset": "crossgate_flora/cg_woodland",
+      "native_leaf_mean_linear": [
+        0.2084696164189211,
+        0.363682773033685,
+        0.10560549535370205
+      ],
+      "foliage_tint": [
+        0.5124157911870809,
+        0.570029653055655,
+        0.5579331349505162
+      ],
+      "bark_tint": [
+        1.727926442434755,
+        1.9153188747484535,
+        1.7080368322926824
+      ],
+      "native_bark_samples": 649,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10085,
+      "ground_offset": 10.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            79.5,
+            219.5,
+            1.0
+          ],
+          [
+            84.5,
+            218.5,
+            2.0
+          ],
+          [
+            86.5,
+            220.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            228.5,
+            1.0
+          ],
+          [
+            84.5,
+            223.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            87.5,
+            220.5,
+            4.0
+          ],
+          [
+            90.5,
+            220.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            198.5,
+            4.0
+          ],
+          [
+            91.5,
+            219.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            91.5,
+            222.5,
+            3.0
+          ],
+          [
+            94.5,
+            230.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            92.5,
+            221.5,
+            4.0
+          ],
+          [
+            101.5,
+            224.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            95.5,
+            231.5,
+            2.0
+          ],
+          [
+            96.5,
+            235.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            96.5,
+            229.5,
+            1.0
+          ],
+          [
+            99.5,
+            229.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        131.087,
+        106.295,
+        66.726
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 9,
+      "crown_junction": [
+        101.0,
+        221
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_woodland"
+    },
+    "10086": {
+      "graphic": 10086,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "a15ffc080faad5f563d0add433cca9050dc3b018f83a796e81b6afd8afe3062d",
+      "origin": [
+        -121,
+        -233
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        223,
+        246
+      ],
+      "asset": "crossgate_flora/cg_woodland",
+      "native_leaf_mean_linear": [
+        0.20893513425617588,
+        0.33408464579755637,
+        0.12521153129115567
+      ],
+      "foliage_tint": [
+        0.513560028390498,
+        0.5236380957685991,
+        0.6615154064781363
+      ],
+      "bark_tint": [
+        1.1945771809210015,
+        1.2460656861161232,
+        1.3547710756452418
+      ],
+      "native_bark_samples": 846,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10086,
+      "ground_offset": 11.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            106.5,
+            224.5,
+            1.0
+          ],
+          [
+            121.5,
+            225.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            106.5,
+            239.5,
+            1.0
+          ],
+          [
+            110.5,
+            238.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            112.5,
+            237.5,
+            2.0
+          ],
+          [
+            115.5,
+            235.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            122.5,
+            224.5,
+            7.0
+          ],
+          [
+            124.5,
+            202.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            122.5,
+            226.5,
+            7.0
+          ],
+          [
+            122.5,
+            228.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            125.5,
+            230.5,
+            5.0
+          ],
+          [
+            127.5,
+            239.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            126.5,
+            200.5,
+            3.0
+          ],
+          [
+            131.5,
+            198.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            126.5,
+            229.5,
+            5.0
+          ],
+          [
+            127.5,
+            230.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            127.5,
+            230.5,
+            5.0
+          ],
+          [
+            139.5,
+            232.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            127.5,
+            239.5,
+            2.0
+          ],
+          [
+            128.5,
+            240.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            128.5,
+            240.5,
+            2.0
+          ],
+          [
+            130.5,
+            242.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            130.5,
+            242.5,
+            1.0
+          ],
+          [
+            131.5,
+            243.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            131.5,
+            243.5,
+            1.0
+          ],
+          [
+            133.5,
+            244.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        120.169,
+        94.773,
+        58.437
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 13,
+      "crown_junction": [
+        111.5,
+        228
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_woodland"
+    },
+    "10087": {
+      "graphic": 10087,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "7b3cdef814b701b99fbfd33b3070081d1ce5c74a22875b63c98cff85b7614a6c",
+      "origin": [
+        -101,
+        -238
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        215,
+        247
+      ],
+      "asset": "crossgate_flora/cg_woodland",
+      "native_leaf_mean_linear": [
+        0.20063349717060056,
+        0.3405851840805731,
+        0.13393896738506353
+      ],
+      "foliage_tint": [
+        0.4931547050228718,
+        0.5338269192623086,
+        0.7076240465980996
+      ],
+      "bark_tint": [
+        1.0864656533169101,
+        1.1206493493353415,
+        1.1288612744923008
+      ],
+      "native_bark_samples": 676,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10087,
+      "ground_offset": 7.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            90.5,
+            237.5,
+            1.0
+          ],
+          [
+            92.5,
+            237.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            233.5,
+            2.0
+          ],
+          [
+            98.5,
+            231.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            238.5,
+            1.0
+          ],
+          [
+            99.5,
+            238.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            99.5,
+            238.5,
+            1.0
+          ],
+          [
+            100.5,
+            237.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            206.5,
+            5.0
+          ],
+          [
+            103.5,
+            205.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            206.5,
+            5.0
+          ],
+          [
+            103.5,
+            226.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            205.5,
+            4.0
+          ],
+          [
+            110.5,
+            204.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            228.5,
+            6.0
+          ],
+          [
+            104.5,
+            232.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            104.5,
+            233.5,
+            6.0
+          ],
+          [
+            106.5,
+            234.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            106.5,
+            226.5,
+            3.0
+          ],
+          [
+            112.5,
+            226.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            107.5,
+            235.5,
+            3.0
+          ],
+          [
+            109.5,
+            244.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            108.5,
+            234.5,
+            3.0
+          ],
+          [
+            116.5,
+            237.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        124.815,
+        100.189,
+        61.978
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        107.5,
+        232
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_woodland"
+    },
+    "10088": {
+      "graphic": 10088,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "d2a2f1fb910beff6e0c02d6c6c40f9594f96938347f1130990e2750d4fe3b978",
+      "origin": [
+        -124,
+        -267
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        231,
+        279
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.2770033201035416,
+        0.32446237371460057,
+        0.14213903941337058
+      ],
+      "foliage_tint": [
+        0.5095191581880738,
+        0.5445299226474763,
+        0.5424603594812933
+      ],
+      "bark_tint": [
+        1.7344432123345959,
+        1.9248228073923064,
+        1.9616595564781507
+      ],
+      "native_bark_samples": 1843,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10088,
+      "ground_offset": 10.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            107.5,
+            261.5,
+            1.0
+          ],
+          [
+            115.5,
+            262.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            268.5,
+            1.0
+          ],
+          [
+            112.5,
+            267.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            112.5,
+            224.5,
+            1.0
+          ],
+          [
+            118.5,
+            225.5,
+            2.0
+          ],
+          [
+            122.5,
+            228.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            117.5,
+            263.5,
+            6.0
+          ],
+          [
+            119.5,
+            263.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            120.5,
+            260.5,
+            6.0
+          ],
+          [
+            119.5,
+            249.5,
+            5.0
+          ],
+          [
+            122.5,
+            229.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            120.5,
+            263.5,
+            6.0
+          ],
+          [
+            124.5,
+            271.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            121.5,
+            261.5,
+            6.0
+          ],
+          [
+            123.5,
+            261.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            123.5,
+            261.5,
+            5.0
+          ],
+          [
+            124.5,
+            262.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            124.5,
+            262.5,
+            5.0
+          ],
+          [
+            131.5,
+            266.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            124.5,
+            273.5,
+            2.0
+          ],
+          [
+            125.5,
+            277.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            125.5,
+            272.5,
+            2.0
+          ],
+          [
+            130.5,
+            273.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            126.5,
+            225.5,
+            2.0
+          ],
+          [
+            129.5,
+            225.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            131.5,
+            266.5,
+            1.0
+          ],
+          [
+            132.5,
+            267.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        123.832,
+        98.995,
+        61.089
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 15,
+      "crown_junction": [
+        115.5,
+        258
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10089": {
+      "graphic": 10089,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "8efa4317dc1b86ead1e0d85ded6840eb15fcba228e71c7886166e0c2755020ec",
+      "origin": [
+        -109,
+        -263
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        216,
+        276
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.2634154435922617,
+        0.2996097518087887,
+        0.13474444391326573
+      ],
+      "foliage_tint": [
+        0.4845256548647094,
+        0.5028209376301183,
+        0.5142395768605527
+      ],
+      "bark_tint": [
+        1.582263663732745,
+        1.7364447811302133,
+        1.7323686122532858
+      ],
+      "native_bark_samples": 1843,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10089,
+      "ground_offset": 11.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            94.5,
+            254.5,
+            1.0
+          ],
+          [
+            109.5,
+            255.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            269.5,
+            1.0
+          ],
+          [
+            98.5,
+            268.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            100.5,
+            267.5,
+            2.0
+          ],
+          [
+            103.5,
+            265.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            254.5,
+            7.0
+          ],
+          [
+            112.5,
+            230.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            110.5,
+            256.5,
+            7.0
+          ],
+          [
+            110.5,
+            258.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            112.5,
+            230.5,
+            5.0
+          ],
+          [
+            113.5,
+            229.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            113.5,
+            229.5,
+            4.0
+          ],
+          [
+            123.5,
+            226.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            113.5,
+            260.5,
+            5.0
+          ],
+          [
+            115.5,
+            271.5,
+            1.0
+          ],
+          [
+            117.5,
+            272.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            114.5,
+            259.5,
+            5.0
+          ],
+          [
+            116.5,
+            261.5,
+            3.0
+          ],
+          [
+            127.5,
+            262.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            119.5,
+            273.5,
+            1.0
+          ],
+          [
+            121.5,
+            274.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        118.046,
+        92.348,
+        57.156
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        108.0,
+        255
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10090": {
+      "graphic": 10090,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "5673b2d8c96e5caeaceffa51c8ecd1b4f4e476680793b82ed46db35f8bf768f1",
+      "origin": [
+        -104,
+        -263
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        204,
+        276
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.2636752229359608,
+        0.299502426703883,
+        0.1312242699511746
+      ],
+      "foliage_tint": [
+        0.4850034922872599,
+        0.5026408189605686,
+        0.5008051619327912
+      ],
+      "bark_tint": [
+        1.2953045341680067,
+        1.367010804944139,
+        1.3684495681074604
+      ],
+      "native_bark_samples": 1482,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10090,
+      "ground_offset": 11.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            89.5,
+            254.5,
+            1.0
+          ],
+          [
+            104.5,
+            255.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            89.5,
+            269.5,
+            1.0
+          ],
+          [
+            93.5,
+            268.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            95.5,
+            267.5,
+            2.0
+          ],
+          [
+            101.5,
+            263.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            102.5,
+            224.5,
+            1.0
+          ],
+          [
+            107.5,
+            227.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            105.5,
+            255.5,
+            7.0
+          ],
+          [
+            107.5,
+            230.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            105.5,
+            256.5,
+            7.0
+          ],
+          [
+            105.5,
+            258.5,
+            7.0
+          ]
+        ],
+        [
+          [
+            108.5,
+            229.5,
+            4.0
+          ],
+          [
+            118.5,
+            226.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            108.5,
+            260.5,
+            5.0
+          ],
+          [
+            110.5,
+            271.5,
+            1.0
+          ],
+          [
+            112.5,
+            272.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            109.5,
+            259.5,
+            5.0
+          ],
+          [
+            111.5,
+            261.5,
+            3.0
+          ],
+          [
+            122.5,
+            262.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            114.5,
+            273.5,
+            1.0
+          ],
+          [
+            116.5,
+            274.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        117.273,
+        91.499,
+        56.641
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 12,
+      "crown_junction": [
+        102.0,
+        255
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10091": {
+      "graphic": 10091,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "058f32b4add1225232bf2d7de1f27e7caafd51d5749f22968de3cda2915a1abe",
+      "origin": [
+        -76,
+        -220
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        175,
+        233
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.287670989712166,
+        0.32405310612491817,
+        0.14402305478979552
+      ],
+      "foliage_tint": [
+        0.529141240828755,
+        0.5438430681244064,
+        0.5496505280836824
+      ],
+      "bark_tint": [
+        1.3729956427899306,
+        1.4471227948659167,
+        1.4560698789415354
+      ],
+      "native_bark_samples": 1336,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10091,
+      "ground_offset": 11.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            61.5,
+            211.5,
+            1.0
+          ],
+          [
+            76.5,
+            212.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            61.5,
+            226.5,
+            1.0
+          ],
+          [
+            65.5,
+            225.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            67.5,
+            224.5,
+            2.0
+          ],
+          [
+            71.5,
+            221.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            71.5,
+            221.5,
+            2.0
+          ],
+          [
+            72.5,
+            220.5,
+            3.0
+          ]
+        ],
+        [
+          [
+            77.5,
+            212.5,
+            7.0
+          ],
+          [
+            79.5,
+            191.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            77.5,
+            215.5,
+            7.0
+          ],
+          [
+            79.5,
+            216.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            217.5,
+            5.0
+          ],
+          [
+            82.5,
+            228.5,
+            1.0
+          ],
+          [
+            84.5,
+            229.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            81.5,
+            216.5,
+            5.0
+          ],
+          [
+            83.5,
+            218.5,
+            3.0
+          ],
+          [
+            94.5,
+            219.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            86.5,
+            230.5,
+            1.0
+          ],
+          [
+            88.5,
+            231.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        118.336,
+        92.678,
+        57.174
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 11,
+      "crown_junction": [
+        87.5,
+        216
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10092": {
+      "graphic": 10092,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "875e8c1c7a52601f63b8f142ece0946d5afbe37bfea1bcb81274a58d9b2fec9c",
+      "origin": [
+        -101,
+        -238
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        215,
+        247
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.325770517018017,
+        0.37439240538579704,
+        0.17006234339963092
+      ],
+      "foliage_tint": [
+        0.5992214083624313,
+        0.6283251435614976,
+        0.6490270394082674
+      ],
+      "bark_tint": [
+        2.0231194135519797,
+        2.292069505312875,
+        2.3024615269322606
+      ],
+      "native_bark_samples": 1892,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10092,
+      "ground_offset": 7.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            90.5,
+            237.5,
+            1.0
+          ],
+          [
+            92.5,
+            237.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            233.5,
+            2.0
+          ],
+          [
+            96.5,
+            232.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            238.5,
+            1.0
+          ],
+          [
+            99.5,
+            238.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            99.5,
+            238.5,
+            1.0
+          ],
+          [
+            100.5,
+            237.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            207.5,
+            5.0
+          ],
+          [
+            103.5,
+            226.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            103.5,
+            228.5,
+            6.0
+          ],
+          [
+            104.5,
+            232.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            104.5,
+            233.5,
+            6.0
+          ],
+          [
+            106.5,
+            234.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            106.5,
+            226.5,
+            3.0
+          ],
+          [
+            112.5,
+            226.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            107.5,
+            235.5,
+            3.0
+          ],
+          [
+            109.5,
+            244.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            108.5,
+            234.5,
+            3.0
+          ],
+          [
+            116.5,
+            237.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        124.937,
+        100.332,
+        62.089
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 10,
+      "crown_junction": [
+        107.5,
+        232
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10093": {
+      "graphic": 10093,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "9869afbd88c59c8f114bed87bb8dce166859aff096b4465c9f447b26c79874c6",
+      "origin": [
+        -80,
+        -226
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        183,
+        235
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.3311408426568409,
+        0.3825504081917381,
+        0.17367892712230276
+      ],
+      "foliage_tint": [
+        0.6090995708251288,
+        0.6420163355047102,
+        0.6628293931767439
+      ],
+      "bark_tint": [
+        2.0353719880861605,
+        2.308794750129112,
+        2.3307776581326243
+      ],
+      "native_bark_samples": 1698,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10093,
+      "ground_offset": 7.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            69.5,
+            225.5,
+            1.0
+          ],
+          [
+            71.5,
+            225.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            73.5,
+            221.5,
+            2.0
+          ],
+          [
+            75.5,
+            220.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            76.5,
+            226.5,
+            1.0
+          ],
+          [
+            78.5,
+            226.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            78.5,
+            226.5,
+            1.0
+          ],
+          [
+            79.5,
+            225.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            80.5,
+            195.5,
+            4.0
+          ],
+          [
+            82.5,
+            199.5,
+            5.0
+          ],
+          [
+            82.5,
+            214.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            82.5,
+            216.5,
+            6.0
+          ],
+          [
+            83.5,
+            220.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            83.5,
+            221.5,
+            6.0
+          ],
+          [
+            85.5,
+            222.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            85.5,
+            214.5,
+            3.0
+          ],
+          [
+            91.5,
+            214.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            86.5,
+            223.5,
+            3.0
+          ],
+          [
+            88.5,
+            232.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            87.5,
+            222.5,
+            3.0
+          ],
+          [
+            95.5,
+            225.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        124.721,
+        100.043,
+        61.922
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 11,
+      "crown_junction": [
+        91.5,
+        221
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    },
+    "10094": {
+      "graphic": 10094,
+      "kind": "native_canopy_tree",
+      "source_rgba_sha256": "5dd21f2973c05daf52fba3a689622584a60084ce37b86c3cdfe2f2b86ea3dff1",
+      "origin": [
+        -91,
+        -185
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "visible": [
+        0,
+        0,
+        165,
+        194
+      ],
+      "asset": "crossgate_flora/cg_silverleaf",
+      "native_leaf_mean_linear": [
+        0.27736896490054236,
+        0.3113102706966824,
+        0.1372761664925935
+      ],
+      "foliage_tint": [
+        0.5101917242392461,
+        0.522457367494138,
+        0.5239016594675345
+      ],
+      "bark_tint": [
+        1.4113870100967227,
+        1.5122873939028652,
+        1.5095613735342692
+      ],
+      "native_bark_samples": 1031,
+      "inferred": "The whole compatible Meadow master was reviewed and rejected because it hid source tiers or open branches. Existing39-tree native crown/timber recipe retains exact painted crown pixels and open branch silhouette; only crossed crown depth and hidden round limb sections are inferred.",
+      "graphic_id": 10094,
+      "ground_offset": 7.0,
+      "texture_root": "res://assets/maps/falan/east_region/native_trees/",
+      "branches": [
+        [
+          [
+            80.5,
+            184.5,
+            1.0
+          ],
+          [
+            82.5,
+            184.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            84.5,
+            180.5,
+            2.0
+          ],
+          [
+            86.5,
+            179.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            87.5,
+            185.5,
+            1.0
+          ],
+          [
+            89.5,
+            185.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            89.5,
+            185.5,
+            1.0
+          ],
+          [
+            90.5,
+            184.5,
+            2.0
+          ]
+        ],
+        [
+          [
+            93.5,
+            165.5,
+            5.0
+          ],
+          [
+            93.5,
+            173.5,
+            5.0
+          ]
+        ],
+        [
+          [
+            93.5,
+            175.5,
+            6.0
+          ],
+          [
+            94.5,
+            179.5,
+            6.0
+          ]
+        ],
+        [
+          [
+            94.5,
+            180.5,
+            6.0
+          ],
+          [
+            96.5,
+            181.5,
+            4.0
+          ]
+        ],
+        [
+          [
+            96.5,
+            173.5,
+            3.0
+          ],
+          [
+            102.5,
+            173.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            97.5,
+            182.5,
+            3.0
+          ],
+          [
+            99.5,
+            191.5,
+            1.0
+          ]
+        ],
+        [
+          [
+            98.5,
+            181.5,
+            3.0
+          ],
+          [
+            106.5,
+            184.5,
+            1.0
+          ]
+        ]
+      ],
+      "bark_color": [
+        122.891,
+        97.876,
+        60.572
+      ],
+      "branch_depth": 0.45,
+      "branch_segments": 10,
+      "crown_junction": [
+        82.5,
+        185
+      ],
+      "removed_neutral_shadow_pixels": 0,
+      "rejected_master": "crossgate_flora/cg_silverleaf"
+    }
+  },
+  "masters": {
+    "cg_evergreen": {
+      "asset": "crossgate_flora/cg_evergreen",
+      "leaf_mean_linear": [
+        0.25772794078087397,
+        0.6440199932553828,
+        0.13105575944913378
+      ],
+      "bark_mean_linear": [
+        0.2322109056397492,
+        0.15760343076024597,
+        0.05869940202640944
+      ],
+      "source_pins": {
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_evergreen.glb": "344c96ebf2a09e2454a97021244d2301a528fa6af9d515d94cba607b3e79768d",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_evergreen_cg_evergreen.png": "b73963795eb37cbf73e95a21df9b966c52652dd1ec6d0f3a34c4cebea994c1d9",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_evergreen_bark.png": "276c138f27492a458aaba939f7bae1aa7417207bfecb2af2fc32e78b91e70114"
+      }
+    },
+    "cg_woodland": {
+      "asset": "crossgate_flora/cg_woodland",
+      "leaf_mean_linear": [
+        0.4068368305667802,
+        0.6380067617257391,
+        0.1892798415047859
+      ],
+      "bark_mean_linear": [
+        0.2322109056397492,
+        0.15760343076024597,
+        0.05869940202640944
+      ],
+      "source_pins": {
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_woodland.glb": "e0f82e676eaadbbe42c88b111f5f2ed3f205619c0987816d6b1863bea7d8e204",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_woodland_cg_woodland.png": "d36c862eb0145f4df5b32a5a2a38379b18434fe48600b5b2b83b1046060f070d",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_woodland_bark.png": "276c138f27492a458aaba939f7bae1aa7417207bfecb2af2fc32e78b91e70114"
+      }
+    },
+    "cg_silverleaf": {
+      "asset": "crossgate_flora/cg_silverleaf",
+      "leaf_mean_linear": [
+        0.5436563388285669,
+        0.5958577485275396,
+        0.26202659222746805
+      ],
+      "bark_mean_linear": [
+        0.2322109056397492,
+        0.15760343076024597,
+        0.05869940202640944
+      ],
+      "source_pins": {
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_silverleaf.glb": "0fd59b4cb4c071f2124a294f44b2a60436234ac88dc860e0e6571dcc144caa11",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_silverleaf_cg_silverleaf.png": "247cf95730a0b693bc40ff642e83202853f2eecdae6bcc5bcc1e5b7518e6614c",
+        "assets/models/environments/wind_meadow/crossgate_flora/cg_silverleaf_bark.png": "276c138f27492a458aaba939f7bae1aa7417207bfecb2af2fc32e78b91e70114"
+      }
+    }
+  },
+  "source_catalogs": {
+    "assets/maps/original_crossgate/catalog.json": "ae20ed5db45e1ecfee1a8e97c4ae222677fbbaafb2d184156a28c6c8438100c0",
+    "assets/maps/original_crossgate/university/catalog.json": "3fb16095671047cec17293370fbed92825ae1c0f023d120dfb6af256f9aea518",
+    "assets/maps/falan/sokia/fixed/catalog.json": "f48e550e36117b96cc5ca02912fc16c38f803843c38c75834e93c0ecc9d5bf39",
+    "assets/maps/original_crossgate/elsa/catalog.json": "27dd26c1d446649ac34df80d0dcc94bf812a5932a7fe9fc7794b513f87230861",
+    "assets/maps/original_crossgate/east/catalog.json": "e9d6bd892ae87d44cd771be9ce6356e3ab45fc697542b7ecade8922f97f0ff52"
+  },
+  "scope": "Private source-fit candidate. East object-layer only after existing contextual owners. No source planes, navigation, colliders, actors, shared masters or original paint changed."
+}

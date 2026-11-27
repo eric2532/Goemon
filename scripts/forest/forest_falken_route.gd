@@ -4,7 +4,8 @@ const Data=preload("res://assets/maps/falan/falken/data.gd")
 const ROOM=23001
 const BOSS_CELL=Vector2i(23,20)
 const SLAIN=&"falken_route_slain"
-const ANCIENT=Vector2(540,350)*3.0
+const ANCIENT_CELLS=[Vector2i(579,275),Vector2i(514,337),Vector2i(593,332)]
+const ANCIENT=Vector2(540,350)*3.0 # Preserved compatibility return point; source entry actors use ANCIENT_CELLS.
 const FLOORS=[30201,30202,30203,30204,30205,30206,30207,30208,30209,30210,30211,30212,30213,30214,30215,30216]
 const SCROLL=&"falken_uncurse_scroll"
 const Imur=preload("res://scripts/forest/forest_imur_maze.gd")
@@ -66,9 +67,14 @@ static func door(id:int,cell:Vector2i,target:int,arrival:Vector2,caption:String)
  return {"at":point(id,cell),"to":"freyja_door","floor":target,"arrival":arrival,"caption":caption,"door":true}
 static func links(area:String,id:int,frame:Transform2D,run_seed:int=0)->Array:
  var rows=[]
- if area=="sokia_desert":
-  rows.append({"at":frame.inverse()*ANCIENT,"to":"freyja_site","site":3300,"kind":"cave",
-   "arrival":point(3300,Vector2i(11,26)),"yaw":0.0,"caption":"古代人民 · 法爾肯之路","door":true,"falken_route":true})
+ if area in ["sokia_coast","sokia_desert","ghana_road","ghana_north_road"]:
+  var regions=load("res://scripts/forest/forest_freyja_regions.gd")
+  var scenery=load("res://scripts/forest/forest_sokia_scenery.gd")
+  for cell in ANCIENT_CELLS:
+   var at=regions.frame(area).inverse()*(Vector2(cell)*3.)
+   if not scenery.bounds(area).has_point(at):continue
+   rows.append({"at":at,"to":"freyja_site","site":3300,"kind":"cave",
+    "arrival":point(3300,Vector2i(20,28)),"yaw":0.0,"caption":"古代人民 · 法爾肯之路（夜晚）","door":true,"falken_route":true})
  if not owns(id):return rows
  if id in FLOORS:
   var index=FLOORS.find(id);var stairs:Array=maze(id,run_seed).stairs

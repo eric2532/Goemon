@@ -1,0 +1,1131 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10038": {
+      "role": "plain_bench",
+      "origin": [
+        -51,
+        -71
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        77
+      ],
+      "size": [
+        80,
+        77
+      ],
+      "source_rgba_sha256": "ea98601b9e57da8165bd325de72854fe8667b180ebdbb8a66aa90e84d12eddc9",
+      "source_pack": "original",
+      "source_row": 7789
+    },
+    "11023": {
+      "role": "hand_cart",
+      "origin": [
+        -56,
+        -129
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        135,
+        143
+      ],
+      "size": [
+        136,
+        145
+      ],
+      "source_rgba_sha256": "3a3b5f48e2a7235cbfb834d8823f454fab22f647ce160af2fba81e61162bf7f4",
+      "source_pack": "original",
+      "source_row": 7941
+    },
+    "11038": {
+      "role": "backed_wood_bench",
+      "origin": [
+        -67,
+        -90
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        114,
+        122
+      ],
+      "size": [
+        116,
+        125
+      ],
+      "source_rgba_sha256": "d72ee820a8ad8c56afa6b56fe6cae4ce7cf71d59544b2de79fa1d4d652a56326",
+      "source_pack": "original",
+      "source_row": 7956
+    },
+    "11039": {
+      "role": "backed_wood_bench",
+      "origin": [
+        -33,
+        -92
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        132,
+        113
+      ],
+      "size": [
+        132,
+        113
+      ],
+      "source_rgba_sha256": "1bd6b5ec506341fb64f2349c968ddf3dcba5123d8e93d8b9a3f35448ff3713f6",
+      "source_pack": "original",
+      "source_row": 7957
+    },
+    "11040": {
+      "role": "backed_wood_bench",
+      "origin": [
+        -72,
+        -98
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        125,
+        125
+      ],
+      "size": [
+        140,
+        125
+      ],
+      "source_rgba_sha256": "2e9e595226bec2bcbce4005bbb317dc06a92e3dd5612e756f5d831ba584b28cd",
+      "source_pack": "original",
+      "source_row": 7958
+    },
+    "16035": {
+      "role": "hospital_bed",
+      "origin": [
+        -80,
+        -143
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        139,
+        164
+      ],
+      "size": [
+        140,
+        167
+      ],
+      "source_rgba_sha256": "06f5a217d02a6e808acd8012fc4f2fd55ce61d60b5369b0cd2cdd4ca5aea210b",
+      "source_pack": "original",
+      "source_row": 12663,
+      "bedding_sample": [
+        59,
+        84,
+        75,
+        100
+      ],
+      "frame_rgb": [
+        0.43,
+        0.48,
+        0.5
+      ]
+    },
+    "16036": {
+      "role": "hospital_bed",
+      "origin": [
+        -52,
+        -142
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        131,
+        164
+      ],
+      "size": [
+        136,
+        167
+      ],
+      "source_rgba_sha256": "19068f00309c7244093665dee4019e03757887737ab194ba3f7743b9a1217b66",
+      "source_pack": "original",
+      "source_row": 12664,
+      "bedding_sample": [
+        57,
+        84,
+        73,
+        100
+      ],
+      "frame_rgb": [
+        0.43,
+        0.48,
+        0.5
+      ]
+    },
+    "16038": {
+      "role": "hospital_bed",
+      "origin": [
+        -54,
+        -129
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        140,
+        154
+      ],
+      "size": [
+        140,
+        154
+      ],
+      "source_rgba_sha256": "0e524e13b2a425774f6cc5af410d5619e239c236048282f813c0a9fe09ec5e57",
+      "source_pack": "original",
+      "source_row": 12666,
+      "bedding_sample": [
+        59,
+        77,
+        75,
+        93
+      ],
+      "frame_rgb": [
+        0.43,
+        0.48,
+        0.5
+      ]
+    },
+    "16039": {
+      "role": "wood_bed",
+      "origin": [
+        -86,
+        -132
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        1,
+        0,
+        141,
+        156
+      ],
+      "size": [
+        144,
+        156
+      ],
+      "source_rgba_sha256": "9553fb432fb4774b0a9172204d189cef434db590520102439f1989bae87bc831",
+      "source_pack": "original",
+      "source_row": 12667,
+      "bedding_sample": [
+        61,
+        78,
+        77,
+        94
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16040": {
+      "role": "wood_bed",
+      "origin": [
+        -51,
+        -129
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        145,
+        155
+      ],
+      "size": [
+        148,
+        155
+      ],
+      "source_rgba_sha256": "84d1bcf9fb97dbf2f1b57ea0296788da476b54020384c2bd8d003ec76ebcddf2",
+      "source_pack": "original",
+      "source_row": 12668,
+      "bedding_sample": [
+        63,
+        77,
+        79,
+        93
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16044": {
+      "role": "wood_bed",
+      "origin": [
+        -53,
+        -144
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        147,
+        171
+      ],
+      "size": [
+        148,
+        171
+      ],
+      "source_rgba_sha256": "667941a8ce1ae2bcea092a3556e0a72444ae886223c22bb8d12f4a6fa926292b",
+      "source_pack": "original",
+      "source_row": 12672,
+      "bedding_sample": [
+        63,
+        86,
+        79,
+        102
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16046": {
+      "role": "wood_bed",
+      "origin": [
+        -54,
+        -146
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        142,
+        171
+      ],
+      "size": [
+        144,
+        174
+      ],
+      "source_rgba_sha256": "5358075f26876a28481ba1aa3bc037487d9990107d7b8d496e84cb0d20c0e7ca",
+      "source_pack": "original",
+      "source_row": 12674,
+      "bedding_sample": [
+        61,
+        88,
+        77,
+        104
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16047": {
+      "role": "wood_bed",
+      "origin": [
+        -80,
+        -150
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        1,
+        0,
+        152,
+        178
+      ],
+      "size": [
+        156,
+        178
+      ],
+      "source_rgba_sha256": "9758c4429d42f24464b71ef5cb1fc8af7b3eae5a22170d9bbead5a5159b73c1f",
+      "source_pack": "original",
+      "source_row": 12675,
+      "bedding_sample": [
+        67,
+        90,
+        83,
+        106
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16049": {
+      "role": "wood_bed",
+      "origin": [
+        -81,
+        -150
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        1,
+        0,
+        144,
+        172
+      ],
+      "size": [
+        152,
+        174
+      ],
+      "source_rgba_sha256": "33df4169eee79dd88ab7cca9f540f0f821422770f80094a088e04e25648cde9d",
+      "source_pack": "original",
+      "source_row": 12677,
+      "bedding_sample": [
+        65,
+        88,
+        81,
+        104
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16050": {
+      "role": "wood_bed",
+      "origin": [
+        -61,
+        -149
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        3,
+        0,
+        152,
+        175
+      ],
+      "size": [
+        152,
+        176
+      ],
+      "source_rgba_sha256": "09a2c9afa43222199798b0ab7c51865fab0a94cd33c30808cb6731ca397b2d92",
+      "source_pack": "original",
+      "source_row": 12678,
+      "bedding_sample": [
+        65,
+        89,
+        81,
+        105
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16051": {
+      "role": "wood_bed",
+      "origin": [
+        -83,
+        -130
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        3,
+        0,
+        140,
+        152
+      ],
+      "size": [
+        140,
+        157
+      ],
+      "source_rgba_sha256": "e503a1ecd0d399aa7f2833598bdd631a7aee85cb403e81a23449c64df3bea616",
+      "source_pack": "original",
+      "source_row": 12679,
+      "bedding_sample": [
+        59,
+        78,
+        75,
+        94
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16052": {
+      "role": "wood_bed",
+      "origin": [
+        -52,
+        -131
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        134,
+        152
+      ],
+      "size": [
+        144,
+        157
+      ],
+      "source_rgba_sha256": "a01a327793a74483f345d322f16da52960088ef5cf877b6d0ae9e12dd92af5c8",
+      "source_pack": "original",
+      "source_row": 12680,
+      "bedding_sample": [
+        61,
+        78,
+        77,
+        94
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16053": {
+      "role": "wood_bed",
+      "origin": [
+        -82,
+        -112
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        2,
+        0,
+        134,
+        140
+      ],
+      "size": [
+        144,
+        140
+      ],
+      "source_rgba_sha256": "2256bddbd018fdba30ca33c7073d022825b0224774bc68f992f3e1a1f973ba70",
+      "source_pack": "original",
+      "source_row": 12681,
+      "bedding_sample": [
+        61,
+        69,
+        77,
+        85
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16055": {
+      "role": "wood_bed",
+      "origin": [
+        -81,
+        -143
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        1,
+        0,
+        142,
+        165
+      ],
+      "size": [
+        144,
+        168
+      ],
+      "source_rgba_sha256": "14ec0bd514a098553f1c2b280f2fe06a865c2ce354a4270ed630337810619c2e",
+      "source_pack": "original",
+      "source_row": 12683,
+      "bedding_sample": [
+        61,
+        84,
+        77,
+        100
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16056": {
+      "role": "wood_bed",
+      "origin": [
+        -54,
+        -145
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        139,
+        172
+      ],
+      "size": [
+        144,
+        172
+      ],
+      "source_rgba_sha256": "8032446df4586b02c566335c1c556bed353b474681c92687acc8a12a11e51b15",
+      "source_pack": "original",
+      "source_row": 12684,
+      "bedding_sample": [
+        61,
+        87,
+        77,
+        103
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16057": {
+      "role": "wood_bed",
+      "origin": [
+        -81,
+        -149
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        1,
+        0,
+        149,
+        174
+      ],
+      "size": [
+        152,
+        175
+      ],
+      "source_rgba_sha256": "3ff243a15952c067829b1958db1d58d7fc741eeda029a67a0fe49ad55d8a9106",
+      "source_pack": "original",
+      "source_row": 12685,
+      "bedding_sample": [
+        65,
+        88,
+        81,
+        104
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16058": {
+      "role": "wood_bed",
+      "origin": [
+        -60,
+        -150
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        148,
+        178
+      ],
+      "size": [
+        148,
+        178
+      ],
+      "source_rgba_sha256": "540825c1b4be27d3aef30ded2aacc9fa1e37cd60b068e6206b381633bc818e09",
+      "source_pack": "original",
+      "source_row": 12686,
+      "bedding_sample": [
+        63,
+        90,
+        79,
+        106
+      ],
+      "frame_rgb": [
+        0.48,
+        0.29,
+        0.15
+      ]
+    },
+    "16059": {
+      "role": "wood_bed",
+      "origin": [
+        -82,
+        -130
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "bounds": [
+        2,
+        0,
+        139,
+        159
+      ],
+      "size": [
+        140,
+        160
+      ],
+      "source_rgba_sha256": "7a6760531de715413365aa0c411b115c090a5253b914e3ad5c7a14a47f546113",
+      "source_pack": "original",
+      "source_row": 12687,
+      "bedding_sample": [
+        59,
+        80,
+        75,
+        96
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16062": {
+      "role": "wood_bed",
+      "origin": [
+        -51,
+        -111
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        140,
+        137
+      ],
+      "size": [
+        140,
+        137
+      ],
+      "source_rgba_sha256": "c4c04e6b7cecee322ab5b7c9bffd05314104546a99cd19731e7b39f7355065cd",
+      "source_pack": "original",
+      "source_row": 12690,
+      "bedding_sample": [
+        59,
+        67,
+        75,
+        83
+      ],
+      "frame_rgb": [
+        0.62,
+        0.26,
+        0.14
+      ]
+    },
+    "16085": {
+      "role": "bookcase",
+      "origin": [
+        -128,
+        -240
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "bounds": [
+        0,
+        0,
+        180,
+        263
+      ],
+      "size": [
+        184,
+        265
+      ],
+      "source_rgba_sha256": "9db3cdb02da06453189bd8d229e4b10971af3e7c7cd74c75c45ec87b4771a158",
+      "source_pack": "original",
+      "source_row": 12713
+    },
+    "16087": {
+      "role": "bookcase",
+      "origin": [
+        -128,
+        -240
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "bounds": [
+        0,
+        0,
+        180,
+        263
+      ],
+      "size": [
+        184,
+        265
+      ],
+      "source_rgba_sha256": "bdb76d9932d40768b42b9e56c5a3ae5295e2412b81d70da2d102a7b8ecc35533",
+      "source_pack": "original",
+      "source_row": 12715
+    },
+    "16098": {
+      "role": "bookcase",
+      "origin": [
+        -32,
+        -76
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        48,
+        98
+      ],
+      "size": [
+        56,
+        98
+      ],
+      "source_rgba_sha256": "9e417e9a2b26226a87d4ea3391edac359a8cd9724eb6f48260a91af38775c518",
+      "source_pack": "original",
+      "source_row": 12726
+    },
+    "16147": {
+      "role": "bookcase",
+      "origin": [
+        -40,
+        -240
+      ],
+      "footprint": [
+        4,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        184,
+        269
+      ],
+      "size": [
+        192,
+        269
+      ],
+      "source_rgba_sha256": "a1e0ba338ba953b5e37fb78407e5a8b60cf1e232d69557a026a229d91d549868",
+      "source_pack": "original",
+      "source_row": 12775
+    },
+    "16150": {
+      "role": "bookcase",
+      "origin": [
+        -40,
+        -240
+      ],
+      "footprint": [
+        4,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        184,
+        269
+      ],
+      "size": [
+        192,
+        269
+      ],
+      "source_rgba_sha256": "9f0951f71b9ba4596a30f675f45bce83761046e70a28d492d1b90cc5beecdbc7",
+      "source_pack": "original",
+      "source_row": 12778
+    },
+    "16631": {
+      "role": "hammock",
+      "origin": [
+        -149,
+        -222
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "bounds": [
+        0,
+        0,
+        154,
+        229
+      ],
+      "size": [
+        156,
+        229
+      ],
+      "source_rgba_sha256": "ea56c8edf9e99b69d5097509d14588d0ec370cdf3cfd968b85973213d3c25630",
+      "source_pack": "original",
+      "source_row": 12280
+    },
+    "17000": {
+      "role": "bookcase",
+      "origin": [
+        -24,
+        -138
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        145
+      ],
+      "size": [
+        76,
+        147
+      ],
+      "source_rgba_sha256": "3edb0192aac3008465a908aea157ac761609fc9364322c3fb23dcc1bc9c0eab0",
+      "source_pack": "original",
+      "source_row": 13086
+    },
+    "17001": {
+      "role": "bookcase",
+      "origin": [
+        -45,
+        -135
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        69,
+        145
+      ],
+      "size": [
+        76,
+        145
+      ],
+      "source_rgba_sha256": "c0d51784320b2126ee86e68043a694003995d38fc63bc10c9eb8634414395196",
+      "source_pack": "original",
+      "source_row": 13087
+    },
+    "17513": {
+      "role": "wood_chair",
+      "origin": [
+        -16,
+        -56
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        30,
+        59
+      ],
+      "size": [
+        32,
+        59
+      ],
+      "source_rgba_sha256": "308c7d65a1b447a4fe23d20ef70e40bf32ac6612d2752b3735887f8223edccdf",
+      "source_pack": "original",
+      "source_row": 13048
+    },
+    "17514": {
+      "role": "wood_chair",
+      "origin": [
+        -15,
+        -37
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        29,
+        53
+      ],
+      "size": [
+        32,
+        53
+      ],
+      "source_rgba_sha256": "be7f8e5981c75e9b331de7cd6d94d6d714d123dd39c73b613191f4390a87923b",
+      "source_pack": "original",
+      "source_row": 13049
+    },
+    "17515": {
+      "role": "wood_chair",
+      "origin": [
+        -21,
+        -45
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        36,
+        61
+      ],
+      "size": [
+        36,
+        61
+      ],
+      "source_rgba_sha256": "d5fe6e38c79e66720c82307937eb78d827b7750b492ae04ed2632460a9d8c8ab",
+      "source_pack": "original",
+      "source_row": 13050
+    },
+    "17588": {
+      "role": "bookcase",
+      "origin": [
+        -32,
+        -129
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        52,
+        144
+      ],
+      "size": [
+        56,
+        145
+      ],
+      "source_rgba_sha256": "ea7ba7b706c0c44ac489d3fe80e8d17a877ad9104ace4fedc026fa8a050f1080",
+      "source_pack": "original",
+      "source_row": 12986
+    },
+    "17589": {
+      "role": "bookcase",
+      "origin": [
+        -49,
+        -153
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        81,
+        169
+      ],
+      "size": [
+        88,
+        169
+      ],
+      "source_rgba_sha256": "39fb3f8d6897f28720986b17c725b3aca651dceca959f5d2148897f66aa70b84",
+      "source_pack": "original",
+      "source_row": 12987
+    },
+    "11031": {
+      "role": "laundry_line",
+      "origin": [
+        -88,
+        -138
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        133,
+        155
+      ],
+      "size": [
+        136,
+        155
+      ],
+      "source_rgba_sha256": "32c3f1008c9d590b19b5eaf7a6299f97dc8004873f973da49d16fd43e7e33aac",
+      "source_pack": "original",
+      "source_row": 7949
+    }
+  },
+  "scope": "Exact bounded furniture IDs only; reuse complete furniture/cart/hammock masters. No original map/event/navigation changes.",
+  "inferred": [
+    "Unseen backs retain the reused model construction and native palette. Fit, hidden joints, board thickness and cloth folds reconstruct the single native view.",
+    "Source bedding motifs are sampled separately at fixed world scale; original front paint is projected only onto observed facing surfaces."
+  ]
+}

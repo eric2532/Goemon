@@ -1,0 +1,202 @@
+[
+  {
+    "file": "05005",
+    "path": "gmsv/data/map/05005",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/05005",
+    "git_blob_sha": "ee499e3f1cdfd7f279150bdf3deff7192548cc9c",
+    "sha256": "22fb5903bfe58d6e81547db6548a2ef6a321758e60867761be4a14d2d784486d",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "05006",
+    "path": "gmsv/data/map/05006",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/05006",
+    "git_blob_sha": "61ef5d0f7eea579aeb400bffd2f8c381e8583873",
+    "sha256": "19ee4f40cbf6d9f9bc81d48b2d6f4e84ca9b8d23af23d3460be0c26ca7649510",
+    "bytes": 944,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "05009_candy",
+    "path": "gmsv/data/map/05009_candy",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/05009_candy",
+    "git_blob_sha": "ccbb8e1eea7a36ca93f0c1f95b6e320aff9900c4",
+    "sha256": "53143d0f4173e9f15843f78230176563665ec06769e6564ff292fc8f03f3edf7",
+    "bytes": 944,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "05010_candy",
+    "path": "gmsv/data/map/05010_candy",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/05010_candy",
+    "git_blob_sha": "2232c65d7dc8a9031d88bbe7aa3b3fb8b9ade527",
+    "sha256": "8692feddf8d0f16921073aa31e1776d853e36ae53a0b6c1ed2b5839d4301ca59",
+    "bytes": 944,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "11031_kodaiju",
+    "path": "gmsv/data/map/11031_kodaiju",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11031_kodaiju",
+    "git_blob_sha": "a03454405025d79875e9743149ccfc33bde4467d",
+    "sha256": "718d8be20fd0ef466d089a4e84dd76270d3e68be8dd8de613cf52bbd2613cd5e",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "11039_kodaiju2",
+    "path": "gmsv/data/map/11039_kodaiju2",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11039_kodaiju2",
+    "git_blob_sha": "f3750af7160ddab399888384c09ae6b6fbf436a8",
+    "sha256": "6a639b8bd1e8a7fc85481fbb9ccd79b380bd9e960c2225f4897a52b4949c2f4c",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "11040_kodaiju3",
+    "path": "gmsv/data/map/11040_kodaiju3",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/11040_kodaiju3",
+    "git_blob_sha": "81cd4296f12a48c5455ebfbae683cb483b208e8d",
+    "sha256": "57f7debc3b9d7e78cc1ceededee6a826c139104aa4ecf571351e5bba1fb28dfc",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "13504_chiteiko",
+    "path": "gmsv/data/map/13504_chiteiko",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13504_chiteiko",
+    "git_blob_sha": "3c7fdc2ec4179067ec061fdf770f1bffb749cb8c",
+    "sha256": "4fc412188520d31e743b11e992c432f3203194f9b522564d218e6ec396330af1",
+    "bytes": 19644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "13509_ibukuro02",
+    "path": "gmsv/data/map/13509_ibukuro02",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13509_ibukuro02",
+    "git_blob_sha": "6f3564aac56e0810e469f56e4e36d71d64181938",
+    "sha256": "57fbc2b4667d3d8799450b987b3214f678b4f91dbab989c154061f3b5f245d24",
+    "bytes": 40044,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "13512_syocyo01",
+    "path": "gmsv/data/map/13512_syocyo01",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13512_syocyo01",
+    "git_blob_sha": "9ccdfd409fba058008f4066ca63e635a7f049ede",
+    "sha256": "8269357a9b1ee7bd20082b9e9be3b2ddd0af4d93986c7af9b441a80befa86e87",
+    "bytes": 16044,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15549_kuro",
+    "path": "gmsv/data/map/15549_kuro",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15549_kuro",
+    "git_blob_sha": "d9c7db568159d30b26b66f6b45dc828eb6e2a1ca",
+    "sha256": "d3a59e6545a23731249bc94de220a03ac744a06fe902fc123ad3691c1cf6df92",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15556_hai3",
+    "path": "gmsv/data/map/15556_hai3",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15556_hai3",
+    "git_blob_sha": "e712d1aedbdb56bc91a12f7282a5e12cf980b5aa",
+    "sha256": "be626bbc9dccf78ae3e379e230b6e9de5fbe070254ed4e05bd0f9624d70b1cdf",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15560_kuro2",
+    "path": "gmsv/data/map/15560_kuro2",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15560_kuro2",
+    "git_blob_sha": "ca7bc66be9120bb32588093220c623c8814a56d8",
+    "sha256": "4ae4ca35ae11e4cffb2aa67bbc64ddc85d64227907c497bbe60f5837c75df2b5",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15562_hai4",
+    "path": "gmsv/data/map/15562_hai4",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15562_hai4",
+    "git_blob_sha": "28ee08118a17c45052200bf738f0c8e9e3dc5722",
+    "sha256": "86a0ceea2297f63f99adb1e2797ea8775712e8858ef390349914355b3a2996f6",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15577_midorikako",
+    "path": "gmsv/data/map/15577_midorikako",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15577_midorikako",
+    "git_blob_sha": "0edd4f7339d52b86b8a31c23a0c2d51a8fec8d61",
+    "sha256": "cfb57b7c156b6e98209982825fd66500f14f7990fafa719e6cc962369c15ce59",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15800_boss",
+    "path": "gmsv/data/map/15800_boss",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15800_boss",
+    "git_blob_sha": "6f4b77e71c97eecf010c7c3252cc2cbb124c51d7",
+    "sha256": "09a404d477401162d9ffa2a5388875b4032aa371f7c00761290fd03320b492cf",
+    "bytes": 1644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15525_usi",
+    "path": "gmsv/data/map/15525_usi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15525_usi",
+    "git_blob_sha": "2735081f365b9f439d5c1d8084b10038ace2cf80",
+    "sha256": "7653c3c96f783ebfd6ccfdf3c762a644f251afaf35a229e414c33241c2db2181",
+    "bytes": 3644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "15526_usi",
+    "path": "gmsv/data/map/15526_usi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15526_usi",
+    "git_blob_sha": "bfaf5ee7b99b89666497b6142da33c514ad26c0b",
+    "sha256": "029929a99a540f2ed91b87876796848a9e881db9938a8cb44be5fba2a99d64ce",
+    "bytes": 8044,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "00100_field1",
+    "path": "gmsv/data/map/00100_field1",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/00100_field1",
+    "git_blob_sha": "58febf80da040c14c564e15cc1ff50d74c735732",
+    "sha256": "0f62a26d29226cd5de42bd4ed5275136fa6316b3cbe47c4a93026ad34b90c94a",
+    "bytes": 2049644,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  },
+  {
+    "file": "00300_field2",
+    "path": "gmsv/data/map/00300_field2",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/00300_field2",
+    "git_blob_sha": "5d89089ad1d50e5338e7814aa4b1e1a7976d431d",
+    "sha256": "337c4054cb20ffae0c982f687c4181943fe69ae8c6eb9c5c62ea2685dcf4ec04",
+    "bytes": 1702444,
+    "authority": "Pinned CGMSV server-map source; client/release correspondence must be compared."
+  }
+]

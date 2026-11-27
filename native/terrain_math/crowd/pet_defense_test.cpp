@@ -257,10 +257,10 @@ int main(){
   auto near=foe(c,1,{5,0,-2},true),marked=foe(c,2,{32,0,0});
   c.combat.set_targets({hero()},0,0,HOUND_ATTACK,1,marked);c.step(dt);
   assert(c.combat.hound_focus_target()==marked&&c.unit(h)->target_handle==marked);++checks;
-  // Changing the mark cannot redirect a strike already in progress.
+  // A fresh cursor mark interrupts the old strike before it can hit.
   c.unit(h)->target_handle=near;c.unit(h)->action_active=true;c.unit(h)->action_time=.01;
   c.combat.set_targets({hero()},0,0,HOUND_ATTACK,2,marked);c.combat.before_move(c,dt);
-  assert(c.unit(h)->target_handle==near&&c.unit(h)->action_active);++checks;
+  assert(c.unit(h)->target_handle==marked&&!c.unit(h)->action_active&&c.unit(h)->action_time==0);++checks;
   c.unit(h)->action_active=false;c.step(dt);
   assert(c.unit(h)->target_handle==marked);++checks;
   c.combat.set_targets({hero()},0,0,HOUND_HOLD,3,marked);c.step(dt);
@@ -300,6 +300,148 @@ int main(){
   Crowd c;setup(c);auto h=pet(c);auto marked=foe(c,1,{32,0,0});
   c.combat.set_targets({hero()},0,0,HOUND_ATTACK,1,marked);c.step(1.0/60);c.despawn(h);c.step(1.0/60);
   assert(!c.combat.hound_focus_target());++checks;
+ }
+ {
+  Crowd c;setup(c);auto player=hero();player.pet_formation_ids={-1,-2,-3,-4,-5};
+  std::array<Handle,5> pack{},victims{};
+  for(int i=0;i<5;++i){
+   Vec3 pos{float((i-2)*12),0,5};
+   pack[i]=pet(c,i,pos);victims[i]=foe(c,i+1,pos+Vec3{0,0,-53});
+   assert(c.set_pet_skills(pack[i],{2,0,0}));
+   assert(c.combat.queue_beast_pet_attacks(c,pack[i],1));
+   if(i>0)assert(c.combat.queue_beast_pet_attacks(c,pack[i],i));
+   assert(c.unit(pack[i])->beast_pet_attacks==i+1);++checks;
+  }
+  assert(!c.combat.queue_beast_pet_attacks(c,pack[0],0)&&!c.combat.queue_beast_pet_attacks(c,victims[0],1));++checks;
+  c.combat.set_targets({player},0,0,HOUND_COMBINED,1);
+  c.step(1.0/60);
+  for(int i=0;i<5;++i){
+   auto* u=c.unit(pack[i]);auto* victim=c.unit(victims[i]);
+   assert(u->target_handle==victims[i]&&u->action_active&&u->beast_pet_attacks==i);++checks;
+   assert(length(u->position-victim->position)<3.8f&&victim->hp==10000);++checks;
+   assert(u->position.z<victim->position.z&&std::abs(u->position.x-victim->position.x)<.01f);++checks;
+  }
+  assert(c.combat.begin_combined_power(c,victims[2],.4)&&c.combat.combined_power_ready(c));++checks;
+  c.combat.end_combined_power(c);
+  assert(c.set_boss_reactions(pack[2],0,1));
+  Hit hit;hit.amount=1;hit.source_id=3;hit.magical=true;
+  assert(c.combat.hit(c,pack[2],hit).accepted&&!c.unit(pack[2])->counter_pending);++checks;
+  c.step(.35);
+  for(auto victim:victims){assert(c.unit(victim)->hp==10000);++checks;}
+  c.step(.25);
+  for(auto victim:victims){assert(c.unit(victim)->hp==9940);++checks;}
+  for(int tick=0;tick<480;++tick)c.step(1.0/60);
+  for(int i=0;i<5;++i){
+   auto* u=c.unit(pack[i]);
+   auto count=[&](auto kind){return std::count_if(c.combat.events().begin(),c.combat.events().end(),[&](const Event& e){return e.kind==kind&&e.source_id==u->logical_id;});};
+   assert(count(ATTACK_STARTED)==i+1&&count(DONE)==i+1&&count(PET_SKILL_STARTED)==0);++checks;
+   assert(!u->action_active&&!u->has_goal&&u->beast_pet_attacks==0&&c.unit(victims[i])->hp==10000-60*(i+1));++checks;
+  }
+  c.rest_allies();
+  for(auto h:pack){assert(c.unit(h)->beast_pet_attacks<0);++checks;}
+ }
+ {
+  Crowd c;setup(c);
+  auto h=pet(c,0,{57,0,0}),outside=foe(c,1,{61,0,0},true);
+  assert(c.combat.queue_beast_pet_attacks(c,h,1));c.step(1.0/60);
+  assert(!c.unit(h)->action_active&&c.unit(h)->target_handle==0&&c.unit(outside)->hp==10000);++checks;
+ }
+ {
+  Crowd c;setup(c);
+  auto h=pet(c),first=foe(c,1,{-52,0,0}),second=foe(c,2,{52,0,0});
+  assert(c.combat.queue_beast_pet_attacks(c,h,2));c.step(1.0/60);
+  assert(c.unit(h)->action_active&&c.unit(h)->target_handle==second);++checks;
+  c.step(.65);assert(c.unit(second)->hp==9940&&c.unit(h)->attack_serial==1);++checks;
+  c.despawn(second);
+  for(int tick=0;tick<90;++tick)c.step(1.0/60);
+  assert(c.unit(first)->hp==9940&&c.unit(h)->attack_serial==2);++checks;
+ }
+ {
+  Crowd c;setup(c);
+  auto first=pet(c,0,{5,0,5}),second=pet(c,1,{5,0,7}),target=foe(c,1,{5,0,-3});
+  c.set_pose(target,{5,0,-3},float(M_PI/2));
+  assert(c.combat.queue_beast_pet_attacks(c,first,1)&&c.combat.queue_beast_pet_attacks(c,second,1));
+  c.step(1.0/60);
+  auto* a=c.unit(first);auto* b=c.unit(second);
+  assert(a->action_active&&b->action_active&&a->target_handle==target&&b->target_handle==target);++checks;
+  assert(a->position.x<5&&b->position.x<5&&std::abs(a->position.z+3)<.01f);++checks;
+  assert(length(a->position-b->position)>=.98f*(a->radius+b->radius));++checks;
+  c.step(.65);assert(c.unit(target)->hp==9880);++checks;
+ }
+ {
+  Crowd c;setup(c);std::array<Handle,5> pack{};
+  auto target=foe(c,1,{0,0,0});
+  for(int i=0;i<5;++i){pack[i]=pet(c,i,{0,0,0});assert(c.combat.queue_beast_pet_attacks(c,pack[i],1));}
+  c.step(1.0/60);
+  for(auto h:pack){assert(c.unit(h)->action_active&&c.unit(h)->target_handle==target);++checks;}
+  c.step(.65);assert(c.unit(target)->hp==9700);++checks;
+ }
+ {
+  Crowd c;setup(c);
+  NavigationData nav;nav.origin={-30,0,-30};nav.width=21;nav.spacing=3;nav.heights.assign(441,0);nav.covered.assign(441,1);
+  nav.obstacle_min={{-.35f,0,-2.5f}};nav.obstacle_max={{.35f,8,-.8f}};c.set_navigation(nav);
+  auto h=pet(c,0,{0,0,7}),target=foe(c,1,{0,0,0});
+  assert(c.combat.queue_beast_pet_attacks(c,h,1));c.step(1.0/60);
+  auto* u=c.unit(h);
+  assert(u->target_handle==target&&u->action_active&&std::abs(u->position.x)>.8f&&u->position.z<0);++checks;
+  c.step(.65);assert(c.unit(target)->hp==9940);++checks;
+ }
+ {
+  Crowd c;setup(c);
+  NavigationData nav;nav.origin={-30,0,-30};nav.width=21;nav.spacing=3;nav.heights.assign(441,0);nav.covered.assign(441,1);
+  nav.obstacle_min={{-.9f,0,-2.5f}};nav.obstacle_max={{.9f,8,2.5f}};c.set_navigation(nav);
+  const Vec3 start{-7,0,0};
+  auto h=pet(c,0,start);
+  assert(!c.allied_terrain.segment(start,{8,0,0},.5f,0));
+  for(int order=1;order<=2;++order){
+   auto target=foe(c,order,{8,0,0});
+   assert(c.combat.queue_beast_pet_attacks(c,h,1));c.step(1.0/60);
+   auto* u=c.unit(h);
+   assert(u->action_active&&u->target_handle==target&&u->attack_serial==uint64_t(order));++checks;
+   assert(u->position.x>.9f&&u->position.z<0&&c.allied_terrain.clear(u->position,u->radius,0));++checks;
+   assert(c.unit(target)->hp==10000);++checks;
+   c.step(1.2);assert(c.unit(target)->hp==9940);++checks;
+   c.despawn(target);c.set_pose(h,start,0);
+  }
+ }
+ // Solid landing points, cover around the strike, and splits in the ground still reject arrivals.
+ for(int obstruction=0;obstruction<3;++obstruction){
+  Crowd c;setup(c);
+  NavigationData nav;nav.origin={-30,0,-30};nav.width=21;nav.spacing=3;nav.heights.assign(441,0);nav.covered.assign(441,1);
+  if(obstruction==0){nav.obstacle_min={{4,0,-4}};nav.obstacle_max={{12,8,4}};}
+  if(obstruction==1){
+   nav.ray_min={{7.45f,0,-.55f},{8.45f,0,-.55f},{7.45f,0,-.55f},{7.45f,0,.45f}};
+   nav.ray_max={{7.55f,8,.55f},{8.55f,8,.55f},{8.55f,8,-.45f},{8.55f,8,.55f}};
+  }
+  if(obstruction==2)for(int z=0;z<nav.width;++z)nav.covered[z*nav.width+10]=0;
+  c.set_navigation(nav);
+  const Vec3 start{-7,0,0};
+  auto h=pet(c,0,start),target=foe(c,1,{8,0,0},true);
+  assert(c.combat.queue_beast_pet_attacks(c,h,1));c.step(1.0/60);
+  auto* u=c.unit(h);
+  assert(!u->action_active&&!u->has_goal&&u->beast_pet_attacks==0&&length(u->position-start)<.001f);++checks;
+  assert(c.unit(target)->hp==10000&&std::none_of(c.combat.events().begin(),c.combat.events().end(),[](const Event& e){return e.kind==ATTACK_STARTED||e.kind==DAMAGE;}));++checks;
+  c.despawn(h);
+  h=pet(c,0,start);auto exposed=foe(c,2,{-7,0,-16});
+  assert(c.combat.queue_beast_pet_attacks(c,h,1));c.step(1.0/60);
+  assert(c.unit(h)->action_active&&c.unit(h)->target_handle==exposed&&c.unit(target)->hp==10000);++checks;
+ }
+ {
+  Crowd c;setup(c);auto h=pet(c),target=foe(c,1,{5,0,-2});
+  assert(c.combat.queue_beast_pet_attacks(c,h,2));
+  c.step(.25);assert(c.unit(h)->action_active&&c.unit(h)->beast_pet_attacks==1);++checks;
+  c.despawn(target);c.step(.15);assert(c.unit(h)->action_active&&c.unit(h)->beast_pet_attacks==1);++checks;
+  c.step(3.0);assert(!c.unit(h)->action_active&&c.unit(h)->beast_pet_attacks==0&&c.unit(h)->attack_serial==1);++checks;
+  assert(std::count_if(c.combat.events().begin(),c.combat.events().end(),[](const Event& e){return e.kind==DONE&&e.source_id==-1;})==1);++checks;
+  c.despawn(h);auto remade=pet(c);
+  assert(remade!=h&&c.unit(remade)->beast_pet_attacks<0&&!c.combat.queue_beast_pet_attacks(c,h,1));++checks;
+  c.combat.clear_events();assert(c.combat.queue_beast_pet_attacks(c,remade,3));
+  c.step(1.0/60);
+  assert(!c.unit(remade)->action_active&&c.unit(remade)->beast_pet_attacks==0&&c.unit(remade)->attack_serial==0);++checks;
+  assert(std::none_of(c.combat.events().begin(),c.combat.events().end(),[](const Event& e){return e.kind==ATTACK_STARTED||e.kind==DAMAGE;}));++checks;
+  c.despawn(remade);remade=pet(c);
+  auto late=foe(c,2,{5,0,-2});assert(c.combat.queue_beast_pet_attacks(c,remade,1));
+  c.step(.7);assert(c.unit(remade)->attack_serial==1&&c.unit(late)->hp==9940);++checks;
  }
  std::cout<<"PET_DEFENSE_RESULT checks="<<checks<<" failures=0\n";
 }

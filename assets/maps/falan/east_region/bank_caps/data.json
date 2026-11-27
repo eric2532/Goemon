@@ -1,0 +1,7502 @@
+{
+  "schema": 1,
+  "graphics": {
+    "12500": {
+      "serial": 12500,
+      "pack": "original",
+      "row": 9009,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "8042f6905a1c557dc33681a8bfee23a4f28964fd83dc624bb0f5aaf45a87d609",
+      "front_rgba_sha256": "356d88692c513db2eeafb5efd2e74ba35146914603c8e4f5e71a57da667f97cf",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.421875
+        ],
+        [
+          -1.453125,
+          -0.703125
+        ],
+        [
+          -0.828125,
+          -1.328125
+        ],
+        [
+          -0.59375,
+          -1.46875
+        ],
+        [
+          -0.53125,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.421875
+        ],
+        [
+          1.484375,
+          0.484375
+        ],
+        [
+          1.359375,
+          0.609375
+        ],
+        [
+          0.421875,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.5,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.75,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.875,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -1.0,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -1.125,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.25,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -1.375,
+          -0.75,
+          1.5,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.375,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          1.25,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          1.125,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          1.0,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.875,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.75,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.625,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.5,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.375,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.125,
+            0.5625
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0625,
+            -0.5625
+          ],
+          "entry_interval": [
+            -1.5,
+            0.375
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.5,
+            -0.0625
+          ],
+          "entry_interval": [
+            -0.5,
+            1.5
+          ],
+          "entry_radius_local": 1.0,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5625,
+            0.0625
+          ],
+          "entry_interval": [
+            -1.5,
+            0.375
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.0625,
+        -0.0625
+      ],
+      "outline_clearance_local": 1.4363106492851747,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1939
+    },
+    "12501": {
+      "serial": 12501,
+      "pack": "original",
+      "row": 9010,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "24ca29db2905b364e3e5e6ea7d30602df075c059606788d341ad9f85e7db9301",
+      "front_rgba_sha256": "e9262740b153834653f1bbdc2e14b6ac3e8a4cf8b4c3708641e21682d879fb6e",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.375
+        ],
+        [
+          1.484375,
+          0.484375
+        ],
+        [
+          1.296875,
+          0.671875
+        ],
+        [
+          0.9375,
+          0.9375
+        ],
+        [
+          0.109375,
+          1.484375
+        ],
+        [
+          0.046875,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.375,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          1.25,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          1.125,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          1.0,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.75,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.625,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.375,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.25,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.0,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.5625
+          ],
+          "entry_interval": [
+            -1.5,
+            0.375
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.75,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.0625,
+        -0.0625
+      ],
+      "outline_clearance_local": 1.3855261444934428,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1264
+    },
+    "12502": {
+      "serial": 12502,
+      "pack": "original",
+      "row": 9011,
+      "origin": [
+        -34,
+        -13
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "native_origin": [
+        -32,
+        -11
+      ],
+      "native_size": [
+        64,
+        82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "112eee8efa77b7ee0e5282414c568c714b04fbcaf7418f3742e52d75fd77542d",
+      "front_rgba_sha256": "f8a868b542bae69934cf58435b028856987f86e5ad8b187fffaea13f285edff3",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          -0.15625,
+          -1.5
+        ],
+        [
+          -0.109375,
+          -1.484375
+        ],
+        [
+          0.265625,
+          -1.109375
+        ],
+        [
+          0.25,
+          -1.0
+        ],
+        [
+          0.171875,
+          -0.828125
+        ],
+        [
+          -0.578125,
+          0.671875
+        ],
+        [
+          -0.890625,
+          0.984375
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          -0.25,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.0,
+          -1.25
+        ],
+        [
+          -1.5,
+          -1.25,
+          0.125,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.25,
+          -1.0
+        ],
+        [
+          -1.5,
+          -1.0,
+          0.125,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          -0.125,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          -0.25,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          -0.375,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          -0.5,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          -0.625,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          -0.75,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          -0.875,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          -1.0,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          -1.125,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          -1.25,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          -1.375,
+          1.375
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.875,
+            -0.0625
+          ],
+          "entry_interval": [
+            -1.5,
+            1.375
+          ],
+          "entry_radius_local": 1.4375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.875,
+            -0.3125
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.25
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.75,
+        -0.75
+      ],
+      "outline_clearance_local": 0.75,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1067
+    },
+    "12503": {
+      "serial": 12503,
+      "pack": "original",
+      "row": 9012,
+      "origin": [
+        -34,
+        -15
+      ],
+      "size": [
+        56,
+        40
+      ],
+      "native_origin": [
+        -32,
+        -13
+      ],
+      "native_size": [
+        52,
+        36
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "d6a6f213683f3fed357581743dcfe7d54d0d77231a2c41dbd0b6ec6f8092a25f",
+      "front_rgba_sha256": "ce5ed8dcae7ef5f83b7d03d95dcaab14b45eb0d49dc8dd30af129a8eb33518bb",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          0.109375,
+          -1.5
+        ],
+        [
+          0.15625,
+          -1.46875
+        ],
+        [
+          0.59375,
+          -0.78125
+        ],
+        [
+          0.515625,
+          0.515625
+        ],
+        [
+          0.421875,
+          0.796875
+        ],
+        [
+          0.0625,
+          1.4375
+        ],
+        [
+          0.0,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          0.0,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.125,
+          -1.25
+        ],
+        [
+          -1.5,
+          -1.25,
+          0.25,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.375,
+          -0.875
+        ],
+        [
+          -1.5,
+          -0.875,
+          0.5,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.375,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.25,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.125,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.125,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          0.0,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.0,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.5,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.75,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.0
+          ],
+          "entry_radius_local": 0.5625,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.4375,
+        -0.4375
+      ],
+      "outline_clearance_local": 1.0087135287472915,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12504": {
+      "serial": 12504,
+      "pack": "original",
+      "row": 9013,
+      "origin": [
+        -17,
+        4
+      ],
+      "size": [
+        36,
+        21
+      ],
+      "native_origin": [
+        -15,
+        6
+      ],
+      "native_size": [
+        32,
+        17
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "73ada4fbd7d8e6893c22f8f36a387a4616c7661e1bb481adef486ea8aef1d47e",
+      "front_rgba_sha256": "e301c011f05dda1be4293fd04b5e31780405d3106f327b2fbfb19335812b6ecb",
+      "cap_outline": [
+        [
+          -1.5,
+          0.109375
+        ],
+        [
+          -1.453125,
+          0.046875
+        ],
+        [
+          -1.1875,
+          0.0625
+        ],
+        [
+          -0.515625,
+          0.234375
+        ],
+        [
+          -0.28125,
+          0.46875
+        ],
+        [
+          0.125,
+          1.0
+        ],
+        [
+          0.109375,
+          1.109375
+        ],
+        [
+          0.015625,
+          1.390625
+        ],
+        [
+          -0.046875,
+          1.453125
+        ],
+        [
+          -0.109375,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          0.125,
+          -1.0,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          -0.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          -0.375,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          -0.25,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          -0.125,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.0,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.0,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          -0.125,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.875,
+            0.625
+          ],
+          "entry_interval": [
+            0.125,
+            1.125
+          ],
+          "entry_radius_local": 0.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.625,
+            0.875
+          ],
+          "entry_interval": [
+            -1.125,
+            -0.125
+          ],
+          "entry_radius_local": 0.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.875,
+        0.8125
+      ],
+      "outline_clearance_local": 0.625,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12505": {
+      "serial": 12505,
+      "pack": "original",
+      "row": 9014,
+      "origin": [
+        -22,
+        -16
+      ],
+      "size": [
+        56,
+        50
+      ],
+      "native_origin": [
+        -20,
+        -14
+      ],
+      "native_size": [
+        52,
+        46
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "065bb27b6f989bc736f33682937381fe332a6ee299c97a8dc69b31fb64fc55f0",
+      "front_rgba_sha256": "8d17a7043f585cc98ecc1f59d5d311fb23064535f8a196f5e4612d0b2c6478d4",
+      "cap_outline": [
+        [
+          -1.5,
+          0.0
+        ],
+        [
+          -1.25,
+          -0.25
+        ],
+        [
+          0.015625,
+          -0.859375
+        ],
+        [
+          0.125,
+          -0.875
+        ],
+        [
+          1.109375,
+          -0.640625
+        ],
+        [
+          1.4375,
+          -0.3125
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.125,
+          -0.75,
+          0.625,
+          -0.625
+        ],
+        [
+          -0.375,
+          -0.625,
+          1.125,
+          -0.5
+        ],
+        [
+          -0.625,
+          -0.5,
+          1.25,
+          -0.375
+        ],
+        [
+          -0.875,
+          -0.375,
+          1.375,
+          -0.25
+        ],
+        [
+          -1.25,
+          -0.25,
+          1.375,
+          -0.125
+        ],
+        [
+          -1.375,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5625
+          ],
+          "entry_interval": [
+            0.0,
+            1.125
+          ],
+          "entry_radius_local": 0.5625,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.375
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.1875,
+        0.3125
+      ],
+      "outline_clearance_local": 1.1304233912255373,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12506": {
+      "serial": 12506,
+      "pack": "original",
+      "row": 9015,
+      "origin": [
+        -34,
+        -13
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "native_origin": [
+        -32,
+        -11
+      ],
+      "native_size": [
+        64,
+        82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "6b09a67772607742dbc2649ced4eff60c94b3eb8ac4c0f0c3e4d910344dfd9e8",
+      "front_rgba_sha256": "2c82de6f1b753d336f231e870cffc09db86fb2f001b11e4382e5afd531364a5e",
+      "cap_outline": [
+        [
+          -1.5,
+          1.234375
+        ],
+        [
+          -1.453125,
+          1.171875
+        ],
+        [
+          -1.328125,
+          1.046875
+        ],
+        [
+          -0.1875,
+          0.1875
+        ],
+        [
+          0.5625,
+          -0.1875
+        ],
+        [
+          0.734375,
+          -0.265625
+        ],
+        [
+          0.84375,
+          -0.28125
+        ],
+        [
+          1.046875,
+          -0.203125
+        ],
+        [
+          1.4375,
+          0.0625
+        ],
+        [
+          1.484375,
+          0.109375
+        ],
+        [
+          1.5,
+          0.15625
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          0.75,
+          -0.25,
+          0.875,
+          -0.125
+        ],
+        [
+          0.5,
+          -0.125,
+          1.125,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          1.25,
+          0.125
+        ],
+        [
+          0.0,
+          0.125,
+          1.375,
+          0.25
+        ],
+        [
+          -0.25,
+          0.25,
+          1.5,
+          0.375
+        ],
+        [
+          -0.375,
+          0.375,
+          1.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5,
+          1.5,
+          0.625
+        ],
+        [
+          -0.75,
+          0.625,
+          1.5,
+          0.75
+        ],
+        [
+          -0.875,
+          0.75,
+          1.5,
+          0.875
+        ],
+        [
+          -1.0,
+          0.875,
+          1.5,
+          1.0
+        ],
+        [
+          -1.25,
+          1.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            1.375
+          ],
+          "entry_interval": [
+            1.25,
+            1.5
+          ],
+          "entry_radius_local": 0.125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.25,
+            0.875
+          ],
+          "entry_interval": [
+            0.25,
+            1.5
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.8125
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.6875,
+        0.6875
+      ],
+      "outline_clearance_local": 0.8125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1301
+    },
+    "12507": {
+      "serial": 12507,
+      "pack": "original",
+      "row": 9016,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "75ec2e83ed970e1c057db3eab1e5ba01e07c84d9944884aa8bc57c96253fe0f2",
+      "front_rgba_sha256": "f2fef8ed12e91853d2b775fe24e9f2cf71cd8f998790bb19f998b02c5de44dcd",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.46875
+        ],
+        [
+          -0.484375,
+          -1.484375
+        ],
+        [
+          -0.421875,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.375,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.5,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.625,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.75,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -0.875,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.0,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -1.125,
+          -0.75,
+          1.5,
+          -0.625
+        ],
+        [
+          -1.25,
+          -0.625,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.375,
+          -0.5,
+          1.5,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5625
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.5625,
+            0.0
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0625,
+        0.0625
+      ],
+      "outline_clearance_local": 1.4375,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1403
+    },
+    "12508": {
+      "serial": 12508,
+      "pack": "original",
+      "row": 9017,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "0a4fec8a33a18cee7dfcc236be54c6b622f81343bd11a98bd5ccdd4485240b5b",
+      "front_rgba_sha256": "938d9360ed9f1f054b1c1ddef90b2f43efd9fb527a58047408e08be1408c0057",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.5,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 872
+    },
+    "12509": {
+      "serial": 12509,
+      "pack": "original",
+      "row": 9018,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        60,
+        61
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        56,
+        57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "5b826daf94a60bd2e829be93da75c7ee4a554bb3ebea0faea6647b6cb99a2511",
+      "front_rgba_sha256": "a578b6d1823de5165efffdb136f05893ac333b63879f7f5a83fffae2afc1d7a8",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.375
+        ],
+        [
+          0.859375,
+          1.109375
+        ],
+        [
+          0.671875,
+          1.296875
+        ],
+        [
+          0.4375,
+          1.4375
+        ],
+        [
+          0.265625,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.375,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          1.25,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          1.125,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          1.0,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.875,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.75,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.625,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          0.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.25,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.5625
+          ],
+          "entry_interval": [
+            -1.5,
+            0.375
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.4375,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.25
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.0625,
+        -0.0625
+      ],
+      "outline_clearance_local": 1.4375,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1
+    },
+    "12510": {
+      "serial": 12510,
+      "pack": "original",
+      "row": 9019,
+      "origin": [
+        -34,
+        -20
+      ],
+      "size": [
+        68,
+        45
+      ],
+      "native_origin": [
+        -32,
+        -18
+      ],
+      "native_size": [
+        64,
+        41
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "be41fd5ff8b7e3779f5417204645abce7aca0298c006dbc47ad625798f9f2d3d",
+      "front_rgba_sha256": "523cab75030d7dc074d3733219d5e2270599e392ba32e2cab624f7d0165ca10d",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          -0.15625,
+          -1.5
+        ],
+        [
+          0.84375,
+          -1.40625
+        ],
+        [
+          1.453125,
+          -0.796875
+        ],
+        [
+          1.5,
+          -0.59375
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          -0.25,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.875,
+          -1.25
+        ],
+        [
+          -1.5,
+          -1.25,
+          1.0,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          1.125,
+          -1.0
+        ],
+        [
+          -1.5,
+          -1.0,
+          1.25,
+          -0.875
+        ],
+        [
+          -1.5,
+          -0.875,
+          1.375,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.5
+          ],
+          "entry_interval": [
+            -0.5,
+            1.5
+          ],
+          "entry_radius_local": 1.0,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.25
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.0625
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.478866853355642,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12511": {
+      "serial": 12511,
+      "pack": "original",
+      "row": 9020,
+      "origin": [
+        -30,
+        -26
+      ],
+      "size": [
+        64,
+        71
+      ],
+      "native_origin": [
+        -28,
+        -24
+      ],
+      "native_size": [
+        60,
+        67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "984fa9d2934c151a4301a24f65c77f515f9b84b52014de8ab475286254ca80da",
+      "front_rgba_sha256": "176b77ce201e939cba2e8aba50b1ad0982b6a9842c02d47c76ece6d94910bbea",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.53125
+        ],
+        [
+          -1.4375,
+          -0.8125
+        ],
+        [
+          -1.0,
+          -1.25
+        ],
+        [
+          -0.59375,
+          -1.46875
+        ],
+        [
+          -0.421875,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.375,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.75,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -1.0,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -1.125,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -1.25,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.375,
+          -0.875,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.3125
+          ],
+          "entry_interval": [
+            -0.5,
+            1.125
+          ],
+          "entry_radius_local": 0.8125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.5625,
+            0.0
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.5,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1
+    },
+    "12512": {
+      "serial": 12512,
+      "pack": "original",
+      "row": 9021,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "da7373fd68da25343bc7b9b82b75b1fce19a1d02c82d0ba9eb040a68d0f8af2d",
+      "front_rgba_sha256": "9755c8747e62c797ca1b4e2f8e3af513f08aabc04037193ec6526390b94cb970",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.53125
+        ],
+        [
+          -1.453125,
+          -0.703125
+        ],
+        [
+          -1.375,
+          -0.875
+        ],
+        [
+          -0.9375,
+          -1.3125
+        ],
+        [
+          -0.703125,
+          -1.453125
+        ],
+        [
+          -0.53125,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.421875
+        ],
+        [
+          1.46875,
+          0.59375
+        ],
+        [
+          1.265625,
+          0.890625
+        ],
+        [
+          0.953125,
+          1.203125
+        ],
+        [
+          0.59375,
+          1.46875
+        ],
+        [
+          0.53125,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.5,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.75,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -1.0,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -1.125,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -1.25,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.375,
+          -0.875,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          1.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.375,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          1.25,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          1.125,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          1.0,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.875,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.625,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.0625,
+            0.5
+          ],
+          "entry_interval": [
+            -0.5,
+            1.5
+          ],
+          "entry_radius_local": 1.0,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0625,
+            -0.5625
+          ],
+          "entry_interval": [
+            -1.5,
+            0.375
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.5,
+            0.0
+          ],
+          "entry_interval": [
+            -0.5,
+            1.5
+          ],
+          "entry_radius_local": 1.0,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.5
+          ],
+          "entry_radius_local": 1.0,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.5,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1962
+    },
+    "12513": {
+      "serial": 12513,
+      "pack": "original",
+      "row": 9022,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "fa8edc5b485422f9fc45548368c87ed9bf735841d99a0c2d8034344d4fd7fe9b",
+      "front_rgba_sha256": "d92951705c78d2cecd3273ed35b29dd1bd8599abe1c038758c99db36c5eca621",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -0.109375
+        ],
+        [
+          1.4375,
+          0.0625
+        ],
+        [
+          1.296875,
+          0.296875
+        ],
+        [
+          0.109375,
+          1.484375
+        ],
+        [
+          0.046875,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.375,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.25,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          1.125,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.0,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.875,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          0.75,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          0.625,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.5,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.375,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.25,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.125,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.0,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.0625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.8125
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.125
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.75,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.1875,
+        -0.1875
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1261
+    },
+    "12514": {
+      "serial": 12514,
+      "pack": "original",
+      "row": 9023,
+      "origin": [
+        -34,
+        -14
+      ],
+      "size": [
+        68,
+        87
+      ],
+      "native_origin": [
+        -32,
+        -12
+      ],
+      "native_size": [
+        64,
+        83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "82c9819be4b57bfc7682bb8881f1cceec52acf036b651549b0b06d883f924222",
+      "front_rgba_sha256": "c53fee8159a30aac70e3a90636cfd0d1a8105980065cc529fcfd2c76aea094b2",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          -0.15625,
+          -1.5
+        ],
+        [
+          -0.109375,
+          -1.484375
+        ],
+        [
+          0.09375,
+          -1.40625
+        ],
+        [
+          0.1875,
+          -1.3125
+        ],
+        [
+          0.25,
+          -1.0
+        ],
+        [
+          0.078125,
+          -0.546875
+        ],
+        [
+          -0.578125,
+          0.296875
+        ],
+        [
+          -1.5,
+          1.296875
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          -0.25,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.125,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          -0.125,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          -0.25,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          -0.375,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          -0.5,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          -0.625,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          -0.75,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          -0.875,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          -1.0,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          -1.125,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          -1.25,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          -1.375,
+          1.125
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.875,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.875,
+            -0.5
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.25
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.75,
+        -0.75
+      ],
+      "outline_clearance_local": 0.75,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1308
+    },
+    "12515": {
+      "serial": 12515,
+      "pack": "original",
+      "row": 9024,
+      "origin": [
+        -34,
+        -16
+      ],
+      "size": [
+        56,
+        47
+      ],
+      "native_origin": [
+        -32,
+        -14
+      ],
+      "native_size": [
+        52,
+        43
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "7b98a9cd26e4a694eda7c4774f5feadcdc3194a234fc8fe9782683c0bd3ffd3e",
+      "front_rgba_sha256": "98767a268c7110b4bf40c608b4cc539ce127ed21a252c4a15e75b60155c96552",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          0.171875,
+          -1.5
+        ],
+        [
+          0.734375,
+          -0.640625
+        ],
+        [
+          0.71875,
+          -0.53125
+        ],
+        [
+          0.21875,
+          1.46875
+        ],
+        [
+          0.15625,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          0.125,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.25,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.375,
+          -0.875
+        ],
+        [
+          -1.5,
+          -0.875,
+          0.5,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.625,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          0.5,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          0.375,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          0.25,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.25,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          0.125,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.125,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.5,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.6875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.125
+          ],
+          "entry_radius_local": 0.8125,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.125
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.4375,
+        -0.4375
+      ],
+      "outline_clearance_local": 1.0625,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12516": {
+      "serial": 12516,
+      "pack": "original",
+      "row": 9025,
+      "origin": [
+        -18,
+        1
+      ],
+      "size": [
+        36,
+        24
+      ],
+      "native_origin": [
+        -16,
+        3
+      ],
+      "native_size": [
+        32,
+        20
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "77b4ce24669b135ed9f8c0a57b681a1fe26d8986543a52a5b66d17a916fa87e9",
+      "front_rgba_sha256": "824386813ee4a6b29571310e60b73b75decdcc6dde7e0398f95e46b00d24b6db",
+      "cap_outline": [
+        [
+          -1.5,
+          0.0
+        ],
+        [
+          -1.4375,
+          -0.0625
+        ],
+        [
+          -1.265625,
+          -0.140625
+        ],
+        [
+          -1.046875,
+          -0.171875
+        ],
+        [
+          -0.421875,
+          -0.046875
+        ],
+        [
+          -0.1875,
+          0.1875
+        ],
+        [
+          0.03125,
+          0.53125
+        ],
+        [
+          0.1875,
+          0.9375
+        ],
+        [
+          0.171875,
+          1.046875
+        ],
+        [
+          -0.03125,
+          1.34375
+        ],
+        [
+          -0.15625,
+          1.46875
+        ],
+        [
+          -0.375,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.25,
+          -0.125,
+          -0.875,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          -0.375,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          -0.25,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          -0.125,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.0,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.125,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.0,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.0,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          -0.125,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          -0.375,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.75,
+            0.5625
+          ],
+          "entry_interval": [
+            0.0,
+            1.125
+          ],
+          "entry_radius_local": 0.5625,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.75,
+            0.75
+          ],
+          "entry_interval": [
+            -1.125,
+            -0.375
+          ],
+          "entry_radius_local": 0.375,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.75,
+        0.75
+      ],
+      "outline_clearance_local": 0.75,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12517": {
+      "serial": 12517,
+      "pack": "original",
+      "row": 9026,
+      "origin": [
+        -26,
+        -14
+      ],
+      "size": [
+        60,
+        41
+      ],
+      "native_origin": [
+        -24,
+        -12
+      ],
+      "native_size": [
+        56,
+        37
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "34747b355b873852cc21dba8012713011f3ca6fc433fc8504e0bb0d17f389bd1",
+      "front_rgba_sha256": "d23f4a1a94825b902317e32b536fbe79149dc1be679081718be6e708916b8ebf",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.375
+        ],
+        [
+          -0.5,
+          -1.0
+        ],
+        [
+          -0.28125,
+          -1.03125
+        ],
+        [
+          -0.03125,
+          -0.90625
+        ],
+        [
+          1.3125,
+          -0.1875
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.5,
+          -1.0,
+          -0.25,
+          -0.875
+        ],
+        [
+          -0.625,
+          -0.875,
+          0.0,
+          -0.75
+        ],
+        [
+          -0.875,
+          -0.75,
+          0.25,
+          -0.625
+        ],
+        [
+          -1.0,
+          -0.625,
+          0.375,
+          -0.5
+        ],
+        [
+          -1.25,
+          -0.5,
+          0.625,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          0.875,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          1.125,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.375
+          ],
+          "entry_interval": [
+            -0.375,
+            1.125
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.375
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.3125,
+        0.3125
+      ],
+      "outline_clearance_local": 1.1875,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12518": {
+      "serial": 12518,
+      "pack": "original",
+      "row": 9027,
+      "origin": [
+        -34,
+        -15
+      ],
+      "size": [
+        68,
+        88
+      ],
+      "native_origin": [
+        -32,
+        -13
+      ],
+      "native_size": [
+        64,
+        84
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "ec5de62942cc8c948cfac1d7cd61377669926ba7f6daff1fac106642cd934235",
+      "front_rgba_sha256": "2ae5d815e798aa6acb0890cb52e343a5240a069260226d3dd95b3506fdf9364e",
+      "cap_outline": [
+        [
+          -1.5,
+          1.078125
+        ],
+        [
+          -1.484375,
+          1.015625
+        ],
+        [
+          0.84375,
+          -0.28125
+        ],
+        [
+          1.015625,
+          -0.359375
+        ],
+        [
+          1.421875,
+          -0.203125
+        ],
+        [
+          1.46875,
+          -0.15625
+        ],
+        [
+          1.5,
+          -0.109375
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          0.875,
+          -0.25,
+          1.25,
+          -0.125
+        ],
+        [
+          0.625,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          0.375,
+          0.0,
+          1.5,
+          0.125
+        ],
+        [
+          0.125,
+          0.125,
+          1.5,
+          0.25
+        ],
+        [
+          0.0,
+          0.25,
+          1.5,
+          0.375
+        ],
+        [
+          -0.25,
+          0.375,
+          1.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5,
+          1.5,
+          0.625
+        ],
+        [
+          -0.75,
+          0.625,
+          1.5,
+          0.75
+        ],
+        [
+          -1.0,
+          0.75,
+          1.5,
+          0.875
+        ],
+        [
+          -1.125,
+          0.875,
+          1.5,
+          1.0
+        ],
+        [
+          -1.375,
+          1.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            1.3125
+          ],
+          "entry_interval": [
+            1.125,
+            1.5
+          ],
+          "entry_radius_local": 0.1875,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.25,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.6875,
+        0.6875
+      ],
+      "outline_clearance_local": 0.7702662485626657,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1128
+    },
+    "12519": {
+      "serial": 12519,
+      "pack": "original",
+      "row": 9028,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "1dfb889ea947dfcaa8bd969c9afc8e96ac91cdf4907e9707cc7c23a4352d2f98",
+      "front_rgba_sha256": "828d0bec2d155146da290c0c124559b1001654354a4b93c060523cfad99ec22f",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.375
+        ],
+        [
+          -0.8125,
+          -1.0625
+        ],
+        [
+          -0.453125,
+          -1.328125
+        ],
+        [
+          -0.28125,
+          -1.40625
+        ],
+        [
+          0.109375,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          0.125,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.25,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.5,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.625,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -0.875,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.0,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -1.125,
+          -0.75,
+          1.5,
+          -0.625
+        ],
+        [
+          -1.25,
+          -0.625,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.375,
+          -0.5,
+          1.5,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5625
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.8125,
+            0.0
+          ],
+          "entry_interval": [
+            0.125,
+            1.5
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0625
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0625,
+        0.0625
+      ],
+      "outline_clearance_local": 1.414213562373095,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1337
+    },
+    "12520": {
+      "serial": 12520,
+      "pack": "original",
+      "row": 9029,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "7a584144eec8c6cd1e5c0b53e8b97483653c5a3d55ad240db354190bf90b0019",
+      "front_rgba_sha256": "a627159c70cc895a3c972cf7d8393c8f31f2dd6612c5ccfc3c3ec32c4e0255fe",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.5,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 820
+    },
+    "12521": {
+      "serial": 12521,
+      "pack": "original",
+      "row": 9030,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        56,
+        53
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        52,
+        49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "2ed7602971e2af522b9ae0aeac48c28f1cabc697dfd0e26d342408f65e82dbd8",
+      "front_rgba_sha256": "6de6987dab068a21722b9af556193f8f6060605041beb740bef4646a031111b3",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          0.921875,
+          0.671875
+        ],
+        [
+          0.546875,
+          1.046875
+        ],
+        [
+          0.0,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.375,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.25,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          1.125,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.0,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.875,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          0.75,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          0.625,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.5,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.375,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.25,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          0.125,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.0,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.75
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.0
+          ],
+          "entry_radius_local": 0.5625,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.1875,
+        -0.1875
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1
+    },
+    "12522": {
+      "serial": 12522,
+      "pack": "original",
+      "row": 9031,
+      "origin": [
+        -34,
+        -15
+      ],
+      "size": [
+        68,
+        40
+      ],
+      "native_origin": [
+        -32,
+        -13
+      ],
+      "native_size": [
+        64,
+        36
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "4a4cba4ea187a05bed28d548e7de390064bc84f27aeeee3577d58435e2297de4",
+      "front_rgba_sha256": "00a1e7372c4683a5d10c632b1cfb5efe6f8b4960e4c58bac2b8af2c2096eb616",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          0.109375,
+          -1.5
+        ],
+        [
+          0.15625,
+          -1.46875
+        ],
+        [
+          0.296875,
+          -1.328125
+        ],
+        [
+          1.484375,
+          0.109375
+        ],
+        [
+          1.5,
+          0.15625
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          0.0,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.25,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.375,
+          -1.0
+        ],
+        [
+          -1.5,
+          -1.0,
+          0.5,
+          -0.875
+        ],
+        [
+          -1.5,
+          -0.875,
+          0.625,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.75,
+          -0.625
+        ],
+        [
+          -1.5,
+          -0.625,
+          0.875,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.0,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          1.125,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.25,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.375,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.1875,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.875
+          ],
+          "entry_interval": [
+            0.25,
+            1.5
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.75,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.0625
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.1875,
+        0.1875
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12523": {
+      "serial": 12523,
+      "pack": "original",
+      "row": 9032,
+      "origin": [
+        -22,
+        -26
+      ],
+      "size": [
+        56,
+        51
+      ],
+      "native_origin": [
+        -20,
+        -24
+      ],
+      "native_size": [
+        52,
+        47
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "b7eac72bda7b905b10fcf24c305953e2137f8ad3a04a90b8f009d4f78591be28",
+      "front_rgba_sha256": "96dbede6e294cd4959afef544ac0248c9f5f01a4a263139db73ba12bc467a05c",
+      "cap_outline": [
+        [
+          -1.5,
+          0.0625
+        ],
+        [
+          -0.546875,
+          -1.046875
+        ],
+        [
+          -0.234375,
+          -1.359375
+        ],
+        [
+          0.0,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          0.0,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.125,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.25,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.375,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -0.5,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -0.625,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -0.75,
+          -0.75,
+          1.5,
+          -0.625
+        ],
+        [
+          -0.875,
+          -0.625,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.0,
+          -0.5,
+          1.5,
+          -0.25
+        ],
+        [
+          -1.125,
+          -0.25,
+          1.5,
+          -0.125
+        ],
+        [
+          -1.25,
+          -0.125,
+          1.5,
+          0.0
+        ],
+        [
+          -1.375,
+          0.0,
+          1.5,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.625
+          ],
+          "entry_interval": [
+            0.125,
+            1.125
+          ],
+          "entry_radius_local": 0.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.75,
+            0.0
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.1875,
+        0.125
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12524": {
+      "serial": 12524,
+      "pack": "original",
+      "row": 9033,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "aad81ce6ec9d1d40d8ca75820abcd62d28d07ed17974d7761dbc2f01d018ffba",
+      "front_rgba_sha256": "3793e1e442b7fdd16792b477f3363611ca077346adaf96fb521c6c661fa53478",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.265625
+        ],
+        [
+          -1.4375,
+          -0.4375
+        ],
+        [
+          -1.359375,
+          -0.609375
+        ],
+        [
+          -1.21875,
+          -0.84375
+        ],
+        [
+          -0.78125,
+          -1.28125
+        ],
+        [
+          -0.4375,
+          -1.4375
+        ],
+        [
+          -0.265625,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.421875,
+          0.171875
+        ],
+        [
+          1.15625,
+          0.53125
+        ],
+        [
+          0.578125,
+          1.203125
+        ],
+        [
+          0.328125,
+          1.453125
+        ],
+        [
+          0.265625,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.25,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.5,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.75,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.875,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -1.125,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -1.25,
+          -0.75,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.375,
+          -0.5,
+          1.5,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          1.5,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.375,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.25,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.125,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          1.0,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          0.875,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          0.75,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.625,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.5,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.375,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.25,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.25,
+            0.625
+          ],
+          "entry_interval": [
+            -0.25,
+            1.5
+          ],
+          "entry_radius_local": 0.875,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.125,
+            -0.75
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.625,
+            -0.1875
+          ],
+          "entry_interval": [
+            -0.25,
+            1.5
+          ],
+          "entry_radius_local": 0.875,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.625,
+            0.125
+          ],
+          "entry_interval": [
+            -1.5,
+            0.25
+          ],
+          "entry_radius_local": 0.875,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.0625,
+        -0.125
+      ],
+      "outline_clearance_local": 1.3258252147247767,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1883
+    },
+    "12525": {
+      "serial": 12525,
+      "pack": "original",
+      "row": 9034,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "31130c72e88bb29f78fb45b5e5a15d8a1cc3fee0167c0f42bce8f6f87b6c2f2b",
+      "front_rgba_sha256": "cf7200c1636788f3d1805d1d726eb153575f915a69e1446689584ebe81257d29",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -0.109375
+        ],
+        [
+          1.453125,
+          -0.046875
+        ],
+        [
+          0.28125,
+          1.40625
+        ],
+        [
+          0.203125,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.25,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.125,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          1.0,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.875,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          0.75,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          0.625,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.5,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          0.375,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          0.25,
+          1.375
+        ],
+        [
+          -1.5,
+          1.375,
+          0.125,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.0625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.8125
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.125
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.6875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.125
+          ],
+          "entry_radius_local": 0.8125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.1875,
+        -0.1875
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1265
+    },
+    "12526": {
+      "serial": 12526,
+      "pack": "original",
+      "row": 9035,
+      "origin": [
+        -34,
+        -14
+      ],
+      "size": [
+        68,
+        87
+      ],
+      "native_origin": [
+        -32,
+        -12
+      ],
+      "native_size": [
+        64,
+        83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "f72c27ec0728c713a4665ad1626f39a7a6b2752a6934b6251f4bf57331aa9aad",
+      "front_rgba_sha256": "bd4ced58b858ae3d4c4fde044579ca54fa66a5fe7c7aae929c167934ffd7aca0",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          0.0,
+          -1.5
+        ],
+        [
+          0.328125,
+          -1.171875
+        ],
+        [
+          0.3125,
+          -1.0625
+        ],
+        [
+          -0.140625,
+          -0.140625
+        ],
+        [
+          -0.703125,
+          0.796875
+        ],
+        [
+          -1.265625,
+          1.359375
+        ],
+        [
+          -1.5,
+          1.453125
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          0.0,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.125,
+          -1.25
+        ],
+        [
+          -1.5,
+          -1.25,
+          0.25,
+          -1.0
+        ],
+        [
+          -1.5,
+          -1.0,
+          0.125,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          -0.125,
+          -0.25
+        ],
+        [
+          -1.5,
+          -0.25,
+          -0.25,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          -0.375,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          -0.5,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          -0.625,
+          0.625
+        ],
+        [
+          -1.5,
+          0.625,
+          -0.75,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          -0.875,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          -1.0,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          -1.125,
+          1.125
+        ],
+        [
+          -1.5,
+          1.125,
+          -1.25,
+          1.25
+        ],
+        [
+          -1.5,
+          1.25,
+          -1.375,
+          1.375
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.875,
+            -0.0625
+          ],
+          "entry_interval": [
+            -1.5,
+            1.375
+          ],
+          "entry_radius_local": 1.4375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.75,
+            -0.375
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.75,
+        -0.75
+      ],
+      "outline_clearance_local": 0.75,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1232
+    },
+    "12527": {
+      "serial": 12527,
+      "pack": "original",
+      "row": 9036,
+      "origin": [
+        -34,
+        -13
+      ],
+      "size": [
+        56,
+        39
+      ],
+      "native_origin": [
+        -32,
+        -11
+      ],
+      "native_size": [
+        52,
+        35
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "a69d2437e1db6c03b19037a0910ebc55ef14f12867443c9bb4a8012b68307a8a",
+      "front_rgba_sha256": "c2788f6a75dd4800b02b82fa0063105c17c4ec6ef71fdf7ec0c90e268d8504ad",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          -0.15625,
+          -1.5
+        ],
+        [
+          -0.109375,
+          -1.484375
+        ],
+        [
+          0.078125,
+          -1.296875
+        ],
+        [
+          0.421875,
+          -0.328125
+        ],
+        [
+          0.40625,
+          -0.21875
+        ],
+        [
+          0.0625,
+          1.4375
+        ],
+        [
+          0.0,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          -0.25,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.0,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.125,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.25,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          0.375,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          0.25,
+          0.5
+        ],
+        [
+          -1.5,
+          0.5,
+          0.125,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.0,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.0,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.5625,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.25
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5625,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.0
+          ],
+          "entry_radius_local": 0.5625,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.5625,
+        -0.25
+      ],
+      "outline_clearance_local": 0.9375,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12528": {
+      "serial": 12528,
+      "pack": "original",
+      "row": 9037,
+      "origin": [
+        -17,
+        2
+      ],
+      "size": [
+        36,
+        23
+      ],
+      "native_origin": [
+        -15,
+        4
+      ],
+      "native_size": [
+        32,
+        19
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "9d0e30adc3a340c22c5e8a96d4d1b8bb604cfd1cc77f5dc9e4a9043b3c6d1a9c",
+      "front_rgba_sha256": "4eaec6171356d808628f4db18225f72bedc9fec0eea57f3aa8653c26f38424eb",
+      "cap_outline": [
+        [
+          -1.5,
+          0.109375
+        ],
+        [
+          -1.453125,
+          0.046875
+        ],
+        [
+          -1.171875,
+          -0.046875
+        ],
+        [
+          -1.0625,
+          -0.0625
+        ],
+        [
+          -0.546875,
+          0.078125
+        ],
+        [
+          -0.296875,
+          0.203125
+        ],
+        [
+          -0.109375,
+          0.390625
+        ],
+        [
+          0.046875,
+          1.171875
+        ],
+        [
+          0.015625,
+          1.390625
+        ],
+        [
+          -0.046875,
+          1.453125
+        ],
+        [
+          -0.109375,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.25,
+          0.0,
+          -0.875,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          -0.5,
+          0.25
+        ],
+        [
+          -1.5,
+          0.25,
+          -0.25,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          -0.125,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.0,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.0,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          -0.125,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.8125,
+            0.625
+          ],
+          "entry_interval": [
+            0.125,
+            1.125
+          ],
+          "entry_radius_local": 0.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.625,
+            0.8125
+          ],
+          "entry_interval": [
+            -1.125,
+            -0.125
+          ],
+          "entry_radius_local": 0.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.75,
+        0.75
+      ],
+      "outline_clearance_local": 0.6917835305389974,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12529": {
+      "serial": 12529,
+      "pack": "original",
+      "row": 9038,
+      "origin": [
+        -22,
+        -14
+      ],
+      "size": [
+        56,
+        42
+      ],
+      "native_origin": [
+        -20,
+        -12
+      ],
+      "native_size": [
+        52,
+        38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "21fedcb1ff15edcec0600271fccaac42038385e391aa0c488b81ee4e7080d052",
+      "front_rgba_sha256": "c2d8ab3a399d1888c9810140e015c6112c67072abc1f749314f50d0ab2ee9e60",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.203125
+        ],
+        [
+          -1.46875,
+          -0.21875
+        ],
+        [
+          0.125,
+          -0.5
+        ],
+        [
+          1.40625,
+          -0.09375
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -0.5,
+          -0.375,
+          0.5,
+          -0.25
+        ],
+        [
+          -1.25,
+          -0.25,
+          0.875,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.25,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5
+          ],
+          "entry_interval": [
+            -0.125,
+            1.125
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.5625
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0625,
+        0.5
+      ],
+      "outline_clearance_local": 0.9721208789951886,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12530": {
+      "serial": 12530,
+      "pack": "original",
+      "row": 9039,
+      "origin": [
+        -34,
+        -14
+      ],
+      "size": [
+        68,
+        87
+      ],
+      "native_origin": [
+        -32,
+        -12
+      ],
+      "native_size": [
+        64,
+        83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "d779074de40cc0eb5879b0149d6040eb59a3c12adb2ce3b320d940e787e159aa",
+      "front_rgba_sha256": "2a381dd18d0dc7b229014c5b826ae932793cca480a31d76241403646af896fe4",
+      "cap_outline": [
+        [
+          -1.5,
+          1.5
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.109375,
+          1.015625
+        ],
+        [
+          -0.1875,
+          0.1875
+        ],
+        [
+          0.328125,
+          -0.046875
+        ],
+        [
+          1.203125,
+          -0.171875
+        ],
+        [
+          1.359375,
+          -0.140625
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          0.875,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          1.5,
+          0.125
+        ],
+        [
+          0.0,
+          0.125,
+          1.5,
+          0.25
+        ],
+        [
+          -0.25,
+          0.25,
+          1.5,
+          0.375
+        ],
+        [
+          -0.375,
+          0.375,
+          1.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5,
+          1.5,
+          0.625
+        ],
+        [
+          -0.625,
+          0.625,
+          1.5,
+          0.75
+        ],
+        [
+          -0.75,
+          0.75,
+          1.5,
+          0.875
+        ],
+        [
+          -0.875,
+          0.875,
+          1.5,
+          1.0
+        ],
+        [
+          -1.0,
+          1.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.125,
+          1.125,
+          1.5,
+          1.25
+        ],
+        [
+          -1.25,
+          1.25,
+          1.5,
+          1.375
+        ],
+        [
+          -1.375,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "east": {
+          "stand": [
+            0.375,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0625,
+            0.8125
+          ],
+          "entry_interval": [
+            -1.375,
+            1.5
+          ],
+          "entry_radius_local": 1.4375,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.6875,
+        0.6875
+      ],
+      "outline_clearance_local": 0.7778174593052023,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1246
+    },
+    "12531": {
+      "serial": 12531,
+      "pack": "original",
+      "row": 9040,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "b01c621f7c1482bb9ef1565a3fa5bf31f20a15164f03ee202a65df29a81aac4e",
+      "front_rgba_sha256": "57ba9f304742233b4421b64602bc8b27e96341c04f970e7b16c0271e47716e7e",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.375
+        ],
+        [
+          -1.25,
+          -0.625
+        ],
+        [
+          0.109375,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          0.125,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          0.0,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.25,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.375,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -0.625,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -0.75,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -1.0,
+          -0.75,
+          1.5,
+          -0.625
+        ],
+        [
+          -1.25,
+          -0.625,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.375,
+          -0.5,
+          1.5,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5625
+          ],
+          "entry_interval": [
+            -0.375,
+            1.5
+          ],
+          "entry_radius_local": 0.9375,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.8125,
+            0.0
+          ],
+          "entry_interval": [
+            0.125,
+            1.5
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0625
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.125,
+        0.125
+      ],
+      "outline_clearance_local": 1.3748614638714916,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 1476
+    },
+    "12532": {
+      "serial": 12532,
+      "pack": "original",
+      "row": 9041,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "dd07e0af73f98de1eddf52180c5496190a9aaa8afbb409542ba3e5a5027b7bfa",
+      "front_rgba_sha256": "89408fd207173fb25363178d4ecc25a600d42250fb77b14ba215620dd71dd7c5",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.5,
+          1.5
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.0,
+        0.0
+      ],
+      "outline_clearance_local": 1.5,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 753
+    },
+    "12533": {
+      "serial": 12533,
+      "pack": "original",
+      "row": 9042,
+      "origin": [
+        -34,
+        -26
+      ],
+      "size": [
+        56,
+        61
+      ],
+      "native_origin": [
+        -32,
+        -24
+      ],
+      "native_size": [
+        52,
+        57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "29613249a24c574c492ec1b2212cae841d0b0be8ab38ffb9436fda9e2f631330",
+      "front_rgba_sha256": "be0c1e51efe836f18edf911536cd0906c8fbda8310df4fdf059ec0af0592b0cd",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          -0.109375
+        ],
+        [
+          1.125,
+          0.75
+        ],
+        [
+          0.75,
+          1.125
+        ],
+        [
+          0.21875,
+          1.46875
+        ],
+        [
+          0.15625,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          1.5,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.375,
+          0.125
+        ],
+        [
+          -1.5,
+          0.125,
+          1.25,
+          0.375
+        ],
+        [
+          -1.5,
+          0.375,
+          1.125,
+          0.75
+        ],
+        [
+          -1.5,
+          0.75,
+          1.0,
+          0.875
+        ],
+        [
+          -1.5,
+          0.875,
+          0.875,
+          1.0
+        ],
+        [
+          -1.5,
+          1.0,
+          0.75,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          0.5,
+          1.25
+        ],
+        [
+          -1.375,
+          1.25,
+          0.25,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          0.125,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            -0.8125
+          ],
+          "entry_interval": [
+            -1.5,
+            -0.125
+          ],
+          "entry_radius_local": 0.6875,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            -0.5,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            0.125
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.0625,
+        -0.0625
+      ],
+      "outline_clearance_local": 1.4133453823268098,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12534": {
+      "serial": 12534,
+      "pack": "original",
+      "row": 9043,
+      "origin": [
+        -34,
+        -15
+      ],
+      "size": [
+        68,
+        40
+      ],
+      "native_origin": [
+        -32,
+        -13
+      ],
+      "native_size": [
+        64,
+        36
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "b4f500fce3bd28ad3bc17749e2d940955b5145e995ac3337560e78855a1c548a",
+      "front_rgba_sha256": "cbe5ddc54253733b1362d715c8970d5a4c61cd591f78e705de4131bd9dd2bb25",
+      "cap_outline": [
+        [
+          -1.5,
+          -1.5
+        ],
+        [
+          0.0,
+          -1.5
+        ],
+        [
+          1.0,
+          -0.625
+        ],
+        [
+          1.328125,
+          -0.296875
+        ],
+        [
+          1.5,
+          0.0
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          -1.5,
+          -1.5,
+          0.0,
+          -1.375
+        ],
+        [
+          -1.5,
+          -1.375,
+          0.125,
+          -1.25
+        ],
+        [
+          -1.5,
+          -1.25,
+          0.25,
+          -1.125
+        ],
+        [
+          -1.5,
+          -1.125,
+          0.375,
+          -1.0
+        ],
+        [
+          -1.5,
+          -1.0,
+          0.5,
+          -0.875
+        ],
+        [
+          -1.5,
+          -0.875,
+          0.625,
+          -0.75
+        ],
+        [
+          -1.5,
+          -0.75,
+          0.75,
+          -0.625
+        ],
+        [
+          -1.5,
+          -0.625,
+          1.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.5,
+          1.125,
+          -0.375
+        ],
+        [
+          -1.5,
+          -0.375,
+          1.25,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.375,
+          0.0
+        ],
+        [
+          -1.5,
+          0.0,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            -0.125,
+            -0.1875
+          ],
+          "entry_interval": [
+            -1.5,
+            1.125
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.75
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            -0.75,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            0.0
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.125
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        -0.1875,
+        0.125
+      ],
+      "outline_clearance_local": 1.3125,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    },
+    "12535": {
+      "serial": 12535,
+      "pack": "original",
+      "row": 9044,
+      "origin": [
+        -22,
+        -26
+      ],
+      "size": [
+        56,
+        51
+      ],
+      "native_origin": [
+        -20,
+        -24
+      ],
+      "native_size": [
+        52,
+        47
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "3062999e0b8dcae6408b5f9983763a30ba406d4538c8791c512854104fe8dc8f",
+      "front_rgba_sha256": "2c25fcf1e1ae12435674307adfe53930e846994c38cea58adea82a36c94e2314",
+      "cap_outline": [
+        [
+          -1.5,
+          -0.15625
+        ],
+        [
+          -1.46875,
+          -0.21875
+        ],
+        [
+          -1.40625,
+          -0.28125
+        ],
+        [
+          -0.109375,
+          -1.484375
+        ],
+        [
+          -0.046875,
+          -1.5
+        ],
+        [
+          1.5,
+          -1.5
+        ],
+        [
+          1.5,
+          1.5
+        ],
+        [
+          -1.234375,
+          1.5
+        ],
+        [
+          -1.390625,
+          1.484375
+        ],
+        [
+          -1.484375,
+          1.390625
+        ],
+        [
+          -1.5,
+          1.234375
+        ]
+      ],
+      "support_rects": [
+        [
+          0.0,
+          -1.5,
+          1.5,
+          -1.375
+        ],
+        [
+          -0.125,
+          -1.375,
+          1.5,
+          -1.25
+        ],
+        [
+          -0.25,
+          -1.25,
+          1.5,
+          -1.125
+        ],
+        [
+          -0.375,
+          -1.125,
+          1.5,
+          -1.0
+        ],
+        [
+          -0.625,
+          -1.0,
+          1.5,
+          -0.875
+        ],
+        [
+          -0.75,
+          -0.875,
+          1.5,
+          -0.75
+        ],
+        [
+          -0.875,
+          -0.75,
+          1.5,
+          -0.625
+        ],
+        [
+          -1.0,
+          -0.625,
+          1.5,
+          -0.5
+        ],
+        [
+          -1.125,
+          -0.5,
+          1.5,
+          -0.375
+        ],
+        [
+          -1.25,
+          -0.375,
+          1.5,
+          -0.25
+        ],
+        [
+          -1.375,
+          -0.25,
+          1.5,
+          -0.125
+        ],
+        [
+          -1.5,
+          -0.125,
+          1.5,
+          1.125
+        ],
+        [
+          -1.375,
+          1.125,
+          1.5,
+          1.375
+        ],
+        [
+          -1.125,
+          1.375,
+          1.5,
+          1.5
+        ]
+      ],
+      "support_step": 0.125,
+      "approaches": {
+        "west": {
+          "stand": [
+            0.0,
+            0.5
+          ],
+          "entry_interval": [
+            -0.125,
+            1.125
+          ],
+          "entry_radius_local": 0.625,
+          "join_rect": [
+            -4.5,
+            -1.5,
+            -1.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "east": {
+          "stand": [
+            0.0,
+            0.0
+          ],
+          "entry_interval": [
+            -1.5,
+            1.5
+          ],
+          "entry_radius_local": 1.5,
+          "join_rect": [
+            1.5,
+            -1.5,
+            4.5,
+            1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "north": {
+          "stand": [
+            0.75,
+            0.0
+          ],
+          "entry_interval": [
+            0.0,
+            1.5
+          ],
+          "entry_radius_local": 0.75,
+          "join_rect": [
+            -1.5,
+            -4.5,
+            1.5,
+            -1.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        },
+        "south": {
+          "stand": [
+            0.1875,
+            0.0
+          ],
+          "entry_interval": [
+            -1.125,
+            1.5
+          ],
+          "entry_radius_local": 1.3125,
+          "join_rect": [
+            -1.5,
+            1.5,
+            1.5,
+            4.5
+          ],
+          "join_requires": "Caller must prove this complete neighboring3mcell is original-open dryland at the same height. No water support is inferred by this template."
+        }
+      },
+      "deepest_stand": [
+        0.125,
+        0.125
+      ],
+      "outline_clearance_local": 1.3392469939940657,
+      "shadow_pixels_removed": 0,
+      "water_alpha_pixels_removed": 0
+    }
+  },
+  "dispatch": "No global family owner. Only explicitly enrolled newly completed village bank placements may call this helper.",
+  "reuse": [
+    "TinaGround.bank_mesh native cap/descending bank/water separation",
+    "Coastal native projector and closed independent part tiles",
+    "Palace static support shape; existing Ramparts exact pieces, prepared once into local spatial buckets"
+  ],
+  "surface_sources": {
+    "grass": {
+      "graphic": 5045,
+      "pack": "original",
+      "row": 2948
+    },
+    "stone": {
+      "path": "assets/textures/edo/rock.png",
+      "tile": [
+        0,
+        0
+      ],
+      "rgba_sha256": "928b6740bfcf1175e066264d82276009bd046491189edfc9ac1574248e299f94"
+    }
+  },
+  "inferred": [
+    "Horizontal cap hull closes tiny grass-alpha holes within the original1x1footprint; source-facing RGB is untouched.",
+    "Support rectangles lie conservatively inside that hull at0.125m pitch. They never create a full3x3grass box.",
+    "Unseen bank depth continues from adjacent observed land height down to existing2mwater, using independent native stone tiles.",
+    "The native painted bank/front is projected only onto observed-facing cap/edge surfaces; hidden backs are reconstructed."
+  ]
+}

@@ -53,6 +53,16 @@ func height(x: float,z: float)->float:
   if u<piece.start-.001 or u>piece.end+.001 or absf(offset.dot(piece.side))>piece.half+.001:continue
   result=maxf(result,lerpf(piece.h0,piece.h1,clampf(u/piece.length,0,1)))
  return result
+func piece_height(x:float,z:float)->float:
+ # Explicit prepared floors may supply support over an otherwise uncovered cell.
+ var p=Vector2(x,z);var result=NAN
+ for piece in height_buckets.get(Vector2i(floori(x/BUCKET_SIZE),floori(z/BUCKET_SIZE)),NO_PIECES):
+  var offset=p-piece.a;var u=offset.dot(piece.along)
+  if u<piece.start-.001 or u>piece.end+.001 or absf(offset.dot(piece.side))>piece.half+.001:continue
+  var top=lerpf(piece.h0,piece.h1,clampf(u/piece.length,0.,1.))
+  if not is_finite(top):continue
+  result=top if is_nan(result) else maxf(result,top)
+ return result
 func disk_clear(point: Vector3,radius: float)->bool:
  if pieces.is_empty():return true
  # A disk entirely inside a highest, flat deck has identical height at every

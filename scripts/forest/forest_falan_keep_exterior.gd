@@ -1,6 +1,7 @@
 extends RefCounted
 ## 10012 and 10013 use the courtyard source grid. The front of the keep faces +X.
 const Fort=preload("res://scripts/forest/forest_stone_fort.gd")
+const Details=preload("res://scripts/forest/forest_falan_landmark_details.gd")
 const CIVIC_ART="res://scripts/forest/forest_falan_civic_exterior.gd"
 const ENTRY_Z=-1.5
 
@@ -118,13 +119,9 @@ static func banner(boxes,p:Vector3,yaw:float,brass:Material):
 static func clock(root:Node3D,p:Vector3,trim:Material,brass:Material):
  var rim=Geo.cylinder(root,p,1.49,.27,trim)
  rim.rotation.z=PI*.5
- var face=Geo.cylinder(root,p+Vector3.RIGHT*.15,1.23,.09,Fort.material(Color("557eaa"),false))
+ var face=Geo.cylinder(root,p+Vector3.RIGHT*.15,1.23,.09,Fort.material(Color("b5ad91"),false))
  face.rotation.z=PI*.5
- for i in 12:
-  var angle=TAU*i/12
-  Geo.sphere(root,p+Vector3(.23,cos(angle)*1.02,sin(angle)*1.02),Vector3.ONE*.13,brass)
- Geo.beam(root,p+Vector3.RIGHT*.24,p+Vector3(.24,.70,0),.09,brass)
- Geo.beam(root,p+Vector3.RIGHT*.24,p+Vector3(.24,-.23,.47),.09,brass)
+ Details.add(root,"castle_clock",p+Vector3.RIGHT*.21,Vector2(2.46,2.46),PI*.5)
 
 static func annex(root:Node3D,boxes,p:Vector3,stone:Material,trim:Material,base:Material,brass:Material):
  block(boxes,p,Vector2(20.7,8.8),13.7,stone,trim,base)

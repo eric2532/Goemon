@@ -9,6 +9,7 @@ const Boxes=preload("res://scripts/forest/forest_static_boxes.gd")
 const Assets=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
 const Terrain=preload("res://scripts/forest/forest_freyja_terrain.gd")
 const TravelArt=preload("res://scripts/forest/forest_travel_stone_art.gd")
+const Art=preload("res://scripts/forest/forest_art.gd")
 const DIRECTIONS=[Vector3.LEFT,Vector3.RIGHT,Vector3.BACK,Vector3.FORWARD]
 const POND_WATER=[Vector2(-345,36),Vector2(-348,39),Vector2(-345,39)] # Original map 1000, ground graphic 5002.
 
@@ -31,7 +32,7 @@ static func plan(model)->Dictionary:
   var p=Streets.ground(model,row[0])
   if not Streets.fits(model,p,.64,protected):continue
   result.trees.append([p,row[1]])
-  add_obstacle(result,p,Vector3(1.08,4.8,1.08),"wood")
+  add_obstacle(result,p,Vector3(1.08,4.8,1.08),"wood",true)
  for hedge in [true,false]:
   for row in (Data.GARDEN_HEDGES if hedge else Data.GARDEN_RAILS):
    var p=Streets.ground(model,row[0])
@@ -43,27 +44,27 @@ static func plan(model)->Dictionary:
     if not Streets.fits(model,at,.80,protected):continue
     var width=1.25 if hedge else .23
     var extent=Vector3(1.52,height,width) if i<2 else Vector3(width,height,1.52)
-    add_obstacle(result,at,extent,"leaves" if hedge else "metal")
+    add_obstacle(result,at,extent,"leaves" if hedge else "metal",true)
     pieces.append(i)
    if not pieces.is_empty():
     result["hedges" if hedge else "rails"].append([p,height,pieces])
    elif row[2]==0 and Streets.fits(model,p,.63,protected):
-    add_obstacle(result,p,Vector3(.83,height,.83) if hedge else Vector3(.27,height,.27),"leaves" if hedge else "metal")
+    add_obstacle(result,p,Vector3(.83,height,.83) if hedge else Vector3(.27,height,.27),"leaves" if hedge else "metal",true)
     result["hedges" if hedge else "rails"].append([p,height,[]])
  for row in Data.GARDEN_STATUES:
   var p=Streets.ground(model,row[0])
   var rider=row[1]==10462
   if not Streets.fits(model,p,2.18 if rider else .98,protected):continue
   result.statues.append([p,row[1]])
-  add_obstacle(result,p,Vector3(2.5,1.35,4.28) if rider else Vector3(1.97,1.36,1.97),"stone")
+  add_obstacle(result,p,Vector3(2.5,1.35,4.28) if rider else Vector3(1.97,1.36,1.97),"stone",true)
  for row in Data.GARDEN_ORNAMENTS:
   var p=Streets.ground(model,row[0])
   var large=row[1] in [10028,10035,10036]
   if Streets.fits(model,p,1.2 if large else .47,protected):result.ornaments.append([p,row[1]])
  return result
 
-static func add_obstacle(result:Dictionary,p:Vector3,size_:Vector3,material:String):
- result.obstacles.append([AABB(p-Vector3(size_.x*.5,0,size_.z*.5),size_),material])
+static func add_obstacle(result:Dictionary,p:Vector3,size_:Vector3,material:String,passable_scenery:bool=false):
+ result.obstacles.append([AABB(p-Vector3(size_.x*.5,0,size_.z*.5),size_),material,passable_scenery])
 
 static func build(parent:Node3D,model):
  var root=Node3D.new()
@@ -98,6 +99,9 @@ static func build(parent:Node3D,model):
    rail_half(boxes,p,DIRECTIONS[direction],direction>=2,height,iron,caps)
  for item in garden.statues:Statues.build(root,boxes,item[0],item[1])
  for item in garden.ornaments:ornament(root,boxes,item[0],item[1],shrubs)
+ for row in Data.GARDEN_LAUNDRY:
+  var p=Streets.ground(model,row[0])
+  if Streets.fits(model,p,.47,[]):Streets.Details.place(root,row[1],p)
  for poses in shrubs.values():Assets.batch(root,"leafy_shrub",poses)
  plant_trees(root,garden.trees)
  lily_pond(root)
@@ -106,12 +110,13 @@ static func build(parent:Node3D,model):
  for row in garden.obstacles:
   var box:AABB=row[0]
   var center=box.get_center()
-  var key=[floori(center.x/48),floori(center.z/48),row[1]]
+  var key=[floori(center.x/48),floori(center.z/48),row[1],row[2]]
   if not collision.has(key):
    var body=StaticBody3D.new()
    body.collision_layer=1
    body.collision_mask=0
    body.set_meta("halo_material",row[1])
+   if row[2]:body.add_to_group(Art.PLAYER_PASSABLE_SCENERY)
    root.add_child(body)
    collision[key]=body
   var shape=CollisionShape3D.new()

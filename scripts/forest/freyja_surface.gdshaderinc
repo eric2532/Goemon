@@ -3,10 +3,17 @@ uniform mat4 map_frame=mat4(1.0);
 uniform vec4 adjoining_city_bounds=vec4(0.0);
 uniform float adjoining_city_end=-100000.0;
 uniform bool adjoining_city_layer=false;
+uniform bool use_adjoining_source_repair=false;
+uniform sampler2D adjoining_source_repair : filter_nearest, repeat_disable;
+uniform vec4 adjoining_source_bounds=vec4(0.0);
 
 bool adjoining_city_clipped(vec2 point){
  if(adjoining_city_bounds.z<=0.0)return false;
  bool inside=all(greaterThanEqual(point,adjoining_city_bounds.xy)) && all(lessThan(point,adjoining_city_bounds.xy+adjoining_city_bounds.zw)) && point.y<adjoining_city_end;
+ if(inside && use_adjoining_source_repair){
+  vec2 uv=(point-adjoining_source_bounds.xy)/adjoining_source_bounds.zw;
+  if(all(greaterThanEqual(uv,vec2(0.0))) && all(lessThan(uv,vec2(1.0))) && texture(adjoining_source_repair,uv).a>.5)inside=false;
+ }
  return adjoining_city_layer ? !inside : inside;
 }
 uniform vec4 freyja_frame=vec4(0.0);

@@ -9,6 +9,9 @@ const Skills=preload("res://scripts/spells/spell_catalog.gd")
 const Proportions=preload("res://scripts/character_proportions.gd")
 const BODY_HEIGHT_PIXELS=Proportions.KAZ_BODY_PIXELS
 const FEET_OFFSET_PIXELS=Proportions.CROSSGATE_FEET_PIXELS
+# Rounded ground strides at the shared standing height; source drawings stay intact.
+const WALK_STRIDE=2.8
+const RUN_STRIDE=4.4
 const GUARD_CELL=Vector2(100,112)
 const GUARD_ORIGIN=Vector2(50,91)
 const GUARD_ROW={102488:0,109890:1,109891:2,109146:3,
@@ -30,9 +33,12 @@ const KAGEROU_EMIT_TICKS=2
 const KAGEROU_SHADOWS=6
 const SHIN_COUNTER_FRAMES=18
 const SHIN_COUNTER_FRAME_TIME=3.0/60
+const BEAST_CAST_DURATION=.38
+const BEAST_CAST_WAIT=1.1
 const BODY_SHADER=preload("res://assets/materials/crossgate_body.gdshader")
 const SHADOW_SHADER=preload("res://assets/materials/crossgate_shadow.gdshader")
 var body_materials:Dictionary={}
+var food_glow_tint=Color.TRANSPARENT
 var shadow_materials:Dictionary={}
 static var profiles:Dictionary={}
 static var wind_motions:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(CROSSGATE_ROOT+"weapons/wind-motion-cues.json"))
@@ -40,6 +46,8 @@ static var attack_audio:Dictionary=JSON.parse_string(FileAccess.get_file_as_stri
 static var attack_samples:Dictionary={}
 var native_root=""
 var gear_weapon=""
+var beast_master:bool:
+ get:return gear_weapon=="beast-master"
 var gear_route:Dictionary={}
 var gear_external=false
 var gear_sounds:Dictionary={}
@@ -84,6 +92,8 @@ var kagerou_offset_sprite=true
 var clock=0.0
 var cast_clock=0.0
 var cast_owner:Node
+var beast_cast_left=0.0
+var beast_cast_wait_left=0.0
 var current_clip=""
 var current_frame=-1
 var player_jump=false
@@ -406,6 +416,9 @@ func select_stance(index:int):
  refresh_native_skills()
 
 func refresh_native_skills():
+ if beast_master:
+  native_skills={}
+  return
  var identity=Roster.CROSSGATE[character].duplicate()
  if gear_external:
   identity.throwing=false
@@ -413,6 +426,7 @@ func refresh_native_skills():
  native_skills=Skills.crossgate_native_skills(identity,motions.get("weapon",""))
 
 func restore_gear_weapon():
+ clear_beast_cast()
  if not gear_external:
   if not gear_weapon.is_empty():
    if fighter.get("throwing",false):maze_weapon=get_parent().game.skin_weapon(character,primary_throwing_weapon,Roster.MazeWeapon.FIST)
@@ -435,7 +449,8 @@ func apply_gear_weapon(weapon:String,route:Dictionary)->bool:
    gear_external=true
    load_appearance(route.root,true);motions=appearance
    fighter=Roster.CROSSGATE[character].duplicate()
-   fighter.strike="bow" if weapon=="bow" else "throw" if weapon in ["kunai","boomerang"] else "timed"
+   var family:String=route.get("base_weapon",weapon)
+   fighter.strike="bow" if family=="bow" else "throw" if family in ["kunai","boomerang"] else "timed"
    fighter.throwing=false;maze_weapon=Roster.MazeWeapon.KATANA
   elif fighter.get("throwing",false):maze_weapon=int(route.native)
   else:select_stance(int(route.native))
@@ -645,7 +660,7 @@ func normal_attack_pattern(facing:Vector3=Vector3.ZERO)->Dictionary:
   if int(cue.get("id",0))!=139:sounds.append(float(cue.atMs)/1000.0)
  if sounds.is_empty() and style=="timed":sounds=[float(attack.duration)*float(attack.swing)]
  if style in ["bow","throw"]:sounds=[float(attack.draw)]
- return {"pose":pose,"attack":attack,"duration":float(attack.duration),"contacts":contacts,"sounds":sounds,"projectiles":int(fighter.get("kunai_count",1)) if pose==7 else 1}
+ return {"pose":pose,"attack":attack,"duration":float(attack.duration),"contacts":contacts,"sounds":sounds,"projectiles":int(fighter.get("kunai_count",1)) if pose==7 and not beast_master else 1}
 
 func draw_pose(action:int):
  if action==9 and jump_guard_atlas!=null:
@@ -657,6 +672,7 @@ func draw_pose(action:int):
   sprite.material_override=body_materials[jump_guard_atlas]
   sprite.region_rect=Rect2(Vector2(int(current_clip.get_slice(":",1)),row)*cell,cell)
   sprite.offset=origin-cell*.5+Vector2(0,FEET_OFFSET_PIXELS)
+  sync_food_glow_frame()
   return
  var pose=body_clip(action,current_clip)
  apply_frame(sprite,pose.frames[current_frame],atlases)
@@ -672,6 +688,21 @@ func apply_frame(target:Sprite3D,data:Array,textures:Array[Texture2D]):
  target.material_override=(body_materials if target==sprite else shadow_materials)[target.texture]
  target.region_rect=Rect2(data[1],data[2],data[3],data[4])
  target.offset=Vector2(float(data[5])+float(data[3])*.5,FEET_OFFSET_PIXELS-float(data[6])-float(data[4])*.5)
+ if target==sprite:sync_food_glow_frame()
+
+func sync_food_glow_frame():
+ if food_glow_tint.a<=0:return
+ var dimensions=sprite.texture.get_size()
+ var first=sprite.region_rect.position/dimensions
+ var last=sprite.region_rect.end/dimensions
+ sprite.set_instance_shader_parameter("food_frame",Vector4(first.x,first.y,last.x,last.y))
+
+func set_food_glow(tint:Color):
+ if food_glow_tint==tint:return
+ food_glow_tint=tint
+ sprite.set_instance_shader_parameter("food_glow",tint)
+ if tint.a>0:sync_food_glow_frame()
+
 
 func reset_jump_pose():
  jump_count=0
@@ -721,8 +752,16 @@ func show_jump_pose(grounded:bool,vertical:float)->bool:
  show_frame(action,key,frame)
  return true
 
+func preview_beast_cast():
+ if beast_cast_left<=0 and motions.clips.has("6:0"):beast_cast_wait_left=BEAST_CAST_WAIT
+
+func clear_beast_cast():
+ beast_cast_left=0.0;beast_cast_wait_left=0.0
+
 func animate(delta:float,speed:float,grounded:bool,vertical:float,_attack:float,_heavy:bool,_combo:int,dodge:bool):
  clock+=delta;cast_owner=null;cast_clock=0
+ beast_cast_left=maxf(0,beast_cast_left-delta)
+ beast_cast_wait_left=maxf(0,beast_cast_wait_left-delta)
  if locomotion.grounded!=grounded:sprite.set_instance_shader_parameter("grounded",grounded)
  locomotion.grounded=grounded;locomotion.vertical=vertical
  if player_jump:update_jump_pose(delta,grounded,vertical)
@@ -734,15 +773,21 @@ func animate(delta:float,speed:float,grounded:bool,vertical:float,_attack:float,
   action=1
  if grounded and travel_speed>.1:
   var before=phase
-  phase+=delta/maxf(.001,float(motions.clips["%d:0"%action].duration))
+  var stride=(WALK_STRIDE if action==1 else RUN_STRIDE)*global_basis.x.length()
+  phase+=delta*travel_speed/maxf(.001,stride)
   if travel_speed>.25:locomotion.step_events+=floori(phase*2)-floori(before*2)
   phase=fposmod(phase,1.0)
- if is_instance_valid(combat) and combat.mode in ["attack","hurt","dead"]:
-  var pose=int(combat.clip) if combat.mode=="attack" else 8 if combat.mode=="hurt" else 10
+ if is_instance_valid(combat) and combat.mode in ["attack","combined_wait","hurt","dead"]:
+  var pose=int(combat.clip) if combat.mode in ["attack","combined_wait"] else 8 if combat.mode=="hurt" else 10
   if pose==6 and (not motions.clips.has("6:0") or (combat.ticket.action!="shin_meditation" and (fighter.strike=="bow" or fighter.get("weapon_skills",false)))):pose=0
   show_pose(pose,combat.elapsed,false)
  elif get_parent().crossgate_guarding():show_frame(9,"9:%d"%direction(),0)
  elif player_jump and not dodge and (kagerou_tick<0 or kagerou_tick>=KAGEROU_HOME_TICK) and show_jump_pose(grounded,vertical):return
+ elif not dodge and kagerou_tick<0 and (beast_cast_left>0 or beast_cast_wait_left>0):
+  if beast_cast_left<=0:
+   beast_cast_wait_left=0.0;beast_cast_left=BEAST_CAST_DURATION
+  var progress=1.0-beast_cast_left/BEAST_CAST_DURATION
+  show_pose(6,progress*float(motions.clips["6:0"].duration),false)
  elif travel_speed>.1:
   # Keep the original frame order and clip duration through direction changes.
   show_pose(action,phase*float(motions.clips["%d:0"%action].duration),true)
@@ -820,6 +865,7 @@ func animate_spell(delta:float,spell:Node):
  if not spell.busy():cast_owner=null
 func _process(delta:float):
  if is_instance_valid(combat) and combat.mode=="dead":
+  clear_beast_cast()
   combat.elapsed+=delta;show_pose(10,combat.elapsed,false)
  if cosmetic_layers!=null and is_visible_in_tree() and not current_clip.is_empty():cosmetic_layers.update(delta,sprite,current_clip,locomotion.grounded)
 func sync_skeleton():pass

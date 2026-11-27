@@ -1,0 +1,177 @@
+[
+  {
+    "id": 107712,
+    "name": "雏龙",
+    "reason": "Source action/contact/audio contract needs an explicit native importer extension.",
+    "candidates": [
+      {
+        "key": "ex:806",
+        "problems": [
+          {
+            "direction": 0,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 1,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 2,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 3,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 4,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 5,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 6,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 7,
+            "source_cues": [
+              {
+                "id": 266,
+                "file": "sounds/cgefc15.wav",
+                "frame": 9,
+                "flag": 266,
+                "atMs": 391.30434782608694
+              },
+              {
+                "id": 267,
+                "file": "sounds/cgefc16.wav",
+                "frame": 12,
+                "flag": 20267,
+                "atMs": 521.7391304347826
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          }
+        ]
+      }
+    ],
+    "source_keys": [
+      "ex:806"
+    ]
+  }
+]

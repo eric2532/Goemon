@@ -5,7 +5,7 @@ func check_east_il_road():
  var fortifications=game.model.CityFortifications.obstacles().duplicate()
  preload("res://tests/forest-shrine/falan_buildings_props_test.gd").model_signature(game.model)
  check(game.model.CityFortifications.obstacles()==fortifications,"Historical collider comparison preserves the shared native fortification bounds")
- check(Fit.Data.FITS.size()==40,"All 40 building archetypes have measured source proportions")
+ check(Fit.Data.FITS.size()==41,"All 41 building archetypes have measured source proportions")
  for serial in Architecture.Data.GRAPHICS:check(Fit.matches(Architecture.prepare(serial),"house_%d"%serial,PI*.5),"House height and width match original pixels: "+str(serial))
  for anchor in Special.SPECS:
   var row:Array=Special.SPECS[anchor]

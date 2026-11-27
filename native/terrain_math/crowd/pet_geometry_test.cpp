@@ -25,6 +25,7 @@ static KitData kits(){
  goblin[0]=-.65f;goblin[2]=-.55f;goblin[3]=.65f;goblin[4]=2.25f;goblin[5]=.55f;goblin[6]=.73f;
  auto tree=d.pet_geometry.data()+(HOUND_SKINS+4)*7;
  tree[0]=-1.55f;tree[2]=-1.2f;tree[3]=1.55f;tree[4]=6.12f;tree[5]=1.2f;tree[6]=1.15f;
+ auto last=d.pet_geometry.data()+(HOUND_SKINS+SLIME_SKINS-1)*7;last[4]=5.25f;
  return d;
 }
 static NavigationData wall(float z){NavigationData d;d.ray_min={{-4,0,z-.1f}};d.ray_max={{4,10,z+.1f}};d.ray_owner={-1};return d;}
@@ -45,6 +46,11 @@ int main(){
  assert(PetGeometryTest::segment(c,*u,{-4,2.2f,0},{4,2.2f,0})>=0);
  assert(PetGeometryTest::segment(c,*u,{-4,2.3f,0},{4,2.3f,0})<0);
  assert(PetGeometryTest::nearest(c,*u,{0,10,0}).y==2.25f);
+ static_assert(SLIME_SKINS>=161,"Both continental rosters must fit in the shared native bank");
+ u->pose_row=SLIME_SKINS-1;
+ assert(PetGeometryTest::segment(c,*u,{-4,5.2f,0},{4,5.2f,0})>=0);
+ assert(PetGeometryTest::segment(c,*u,{-4,5.3f,0},{4,5.3f,0})<0);
+ assert(PetGeometryTest::nearest(c,*u,{0,10,0}).y==5.25f);
  u->pose_row=4;
  assert(PetGeometryTest::segment(c,*u,{-4,6,0},{4,6,0})>=0);
  assert(PetGeometryTest::segment(c,*u,{-4,6.2f,0},{4,6.2f,0})<0);

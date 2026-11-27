@@ -81,8 +81,10 @@ func press()->bool:
  hero.model.clear_kagerou_dodge();hero.model.show_kagerou_dodge(step,false,false)
  step_time=0;step_ticks=0
  counter_source=0;counter_origin=Vector3.INF
- if timed and shadow_counter_enabled:
-  counter_source=int(threat.source_id);counter_origin=hero.global_position
+ if hero.accessory_bonuses.get("manual_dodge_shadow",0)>0:
+  hero.active_ability.counter_after_hit(away,int(threat.source_id) if timed else 0,true,false,Vector3.INF,true)
+ elif timed and shadow_counter_enabled:
+  counter_source=int(threat.source_id) if timed else 0;counter_origin=hero.global_position
   if hero.active_ability.shin_counter.is_empty():
    hero.model.shin_counter_linger=0;hero.model.counter_is_basic=true
    hero.model.stamp_kagerou(hero.model.stat_counter_shadow)

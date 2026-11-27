@@ -205,7 +205,7 @@ func refresh_controls(check_dirty:bool=true):
 	if terrain:
 		rotation_field.set_value_no_signal(int(item.rotation)*90 if tool.is_empty() else placement_rotation*90)
 		height_field.set_value_no_signal(float(item.height) if tool.is_empty() else terrain_height)
-		height_field.tooltip_text="Terrain base elevation in metres. Follows the ground until edited. R rotates 90 degrees."
+		height_field.tooltip_text="Terrain base elevation in metres. Follows the ground until edited. T rotates 90 degrees."
 	else:height_field.tooltip_text="Height above terrain. Placement stacks on the surface you click; select a piece to edit its height."
 	refresh_palette()
 func change_scenery():
@@ -387,7 +387,7 @@ func handle_input(event):
 		elif code>=KEY_KP_1 and code<=KEY_KP_9:choose_palette_slot(code-KEY_KP_1)
 		elif code in [KEY_BRACKETLEFT,KEY_PAGEUP]:change_palette_page(-1)
 		elif code in [KEY_BRACKETRIGHT,KEY_PAGEDOWN]:change_palette_page(1)
-		elif code==KEY_R:rotate_selected()
+		elif code==KEY_T:rotate_selected()
 		elif code==KEY_DELETE or code==KEY_BACKSPACE:delete_selected()
 		else:return
 		get_viewport().set_input_as_handled();return
@@ -441,7 +441,7 @@ func show_selection():
 		var cells=Document.scenery_footprint(selection.group,item);cell=cells.front();dimensions=cells.back()-cell+Vector2i.ONE
 	game.world.show_editor_marker(cell,dimensions,true,true)
 	if selection.group in Document.Scenery.GROUPS:game.world.preview.position.y+=float(item.get("height",0))
-	set_status("Selected %s · Size / Rotation edit scenery · R rotates · Delete removes · Undo restores"%item.get("kind",selection.group))
+	set_status("Selected %s · Size / Rotation edit scenery · T rotates · Delete removes · Undo restores"%item.get("kind",selection.group))
 func tick(delta: float):
 	if not confirmation.visible and not text_focused():
 		var move=Input.get_vector("move_left","move_right","move_forward","move_back")

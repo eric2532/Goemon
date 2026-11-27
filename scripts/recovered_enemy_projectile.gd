@@ -5,7 +5,8 @@ const Visuals=preload("res://assets/characters/ally_crowd/visuals.res")
 const DAGGER_ATLAS=preload("res://assets/characters/crossgate/maze/regular-dagger.png")
 const ARROW_ATLAS=preload("res://assets/characters/crossgate/fighters/lancelot/arrow.png")
 const WATER_DAGGER_ATLAS=preload("res://assets/characters/crossgate/shin/900050/kunai/projectile.png")
-const BOOMERANG_ATLAS=preload("res://assets/characters/crossgate/shin/900050/boomerang/projectile.png")
+const BOOMERANG_ATLAS=preload("res://assets/characters/crossgate/weapons/boomerang/projectile.png")
+const WATER_BOOMERANG_ATLAS=preload("res://assets/characters/crossgate/shin/900050/boomerang/projectile.png")
 const THROWN_RANGE=120.0
 const THROWN_SPEED=72.0
 var dagger_size=0.85
@@ -22,24 +23,28 @@ var tail_a:MeshInstance3D
 var tail_b:MeshInstance3D
 var age=0.0
 var impact_sound:AudioStream
+var water_wave_scale=1.0
 var boomerang_reach=THROWN_RANGE
 var boomerang_duration=1.0
 var boomerang_origin=Vector3.ZERO
 var boomerang_forward=Vector3.FORWARD
 var boomerang_side=Vector3.RIGHT
 var hit_targets:Dictionary={}
+func is_boomerang()->bool:
+ return kind=="crossgate_boomerang" or kind=="water_dragon_boomerang"
 
 func boomerang_point(progress:float,home:Vector3)->Vector3:
  var t=clampf(progress,0,1)
  return boomerang_origin+boomerang_forward*boomerang_reach*sin(PI*t)+boomerang_side*boomerang_reach*.23*sin(TAU*t)+(home-boomerang_origin)*t*t*t
 
 func _ready():
- if kind in ["maze_dagger","crossgate_arrow","water_dragon_dagger","crossgate_boomerang"]:
+ if kind in ["maze_dagger","crossgate_arrow","water_dragon_dagger","crossgate_boomerang","water_dragon_boomerang"]:
   if kind=="maze_dagger":dagger_size=hero.RogueRoster.crossgate_profile(hero.character_id).get("kunai_size",dagger_size)
   dagger_sprite=Sprite3D.new()
-  dagger_sprite.texture=BOOMERANG_ATLAS if kind=="crossgate_boomerang" else WATER_DAGGER_ATLAS if kind=="water_dragon_dagger" else ARROW_ATLAS if kind=="crossgate_arrow" else DAGGER_ATLAS;dagger_sprite.hframes=16
+  dagger_sprite.texture=BOOMERANG_ATLAS if kind=="crossgate_boomerang" else WATER_BOOMERANG_ATLAS if kind=="water_dragon_boomerang" else WATER_DAGGER_ATLAS if kind=="water_dragon_dagger" else ARROW_ATLAS if kind=="crossgate_arrow" else DAGGER_ATLAS
+  dagger_sprite.hframes=8 if kind=="crossgate_boomerang" else 16
   var height=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT
-  dagger_sprite.pixel_size=height/87.0 if kind in ["crossgate_arrow","water_dragon_dagger","crossgate_boomerang"] else height/83.0*2.25*dagger_size
+  dagger_sprite.pixel_size=height/87.0 if kind in ["crossgate_arrow","water_dragon_dagger","crossgate_boomerang","water_dragon_boomerang"] else height/83.0*2.25*dagger_size
   dagger_sprite.billboard=BaseMaterial3D.BILLBOARD_ENABLED
   dagger_sprite.alpha_cut=SpriteBase3D.ALPHA_CUT_DISCARD
   dagger_sprite.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -52,9 +57,12 @@ func _ready():
   tail_a=MeshInstance3D.new();tail_a.mesh=visual.mesh;tail_a.scale=Vector3.ONE*.7;add_child(tail_a)
   tail_b=MeshInstance3D.new();tail_b.mesh=visual.mesh;tail_b.scale=Vector3.ONE*.45;add_child(tail_b)
 func restart_visual():
+ attack_ticket.projectile=true
  age=0
  hit_targets.clear()
- if kind=="crossgate_boomerang":
+ if kind=="water_dragon_boomerang":
+  water_wave_scale=hero.model.sprite.pixel_size*hero.model.sprite.global_basis.y.length()*skill_factor("size")/.02
+ if is_boomerang():
   boomerang_origin=global_position
   boomerang_forward=velocity.normalized() if not velocity.is_zero_approx() else hero.facing
   boomerang_side=boomerang_forward.cross(Vector3.UP).normalized()
@@ -67,8 +75,8 @@ func restart_visual():
  if velocity.length_squared()>.001:basis=Basis(Quaternion(Vector3.BACK,velocity.normalized()))
 
 func update_dagger_facing():
- if kind=="crossgate_boomerang":
-  dagger_sprite.frame=posmod(-floori(age*24),16)
+ if is_boomerang():
+  dagger_sprite.frame=posmod(-floori(age*24),dagger_sprite.hframes)
   return
  var camera=get_viewport().get_camera_3d()
  if camera==null:
@@ -95,7 +103,7 @@ func _physics_process(delta:float):
  elif dagger_sprite!=null:update_dagger_facing()
  else:visual.mesh=Visuals.get_meta("meshes")["bullet%d"%posmod(floori(age*30),16)]
  var from=global_position;var next=from+velocity*minf(delta,lifetime);lifetime-=delta
- var boomerang=kind=="crossgate_boomerang"
+ var boomerang=is_boomerang()
  if boomerang:
   next=boomerang_point(age/boomerang_duration,hero.auto_aim_origin())
   velocity=(next-from)/maxf(.00001,delta)
@@ -128,10 +136,13 @@ func damage_contact(contact:Dictionary,dark:bool,primary:bool=true):
  if connected and blade_dance:game.crowd.army.presentation.blade_dance_burst(contact.enemy,contact.point)
  var impact_cue="coin_hit" if kind=="crossgate_arrow" else "cg_dagger_hit" if kind=="maze_dagger" else ""
  var impact_sample:AudioStream=impact_sound if impact_sound!=null else SoundLibrary.CROSSGATE_BOW_SOUNDS.coin_hit if kind=="crossgate_arrow" else null
+ var generic_impact=not dark and not blade_dance and kind!="water_dragon_boomerang"
  if connected:
-  if hero.ai_controlled:game.confirm_ally_impact(contact.enemy,contact.point,velocity.normalized(),0,true,source,not dark and not blade_dance,impact_sample,impact_cue)
+  if kind=="water_dragon_boomerang" and game.get("crowd")!=null:
+   game.crowd.army.presentation.water_boomerang_burst(contact.point,hero.model.direction_for(velocity),water_wave_scale)
+  if hero.ai_controlled:game.confirm_ally_impact(contact.enemy,contact.point,velocity.normalized(),0,true,source,generic_impact,impact_sample,impact_cue)
   else:
-   game.confirm_impact(contact.enemy,contact.point,velocity.normalized(),0,true,source,not dark and not blade_dance,impact_sample,primary and attack_ticket.get("action","")!="stat_counter",impact_cue)
+   game.confirm_impact(contact.enemy,contact.point,velocity.normalized(),0,true,source,generic_impact,impact_sample,primary and attack_ticket.get("action","")!="stat_counter",impact_cue)
    if (not primary or attack_ticket.get("action","")=="stat_counter") and impact_sound!=null:game.sound("hit",.65,false,attack_ticket,source,impact_sound)
 
 func locked_contact(from:Vector3,to:Vector3,radius:float)->Dictionary:

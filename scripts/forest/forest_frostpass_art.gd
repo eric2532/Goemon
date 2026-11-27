@@ -339,7 +339,7 @@ static func path_tree(root:Node3D,drifts:SurfaceTool,obstacles:Array[AABB],cell:
  basis=Basis(Vector3(-out.y,0.0,out.x),rng.randf_range(.05,.15))*basis
  var trunk_size=Vector3(.44,2.1,.44)*minf(1.0,size/.80)
  var trunk=at+Vector3(-out.x*.06,trunk_size.y*.5,-out.y*.06)
- Art.solid(root,trunk,trunk_size,1,"wood").name="SnowMountainPathTrunk%d"%obstacles.size()
+ Art.solid(root,trunk,trunk_size,1,"wood",true).name="SnowMountainPathTrunk%d"%obstacles.size()
  obstacles.append(AABB(trunk-trunk_size*.5,trunk_size))
  var extent=Vector2(2.2,4.6) if out.x!=0.0 else Vector2(4.6,2.2)
  Crags.ridge(drifts,at+Vector3(out.x*.30,-.13,out.y*.30),extent,.43+size*.30,cell.x*23+cell.y*11,false)
@@ -1157,7 +1157,7 @@ static func abanis_streets(root:Node3D,boxes,snow:Material,obstacles:Array[AABB]
   trees.append(Transform3D(Basis(Vector3.UP,angle).scaled(Vector3.ONE*size),at))
   Crags.ridge(drift,at-Vector3.UP*.06,Vector2(2.7,2.6),.43,cell.x*13+cell.y,false)
   var trunk=Vector3(.41,1.55,.41)
-  Art.solid(street,at+Vector3.UP*.775,trunk,1,"wood")
+  Art.solid(street,at+Vector3.UP*.775,trunk,1,"wood",true)
   obstacles.append(AABB(at+Vector3(-trunk.x*.5,0,-trunk.z*.5),trunk))
   lamps.append(Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*.73),at+Vector3(1.25,0,.57)))
  finish(street,drift,snow,"AbanisCurbSnow")
@@ -1181,7 +1181,7 @@ static func abanis_streets(root:Node3D,boxes,snow:Material,obstacles:Array[AABB]
  for shape in [AABB(supplies+Vector3(-1.17,0,-.54),Vector3(2.14,1.06,1.08)),
    AABB(bench+Vector3(-.45,0,-1.17),Vector3(.90,1.63,2.34)),
    AABB(bench+Vector3(-.30,0,1.42),Vector3(.60,.60,.60))]:
-  Art.solid(props,shape.get_center(),shape.size,1,"wood")
+  Art.solid(props,shape.get_center(),shape.size,1,"wood",true)
   obstacles.append(shape)
  var fork=Route.point(Vector2i(7,8))
  signpost(street,Vector3(fork.x,1.94,fork.y+1.18),"大學方向")
@@ -1239,7 +1239,7 @@ static func highland_square(root:Node3D,boxes,id:int,obstacles:Array[AABB]):
    var bed=at+Vector3(offset,0,-3.7)
    var size=Vector3(4.56,.58,7.36)
    Rooms.plant_bed(garden,bed,Vector2(size.x,size.z),false)
-   Art.solid(square,bed+Vector3.UP*.29,size,1,"stone")
+   Art.solid(square,bed+Vector3.UP*.29,size,1,"stone",true)
    obstacles.append(AABB(bed+Vector3(-size.x*.5,0,-size.z*.5),size))
  Geo.cylinder(square,at+Vector3.UP*.055,2.55,.11,stone)
  Geo.cylinder(square,at+Vector3.UP*.18,1.71,.29,trim)
@@ -1255,7 +1255,7 @@ static func highland_square(root:Node3D,boxes,id:int,obstacles:Array[AABB]):
   Geo.cylinder(square,at+Vector3(.42,.80,.12),.27,.36,oak,false,.34)
  var footprint=Vector3(3.15,.70,3.15)
  var center=at+Vector3.UP*.35
- Art.solid(square,center,footprint,1,"stone")
+ Art.solid(square,center,footprint,1,"stone",true)
  obstacles.append(AABB(center-footprint*.5,footprint))
 
 static func house_roof(root:Node3D,base:Vector3,half:float,depth:float,peak:float,roof:Material,snow:Material,style:int):
@@ -1317,13 +1317,15 @@ static func storefront(root:Node3D,boxes,p:Vector3,timber:Material):
  Goods.barrel(porch,p+Vector3(-4.03,0,.42),.39,timber,plank,iron)
  Court.bench(boxes,p+Vector3(5.44,0,.54),false,1.68,timber)
 
-static func cave_walls(root:Node3D,id:int,walk:PackedByteArray):
+static func cave_walls(root:Node3D,id:int,walk:PackedByteArray,context:Dictionary={}):
  var rock=SurfaceTool.new()
  rock.begin(Mesh.PRIMITIVE_TRIANGLES)
  rock.set_smooth_group(-1)
  var columns={}
- var stage=Route.LEVELS.keys().find(id)
- var frozen=id in [Route.SNOW_CAVE,Route.ICE_VAULT]
+ var size_:Vector2i=context.get("size",Route.SIZE);var origin_:Vector2=context.get("origin",Route.ORIGIN)
+ var stage:int=context.get("stage",Route.LEVELS.keys().find(id))
+ var doors_:Array=context.get("doors",Route.DOORS.get(id,[]))
+ var frozen:bool=context.get("frozen",id in [Route.SNOW_CAVE,Route.ICE_VAULT])
  var shelf_ice=SurfaceTool.new()
  shelf_ice.begin(Mesh.PRIMITIVE_TRIANGLES)
  var ledges=SurfaceTool.new()
@@ -1335,19 +1337,19 @@ static func cave_walls(root:Node3D,id:int,walk:PackedByteArray):
  var banks=SurfaceTool.new()
  banks.begin(Mesh.PRIMITIVE_TRIANGLES)
  if frozen:Lamps.prepare_primitives()
- for z in Route.SIZE.y:
-  for x in Route.SIZE.x:
+ for z in size_.y:
+  for x in size_.x:
    var cell=Vector2i(x,z)
-   if not open_cell(walk,cell):continue
+   if not open_cell(walk,cell,size_):continue
    for step:Vector2i in CARDINAL:
-    if open_cell(walk,cell+step):continue
-    var edge=Route.point(cell)+Vector2(step)*1.5
+    if open_cell(walk,cell+step,size_):continue
+    var edge=(origin_+Vector2(cell)*3)+Vector2(step)*1.5
     var tangent=Vector2(step.y,-step.x)*1.5
     var edge_points=[edge-tangent,edge,edge+tangent]
     for at:Vector2 in edge_points:
-     if not columns.has(at):columns[at]=wall_column(at,stage,walk)
+     if not columns.has(at):columns[at]=wall_column(at,stage,walk,size_,origin_)
     var serial=x*17+z*29+step.x*7+step.y*13
-    if frozen and posmod(serial,11)<4 and not Route.DOORS[id].any(func(door):return Vector2(cell-door).length_squared()<16.0):
+    if frozen and posmod(serial,11)<4 and not doors_.any(func(door):return Vector2(cell-door).length_squared()<16.0):
      var bank=edge-Vector2(step)*.21+tangent*.18*sin(serial)
      var spread=Vector2(2.83,.98) if step.x==0 else Vector2(.98,2.83)
      var swell=.23+.15*absf(sin(serial*.63))
@@ -1364,7 +1366,7 @@ static func cave_walls(root:Node3D,id:int,walk:PackedByteArray):
      for band in WALL_PROFILE.size()-1:
       Crags.face(rock,left[band],right[band],right[band+1],left[band+1])
  var stone=Fort.material(CAVE_COLORS[stage].darkened(.20),false).duplicate()
- stone.set_shader_parameter("snow_cover",.17+float(stage)*.20)
+ stone.set_shader_parameter("snow_cover",context.get("snow_cover",.17+float(stage)*.20))
  if frozen:
   stone=ice_surface(id,true)
   stone.set_shader_parameter("powder_cover",.82)
@@ -1403,44 +1405,45 @@ static func ice_ledge(shelf:SurfaceTool,icicles:SurfaceTool,crust:SurfaceTool,a:
   var height=.52+.91*absf(sin(serial*.91+part*1.65))
   ice_blade(icicles,foot,-height,Vector2(.15,.18),Vector2(-out.x,-out.y)*.13,serial+part)
 
-static func cave_mass(root:Node3D,id:int,walk:PackedByteArray,lots:Array):
+static func cave_mass(root:Node3D,id:int,walk:PackedByteArray,lots:Array,context:Dictionary={}):
  var rock=SurfaceTool.new()
  rock.begin(Mesh.PRIMITIVE_TRIANGLES)
- var stage=Route.LEVELS.keys().find(id)
+ var size_:Vector2i=context.get("size",Route.SIZE);var origin_:Vector2=context.get("origin",Route.ORIGIN)
+ var stage:int=context.get("stage",Route.LEVELS.keys().find(id))
  for lot:Rect2i in lots:
   var span=Vector2(lot.size)*3.0
-  var at=Route.point(lot.position)+span*.5-Vector2.ONE*1.5
+  var at=(origin_+Vector2(lot.position)*3)+span*.5-Vector2.ONE*1.5
   Crags.ridge(rock,Vector3(at.x,-.35,at.y),span*.99,5.25+stage*.65,lot.position.x*9+lot.position.y,true,.49)
- for z in range(1,Route.SIZE.y-1,2):
-  for x in range(1,Route.SIZE.x-1,2):
+ for z in range(1,size_.y-1,2):
+  for x in range(1,size_.x-1,2):
    var cell=Vector2i(x,z)
-   if open_cell(walk,cell):continue
-   if CARDINAL.any(func(step):return open_cell(walk,cell+step)):continue
-   if not CARDINAL.any(func(step):return open_cell(walk,cell+step*2)):continue
+   if open_cell(walk,cell,size_):continue
+   if CARDINAL.any(func(step):return open_cell(walk,cell+step,size_)):continue
+   if not CARDINAL.any(func(step):return open_cell(walk,cell+step*2,size_)):continue
    if lots.any(func(lot):return lot.grow(1).has_point(cell)):continue
-   var at=Route.point(cell)
+   var at=(origin_+Vector2(cell)*3)
    var serial=x*23+z*13
    var high=4.1+stage*.58+1.3*sin(serial*.11)
    Crags.ridge(rock,Vector3(at.x,-.35,at.y),Vector2(6,6),high,serial,true)
  var stone=Fort.material(CAVE_COLORS[stage].darkened(.29),false).duplicate()
- stone.set_shader_parameter("snow_cover",.12+stage*.13)
- if id in [Route.SNOW_CAVE,Route.ICE_VAULT]:
+ stone.set_shader_parameter("snow_cover",context.get("snow_cover",.12+stage*.13))
+ if context.get("frozen",id in [Route.SNOW_CAVE,Route.ICE_VAULT]):
   stone=ice_surface(id,true)
   stone.set_shader_parameter("powder_cover",.82)
  finish(root,rock,stone,"FrostpassRockMass")
 
-static func open_cell(walk:PackedByteArray,cell:Vector2i)->bool:
- if not Rect2i(Vector2i.ZERO,Route.SIZE).has_point(cell):return false
- var i=cell.y*Route.SIZE.x+cell.x
+static func open_cell(walk:PackedByteArray,cell:Vector2i,size_:Vector2i=Route.SIZE)->bool:
+ if not Rect2i(Vector2i.ZERO,size_).has_point(cell):return false
+ var i=cell.y*size_.x+cell.x
  return (walk[i>>3] & (1<<(i&7)))!=0
 
-static func wall_column(at:Vector2,stage:int,walk:PackedByteArray)->PackedVector3Array:
+static func wall_column(at:Vector2,stage:int,walk:PackedByteArray,size_:Vector2i=Route.SIZE,origin_:Vector2=Route.ORIGIN)->PackedVector3Array:
  # Neighboring faces share this column so every ledge continues around the corner.
  var outward=Vector2.ZERO
  for x in [-.75,.75]:
   for z in [-.75,.75]:
    var delta=Vector2(x,z)
-   if open_cell(walk,Vector2i(((at+delta-Route.ORIGIN)/3.0).round())):outward-=delta
+   if open_cell(walk,Vector2i(((at+delta-origin_)/3.0).round()),size_):outward-=delta
  outward=outward.normalized()
  var relief=sin(at.x*.24+at.y*.31)*.83+cos(at.x*.91-at.y*.68)*.41
  var height=5.25+float(stage)*.68+relief

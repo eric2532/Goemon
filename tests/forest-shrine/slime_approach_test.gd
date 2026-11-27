@@ -39,6 +39,18 @@ func run():
    var state=runtime.unit_state(h)
    check(absf(Vector2(state.velocity.x,state.velocity.z).length()-3)<.04,"Disabled kit retains the original speed")
    kit.slime_approach_boost=true;runtime.configure_kits(kit)
+   targets.kinds=PackedInt32Array([0])
+   for distance in [160,80,20]:
+    runtime.clear();runtime.native.set_targets(targets)
+    var player_approach=target+Vector3.FORWARD*distance
+    player_approach.y=model.surface_height(player_approach.x,player_approach.z)
+    var pursuer=runtime.spawn(1,0,20,player_approach,5000,3.9)
+    runtime.step(1.0/hz,{})
+    var velocity:Vector3=runtime.unit_state(pursuer).velocity
+    var speed=Vector2(velocity.x,velocity.z).length()
+    var expected={160:12.0,80:8.25,20:4.5}[distance]
+    check(absf(speed-expected)<.1,"Player pursuit moves at %.2f m/s at %d m / %d Hz (measured %.3f)"%[expected,distance,hz,speed])
+   targets.kinds=PackedInt32Array([3])
   runtime.clear();runtime.free()
   model.terrain_detail=""
   check(not Kits.from_model(model).slime_approach_boost,"Other maps retain their existing movement")

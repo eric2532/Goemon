@@ -9,6 +9,46 @@ hash, original graphics, packs, rows and decoded RGBA hashes.
 Run `python3 tools/recover_black_prayer.py` to prepare, or add `--check` for a
 read-only source comparison. Do not hand-edit `data.gd` or the prepared PNGs.
 
+## Current ordinary encounters
+
+`tools/prepare_black_prayer_encounters.py` prepares `encounters.json` from the
+pinned config301 and encounter15001. Its six logical floors retain runtime IDs
+30101–30106, source mixed/Ghost-only/Blade-only groups15006/15004/15005 with
+equal weights, and the existing corrected Ruby/blade/ghost native sprite bank.
+The existing South movement/native owner dispatches these groups. It adds no
+actor bank, simulation, per-frame loader or new scenery owner.
+
+This supersedes the historical96-live-patrol descriptions below. Those station
+tables, old RNG draws and death-slot keys remain compatibility data; they no
+longer define ordinary fights. Blade400/ghost300 HP **per level**, existing
+native contact/audio and palace-only Ruby spell behavior remain unchanged.
+Config301 floor indexes are known; original transient map IDs and generated
+topology are not certified. The 64×64/sixteen-room layout, walk bits and stair
+anchors are unchanged. Source map dimensions are40–80 on both axes;10–20
+describes source door dimensions, not an authenticated room-count range.
+
+Per-floor20/21/21/22/22/23 follows the pinned reference editor formula. Native
+movement chance1–3 and uniform1–6 party sizes are qualified adaptations;
+raw encounter/config/member fields remain in the data. Source boxAmount4 is allocated across the whole six-floor branch by the
+existing loot owner, following qualified reference-generator semantics; original
+refresh/server execution remains unverified. Cached stair17974/17975
+versus source dynamic103012 remains a documented version/generation question.
+
+Ruby's source route now uses the original item/solo guard, explicit NPC81000
+StandEnemy11007→11009, victory16509(24,12) and source post-fight conditional
+returns. See `events/README.md` for its owners and remaining source limits.
+The earlier proximity/free-guard/legacy-door implementation is historical.
+Current native F/return checks pass; rendered review remains a separate gate.
+Source16508's253 western cells are now source-complete through its own pinned
+server planes, preserving2247 recorded cells/flags and recorded navigation;
+68 source-open cells are added. Focused native156/156 passes; final normal-camera
+review of that completion and26 source-return-room fixture anchors is separate.
+
+Focused fixtures: `black_prayer_encounter_contract_test.gd` for source/floor
+selection, `black_prayer_encounter_review.gd` for direct native parties and
+normal-camera evidence, and `black_prayer_maze_test.gd` for unchanged seeded
+geometry. Reports and engine logs stay in the same canonical evidence folder.
+
 - `floors.png`: original native ground diamonds rectified to the existing
   32-column, 36-pixel room-floor atlas contract. Data ID zero is empty; positive IDs address texture cells from zero.
 - `walls.png`: original maze/entrance cave faces using the existing 16-column,
@@ -217,3 +257,63 @@ populated six-floor route, source-array preservation, stem contacts, reflection
 planarity, compound bounds and repeated setup. Evidence belongs under
 `build/Other Files/Asset Toolkit/Ruby Mirrors Flowers/`. The six floors stay
 random with 96 native enemies each; Ruby's original ten-member party stays intact.
+
+
+## Ruby connected-region reconstruction — 2026-11-25
+
+`tools/prepare_ruby_region_art.py` is the authoritative local visual recipe for
+`palace-proportions.json`, `palace-walls.png`, `region-trees.json`,
+`kili-walls.json/png` and `region-cave-walls.json/png` plus `region-cave-mask.png`.
+It reads the adjacent Magic Power BlueCrossgate archive without changing it.
+Run it normally to prepare, or with `--check` for byte/metadata reproduction.
+The older source atlases, furniture placement tables and editable models stay intact.
+
+Visible palace proportions now follow each native graphic’s measured bounds
+and compound anchor. These measurements supersede the older 8.5-unit visual
+ceiling fit above; the original physical headroom and collision remain intact.
+Pictures, arch headers and elevated bouquets convert source vertical offsets
+to height, preserving their ground stations. Native floor motifs and stone-wall
+face orientation use the source axes. Pure black 15819 is source occlusion, not
+a floating stone panel; existing solid walls already supply their capped tops.
+The native 17206 blue/red closed panel replaces the earlier generic iron bars.
+
+`forest_ruby_region_art.gd` owns the fixed native cave/cliff derivatives and
+route-local vegetation fits. The existing alpha-contour/profile method in
+`prepare_abanis_cliffs.py::measured_profile` is reused without changing its
+existing outputs. Source void pixels do not become rock columns. Surface paint
+uses the source camera and an alpha mask over real profile geometry; unknown
+backs use each graphic’s native average color. This is a bounded reconstruction
+from one view, not recovered original 3D or an authoritative elevation field.
+
+Fixed cave rooms 15003/15004/15005 and entrance 16507 retain their walking masks,
+stairs and collision. All six generated floors retain the existing seed/generator
+and stair owners. Undersea graphics use the documented external palette 2;
+other in-scope maps use palette 0. No encounter, NPC, reward or Ruby combat owner
+is edited by this recipe.
+
+Review/reproduction: `tools/review_ruby_region.py` and
+`tests/forest-shrine/ruby_region_review.gd` through Play Goemon. The optional
+`--landmarks` mode records additional current gameplay views at named crossings.
+Evidence belongs in `build/Other Files/Asset Toolkit/Ruby Region Reconstruction/`.
+
+
+The 15004 guard area now restores all 39 original object placements (29 unique
+graphics) omitted by the older bank-only table. `undersea-annex.json/png` and
+`undersea-annex-mask.png` record the native cells, palette-2 source paint and
+hashes. The existing original-map solid builders supply compatible forms;
+the route owns its fitted painted copies and does not publish those variants
+into the shared mesh cache. Furniture rear depth remains an adaptation.
+`entry-stair.png` separately preserves 13268 in the fixed entrance’s palette 0.
+Cave/entrance graphics sharing a serial retain separate palette keys.
+
+Normal gameplay review also constrains pictures to the native adjacent wall
+face and pots to their source stools. A coupled depth/height shift preserves
+the original isometric projection while making those supports meet in 3D.
+The focused review asserts both the native projection and physical attachment.
+
+
+The region owns a shader variant for its native-painted cliff/guard-area solids.
+The existing source-camera weight controls silhouette trimming; away from that
+view, native average-color fallbacks keep the actual solid profile closed.
+This prevents isometric alpha masks from punching holes through the walls at
+the normal close gameplay camera. Shared shader files/materials remain intact.

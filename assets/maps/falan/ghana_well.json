@@ -1,0 +1,17 @@
+{
+  "graphic": 11229,
+  "pack": "original",
+  "row": 8050,
+  "source_rgba_sha256": "7eb9105e2d1162483bbd664211357b885226fd09659f2df7b9b27e062c6a6f71",
+  "paint_rgba_sha256": "1941d64cda9c46d4281a3ce1bf02e7741571871b0bf6e25aa89d8da48fda1299",
+  "ground_shadow_pixels": 270,
+  "origin": [
+    45,
+    79
+  ],
+  "dark_pixel": [
+    43,
+    48
+  ],
+  "method": "Native opaque RGB preserved. Shared round-profile and rod geometry fits the visible open ring, two posts, windlass and bucket; rear faces remain inferred."
+}

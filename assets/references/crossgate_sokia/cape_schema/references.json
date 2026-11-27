@@ -1,0 +1,24 @@
+[
+  {
+    "path": "src/cg/data/gmsvReader/CDungeonReader.java",
+    "git_blob": "0fed73f02c86a19ec32cfb2e2b4ff4d35f1450d0",
+    "primary_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CDungeonReader.java",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "file": "CDungeonReader.java",
+    "bytes": 14423,
+    "sha256": "a3b32e058f55cc4c99ef0cde4ddfe901223bb04d3ec44d7cce5c05891077c428",
+    "authority": "Reference editor/generator source; not authenticated original server execution",
+    "raw_url": "https://raw.githubusercontent.com/Muscipular/CrossGateData/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CDungeonReader.java"
+  },
+  {
+    "path": "src/cg/data/map/dungeon/DungeonMapRegionInfo.java",
+    "git_blob": "10d9055afa6035b1856558f565923d44c82af6f7",
+    "primary_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/map/dungeon/DungeonMapRegionInfo.java",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "file": "DungeonMapRegionInfo.java",
+    "bytes": 1065,
+    "sha256": "defaa789ade3367fee57a9ca666d7ea251067906a60a5575727d2631dc4a7e55",
+    "authority": "Reference editor/generator source; not authenticated original server execution",
+    "raw_url": "https://raw.githubusercontent.com/Muscipular/CrossGateData/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/map/dungeon/DungeonMapRegionInfo.java"
+  }
+]

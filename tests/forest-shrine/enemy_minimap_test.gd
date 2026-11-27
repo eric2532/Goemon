@@ -3,7 +3,7 @@ var game
 var checks=0
 var failures=0
 var cfg="user://enemy-minimap-%d.cfg"%OS.get_process_id()
-const REVIEW="res://build/Other Files/Asset Toolkit/Cross Gate Minimap/"
+const REVIEW="res://build/Other Files/Asset Toolkit/Map Swarm/"
 func _initialize():
  create_timer(120).timeout.connect(func():printerr("FAIL: enemy minimap timeout");quit(1))
  run.call_deferred()
@@ -35,18 +35,21 @@ func run():
  check(radar.chart.illustration==art,"Moving-marker refreshes reuse the prepared area artwork")
  await capture("arena-compact")
  var center=Vector3(-3,0,-3)
- var north=game.model.waves.spawn_enemy(0,center+Vector3(0,0,-120))
+ var north=game.model.waves.spawn_enemy(game.model.waves.Roles.BOSS,center+Vector3(0,0,-120))
  var east=game.model.waves.spawn_enemy(1,center+Vector3(120,0,0))
- var dead=game.model.waves.spawn_enemy(3,center+Vector3(0,0,120));dead.hp=0
+ game.model.waves.mark_dungeon_boss(east)
+ var dead=game.model.waves.spawn_enemy(game.model.waves.Roles.BOSS,center+Vector3(0,0,120));dead.hp=0
+ var ordinary=game.model.waves.spawn_enemy(0,center+Vector3(60,0,60))
  var corner=game.model.world_bounds().end-Vector2.ONE*6.0
- game.model.waves.spawn_enemy(2,Vector3(corner.x,0,corner.y))
+ game.model.waves.spawn_enemy(game.model.waves.Roles.BOSS,Vector3(corner.x,0,corner.y))
  game.model.visible_cells.clear();radar.refresh()
- check(radar.markers.size()==3,"Radar shows all living wave enemies, including arrivals beyond shared sight")
+ check(radar.markers.size()==3,"Radar shows living bosses beyond shared sight and hides dead bosses and ordinary enemies")
+ check(not radar.markers.has(radar.map_position(ordinary.pos)),"A living ordinary enemy creates no red dot")
  var middle=radar.size*.5
  check(radar.markers[0].y<middle.y and absf(radar.markers[0].x-middle.x)<.1,"North enemy appears above the map center")
  check(radar.markers[1].x>middle.x and absf(radar.markers[1].y-middle.y)<.1,"East enemy appears right of the map center")
  check(Array(radar.markers).all(func(point):return Rect2(Vector2(4,4),radar.size-Vector2(8,8)).has_point(point)),"Even far corner enemies remain inside the square rim")
- check(radar.markers.size()==game.model.enemies.values().filter(func(e):return e.hp>0).size(),"Defenders, workers, the player and training dummy create no markers")
+ check(radar.markers.size()==game.model.enemies.values().filter(func(e):return e.hp>0 and e.get("boss",false)).size(),"Only living bosses create markers")
  check(radar.markers[2].distance_to(radar.chart_rect().end)<5,"Map uses its plot corners for battlefield corners")
  game.player.position=center;radar.refresh()
  check(radar.get("player_marker") is Vector2,"Minimap tracks a distinct player marker")
@@ -61,7 +64,9 @@ func run():
  north.pos+=Vector3(18,0,0);radar.refresh()
  check(radar.markers[0].x>old[0].x,"Enemy movement updates its marker location")
  game.model.enemies.erase(east.id);radar.refresh()
- check(radar.markers.size()==2,"Removed enemies immediately leave the radar")
+ check(radar.markers.size()==2,"Removed bosses immediately leave the radar")
+ north.hp=0;radar.refresh()
+ check(radar.markers.size()==1,"A defeated boss loses its dot while ordinary enemies remain hidden")
  for scale_ in [.65,1.25]:
   game.set_forest_hud_scale(scale_);game.forest_ui.sync();await frames()
   var rect=radar.get_global_rect();var screen=root.get_visible_rect()

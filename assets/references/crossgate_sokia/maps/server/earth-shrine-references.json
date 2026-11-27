@@ -1,0 +1,65 @@
+[
+  {
+    "file": "13016_hokora",
+    "source": "gmsv/data/map/13016_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13016_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "6a8ff250767b14b9e33ef496a025b0b56f7d6ac7",
+    "bytes": 16044,
+    "sha256": "2178271807d2e141e57729236e977ba448f62ae9e393645717cc0fc9f875f639"
+  },
+  {
+    "file": "13017_hokora",
+    "source": "gmsv/data/map/13017_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13017_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "be50c9d70e800b02137aeef879fa0a28edccdede",
+    "bytes": 1644,
+    "sha256": "93708960e20d23ee1133d624ea5ec0d291321d8ece3a170270473475cfe22c12"
+  },
+  {
+    "file": "13018_hokora",
+    "source": "gmsv/data/map/13018_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13018_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "6e796c934967b70d2c8d70a2cf8e31dc7b8d1393",
+    "bytes": 8044,
+    "sha256": "06dc16516dc5e233d63e510f95b945b2323d622a3ecd9a3a6dd44df14ec5daeb"
+  },
+  {
+    "file": "13019_hokora",
+    "source": "gmsv/data/map/13019_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13019_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "741c14a7c53556711b5ffe687f66f7030cff5874",
+    "bytes": 1644,
+    "sha256": "aaa0686c90de06df271b6fce0861d568ffaa4f8d8358b195eec724156bcc06c7"
+  },
+  {
+    "file": "13020_hokora",
+    "source": "gmsv/data/map/13020_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13020_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "5be97ed1987ed50e6c725181e53b1a5bb7ef9905",
+    "bytes": 16044,
+    "sha256": "d40f61d2b0c2c2a2fb63086ee4aec567324399de271b29f178ed9289bf46c5a9"
+  },
+  {
+    "file": "13021_hokora",
+    "source": "gmsv/data/map/13021_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13021_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "ea0c34424fcca3fbb210d7d5cf80fe5f5cd883cd",
+    "bytes": 8044,
+    "sha256": "23f5fecccaa8951c65e9e7c2da39ee6788032067a4e3d42f9ddecd5430e412e6"
+  },
+  {
+    "file": "13022_hokora",
+    "source": "gmsv/data/map/13022_hokora",
+    "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13022_hokora",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "f175d7843a607040c0b737d80144ab627726fe2e",
+    "bytes": 1644,
+    "sha256": "f5a5ddf76b8a2171e32b36e86c8abd12c4b77e0e29a76cd995e8017374437c93"
+  }
+]

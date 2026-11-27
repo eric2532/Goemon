@@ -6,6 +6,11 @@ var bands: Array[Node3D]=[]
 var light: OmniLight3D
 var intensity=1.0
 var energy_material: ShaderMaterial
+var energy_shell: MeshInstance3D
+var ray_material: StandardMaterial3D
+var food_colors:Array[Color]=[]
+var food_flags=Vector3.ZERO
+var current_tint=Color.TRANSPARENT
 
 func _ready():
 	process_mode=Node.PROCESS_MODE_PAUSABLE
@@ -25,9 +30,11 @@ ALPHA=(flame*0.17+edge*0.15)*fade;
 	var material=ShaderMaterial.new()
 	material.shader=shader
 	energy_material=material
-	Geo.cylinder(self,Vector3(0,1.7,0),0.85,3.5,material,false,0.30)
+	energy_shell=Geo.cylinder(self,Vector3(0,1.7,0),0.85,3.5,material,false,0.30)
+	# Geo materials are shared; this aura owns its one mutable ray tint.
+	ray_material=Geo.mat("fff0a3",0,2).duplicate()
 	for i in range(14):
-		var ray=Geo.spike(self,Vector3.ZERO,Vector3(0,0.28,0),0.025,Geo.mat("fff0a3",0,2))
+		var ray=Geo.spike(self,Vector3.ZERO,Vector3(0,0.28,0),0.025,ray_material)
 		rays.append(ray)
 	light=OmniLight3D.new()
 	light.position=Vector3(0,1.8,0)
@@ -36,9 +43,33 @@ ALPHA=(flame*0.17+edge*0.15)*fade;
 	light.omni_range=5.5
 	add_child(light)
 
+func set_food_glow(flags:Vector3):
+	if food_flags!=flags:
+		food_flags=flags;food_colors.clear()
+		if flags.x>0:food_colors.append(Color("ff2448"))
+		if flags.y>0:food_colors.append(Color("2488ff"))
+		if flags.z>0:food_colors.append(Color("38ff65"))
+	apply_tint()
+
+func apply_tint():
+	var tint=Color.TRANSPARENT
+	if get_parent().hp>0 and get_parent().surge_left<=0 and not food_colors.is_empty():
+		tint=food_colors[int(clock/1.5)%food_colors.size()]
+	var model=get_parent().model
+	if model.has_method("set_food_glow"):model.set_food_glow(tint)
+	if current_tint==tint:return
+	current_tint=tint
+	energy_shell.visible=tint.a<=0
+	light.visible=tint.a<=0
+	light.light_color=tint if tint.a>0 else Color("ffc955")
+	ray_material.albedo_color=tint if tint.a>0 else Color("fff0a3")
+	ray_material.emission=ray_material.albedo_color
+
 func _process(delta):
-	if not visible: return
+	if get_parent().hp<=0:apply_tint();hide();return
+	if not visible or get_parent().game.paused or get_parent().game.transitioning:return
 	clock+=delta
+	apply_tint()
 	energy_material.set_shader_parameter("clock",clock)
 	for i in range(rays.size()):
 		var t=fposmod(clock*0.6+i/14.0,1.0)

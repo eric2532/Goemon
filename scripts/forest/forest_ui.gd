@@ -40,13 +40,14 @@ var loadout_slots: HBoxContainer
 const AIM_POINTER=preload("res://assets/ui/maroon/blue_cross_gate_cursor.png")
 const ATTACK_POINTER=preload("res://assets/ui/maroon/blue_cross_gate_attack_cursor.png")
 const POINTER_HOTSPOT=Vector2(1.5,1.5)
-static var FIST_ICON=Gear.ITEMS["weapon:unarmed"].icon
-static var SHIN_STANCE_ICONS={
+# The HUD can load while the equipment/skill catalog is still initializing.
+const FIST_ICON=preload("res://assets/ui/crossgate/weapons/defaults/boxing-gloves-red.png")
+const SHIN_STANCE_ICONS={
 	"unarmed":FIST_ICON,
-	"axe":Gear.ITEMS["weapon:axe"].icon,
-	"bow":Gear.ITEMS["weapon:bow"].icon,
-	"sword":Gear.ITEMS["weapon:sword"].icon,
-	"polearm":Gear.ITEMS["weapon:polearm"].icon,
+	"axe":preload("res://assets/ui/crossgate/weapons/defaults/axe.png"),
+	"bow":preload("res://assets/ui/crossgate/weapons/defaults/bow.png"),
+	"sword":preload("res://assets/ui/crossgate/weapons/defaults/sword.png"),
+	"polearm":preload("res://assets/ui/crossgate/weapons/defaults/polearm.png"),
 }
 const SHIN_SPECIAL_STANCE_ICONS={
 	"sword":preload("res://assets/ui/crossgate/weapons/red-sword.png"),
@@ -80,8 +81,9 @@ const PET_STANCES=[
  [preload("res://assets/ui/crossgate/pet_stances/attack-normal.png"),preload("res://assets/ui/crossgate/pet_stances/attack-selected.png")],
  [preload("res://assets/ui/crossgate/pet_stances/defend-normal.png"),preload("res://assets/ui/crossgate/pet_stances/defend-selected.png")],
  [preload("res://assets/ui/crossgate/pet_stances/return-normal.png"),preload("res://assets/ui/crossgate/pet_stances/return-selected.png")],
+ [preload("res://assets/ui/crossgate/pet_stances/return-normal.png"),preload("res://assets/ui/crossgate/pet_stances/return-selected.png")],
 ]
-const PET_STANCE_LABELS=["RMB","F Defend","Z Back"]
+const PET_STANCE_LABELS=["RMB","F Defend","Z Back","R Power"]
 var hound_stance_icons:Array[TextureRect]=[]
 var hound_stance_labels:Array[Label]=[]
 var hound_stance:int=-1
@@ -218,10 +220,10 @@ func make_hero_dock():
 		var bar=meter(hound_dock,"PetHealth%d"%i,Color("62c477"));bar.max_value=1.0;bar.step=0.0
 		bar.position=Vector2(4+i*42,29);bar.size=Vector2(38,4);hound_health_bars.append(bar)
 	for i in PET_STANCES.size():
-		var icon=dock_icon(hound_dock,PET_STANCES[i][0],Vector2(4+i*70,36),Vector2(64,20))
+		var icon=dock_icon(hound_dock,PET_STANCES[i][0],Vector2(4+i*54,36),Vector2(50,20))
 		icon.texture_filter=Control.TEXTURE_FILTER_NEAREST;hound_stance_icons.append(icon)
-		var caption=dock_label(hound_dock,PET_STANCE_LABELS[i],Vector2(2+i*70,56),12)
-		caption.size=Vector2(70,16);caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		var caption=dock_label(hound_dock,PET_STANCE_LABELS[i],Vector2(2+i*54,56),11)
+		caption.size=Vector2(54,16);caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		caption.add_theme_color_override("font_shadow_color",Color.BLACK);caption.add_theme_constant_override("shadow_outline_size",2)
 		hound_stance_labels.append(caption)
 	for i in range(2):
@@ -334,7 +336,7 @@ func sync_character()->Dictionary:
 	loadout_slots.visible=not prep and (Roster.is_crossgate_fighter(p.character_id) or not shin or shin_skills or p.spell_loadout.numbered_slots.any(func(slot):return not slot.is_empty()))
 	for i in 5:loadout_buttons[i].visible=Roster.is_crossgate_fighter(p.character_id) or not shin_skills or not p.spell_loadout.numbered_slots[i].is_empty()
 	loadout_buttons[5].visible=p.spell_loadout.numbered_slots.size()>5
-	spell_chain.visible=not prep and Roster.uses_crossgate_spells(p.character_id)
+	spell_chain.visible=not prep and not p.spell_loadout.beast_master_equipped() and Roster.uses_crossgate_spells(p.character_id)
 	if spell_chain.visible:spell_chain.text="Spell chain  ×%.1f"%p.spell_loadout.magic_cast_speed()
 	var variant=Roster.has_variant_skins(p.character_id)
 	var selected_skin:int=Roster.selected_skin(p.character_id,game.settings)
@@ -366,7 +368,7 @@ func sync_character()->Dictionary:
 				primary_icon.tooltip_text=hero_name.text+(" · Axe attack" if p.model.motions.get("weapon","")=="axe" else " · Basic strike" if shin else " · Staff combo" if p.model.fighter.strike=="staff" else " · Sword attack");secondary_icon.tooltip_text=primary_icon.tooltip_text
 				if Roster.is_crossgate_archer(p.character_id):primary_icon.tooltip_text=hero_name.text+" · LMB · Bow attack"
 				primary_icon.tooltip_text+=" · Tab target"
-				secondary_icon.tooltip_text="Right-click an enemy to focus pets · Right-click empty space to hunt"
+				secondary_icon.tooltip_text="Right-click an enemy to focus pets · Right-click ground to attack move in that direction"
 			if p.character_id==13:
 				primary="sword";secondary="sword";accent=Color("bba4f2")
 				primary_icon.tooltip_text="LMB · Fusion · LMB, LMB, RMB: Tenderize";secondary_icon.tooltip_text="RMB · Lumina · After a Fusion hit: X Slash · Then LMB, RMB: Desperado"
@@ -456,10 +458,11 @@ func sync_character()->Dictionary:
 	if not gear_item.is_empty():
 		primary_icon.texture=gear_item.icon;secondary_icon.texture=gear_item.icon;leader_utility_icon.texture=gear_item.icon
 		primary_icon.tooltip_text=gear_item.name+" · LMB · Tab target"
+		if p.spell_loadout.beast_master_equipped():primary_icon.tooltip_text="Beast Master · LMB throws a dagger for base damage · Tab target"
 		ben_utility_tile.tooltip_text=gear_item.name
 	elif maze:
 		leader_utility_icon.texture=MAZE_WEAPON_ICONS[p.model.maze_weapon]
-		ben_utility_tile.tooltip_text=["Katana","Dagger","Fist"][p.model.maze_weapon]
+		ben_utility_tile.tooltip_text=["Katana","Dagger","Boxing Gloves"][p.model.maze_weapon]
 	elif shin_swap:
 		var stance:String=p.model.motions.weapon
 		var icons=SHIN_SPECIAL_STANCE_ICONS if p.model.fighter.get("weapon_effects",false) else SHIN_STANCE_ICONS
@@ -528,7 +531,7 @@ func sync_hound_health():
 	hound_dock.visible=any_alive
 	if any_alive:
 		var order:int=game.army_runtime.hound_order
-		var stance=0 if order==game.army_runtime.HoundOrder.ATTACK else 1 if order==game.army_runtime.HoundOrder.HOLD else 2
+		var stance=3 if order==game.army_runtime.HoundOrder.COMBINED else 0 if order==game.army_runtime.HoundOrder.ATTACK else 1 if order==game.army_runtime.HoundOrder.HOLD else 2
 		if stance!=hound_stance:
 			hound_stance=stance
 			for i in hound_stance_icons.size():
@@ -537,6 +540,7 @@ func sync_hound_health():
 				hound_stance_icons[i].modulate.a=1.0 if active else .55
 				hound_stance_labels[i].text=("› " if active else "")+PET_STANCE_LABELS[i]
 				hound_stance_labels[i].modulate.a=1.0 if active else .65
+		hound_stance_labels[3].text="› Combo" if game.army_runtime.combined_committed else "› R Power" if stance==3 else "R Power"
 	var visor=not hero_dock.visible and is_instance_valid(master_chief_hud) and master_chief_hud.visible and not is_instance_valid(overlay)
 	var parent:Control=master_chief_hud.health if visor else hero_dock
 	if hound_dock.get_parent()!=parent:hound_dock.reparent(parent,false)
@@ -610,7 +614,7 @@ func _ready():
 		var keycap=skin.attack_style();keycap.set_corner_radius_all(4);keycap.set_border_width_all(2)
 		shortcut.add_theme_stylebox_override("normal",keycap)
 	recruit.tooltip_text="Worker\n50 ryo\nShortcut: 3"
-	castle.tooltip_text="Enemy castle · Skullpion statue\nFree · Testing\nShortcut: 4 · R rotates\nDestroy the statue to stop reinforcements.\nPlace on level ground; clears trees.\nRestart removes unsaved placements."
+	castle.tooltip_text="Enemy castle · Skullpion statue\nFree · Testing\nShortcut: 4 · T rotates\nDestroy the statue to stop reinforcements.\nPlace on level ground; clears trees.\nRestart removes unsaved placements."
 	for i in range(5,12):
 		var slot=Button.new();slot.name="EmptySlot%d"%(i+1);slot.custom_minimum_size=Vector2(104,104);slot.disabled=true
 		slot.add_theme_stylebox_override("disabled",skin.attack_style());slot.self_modulate.a=.45;build_bar.add_child(slot)
@@ -782,6 +786,23 @@ func sync_double_edge_debuff():
 	double_edge_amount.text="DEF −%d%%"%roundi(p.double_edge_penalty*100)
 	double_edge_time.text="%.1fs"%(ceilf(p.double_edge_left*10)/10)
 
+func sync_beast_master_slot(index:int,prep:bool):
+	var selected:Array=game.settings.forest_pet_loadout
+	var whole_party=index==Pets.MAX_ACTIVE
+	var skin=Pets.skin(selected[index]) if index<selected.size() else -1
+	var button=loadout_buttons[index]
+	button.disabled=selected.is_empty() if whole_party else skin<0
+	button.mouse_filter=Control.MOUSE_FILTER_STOP if prep else Control.MOUSE_FILTER_IGNORE
+	var orders:Dictionary=game.army_runtime.beast_pet_orders
+	button.set_pressed_no_signal(not orders.is_empty() if whole_party else orders.has(skin))
+	var portrait=helper_portraits[index]
+	portrait.material=null;portrait.modulate=Color.WHITE
+	portrait.texture=Gear.ITEMS["weapon:beast-master"].icon if whole_party else Pets.portrait(skin)
+	portrait.visible=not button.disabled
+	loadout_cooldowns[index].text=""
+	var name_="Attack with all pets" if whole_party else Pets.display_name(skin,game.settings.forest_pet_names) if skin>=0 else "Empty · Choose pets in Q Equipment"
+	button.tooltip_text="%d · %s"%[index+1,name_]
+
 func sync():
 	if not is_instance_valid(game) or game.model==null:return
 	sync_double_edge_debuff()
@@ -812,9 +833,13 @@ func sync():
 	enemy_minimap.set_active(game.playing and m.phase=="wave" and (not game.paused or view_settings_preview) and not game.transitioning and not game.won and game.player.hp>0 and not is_instance_valid(overlay) and not game.rogue_roster_open and (not game.settings_open or view_settings_preview))
 	# Combat captures the cursor for aiming; mouse selection belongs to the building map.
 	var icon_defaults=game.player.spell_loadout.Catalog.defaults(game.player.character_id)
+	var beast_master:bool=game.player.spell_loadout.beast_master_equipped()
 	for i in game.player.spell_loadout.numbered_slots.size():
 		var slot:Array=game.player.spell_loadout.numbered_slots[i]
 		var button=loadout_buttons[i]
+		if beast_master:
+			sync_beast_master_slot(i,prep)
+			continue
 		var recovery=i==5 and icon_loadout.get("special_6","")==game.player.spell_loadout.Catalog.RECOVERY
 		var action=game.player.spell_loadout.Catalog.SLOTS.keys()[i]
 		var spec:Dictionary=game.player.spell_loadout.Catalog.all().get(icon_loadout.get(action,""),{})
@@ -945,9 +970,8 @@ func sync():
 	team_xp_bar.max_value=1.0;team_xp_bar.value=progression.progress()
 	shrine_health_dock.visible=not shrine.is_empty() and not is_instance_valid(overlay)
 	var text_=""
-	if not prep and not preload("res://scripts/forest/forest_falan_tour.gd").area(m).is_empty():text_="F · 互動　J · 區域旅行"
 	if prep and is_instance_valid(game.explorer_helpers) and game.explorer_helpers.placement_active():text_=game.explorer_helpers.placement_hint
-	if prep and not game.build_kind.is_empty():text_="%s  ·  %s  ·  R rotate  ·  Esc exit"%[LABELS[game.build_kind],game.placement_hint]
+	if prep and not game.build_kind.is_empty():text_="%s  ·  %s  ·  T rotate  ·  Esc exit"%[LABELS[game.build_kind],game.placement_hint]
 	if not prep and m.workforce.held:
 		var count=0
 		for w in m.workers.values():

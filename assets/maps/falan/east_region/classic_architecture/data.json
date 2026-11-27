@@ -1,0 +1,5415 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10075": {
+      "kit": "city_magic_shop",
+      "pack": "original",
+      "row": 7755,
+      "origin": [
+        -216,
+        -509
+      ],
+      "footprint": [
+        7,
+        7
+      ],
+      "size": [
+        448,
+        537
+      ],
+      "visible": [
+        0,
+        0,
+        448,
+        537
+      ],
+      "source_rgba_sha256": "f94559e7f7f8369aa2facef350a6dd2e2cc389ebff52959b3a57909604cb5ca4",
+      "removed_review_shadow_pixels": 1046
+    },
+    "10310": {
+      "kit": "city_house",
+      "pack": "original",
+      "row": 7436,
+      "origin": [
+        -291,
+        -506
+      ],
+      "footprint": [
+        5,
+        9
+      ],
+      "size": [
+        464,
+        515
+      ],
+      "visible": [
+        0,
+        0,
+        461,
+        505
+      ],
+      "source_rgba_sha256": "c257ed75f638a3dbe38cc3f5dac27a09969b5517ee8ab968e280ad7f7827448d",
+      "removed_review_shadow_pixels": 3179
+    },
+    "10410": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7557,
+      "origin": [
+        -25,
+        -70
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        76
+      ],
+      "visible": [
+        0,
+        0,
+        54,
+        72
+      ],
+      "source_rgba_sha256": "74f997398e72ebe0626027285e2f4e5bc262192e300c29da7d2326b7e4eb4383",
+      "removed_review_shadow_pixels": 52
+    },
+    "10411": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7558,
+      "origin": [
+        -12,
+        -69
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        76
+      ],
+      "visible": [
+        0,
+        0,
+        42,
+        72
+      ],
+      "source_rgba_sha256": "8c4cff5d182702e5615a5e5a2f6996f07bad81d65ac081c1a31ccfdc10f50d6f",
+      "removed_review_shadow_pixels": 67
+    },
+    "10412": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7559,
+      "origin": [
+        -28,
+        -69
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        73
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        73
+      ],
+      "source_rgba_sha256": "573e0e3536b161860e26f735cb7c30779be4131c32985ac276f011fe90747732",
+      "removed_review_shadow_pixels": 80
+    },
+    "10415": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7562,
+      "origin": [
+        -23,
+        -85
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        99
+      ],
+      "visible": [
+        0,
+        0,
+        41,
+        99
+      ],
+      "source_rgba_sha256": "8acdfb244a0081bb66955de73986500aed438fba51b27ff69b6997d0cf85acad",
+      "removed_review_shadow_pixels": 68
+    },
+    "10416": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7563,
+      "origin": [
+        -16,
+        -84
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        98
+      ],
+      "visible": [
+        0,
+        0,
+        53,
+        98
+      ],
+      "source_rgba_sha256": "0f040d6b4c66d5c166e087a59aa37b0263573c4acc2849f0d01450d63e759a85",
+      "removed_review_shadow_pixels": 161
+    },
+    "10417": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7625,
+      "origin": [
+        -19,
+        -68
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        81
+      ],
+      "visible": [
+        1,
+        0,
+        62,
+        81
+      ],
+      "source_rgba_sha256": "8fc5e0fc6d1f0dc762e62e7aa61f09a88bda9378d4b6a379efef55b1dfe393f7",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "grille",
+        "arms": [
+          "z"
+        ]
+      },
+      "iron_rgb": [
+        0.2971920907456766,
+        0.31081220686377814,
+        0.2995475113122172
+      ]
+    },
+    "10425": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7568,
+      "origin": [
+        -24,
+        -121
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        124
+      ],
+      "visible": [
+        0,
+        0,
+        55,
+        124
+      ],
+      "source_rgba_sha256": "0dd4158418b7c406b81b095098f2914768ad699657ff430a30670a4f23a6c27e",
+      "removed_review_shadow_pixels": 38
+    },
+    "10449": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7650,
+      "origin": [
+        -24,
+        -44
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        64
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        62
+      ],
+      "source_rgba_sha256": "72b7c6154885f98816d0d3175e3740eabfc2ac51c104c370bfab8488a8764028",
+      "removed_review_shadow_pixels": 139,
+      "fence": {
+        "style": "slat",
+        "arms": [
+          "x",
+          "-z"
+        ],
+        "length": 2.7,
+        "posts": 3,
+        "lengths": [
+          3.3,
+          1.5
+        ],
+        "stations": [
+          4,
+          2
+        ]
+      },
+      "iron_rgb": [
+        0.49501102216034343,
+        0.3769021928297946,
+        0.22421858684302123
+      ]
+    },
+    "10450": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7651,
+      "origin": [
+        -65,
+        -69
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        92,
+        88
+      ],
+      "visible": [
+        0,
+        0,
+        91,
+        88
+      ],
+      "source_rgba_sha256": "ffe7d9c93822a740134cda0bc49520070fbf543652ab820f12df7489b13a26c7",
+      "removed_review_shadow_pixels": 54,
+      "fence": {
+        "style": "slat",
+        "arms": [
+          "z"
+        ],
+        "length": 5.4,
+        "posts": 5,
+        "segments": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              5.4
+            ],
+            5
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              2.1,
+              0
+            ],
+            3
+          ],
+          [
+            [
+              0,
+              5.4
+            ],
+            [
+              2.1,
+              5.4
+            ],
+            3
+          ]
+        ]
+      },
+      "iron_rgb": [
+        0.49810605330299934,
+        0.4051799152961742,
+        0.26175795785374134
+      ]
+    },
+    "10451": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7652,
+      "origin": [
+        -33,
+        -45
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        64
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        64
+      ],
+      "source_rgba_sha256": "fdb10efa5555709ab0dbd35e734bfeec244c28eaca063f52f7541dc07ceaf2fb",
+      "removed_review_shadow_pixels": 108,
+      "fence": {
+        "style": "slat",
+        "arms": [
+          "x",
+          "-z"
+        ],
+        "length": 2.7,
+        "posts": 3,
+        "lengths": [
+          1.5,
+          3.3
+        ],
+        "stations": [
+          2,
+          4
+        ]
+      },
+      "iron_rgb": [
+        0.4884942225872315,
+        0.3934093008931321,
+        0.2498716764192588
+      ]
+    },
+    "10454": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7655,
+      "origin": [
+        -17,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        40,
+        61
+      ],
+      "visible": [
+        0,
+        0,
+        40,
+        61
+      ],
+      "source_rgba_sha256": "2d9c1730f8e4394ce86fd1c366f9b365a08e881162cb4ae575ece73b426a7da4",
+      "removed_review_shadow_pixels": 12,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "z"
+        ],
+        "length": 2.7,
+        "posts": 3
+      },
+      "iron_rgb": [
+        0.5448386970018468,
+        0.4252229950096271,
+        0.26674132578883253
+      ]
+    },
+    "10455": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7656,
+      "origin": [
+        -11,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        36,
+        63
+      ],
+      "visible": [
+        0,
+        0,
+        35,
+        63
+      ],
+      "source_rgba_sha256": "7bf221f3e1e68e3f633f0744eab16631df4e84ea19a04c067b00bd10afa09787",
+      "removed_review_shadow_pixels": 13,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "z"
+        ],
+        "length": 2.7,
+        "posts": 3
+      },
+      "iron_rgb": [
+        0.5388822480864003,
+        0.41985530040893365,
+        0.26331550802139037
+      ]
+    },
+    "10458": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7659,
+      "origin": [
+        -1,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        28,
+        63
+      ],
+      "visible": [
+        0,
+        0,
+        28,
+        63
+      ],
+      "source_rgba_sha256": "08fe3e727ab5aebbf33b6893d5141ccee35f490e3e2a3eec2642f9be85f1cc24",
+      "removed_review_shadow_pixels": 11,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "z"
+        ],
+        "length": 2.4,
+        "posts": 2
+      },
+      "iron_rgb": [
+        0.49239197425186604,
+        0.3843456823940286,
+        0.24764774361432582
+      ]
+    },
+    "10459": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7660,
+      "origin": [
+        -17,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        40,
+        56
+      ],
+      "visible": [
+        0,
+        0,
+        40,
+        56
+      ],
+      "source_rgba_sha256": "770372a891adda530ead8639116fdeb0d1d668e047527df5f2c67f47ef12d088",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "x",
+          "-z"
+        ],
+        "length": 2.4,
+        "posts": 2
+      },
+      "iron_rgb": [
+        0.4756292335115864,
+        0.37144741532976827,
+        0.24724064171122995
+      ]
+    },
+    "10460": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7661,
+      "origin": [
+        -17,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        28,
+        66
+      ],
+      "visible": [
+        0,
+        0,
+        23,
+        66
+      ],
+      "source_rgba_sha256": "698a6c7ba8599f1cb877557c9bf949de268703ec3aa423649e0cd7cc0ca56e9f",
+      "removed_review_shadow_pixels": 54,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "x"
+        ],
+        "length": 2.4,
+        "posts": 2
+      },
+      "iron_rgb": [
+        0.49186296442514366,
+        0.37881300171075144,
+        0.24236083695223054
+      ]
+    },
+    "10461": {
+      "kit": "timber_fence",
+      "pack": "original",
+      "row": 7662,
+      "origin": [
+        -14,
+        -33
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        36,
+        51
+      ],
+      "visible": [
+        1,
+        0,
+        33,
+        50
+      ],
+      "source_rgba_sha256": "85d007f197ff09ee423bd1ea926041f8a201bc96a42b60200f987e7d12dc7b85",
+      "removed_review_shadow_pixels": 18,
+      "fence": {
+        "style": "picket",
+        "arms": [
+          "-x",
+          "z"
+        ],
+        "length": 2.4,
+        "posts": 2
+      },
+      "iron_rgb": [
+        0.47300877258381174,
+        0.36355774248863043,
+        0.23834091304455876
+      ]
+    },
+    "10482": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7683,
+      "origin": [
+        -3,
+        -82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        84
+      ],
+      "visible": [
+        0,
+        0,
+        22,
+        84
+      ],
+      "source_rgba_sha256": "3c5f6473b5c4c4233e06450d0d82c5825a118d60c3a9168a0a772950c371c607",
+      "removed_review_shadow_pixels": 99,
+      "fence": {
+        "style": "post",
+        "arms": [
+          "x"
+        ],
+        "partial": true
+      },
+      "iron_rgb": [
+        0.28360902999282944,
+        0.28322330193111295,
+        0.2815715945899167
+      ]
+    },
+    "10483": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7684,
+      "origin": [
+        -17,
+        -83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        95
+      ],
+      "visible": [
+        0,
+        0,
+        41,
+        93
+      ],
+      "source_rgba_sha256": "cbcbee701f5e9a112b9202a39a8b6bc5bc89ae219549e95ad0af54492cdfbee6",
+      "removed_review_shadow_pixels": 105,
+      "fence": {
+        "style": "post",
+        "arms": [
+          "-z"
+        ],
+        "partial": true
+      },
+      "iron_rgb": [
+        0.2657093568530262,
+        0.26464999878513984,
+        0.2625458609714022
+      ]
+    },
+    "10484": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7685,
+      "origin": [
+        -17,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        88
+      ],
+      "visible": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "source_rgba_sha256": "c508dfc00096e72326a48fcaf256131c27f7fdabfbfa2210c49c73269fc7a224",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "grille",
+        "arms": [
+          "z"
+        ]
+      },
+      "iron_rgb": [
+        0.23143255971716697,
+        0.23247100570101625,
+        0.23133602076891968
+      ]
+    },
+    "10485": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7686,
+      "origin": [
+        -16,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        85
+      ],
+      "visible": [
+        0,
+        0,
+        56,
+        85
+      ],
+      "source_rgba_sha256": "5065da56e0d3a7f61e00f5c5cfb97fcc184ee6b8adaee4ef2d5f87107843c315",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "corner",
+        "arms": [
+          "x",
+          "-z"
+        ]
+      },
+      "iron_rgb": [
+        0.22619057258140696,
+        0.227135203702954,
+        0.2260070442492207
+      ]
+    },
+    "10486": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7687,
+      "origin": [
+        -17,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        88
+      ],
+      "visible": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "source_rgba_sha256": "6605f8928ffea77c77fb5437804f0ce06a6d6be3f72e8b468e032455fb57556c",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "grille",
+        "arms": [
+          "x"
+        ]
+      },
+      "iron_rgb": [
+        0.22321652065081352,
+        0.22432728410513142,
+        0.22313047559449312
+      ]
+    },
+    "10487": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7688,
+      "origin": [
+        -17,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        88
+      ],
+      "visible": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "source_rgba_sha256": "def59e98985666a2ffb307824a2a9527d9dd8204b9f430115042db7c24ca32b5",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "corner",
+        "arms": [
+          "x",
+          "-z"
+        ]
+      },
+      "iron_rgb": [
+        0.22760512599443508,
+        0.2287416232315711,
+        0.22753458478661284
+      ]
+    },
+    "10488": {
+      "kit": "iron_fence",
+      "pack": "original",
+      "row": 7689,
+      "origin": [
+        -17,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        88
+      ],
+      "visible": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "source_rgba_sha256": "c79394c6e6d745c2558beee338f4e9e70446b94cace8c3ab608846a2a3487e95",
+      "removed_review_shadow_pixels": 0,
+      "fence": {
+        "style": "corner",
+        "arms": [
+          "x",
+          "-z"
+        ]
+      },
+      "iron_rgb": [
+        0.2244436288412132,
+        0.2257715791932201,
+        0.2243502051983584
+      ]
+    },
+    "10521": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7715,
+      "origin": [
+        -17,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        40,
+        64
+      ],
+      "visible": [
+        0,
+        0,
+        38,
+        63
+      ],
+      "source_rgba_sha256": "8cb07493725b57f4ff5d3b49e9d3ca758960a3e33193076ac33b2d82d773d616",
+      "removed_review_shadow_pixels": 8
+    },
+    "10620": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 7503,
+      "origin": [
+        -32,
+        -90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        209
+      ],
+      "visible": [
+        0,
+        0,
+        66,
+        209
+      ],
+      "source_rgba_sha256": "7658b0ae078c17cda77d16a0d3f0c88821a4d5dce00dd8bd3d47c6e98f5878ca",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.5,
+          0.0,
+          1.5
+        ],
+        [
+          1.5,
+          0.09,
+          1.5
+        ],
+        [
+          1.5,
+          0.27,
+          1.5
+        ],
+        [
+          1.5,
+          0.45,
+          1.5
+        ],
+        [
+          1.5,
+          0.63,
+          1.5
+        ],
+        [
+          1.54688,
+          0.81,
+          1.54688
+        ],
+        [
+          1.5,
+          0.99,
+          1.5
+        ],
+        [
+          1.5,
+          1.17,
+          1.5
+        ],
+        [
+          1.5,
+          1.35,
+          1.5
+        ],
+        [
+          1.5,
+          1.53,
+          1.5
+        ],
+        [
+          1.5,
+          1.71,
+          1.5
+        ],
+        [
+          1.54688,
+          1.89,
+          1.54688
+        ],
+        [
+          1.54688,
+          2.07,
+          1.54688
+        ],
+        [
+          1.54688,
+          2.25,
+          1.54688
+        ],
+        [
+          1.45312,
+          2.43,
+          1.45312
+        ],
+        [
+          1.17188,
+          2.61,
+          1.17188
+        ],
+        [
+          0.98438,
+          2.79,
+          0.98438
+        ],
+        [
+          0.9375,
+          2.97,
+          0.9375
+        ],
+        [
+          0.65625,
+          3.15,
+          0.65625
+        ],
+        [
+          0.79688,
+          3.33,
+          0.79688
+        ],
+        [
+          0.79688,
+          3.51,
+          0.79688
+        ],
+        [
+          0.5625,
+          3.69,
+          0.5625
+        ],
+        [
+          0.375,
+          3.87,
+          0.375
+        ],
+        [
+          0.28125,
+          3.96,
+          0.28125
+        ],
+        [
+          0.1875,
+          4.05,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": true,
+      "independent_material_samples": [
+        [
+          41,
+          121,
+          47,
+          131
+        ],
+        [
+          23,
+          29,
+          29,
+          39
+        ],
+        [
+          23,
+          179,
+          29,
+          189
+        ]
+      ]
+    },
+    "10622": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 7505,
+      "origin": [
+        -26,
+        -65
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        180
+      ],
+      "visible": [
+        0,
+        0,
+        56,
+        180
+      ],
+      "source_rgba_sha256": "a871101c2e683e11291552da8943323789f724a06bac0efff9396fd146c76059",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          0.75,
+          0.0,
+          0.75
+        ],
+        [
+          0.75,
+          0.045,
+          0.75
+        ],
+        [
+          0.75,
+          0.225,
+          0.75
+        ],
+        [
+          0.75,
+          0.405,
+          0.75
+        ],
+        [
+          0.75,
+          0.585,
+          0.75
+        ],
+        [
+          0.75,
+          0.765,
+          0.75
+        ],
+        [
+          0.75,
+          0.945,
+          0.75
+        ],
+        [
+          0.82031,
+          1.125,
+          0.82031
+        ],
+        [
+          0.9375,
+          1.305,
+          0.9375
+        ],
+        [
+          1.05469,
+          1.485,
+          1.05469
+        ],
+        [
+          1.19531,
+          1.665,
+          1.19531
+        ],
+        [
+          1.28906,
+          1.845,
+          1.28906
+        ],
+        [
+          1.28906,
+          2.025,
+          1.28906
+        ],
+        [
+          1.17188,
+          2.205,
+          1.17188
+        ],
+        [
+          0.67969,
+          2.385,
+          0.67969
+        ],
+        [
+          0.49219,
+          2.565,
+          0.49219
+        ],
+        [
+          0.375,
+          2.745,
+          0.375
+        ],
+        [
+          0.30469,
+          2.835,
+          0.30469
+        ],
+        [
+          0.1875,
+          2.925,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": true,
+      "independent_material_samples": [
+        [
+          27,
+          103,
+          33,
+          113
+        ],
+        [
+          19,
+          23,
+          25,
+          33
+        ],
+        [
+          19,
+          153,
+          25,
+          163
+        ]
+      ]
+    },
+    "10623": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 7506,
+      "origin": [
+        -28,
+        -66
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        181
+      ],
+      "visible": [
+        0,
+        0,
+        55,
+        181
+      ],
+      "source_rgba_sha256": "c70969e82356824e693ae2211ccf5572c67704be2a8ee89a7b93e58e25bdbadb",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          0.75,
+          0.0,
+          0.75
+        ],
+        [
+          0.75,
+          0.09,
+          0.75
+        ],
+        [
+          0.75,
+          0.27,
+          0.75
+        ],
+        [
+          0.75,
+          0.45,
+          0.75
+        ],
+        [
+          0.75,
+          0.63,
+          0.75
+        ],
+        [
+          0.75,
+          0.81,
+          0.75
+        ],
+        [
+          0.75,
+          0.99,
+          0.75
+        ],
+        [
+          0.84375,
+          1.17,
+          0.84375
+        ],
+        [
+          0.96094,
+          1.35,
+          0.96094
+        ],
+        [
+          1.10156,
+          1.53,
+          1.10156
+        ],
+        [
+          1.21875,
+          1.71,
+          1.21875
+        ],
+        [
+          1.28906,
+          1.89,
+          1.28906
+        ],
+        [
+          1.26562,
+          2.07,
+          1.26562
+        ],
+        [
+          1.14844,
+          2.25,
+          1.14844
+        ],
+        [
+          0.60938,
+          2.43,
+          0.60938
+        ],
+        [
+          0.46875,
+          2.61,
+          0.46875
+        ],
+        [
+          0.32812,
+          2.79,
+          0.32812
+        ],
+        [
+          0.28125,
+          2.88,
+          0.28125
+        ],
+        [
+          0.14062,
+          2.97,
+          0.14062
+        ]
+      ],
+      "round": false,
+      "blue_foundation": true,
+      "independent_material_samples": [
+        [
+          37,
+          103,
+          43,
+          113
+        ],
+        [
+          19,
+          23,
+          25,
+          33
+        ],
+        [
+          23,
+          155,
+          29,
+          165
+        ]
+      ]
+    },
+    "10631": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 7514,
+      "origin": [
+        -26,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        139
+      ],
+      "visible": [
+        0,
+        0,
+        59,
+        139
+      ],
+      "source_rgba_sha256": "a0d8d898697d5bfc9d83812160c098642067d23c51eefc12e9578d606989fa27",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.35938,
+          0.0,
+          1.35938
+        ],
+        [
+          1.33594,
+          0.18,
+          1.33594
+        ],
+        [
+          1.17188,
+          0.36,
+          1.17188
+        ],
+        [
+          0.9375,
+          0.54,
+          0.9375
+        ],
+        [
+          0.70312,
+          0.72,
+          0.70312
+        ],
+        [
+          0.42188,
+          0.9,
+          0.42188
+        ],
+        [
+          0.32812,
+          0.99,
+          0.32812
+        ],
+        [
+          0.1875,
+          1.08,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": true,
+      "independent_material_samples": [
+        [
+          27,
+          79,
+          33,
+          89
+        ],
+        [
+          19,
+          17,
+          25,
+          27
+        ],
+        [
+          19,
+          117,
+          25,
+          127
+        ]
+      ]
+    },
+    "10632": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 7515,
+      "origin": [
+        -31,
+        -24
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        139
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        139
+      ],
+      "source_rgba_sha256": "a6a3fc944772336f530290723a9c949c6394ffb3afa144b55a7206947c906356",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.35938,
+          0.0,
+          1.35938
+        ],
+        [
+          1.33594,
+          0.18,
+          1.33594
+        ],
+        [
+          1.19531,
+          0.36,
+          1.19531
+        ],
+        [
+          0.9375,
+          0.54,
+          0.9375
+        ],
+        [
+          0.70312,
+          0.72,
+          0.70312
+        ],
+        [
+          0.42188,
+          0.9,
+          0.42188
+        ],
+        [
+          0.32812,
+          0.99,
+          0.32812
+        ],
+        [
+          0.1875,
+          1.08,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": true,
+      "independent_material_samples": [
+        [
+          41,
+          79,
+          47,
+          89
+        ],
+        [
+          19,
+          17,
+          25,
+          27
+        ],
+        [
+          27,
+          117,
+          33,
+          127
+        ]
+      ]
+    },
+    "11024": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7942,
+      "origin": [
+        -18,
+        -53
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        70
+      ],
+      "visible": [
+        0,
+        0,
+        49,
+        70
+      ],
+      "source_rgba_sha256": "19a873630d4777f26ccc772aa43f8833dc3f62e9558b07ba68bc44f673c41ee9",
+      "removed_review_shadow_pixels": 90
+    },
+    "11025": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 7943,
+      "origin": [
+        -17,
+        -59
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        76
+      ],
+      "visible": [
+        0,
+        0,
+        47,
+        74
+      ],
+      "source_rgba_sha256": "3054adfa49aad13d81c79bdbd57ec7a8d97cef9c85d97175becb924c592d7749",
+      "removed_review_shadow_pixels": 213
+    },
+    "11104": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8009,
+      "origin": [
+        -28,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        94
+      ],
+      "visible": [
+        0,
+        0,
+        56,
+        93
+      ],
+      "source_rgba_sha256": "3a11ef8bd3b1daee2100ffb979fabbc3424ab2f1062758b3d14991f3a6e72bd5",
+      "removed_review_shadow_pixels": 132
+    },
+    "11111": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8011,
+      "origin": [
+        -21,
+        -63
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        80
+      ],
+      "visible": [
+        0,
+        0,
+        42,
+        80
+      ],
+      "source_rgba_sha256": "bbc94c33688172b1860d279a5433314fe3c282d9caf2cb5812f8ac1eb7a0154e",
+      "removed_review_shadow_pixels": 111
+    },
+    "11112": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8012,
+      "origin": [
+        -81,
+        -148
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        40,
+        60
+      ],
+      "visible": [
+        0,
+        0,
+        40,
+        60
+      ],
+      "source_rgba_sha256": "01f4c9315f54c0ea8e86acb067a0f24ce5db465f9e6016aa77abceb1e5edcdaf",
+      "removed_review_shadow_pixels": 0
+    },
+    "11123": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8023,
+      "origin": [
+        -26,
+        -63
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        80
+      ],
+      "visible": [
+        4,
+        0,
+        60,
+        80
+      ],
+      "source_rgba_sha256": "1dd1b5cf57a641474932df67de8980844957827e0c0e14509d016856069f5316",
+      "removed_review_shadow_pixels": 217
+    },
+    "11125": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8025,
+      "origin": [
+        -26,
+        -72
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        93
+      ],
+      "visible": [
+        2,
+        0,
+        55,
+        90
+      ],
+      "source_rgba_sha256": "3da810b8ed53b8e2d6d25e6d4515784f16bfd786d77fbbb34e4fd106c7a092e1",
+      "removed_review_shadow_pixels": 208
+    },
+    "11131": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8031,
+      "origin": [
+        -23,
+        -41
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        48,
+        59
+      ],
+      "visible": [
+        0,
+        0,
+        46,
+        56
+      ],
+      "source_rgba_sha256": "a6c518e42370235b77c88c92d10e047c5410cebfabcc421b3fb4ba6db3ba8dea",
+      "removed_review_shadow_pixels": 76,
+      "profile": [
+        [
+          1.07812,
+          0.0,
+          1.07812
+        ],
+        [
+          1.07812,
+          0.045,
+          1.07812
+        ],
+        [
+          1.05469,
+          0.225,
+          1.05469
+        ],
+        [
+          0.96094,
+          0.405,
+          0.96094
+        ],
+        [
+          0.79688,
+          0.585,
+          0.79688
+        ],
+        [
+          0.60938,
+          0.765,
+          0.60938
+        ],
+        [
+          0.60938,
+          0.945,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.125,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.305,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.485,
+          0.60938
+        ],
+        [
+          0.44531,
+          1.665,
+          0.44531
+        ],
+        [
+          0.30469,
+          1.755,
+          0.30469
+        ],
+        [
+          0.1875,
+          1.845,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          31,
+          31,
+          37,
+          41
+        ],
+        [
+          15,
+          5,
+          21,
+          15
+        ],
+        [
+          15,
+          43,
+          21,
+          53
+        ]
+      ]
+    },
+    "11132": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8032,
+      "origin": [
+        -20,
+        -35
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        53
+      ],
+      "visible": [
+        0,
+        0,
+        43,
+        51
+      ],
+      "source_rgba_sha256": "4b2252a04ac0abfb4367972a3c69ddf85e1fca05802aa3fd8c452023667f6c9d",
+      "removed_review_shadow_pixels": 42,
+      "profile": [
+        [
+          1.00781,
+          0.0,
+          1.00781
+        ],
+        [
+          1.00781,
+          0.135,
+          1.00781
+        ],
+        [
+          0.96094,
+          0.315,
+          0.96094
+        ],
+        [
+          0.86719,
+          0.495,
+          0.86719
+        ],
+        [
+          0.63281,
+          0.675,
+          0.63281
+        ],
+        [
+          0.60938,
+          0.855,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.035,
+          0.60938
+        ],
+        [
+          0.51562,
+          1.215,
+          0.51562
+        ],
+        [
+          0.32812,
+          1.395,
+          0.32812
+        ],
+        [
+          0.21094,
+          1.485,
+          0.21094
+        ],
+        [
+          0.11719,
+          1.575,
+          0.11719
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          29,
+          27,
+          35,
+          37
+        ],
+        [
+          17,
+          3,
+          23,
+          13
+        ],
+        [
+          17,
+          39,
+          23,
+          49
+        ]
+      ]
+    },
+    "11133": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8033,
+      "origin": [
+        -18,
+        -39
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        57
+      ],
+      "visible": [
+        0,
+        0,
+        41,
+        55
+      ],
+      "source_rgba_sha256": "3a1e7709e6ef3415a66e0cfcce4e48494da604ef7bc10e0f360f330e950cf151",
+      "removed_review_shadow_pixels": 44,
+      "profile": [
+        [
+          0.96094,
+          0.0,
+          0.96094
+        ],
+        [
+          0.96094,
+          0.135,
+          0.96094
+        ],
+        [
+          0.89062,
+          0.315,
+          0.89062
+        ],
+        [
+          0.75,
+          0.495,
+          0.75
+        ],
+        [
+          0.5625,
+          0.675,
+          0.5625
+        ],
+        [
+          0.53906,
+          0.855,
+          0.53906
+        ],
+        [
+          0.53906,
+          1.035,
+          0.53906
+        ],
+        [
+          0.53906,
+          1.215,
+          0.53906
+        ],
+        [
+          0.53906,
+          1.395,
+          0.53906
+        ],
+        [
+          0.42188,
+          1.575,
+          0.42188
+        ],
+        [
+          0.30469,
+          1.665,
+          0.30469
+        ],
+        [
+          0.1875,
+          1.755,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          25,
+          29,
+          31,
+          39
+        ],
+        [
+          13,
+          5,
+          19,
+          15
+        ],
+        [
+          15,
+          43,
+          21,
+          53
+        ]
+      ]
+    },
+    "11136": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8036,
+      "origin": [
+        -21,
+        -43
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        61
+      ],
+      "visible": [
+        0,
+        0,
+        44,
+        59
+      ],
+      "source_rgba_sha256": "867736031340104586bbbd4a9ba7804ff8d09dc7d331d3c30f6d25ae424bf42a",
+      "removed_review_shadow_pixels": 48,
+      "profile": [
+        [
+          1.03125,
+          0.0,
+          1.03125
+        ],
+        [
+          1.03125,
+          0.135,
+          1.03125
+        ],
+        [
+          0.96094,
+          0.315,
+          0.96094
+        ],
+        [
+          0.86719,
+          0.495,
+          0.86719
+        ],
+        [
+          0.63281,
+          0.675,
+          0.63281
+        ],
+        [
+          0.60938,
+          0.855,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.035,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.215,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.395,
+          0.60938
+        ],
+        [
+          0.5625,
+          1.575,
+          0.5625
+        ],
+        [
+          0.35156,
+          1.755,
+          0.35156
+        ],
+        [
+          0.23438,
+          1.845,
+          0.23438
+        ],
+        [
+          0.14062,
+          1.935,
+          0.14062
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          27,
+          31,
+          33,
+          41
+        ],
+        [
+          15,
+          5,
+          21,
+          15
+        ],
+        [
+          17,
+          47,
+          23,
+          57
+        ]
+      ]
+    },
+    "11137": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8037,
+      "origin": [
+        -21,
+        -27
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        45
+      ],
+      "visible": [
+        0,
+        0,
+        44,
+        44
+      ],
+      "source_rgba_sha256": "faf0aecda211c23cc438fb4da0557c573b5634e760c42b1af9e26be6328a1e4f",
+      "removed_review_shadow_pixels": 40,
+      "profile": [
+        [
+          1.03125,
+          0.0,
+          1.03125
+        ],
+        [
+          1.03125,
+          0.135,
+          1.03125
+        ],
+        [
+          0.96094,
+          0.315,
+          0.96094
+        ],
+        [
+          0.79688,
+          0.495,
+          0.79688
+        ],
+        [
+          0.60938,
+          0.675,
+          0.60938
+        ],
+        [
+          0.53906,
+          0.855,
+          0.53906
+        ],
+        [
+          0.35156,
+          1.035,
+          0.35156
+        ],
+        [
+          0.23438,
+          1.125,
+          0.23438
+        ],
+        [
+          0.11719,
+          1.215,
+          0.11719
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          29,
+          21,
+          35,
+          31
+        ],
+        [
+          17,
+          3,
+          23,
+          13
+        ],
+        [
+          15,
+          31,
+          21,
+          41
+        ]
+      ]
+    },
+    "11138": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 8038,
+      "origin": [
+        -21,
+        -39
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        57
+      ],
+      "visible": [
+        0,
+        0,
+        44,
+        56
+      ],
+      "source_rgba_sha256": "c564a8e91505cbca63cda4d1fa485f81a22f88ed5761668551b6f372582bad27",
+      "removed_review_shadow_pixels": 40,
+      "profile": [
+        [
+          1.03125,
+          0.0,
+          1.03125
+        ],
+        [
+          1.03125,
+          0.135,
+          1.03125
+        ],
+        [
+          0.96094,
+          0.315,
+          0.96094
+        ],
+        [
+          0.79688,
+          0.495,
+          0.79688
+        ],
+        [
+          0.60938,
+          0.675,
+          0.60938
+        ],
+        [
+          0.60938,
+          0.855,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.035,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.215,
+          0.60938
+        ],
+        [
+          0.60938,
+          1.395,
+          0.60938
+        ],
+        [
+          0.44531,
+          1.575,
+          0.44531
+        ],
+        [
+          0.30469,
+          1.665,
+          0.30469
+        ],
+        [
+          0.16406,
+          1.755,
+          0.16406
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          29,
+          29,
+          35,
+          39
+        ],
+        [
+          13,
+          5,
+          19,
+          15
+        ],
+        [
+          15,
+          43,
+          21,
+          53
+        ]
+      ]
+    },
+    "11230": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8051,
+      "origin": [
+        -26,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        130
+      ],
+      "visible": [
+        0,
+        0,
+        52,
+        130
+      ],
+      "source_rgba_sha256": "552185a45ae3ec258c5b7f1c4b83375d3c9a187f39dfaece5d7461b6d47e5696",
+      "removed_review_shadow_pixels": 0
+    },
+    "11231": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8052,
+      "origin": [
+        -26,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        134
+      ],
+      "visible": [
+        0,
+        0,
+        52,
+        131
+      ],
+      "source_rgba_sha256": "66d726ae6c174ff54a14b4ed85a023b33568a722276460c212cc45f23bcbf302",
+      "removed_review_shadow_pixels": 103
+    },
+    "11232": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8053,
+      "origin": [
+        -25,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        133
+      ],
+      "visible": [
+        0,
+        0,
+        51,
+        130
+      ],
+      "source_rgba_sha256": "be58dd4bba51712c4ba22ca701bde593277acf24442db727c0b00542ba1b8ab1",
+      "removed_review_shadow_pixels": 24
+    },
+    "11233": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8054,
+      "origin": [
+        -26,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        134
+      ],
+      "visible": [
+        0,
+        0,
+        51,
+        130
+      ],
+      "source_rgba_sha256": "7a6321555c9b3dac7cae476088b34dbf8dbe059f7d1ad92e4f1b698b382ad2c2",
+      "removed_review_shadow_pixels": 25
+    },
+    "11234": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8055,
+      "origin": [
+        -25,
+        -107
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        129
+      ],
+      "visible": [
+        0,
+        0,
+        50,
+        124
+      ],
+      "source_rgba_sha256": "b5fd0a37d98ffd08cabccaca291e490907c87998ab19184867984348ca12ac54",
+      "removed_review_shadow_pixels": 25
+    },
+    "11235": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8056,
+      "origin": [
+        -28,
+        -152
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        174
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        169
+      ],
+      "source_rgba_sha256": "d03fc191085054e7685cd14b96ef507284cc33f5e18ac16c832c6224b5dfe30d",
+      "removed_review_shadow_pixels": 114
+    },
+    "11237": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8058,
+      "origin": [
+        -33,
+        -148
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        171
+      ],
+      "visible": [
+        0,
+        0,
+        60,
+        169
+      ],
+      "source_rgba_sha256": "6aa4483554224e1e0201c8e4dea074af454fd938c886da3568e104c548fc6b26",
+      "removed_review_shadow_pixels": 114
+    },
+    "11238": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8059,
+      "origin": [
+        -28,
+        -154
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        177
+      ],
+      "visible": [
+        0,
+        0,
+        57,
+        177
+      ],
+      "source_rgba_sha256": "dad998276afa9ca5a60d1989f32dcb1af19b4dba54cb6f361e0cc725ee4adb2f",
+      "removed_review_shadow_pixels": 127
+    },
+    "11239": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8060,
+      "origin": [
+        -25,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        133
+      ],
+      "visible": [
+        0,
+        0,
+        52,
+        133
+      ],
+      "source_rgba_sha256": "d9ab809459089426bb5a48472fbd32e3cd820f1de01a8e1023a5430544e8b66e",
+      "removed_review_shadow_pixels": 97
+    },
+    "11240": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8061,
+      "origin": [
+        -25,
+        -116
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        139
+      ],
+      "visible": [
+        0,
+        0,
+        53,
+        139
+      ],
+      "source_rgba_sha256": "a50d739df09c8b1578042383a2a2ec328af9a5ebac31860f697766334257ade0",
+      "removed_review_shadow_pixels": 109
+    },
+    "11244": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8065,
+      "origin": [
+        -26,
+        -116
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        135
+      ],
+      "visible": [
+        0,
+        0,
+        51,
+        135
+      ],
+      "source_rgba_sha256": "87b6b8a5d595a20819bab9a44bedeb88cd5a0f17caab7afe8c99e93c65ec929f",
+      "removed_review_shadow_pixels": 36
+    },
+    "11245": {
+      "kit": "kili_wall",
+      "pack": "original",
+      "row": 8066,
+      "origin": [
+        -26,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        132
+      ],
+      "visible": [
+        0,
+        0,
+        51,
+        130
+      ],
+      "source_rgba_sha256": "0cd0497de4fea9813b37b680d1dcb074026d203d98eab5a2f3bed5cd94d6126d",
+      "removed_review_shadow_pixels": 59
+    },
+    "11252": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8073,
+      "origin": [
+        -24,
+        -159
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        184
+      ],
+      "visible": [
+        0,
+        0,
+        58,
+        184
+      ],
+      "source_rgba_sha256": "beaa4d879f42019ae8c4401717dcce6e65992fd802efbfc1d6d4df0600c3331b",
+      "removed_review_shadow_pixels": 113
+    },
+    "11253": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8074,
+      "origin": [
+        -19,
+        -140
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        48,
+        160
+      ],
+      "visible": [
+        0,
+        0,
+        46,
+        157
+      ],
+      "source_rgba_sha256": "a360c899ddb4d8690837a9e9440f51ce9f905a0ef9826bad402d3889c6bff765",
+      "removed_review_shadow_pixels": 52
+    },
+    "11254": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8075,
+      "origin": [
+        -24,
+        -131
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        152
+      ],
+      "visible": [
+        0,
+        0,
+        43,
+        148
+      ],
+      "source_rgba_sha256": "f2e24eb21aa14123e941028466960188a7dd33e167c04600df4ca2754b2cfe40",
+      "removed_review_shadow_pixels": 30
+    },
+    "11255": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8076,
+      "origin": [
+        -24,
+        -137
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        160
+      ],
+      "visible": [
+        0,
+        0,
+        40,
+        160
+      ],
+      "source_rgba_sha256": "253f94a3631f4f49706e534e374d2842cf8e7a7edbcf1726a098bec45c135920",
+      "removed_review_shadow_pixels": 131
+    },
+    "11256": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8077,
+      "origin": [
+        -24,
+        -95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        116
+      ],
+      "visible": [
+        0,
+        0,
+        54,
+        112
+      ],
+      "source_rgba_sha256": "c09f379d38a7711c086f97234ef19074c5e0021d0cba6932a84b668db20d033e",
+      "removed_review_shadow_pixels": 129
+    },
+    "11257": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8078,
+      "origin": [
+        -23,
+        -94
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        118
+      ],
+      "visible": [
+        0,
+        0,
+        48,
+        112
+      ],
+      "source_rgba_sha256": "81e9707c211cfa7a92debd2dcb457dc7208403e2baa7780fc27869e300c7c8b0",
+      "removed_review_shadow_pixels": 141
+    },
+    "11258": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8079,
+      "origin": [
+        -23,
+        -94
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        52,
+        120
+      ],
+      "visible": [
+        0,
+        0,
+        52,
+        117
+      ],
+      "source_rgba_sha256": "0ac1d2294f3b471454bc0ede17d422c778ecfc6da9d3a4cf9f152629f15f1560",
+      "removed_review_shadow_pixels": 136
+    },
+    "11259": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8080,
+      "origin": [
+        -24,
+        -95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        116
+      ],
+      "visible": [
+        0,
+        0,
+        49,
+        112
+      ],
+      "source_rgba_sha256": "df00622d4047c075b177ada9caa4d95808da8edb842fcccf2377984c0a5f0f20",
+      "removed_review_shadow_pixels": 87
+    },
+    "11260": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8081,
+      "origin": [
+        -24,
+        -96
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        118
+      ],
+      "visible": [
+        0,
+        0,
+        50,
+        115
+      ],
+      "source_rgba_sha256": "b96f336ca56974da84c3e53cf8b46cf2e71aead0dfba91c883a0615784f6d765",
+      "removed_review_shadow_pixels": 151
+    },
+    "11261": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8082,
+      "origin": [
+        -27,
+        -132
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        150
+      ],
+      "visible": [
+        1,
+        0,
+        57,
+        148
+      ],
+      "source_rgba_sha256": "871e71eaada70862ebf13344ae7b25e2ba401e82a791f659fde338b90d4a16f7",
+      "removed_review_shadow_pixels": 146
+    },
+    "11262": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8083,
+      "origin": [
+        -25,
+        -112
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        44,
+        132
+      ],
+      "visible": [
+        0,
+        0,
+        44,
+        129
+      ],
+      "source_rgba_sha256": "71cf5d65a5d772c424883800f09702fa3e71f380a75ba228fe1844b203d31fa6",
+      "removed_review_shadow_pixels": 44
+    },
+    "11263": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8084,
+      "origin": [
+        -27,
+        -111
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        48,
+        132
+      ],
+      "visible": [
+        3,
+        0,
+        46,
+        128
+      ],
+      "source_rgba_sha256": "1efde5b8409022474630a6a241be3d294aca5804827f06380f1bbe93f0028359",
+      "removed_review_shadow_pixels": 79
+    },
+    "11264": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8085,
+      "origin": [
+        -26,
+        -113
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        48,
+        132
+      ],
+      "visible": [
+        2,
+        0,
+        48,
+        128
+      ],
+      "source_rgba_sha256": "f1e925427cc42fb410c2901cd2f36a6b0663f3279ee7550d26bd7c816db83c4f",
+      "removed_review_shadow_pixels": 62
+    },
+    "11265": {
+      "kit": "venoa_wall",
+      "pack": "original",
+      "row": 8086,
+      "origin": [
+        -26,
+        -112
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        48,
+        131
+      ],
+      "visible": [
+        0,
+        0,
+        46,
+        129
+      ],
+      "source_rgba_sha256": "7545f20b9c232297fb6c5dc47d52143f5617d656b168fce67c1a096350aaa103",
+      "removed_review_shadow_pixels": 82
+    },
+    "11271": {
+      "kit": "east_village",
+      "pack": "original",
+      "row": 7856,
+      "origin": [
+        -74,
+        -436
+      ],
+      "footprint": [
+        9,
+        2
+      ],
+      "size": [
+        376,
+        467
+      ],
+      "visible": [
+        0,
+        0,
+        373,
+        467
+      ],
+      "source_rgba_sha256": "614f10ac082f3c6a004f11e376127732c539cdb374e4ea96d8cecb20abf3f7e1",
+      "removed_review_shadow_pixels": 1024
+    },
+    "11275": {
+      "kit": "east_village",
+      "pack": "original",
+      "row": 7860,
+      "origin": [
+        -124,
+        -438
+      ],
+      "footprint": [
+        7,
+        4
+      ],
+      "size": [
+        392,
+        433
+      ],
+      "visible": [
+        0,
+        0,
+        390,
+        433
+      ],
+      "source_rgba_sha256": "73bc428abdeb8976cd77df334f8f4d1e94e12a8602c4aa40ae99b339070ad6c4",
+      "removed_review_shadow_pixels": 771
+    },
+    "11276": {
+      "kit": "venoa_house",
+      "pack": "original",
+      "row": 7861,
+      "origin": [
+        -180,
+        -417
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "size": [
+        344,
+        446
+      ],
+      "visible": [
+        0,
+        0,
+        343,
+        436
+      ],
+      "source_rgba_sha256": "b55da302c17b21462921568f1ecb3754c7a2b8e258e6c8a00355114fe5addfcf",
+      "removed_review_shadow_pixels": 1028
+    },
+    "11281": {
+      "kit": "il_house",
+      "pack": "original",
+      "row": 7866,
+      "origin": [
+        -219,
+        -408
+      ],
+      "footprint": [
+        4,
+        6
+      ],
+      "size": [
+        364,
+        421
+      ],
+      "visible": [
+        0,
+        0,
+        364,
+        408
+      ],
+      "source_rgba_sha256": "e37029d5a4415a7593e7c4a33259a08e5fd4d684200fecc42c56ca2bc4dfbf01",
+      "removed_review_shadow_pixels": 1087
+    },
+    "11289": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7874,
+      "origin": [
+        -170,
+        -343
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "size": [
+        312,
+        369
+      ],
+      "visible": [
+        0,
+        0,
+        307,
+        369
+      ],
+      "source_rgba_sha256": "2c43e0391ba04bfcdbc42f58bb69c93c7063e79bed2ee1593957e52f2fea9ec7",
+      "removed_review_shadow_pixels": 971
+    },
+    "11290": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7875,
+      "origin": [
+        -138,
+        -365
+      ],
+      "footprint": [
+        5,
+        4
+      ],
+      "size": [
+        312,
+        391
+      ],
+      "visible": [
+        0,
+        0,
+        306,
+        391
+      ],
+      "source_rgba_sha256": "36b052c2c557e7f1b777f6ba78a7f3423abb9c4ae0e4cfa380b7b1d8f48139ef",
+      "removed_review_shadow_pixels": 1465
+    },
+    "11292": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7877,
+      "origin": [
+        -191,
+        -363
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "size": [
+        344,
+        389
+      ],
+      "visible": [
+        0,
+        0,
+        341,
+        389
+      ],
+      "source_rgba_sha256": "2e0f06abcb27330a53be9acb5d5fd06421f7b2005724f201b0dc00da8ca35932",
+      "removed_review_shadow_pixels": 1029
+    },
+    "11293": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7878,
+      "origin": [
+        -163,
+        -441
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "size": [
+        300,
+        465
+      ],
+      "visible": [
+        1,
+        0,
+        291,
+        465
+      ],
+      "source_rgba_sha256": "5372eacfb61db80ee6d7947339290dc8e2324fea8b0b81846ac8660409018acb",
+      "removed_review_shadow_pixels": 719
+    },
+    "11294": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7879,
+      "origin": [
+        -276,
+        -414
+      ],
+      "footprint": [
+        4,
+        9
+      ],
+      "size": [
+        412,
+        438
+      ],
+      "visible": [
+        1,
+        0,
+        408,
+        438
+      ],
+      "source_rgba_sha256": "4afcfa85fd94a5003db816b22d84a78981452ab8852144aeacf518819757bade",
+      "removed_review_shadow_pixels": 1501
+    },
+    "11295": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7880,
+      "origin": [
+        -105,
+        -314
+      ],
+      "footprint": [
+        5,
+        3
+      ],
+      "size": [
+        272,
+        338
+      ],
+      "visible": [
+        0,
+        0,
+        269,
+        338
+      ],
+      "source_rgba_sha256": "5a3d0749f1eaa2ef5cfbc702bfd3ab49abd401ede166c9117542e7a14e5a3c9c",
+      "removed_review_shadow_pixels": 1183
+    },
+    "11297": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7882,
+      "origin": [
+        -81,
+        -292
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "size": [
+        200,
+        231
+      ],
+      "visible": [
+        0,
+        0,
+        199,
+        231
+      ],
+      "source_rgba_sha256": "c5556c7303c9370949505352569ab9640bb47fad26f262468869da2c769cee54",
+      "removed_review_shadow_pixels": 0
+    },
+    "11298": {
+      "kit": "kili_house",
+      "pack": "original",
+      "row": 7883,
+      "origin": [
+        -101,
+        -314
+      ],
+      "footprint": [
+        5,
+        3
+      ],
+      "size": [
+        268,
+        338
+      ],
+      "visible": [
+        0,
+        0,
+        267,
+        338
+      ],
+      "source_rgba_sha256": "501a471bb5c33cc6e395e618555168379e71dff55baee29cc549b9e5c1ca8a52",
+      "removed_review_shadow_pixels": 467
+    },
+    "11498": {
+      "kit": "supported_sign",
+      "pack": "original",
+      "row": 8227,
+      "origin": [
+        -65,
+        -76
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        84,
+        92
+      ],
+      "visible": [
+        0,
+        0,
+        82,
+        92
+      ],
+      "source_rgba_sha256": "b0ffbc06ef6de21e02bf3a25588e8c401ab16c0af71a649cea83f64efcf7927a",
+      "removed_review_shadow_pixels": 67
+    },
+    "16252": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 12060,
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        232
+      ],
+      "visible": [
+        0,
+        0,
+        64,
+        232
+      ],
+      "source_rgba_sha256": "2cdb11ead13f47f55c2b3ca3ee7e1897b51b68b7205845c225a82e00ded5d9c8",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.5,
+          0.0,
+          1.5
+        ],
+        [
+          1.5,
+          0.18,
+          1.5
+        ],
+        [
+          1.5,
+          0.36,
+          1.5
+        ],
+        [
+          1.5,
+          0.54,
+          1.5
+        ],
+        [
+          1.5,
+          0.72,
+          1.5
+        ],
+        [
+          1.5,
+          0.9,
+          1.5
+        ],
+        [
+          1.5,
+          1.08,
+          1.5
+        ],
+        [
+          1.5,
+          1.26,
+          1.5
+        ],
+        [
+          1.5,
+          1.44,
+          1.5
+        ],
+        [
+          1.5,
+          1.62,
+          1.5
+        ],
+        [
+          1.5,
+          1.8,
+          1.5
+        ],
+        [
+          1.5,
+          1.98,
+          1.5
+        ],
+        [
+          1.5,
+          2.16,
+          1.5
+        ],
+        [
+          1.5,
+          2.34,
+          1.5
+        ],
+        [
+          1.5,
+          2.52,
+          1.5
+        ],
+        [
+          1.5,
+          2.7,
+          1.5
+        ],
+        [
+          1.5,
+          2.88,
+          1.5
+        ],
+        [
+          1.5,
+          3.06,
+          1.5
+        ],
+        [
+          1.5,
+          3.24,
+          1.5
+        ],
+        [
+          1.5,
+          3.42,
+          1.5
+        ],
+        [
+          1.5,
+          3.6,
+          1.5
+        ],
+        [
+          1.5,
+          3.78,
+          1.5
+        ],
+        [
+          1.5,
+          3.96,
+          1.5
+        ],
+        [
+          1.5,
+          4.14,
+          1.5
+        ],
+        [
+          1.5,
+          4.32,
+          1.5
+        ],
+        [
+          1.5,
+          4.5,
+          1.5
+        ],
+        [
+          1.5,
+          4.68,
+          1.5
+        ],
+        [
+          1.5,
+          4.86,
+          1.5
+        ],
+        [
+          1.5,
+          5.04,
+          1.5
+        ],
+        [
+          1.5,
+          5.22,
+          1.5
+        ],
+        [
+          1.5,
+          5.4,
+          1.5
+        ],
+        [
+          1.5,
+          5.58,
+          1.5
+        ],
+        [
+          1.5,
+          5.76,
+          1.5
+        ],
+        [
+          1.5,
+          5.94,
+          1.5
+        ],
+        [
+          1.5,
+          6.12,
+          1.5
+        ],
+        [
+          1.5,
+          6.3,
+          1.5
+        ],
+        [
+          1.5,
+          6.48,
+          1.5
+        ],
+        [
+          1.5,
+          6.66,
+          1.5
+        ],
+        [
+          1.5,
+          6.84,
+          1.5
+        ],
+        [
+          1.5,
+          7.02,
+          1.5
+        ],
+        [
+          1.5,
+          7.2,
+          1.5
+        ],
+        [
+          1.5,
+          7.38,
+          1.5
+        ],
+        [
+          1.5,
+          7.56,
+          1.5
+        ],
+        [
+          1.5,
+          7.74,
+          1.5
+        ],
+        [
+          1.5,
+          7.92,
+          1.5
+        ],
+        [
+          1.5,
+          8.1,
+          1.5
+        ],
+        [
+          1.45312,
+          8.28,
+          1.45312
+        ],
+        [
+          1.17188,
+          8.46,
+          1.17188
+        ],
+        [
+          0.9375,
+          8.64,
+          0.9375
+        ],
+        [
+          0.70312,
+          8.82,
+          0.70312
+        ],
+        [
+          0.42188,
+          9.0,
+          0.42188
+        ],
+        [
+          0.32812,
+          9.09,
+          0.32812
+        ],
+        [
+          0.1875,
+          9.18,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          43,
+          135,
+          49,
+          145
+        ],
+        [
+          7,
+          33,
+          13,
+          43
+        ],
+        [
+          21,
+          199,
+          27,
+          209
+        ]
+      ]
+    },
+    "16253": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 12061,
+      "origin": [
+        -44,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        76,
+        227
+      ],
+      "visible": [
+        0,
+        0,
+        76,
+        227
+      ],
+      "source_rgba_sha256": "c9e38e2e41db77dd5cb6266243c52aba2c369d6f8289207dc4f6488578f7c633",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.78125,
+          0.0,
+          1.78125
+        ],
+        [
+          1.75781,
+          0.18,
+          1.75781
+        ],
+        [
+          1.6875,
+          0.36,
+          1.6875
+        ],
+        [
+          1.66406,
+          0.54,
+          1.66406
+        ],
+        [
+          1.64062,
+          0.72,
+          1.64062
+        ],
+        [
+          1.64062,
+          0.9,
+          1.64062
+        ],
+        [
+          1.64062,
+          1.08,
+          1.64062
+        ],
+        [
+          1.64062,
+          1.26,
+          1.64062
+        ],
+        [
+          1.57031,
+          1.44,
+          1.57031
+        ],
+        [
+          1.59375,
+          1.62,
+          1.59375
+        ],
+        [
+          1.64062,
+          1.8,
+          1.64062
+        ],
+        [
+          1.64062,
+          1.98,
+          1.64062
+        ],
+        [
+          1.64062,
+          2.16,
+          1.64062
+        ],
+        [
+          1.61719,
+          2.34,
+          1.61719
+        ],
+        [
+          1.54688,
+          2.52,
+          1.54688
+        ],
+        [
+          1.54688,
+          2.7,
+          1.54688
+        ],
+        [
+          1.54688,
+          2.88,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.06,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.24,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.42,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.6,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.78,
+          1.54688
+        ],
+        [
+          1.54688,
+          3.96,
+          1.54688
+        ],
+        [
+          1.54688,
+          4.14,
+          1.54688
+        ],
+        [
+          1.54688,
+          4.32,
+          1.54688
+        ],
+        [
+          1.54688,
+          4.5,
+          1.54688
+        ],
+        [
+          1.54688,
+          4.68,
+          1.54688
+        ],
+        [
+          1.54688,
+          4.86,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.04,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.22,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.4,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.58,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.76,
+          1.54688
+        ],
+        [
+          1.54688,
+          5.94,
+          1.54688
+        ],
+        [
+          1.54688,
+          6.12,
+          1.54688
+        ],
+        [
+          1.54688,
+          6.3,
+          1.54688
+        ],
+        [
+          1.54688,
+          6.48,
+          1.54688
+        ],
+        [
+          1.54688,
+          6.66,
+          1.54688
+        ],
+        [
+          1.57031,
+          6.84,
+          1.57031
+        ],
+        [
+          1.59375,
+          7.02,
+          1.59375
+        ],
+        [
+          1.64062,
+          7.2,
+          1.64062
+        ],
+        [
+          1.64062,
+          7.38,
+          1.64062
+        ],
+        [
+          1.64062,
+          7.56,
+          1.64062
+        ],
+        [
+          1.64062,
+          7.74,
+          1.64062
+        ],
+        [
+          1.64062,
+          7.92,
+          1.64062
+        ],
+        [
+          1.59375,
+          8.1,
+          1.59375
+        ],
+        [
+          1.45312,
+          8.28,
+          1.45312
+        ],
+        [
+          1.17188,
+          8.46,
+          1.17188
+        ],
+        [
+          0.9375,
+          8.64,
+          0.9375
+        ],
+        [
+          0.70312,
+          8.82,
+          0.70312
+        ],
+        [
+          0.42188,
+          9.0,
+          0.42188
+        ],
+        [
+          0.32812,
+          9.09,
+          0.32812
+        ],
+        [
+          0.1875,
+          9.18,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          51,
+          131,
+          57,
+          141
+        ],
+        [
+          25,
+          37,
+          31,
+          47
+        ],
+        [
+          25,
+          195,
+          31,
+          205
+        ]
+      ]
+    },
+    "16254": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 12062,
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        80,
+        227
+      ],
+      "visible": [
+        0,
+        0,
+        80,
+        227
+      ],
+      "source_rgba_sha256": "b439c716822a8322b8d66caa64bbc3c487ab10f835489bc3e7ae822611b28c66",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.875,
+          0.0,
+          1.875
+        ],
+        [
+          1.85156,
+          0.18,
+          1.85156
+        ],
+        [
+          1.78125,
+          0.36,
+          1.78125
+        ],
+        [
+          1.78125,
+          0.54,
+          1.78125
+        ],
+        [
+          1.75781,
+          0.72,
+          1.75781
+        ],
+        [
+          1.75781,
+          0.9,
+          1.75781
+        ],
+        [
+          1.73438,
+          1.08,
+          1.73438
+        ],
+        [
+          1.71094,
+          1.26,
+          1.71094
+        ],
+        [
+          1.6875,
+          1.44,
+          1.6875
+        ],
+        [
+          1.6875,
+          1.62,
+          1.6875
+        ],
+        [
+          1.73438,
+          1.8,
+          1.73438
+        ],
+        [
+          1.73438,
+          1.98,
+          1.73438
+        ],
+        [
+          1.73438,
+          2.16,
+          1.73438
+        ],
+        [
+          1.6875,
+          2.34,
+          1.6875
+        ],
+        [
+          1.6875,
+          2.52,
+          1.6875
+        ],
+        [
+          1.6875,
+          2.7,
+          1.6875
+        ],
+        [
+          1.6875,
+          2.88,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.06,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.24,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.42,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.6,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.78,
+          1.6875
+        ],
+        [
+          1.6875,
+          3.96,
+          1.6875
+        ],
+        [
+          1.66406,
+          4.14,
+          1.66406
+        ],
+        [
+          1.66406,
+          4.32,
+          1.66406
+        ],
+        [
+          1.66406,
+          4.5,
+          1.66406
+        ],
+        [
+          1.66406,
+          4.68,
+          1.66406
+        ],
+        [
+          1.66406,
+          4.86,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.04,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.22,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.4,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.58,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.76,
+          1.66406
+        ],
+        [
+          1.66406,
+          5.94,
+          1.66406
+        ],
+        [
+          1.66406,
+          6.12,
+          1.66406
+        ],
+        [
+          1.66406,
+          6.3,
+          1.66406
+        ],
+        [
+          1.66406,
+          6.48,
+          1.66406
+        ],
+        [
+          1.66406,
+          6.66,
+          1.66406
+        ],
+        [
+          1.66406,
+          6.84,
+          1.66406
+        ],
+        [
+          1.66406,
+          7.02,
+          1.66406
+        ],
+        [
+          1.71094,
+          7.2,
+          1.71094
+        ],
+        [
+          1.71094,
+          7.38,
+          1.71094
+        ],
+        [
+          1.71094,
+          7.56,
+          1.71094
+        ],
+        [
+          1.71094,
+          7.74,
+          1.71094
+        ],
+        [
+          1.66406,
+          7.92,
+          1.66406
+        ],
+        [
+          1.57031,
+          8.1,
+          1.57031
+        ],
+        [
+          1.45312,
+          8.28,
+          1.45312
+        ],
+        [
+          1.17188,
+          8.46,
+          1.17188
+        ],
+        [
+          0.9375,
+          8.64,
+          0.9375
+        ],
+        [
+          0.70312,
+          8.82,
+          0.70312
+        ],
+        [
+          0.42188,
+          9.0,
+          0.42188
+        ],
+        [
+          0.32812,
+          9.09,
+          0.32812
+        ],
+        [
+          0.1875,
+          9.18,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          55,
+          131,
+          61,
+          141
+        ],
+        [
+          5,
+          31,
+          11,
+          41
+        ],
+        [
+          27,
+          195,
+          33,
+          205
+        ]
+      ]
+    },
+    "17130": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 13216,
+      "origin": [
+        -35,
+        -205
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        228
+      ],
+      "visible": [
+        0,
+        0,
+        67,
+        228
+      ],
+      "source_rgba_sha256": "f9dcc411bb75cc17a512b7debe0aec6b58232e16f331165cf06a8ad25321c39a",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          1.57031,
+          0.0,
+          1.57031
+        ],
+        [
+          1.57031,
+          0.045,
+          1.57031
+        ],
+        [
+          1.54688,
+          0.225,
+          1.54688
+        ],
+        [
+          1.54688,
+          0.405,
+          1.54688
+        ],
+        [
+          1.5,
+          0.585,
+          1.5
+        ],
+        [
+          1.5,
+          0.765,
+          1.5
+        ],
+        [
+          1.5,
+          0.945,
+          1.5
+        ],
+        [
+          1.5,
+          1.125,
+          1.5
+        ],
+        [
+          1.5,
+          1.305,
+          1.5
+        ],
+        [
+          1.5,
+          1.485,
+          1.5
+        ],
+        [
+          1.5,
+          1.665,
+          1.5
+        ],
+        [
+          1.5,
+          1.845,
+          1.5
+        ],
+        [
+          1.5,
+          2.025,
+          1.5
+        ],
+        [
+          1.5,
+          2.205,
+          1.5
+        ],
+        [
+          1.5,
+          2.385,
+          1.5
+        ],
+        [
+          1.5,
+          2.565,
+          1.5
+        ],
+        [
+          1.5,
+          2.745,
+          1.5
+        ],
+        [
+          1.5,
+          2.925,
+          1.5
+        ],
+        [
+          1.5,
+          3.105,
+          1.5
+        ],
+        [
+          1.5,
+          3.285,
+          1.5
+        ],
+        [
+          1.5,
+          3.465,
+          1.5
+        ],
+        [
+          1.5,
+          3.645,
+          1.5
+        ],
+        [
+          1.5,
+          3.825,
+          1.5
+        ],
+        [
+          1.5,
+          4.005,
+          1.5
+        ],
+        [
+          1.5,
+          4.185,
+          1.5
+        ],
+        [
+          1.5,
+          4.365,
+          1.5
+        ],
+        [
+          1.5,
+          4.545,
+          1.5
+        ],
+        [
+          1.5,
+          4.725,
+          1.5
+        ],
+        [
+          1.5,
+          4.905,
+          1.5
+        ],
+        [
+          1.5,
+          5.085,
+          1.5
+        ],
+        [
+          1.5,
+          5.265,
+          1.5
+        ],
+        [
+          1.5,
+          5.445,
+          1.5
+        ],
+        [
+          1.5,
+          5.625,
+          1.5
+        ],
+        [
+          1.5,
+          5.805,
+          1.5
+        ],
+        [
+          1.5,
+          5.985,
+          1.5
+        ],
+        [
+          1.5,
+          6.165,
+          1.5
+        ],
+        [
+          1.5,
+          6.345,
+          1.5
+        ],
+        [
+          1.5,
+          6.525,
+          1.5
+        ],
+        [
+          1.5,
+          6.705,
+          1.5
+        ],
+        [
+          1.57031,
+          6.885,
+          1.57031
+        ],
+        [
+          1.57031,
+          7.065,
+          1.57031
+        ],
+        [
+          1.57031,
+          7.245,
+          1.57031
+        ],
+        [
+          1.57031,
+          7.425,
+          1.57031
+        ],
+        [
+          1.54688,
+          7.605,
+          1.54688
+        ],
+        [
+          1.5,
+          7.785,
+          1.5
+        ],
+        [
+          1.5,
+          7.965,
+          1.5
+        ],
+        [
+          1.5,
+          8.145,
+          1.5
+        ],
+        [
+          1.38281,
+          8.325,
+          1.38281
+        ],
+        [
+          1.26562,
+          8.505,
+          1.26562
+        ],
+        [
+          1.17188,
+          8.685,
+          1.17188
+        ],
+        [
+          1.03125,
+          8.865,
+          1.03125
+        ],
+        [
+          0.89062,
+          9.045,
+          0.89062
+        ],
+        [
+          0.79688,
+          9.135,
+          0.79688
+        ],
+        [
+          0.65625,
+          9.225,
+          0.65625
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          45,
+          131,
+          51,
+          141
+        ],
+        [
+          23,
+          45,
+          29,
+          55
+        ],
+        [
+          23,
+          195,
+          29,
+          205
+        ]
+      ]
+    },
+    "17387": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 11811,
+      "origin": [
+        -13,
+        -150
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        28,
+        161
+      ],
+      "visible": [
+        0,
+        0,
+        28,
+        161
+      ],
+      "source_rgba_sha256": "96a0729ceeee0d53a59a414158ebb33c169880a91661d0c66bf0a835852683da",
+      "removed_review_shadow_pixels": 0,
+      "profile": [
+        [
+          0.65625,
+          0.0,
+          0.65625
+        ],
+        [
+          0.65625,
+          0.09,
+          0.65625
+        ],
+        [
+          0.65625,
+          0.27,
+          0.65625
+        ],
+        [
+          0.65625,
+          0.45,
+          0.65625
+        ],
+        [
+          0.5625,
+          0.63,
+          0.5625
+        ],
+        [
+          0.5625,
+          0.81,
+          0.5625
+        ],
+        [
+          0.5625,
+          0.99,
+          0.5625
+        ],
+        [
+          0.5625,
+          1.17,
+          0.5625
+        ],
+        [
+          0.5625,
+          1.35,
+          0.5625
+        ],
+        [
+          0.5625,
+          1.53,
+          0.5625
+        ],
+        [
+          0.32812,
+          1.71,
+          0.32812
+        ],
+        [
+          0.32812,
+          1.89,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.07,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.25,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.43,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.61,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.79,
+          0.32812
+        ],
+        [
+          0.32812,
+          2.97,
+          0.32812
+        ],
+        [
+          0.32812,
+          3.15,
+          0.32812
+        ],
+        [
+          0.32812,
+          3.33,
+          0.32812
+        ],
+        [
+          0.32812,
+          3.51,
+          0.32812
+        ],
+        [
+          0.32812,
+          3.69,
+          0.32812
+        ],
+        [
+          0.32812,
+          3.87,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.05,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.23,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.41,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.59,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.77,
+          0.32812
+        ],
+        [
+          0.32812,
+          4.95,
+          0.32812
+        ],
+        [
+          0.32812,
+          5.13,
+          0.32812
+        ],
+        [
+          0.32812,
+          5.31,
+          0.32812
+        ],
+        [
+          0.32812,
+          5.49,
+          0.32812
+        ],
+        [
+          0.32812,
+          5.67,
+          0.32812
+        ],
+        [
+          0.51562,
+          5.85,
+          0.51562
+        ],
+        [
+          0.51562,
+          6.03,
+          0.51562
+        ],
+        [
+          0.51562,
+          6.21,
+          0.51562
+        ],
+        [
+          0.51562,
+          6.39,
+          0.51562
+        ],
+        [
+          0.42188,
+          6.57,
+          0.42188
+        ],
+        [
+          0.32812,
+          6.66,
+          0.32812
+        ],
+        [
+          0.1875,
+          6.75,
+          0.1875
+        ]
+      ],
+      "round": false,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          15,
+          91,
+          21,
+          101
+        ],
+        [
+          7,
+          21,
+          13,
+          31
+        ],
+        [
+          7,
+          137,
+          13,
+          147
+        ]
+      ]
+    },
+    "17502": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 13070,
+      "origin": [
+        -33,
+        -115
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        139
+      ],
+      "visible": [
+        0,
+        0,
+        66,
+        139
+      ],
+      "source_rgba_sha256": "76cc43e1162b47c4b28cd87e6f5aab5772d7e93963f5e405256a544894cc8bf9",
+      "removed_review_shadow_pixels": 0,
+      "flat_top_native_center_y": 24,
+      "profile": [
+        [
+          2.18761,
+          0.0,
+          2.18761
+        ],
+        [
+          2.12132,
+          0.135,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.315,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.495,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.675,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.855,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.035,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.215,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.395,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.575,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.755,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.935,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.115,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.295,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.475,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.655,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.835,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.015,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.195,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.375,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.555,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.735,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.915,
+          2.12132
+        ],
+        [
+          2.08817,
+          4.095,
+          2.08817
+        ]
+      ],
+      "round": true,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          45,
+          79,
+          51,
+          89
+        ],
+        [
+          1,
+          35,
+          7,
+          45
+        ],
+        [
+          23,
+          117,
+          29,
+          127
+        ]
+      ]
+    },
+    "17503": {
+      "kit": "measured_pier",
+      "pack": "original",
+      "row": 13071,
+      "origin": [
+        -31,
+        -115
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        139
+      ],
+      "visible": [
+        0,
+        0,
+        64,
+        139
+      ],
+      "source_rgba_sha256": "6eddd60ff674718c952c2a3ce316f4b144a01983715433c12c6e0b48c250a9b1",
+      "removed_review_shadow_pixels": 0,
+      "flat_top_native_center_y": 25,
+      "profile": [
+        [
+          2.18761,
+          0.0,
+          2.18761
+        ],
+        [
+          2.12132,
+          0.135,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.315,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.495,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.675,
+          2.12132
+        ],
+        [
+          2.12132,
+          0.855,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.035,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.215,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.395,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.575,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.755,
+          2.12132
+        ],
+        [
+          2.12132,
+          1.935,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.115,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.295,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.475,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.655,
+          2.12132
+        ],
+        [
+          2.12132,
+          2.835,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.015,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.195,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.375,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.555,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.735,
+          2.12132
+        ],
+        [
+          2.12132,
+          3.915,
+          2.12132
+        ],
+        [
+          2.08817,
+          4.095,
+          2.08817
+        ]
+      ],
+      "round": true,
+      "blue_foundation": false,
+      "independent_material_samples": [
+        [
+          43,
+          79,
+          49,
+          89
+        ],
+        [
+          43,
+          79,
+          49,
+          89
+        ],
+        [
+          31,
+          117,
+          37,
+          127
+        ]
+      ],
+      "compatible_whole_profile": 17502,
+      "compatible_material_graphic": 17502
+    }
+  },
+  "pending_classic_ids": [
+    10095,
+    10096,
+    10302,
+    10419,
+    10424,
+    10429,
+    10464,
+    10470,
+    10472,
+    10691,
+    10692,
+    10707,
+    10709,
+    10712,
+    10713,
+    10715,
+    10718,
+    10719,
+    10720,
+    10721,
+    10725,
+    10726,
+    10727,
+    10728,
+    10729,
+    11002,
+    11014,
+    11032,
+    11044,
+    11047,
+    11052,
+    11057,
+    11071,
+    11074,
+    11075,
+    11076,
+    11077,
+    11079,
+    11080,
+    11141,
+    11144,
+    11147,
+    11148,
+    11149,
+    11229,
+    11251,
+    11266,
+    11267,
+    11287,
+    11288,
+    11567,
+    11569,
+    11570,
+    11571,
+    11701,
+    11702,
+    11704,
+    11707,
+    11708,
+    11710,
+    11711,
+    11713,
+    11714,
+    11715,
+    11716,
+    11717,
+    11718,
+    11719,
+    11720,
+    11721,
+    11722,
+    11724,
+    11725,
+    11726,
+    11727,
+    11728,
+    11729,
+    13998,
+    13999,
+    15804,
+    15805,
+    15809,
+    15810,
+    15811,
+    15815,
+    15816,
+    15819,
+    15823,
+    15835,
+    15840,
+    15846,
+    15851,
+    15852,
+    15853,
+    15857,
+    15858,
+    15860,
+    15863,
+    15864,
+    15865,
+    15867,
+    15869,
+    15870,
+    15875,
+    15876,
+    15877,
+    15882,
+    15887,
+    15888,
+    16270,
+    16545,
+    16610,
+    16614,
+    16615,
+    16659,
+    16660,
+    16710,
+    16712,
+    16736,
+    16956,
+    16958,
+    16959,
+    16961,
+    16962,
+    16963,
+    16964,
+    16965,
+    16966,
+    16967,
+    16968,
+    16969,
+    16970,
+    16971,
+    16972,
+    16973,
+    16986,
+    16987,
+    17111,
+    17112,
+    17113,
+    17114,
+    17115,
+    17116,
+    17117,
+    17118,
+    17119,
+    17120,
+    17121,
+    17122,
+    17123,
+    17124,
+    17125,
+    17126,
+    17207,
+    17209,
+    17361,
+    17362,
+    17363,
+    17365,
+    17368,
+    17369,
+    17370,
+    17554,
+    17555,
+    17556,
+    17557,
+    17558,
+    17559,
+    17599,
+    17606,
+    17611,
+    17612,
+    17614,
+    17616,
+    17623,
+    17641,
+    17642,
+    17961,
+    17962,
+    17963,
+    17964,
+    17965,
+    17966,
+    17967,
+    17968,
+    17969,
+    17972,
+    17973,
+    17976,
+    17977,
+    17980,
+    17982,
+    17983,
+    17984,
+    17985,
+    17992,
+    17993,
+    17995,
+    17996,
+    17997,
+    17998
+  ],
+  "inferred": [
+    "Unseen sides continue existing compatible master geometry and independent part paint.",
+    "Native bounds/origins/footprints are observed; unseen roof/wall depth and joints remain reconstruction.",
+    "Fence arm directions and source silhouettes are observed. Closed bar sections, uniform stations inside those arms, cap thickness and hidden joinery use compatible existing parts fitted to native structural bounds."
+  ],
+  "scope": "Only enrolled exact East original-map object graphics; prior map/cell-specific owners preempt. No source layout, collider, navigation, door, return or quest changes."
+}

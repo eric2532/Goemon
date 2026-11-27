@@ -1,5 +1,5 @@
 {
-  "preparation": "ffmpeg -i SOURCE.wav -c:a libmp3lame -q:a 2 OUTPUT.mp3; original 22050 Hz stereo; decoded frame count matches source; no trims or normalization",
+  "preparation": "ffmpeg -i SOURCE.wav -c:a libmp3lame -q:a 2 OUTPUT.mp3; original sample rate and stereo; decoded frame count matches source; no trims or normalization",
   "tracks": {
     "cgbgm_m0": {
       "source": "BlueCrossgate/bin/bgm/cgbgm_m0.wav",
@@ -91,6 +91,66 @@
       "runtime_sha256": "53d0d9486d583b98a64560e6c83767993130083bf17513a61703d94ebd5e3708",
       "duration": 103.9843537414966,
       "decoded_frames": 2292855
+    },
+    "cgbgm_b0": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_b0.wav",
+      "source_sha256": "18bfdc02c730e9cbc3701919fa89acf6c691ed577502369fa44c1c5e414b3e54",
+      "runtime_sha256": "e826efc79cc8358de84fd89a8bfca5d254eae408704ed6f3af9dfec8bc06c367",
+      "duration": 69.54503401360545,
+      "decoded_frames": 1533468
+    },
+    "puk2_field1": {
+      "source": "BlueCrossgate/bin/bgm/puk2_field1.wav",
+      "source_sha256": "2b264d6dca32b72a401ba40b728abe1d7aaa3e20a4c3a22acc8505c42654f260",
+      "runtime_sha256": "ce4c2cd9c4ac4cb7e25c2c436f9b882717075c97996e72e1e1800a9cc4ad7de8",
+      "duration": 176.3936507936508,
+      "decoded_frames": 3889480,
+      "sample_rate": 22050,
+      "channels": 2
+    },
+    "puk2_mati": {
+      "source": "BlueCrossgate/bin/bgm/puk2_mati.wav",
+      "source_sha256": "e26037c11c79a4210d314b58c19dd6f132872b47ed8b8541a301548f34b69a40",
+      "runtime_sha256": "e96065d7f048fa251b8e0a9ad947a263a55b93e8f6d681b6d6c3b71e57491703",
+      "duration": 108.93015873015872,
+      "decoded_frames": 2401910,
+      "sample_rate": 22050,
+      "channels": 2
+    },
+    "puk2_sinden": {
+      "source": "BlueCrossgate/bin/bgm/puk2_sinden.wav",
+      "source_sha256": "19962d50bc7dfe9b726a3b876a36b7df9f28454af3a98cf14c35cbf413bf5d23",
+      "runtime_sha256": "2686b3308dc47cad29aa60b1b13ad3604eee5e1f73fbdd69522d078a74a8c6eb",
+      "duration": 183.27891156462584,
+      "decoded_frames": 4041300,
+      "sample_rate": 22050,
+      "channels": 2
+    },
+    "puk2_haikyo": {
+      "source": "BlueCrossgate/bin/bgm/PUK2_haikyo.wav",
+      "source_sha256": "a39c0f7209a8398184e899977d36faef5190f6312b7994624c6c65a69eacb67d",
+      "runtime_sha256": "10654e3aca304a1c483a0ce0c95ccb44d57066715fc53b6d18f14a8fc8645e3c",
+      "duration": 164.01902494331065,
+      "decoded_frames": 7233239,
+      "sample_rate": 44100,
+      "channels": 2
     }
+  },
+  "elsa_map_sounds": {
+    "map_source": "linv2/Crossgate_Docker dd8690ed3df11e4eb5a038a54079a8f40d8e93b3 LS2MAP extended header offset56 big-endian u16",
+    "catalog": "assets/maps/original_crossgate/elsa/catalog.json",
+    "client_config": "BlueCrossgate/bin/bgm/bgm.cf",
+    "client_config_sha256": "0a422e3aacd3ddf5c79d8e13c3441f497e70ed0cd60427ac56870f98c878fb0a",
+    "sound_ids": [
+      213,
+      214,
+      216,
+      218,
+      228,
+      229,
+      230,
+      232
+    ],
+    "silence": "218 maps to -1 / -2 in client configuration; interpreted as stopping background music"
   }
 }

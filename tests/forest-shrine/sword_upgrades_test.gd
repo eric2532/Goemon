@@ -7,7 +7,7 @@ func _initialize():
 
 func duplicate_sword(id:String,key:String=""):
  var loot=game.exploration_loot
- loot.clear();loot.spawn_chest(0,home,key)
+ loot.clear();loot.spawn_chest(0,home,key,true);loot.slots[0].bonus=""
  loot.slots[0].sword=id
  check(loot.open_nearest(),"Open duplicate "+id)
 
@@ -48,7 +48,7 @@ func run():
  check(game.settings.sword_upgrades==saved and game.settings.chest_swords==Gear.CHEST_SWORDS,"Ranks and discoveries survive save and reload")
  equip_sword("weapon:SW052");reset_case()
  var before=p.accessory_bonuses.attack
- loot.clear();loot.spawn_chest(0,home,"upgrade-retry");loot.slots[0].sword="weapon:SW052"
+ loot.clear();loot.spawn_chest(0,home,"upgrade-retry",true);loot.slots[0].sword="weapon:SW052";loot.slots[0].bonus=""
  var path=game.settings_path;game.settings_path="user://missing-sword-upgrade-directory/save.cfg"
  loot.open_nearest();loot.open_nearest()
  check(game.settings.sword_upgrades==saved and p.accessory_bonuses.attack==before and loot.slots[0].active and not loot.opened_chests.has("upgrade-retry"),"Repeated failed saves retain prior ranks/stats and the same unopened chest")

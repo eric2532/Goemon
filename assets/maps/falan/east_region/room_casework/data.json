@@ -1,0 +1,1186 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10430": {
+      "role": "low_cabinet",
+      "origin": [
+        -70,
+        -97
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        90,
+        103
+      ],
+      "size": [
+        92,
+        105
+      ],
+      "source_rgba_sha256": "21730447303664e14acbcfdcbf1001850349e71c090fcc3e2f62365e0956ec9f",
+      "source_pack": "original",
+      "source_row": 7631
+    },
+    "10431": {
+      "role": "open_hutch",
+      "origin": [
+        -61,
+        -161
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        91,
+        176
+      ],
+      "size": [
+        96,
+        178
+      ],
+      "source_rgba_sha256": "48dd25cf04af572f17cf2cde5b6a298055e65a75cf8498276d95e9a755038930",
+      "source_pack": "original",
+      "source_row": 7632
+    },
+    "10438": {
+      "role": "empty_shelf",
+      "origin": [
+        -14,
+        -59
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        45,
+        70
+      ],
+      "size": [
+        48,
+        73
+      ],
+      "source_rgba_sha256": "dd940f0b4e0a7c0dc491d6c19e4c1d7ecc1a8253708fb1a49158a798b824b747",
+      "source_pack": "original",
+      "source_row": 7639
+    },
+    "10440": {
+      "role": "covered_side_cabinet",
+      "origin": [
+        -53,
+        -93
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        78,
+        110
+      ],
+      "size": [
+        80,
+        110
+      ],
+      "source_rgba_sha256": "325fa8e6229667beef1e23bb82d9aba21d97a9eb975ea88c6bcda0b912b38bc1",
+      "source_pack": "original",
+      "source_row": 7641
+    },
+    "10492": {
+      "role": "covered_side_cabinet",
+      "origin": [
+        -22,
+        -94
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        77,
+        110
+      ],
+      "size": [
+        80,
+        110
+      ],
+      "source_rgba_sha256": "0d993dc6889713951127f09b5baec972700eb8e0eacc8685b1c743f6e6ff0ea8",
+      "source_pack": "original",
+      "source_row": 7693
+    },
+    "10567": {
+      "role": "wall_clock",
+      "origin": [
+        3,
+        -144
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        26,
+        69
+      ],
+      "size": [
+        28,
+        69
+      ],
+      "source_rgba_sha256": "7ae6ef3342beb44fda8e92a83c87e3035293853e6d207fb828db24e217232801",
+      "source_pack": "original",
+      "source_row": 7599
+    },
+    "16014": {
+      "role": "narrow_drawers",
+      "origin": [
+        -7,
+        -63
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        26,
+        59
+      ],
+      "size": [
+        28,
+        59
+      ],
+      "source_rgba_sha256": "a95727899575ca51e37023e5041f466653700fa667c788652e465f6a186f65d8",
+      "source_pack": "original",
+      "source_row": 12642
+    },
+    "16016": {
+      "role": "closed_wardrobe",
+      "origin": [
+        -21,
+        -86
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        53,
+        94
+      ],
+      "size": [
+        56,
+        94
+      ],
+      "source_rgba_sha256": "498ca6641ec6f671b861a12a7fe01b0e9d86fd2b717b311845547d7772c78d97",
+      "source_pack": "original",
+      "source_row": 12644
+    },
+    "16017": {
+      "role": "closed_wardrobe",
+      "origin": [
+        -32,
+        -85
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        53,
+        93
+      ],
+      "size": [
+        56,
+        94
+      ],
+      "source_rgba_sha256": "f192f744f43abfcb0f8ff3a19f8f0d790721e3a82fa7ef55c78e4d706ba0cf87",
+      "source_pack": "original",
+      "source_row": 12645
+    },
+    "16020": {
+      "role": "closed_wardrobe",
+      "origin": [
+        -31,
+        -86
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        98
+      ],
+      "size": [
+        68,
+        99
+      ],
+      "source_rgba_sha256": "b0f1a18475269de5cc2411d973af84b37669be5b6fc0d05a16ee60aa0a560dd8",
+      "source_pack": "original",
+      "source_row": 12648
+    },
+    "16021": {
+      "role": "closed_wardrobe",
+      "origin": [
+        -34,
+        -86
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        98
+      ],
+      "size": [
+        68,
+        98
+      ],
+      "source_rgba_sha256": "4875e360c4d5b5b0cad1dc07e6fa4e8877bd706aa9536691365461854538d45f",
+      "source_pack": "original",
+      "source_row": 12649
+    },
+    "16023": {
+      "role": "closed_wardrobe",
+      "origin": [
+        -30,
+        -88
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        93
+      ],
+      "size": [
+        56,
+        93
+      ],
+      "source_rgba_sha256": "7c5e6ba6fb885acec697ab618888cbd563286bcd98978110d94bb942c132f9c2",
+      "source_pack": "original",
+      "source_row": 12651
+    },
+    "16070": {
+      "role": "low_open_display",
+      "origin": [
+        -25,
+        -74
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        75,
+        96
+      ],
+      "size": [
+        80,
+        99
+      ],
+      "source_rgba_sha256": "8c5453209fcd58538c571f7e3d6fbe72b39592cee78acbb8fe26b966fa491d32",
+      "source_pack": "original",
+      "source_row": 12698
+    },
+    "16071": {
+      "role": "low_open_display",
+      "origin": [
+        -50,
+        -74
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        82,
+        98
+      ],
+      "size": [
+        84,
+        98
+      ],
+      "source_rgba_sha256": "6ebd8f72af2a5860ce281204752767b10185eae3b3b0d3e78eb0c26e0ace5754",
+      "source_pack": "original",
+      "source_row": 12699
+    },
+    "16074": {
+      "role": "marble_low_table",
+      "origin": [
+        -48,
+        -62
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        80,
+        87
+      ],
+      "size": [
+        84,
+        89
+      ],
+      "source_rgba_sha256": "7713b8aa7981b2f06097bc9d365f030d97a0b8cee79b7bfa49fe85edd545341a",
+      "source_pack": "original",
+      "source_row": 12702
+    },
+    "16121": {
+      "role": "marble_low_table",
+      "origin": [
+        -51,
+        -71
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        1,
+        0,
+        86,
+        96
+      ],
+      "size": [
+        88,
+        98
+      ],
+      "source_rgba_sha256": "f72389d9ec654025accfa08c23629cf017f386a75a8e376b3a1ad8d1dce71ade",
+      "source_pack": "original",
+      "source_row": 12749
+    },
+    "16141": {
+      "role": "covered_low_seat",
+      "origin": [
+        -65,
+        -76
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        103,
+        100
+      ],
+      "size": [
+        108,
+        101
+      ],
+      "source_rgba_sha256": "6c5c6fbd394c9329a93a628a00d5ee56b27bbc3911694c089dfb8f469786da84",
+      "source_pack": "original",
+      "source_row": 12769
+    },
+    "16156": {
+      "role": "tea_table",
+      "origin": [
+        -95,
+        -87
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        111,
+        89
+      ],
+      "size": [
+        112,
+        89
+      ],
+      "source_rgba_sha256": "94810c245961c0175bcdaf42ca0097956511a1cf13a7b53893954b23e3585a38",
+      "source_pack": "original",
+      "source_row": 12784
+    },
+    "16162": {
+      "role": "glass_hutch",
+      "origin": [
+        -34,
+        -168
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        98,
+        191
+      ],
+      "size": [
+        104,
+        192
+      ],
+      "source_rgba_sha256": "48d2fe5a0988d7279a6669fc64588e217135add350091d7e395b4bd070457add",
+      "source_pack": "original",
+      "source_row": 12790
+    },
+    "16164": {
+      "role": "kitchen_counter",
+      "origin": [
+        -96,
+        -109
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        129,
+        132
+      ],
+      "size": [
+        132,
+        133
+      ],
+      "source_rgba_sha256": "48fee2b7f2d5f9c17940ec28d44830a8e62a085d73c75c901c1266ddb141ef69",
+      "source_pack": "original",
+      "source_row": 12792
+    },
+    "16165": {
+      "role": "kitchen_counter",
+      "origin": [
+        -96,
+        -100
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        129,
+        123
+      ],
+      "size": [
+        132,
+        124
+      ],
+      "source_rgba_sha256": "837e32360e8f853ea7a1670dd8a2de57bbf27419af5aa3cd5da2a49017d99385",
+      "source_pack": "original",
+      "source_row": 12793
+    },
+    "16167": {
+      "role": "kitchen_counter",
+      "origin": [
+        -32,
+        -108
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        131,
+        133
+      ],
+      "size": [
+        132,
+        133
+      ],
+      "source_rgba_sha256": "45f4110daece976d011bfc5da6c91336520fb814c51d62408b00835946388421",
+      "source_pack": "original",
+      "source_row": 12795
+    },
+    "16168": {
+      "role": "kitchen_counter",
+      "origin": [
+        -32,
+        -99
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        131,
+        124
+      ],
+      "size": [
+        132,
+        124
+      ],
+      "source_rgba_sha256": "673be7f7820fff6c788eede8546f6762019926b2abf1c71b39cf4a57ef782da5",
+      "source_pack": "original",
+      "source_row": 12796
+    },
+    "16169": {
+      "role": "wall_kitchen_unit",
+      "origin": [
+        -129,
+        -270
+      ],
+      "footprint": [
+        1,
+        4
+      ],
+      "bounds": [
+        0,
+        0,
+        161,
+        294
+      ],
+      "size": [
+        164,
+        294
+      ],
+      "source_rgba_sha256": "eca615650d03ec352ce90c2ecd820020d7eea0ad7146ee60228b02f3538fdd44",
+      "source_pack": "original",
+      "source_row": 12797
+    },
+    "16536": {
+      "role": "writing_table",
+      "origin": [
+        -55,
+        -123
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        99,
+        137
+      ],
+      "size": [
+        108,
+        137
+      ],
+      "source_rgba_sha256": "359a04dd0e07841655ea74281cdc71e3d1e0b09cb7a1fcc3c63d34759d53b29a",
+      "source_pack": "original",
+      "source_row": 12186
+    },
+    "16876": {
+      "role": "covered_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        90
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "source_rgba_sha256": "8a655a7955ebfc6e0b39144ea14390f5f28a14a4ac19338eb9bb6833d7f7925f",
+      "source_pack": "original",
+      "source_row": 12504
+    },
+    "16878": {
+      "role": "covered_counter",
+      "origin": [
+        -33,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        74,
+        90
+      ],
+      "size": [
+        76,
+        90
+      ],
+      "source_rgba_sha256": "0b92e0a140dec428b6601c5e0374846fac4f213ffcaa4f940b7f37d731c43943",
+      "source_pack": "original",
+      "source_row": 12506
+    },
+    "16879": {
+      "role": "covered_counter",
+      "origin": [
+        -33,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        67,
+        90
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "source_rgba_sha256": "b0f161442aecf9bd50a5c10b1cc0c0bb782aa5ec74ddd2d1132008be494cb4ac",
+      "source_pack": "original",
+      "source_row": 12507
+    },
+    "16881": {
+      "role": "covered_counter",
+      "origin": [
+        -34,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        90
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "source_rgba_sha256": "5aa68b352ce5ac6ed6f65305348cd634d1f098e1f9a98f2b8218b63f02f13333",
+      "source_pack": "original",
+      "source_row": 12509
+    },
+    "16882": {
+      "role": "covered_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        90
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "source_rgba_sha256": "795a00eaac3691df3621cf177859c79a911c927a9131a19916ca355e02bac667",
+      "source_pack": "original",
+      "source_row": 12510
+    },
+    "16883": {
+      "role": "covered_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        90
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "source_rgba_sha256": "ec1eee28de8a66fbac0810c31de2bd77f66970a5bf4fe490d03b8541a954baa5",
+      "source_pack": "original",
+      "source_row": 12511
+    },
+    "16884": {
+      "role": "covered_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        90
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "source_rgba_sha256": "c6fd452823840cf52f67ba94ad751f8e50214bb266fca01a470981863d5b32dd",
+      "source_pack": "original",
+      "source_row": 12512
+    },
+    "17008": {
+      "role": "arched_drawers",
+      "origin": [
+        -23,
+        -105
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        112
+      ],
+      "size": [
+        76,
+        113
+      ],
+      "source_rgba_sha256": "f09808c61432fc8a726ce5c07331526eb9b6ba4c3fcb71deeea798c03dd2cf8c",
+      "source_pack": "original",
+      "source_row": 13094
+    },
+    "17010": {
+      "role": "dresser_mirror",
+      "origin": [
+        -31,
+        -101
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        116
+      ],
+      "size": [
+        60,
+        116
+      ],
+      "source_rgba_sha256": "599142250b6e6da973d4579aa490f9d62beef349747db4b2c63af7022c88da62",
+      "source_pack": "original",
+      "source_row": 13096
+    },
+    "17011": {
+      "role": "dresser_mirror",
+      "origin": [
+        -20,
+        -104
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        53,
+        117
+      ],
+      "size": [
+        60,
+        117
+      ],
+      "source_rgba_sha256": "0ef2b981cae801586bc5dba46c989b6f74b002e20ba7a85c342f82dd0264da1a",
+      "source_pack": "original",
+      "source_row": 13097
+    },
+    "17055": {
+      "role": "plain_wood_counter",
+      "origin": [
+        -32,
+        -51
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        74
+      ],
+      "size": [
+        64,
+        74
+      ],
+      "source_rgba_sha256": "9a88e53b6d6ce01cc818e43289598a292bcabe810a5bf34b2555b671a716d0c8",
+      "source_pack": "original",
+      "source_row": 13141
+    },
+    "17056": {
+      "role": "plain_wood_counter",
+      "origin": [
+        -43,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        90
+      ],
+      "size": [
+        52,
+        90
+      ],
+      "source_rgba_sha256": "942ed33930fc342e3a3526eece390e8cb059d0955e0d55e6752c8dc06e5fe4a7",
+      "source_pack": "original",
+      "source_row": 13142
+    },
+    "17542": {
+      "role": "empty_shelf",
+      "origin": [
+        -32,
+        -147
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        82,
+        160
+      ],
+      "size": [
+        84,
+        160
+      ],
+      "source_rgba_sha256": "a77a56079f61794b6dcff246b13519a762ab2848760862bbecdd26378072490f",
+      "source_pack": "original",
+      "source_row": 12968
+    },
+    "17547": {
+      "role": "empty_shelf",
+      "origin": [
+        -49,
+        -148
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        81,
+        161
+      ],
+      "size": [
+        84,
+        161
+      ],
+      "source_rgba_sha256": "02d92339f38ab6462af3546f0520ecc0ddefc992a6f2b59c3d74a74b6920a27c",
+      "source_pack": "original",
+      "source_row": 12973
+    },
+    "17566": {
+      "role": "curved_counter",
+      "origin": [
+        -42,
+        -90
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        106,
+        119
+      ],
+      "size": [
+        108,
+        119
+      ],
+      "source_rgba_sha256": "4252360f2307c2b5294448b28ccda3bda0a0359bd7fc0334b76f759bbeb051ec",
+      "source_pack": "original",
+      "source_row": 12920
+    },
+    "17567": {
+      "role": "curved_counter",
+      "origin": [
+        -42,
+        -90
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        106,
+        119
+      ],
+      "size": [
+        108,
+        119
+      ],
+      "source_rgba_sha256": "615785f930a7a40cc657e028ddba782023c3ea9a05bed37cce4015fb7572e813",
+      "source_pack": "original",
+      "source_row": 12921
+    },
+    "17571": {
+      "role": "curved_counter",
+      "origin": [
+        -96,
+        -114
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "bounds": [
+        0,
+        0,
+        141,
+        137
+      ],
+      "size": [
+        144,
+        137
+      ],
+      "source_rgba_sha256": "4d2e9dc9486f085f673edc414dfc036e1fdb36c375a82c06c1cd640564933779",
+      "source_pack": "original",
+      "source_row": 12925
+    },
+    "17578": {
+      "role": "plain_wood_counter",
+      "origin": [
+        -20,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        74
+      ],
+      "size": [
+        56,
+        74
+      ],
+      "source_rgba_sha256": "b172e5967689151dcfbd7b073faba430327292e8bf6b2ffc3ad6ee32bee5fb76",
+      "source_pack": "original",
+      "source_row": 12926
+    },
+    "17593": {
+      "role": "goods_counter",
+      "origin": [
+        -32,
+        -58
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        52,
+        81
+      ],
+      "size": [
+        52,
+        81
+      ],
+      "source_rgba_sha256": "168ec74c2b50fc75aea53dcff2193ae6822256a345cf4608ea64200b60e53dcf",
+      "source_pack": "original",
+      "source_row": 12935
+    },
+    "17594": {
+      "role": "goods_counter",
+      "origin": [
+        -32,
+        -65
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        52,
+        88
+      ],
+      "size": [
+        52,
+        88
+      ],
+      "source_rgba_sha256": "d9c7a645677105ace0cdc0db6921beaa1892ebc71111f41f00e701bb6176e8a1",
+      "source_pack": "original",
+      "source_row": 12936
+    },
+    "17618": {
+      "role": "drawer_over_firewood",
+      "origin": [
+        -32,
+        -79
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        102
+      ],
+      "size": [
+        64,
+        102
+      ],
+      "source_rgba_sha256": "03a7d7b6d226c093c39bba50ca7789bd71591f323aafcd3698209c288d44dcfa",
+      "source_pack": "original",
+      "source_row": 12944
+    },
+    "17620": {
+      "role": "firewood_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        90
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "source_rgba_sha256": "7db00708597a3be1eb60980ef000495784e09325e847c7af93c26bbed11597bf",
+      "source_pack": "original",
+      "source_row": 12946
+    },
+    "17622": {
+      "role": "firewood_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        90
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "source_rgba_sha256": "34d7ca3d9cb26576cdc3988f808491c5f52dfdae579bc9dedbad09d75b8aee71",
+      "source_pack": "original",
+      "source_row": 12948
+    },
+    "17637": {
+      "role": "writing_hutch",
+      "origin": [
+        -49,
+        -107
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        92,
+        132
+      ],
+      "size": [
+        92,
+        132
+      ],
+      "source_rgba_sha256": "368cbeb1bca5aea0c45660d052e9b4dd65443656e45b06f2f9934f899511050a",
+      "source_pack": "original",
+      "source_row": 12993
+    }
+  },
+  "scope": "Exact source furniture references. Candidate geometry must be reviewed before any OriginalMaps enrollment. Original maps, walks and NPC/event ownership stay unchanged.",
+  "inferred": [
+    "Unseen cabinet interiors, backs, undersides, board thickness and joints follow compatible existing furniture construction. Native facade ornament remains flat inside physical frames.",
+    "No furniture scenery recipe adds services, doors, containers or interactions."
+  ]
+}

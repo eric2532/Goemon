@@ -8,8 +8,11 @@ const Civic=preload("res://scripts/forest/forest_falan_civic_exterior.gd")
 const OUT="res://build/Other Files/Asset Toolkit/Falan Proportions/"
 var rows=["extends RefCounted","## Prepared from native pixel bounds by falan_proportion_prepare.gd; do not edit fitted values.","static var FITS={"]
 var heights={};var bases={};var report={}
+var original_fits={}
 
 func _initialize():
+ create_timer(180).timeout.connect(func():printerr("FALAN_PROPORTION_PREPARE_TIMEOUT");quit(1))
+ original_fits=Fit.Data.FITS.duplicate(true)
  Fit.enabled=false
  run.call_deferred()
 
@@ -60,6 +63,7 @@ func run():
  quit()
 
 func check_fit(key:String,row:Dictionary):
- var actual:Transform3D=Fit.Data.FITS[key];var scale_=actual.basis.get_scale()
+ var actual:Transform3D=original_fits[key];var scale_=actual.basis.get_scale()
  assert(scale_.distance_to(Vector3(row.scale[0],row.scale[1],row.scale[2]))<.0001,"Stale source proportion scale: "+key)
  assert(actual.origin.distance_to(Vector3(row.offset[0],row.offset[1],row.offset[2]))<.0001,"Stale source proportion origin: "+key)
+ assert(absf(Fit.Data.HEIGHTS[key]-row.world_height)<.0001,"Stale source collision height: "+key)

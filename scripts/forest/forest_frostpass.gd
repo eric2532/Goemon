@@ -150,6 +150,7 @@ static func point(cell:Vector2i,id:int=0)->Vector2:
 
 static func creature_keys(id:int)->Array:
  if id==Recovered.Beast.BOSS_ROOM or Recovered.Beast.owns(id):return Recovered.Beast.creature_keys(id)
+ if Recovered.generated().branch(id)=="mountain":return SNOW_CREATURE_KEYS
  return SNOW_CREATURE_KEYS if id in SNOW_FLOORS else Decree.creature_keys(id)
 
 static func trail_height(z:float)->float:
@@ -179,9 +180,14 @@ static func legacy_floor_info(id:int)->Array:
 
 static func snow_maze(id:int,run_seed:int)->Dictionary:
  if snow_mazes.has(id) and snow_mazes[id].seed==run_seed:return snow_mazes[id]
+ var generated=grid_maze(id,run_seed,SIZE,DOORS[id],SNOW_PATROLS)
+ snow_mazes[id]=generated
+ return generated
+
+static func grid_maze(id:int,run_seed:int,size_:Vector2i,doors_:Array,count_:int)->Dictionary:
  var rng=Maze.rng_for(id,run_seed)
  var bits=PackedByteArray()
- bits.resize((SIZE.x*SIZE.y+7)>>3)
+ bits.resize((size_.x*size_.y+7)>>3)
  var rooms:Array[Vector2i]=[]
  var widths=Maze.shuffled([3,4,4,4,4,4,4,4,4],rng)
  var heights=Maze.shuffled([2,3,3,3,3,3,3,3,3],rng)
@@ -191,12 +197,12 @@ static func snow_maze(id:int,run_seed:int)->Dictionary:
  for z in 3:
   for x in 3:
    var index=z*3+x
-   var center=Vector2i(6+x*10+x_shift,5+z*8+z_shift)
+   var center=Vector2i(Vector2(6+x*10+x_shift,5+z*8+z_shift)*Vector2(size_)/Vector2(SIZE))
    rooms.append(center)
-   var radius=Vector2i(widths[index],heights[index])
+   var radius=Vector2i(Vector2(widths[index],heights[index])*Vector2(size_)/Vector2(SIZE))
    for row in range(center.y-radius.y,center.y+radius.y+1):
     for col in range(center.x-radius.x,center.x+radius.x+1):
-     var cell=row*SIZE.x+col
+     var cell=row*size_.x+col
      bits[cell>>3]|=1<<(cell&7)
    if x<2:links.append(Vector2i(index,index+1))
    if z<2:links.append(Vector2i(index,index+3))
@@ -212,12 +218,12 @@ static func snow_maze(id:int,run_seed:int)->Dictionary:
   else:
    for i in groups.size():
     if groups[i]==last:groups[i]=first
-  Imur.carve(bits,SIZE,rooms[link.x],rooms[link.y])
- for door_cell:Vector2i in DOORS[id]:
+  Imur.carve(bits,size_,rooms[link.x],rooms[link.y])
+ for door_cell:Vector2i in doors_:
   var room=rooms[2 if door_cell.y<9 else 7]
   var bend=Vector2i(door_cell.x,room.y)
-  Imur.carve(bits,SIZE,door_cell,bend)
-  Imur.carve(bits,SIZE,bend,room)
+  Imur.carve(bits,size_,door_cell,bend)
+  Imur.carve(bits,size_,bend,room)
  var rocks:Array[Rect2i]=[]
  var islands=Maze.shuffled([0,1,3,4,5,6,8],rng)
  var footprints=Maze.shuffled([Vector2i(2,2),Vector2i(3,2),Vector2i(2,3)],rng)
@@ -227,17 +233,16 @@ static func snow_maze(id:int,run_seed:int)->Dictionary:
   rocks.append(rock)
   for z in range(rock.position.y,rock.end.y):
    for x in range(rock.position.x,rock.end.x):
-    var cell=z*SIZE.x+x
+    var cell=z*size_.x+x
     bits[cell>>3]&=255^(1<<(cell&7))
  var posts:Array[Vector2i]=[]
  for stride in [2,1]:
-  var eligible=patrol_cells(id,bits,stride)
+  var eligible=patrol_grid(bits,size_,doors_,stride)
   for cell:Vector2i in Maze.shuffled(eligible,rng):
    if cell not in posts:posts.append(cell)
-   if posts.size()==SNOW_PATROLS:break
-  if posts.size()==SNOW_PATROLS:break
+   if posts.size()==count_:break
+  if posts.size()==count_:break
  var generated={"seed":run_seed,"bits":bits,"rocks":rocks,"posts":posts}
- snow_mazes[id]=generated
  return generated
 
 static func building_door(town:int,lot_index:int=MAIN_LOT)->Vector2:
@@ -309,7 +314,8 @@ static func door(at:Vector2,target:int,side:int,caption:String)->Dictionary:
   "caption":caption,"door":true}
 
 static func patrols(id:int,run_seed:int=0)->Array[Vector2i]:
- if id in SNOW_FLOORS:return snow_maze(id,run_seed).posts
+ if Recovered.generated().owns(id):
+  var posts:Array[Vector2i]=[];posts.assign(Recovered.patrols(id,run_seed,SNOW_PATROLS));return posts
  if Recovered.owns(id):
   var posts:Array[Vector2i]=[]
   posts.assign(Recovered.patrols(id,run_seed,patrol_cells(id,legacy_floor_info(id)[2].hex_decode(),3).size()))
@@ -317,14 +323,17 @@ static func patrols(id:int,run_seed:int=0)->Array[Vector2i]:
  return patrol_cells(id,floor_info(id)[2].hex_decode(),3)
 
 static func patrol_cells(id:int,bits:PackedByteArray,stride:int)->Array[Vector2i]:
+ return patrol_grid(bits,SIZE,DOORS[id],stride)
+
+static func patrol_grid(bits:PackedByteArray,size_:Vector2i,doors_:Array,stride:int)->Array[Vector2i]:
  var result:Array[Vector2i]=[]
- for z in range(3,SIZE.y-2,stride):
-  for x in range(3,SIZE.x-2,stride):
+ for z in range(3,size_.y-2,stride):
+  for x in range(3,size_.x-2,stride):
    var cell=Vector2i(x,z)
-   if DOORS[id].any(func(entry):return Vector2(cell-entry).length_squared()<18.0):continue
-   var center=z*SIZE.x+x
+   if doors_.any(func(entry):return Vector2(cell-entry).length_squared()<18.0):continue
+   var center=z*size_.x+x
    var open=true
-   for i in [center,center-1,center+1,center-SIZE.x,center+SIZE.x]:
+   for i in [center,center-1,center+1,center-size_.x,center+size_.x]:
     if (bits[i>>3] & (1<<(i&7)))==0:
      open=false
      break

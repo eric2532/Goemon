@@ -14,7 +14,8 @@ static func project(p:Vector3)->Vector2:return Vector2((p.x-p.z)*HORIZONTAL,(p.x
 static func mesh_points(mesh:Mesh,pose:Transform3D=Transform3D.IDENTITY)->Array[Vector3]:
  var result:Array[Vector3]=[]
  for part in mesh.get_surface_count():
-  for p:Vector3 in mesh.surface_get_arrays(part)[Mesh.ARRAY_VERTEX]:result.append(pose*p)
+  var arrays:Array=mesh.get_meta("source_surface_arrays")if part==0 and mesh.has_meta("source_surface_arrays")else mesh.surface_get_arrays(part)
+  for p:Vector3 in arrays[Mesh.ARRAY_VERTEX]:result.append(pose*p)
  return result
 
 static func node_points(root:Node3D)->Array[Vector3]:
@@ -67,13 +68,23 @@ static func vertical_bounds(lines:Array[Vector2],scale_y:float)->Vector2:
 
 static func fitted(mesh:Mesh,key:String)->Mesh:
  if not enabled or not Data.FITS.has(key):return mesh
- var pose:Transform3D=Data.FITS[key];var result=ArrayMesh.new();var normal=pose.basis.inverse().transposed()
+ return transformed(mesh,Data.FITS[key])
+
+static func transformed(mesh:Mesh,pose:Transform3D)->Mesh:
+ var result=ArrayMesh.new();var normal=pose.basis.inverse().transposed()
  for part in mesh.get_surface_count():
-  var arrays=mesh.surface_get_arrays(part);var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
+  var retained=part==0 and mesh.has_meta("source_surface_arrays")
+  var arrays:Array=mesh.get_meta("source_surface_arrays").duplicate(true)if retained else mesh.surface_get_arrays(part)
+  var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
   for i in vertices.size():vertices[i]=pose*vertices[i];normals[i]=(normal*normals[i]).normalized()
   arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_NORMAL]=normals
   result.add_surface_from_arrays(mesh.surface_get_primitive_type(part),arrays);result.surface_set_material(part,mesh.surface_get_material(part))
+  if retained:result.set_meta("source_surface_arrays",Source.committed_arrays(arrays))
  return result
+
+static func native_coastal_frame()->Transform3D:
+ # The source UV builder uses .045 m/pixel; physical height uses the city camera.
+ return Transform3D(Basis.IDENTITY.scaled(Vector3(1,1.0/(VERTICAL*.045),1)),Vector3.ZERO)
 
 static func apply(root:Node3D,key:String):
  root.set_meta("source_proportion_key",key)

@@ -1,5 +1,6 @@
 """Skip the editor importer only when its source and generated inputs match."""
 from pathlib import Path
+from hashlib import sha256
 import json
 import os
 import sys
@@ -23,10 +24,13 @@ def snapshot(project, engine):
     for path in sorted((project / ".godot/imported").glob("*")):
         stat = path.stat()
         rows.append((str(path.relative_to(project)), stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns))
-    for path in [engine, project / ".godot/global_script_class_cache.cfg", project / ".godot/extension_list.cfg"]:
-        if path.exists():
-            stat = path.stat()
-            rows.append((str(path), stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns))
+    stat = engine.stat()
+    rows.append((str(engine), stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns))
+    # Godot rewrites the class list at runtime even when its contents match.
+    for name in ("global_script_class_cache.cfg", "extension_list.cfg"):
+        path = project / ".godot" / name
+        if path.is_file():
+            rows.append((str(path), sha256(path.read_bytes()).hexdigest()))
     return json.dumps(rows, separators=(",", ":"))
 
 

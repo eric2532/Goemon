@@ -32,6 +32,12 @@ static func prepare()->Mesh:
     for y in [2.6,6.0]:Houses.Village.detail(skin,Vector3(box.get_center().x+x*box.size.x,y,z),Vector3.RIGHT*side,"workshop_window",2.8)
  # A continuous roof joins the blocks above the existing walkable lane.
  roof(skin,Vector3(0,8.1,0),9.3,11.3,6.2)
+ skin.part="10003_wood"
+ for side in [-1,1]:
+  skin.box(AABB(Vector3(-9.2,8.02,side*11.30-.07),Vector3(18.4,.20,.14)))
+  skin.box(AABB(Vector3(-.11,8.1,side*11.30-.07),Vector3(.22,6.05,.14)))
+ Houses.Village.detail(skin,Vector3(0,10.4,-11.40),Vector3.LEFT,"workshop_window",2.9)
+ for z in [-8.0,8.0]:cross_gable(skin,z)
  for side in [-1,1]:
   var z=side*8.0
   skin.part="10003_wood"
@@ -49,24 +55,27 @@ static func prepare()->Mesh:
    var hi_b=Vector3(10.37,3.5+sin(b)*1.85,z+cos(b)*1.85)
    skin.quad(lo_a,hi_a,hi_b,lo_b)
   skin.part="trim";skin.box(AABB(Vector3(8.32,6.5,z-2.15),Vector3(.32,2.2,4.3)))
-  Houses.Village.detail(skin,Vector3(8.68,7.6,z),Vector3.FORWARD,"smith_sign" if side>0 else "workshop_trade_sign",4.2)
+  Houses.Village.detail(skin,Vector3(10.42,7.6,z),Vector3.FORWARD,"smith_sign" if side>0 else "workshop_trade_sign",4.2)
   skin.part="blue_roof"
   skin.quad(Vector3(10.4,5.5,z+2.2),Vector3(8.1,6.9,z+2.2),Vector3(8.1,6.9,z-2.2),Vector3(10.4,5.5,z-2.2))
  for z in [-9.0,9.0]:
   Houses.Village.detail(skin,Vector3(8.3,2.4,z),Vector3.FORWARD,"door",4.6)
  for z in [-3.4,3.4]:
   Houses.Village.detail(skin,Vector3(8.31,3.2,z),Vector3.FORWARD,"workshop_window",4.5)
+ # The reachable rear continues the confirmed timber/window rhythm without another entrance.
+ for z in [-6.0,0.0,6.0]:
+  for y in [2.6,6.0]:Houses.Village.detail(skin,Vector3(-8.31,y,z),Vector3.BACK,"workshop_window",2.8)
  # Source roof dormers are separate solid cheeks and pitched slate caps.
  for z in [-6.2,6.2]:
   for side in [-1,1]:
-   var front=side*5.9;var back=side*3.7
+   var front=side*7.7;var back=side*3.7
    skin.part="plaster"
-   skin.box(AABB(Vector3(minf(front,back),9.9,z-1.0),Vector3(absf(front-back),1.5,2.0)))
-   Houses.Village.detail(skin,Vector3(front+side*.035,10.7,z),Vector3.FORWARD*side,"workshop_window",1.9)
+   skin.box(AABB(Vector3(minf(front,back),9.4,z-1.0),Vector3(absf(front-back),3.0,2.0)))
+   Houses.Village.detail(skin,Vector3(front+side*.035,11.5,z),Vector3.FORWARD*side,"workshop_window",2.5)
    skin.part="blue_roof"
-   up_quad(skin,Vector3(front,11.3,z-1.2),Vector3(back,11.3,z-1.2),Vector3(back,12.5,z),Vector3(front,12.5,z))
-   up_quad(skin,Vector3(front,12.5,z),Vector3(back,12.5,z),Vector3(back,11.3,z+1.2),Vector3(front,11.3,z+1.2))
- chimney(skin,Vector3(-6.5,7.5,-7.8))
+   up_quad(skin,Vector3(front,12.4,z-1.2),Vector3(back,12.4,z-1.2),Vector3(back,13.7,z),Vector3(front,13.7,z))
+   up_quad(skin,Vector3(front,13.7,z),Vector3(back,13.7,z),Vector3(back,12.4,z+1.2),Vector3(front,12.4,z+1.2))
+ chimney(skin,Vector3(-6.5,7.5,7.8))
  mesh=skin.finish()
  var paint=mesh.surface_get_material(0).duplicate();paint.set_shader_parameter("original_palette",false);mesh.surface_set_material(0,paint)
  mesh=Houses.surface_mesh(mesh)
@@ -74,14 +83,33 @@ static func prepare()->Mesh:
  return mesh
 
 static func roof(skin,p:Vector3,width:float,depth:float,height:float,paint:String="blue_roof"):
- skin.part=paint
- skin.quad(p+Vector3(-width,0,depth),p+Vector3(-width,0,-depth),p+Vector3(0,height,-depth),p+Vector3(0,height,depth))
- skin.quad(p+Vector3(0,height,depth),p+Vector3(0,height,-depth),p+Vector3(width,0,-depth),p+Vector3(width,0,depth))
+ Houses.curved_roof(skin,[Vector2(p.x-width,p.y),Vector2(p.x,p.y+height),Vector2(p.x+width,p.y)],p.z-depth,p.z+depth,paint,true)
  skin.part="plaster"
  for side in [-1,1]:
   var a=p+Vector3(-width,0,side*depth);var b=p+Vector3(0,height,side*depth);var c=p+Vector3(width,0,side*depth)
   if side>0:skin.quad(a,b,c,c)
   else:skin.quad(c,b,a,a)
+
+static func cross_gable(skin,z:float):
+ # The two source door frontages rise into separate curved gables, not small dormers.
+ var contour=[Vector2(-2.65,8.4),Vector2(-2.35,8.8),Vector2(-1.72,10.0),Vector2(-.9,11.9),Vector2(0,12.6),Vector2(.9,11.9),Vector2(1.72,10.0),Vector2(2.35,8.8),Vector2(2.65,8.4)]
+ skin.part="plaster";skin.box(AABB(Vector3(8.24,6.5,z-2.3),Vector3(2.12,1.85,4.6)))
+ for i in contour.size()-1:
+  var a:Vector2=contour[i];var b:Vector2=contour[i+1]
+  var first=Vector3(10.4,a.y,z+a.x);var next=Vector3(10.4,b.y,z+b.x)
+  var back=Vector3(2.7,a.y+1.5,z+a.x);var back_next=Vector3(2.7,b.y+1.5,z+b.x)
+  skin.part="blue_roof";skin.quad(next,back_next,back,first)
+  var under=Vector3.DOWN*.13
+  skin.quad(first+under,back+under,back_next+under,next+under)
+  if i==0:skin.quad(first+under,first,back,back+under)
+  if i==contour.size()-2:skin.quad(back_next+under,back_next,next,next+under)
+  skin.part="10003_wood";skin.quad(first-Vector3.UP*.17,next-Vector3.UP*.17,next,first)
+  skin.part="plaster"
+  var low=Vector3(10.36,8.3,z)
+  var points=[first-Vector3.RIGHT*.04,next-Vector3.RIGHT*.04,low]
+  if (points[2]-points[0]).cross(points[1]-points[0]).x<0:points.reverse()
+  skin.quad(points[0],points[1],points[2],points[2])
+ Houses.Village.detail(skin,Vector3(10.405,10.35,z),Vector3.FORWARD,"workshop_window",2.5)
 
 static func chimney(skin,p:Vector3):
  skin.part="stone"

@@ -3,6 +3,7 @@ const REVIEW="res://build/Other Files/Asset Toolkit/Falan Gate Coverage/"
 var checks=0
 
 func _initialize():
+ DirAccess.make_dir_recursive_absolute("/tmp/freyja-interiors")
  var doc=Doc.new(false)
  var error=doc.read_file(Doc.MAP_FOLDER.path_join(Doc.saved_filename("Freyja and Falan - Test")))
  if not error.is_empty():printerr("FALAN_FAIL Saved map load: ",error);quit(1);return
@@ -26,7 +27,13 @@ func shot(name_:String,eye:Vector3,target:Vector3,fov:float,refresh_army:bool=fa
 
 func check_east_il_road():
  game.tuning.invincible=true
+ if "--east-south-trail" in OS.get_cmdline_user_args():
+  await check_east_south_trail()
+  print("FALAN_EAST_SOUTH_TRAIL_RESULT checks=",checks," failures=",errors)
+  return
  var saved=JSON.stringify(get_meta("falan_venture"))
+ var scenery=game.world.find_child("FalanCityScenery",true,false)
+ var city_ground=game.model.terrain.collision()
  var gates=["south_gate"] if "--south-only" in OS.get_cmdline_user_args() else ["freyja","east_gate","south_gate"]
  for area in gates:
   print("FALAN_GATE_COVERAGE_AREA ",area)
@@ -35,6 +42,10 @@ func check_east_il_road():
   await position_at(Tour.Frontier.to_city(area,Vector2(3,edge+1)))
   check(Tour.area(game.model)==area,"Walk out through "+area)
   if Tour.area(game.model)!=area:return
+  if "--baseline" not in OS.get_cmdline_user_args():
+   var vista=game.world.find_child("FalanGateDistrict",true,false)
+   check(is_instance_valid(scenery) and is_instance_valid(vista) and vista.is_ancestor_of(scenery),"The gate uses the same city scenery as the playable city")
+   check(is_instance_valid(scenery) and not scenery.find_children("*","StaticBody3D",true,false).any(func(body):return body.has_meta("map_scenery_cell")),"Vista collision stays outside the map editor's scenery picks")
   if "--baseline" not in OS.get_cmdline_user_args():check_defenses(area)
   var scale_:float=game.model.falan_scale
   var label="west" if area=="freyja" else "east" if area=="east_gate" else "south"
@@ -45,9 +56,98 @@ func check_east_il_road():
   await position_at(Vector2(3,edge+1))
   await position_at(Vector2(3,edge-1))
   check(Tour.area(game.model)=="city","Walk back through "+area)
+  if "--baseline" not in OS.get_cmdline_user_args() and Tour.area(game.model)=="city":
+   check(is_instance_valid(scenery) and game.world.forest_root.is_ancestor_of(scenery),"The original scenery returns to the playable city")
+   check(is_instance_valid(scenery) and scenery.find_children("*","StaticBody3D",true,false).any(func(body):return body.has_meta("map_scenery_cell")),"Returning restores the city's editable scenery anchors")
+   check(is_same(game.model.terrain.collision(),city_ground),"An immediate round trip reuses the same city terrain collision resource")
  check(JSON.stringify(get_meta("falan_venture"))==saved,"Gate coverage preserves the saved adventure")
  if "--baseline" not in OS.get_cmdline_user_args():await check_connections()
  print("FALAN_GATE_COVERAGE_RESULT checks=",checks," failures=",errors)
+
+func check_east_south_trail():
+ var regions=Tour.Regions
+ var frontier=Tour.Frontier
+ var source=regions.frame("east_gate")
+ var edge=Vector2(regions.GATE_TRAIL_CENTER+regions.GATE_TRAIL_WIDTH*.5,regions.GATE_TRAIL.east_gate.edge)
+ var inverse=source.inverse()
+ var across=regions.crossings("east_gate",inverse*(edge-Vector2.ONE),inverse*(edge+Vector2.ONE))
+ check(across.get("area")=="south_gate","A diagonal crossing uses the point on the trail boundary")
+ edge.x+=2.0
+ check(regions.crossings("east_gate",inverse*(edge-Vector2.ONE),inverse*(edge+Vector2.ONE)).is_empty(),"The surrounding field does not trigger trail travel")
+ var east_start=frontier.to_city("east_gate",Vector2(3,frontier.OUTER_EDGE.east_gate-24))
+ await position_at(east_start)
+ await walk_toward(frontier.to_city("east_gate",Vector2(3,frontier.OUTER_EDGE.east_gate+6)),"city")
+ check(Tour.area(game.model)=="east_gate","Walking out of Falan reaches East Gate (reached %s in %s)" % [map_position(),Tour.area(game.model)])
+ if errors:return
+ check_trail_markers("east_gate","South Gate")
+ var east_path=[Vector2(-3,195),Vector2(-9,207),Vector2(-30,231),Vector2(-54,249),Vector2(-66,249),
+  Vector2(-87,285),Vector2(-99,288),Vector2(-123,282)]
+ if not await walk_trail(east_path,"east_gate"):return
+ await trail_capture("east-toward-south",Vector2(-159,276))
+ if not await walk_trail([Vector2(-135,276)],"east_gate"):return
+ await walk_toward(Vector2(-159,276),"east_gate")
+ check(Tour.area(game.model)=="south_gate","East trail enters the South Gate exterior on foot")
+ if errors:return
+ check_trail_markers("south_gate","East Gate")
+ var south_arrival:Vector2=regions.frame("south_gate")*map_position()
+ check(absf(south_arrival.y-regions.GATE_TRAIL.east_gate.edge)<3.0,"South arrival preserves the source trail position")
+ check(game.player.facing.dot(Vector3.BACK)>.85 and cos(game.camera_rig.yaw)<-.85,"South arrival carries the player and camera along the trail")
+ var south_path=[Vector2(252,156),Vector2(243,171),Vector2(219,171),Vector2(195,165),Vector2(183,156),
+  Vector2(153,153),Vector2(135,159),Vector2(132,173),Vector2(123,187),Vector2(108,198),Vector2(96,209),Vector2(78,217),Vector2(51,210),
+  Vector2(33,199),Vector2(3,177)]
+ if not await walk_trail(south_path,"south_gate"):return
+ south_path.reverse()
+ if not await walk_trail(south_path,"south_gate"):return
+ await trail_capture("south-toward-east",Vector2(261,123))
+ if not await walk_trail([Vector2(260,142)],"south_gate"):return
+ await walk_toward(Vector2(261,123),"south_gate")
+ check(Tour.area(game.model)=="east_gate","South trail returns to the East Gate exterior on foot")
+ if errors:return
+ var east_arrival:Vector2=regions.frame("east_gate")*map_position()
+ check(absf(east_arrival.y-regions.GATE_TRAIL.south_gate.edge)<3.0,"East arrival preserves the source trail position")
+ check(game.player.facing.dot(Vector3.RIGHT)>.85 and sin(game.camera_rig.yaw)<-.85,"East arrival carries the player and camera along the trail")
+ east_path.reverse()
+ await walk_trail(east_path,"east_gate")
+
+func walk_trail(points:Array,area:String)->bool:
+ for point:Vector2 in points:
+  await walk_toward(point,area)
+  var reached=Tour.area(game.model)==area and map_position().distance_to(point)<1.5
+  check(reached,"Walk the %s trail to %s (reached %s)" % [area,point,map_position()])
+  if not reached:return false
+ return true
+
+func walk_toward(point:Vector2,area:String):
+ for frame in 300:
+  if Tour.area(game.model)!=area or map_position().distance_to(point)<1.25:break
+  var direction=point-map_position()
+  game.camera_rig.yaw=atan2(-direction.x,-direction.y)
+  Input.action_press("move_forward")
+  Input.action_press("sprint")
+  await physics_frame
+ Input.action_release("sprint")
+ Input.action_release("move_forward")
+
+func check_trail_markers(area:String,destination:String):
+ var caption="Trail to "+destination
+ var signs=game.world.find_children("GateTrailSign*","Label3D",true,false)
+ check(signs.size()==Tour.Regions.GATE_TRAIL[area].signs.size() and signs.all(func(sign_):return sign_.text==caption),"World signs point toward "+destination)
+ var chart=preload("res://scripts/forest/forest_falan_chart.gd").new()
+ chart.refresh(game.model)
+ check(chart.pins.any(func(pin):return pin.label==caption),"Area chart marks the trail to "+destination)
+
+func trail_capture(filename:String,target:Vector2):
+ if DisplayServer.get_name()=="headless":return
+ var direction=target-map_position()
+ game.camera_rig.yaw=atan2(-direction.x,-direction.y)
+ game.camera_rig.reset_follow()
+ game.camera_rig.set_process(true)
+ for frame in 10:await process_frame
+ await RenderingServer.frame_post_draw
+ var folder=REVIEW+"East–South Trail/"
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
+ check(root.get_texture().get_image().save_png(folder+filename+".png")==OK,"Capture the trail from the gameplay camera")
+ game.camera_rig.set_process(false)
 
 func check_connections():
  var frontier=Tour.Frontier
@@ -149,7 +249,7 @@ func check_defenses(area:String):
    house_count+=node.multimesh.instance_count
    check(is_same(node.multimesh.mesh,game.world.model.CityArchitecture.prepare(node.get_meta("falan_architecture_graphic"))),"Exterior houses reuse the current source city meshes")
   if str(node.name).begins_with("RecoveredFalanPlanters"):planters+=node.multimesh.instance_count
- check(house_count==72,"All 72 recovered house stations remain visible from "+area)
+ check(house_count==73,"All 73 recovered house stations remain visible from "+area)
  check(planters==226,"All 226 original planters remain in the exterior city view")
  check(district.find_children("FalanCivicFacade_*","Node3D",true,false).size()==9,"All nine civic buildings remain in the complete city view")
  check(district.find_child("ArchivedFalanGardens",true,false)!=null,"The original city gardens are present")

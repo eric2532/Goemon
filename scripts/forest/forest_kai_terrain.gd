@@ -10,6 +10,8 @@ var width=0
 var spacing=3.0
 var heights=PackedFloat32Array()
 var covered=PackedByteArray()
+var diagonal_flips=PackedByteArray()
+var diagonal_mask_valid=true
 var bridges=PackedByteArray()
 var flat_corridor_cache:Dictionary={}
 var disk_region_cache:Dictionary={}
@@ -20,40 +22,61 @@ func supports_planar_certificates()->bool:return false
 func configure(source:Array):
  flat_corridor_cache.clear();disk_region_cache.clear();cliff_cache.clear();building_ground_cache.clear()
  super.configure(source)
+ diagonal_flips=PackedByteArray();diagonal_mask_valid=true
  var surface=terrain_field()
  if surface==null:return
  width=surface.get_meta("width");spacing=surface.get_meta("spacing");heights=surface.get_meta("heights");covered=surface.get_meta("covered");bridges=surface.get_meta("bridges")
+ var flips=surface.get_meta("diagonal_flips",PackedByteArray())
+ if flips==null:flips=PackedByteArray()
+ if not flips is PackedByteArray:
+  diagonal_mask_valid=false;width=0;push_error("Invalid terrain diagonal mask type");return
+ diagonal_flips=flips
+ if not diagonal_flips.is_empty():
+  if width<2 or diagonal_flips.size()!=width*width:
+   diagonal_mask_valid=false;width=0;push_error("Incomplete terrain diagonal mask");return
+  for i in diagonal_flips.size():
+   if diagonal_flips[i]>1 or (diagonal_flips[i]!=0 and (i%width==width-1 or i/width==width-1)):
+    diagonal_mask_valid=false;width=0;push_error("Invalid terrain diagonal mask");return
 func terrain_field()->Resource:
  if field==null and ResourceLoader.exists(FIELD_PATH):field=load(FIELD_PATH)
  return field
+func native_diagonal_flips()->PackedByteArray:
+ return diagonal_flips if diagonal_mask_valid else PackedByteArray([2])
 func bridge_at(x:float,z:float)->bool:
  var p=coordinate(x,z)
  return width>0 and bridges[clampi(roundi(p.y),0,width-1)*width+clampi(roundi(p.x),0,width-1)]!=0
 func coordinate(x:float,z:float)->Vector2:return Vector2(x+240,z+240)/spacing
 func contains(x:float,z:float)->bool:
+ if not diagonal_mask_valid:return false
  if width<2:return false
  var p=coordinate(x,z);var ix=floori(p.x);var iz=floori(p.y)
  if ix<0 or iz<0 or ix>=width-1 or iz>=width-1:return false
  var offset=iz*width+ix
- return covered[offset]!=0 and covered[offset+1]!=0 and covered[offset+width]!=0 and covered[offset+width+1]!=0
+ return (covered[offset]!=0 and covered[offset+1]!=0 and covered[offset+width]!=0 and covered[offset+width+1]!=0) or not is_nan(super.piece_height(x,z))
 func height(x:float,z:float)->float:
+ if not diagonal_mask_valid:return NAN
  if width<2:return 0
  var p=coordinate(x,z);var ix=clampi(floori(p.x),0,width-2);var iz=clampi(floori(p.y),0,width-2)
  var u=clampf(p.x-ix,0,1);var v=clampf(p.y-iz,0,1);var at=iz*width+ix
  var h00=heights[at];var h10=heights[at+1];var h01=heights[at+width];var h11=heights[at+width+1]
- var result=h00+(h10-h00)*u+(h01-h00)*v if u+v<=1 else h11+(h01-h11)*(1-u)+(h10-h11)*(1-v)
+ var result:float
+ if not diagonal_flips.is_empty() and diagonal_flips[at]!=0:result=h00+(h10-h00)*u+(h11-h10)*v if u>=v else h00+(h11-h01)*u+(h01-h00)*v
+ else:result=h00+(h10-h00)*u+(h01-h00)*v if u+v<=1 else h11+(h01-h11)*(1-u)+(h10-h11)*(1-v)
  return maxf(result,super.height(x,z)) if not pieces.is_empty() else result
 func _covered_height(x:float,z:float)->float:
+ if not diagonal_mask_valid:return NAN
  # Preserve native Vector2 float32 coordinates and triangle arithmetic. A
  # covered query needs one coordinate/index calculation, shared by both tests.
  if width<2:return NAN
  var p=coordinate(x,z);var ix=floori(p.x);var iz=floori(p.y)
  if ix<0 or iz<0 or ix>=width-1 or iz>=width-1:return NAN
  var at=iz*width+ix
- if covered[at]==0 or covered[at+1]==0 or covered[at+width]==0 or covered[at+width+1]==0:return NAN
+ if covered[at]==0 or covered[at+1]==0 or covered[at+width]==0 or covered[at+width+1]==0:return super.piece_height(x,z)
  var u=clampf(p.x-ix,0,1);var v=clampf(p.y-iz,0,1)
  var h00=heights[at];var h10=heights[at+1];var h01=heights[at+width];var h11=heights[at+width+1]
- var result=h00+(h10-h00)*u+(h01-h00)*v if u+v<=1 else h11+(h01-h11)*(1-u)+(h10-h11)*(1-v)
+ var result:float
+ if not diagonal_flips.is_empty() and diagonal_flips[at]!=0:result=h00+(h10-h00)*u+(h11-h10)*v if u>=v else h00+(h11-h01)*u+(h01-h00)*v
+ else:result=h00+(h10-h00)*u+(h01-h00)*v if u+v<=1 else h11+(h01-h11)*(1-u)+(h10-h11)*(1-v)
  return maxf(result,super.height(x,z)) if not pieces.is_empty() else result
 func disk_clear(point:Vector3,radius:float)->bool:
  # Every native interpolation lies within its triangle vertex range. A
@@ -156,6 +179,7 @@ func _building_ground_info(cells:Array)->Dictionary:
  building_ground_cache[key]=result
  return result
 func _building_ground_result(first:Vector2i,last:Vector2i)->Dictionary:
+ if not diagonal_mask_valid:return {"error":"Needs solid ground under the whole building"}
  # Check continuous support and local steepness, regardless of the total rise
  # under a long building. A foundation can follow a hill, but cannot bridge a
  # hole or turn a cliff face into usable ground.
@@ -183,17 +207,30 @@ func _building_ground_result(first:Vector2i,last:Vector2i)->Dictionary:
    var h00=heights[index];var h10=heights[index+1];var h01=heights[index+width];var h11=heights[index+width+1]
    var u0=clampf(low.x-x,0.,1.);var v0=clampf(low.y-z,0.,1.)
    var u1=clampf(high.x-x,0.,1.);var v1=clampf(high.y-z,0.,1.)
-   if check_steepness and u0+v0<1. and Vector2(h10-h00,h01-h00).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
-   if check_steepness and u1+v1>1. and Vector2(h11-h01,h11-h10).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
+   var flipped=not diagonal_flips.is_empty() and diagonal_flips[index]!=0
+   if flipped:
+    if check_steepness and u1>v0 and Vector2(h10-h00,h11-h10).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
+    if check_steepness and u0<v1 and Vector2(h11-h01,h01-h00).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
+   else:
+    if check_steepness and u0+v0<1. and Vector2(h10-h00,h01-h00).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
+    if check_steepness and u1+v1>1. and Vector2(h11-h01,h11-h10).length_squared()>rise_limit_squared:return {"error":"Keep the building clear of steep cliff faces"}
    # Linear triangles attain their extrema at the clipped footprint corners
    # or where their diagonal crosses its edges. Do not lift the building to
    # a higher terrain vertex that lies outside its real footprint.
    var samples=[Vector2(u0,v0),Vector2(u1,v0),Vector2(u0,v1),Vector2(u1,v1)]
-   for u in [u0,u1]:
-    if 1.-u>=v0 and 1.-u<=v1:samples.append(Vector2(u,1.-u))
-   for v in [v0,v1]:
-    if 1.-v>=u0 and 1.-v<=u1:samples.append(Vector2(1.-v,v))
+   if flipped:
+    for u in [u0,u1]:
+     if u>=v0 and u<=v1:samples.append(Vector2(u,u))
+    for v in [v0,v1]:
+     if v>=u0 and v<=u1:samples.append(Vector2(v,v))
+   else:
+    for u in [u0,u1]:
+     if 1.-u>=v0 and 1.-u<=v1:samples.append(Vector2(u,1.-u))
+    for v in [v0,v1]:
+     if 1.-v>=u0 and 1.-v<=u1:samples.append(Vector2(1.-v,v))
    for p in samples:
-    var h=h00+(h10-h00)*p.x+(h01-h00)*p.y if p.x+p.y<=1. else h11+(h01-h11)*(1.-p.x)+(h10-h11)*(1.-p.y)
+    var h:float
+    if flipped:h=h00+(h10-h00)*p.x+(h11-h10)*p.y if p.x>=p.y else h00+(h11-h01)*p.x+(h01-h00)*p.y
+    else:h=h00+(h10-h00)*p.x+(h01-h00)*p.y if p.x+p.y<=1. else h11+(h01-h11)*(1.-p.x)+(h10-h11)*(1.-p.y)
     minimum=minf(minimum,h);maximum=maxf(maximum,h)
  return {"error":"","minimum":minimum,"maximum":maximum}

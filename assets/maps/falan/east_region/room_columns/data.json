@@ -1,0 +1,371 @@
+{
+  "schema": 1,
+  "graphics": {
+    "1235141": {
+      "style": "pale",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "67488877e718699e1c54976e1bb4e791dd3e00c41011031747302a34f0f46f45",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3527
+    },
+    "1235142": {
+      "style": "pale",
+      "round": false,
+      "size": [
+        76,
+        227
+      ],
+      "origin": [
+        -41,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "e7bd14fe404f5d4b585248a0cbc2d6c3f1f5ac863976d6ae36eb45c71ca8ba7f",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3528
+    },
+    "1235143": {
+      "style": "pale",
+      "round": false,
+      "size": [
+        72,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "fcef01b10d1c72149ee43501180494addb6f056a386b9f0aae89444f41723028",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3529
+    },
+    "1235144": {
+      "style": "pale",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "1d76ac6fef95c1cadad093d5863eebfa5ecb4063a8717d07e1e4dc5177da8c6b",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3530
+    },
+    "1235145": {
+      "style": "pale",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "55eba48dcb04f66e8c1ab6fd3f5550fa466741185f43a6eeb4c5ef4130ec726a",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3531
+    },
+    "1235151": {
+      "style": "red",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "bb76d77fdcdf629f13fcf6b2f125716c125fa8ab1baeb9a72bd286aab4b0df5b",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3537
+    },
+    "1235152": {
+      "style": "red",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "6aeb5608900428f1e106e47bd242f65bdac9df7f8d997dae6870d6fdc41b2695",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3538
+    },
+    "1235153": {
+      "style": "red",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "49731fc7c3596fb60874fd875d6f7046201e114015b79f6e479ec0b451972be3",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3539
+    },
+    "1235154": {
+      "style": "round_red",
+      "round": true,
+      "size": [
+        52,
+        221
+      ],
+      "origin": [
+        -24,
+        -199
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "edd10884bba8420d5c9f8691ffd546b7904c3145affa1fb702737856ae08329c",
+      "height": 7.875,
+      "source_pack": "ex",
+      "source_row": 3540
+    },
+    "1235155": {
+      "style": "round_gold",
+      "round": true,
+      "size": [
+        52,
+        220
+      ],
+      "origin": [
+        -24,
+        -199
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "7f8c11c2bfa2bf9068b6420caa35ffe4f4d9d178c59dc13d95fedc55ab846f5d",
+      "height": 7.875,
+      "source_pack": "ex",
+      "source_row": 3541
+    },
+    "1235156": {
+      "style": "round_blue",
+      "round": true,
+      "size": [
+        56,
+        219
+      ],
+      "origin": [
+        -24,
+        -199
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "f334f4fb72edfdd0bcdaeb8e3abc53474906aab6cbafdfcae4dc4a7e225332f1",
+      "height": 7.875,
+      "source_pack": "ex",
+      "source_row": 3542
+    },
+    "1235160": {
+      "style": "dark",
+      "round": false,
+      "size": [
+        68,
+        228
+      ],
+      "origin": [
+        -33,
+        -205
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "94a1724c0e910dd6955a7a6ca04ac4de93d387c66a555165a7737f1529ca0237",
+      "height": 8.145,
+      "source_pack": "ex",
+      "source_row": 3546
+    },
+    "1235183": {
+      "style": "blue",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "01822a737fe26faeff97ec0a10c250120bf4b85f5884f83d852d61eabb4a1552",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3569
+    },
+    "1235184": {
+      "style": "blue",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "07c75d89ecc48b0c6af2f81d015355bc0d7a657cdee764f225e02b1b3978458f",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3570
+    },
+    "1235185": {
+      "style": "blue",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "68d34fc39c6949958e72d5a07d7a02abbfb316cbf45fa05edec0c69bfe94641f",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3571
+    },
+    "1235186": {
+      "style": "green",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "a59576c70dc46f840a9cdf2e5b6ff114b7ad1aeb46c4729f9ff585afb3821a82",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3572
+    },
+    "1235187": {
+      "style": "green",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "96847b4506d476904d16a3218ed58315d2bc912f40ab66629a8928a9ea50803f",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3573
+    },
+    "1235188": {
+      "style": "green",
+      "round": false,
+      "size": [
+        64,
+        227
+      ],
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "abdcaf9023ceb82b9b8b809b9f3fbeca74694ebe5d461d444e3a88c3febb4d53",
+      "height": 8.1,
+      "source_pack": "ex",
+      "source_row": 3574
+    }
+  },
+  "scope": "Exact18 native East object-layer room columns; original placements/navigation/events unchanged.",
+  "reuse": "forest_east_fallback_families.gd::profile and shared coastal ring/quad primitives.",
+  "inferred": [
+    "Closed rear faces continue independently sampled native shaft/cap paint at fixed world scale.",
+    "Hidden column section, small moulding bevels and full round-column circumference are reconstructed from native front/side silhouettes."
+  ]
+}

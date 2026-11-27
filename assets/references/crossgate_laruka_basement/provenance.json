@@ -1,0 +1,51 @@
+{
+  "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+  "files": [
+    {
+      "map": 2306,
+      "file": "02306_syokuryo",
+      "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/02306_syokuryo",
+      "sha256": "cb029b1c08fcfa56419a478523e0d247bcbab6281cc55636ffb18de3442b2d33",
+      "size": [
+        20,
+        20
+      ],
+      "original_title": "食品店",
+      "client_comparison": {
+        "same_dimensions": true,
+        "same_ground": true,
+        "same_nonzero_objects": true,
+        "different_object_cells": 0
+      }
+    },
+    {
+      "map": 2303,
+      "file": "02303_tikaroom",
+      "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/02303_tikaroom",
+      "sha256": "ae5865abc5c14d7b01e1e1c7d6b8b9c63a3b543b779e583b677550b73effeb4b",
+      "size": [
+        50,
+        50
+      ],
+      "original_title": "地下工房",
+      "client_comparison": {
+        "same_dimensions": true,
+        "same_ground": true,
+        "same_nonzero_objects": true,
+        "different_object_cells": 90
+      }
+    },
+    {
+      "map": 2307,
+      "file": "02307_sozai",
+      "url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/02307_sozai",
+      "sha256": "473b546da2d248426505c49f8a4619f9a55bd05a5ec9497cc78780872455d6aa",
+      "size": [
+        20,
+        20
+      ],
+      "original_title": "原料店"
+    }
+  ],
+  "scope": "2307 fills an absent client cache; 2306 and 2303 are comparison references only. Client maps take precedence where present."
+}

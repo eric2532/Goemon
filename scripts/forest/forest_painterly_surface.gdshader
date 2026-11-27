@@ -1,5 +1,6 @@
 shader_type spatial;
 #include "res://scripts/forest/forest_archive_palette.gdshaderinc"
+#include "res://scripts/forest/forest_route_finish.gdshaderinc"
 render_mode cull_back;
 uniform vec4 base_color : source_color = vec4(.4,.25,.12,1);
 uniform vec3 grain_axis = vec3(0,1,0);
@@ -39,6 +40,7 @@ uniform bool alpha_cutout = false;
 uniform bool cave_floor = false;
 uniform bool inlay_carving = false;
 uniform bool original_palette = false;
+uniform bool use_brush_finish = true;
 uniform float alpha_threshold = .5;
 uniform float roof_cutaway_height = 0.0;
 uniform vec4 emission_color : source_color = vec4(0.0);
@@ -167,7 +169,7 @@ void fragment(){
  vec2 plane=normal.y>max(normal.x,normal.z) ? world_point.xz : (normal.x>normal.z ? world_point.zy : world_point.xy);
  float brush=dot(texture(brush_texture,plane/6.0).rgb,vec3(.2126,.7152,.0722));
  float stroke=floor(smoothstep(.025,.28,brush)*5.0)/5.0;
- color*=.80+stroke*.38;
+ if(use_brush_finish)color*=.80+stroke*.38;
  float along=dot(local_point,grain_axis);
  vec3 across=local_point-grain_axis*along;
  if(surface_kind<.5 || (surface_kind>3.5 && surface_kind<4.5)){
@@ -192,7 +194,7 @@ void fragment(){
   color*=.86+hash(object_origin.xz)*.26;
  }else if(surface_kind>4.5 && surface_kind<5.5){
   // Keep shrine markings and vertex colors; add a restrained painted finish.
-  color*=.97+stroke*.07;
+  if(use_brush_finish)color*=.97+stroke*.07;
  }
  if(cave_floor){
   float grit=dot(texture(brush_texture,world_point.xz*.74).rgb,vec3(.2126,.7152,.0722));
@@ -211,5 +213,12 @@ void fragment(){
  if(inlay_carving){color*=mix(1.0,.24,COLOR.r);AO=1.0-COLOR.r*.8;}
  ALBEDO=original_palette ? vec3(0.0) : color;
  EMISSION=original_palette ? archive_color(tex.rgb) : color*.10+emission_color.rgb*emission_strength;
+ float finish=route_weight(world_point);
+ if(route_preserve_ink)finish*=smoothstep(.16,.35,dot(tex.rgb,vec3(.299,.587,.114)));
+ if(finish>0.0){
+  vec3 paint=route_tint*(.94+.06*sin(world_point.x*.13+world_point.z*.17));
+  if(original_palette)EMISSION=mix(EMISSION,archive_color(paint),finish);
+  else ALBEDO=mix(ALBEDO,paint,finish);
+ }
  ROUGHNESS=surface_kind>5.5 ? .65 : .96;SPECULAR=original_palette ? 0.0 : .18;
 }

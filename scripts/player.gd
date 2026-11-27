@@ -16,6 +16,7 @@ var auto_lock_had_target=false
 var character_id=1
 var character_models: Dictionary={}
 var character_abilities: Dictionary={}
+var warm_legacy_roster=true
 var musashi: MusashiCombat
 var body_shape: CollisionShape3D
 var spell_loadout: Node
@@ -88,7 +89,6 @@ var wall_jump_normal=Vector3.ZERO
 var wall_jump_origin=Vector3.ZERO
 var wall_jump_grace=0.0
 var wall_jump_recovery=0.0
-var trail_time=0.0
 const FOOTSTEP_INTERVAL=.30
 var foot_time=0.0
 var last_foot_events=0
@@ -133,12 +133,12 @@ var attack_speed_stacks=0
 var elemental_orbs={"ice":0,"fire":0}
 var powerups={"damage":0.0,"range":0.0,"attack_speed":0.0}
 const FOOD_BUFF_SECONDS=600.0
-const FOOD_MULTIPLIERS={"damage_mult":1.3,"max_hp":1.3,"attack_speed":1.2,"movement_speed":1.2}
+const FOOD_MULTIPLIERS={"damage_mult":1.3,"max_hp":1.3,"attack_speed":1.2,"movement_speed":1.2,"jelly_damage":1.5,"jelly_magic":1.5,"jelly_speed":1.5}
 const FOOD_DEFENSE_PER_STACK=20.0
-var food_buffs={"damage_mult":0.0,"max_hp":0.0,"attack_speed":0.0,"movement_speed":0.0,"defense":0.0}
+var food_buffs={"damage_mult":0.0,"max_hp":0.0,"attack_speed":0.0,"movement_speed":0.0,"defense":0.0,"jelly_damage":0.0,"jelly_magic":0.0,"jelly_speed":0.0}
 var double_edge_left=0.0
 var double_edge_penalty=0.0
-var food_buff_stacks={"damage_mult":0,"max_hp":0,"attack_speed":0,"movement_speed":0,"defense":0}
+var food_buff_stacks={"damage_mult":0,"max_hp":0,"attack_speed":0,"movement_speed":0,"defense":0,"jelly_damage":0,"jelly_magic":0,"jelly_speed":0}
 var smoke_mode=false
 var defend_held=false
 var guard_reply_left=0.0
@@ -196,10 +196,11 @@ func _ready():
 	max_hp=combat_tuning("max_hp")*progression.health_multiplier()*(1.0+.1*run_upgrades.vitality)
 	if character_id==33 and active_ability!=null and active_ability.demon:max_hp+=500
 	hp=max_hp
-	# Load registered visuals during startup so selection does not load a GLB mid-fight.
-	for id in ROSTER:
-		if id>=20 or (ai_controlled and id in [18,19]):continue
-		ensure_character(id)
+	# The older game modes can switch directly to these fighters during combat.
+	if warm_legacy_roster:
+		for id in ROSTER:
+			if id>=20 or (ai_controlled and id in [18,19]):continue
+			ensure_character(id)
 
 func _setup_initial_model():
 	model=ROSTER[1].model.new()
@@ -218,7 +219,11 @@ static func with_crossgate_fighters(entries:Dictionary)->Dictionary:
 
 func _notification(what:int):
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(game) and is_instance_valid(model):
-		cancel_charge(true);reset_auto_attack()
+		if combined_power_busy():
+			primary_down=false;active_ability.primary_hold_target=null
+			active_ability.combined_queued=false;active_ability.combined_queue_target=null
+		else:cancel_charge(true)
+		reset_auto_attack()
 
 func _input(event):
 	if ai_controlled:return
@@ -234,6 +239,9 @@ func _input(event):
 func _unhandled_input(event):
 	if ai_controlled:return
 	if not game.playing or game.paused or game.transitioning or hp<=0: return
+	if combined_power_busy():
+		if event.is_action_pressed("light_attack") and not event.is_echo():active_ability.queue_combined_primary()
+		get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("heavy_attack") and RogueRoster.is_crossgate_fighter(character_id) and game.has_method("issue_hound_order") and game.model.phase=="wave":
 		game.issue_hound_order(game.army_runtime.HoundOrder.ATTACK)
 		get_viewport().set_input_as_handled();return
@@ -541,8 +549,17 @@ func take_hit(amount: float, direction: Vector3, projectile: bool=false):
 func crossgate_combo_protected()->bool:
 	return RogueRoster.is_crossgate_fighter(character_id) and active_ability.combo_protected()
 
+func combined_power_busy()->bool:
+	return not ai_controlled and game.has_method("issue_hound_order") and is_instance_valid(game.army_runtime) and game.army_runtime.combined_committed
+
+func combined_move_requested()->bool:
+	return not ai_controlled and not Input.get_vector("move_left","move_right","move_forward","move_back").is_zero_approx()
+
+func break_combined_recovery():
+	if combined_power_busy() and game.army_runtime.combined_contacted and combined_move_requested():game.army_runtime.finish_combined_power(true)
+
 func shin_cast_planted()->bool:
-	return RogueRoster.is_crossgate_fighter(character_id) and active_ability.shin_cast_planted()
+	return combined_power_busy() or (RogueRoster.is_crossgate_fighter(character_id) and active_ability.shin_cast_planted())
 
 func crossgate_guarding()->bool:
 	return defend_held and not ai_controlled and RogueRoster.is_crossgate_fighter(character_id) and game.playing and not game.paused and not game.transitioning and hp>0 and is_on_floor() and dodge_time<=0 and jump_buffer<=0 and jump_windup<=0 and combat_hold_left<=0 and attack_left<=0 and active_ability.mode.is_empty() and spell_loadout.current==null
@@ -574,7 +591,7 @@ func take_hit_from(amount:float,direction:Vector3,projectile:bool,source_id:int,
 		if not travel.is_zero_approx():facing=-travel.normalized()
 		if not guard_break:amount*=.25
 	var defense_factor=1.0-double_edge_penalty if double_edge_left>0 else 1.0
-	amount*=team_progression.stat_incoming_multiplier(food_defense(),defense_factor,magical) if uses_level_stats() else 100.0/(100.0+food_defense()*defense_factor)
+	amount*=team_progression.stat_incoming_multiplier(extra_defense(magical),defense_factor,magical) if uses_level_stats() else 100.0/(100.0+extra_defense(magical)*defense_factor)
 	var remaining_hp=0.0 if fatal else maxf(0,hp-amount*game.tuning.enemy_damage)
 	var retaliating=not counter and not guard_break and RogueRoster.is_crossgate_fighter(character_id) and remaining_hp>0 and remaining_hp<previous_hp and active_ability.counter_after_hit(direction,source_id)
 	if not retaliating and not blocked:
@@ -685,7 +702,9 @@ func _physics_process(delta):
 	if game.rogue_battle_mode:rogue_controls.tick(delta)
 	if character_id==1 and chain_pipe_combat.active:chain_pipe_combat.tick(delta)
 	if active_ability!=null:
+		break_combined_recovery()
 		active_ability.tick(delta,false)
+		break_combined_recovery()
 		if active_ability.blocks_movement():return
 	if shin_cast_planted():
 		jump_buffer=0;jump_windup=0
@@ -949,10 +968,6 @@ func _physics_process(delta):
 			elif not attack_heavy and combo<3 and (not game.rogue_battle_mode or (quick_attacks.active and quick_attacks.action==1)):start_attack(false,combo+1)
 	model.visible=not ((is_master_chief() or is_meta_shooter()) and is_instance_valid(game.camera_rig) and game.camera_rig.first_person_mode)
 	_update_footsteps(horizontal)
-	trail_time-=delta
-	if horizontal>14 and trail_time<=0:
-		trail_time=0.065
-		game.wind(global_position+Vector3(0,0.8,0),-facing)
 	_finish_movement_bounds()
 	if character_id==2:musashi.after_pose()
 
@@ -1036,7 +1051,7 @@ func constrain_forest_bounds()->bool:
 	var edge_z=clampf(global_position.z,bounds.position.y,bounds.end.y)
 	if edge_x!=global_position.x:global_position.x=edge_x;velocity.x=0
 	if edge_z!=global_position.z:global_position.z=edge_z;velocity.z=0
-	var floor_y:float=room_ladder.to_global(room_ladder.BOTTOM_EXIT).y if is_instance_valid(room_ladder) else 0.0
+	var floor_y:float=room_ladder.to_global(room_ladder.BOTTOM_EXIT).y if is_instance_valid(room_ladder) else minf(0.,game.world.height_at(global_position.x,global_position.z))
 	if global_position.y<floor_y-5.0:
 		global_position.y=floor_y+.15;velocity=Vector3.ZERO;jumps_used=0;reset_wall_jump();game.camera_rig.reset_follow()
 		if character_id==13:model.locomotion.reset()
@@ -1287,7 +1302,7 @@ func end_surge():
 	surge_left=0
 	model.set_surge(false)
 	if is_instance_valid(model.chain_pipe):model.chain_pipe.powered=false
-	aura.hide()
+	sync_food_glow()
 
 func clear_character_cooldowns():
 	if ai_controlled or not game.settings.get("disable_character_cooldowns",false):return
@@ -1338,6 +1353,7 @@ func select_character(id: int):
 	clear_character_cooldowns()
 	refresh_max_health()
 	hp=max_hp*health_fraction
+	sync_food_glow()
 	last_foot_events=model.locomotion.step_events
 	foot_time=0
 	if not ai_controlled and game.rogue_roster_mode and id in RogueRoster.PLAYABLE_IDS:game.selected_rogue_id=id
@@ -1399,10 +1415,12 @@ func pickup_multiplier(kind: String)->float:
 func base_damage_multiplier()->float:
 	var form_damage=10.0 if character_id==32 and active_ability!=null and active_ability.demon else 1.0
 	return form_damage*(6.0 if character_id==15 else (3.0 if character_id in [1,14,16,17] else 1.0))*combat_tuning("damage_mult")*pickup_multiplier("damage")*(1.0+.1*run_upgrades.damage)*(team_progression.multiplier("character_damage") if team_progression!=null else 1.0)*(spell_loadout.damage_multiplier() if spell_loadout!=null else 1.0)
+func base_character_attack_multiplier()->float:
+	return game.balance_value(character_id,"damage_mult")*(team_progression.stat_damage_multiplier() if uses_level_stats() else 1.0)
 func damage_multiplier()->float:
 	return base_damage_multiplier()*(team_progression.stat_damage_multiplier() if uses_level_stats() else 1.0)
 func magic_damage_multiplier()->float:
-	return base_damage_multiplier()*(team_progression.stat_magic_multiplier() if uses_level_stats() else 1.0)
+	return base_damage_multiplier()*(team_progression.stat_magic_multiplier() if uses_level_stats() else 1.0)*food_multiplier("jelly_magic")
 func base_magic_damage()->float:
 	return BASE_MAGIC_DAMAGE*magic_damage_multiplier()
 func magic_spell_damage(spell_base:float)->float:
@@ -1486,11 +1504,15 @@ func food_multiplier(kind:String)->float:
 
 func food_defense()->float:return FOOD_DEFENSE_PER_STACK*food_buff_stacks.defense
 
+func extra_defense(magical:bool=false)->float:
+	return food_defense()+(0.0 if magical else float(accessory_bonuses.get("defense",0.0)))
+
 func apply_food_buff(kind:String)->bool:
 	if not food_buffs.has(kind) or hp<=0:return false
 	food_buff_stacks[kind]+=1
-	food_buffs[kind]=FOOD_BUFF_SECONDS
+	food_buffs[kind]=300.0 if kind in ["jelly_damage","jelly_magic","jelly_speed"] else FOOD_BUFF_SECONDS
 	if kind=="max_hp":refresh_max_health(true)
+	sync_food_glow()
 	return true
 
 func tick_food_buffs(delta:float):
@@ -1499,14 +1521,22 @@ func tick_food_buffs(delta:float):
 		food_buffs[kind]=maxf(0,food_buffs[kind]-maxf(0,delta))
 		if food_buffs[kind]<=0:food_buff_stacks[kind]=0
 	if health_was_active and food_buffs.max_hp<=0:refresh_max_health()
+	sync_food_glow()
 
 func clear_food_buffs():
 	var health_was_active=food_buffs.max_hp>0
 	for kind in food_buffs:food_buffs[kind]=0.0;food_buff_stacks[kind]=0
 	if health_was_active:refresh_max_health()
+	sync_food_glow()
+
+func sync_food_glow():
+	if not is_instance_valid(aura):return
+	aura.set_food_glow(Vector3(float(food_buffs.jelly_damage>0),float(food_buffs.jelly_magic>0),float(food_buffs.jelly_speed>0)))
+	aura.visible=hp>0 and (not aura.food_colors.is_empty() or (surge_left>0 and character_id!=1))
 
 # Auto intent stays separate from real mouse state and all native attack timing.
 func auto_attack_running()->bool:
+	if combined_power_busy():return false
 	if (defend_held or guard_reply_left>0) and RogueRoster.is_crossgate_fighter(character_id):return false
 	if is_master_chief():return false
 	if ai_controlled:return auto_attack_enabled and is_instance_valid(ai_target) and not ai_target.dead and hp>0 and game.model.phase=="wave"
@@ -1568,7 +1598,12 @@ func combat_tuning(key: String)->float:
 	if key in ["counter_chance","critical_chance","dodge_chance"]:value=clampf(value+float(accessory_bonuses.get(key,0.0)),0,100)
 	if key in ["critical_chance","dodge_chance","counter_chance"] and uses_level_stats():value=clampf(value+team_progression.stat_chance_bonus(key),0,100)
 	if key=="critical_chance":value=minf(100.0,value+pet_passive_bonus(key))
-	if key in ["damage_mult","attack_speed"]:value*=food_multiplier(key)
+	if key=="accuracy":
+		value+=float(accessory_bonuses.get(key,0.0))
+		if uses_level_stats():value+=team_progression.stat_chance_bonus(key)
+		if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon()=="axe":value-=10.0
+	if key=="damage_mult":value*=food_multiplier(key)+food_multiplier("jelly_damage")-1.0
+	if key=="attack_speed":value*=food_multiplier(key)+food_multiplier("jelly_speed")-1.0
 	return value*sqrt(game.balance_value(character_id,"jump_height")) if key in ["jump_speed","second_jump_speed"] else value
 
 func effective_dodge_chance()->float:

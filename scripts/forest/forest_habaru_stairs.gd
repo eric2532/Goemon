@@ -17,7 +17,7 @@ const WIDTH=2.68
 static func uphill(serial:int)->Vector2:
  return Vector2.RIGHT if serial==12001 else Vector2.UP
 
-static func build(parent:Node3D,id:int,cell:Vector2i,at:Vector2,serial:int,surface:Material=null,visual_mesh:Mesh=null):
+static func build(parent:Node3D,id:int,cell:Vector2i,at:Vector2,serial:int,surface:Material=null,visual_mesh:Mesh=null,step_count:int=5):
  var stair=Node3D.new()
  stair.name=("UnderseaStair" if serial in [13268,13269] else "HabaruStair")+"_%d_%d"%[cell.x,cell.y]
  stair.set_meta("blue_cg_serial",serial)
@@ -57,7 +57,7 @@ static func build(parent:Node3D,id:int,cell:Vector2i,at:Vector2,serial:int,surfa
   ramp(stair,Vector3(0,-.50,0),.34,2.5)
   return
  stair.rotation.y=-PI*.5 if serial==12001 else 0.0
- var steps=5
+ var steps=step_count
  for i in steps:
   var depth=RUN/steps
   var height=RISE*(i+1)/steps

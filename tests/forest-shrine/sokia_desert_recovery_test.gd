@@ -28,12 +28,15 @@ func check_east_il_road():
   check(game.world.find_child("FreyjaFoliage",true,false)==null,"No meadow scatter or terraced mountain backdrop is added to "+area)
   var expected=0
   for row in Sokia.Data.SCENERY[area]:
-   if Sokia.Data.GRAPHICS.has(row[1]):expected+=1
+   if Sokia.Data.GRAPHICS.has(row[1]) and not Sokia.solid_building(area,row[1],row[0]):expected+=1
   var instances=0
   for batch in game.world.find_children("SokiaNativeProp_*","MultiMeshInstance3D",true,false):
    instances+=batch.multimesh.instance_count
    check(batch.material_override==Sokia.material,"Native props share one source-art shader")
   check(instances==expected,"Every original native-art prop is present in "+area)
+  var solid_buildings=game.world.find_children("*","MeshInstance3D",true,false).filter(func(n):return n.get_meta("sokia_source_solid",false))
+  var source_buildings=Sokia.Data.SCENERY[area].filter(func(r):return Sokia.solid_building(area,r[1],r[0]))
+  check(solid_buildings.size()==source_buildings.size(),"Source houses use the existing solid building kit rather than duplicate image cards in "+area)
   check(game.model.falan_frontier_plan.filter(func(row):return row[0]=="sokia_source_collision").size()==Sokia.Data.BLOCKS[area].size(),"Original blocked tile rectangles reach the native model in "+area)
   check(game.world.find_children("*","StaticBody3D",true,false).filter(func(body):return body.get_meta("sokia_source_collision",false)).size()==Sokia.Data.BLOCKS[area].size(),"Original blocked rectangles also reach player physics in "+area)
   var cliff=game.world.find_child("ArchivedCliffForms",true,false)

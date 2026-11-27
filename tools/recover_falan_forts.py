@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
-from PIL import Image, ImageOps, ImageStat
+from PIL import Image, ImageOps, ImageStat, ImageFilter
 from recover_falan_architecture import opaque_paint
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -67,12 +67,27 @@ WALL_SUPPORTS={
 
 WALL_SPURS={10640:(45,186.5,39,218.25,44,222,50,190.25),10641:(98,186.5,104,218.25,99,222,93,190.25)}
 SPUR_ENDS=[((48,183.5,45.5,185.5,51,189.625,53.5,187.625),3.1,.4),((39,214,35.5,216.5,42,221.375,45.5,218.875),.25,.25)]
+MASONRY_QUAD=(29,90,25,120,49,138,53,108)
+MASONRY_SPAN=(2.25,27/(2*((32/3)**2-8**2))**.5)
 
 def native_stone(patch,strength):
  tone=ImageStat.Stat(patch).mean[:3];luma=ImageOps.grayscale(patch);average=ImageStat.Stat(luma).mean[0]
  # Keep native tone and stone relief without magnifying palette-dither chroma into repeating rainbows.
  channels=[luma.point(lambda value,c=c:round(max(0,min(255,c+(value-average)*strength))))for c in tone]
  return Image.merge('RGBA',(*channels,patch.getchannel('A')))
+
+def masonry_patch(original):
+ patch=original.filter(ImageFilter.GaussianBlur(.65)).transform((128,128),Image.Transform.QUAD,MASONRY_QUAD,Image.Resampling.BICUBIC)
+ assert patch.getchannel('A').getextrema()==(255,255)
+ patch=native_stone(patch,.28);pixels=patch.load()
+ # Join only the edge texels; mirroring the complete crop creates a floral repeat.
+ for axis in [0,1]:
+  for edge in range(8):
+   weight=.5*(1-edge/8)**2
+   for along in range(128):
+    a=(edge,along)if axis==0 else(along,edge);b=(127-edge,along)if axis==0 else(along,127-edge);left=pixels[a];right=pixels[b]
+    pixels[a]=tuple(round(x*(1-weight)+y*weight)for x,y in zip(left,right));pixels[b]=tuple(round(y*(1-weight)+x*weight)for x,y in zip(left,right))
+ return patch
 
 def recover(source):
  sys.path.insert(0,str(source/'tools'))
@@ -87,18 +102,14 @@ def recover(source):
    if serial==owner:
     patch=opaque_paint(original).transform(size,Image.Transform.QUAD,quad,Image.Resampling.BICUBIC)
     features[name]=native_stone(patch,.85 if name in ('paving','gate_paving') else .55) if name in ('paving','gate_paving','base') else patch
-  if serial==10640:
-   patch=original.transform((64,64),Image.Transform.QUAD,(45,130,45,139,52,144,52,135),Image.Resampling.BICUBIC)
-   assert patch.getchannel('A').getextrema()==(255,255)
-   patch=native_stone(patch,.28)
-   masonry=Image.new('RGBA',(128,128));masonry.paste(patch,(0,0));masonry.paste(ImageOps.mirror(patch),(64,0));masonry.paste(ImageOps.flip(masonry.crop((0,0,128,64))),(0,64))
+  if serial==10643:masonry=masonry_patch(original)
   box=original.getchannel('A').point(lambda a:255 if a>=200 else 0).getbbox();assert box
   crop=original.crop(box)
   origin=[-e['x']+(e['east']-e['south'])*16,-e['y']-(e['east']+e['south']-2)*12]
   if serial in [10650,10657]:
    family='square'if serial==10650 else'round';slits[family]=[]
    for quad in SQUARE_SLITS if serial==10650 else ROUND_SLITS:
-    source_quad=[v+origin[i%2]for i,v in enumerate(quad)];patch=opaque_paint(original).transform((32,192),Image.Transform.QUAD,source_quad,Image.Resampling.BICUBIC)
+    source_quad=[v+origin[i%2]for i,v in enumerate(quad)];patch=native_stone(opaque_paint(original).transform((32,192),Image.Transform.QUAD,source_quad,Image.Resampling.BICUBIC),.85)
     wx=arrow_slot*36;arrow_slot+=1;arrow_atlas.paste(patch,(wx+2,2))
     arrow_atlas.paste(patch.crop((0,0,1,192)).resize((2,192)),(wx,2));arrow_atlas.paste(patch.crop((31,0,32,192)).resize((2,192)),(wx+34,2))
     arrow_atlas.paste(arrow_atlas.crop((wx,2,wx+36,3)).resize((36,2)),(wx,0));arrow_atlas.paste(arrow_atlas.crop((wx,193,wx+36,194)).resize((36,2)),(wx,194))
@@ -106,13 +117,16 @@ def recover(source):
    if serial==10657:
     for (u,v),(uu,vv)in zip(ROUND_COURSE,ROUND_COURSE[1:]):
      quad=(u+origin[0],v-1.5+origin[1],u+origin[0],v+2.5+origin[1],uu+origin[0],vv+2.5+origin[1],uu+origin[0],vv-1.5+origin[1])
-     patch=opaque_paint(original).transform(((uu-u)*4,16),Image.Transform.QUAD,quad,Image.Resampling.BICUBIC);arrow_atlas.paste(patch,((u-ROUND_COURSE[0][0])*4+2,198))
+     patch=native_stone(opaque_paint(original).transform(((uu-u)*4,16),Image.Transform.QUAD,quad,Image.Resampling.BICUBIC),.55);arrow_atlas.paste(patch,((u-ROUND_COURSE[0][0])*4+2,198))
     arrow_atlas.paste(arrow_atlas.crop((2,198,3,214)).resize((2,16)),(0,198));arrow_atlas.paste(arrow_atlas.crop((541,198,542,214)).resize((2,16)),(542,198))
     arrow_atlas.paste(arrow_atlas.crop((0,198,544,199)).resize((544,2)),(0,196));arrow_atlas.paste(arrow_atlas.crop((0,213,544,214)).resize((544,2)),(0,214))
     for i,quad in enumerate(ROUND_FEET):
-     source_quad=[v+origin[j%2]for j,v in enumerate(quad)];patch=opaque_paint(original).transform((64,64),Image.Transform.QUAD,source_quad,Image.Resampling.BICUBIC);wy=2+i*68;arrow_atlas.paste(patch,(474,wy))
+     source_quad=[v+origin[j%2]for j,v in enumerate(quad)];patch=native_stone(opaque_paint(original).transform((64,64),Image.Transform.QUAD,source_quad,Image.Resampling.BICUBIC),.55);wy=2+i*68;arrow_atlas.paste(patch,(474,wy))
      arrow_atlas.paste(patch.crop((0,0,1,64)).resize((2,64)),(472,wy));arrow_atlas.paste(patch.crop((63,0,64,64)).resize((2,64)),(538,wy))
      arrow_atlas.paste(arrow_atlas.crop((472,wy,540,wy+1)).resize((68,2)),(472,wy-2));arrow_atlas.paste(arrow_atlas.crop((472,wy+63,540,wy+64)).resize((68,2)),(472,wy+64))
+    left=arrow_atlas.crop((2,198,3,214)).resize((1,48),Image.Resampling.BICUBIC);right=arrow_atlas.crop((541,198,542,214)).resize((1,48),Image.Resampling.BICUBIC);bridge=Image.new('RGBA',(64,48))
+    for column in range(64):bridge.paste(Image.blend(left,right,column/63),(column,0))
+    padded=Image.new('RGBA',(68,52));padded.paste(bridge,(2,2));padded.paste(bridge.crop((0,0,1,48)).resize((2,48)),(0,2));padded.paste(bridge.crop((63,0,64,48)).resize((2,48)),(66,2));padded.paste(padded.crop((0,2,68,3)).resize((68,2)),(0,0));padded.paste(padded.crop((0,49,68,50)).resize((68,2)),(0,50));arrow_atlas.paste(padded,(472,136))
   if serial in WALL_SLITS:
    wall_rows[serial]=[]
    for i,quad in enumerate(WALL_SLITS[serial]):
@@ -163,7 +177,7 @@ def recover(source):
   if serial in WALL_SPURS:records[str(serial)]['wall_spur']=spur_rows[serial]
   if serial in end_rows:records[str(serial)]['spur_ends']=end_rows[serial]
   if serial==10650:records[str(serial)]['square_courses']=course_rows
-  if serial==10657:records[str(serial)]['course']={'points':ROUND_COURSE,'paint':[2,198,540,16]}
+  if serial==10657:records[str(serial)]['course']={'points':ROUND_COURSE,'paint':[2,198,540,16]};records[str(serial)]['course_join']={'paint':[474,138,64,48],'source':'interpolated native left/right course edge columns'}
   if serial==10657:records[str(serial)]['feet']=[{'paint':[474,2+i*68,64,64],'quad':q}for i,q in enumerate(ROUND_FEET)]
   for face,kind in zip(('left','right'),WINDOW_KINDS.get(serial,())):
    if kind is None:continue
@@ -179,7 +193,7 @@ def recover(source):
   images.append((opaque_paint(crop),crop.getchannel('A'),at));x+=crop.width+4;tallest=max(tallest,crop.height+4)
  atlas=Image.new('RGBA',(2048,y+tallest));mask=Image.new('L',atlas.size)
  for im,alpha,at in images:atlas.paste(im,at[:2]);mask.paste(alpha,at[:2])
- rows=['extends RefCounted','## Original native fort measurements; generated by tools/recover_falan_forts.py.','const PARTS={']
+ rows=['extends RefCounted','## Original native fort measurements; generated by tools/recover_falan_forts.py.','const MASONRY_SPAN=Vector2(%s,%s)'%MASONRY_SPAN,'const PARTS={']
  for serial,r in records.items():rows.append(' %s:[Rect2(%s),Rect2(%s)],'%(serial,','.join(map(str,r['paint'])),','.join(map(str,r['reference']))))
  rows+=['}','const WINDOWS={']
  for serial,r in records.items():
@@ -201,6 +215,7 @@ def recover(source):
    q=item['quad'];points=','.join('Vector2(%s,%s)'%(q[i],q[i+1])for i in range(0,8,2));values.append('[Rect2(%s),[%s]]'%(','.join(map(str,item['paint'])),points))
   rows.append(' "%s":[%s],'%(family,','.join(values)))
  rows+=['}','const ROUND_COURSE=[Rect2(2,198,540,16),[%s]]'%','.join('Vector2(%s,%s)'%p for p in ROUND_COURSE)]
+ rows+=['const ROUND_COURSE_JOIN=Rect2(474,138,64,48)']
  rows+=['const ROUND_FEET=[%s]'%','.join('[Rect2(474,%s,64,64),[%s]]'%(2+i*68,','.join('Vector2(%s,%s)'%(q[j],q[j+1])for j in range(0,8,2)))for i,q in enumerate(ROUND_FEET))]
  rows+=['const SQUARE_COURSES=[%s]'%','.join('[Rect2(%s),[%s]]'%(','.join(map(str,r['paint'])),','.join('Vector2(%s,%s)'%(r['quad'][j],r['quad'][j+1])for j in range(0,8,2)))for r in course_rows)]
  features['windows']=window_atlas;features['arrow_details']=arrow_atlas

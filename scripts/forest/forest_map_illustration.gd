@@ -6,11 +6,11 @@ const HouseAtlas=preload("res://assets/maps/falan/city_architecture.png")
 const Arena=preload("res://scripts/forest/forest_arena.gd")
 
 static func prepare(chart,model)->ImageTexture:
- var image:Image=chart.texture.get_image()
+ var image:Image=chart.texture.get_meta("source_cpu_image").duplicate() if chart.texture.has_meta("source_cpu_image") else chart.texture.get_image()
  var detail=mini(4,maxi(1,2048/maxi(image.get_width(),image.get_height())))
  image.resize(image.get_width()*detail,image.get_height()*detail,Image.INTERPOLATE_NEAREST)
  var pixels=Vector2(image.get_size())/chart.bounds.size
- var state:Dictionary={};var pages={}
+ var state:Dictionary={};var pages={};var aliases:Dictionary={}
  if model.falan_area=="city":
   paving(image,preload("res://assets/maps/falan/city_paving_index.png").get_image(),preload("res://assets/maps/falan/city_paving_atlas.png").get_image(),detail)
  elif model.falan_area=="castle":
@@ -19,15 +19,17 @@ static func prepare(chart,model)->ImageTexture:
   image.blend_rect(paint,Rect2i(Vector2i.ZERO,paint.get_size()),Vector2i.ZERO)
  elif model.falan_area=="interior" and Native.owns(model.falan_floor):
   state=Native.state(model.falan_floor,model.seed_value)
+  aliases=Native.Art.data().maps.get(Native.path_for(model.falan_floor,model.seed_value),{}).get("graphic_aliases",{})
   var tiles={}
   for i in state.size.x*state.size.y:
    var serial=state.raw.decode_u16(20+i*2)
    if serial<1000:continue
+   serial=int(aliases.get(str(serial),serial))
    var graphic:Dictionary=Native.Art.data().graphics[str(serial)];var r=graphic.rect
    if int(r[2])!=64 or int(r[3]) not in [47,48]:continue
    if not tiles.has(serial):
     var page=int(graphic.page)
-    if not pages.has(page):pages[page]=load(Native.Art.ROOT+Native.Art.data().pages[page]).get_image()
+    if not pages.has(page):pages[page]=Native.Art.page_image(page)
     var tile=Image.create_empty(detail,detail,false,Image.FORMAT_RGBA8)
     for y in detail:
      for x in detail:
@@ -46,7 +48,7 @@ static func prepare(chart,model)->ImageTexture:
   if rect.size.x>2 and rect.size.y>2:image.fill_rect(rect.grow(-1),Color("a9a28b"))
  if model.falan_area!="interior":
   var graphic:Dictionary=Native.Art.data().graphics["10088"]
-  var atlas:Image=load(Native.Art.ROOT+Native.Art.data().pages[int(graphic.page)]).get_image()
+  var atlas:Image=Native.Art.page_image(int(graphic.page))
   var r=graphic.rect;var tree=atlas.get_region(Rect2i(r[0],r[1],r[2],r[3]))
   tree.resize(maxi(5,roundi(8*pixels.x)),maxi(6,roundi(10*pixels.y)),Image.INTERPOLATE_LANCZOS)
   for anchor in model.trees:
@@ -65,6 +67,7 @@ static func prepare(chart,model)->ImageTexture:
   for i in count:
    var serial=state.raw.decode_u16(20+(count+i)*2)
    if serial<1000:continue
+   serial=int(aliases.get(str(serial),serial))
    var graphic:Dictionary=Native.Art.data().graphics[str(serial)]
    if graphic.ground or graphic.family=="void":continue
    # Small furnishings stay in the floor plan; recognizable silhouettes get original artwork.
@@ -76,7 +79,7 @@ static func prepare(chart,model)->ImageTexture:
    var serial:int=row[1];var graphic:Dictionary=Native.Art.data().graphics[str(serial)]
    if not icons.has(serial):
     var page=int(graphic.page)
-    if not pages.has(page):pages[page]=load(Native.Art.ROOT+Native.Art.data().pages[page]).get_image()
+    if not pages.has(page):pages[page]=Native.Art.page_image(page)
     var rect=graphic.rect
     var icon:Image=pages[page].get_region(Rect2i(rect[0],rect[1],rect[2],rect[3]))
     var width=maxi(5,roundi(maxf(6.0,(int(graphic.footprint[0])+int(graphic.footprint[1]))*1.5)*pixels.x))

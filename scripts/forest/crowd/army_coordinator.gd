@@ -6,9 +6,11 @@ const Pets=preload("res://scripts/forest/pet_catalog.gd")
 const Winter=preload("res://scripts/forest/forest_frostpass.gd")
 const CAVE_BEAR_ID=-2000000
 const HOUND_GUARD_RADIUS=18.0
+const BEAST_PET_RECALL_DELAY=.35
+const BEAST_PET_SPAWN_TIMEOUT=2.0
 # Same party-slot offsets as native hound_guard; Z and fresh summons share the layout.
 const PET_FORMATION_POSTS=preload("res://scripts/forest/party_formation.gd").POSTS
-enum HoundOrder { DEFEND, ATTACK, RETURN, HOLD }
+enum HoundOrder { DEFEND, ATTACK, RETURN, HOLD, COMBINED }
 const Snapshot=preload("res://scripts/forest/crowd/army_snapshot.gd")
 var pet_skills:Node
 var game:Node
@@ -42,13 +44,19 @@ var import_rows_visited=0
 var arrival_rows:Array[Dictionary]=[]
 var arrival_ids:Dictionary={}
 var pending_hounds:Array[int]=[]
+var beast_pet_orders:Dictionary={}
 var recalled_pet_mana:Dictionary={}
 var pet_participants:Dictionary={}
 var pending_cave_bears:Array[int]=[]
 var cave_bear_serial=0
 var hound_order:int=HoundOrder.DEFEND
 var hound_order_serial:int=0
+var combined_committed=false
+var combined_contacted=false
+var combined_origin=Vector3.ZERO
+var combined_facing=Vector3.FORWARD
 var hound_focus_target:int=0
+var hound_attack_move=Vector3(INF,0,0)
 var hound_focus_actor:Ninja
 var pending_retirements:Dictionary={}
 var retirement_rows_visited=0
@@ -74,7 +82,7 @@ func refresh_kits():
  if is_instance_valid(game.crowd.army):game.crowd.army.configure_profiles(data)
  configured_tuning=hash([game.character_tuning,game.tuning,game.model.balance])
 func blocked()->bool:
- return not game.playing or game.paused or game.model.phase!="wave" or game.ordinary_pause or game.settings_open or game.rogue_roster_open or game.transitioning or (is_instance_valid(game.map_editor) and game.map_editor.active)
+ return not game.playing or game.paused or (game.model.phase!="wave" and not combined_committed) or game.ordinary_pause or game.settings_open or game.rogue_roster_open or game.transitioning or (is_instance_valid(game.map_editor) and game.map_editor.active)
 func profile_mark(label_:String,started:int)->int:
  if not profile_enabled:return 0
  var now=Time.get_ticks_usec();profile_totals[label_]=float(profile_totals.get(label_,0))+(now-started)/1000.0;return now
@@ -123,6 +131,7 @@ func begin_integration(delta:float,overlap:bool=true)->bool:
  if overlap:
   if not can_overlap():return false
  elif blocked():return false
+ if not beast_pet_orders.is_empty() and (not game.player.spell_loadout.beast_master_equipped() or game.player.hp<=0):recall_beast_pets()
  var clock=Time.get_ticks_usec() if profile_enabled else 0
  if not overlap:
   if configured_model!=game.model:
@@ -160,6 +169,11 @@ func finish_integration():
   mirrors_advanced.emit(delta)
   clock=profile_mark("mirror_controllers",clock)
  if pet_skills!=null:pet_skills.step(delta)
+ if not beast_pet_orders.is_empty():advance_beast_pets(delta)
+ if combined_committed:
+  var ability=game.player.active_ability
+  if not ability.combined_normal_swing() and ability.mode!="combined_wait":finish_combined_power(false,false)
+  elif native.combined_power_ready() and not ability.is_attacking():finish_combined_power()
  sync_compatibility();profile_mark("compatibility",clock)
  presentation_delta+=delta;presentation_dirty=true
 func sync_helper_mirrors(defenders:Dictionary,posts:Dictionary)->int:
@@ -222,10 +236,12 @@ func import_arrivals():
 func reconcile_pet_loadout():
  finish_integration()
  var selected:Array[String]=Pets.sanitized(game.settings.forest_pet_loadout)
+ for skin in beast_pet_orders.keys():
+  if Pets.key(skin) not in selected:beast_pet_orders.erase(skin)
  pending_hounds.assign(pending_hounds.filter(func(skin):return Pets.key(skin) in selected))
  for skin in Pets.COUNT:
   if Pets.key(skin) not in selected and handles.has(HOUND_ID-skin):recall_pet(skin)
- if is_instance_valid(game.crowd.army):Pets.prepare(selected+Winter.creature_keys(game.model.falan_floor),game.crowd.army.presentation.corpses)
+ if is_instance_valid(game.crowd.army):Pets.prepare(selected+Winter.creature_keys(game.model.falan_floor)+game.model.get_meta("east_enemy_pet_keys",[]),game.crowd.army.presentation.corpses)
  if pet_skills!=null:pet_skills.reconcile()
 func queue_hounds()->int:
  reconcile_pet_loadout()
@@ -242,6 +258,7 @@ func recall_hounds()->bool:
  finish_integration()
  var recalled=not pending_hounds.is_empty()
  pending_hounds.clear()
+ beast_pet_orders.clear()
  for skin in Pets.COUNT:
   if handles.has(HOUND_ID-skin):
    recall_pet(skin);recalled=true
@@ -256,6 +273,63 @@ func recall_pet(skin:int):
  var row=unit_state(handle)
  if not row.is_empty():recalled_pet_mana[skin]=row.mana
  despawn(handle)
+
+func queue_beast_pet_attacks(number:int)->bool:
+ finish_integration()
+ if blocked() or combined_committed or game.player.hp<=0 or not game.player.spell_loadout.beast_master_equipped():return false
+ var selected:Array[String]=Pets.sanitized(game.settings.forest_pet_loadout)
+ var requested=selected if number==Pets.MAX_ACTIVE+1 else selected.slice(number-1,number)
+ var accepted=false
+ for key in requested:
+  var skin=Pets.skin(key)
+  var handle:int=handles.get(HOUND_ID-skin,0)
+  if handle!=0:
+   if not native.queue_beast_pet_attacks(handle,1):continue
+   if not beast_pet_orders.has(skin):
+    if pet_skills!=null:pet_skills.retire(handle)
+    beast_pet_orders[skin]={"waiting":0,"left":BEAST_PET_RECALL_DELAY}
+  else:
+   var order:Dictionary=beast_pet_orders.get_or_add(skin,{"waiting":0,"left":BEAST_PET_SPAWN_TIMEOUT})
+   order.waiting+=1
+   order.left=BEAST_PET_SPAWN_TIMEOUT
+   if skin not in pending_hounds:pending_hounds.append(skin)
+  accepted=true
+ return accepted
+
+func advance_beast_pets(delta:float):
+ for skin in beast_pet_orders.keys():
+  var order:Dictionary=beast_pet_orders[skin]
+  var handle:int=handles.get(HOUND_ID-skin,0)
+  if handle==0 and order.waiting==0:
+   beast_pet_orders.erase(skin)
+   continue
+  var busy:bool=handle!=0 and native.beast_pet_busy(handle)
+  if order.erase("arriving"):
+   var row=unit_state(handle) if busy else {}
+   if row.get("target_id",0)==0 and not row.get("beast_pet_active",false):
+    recall_beast_pet(skin,false)
+    continue
+   presentation_events.append({"kind":"hound_summon","position":row.position})
+  if busy:
+   order.left=BEAST_PET_RECALL_DELAY
+   continue
+  order.left-=delta
+  if order.left<=0:recall_beast_pet(skin)
+
+func recall_beast_pet(skin:int,play_sound:bool=true):
+ beast_pet_orders.erase(skin)
+ pending_hounds.erase(skin)
+ var handle:int=handles.get(HOUND_ID-skin,0)
+ if handle==0:return
+ var point:Vector3=unit_state(handle).get("position",game.player.global_position) if play_sound else Vector3.ZERO
+ recall_pet(skin)
+ if play_sound:presentation_events.append({"kind":"hound_recall","position":point})
+
+func recall_beast_pets():
+ if beast_pet_orders.is_empty():return
+ finish_integration()
+ for skin in beast_pet_orders.keys():recall_beast_pet(skin)
+ sync_compatibility();presentation_dirty=true
 
 func hound_health_fraction(skin:int)->float:
  var handle:int=handles.get(HOUND_ID-skin,0)
@@ -276,8 +350,8 @@ func pet_stats(skin:int)->Dictionary:
  var profile=Roles.stats(Roles.GATEKEEPER_HOUND)
  var handle:int=handles.get(HOUND_ID-skin,0)
  var state=unit_state(handle) if handle!=0 and valid(handle) else {}
- var maximum:float=Pets.BASE_HEALTH*(progression.multiplier("pet_health")+progression.pet_growth(key,.08))+30*progression.pet_rank(key,"vitality")
- var mana_max:float=Pets.BASE_MANA+10*progression.pet_rank(key,"mana")
+ var maximum:float=Pets.BASE_HEALTH*progression.multiplier("pet_health")+progression.pet_health_bonus(key)
+ var mana_max:float=Pets.BASE_MANA+progression.pet_mana_bonus(key)
  var pattern=Pets.attack_pattern(skin)
  return {"hp":state.get("hp",maximum),"max_hp":state.get("max_hp",maximum),
   "mana":state.get("mana",recalled_pet_mana.get(skin,mana_max)),"max_mana":state.get("max_mana",mana_max),
@@ -307,14 +381,14 @@ func award_pet_kill(source_id:int,reward_tenths:int,enemy_id:int=0)->bool:
   leveled=true
   var handle:int=handles.get(HOUND_ID-Pets.skin(key),0)
   if handle!=0 and valid(handle):apply_pet_growth(handle,key,true)
-  game.toast("%s · Level %d · +%d pet %s"%[Pets.display_name(Pets.skin(key),game.settings.forest_pet_names),game.model.team_progression.pet_experience[key].level,gained,"point" if gained==1 else "points"])
+  game.toast("%s · Level %d · HP, MP and attack increased"%[Pets.display_name(Pets.skin(key),game.settings.forest_pet_names),game.model.team_progression.pet_experience[key].level])
  return leveled
 
 func apply_pet_growth(handle:int,key:String,heal:bool=false):
  var progression=game.model.team_progression
- var applied:bool=native.set_pet_growth(handle,Pets.BASE_HEALTH*progression.pet_growth(key,.08)+30*progression.pet_rank(key,"vitality"),Pets.BASE_DAMAGE*(progression.pet_growth(key,.10)+.10*progression.pet_rank(key,"damage")))
+ var applied:bool=native.set_pet_growth(handle,progression.pet_health_bonus(key),progression.pet_damage_bonus(key))
  assert(applied,"Invalid companion growth")
- applied=native.set_pet_training(handle,1.0+.05*progression.pet_rank(key,"speed"),1.0+.10*progression.pet_rank(key,"attack_speed"),10.0*progression.pet_rank(key,"mana"),heal)
+ applied=native.set_pet_training(handle,1.0+.05*progression.pet_rank(key,"speed"),1.0+.10*progression.pet_rank(key,"attack_speed"),progression.pet_mana_bonus(key),heal)
  assert(applied,"Invalid companion training")
  var row=unit_state(handle)
  var dodge=.01*progression.pet_rank(key,"dodge_chance");var counter=.01*progression.pet_rank(key,"counter_chance")
@@ -322,14 +396,57 @@ func apply_pet_growth(handle:int,key:String,heal:bool=false):
   applied=native.set_boss_reactions(handle,dodge,counter)
   assert(applied,"Invalid companion reactions")
 
-func order_hounds(order:int,focus:int=0)->bool:
+func begin_combined_power(target:Node)->bool:
+ if hound_order!=HoundOrder.COMBINED:return false
+ finish_integration()
+ if not combined_committed:
+  combined_origin=game.player.global_position;combined_facing=game.player.facing
+  game.player.active_ability.combined_queued=false;game.player.active_ability.combined_queue_target=null
+ combined_committed=true;combined_contacted=false
+ native.set_targets(external_targets())
+ var handle:int=target.handle if is_instance_valid(target) and target.get("runtime")==self else 0
+ if not native.begin_combined_power(handle,game.player.active_ability.combined_windup()):combined_committed=false;return false
+ sync_compatibility();presentation_dirty=true
+ return true
+
+func strike_combined_power():
+ if not combined_committed or combined_contacted:return
+ finish_integration();combined_contacted=true
+ var connected:int=native.strike_combined_power()
+ dispatch_events();game.player.active_ability.confirm_combined_hits(connected)
+ presentation_dirty=true
+
+func finish_combined_power(cancel_attack:bool=false,return_player:bool=true):
+ combined_committed=false;combined_contacted=false
+ var p=game.player
+ if is_instance_valid(p) and p.hp>0 and not game.transitioning:
+  p.active_ability.combined_queued=false;p.active_ability.combined_queue_target=null
+  p.active_ability.primary_hold_target=null
+  if return_player:p.move_and_collide(combined_origin-p.global_position);p.velocity=Vector3.ZERO;p.facing=combined_facing
+  if cancel_attack or p.active_ability.mode=="combined_wait":p.active_ability.cancel(true)
+  if return_player:
+   p.model.rotation.y=atan2(-p.facing.x,-p.facing.z)
+   p.model.animate(0,0,p.is_on_floor(),0,0,false,0,false)
+ native.set_targets(external_targets());native.end_combined_power();dispatch_events()
+ presentation_dirty=true
+
+func order_hounds(order:int,focus:int=0,attack_move:Vector3=Vector3(INF,0,0))->bool:
+ if combined_committed:return false
  finish_integration()
  for id in handles:
   if id<=HOUND_ID and valid(handles[id]):
    var state=unit_state(handles[id])
    if state.team!=1 or state.kind not in [Roles.GATEKEEPER_HOUND,Roles.CAVE_BEAR]:continue
+   if order==HoundOrder.COMBINED and state.kind!=Roles.GATEKEEPER_HOUND:continue
+   var was_combined=hound_order==HoundOrder.COMBINED
    hound_order=order;hound_order_serial+=1;hound_focus_target=focus if order==HoundOrder.ATTACK else 0
+   hound_attack_move=attack_move if order==HoundOrder.ATTACK and focus==0 else Vector3(INF,0,0)
    hound_focus_actor=null
+   if pet_skills!=null:
+    if order==HoundOrder.ATTACK and (attack_move.is_finite() or focus!=0):
+     for caster in pet_skills.casters.values():caster.finish_cast()
+    if order==HoundOrder.COMBINED:pet_skills.clear()
+    elif was_combined:pet_skills.reconcile()
    if hound_focus_target!=0 and valid(hound_focus_target):hound_focus_actor=enemy_target(unit_state(hound_focus_target).logical_id)
    return true
  return false
@@ -352,9 +469,16 @@ func import_guards(pending:Array[int],kind:int):
  var forward:Vector3=game.player.facing.normalized()
  var right=Vector3(-forward.z,0,forward.x)
  var hp:float=Pets.BASE_HEALTH*(game.model.team_progression.multiplier("pet_health") if kind==Roles.GATEKEEPER_HOUND else 1.0)
- for member in mini(3,pending.size()):
+ var batch_size=pending.size() if kind==Roles.GATEKEEPER_HOUND and not beast_pet_orders.is_empty() else mini(3,pending.size())
+ var ordinary_left=3
+ for member in batch_size:
   var member_id:int=pending[0]
   var skin:int=member_id if kind==Roles.GATEKEEPER_HOUND else Habaru.VENOA_BEAR_SKIN
+  var beast=kind==Roles.GATEKEEPER_HOUND and beast_pet_orders.has(skin)
+  if not beast:
+   if ordinary_left==0:
+    pending.push_back(pending.pop_front());continue
+   ordinary_left-=1
   var radius=Roles.footprint_radius(kind)
   if not pet_geometry.is_empty():radius*=pet_geometry[preload("res://scripts/forest/crowd/pet_dimensions.gd").offset(kind,skin)+6]
   if kind==Roles.GATEKEEPER_HOUND:
@@ -365,17 +489,24 @@ func import_guards(pending:Array[int],kind:int):
   var angle=(member_id%7)*TAU/7+ring*.34+floori(member_id/21.0)*.21
   var formation_slot=selected.find(Pets.key(skin)) if kind==Roles.GATEKEEPER_HOUND else -1
   var placed=false
-  for attempt in 28:
+  for attempt in (2 if beast else 28):
    var yaw=angle+attempt*2.399963
    var distance=9.0+((ring+attempt/7)%3)*3.0 if kind==Roles.CAVE_BEAR else 5.0+((ring+attempt/7)%4)*3.6
    var point=center+Vector3(sin(yaw),0,cos(yaw))*distance
    if attempt==0 and formation_slot>=0 and formation_slot<PET_FORMATION_POSTS.size():
     var post:Vector3=PET_FORMATION_POSTS[formation_slot]
     point=center+right*post.x+forward*post.z
-   point.y=game.world.height_at(point.x,point.z)
-   if absf(point.y-center.y)>4 or not native.ally_ground_clear(point,radius):continue
-   var bounds=AABB(point-pad,pad*2)
-   if not native.query_aabb(bounds,1).is_empty() or not native.query_aabb(bounds,0).is_empty():continue
+   if beast and attempt==1:
+    # The native step validates the landing before the pet is presented.
+    point=center
+    if not native.ally_ground_clear(point,0.0):point.y=game.world.height_at(point.x,point.z)
+   else:
+    var supported:bool=beast and native.ally_ground_clear(point,radius)
+    if not supported:point.y=game.world.height_at(point.x,point.z)
+    if absf(point.y-center.y)>4 or (not supported and not native.ally_ground_clear(point,radius)):continue
+   if not beast:
+    var bounds=AABB(point-pad,pad*2)
+    if not native.query_aabb(bounds,1).is_empty() or not native.query_aabb(bounds,0).is_empty():continue
    var handle=spawn((HOUND_ID if kind==Roles.GATEKEEPER_HOUND else CAVE_BEAR_ID)-member_id,1,kind,point,hp,radius)
    if handle==0:return
    var assigned:bool=native.set_pet_skin(handle,skin)
@@ -387,8 +518,14 @@ func import_guards(pending:Array[int],kind:int):
     assert(restored,"Invalid recalled pet mana")
     if restored:recalled_pet_mana.erase(skin)
    native.set_pose(handle,point,yaw+PI);native.set_guard(handle,point,HOUND_GUARD_RADIUS)
-   if kind==Roles.GATEKEEPER_HOUND and pet_skills!=null:pet_skills.reconcile()
-   presentation_events.append({"kind":"hound_summon","position":point})
+   if beast:
+    var order:Dictionary=beast_pet_orders[skin]
+    var queued:bool=native.queue_beast_pet_attacks(handle,int(order.waiting))
+    assert(queued,"Invalid Beast Master summon queue")
+    order.waiting=0;order.left=BEAST_PET_RECALL_DELAY;order.arriving=true
+   else:
+    if kind==Roles.GATEKEEPER_HOUND and pet_skills!=null:pet_skills.reconcile()
+    presentation_events.append({"kind":"hound_summon","position":point})
    pending.pop_front();placed=true;break
   if not placed:pending.push_back(pending.pop_front())
 
@@ -448,6 +585,8 @@ func set_guard(handle:int,point:Vector3,radius:float):native.set_guard(handle,po
 func target_actor(id:int)->Node3D:return ally_target(id) if id<0 else enemy_target(id)
 func summon(slot:int)->bool:return game.explorer_helpers.request(slot)
 func rest():
+ if combined_committed:return
+ recall_beast_pets()
  if pet_skills!=null:pet_skills.clear()
  native.rest_allies();navigation_revision=-1;presentation_events.clear();pet_participants.clear()
  if pet_skills!=null:pet_skills.reconcile()
@@ -458,12 +597,14 @@ func external_targets()->Dictionary:
  var rows={"ids":PackedInt64Array(),"kinds":PackedInt32Array(),"positions":PackedVector3Array(),"hp":PackedFloat32Array(),"targetable":PackedByteArray(),"taunting":PackedByteArray(),"minimum":PackedVector3Array(),"maximum":PackedVector3Array(),"ignore_building":PackedInt64Array(),"assault_priority":PackedInt32Array(),"shelter_ids":PackedInt64Array(),"shelter_damage":PackedInt64Array(),"shelter_entrances":PackedVector3Array(),"shelter_centers":PackedVector3Array()}
  var velocity:Vector3=game.player.velocity
  rows.player_aggro_kills=game.model.aggro_kills
+ rows.player_map_swarm=game.model.waves.get("swarm_active")==true
  rows.hound_player_speed=Vector2(velocity.x,velocity.z).length()
  rows.pet_formation_facing=game.player.facing
  var formation_ids=PackedInt64Array()
  for key in Pets.sanitized(game.settings.forest_pet_loadout):formation_ids.append(HOUND_ID-Pets.skin(key))
  rows.pet_formation_ids=formation_ids
  if game.player.RogueRoster.is_crossgate_fighter(game.player.character_id):
+  rows.combined_player_attacking=combined_committed and (game.player.active_ability.is_attacking() or game.player.impact_pause>0 or game.player.timed_dodge.rescue_left>0)
   rows.player_attack_serial=game.player.active_ability.guard_threat()
   rows.player_attack_facing=game.player.facing
   rows.player_attack_reach=maxf(6.0,game.player.active_ability.melee_visual_reach())
@@ -472,6 +613,7 @@ func external_targets()->Dictionary:
   rows.player_bodyguard=game.player.timed_dodge.bodyguard_equipped and game.player.cursed_afflictions[1]<=0 and game.player.cursed_afflictions[2]<=0
   rows.player_bodyguard_level=clampi(preload("res://scripts/spells/skill_balance.gd").level_for(game.player,preload("res://scripts/spells/spell_catalog.gd").BODYGUARD),1,30)
  rows.hound_order_serial=hound_order_serial
+ if hound_order==HoundOrder.ATTACK and hound_attack_move.is_finite():rows.hound_attack_move=hound_attack_move
  if hound_focus_target!=0:rows.hound_focus_target=hound_focus_target
  if hound_order!=HoundOrder.DEFEND:rows.hound_order=hound_order
  var camera=get_viewport().get_camera_3d()
@@ -483,7 +625,7 @@ func external_targets()->Dictionary:
  var outer_road=not game.model.falan_road.is_empty()
  var map_scale:float=game.model.falan_scale
  # Targetability follows the same boundary as native patrol movement.
- var exposed=not outer_road or game.player.position.z>=game.model.FalanFrontier.ENEMY_EDGE*map_scale
+ var exposed=game.model.FalanFrontier.enemy_exposed(game.model,Vector2(game.player.position.x,game.player.position.z)/map_scale)
  append_target(rows,0,0,game.player.position,game.player.hp,exposed and not game.player.rogue_untargetable() and game.respawn_left<=0,game.player.character_id==33 and game.player.active_ability.taunt_left>0,bounds.position,bounds.end)
  if outer_road:return rows
  for w:Dictionary in game.model.workers.values():
@@ -503,6 +645,9 @@ func append_target(rows:Dictionary,id:int,kind:int,point:Vector3,hp:float,target
 
 func clear():
  finish_integration()
+ combined_committed=false
+ combined_contacted=false
+ if is_instance_valid(game) and is_instance_valid(game.player) and is_instance_valid(game.player.active_ability) and game.player.active_ability.mode=="combined_wait":game.player.active_ability.cancel(true)
  if pet_skills!=null:pet_skills.clear()
  # Paid guard facade nodes belong to the hiring UI pool across resets.
  for unit in allies.values():
@@ -510,8 +655,9 @@ func clear():
  allies.clear()
  super.clear()
  hound_order=HoundOrder.DEFEND;hound_order_serial=0;hound_focus_target=0;hound_focus_actor=null
+ hound_attack_move=Vector3(INF,0,0)
  recalled_pet_mana.clear();pet_participants.clear()
- pending_hounds.clear();pending_cave_bears.clear();cave_bear_serial=0;latest={};model_rows_epoch=-1;model_rows_seen.clear();arrival_rows.clear();arrival_ids.clear();pending_retirements.clear();retirement_reconcile=true;presentation_delta=0;presentation_dirty=false;reaction_dirty=false
+ pending_hounds.clear();beast_pet_orders.clear();pending_cave_bears.clear();cave_bear_serial=0;latest={};model_rows_epoch=-1;model_rows_seen.clear();arrival_rows.clear();arrival_ids.clear();pending_retirements.clear();retirement_reconcile=true;presentation_delta=0;presentation_dirty=false;reaction_dirty=false
 
 func preparation_tick(delta:float):
  if not game.playing or game.model.phase!="preparing" or game.ordinary_pause or game.settings_open or game.rogue_roster_open or game.transitioning or (is_instance_valid(game.map_editor) and game.map_editor.active):return

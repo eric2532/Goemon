@@ -7,6 +7,18 @@ const COMPACT=preload("res://assets/ui/crossgate/menu/compact.svg")
 const BUTTON=preload("res://assets/ui/crossgate/menu/button.svg")
 const FONT=preload("res://assets/ui/fonts/interface.tres")
 static var cached_theme:Theme
+static func install_web_font_fallback():
+	var fallback:Font=load("res://assets/ui/fonts/NotoSansCJKtc-Regular.otf")
+	var default_theme=ThemeDB.get_default_theme()
+	var fonts:Array[Font]=[default_theme.default_font,ThemeDB.fallback_font,FONT,FONT.base_font,
+		preload("res://assets/ui/fonts/crossgate_battle.tres")]
+	for style in ["bold_font","italics_font","bold_italics_font"]:
+		fonts.append(default_theme.get_font(style,"RichTextLabel"))
+	for font in fonts:
+		if font==null or fallback in font.fallbacks:continue
+		var chain=font.fallbacks
+		chain.append(fallback)
+		font.fallbacks=chain
 const TRAY_WIDTH=740.0
 static func layout_cards(control:Control,inset:float=16):
 	control.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)

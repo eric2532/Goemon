@@ -15,7 +15,7 @@ func check_east_il_road():
   var village_root=game.world.find_child("Connected_"+village,true,false)
   check(village_root!=null,"The original village is present inside the outdoor world")
   check(game.world.find_child("VillageCountrysideView",true,false)==null,"The adjoining landscape is playable rather than a decorative background")
-  var houses=village_root.find_children("BlueCGVillageBuilding_*","MeshInstance3D",true,false)
+  var houses=village_root.find_children("BlueCGVillageBuilding_*","Node3D",true,false)
   check(houses.size()==(8 if village=="il_village" else 5),"Every original building is reused exactly once")
   for house in houses:check_uvs(house)
   var npcs=village_root.find_child("OriginalFalanNPCs",true,false)

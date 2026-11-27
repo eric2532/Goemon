@@ -277,7 +277,7 @@ struct RegisteredFacade {
 // State reads are frequent during hit dispatch; keep their dictionary keys
 // alive with the runtime instead of allocating every key for every hit.
 struct UnitStateKeys {
-    static constexpr const char* texts[]={"shelter_mode","age","logical_id","team","kind","position","velocity","pose_velocity","walk_phase","pose_time","stun","pose_row","yaw","hp","max_hp","frozen","slow_factor","buff_left","chain_count","action_index","action","action_time","status","blocking","riposte","target_id","external_target","external_kind","dodge_chance","counter_chance","counter_active","mana","max_mana","body_scale","escort_leader","escort_slot"};
+    static constexpr const char* texts[]={"shelter_mode","age","logical_id","team","kind","position","velocity","pose_velocity","walk_phase","pose_time","stun","pose_row","yaw","hp","max_hp","frozen","slow_factor","buff_left","chain_count","action_index","action","action_time","status","blocking","riposte","target_id","external_target","external_kind","dodge_chance","counter_chance","counter_active","mana","max_mana","body_scale","escort_leader","escort_slot","evasion_chance"};
     Variant values[sizeof(texts)/sizeof(texts[0])];
     UnitStateKeys(){for(size_t i=0;i<sizeof(texts)/sizeof(texts[0]);++i){Blob text;string_new(&text,texts[i]);from_type(STR)(&values[i],&text);destructor(STR)(&text);}}
     ~UnitStateKeys(){for(auto& value:values)variant_destroy(&value);}
@@ -645,10 +645,10 @@ void projectile_buffers(void* snapshot,double bullet_scale,const int32_t* limits
     for(size_t i=0;i<batches.size();++i){auto key=i==29?std::string("undersea-qi"):i>=22?"finale-shot"+std::to_string(i-22):i<16?"bullet"+std::to_string(i):(i==16?std::string("star"):(i==17?std::string("ranger-arrow"):(i==18?std::string("ranger-power-arrow"):(i==19?std::string("skullpion-ball"):(i==20?std::string("dragon"):std::string("dark-lumina-ball"))))));field(&output,key.c_str(),F32,batches[i]);}
     put(result,"projectiles",DICT,&output);destructor(DICT)(&output);field(result,"shields",F32,shield);put_bool(result,"valid",true);
 }
-enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,CAN_REACH,HOUND_SKIN,ALLY_GROUND_CLEAR,CONFIRM_DRAIN,MIRROR_SPELL_REACH,PET_SKILLS,PET_READY,BOSS_DODGE,HERO_DODGE_THREAT,HOUND_FOCUS,PET_MANA,PET_GROWTH,PATROL_COUNTER,BODY_SCALE,ENEMY_ESCORT,PREPARE_ROUTES,ENEMY_ARRIVAL,PET_TRAINING,PET_BODYGUARD_LEVEL,COUNT};
-const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT},{VEC3,VEC3,FLOAT},{INT,INT},{VEC3,FLOAT},{INT,FLOAT},{INT,FLOAT},{INT,I32,INT},{INT,INT},{INT,FLOAT,FLOAT},{},{},{INT,FLOAT},{INT,FLOAT,FLOAT},{INT},{INT,FLOAT},{INT,INT,INT},{F32,INT},{INT},{INT,FLOAT,FLOAT,FLOAT,BOOL},{INT,INT}};
-const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL,BOOL,BOOL,BOOL,NIL,NIL,BOOL,BOOL,BOOL,DICT,INT,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL};
-const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3,3,2,2,2,2,3,2,3,0,0,2,3,1,2,3,2,1,5,2};
+enum Method{CONFIGURE,SPAWN,DESPAWN,VALID,CLEAR,SNAPSHOT,QUERY,NAVIGATION,GOALS,STEP,KITS,HIT,EVENTS,TARGETS,STATE,POSE,RENDER,REST,GUARD,REST_TICK,FILTER_BOXES,INSTANCE_BUFFERS,NEARBY_POINTS,SYNC_FACADES,SYNC_HELPERS,QUERY_STATS,COLLECTORS,STEP_PROFILE,BEGIN_STEP,FINISH_STEP,CAPTURE_HELPERS,SNAPSHOT_HELPERS,PARALLEL_MOVEMENT,SCENE_EVENTS,REGISTER_FACADE,SYNC_REGISTERED,INDEX_ENEMIES,PROJECTILE_BUFFERS,SYNC_MODEL_ROWS,SYNC_MODEL_ROWS_FOR,QUERY_ACTORS,MIRROR,MIRROR_BUSY,ENEMY_SCALING,CAN_REACH,HOUND_SKIN,ALLY_GROUND_CLEAR,CONFIRM_DRAIN,MIRROR_SPELL_REACH,PET_SKILLS,PET_READY,BOSS_DODGE,HERO_DODGE_THREAT,HOUND_FOCUS,PET_MANA,PET_GROWTH,PATROL_COUNTER,BODY_SCALE,ENEMY_ESCORT,PREPARE_ROUTES,ENEMY_ARRIVAL,PET_TRAINING,PET_BODYGUARD_LEVEL,COMBINED_POWER_BEGIN,COMBINED_POWER_READY,COMBINED_POWER_END,COMBINED_POWER_STRIKE,PET_SKILL_GROUPS,BEAST_PET_QUEUE,BEAST_PET_BUSY,CAN_REACH_ALLY,COUNT};
+const VT types[COUNT][6]={{INT,INT},{INT,INT,INT,VEC3,FLOAT,FLOAT},{INT},{INT},{},{},{AABB,INT},{DICT},{I64,V3S,F32},{FLOAT},{DICT},{INT,DICT},{},{DICT},{INT},{INT,VEC3,FLOAT},{},{},{INT,VEC3,FLOAT},{FLOAT},{V3S,V3S,VEC3,VEC3},{DICT,DICT},{V3S,VEC3,FLOAT},{DICT,DICT,DICT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT,DICT},{BOOL},{DICT,DICT,DICT,FLOAT,FLOAT,FLOAT},{BOOL},{FLOAT},{},{},{DICT,DICT,DICT},{BOOL},{},{INT,DICT,GDEXTENSION_VARIANT_TYPE_OBJECT},{DICT},{ARRAY,DICT,DICT},{DICT,FLOAT,GDEXTENSION_VARIANT_TYPE_VECTOR2I},{},{I64},{AABB,DICT,ARRAY,ARRAY},{INT,INT,FLOAT,FLOAT,VEC3},{INT,BOOL},{INT,FLOAT,FLOAT},{VEC3,VEC3,FLOAT},{INT,INT},{VEC3,FLOAT},{INT,FLOAT},{INT,FLOAT},{INT,I32,INT},{INT,INT},{INT,FLOAT,FLOAT},{},{},{INT,FLOAT},{INT,FLOAT,FLOAT},{INT},{INT,FLOAT},{INT,INT,INT},{F32,INT},{INT},{INT,FLOAT,FLOAT,FLOAT,BOOL},{INT,INT},{INT,FLOAT},{},{},{},{INT,INT},{INT,INT},{INT},{VEC3,VEC3,FLOAT}};
+const VT outputs[COUNT]={NIL,INT,NIL,BOOL,NIL,DICT,I64,NIL,NIL,NIL,BOOL,DICT,ARRAY,NIL,DICT,NIL,DICT,NIL,NIL,NIL,I64,DICT,I64,INT,INT,DICT,DICT,DICT,BOOL,NIL,DICT,INT,NIL,ARRAY,BOOL,INT,DICT,DICT,INT,INT,ARRAY,BOOL,NIL,BOOL,BOOL,BOOL,BOOL,NIL,NIL,BOOL,BOOL,BOOL,DICT,INT,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,INT,BOOL,BOOL,BOOL,BOOL};
+const int counts[COUNT]={2,6,1,1,0,0,2,1,3,1,1,2,0,1,1,3,0,0,3,1,4,2,3,5,2,1,6,1,1,0,0,3,1,0,3,1,3,3,0,1,4,5,2,3,3,2,2,2,2,3,2,3,0,0,2,3,1,2,3,2,1,5,2,2,0,0,0,2,2,1,3};
 void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     auto& owner=*static_cast<Instance*>(instance);auto& crowd=owner.crowd;
     const auto method=intptr_t(userdata);
@@ -656,6 +656,10 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
     // Every shared-state read/write joins first, including hits and retirement.
     if(method!=BEGIN_STEP&&method!=FINISH_STEP&&method!=COLLECTORS&&method!=NEARBY_POINTS&&method!=SNAPSHOT_HELPERS&&method!=INDEX_ENEMIES&&method!=PROJECTILE_BUFFERS)crowd.finish_step();
     switch(method){
+        case COMBINED_POWER_BEGIN:*static_cast<GDExtensionBool*>(ret)=crowd.combat.begin_combined_power(crowd,*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]));break;
+        case COMBINED_POWER_STRIKE:*static_cast<int64_t*>(ret)=crowd.combat.strike_combined_power(crowd);break;
+        case COMBINED_POWER_READY:*static_cast<GDExtensionBool*>(ret)=crowd.combat.combined_power_ready(crowd);break;
+        case COMBINED_POWER_END:*static_cast<GDExtensionBool*>(ret)=crowd.combat.end_combined_power(crowd);break;
         case HOUND_FOCUS:*static_cast<int64_t*>(ret)=crowd.combat.hound_focus_target();break;
         case HERO_DODGE_THREAT:{
             const auto& threat=crowd.combat.hero_dodge_threat();
@@ -666,6 +670,12 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             auto skills=unpack<int32_t>(args[1],I32);
             *static_cast<GDExtensionBool*>(ret)=crowd.set_pet_skills(*static_cast<const int64_t*>(args[0]),skills,int(*static_cast<const int64_t*>(args[2])));break;
         }
+        case BEAST_PET_QUEUE:*static_cast<GDExtensionBool*>(ret)=crowd.combat.queue_beast_pet_attacks(crowd,*static_cast<const int64_t*>(args[0]),*static_cast<const int64_t*>(args[1]));break;
+        case BEAST_PET_BUSY:{
+            auto u=crowd.unit(*static_cast<const int64_t*>(args[0]));
+            *static_cast<GDExtensionBool*>(ret)=u&&u->beast_pet_attacks>=0&&(u->beast_pet_attacks>0||u->action_active);break;
+        }
+        case PET_SKILL_GROUPS:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_skill_groups(*static_cast<const int64_t*>(args[0]),int(*static_cast<const int64_t*>(args[1])));break;
         case PET_READY:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_skill_ready(*static_cast<const int64_t*>(args[0]),int(*static_cast<const int64_t*>(args[1])));break;
         case PET_MANA:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_mana(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]));break;
         case PET_TRAINING:*static_cast<GDExtensionBool*>(ret)=crowd.set_pet_training(*static_cast<const int64_t*>(args[0]),*static_cast<const double*>(args[1]),*static_cast<const double*>(args[2]),*static_cast<const double*>(args[3]),*static_cast<const GDExtensionBool*>(args[4]));break;
@@ -685,6 +695,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             break;
         }
         case CAN_REACH:*static_cast<GDExtensionBool*>(ret)=crowd.terrain.reachable(*static_cast<const army::Vec3*>(args[0]),*static_cast<const army::Vec3*>(args[1]),float(*static_cast<const double*>(args[2])),-1);break;
+        case CAN_REACH_ALLY:*static_cast<GDExtensionBool*>(ret)=crowd.allied_terrain.reachable(*static_cast<const army::Vec3*>(args[0]),*static_cast<const army::Vec3*>(args[1]),float(*static_cast<const double*>(args[2])),-1);break;
         case PREPARE_ROUTES:{
             int64_t team=*static_cast<const int64_t*>(args[1]);
             *static_cast<GDExtensionBool*>(ret)=team>=0&&team<=1&&(team?crowd.allied_terrain:crowd.terrain).prepare_routes(unpack<float>(args[0],F32));break;
@@ -845,6 +856,9 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             data.route_spacing=float(scalar<double>(dict,"route_spacing",FLOAT,6));
             data.origin=scalar<army::Vec3>(dict,"origin",VEC3,{-240,0,-240});
             data.bounds_min=scalar<army::Vec3>(dict,"bounds_min",VEC3,{-1e8f,0,-1e8f});data.bounds_max=scalar<army::Vec3>(dict,"bounds_max",VEC3,{1e8f,0,1e8f});
+            auto flips=get(dict,"diagonal_flips");
+            // A malformed optional mask must fail Terrain validation, not become the default split.
+            data.diagonal_flips=flips&&variant_type(flips)!=NIL&&variant_type(flips)!=BYTES?std::vector<uint8_t>{2}:vector<uint8_t>(dict,"diagonal_flips",BYTES);
             data.heights=vector<float>(dict,"heights",F32);data.covered=vector<uint8_t>(dict,"covered",BYTES);data.pieces=vector<float>(dict,"pieces",F32);
             data.friendly_navigation=scalar<GDExtensionBool>(dict,"friendly_navigation",BOOL,0);data.friendly_obstacle_min=vector<army::Vec3>(dict,"friendly_obstacle_min",V3S);data.friendly_obstacle_max=vector<army::Vec3>(dict,"friendly_obstacle_max",V3S);
             data.obstacle_min=vector<army::Vec3>(dict,"obstacle_min",V3S);data.obstacle_max=vector<army::Vec3>(dict,"obstacle_max",V3S);
@@ -897,6 +911,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             data.finale_meta=vector<int32_t>(dict,"finale_meta",I32);data.finale_frames=vector<float>(dict,"finale_frames",F32);data.finale_shots=vector<double>(dict,"finale_shots",F64);data.finale_scale=float(scalar<double>(dict,"finale_scale",FLOAT,1));data.finale_ranges=vector<double>(dict,"finale_ranges",F64);
             data.ranger=vector<double>(dict,"ranger",F64);data.ranger_muzzles=vector<army::Vec3>(dict,"ranger_muzzles",V3S);data.ranger_motion_muzzles=vector<army::Vec3>(dict,"ranger_motion_muzzles",V3S);
             data.ally_kinds=vector<int32_t>(dict,"ally_kinds",I32);data.walk_cadence=vector<double>(dict,"walk_cadence",F64);data.ally_profiles=vector<double>(dict,"ally_profiles",F64);data.ally_primaries=vector<double>(dict,"ally_primaries",F64);
+            data.enemy_evasion=vector<double>(dict,"enemy_evasion",F64);
             data.actions=vector<int32_t>(dict,"actions",I32);data.status_bits=vector<int32_t>(dict,"status_bits",I32);
             data.phase_ticks=vector<float>(dict,"phase_ticks",F32);data.contact_ticks=vector<float>(dict,"contact_ticks",F32);
             data.melee_from=scalar<army::Vec3>(dict,"melee_from",VEC3,{});data.melee_to=scalar<army::Vec3>(dict,"melee_to",VEC3,{});data.muzzle=scalar<army::Vec3>(dict,"muzzle",VEC3,{});
@@ -906,6 +921,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
         case HIT:{
             void* dict=const_cast<void*>(args[1]);army::Hit hit;
             hit.provoke=scalar<GDExtensionBool>(dict,"provoke",BOOL,1);hit.amount=scalar<double>(dict,"amount",FLOAT,0);hit.status_seconds=scalar<double>(dict,"status_seconds",FLOAT,0);
+            hit.accuracy=scalar<double>(dict,"accuracy",FLOAT,0);
             hit.source_id=scalar<int64_t>(dict,"source_id",INT,0);hit.ticket_id=scalar<int64_t>(dict,"ticket_id",INT,0);
             hit.direction=scalar<army::Vec3>(dict,"direction",VEC3,{});hit.projectile=scalar<GDExtensionBool>(dict,"projectile",BOOL,0);hit.heavy=scalar<GDExtensionBool>(dict,"heavy",BOOL,0);hit.critical=scalar<GDExtensionBool>(dict,"critical",BOOL,0);
             hit.responsive_recoil=scalar<GDExtensionBool>(dict,"responsive_recoil",BOOL,0);hit.counter=scalar<GDExtensionBool>(dict,"counter",BOOL,0);
@@ -926,7 +942,9 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
                 const double mana=u->pet_mana,maximum=crowd.combat.pet_max_mana()+u->pet_mana_bonus;
                 store(31,FLOAT,&mana);store(32,FLOAT,&maximum);
             }
-            integer(0,u->shelter_mode);store(1,FLOAT,&u->age);integer(2,u->logical_id);integer(3,u->team);integer(4,u->kind);store(5,VEC3,&u->position);store(6,VEC3,&u->velocity);store(7,VEC3,&u->pose_velocity);store(8,FLOAT,&u->walk_phase);store(9,FLOAT,&u->pose_time);store(10,FLOAT,&u->stun);integer(11,u->pose_row);double yaw=u->yaw;store(12,FLOAT,&yaw);store(13,FLOAT,&u->hp);store(14,FLOAT,&u->max_hp);store(15,FLOAT,&u->frozen);double slow=u->slow_factor;store(16,FLOAT,&slow);store(17,FLOAT,&u->buff_left);integer(18,u->chain_count);integer(19,u->combo_serial%(u->kind==7?4:3));integer(20,u->action);store(21,FLOAT,&u->action_time);integer(22,u->status);boolean(23,u->blocking);boolean(24,u->riposte);auto target=crowd.unit(u->target_handle);integer(25,target?target->logical_id:0);integer(26,u->external_target);integer(27,u->external_kind);store(28,FLOAT,&u->dodge_chance);store(29,FLOAT,&u->counter_chance);boolean(30,u->counter_active);double body_scale=u->body_scale;store(33,FLOAT,&body_scale);integer(34,u->escort_leader);integer(35,u->escort_slot);if(u->kind==army::HOUND_KIND)put_bool(ret,"pet_sequence",u->pet_skill==2||u->pet_skill==army::PET_BEE_FLURRY);break;}
+            integer(0,u->shelter_mode);store(1,FLOAT,&u->age);integer(2,u->logical_id);integer(3,u->team);integer(4,u->kind);store(5,VEC3,&u->position);store(6,VEC3,&u->velocity);store(7,VEC3,&u->pose_velocity);store(8,FLOAT,&u->walk_phase);store(9,FLOAT,&u->pose_time);store(10,FLOAT,&u->stun);integer(11,u->pose_row);double yaw=u->yaw;store(12,FLOAT,&yaw);store(13,FLOAT,&u->hp);store(14,FLOAT,&u->max_hp);store(15,FLOAT,&u->frozen);double slow=u->slow_factor;store(16,FLOAT,&slow);store(17,FLOAT,&u->buff_left);integer(18,u->chain_count);integer(19,u->combo_serial%(u->kind==7?4:3));integer(20,u->action);store(21,FLOAT,&u->action_time);integer(22,u->status);boolean(23,u->blocking);boolean(24,u->riposte);auto target=crowd.unit(u->target_handle);integer(25,target?target->logical_id:0);integer(26,u->external_target);integer(27,u->external_kind);store(28,FLOAT,&u->dodge_chance);store(29,FLOAT,&u->counter_chance);boolean(30,u->counter_active);double body_scale=u->body_scale;store(33,FLOAT,&body_scale);integer(34,u->escort_leader);integer(35,u->escort_slot);double evasion=crowd.combat.evasion_chance(*u);store(36,FLOAT,&evasion);if(u->kind==army::HOUND_KIND)put_bool(ret,"pet_sequence",u->pet_skill==2||u->pet_skill==army::PET_BEE_FLURRY);
+            if(u->beast_pet_attacks>=0){put_int(ret,"beast_pet_attacks",u->beast_pet_attacks);put_bool(ret,"beast_pet_active",u->action_active);}
+            break;}
         case EVENTS:write_events(crowd.combat,ret);break;
         case SCENE_EVENTS:write_events(crowd.combat,ret,true);break;
         case TARGETS:{
@@ -938,10 +956,12 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
             if(ids.size()==kinds.size()&&ids.size()==positions.size()&&ids.size()==hp.size())for(size_t i=0;i<ids.size();++i){
                 army::ExternalTarget target;target.id=ids[i];target.kind=kinds[i];target.foot=positions[i];target.hp=hp[i];target.targetable=i>=valid.size()||valid[i];target.taunting=i<taunts.size()&&taunts[i];target.minimum=i<lows.size()?lows[i]:positions[i];target.maximum=i<highs.size()?highs[i]:positions[i];target.ignore_building=i<ignores.size()?ignores[i]:-1;target.assault_priority=i<priorities.size()?std::clamp(priorities[i],0,4):0;if(target.kind==0){
                     target.pet_formation_facing=scalar<army::Vec3>(dict,"pet_formation_facing",VEC3,{});
+                    target.combined_player_attacking=scalar<GDExtensionBool>(dict,"combined_player_attacking",BOOL,0);
                     target.pet_formation_ids=vector<int64_t>(dict,"pet_formation_ids",I64);
                     if(target.pet_formation_ids.size()>5)target.pet_formation_ids.resize(5);
                     target.attack_serial=scalar<int64_t>(dict,"player_attack_serial",INT,0);
                     target.aggro_kills=int(std::clamp<int64_t>(scalar<int64_t>(dict,"player_aggro_kills",INT,0),0,42));
+                    target.map_swarm=scalar<GDExtensionBool>(dict,"player_map_swarm",BOOL,false);
                     target.bodyguard=scalar<GDExtensionBool>(dict,"player_bodyguard",BOOL,false);
                     target.bodyguard_level=int(std::clamp(scalar<int64_t>(dict,"player_bodyguard_level",INT,1),int64_t(1),int64_t(30)));
                     target.guarding=scalar<GDExtensionBool>(dict,"player_guarding",BOOL,false);
@@ -953,7 +973,7 @@ void ptrcall(void* userdata,void* instance,const void* const* args,void* ret){
                 }
                 targets.push_back(target);
             }
-            crowd.combat.set_targets(std::move(targets),scalar<double>(dict,"hound_camera_yaw",FLOAT,3*M_PI/4),scalar<double>(dict,"hound_player_speed",FLOAT,0),scalar<int64_t>(dict,"hound_order",INT,army::HOUND_DEFEND),scalar<int64_t>(dict,"hound_order_serial",INT,0),scalar<int64_t>(dict,"hound_focus_target",INT,0));
+            crowd.combat.set_targets(std::move(targets),scalar<double>(dict,"hound_camera_yaw",FLOAT,3*M_PI/4),scalar<double>(dict,"hound_player_speed",FLOAT,0),scalar<int64_t>(dict,"hound_order",INT,army::HOUND_DEFEND),scalar<int64_t>(dict,"hound_order_serial",INT,0),scalar<int64_t>(dict,"hound_focus_target",INT,0),scalar<army::Vec3>(dict,"hound_attack_move",VEC3,{NAN,0,0}));
             auto shelter_ids=vector<int64_t>(dict,"shelter_ids",I64);auto entrances=vector<army::Vec3>(dict,"shelter_entrances",V3S),centers=vector<army::Vec3>(dict,"shelter_centers",V3S);auto damage_serial=vector<int64_t>(dict,"shelter_damage",I64);std::vector<army::ShelterTarget> shelters;
             if(shelter_ids.size()==entrances.size()&&shelter_ids.size()==centers.size())for(size_t i=0;i<shelter_ids.size();++i)shelters.push_back({shelter_ids[i],entrances[i],centers[i],i<damage_serial.size()?damage_serial[i]:0});crowd.combat.set_shelters(std::move(shelters));break;
         }
@@ -1058,6 +1078,10 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     bind(CLEAR,"clear",nullptr);bind(SNAPSHOT,"snapshot",nullptr);bind(RENDER,"render_snapshot",nullptr);
     bind(HERO_DODGE_THREAT,"hero_dodge_threat",nullptr);
     bind(HOUND_FOCUS,"hound_focus_target",nullptr);
+    const char* power_begin[]={"handle","windup"};bind(COMBINED_POWER_BEGIN,"begin_combined_power",power_begin);
+    bind(COMBINED_POWER_STRIKE,"strike_combined_power",nullptr);
+    bind(COMBINED_POWER_READY,"combined_power_ready",nullptr);
+    bind(COMBINED_POWER_END,"end_combined_power",nullptr);
     const char* query[]={"bounds","team"};bind(QUERY,"query_aabb",query);
     const char* query_actors[]={"bounds","actors","source","extras"};bind(QUERY_ACTORS,"ordered_enemy_candidates",query_actors);
     const char* points[]={"points","origin","radius"};bind(NEARBY_POINTS,"nearby_points",points);
@@ -1075,7 +1099,7 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* instances[]={"snapshot","profiles"};bind(INSTANCE_BUFFERS,"instance_buffers",instances);
     const char* boxes[]={"minimums","maximums","minimum","maximum"};bind(FILTER_BOXES,"filter_boxes",boxes);
     const char* navigation[]={"data"};bind(NAVIGATION,"set_navigation",navigation);
-    const char* reachable[]={"from","goal","radius"};bind(CAN_REACH,"can_reach",reachable);
+    const char* reachable[]={"from","goal","radius"};bind(CAN_REACH,"can_reach",reachable);bind(CAN_REACH_ALLY,"can_reach_ally",reachable);
     const char* ally_ground[]={"point","radius"};bind(ALLY_GROUND_CLEAR,"ally_ground_clear",ally_ground);
     const char* goals[]={"handles","positions","speeds"};bind(GOALS,"set_goals",goals);
     const char* step[]={"delta"};bind(STEP,"step",step);
@@ -1101,6 +1125,9 @@ bool initialize(GDExtensionInterfaceGetProcAddress proc,GDExtensionClassLibraryP
     const char* bodyguard_level[]={"handle","level"};bind(PET_BODYGUARD_LEVEL,"set_pet_bodyguard_level",bodyguard_level);
     const char* pet_skills[]={"handle","skills","combo_limit"};bind(PET_SKILLS,"set_pet_skills",pet_skills);
     const char* pet_ready[]={"handle","mask"};bind(PET_READY,"set_pet_skill_ready",pet_ready);
+    bind(PET_SKILL_GROUPS,"set_pet_skill_groups",pet_ready);
+    const char* beast_pet_queue[]={"handle","count"};bind(BEAST_PET_QUEUE,"queue_beast_pet_attacks",beast_pet_queue);
+    bind(BEAST_PET_BUSY,"beast_pet_busy",handle);
     const char* pet_mana[]={"handle","mana"};bind(PET_MANA,"set_pet_mana",pet_mana);
     const char* pet_growth[]={"handle","health_bonus","damage_bonus"};bind(PET_GROWTH,"set_pet_growth",pet_growth);
     const char* pet_training[]={"handle","movement","attack","mana_bonus","heal"};bind(PET_TRAINING,"set_pet_training",pet_training);return true;

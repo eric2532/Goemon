@@ -55,23 +55,24 @@ func capture(model):
 	history.clear();future.clear();path="";saved_text=encode()
 func load_wind_meadow_large()->String:return read_file(WIND_MEADOW_LARGE_PATH)
 func load_wind_meadow()->String:return read_file(WIND_MEADOW_PATH)
-func read_file(file_path: String)->String:
+func read_file(file_path: String,normalize:bool=true)->String:
 	var file=FileAccess.open(file_path,FileAccess.READ)
 	if file==null:return "Could not open this map."
 	if file.get_length()>MAX_BYTES:return "Map file is too large."
-	var error=decode(file.get_as_text())
+	var error=decode(file.get_as_text(),normalize)
 	if error.is_empty():path=file_path
 	return error
-func decode(source: String)->String:
+func decode(source: String,normalize:bool=true)->String:
 	if source.to_utf8_buffer().size()>MAX_BYTES:return "Map file is too large."
 	var parsed=JSON.new()
 	if parsed.parse(source)!=OK:return "This file is not valid map JSON."
 	var error=validate(parsed.data)
 	if not error.is_empty():return error
 	data=parsed.data
-	# Normalize JSON number types and discard unsupported fields.
-	var model=Model.new();model.reset(42,{},data,include_mines);var title=data.title
-	capture(model);data.title=title
+	if normalize:
+		# Normalize the editable layout; linked area dictionaries already pass through as read.
+		var model=Model.new();model.reset(42,{},data,include_mines);var title=data.title
+		capture(model);data.title=title
 	history.clear();future.clear();saved_text=encode();path=""
 	return ""
 static func integer(value,minimum: int,maximum: int)->bool:
@@ -102,7 +103,9 @@ static func validate(value)->String:
 		var floor_=value.get("falan_floor",0)
 		if not integer(floor_,0,999999) or (floor_!=0 and not preload("res://assets/maps/falan/interior_data.gd").FLOORS.has(int(floor_)) and not freyja.Sites.ROOMS.has(int(floor_)) and not preload("res://scripts/forest/forest_black_prayer.gd").owns(int(floor_)) and not preload("res://scripts/forest/forest_original_maps.gd").owns(int(floor_))):return "Unsupported Falan interior."
 		if value.get("terrain_source","")!="" or not detail.is_empty():return "Falan interiors use a flat foundation."
-	elif not area.is_empty() and (value.get("terrain_source","")!="wind_meadow" or not detail.is_empty() or scale_!=2.0 or expansion!=1.0 or raised):return "Falan uses its own fixed terrain."
+	elif not area.is_empty():
+		var native_expansion=Model.FreyjaTerrain.Sokia.expansion(area)
+		if value.get("terrain_source","")!="wind_meadow" or not detail.is_empty() or scale_!=2.0 or (expansion!=1.0 and expansion!=native_expansion) or raised:return "Falan uses its own fixed terrain."
 	if value.has("falan_areas"):
 		var linked=value.falan_areas
 		if detail!=Model.FreyjaTerrain.ID or not linked is Dictionary or linked.size()!=4:return "Invalid Freyja and Falan adventure."

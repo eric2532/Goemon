@@ -155,7 +155,57 @@ static func dome(native,w:float,d:float,height:float,serial:int=11414):
  round_roof(native,Vector3.ZERO,w*.55,d*.55,lower,cx,rx,serial==11402)
  round_roof(native,Vector3.ZERO,w*.55,d*.55,[[.235,height*.85,67+offset,16],[.235,height*.94,44+offset,16],[.275,height*.94,39+offset,17],[.24,height*.97,22+offset,13],[.01,height,5,.6]],cx,rx,serial==11402)
 
+static func circular_profile(serial:int,w:float,d:float)->Dictionary:
+ var snowy=serial==11413
+ var scale=(150.0 if snowy else 144.0)/((w+d)*.5*.57)
+ var bottom=266.0 if snowy else 254.0
+ return {"scale":scale,"reference":bottom+.5*scale*.66226618,"cx":152.0 if snowy else 144.0,"rx":118.0 if snowy else 112.0,"ry":58.0 if snowy else 56.0,"top":170.0 if snowy else 158.0,"bottom":bottom}
+
+static func source_round_point(angle:float,level:Array,radius:float,profile:Dictionary)->Vector3:
+ var horizontal=(cos(angle)+sin(angle))*.70710678
+ var depth=(sin(angle)-cos(angle))*.70710678
+ var offset=(level[2]-profile.reference+profile.scale*.66226618*level[1])/(profile.scale*.74926865)
+ # The visible forecourt follows its original paint; unseen rear ground closes under the building.
+ if depth<0:offset*=1+depth
+ var across=horizontal*radius*level[0]/profile.scale
+ var along=depth*level[3]/(profile.scale*.74926865)+offset
+ return Vector3((across-along)*.70710678,level[1],(across+along)*.70710678)
+
+static func source_round(native,rows:Array,radius:float,profile:Dictionary):
+ for level in rows.size()-1:
+  for i in 48:
+   var a=-i*TAU/48;var b=-(i+1)*TAU/48;var low:Array=rows[level];var high:Array=rows[level+1]
+   painted_quad(native,source_round_point(a,low,radius,profile),source_round_point(a,high,radius,profile),source_round_point(b,high,radius,profile),source_round_point(b,low,radius,profile),[round_pixel(a,low,profile.cx,radius),round_pixel(a,high,profile.cx,radius),round_pixel(b,high,profile.cx,radius),round_pixel(b,low,profile.cx,radius)])
+
+static func source_round_levels(rows:Array,profile:Dictionary)->Array:
+ var result=[]
+ for row in rows:result.append([row[0],(profile.reference-row[1])/(profile.scale*.66226618),row[1],row[2]])
+ return result
+
+static func calibrated_circular(native,skin,serial:int,w:float,d:float):
+ var profile=circular_profile(serial,w,d);var snowy=serial==11413
+ var outer=320 if snowy else 309;var inner=285 if snowy else 280;var garden_depth=88 if snowy else 82
+ var garden_radius=150.0 if snowy else 144.0
+ var roof_radius=140.0 if snowy else 128.0
+ var roof_y=135.0 if snowy else 129.0;var roof_depth=77.0 if snowy else 70.0
+ source_round(native,source_round_levels([[1,profile.bottom,profile.ry],[1,profile.top,profile.ry]],profile),profile.rx,profile)
+ source_round(native,[[garden_radius*.84/profile.rx,.375,inner,65],[1,.5,profile.bottom,profile.ry]],profile.rx,profile)
+ source_round(native,source_round_levels([[profile.rx/roof_radius,profile.top,profile.ry],[1,roof_y,roof_depth]],profile),roof_radius,profile)
+ var dome_rows=[[1,135,77],[.99,129,74],[.9,110,66],[.7,86,47],[.235,72,17]] if snowy else [[1,129,70],[.99,123,68],[.9,104,59],[.7,82,44],[.235,67,16]]
+ source_round(native,source_round_levels(dome_rows,profile),roof_radius,profile)
+ var offset=5 if snowy else 0
+ source_round(native,source_round_levels([[.235,67+offset,16],[.235,44+offset,16],[.275,39+offset,17],[.24,22+offset,13],[.012,12,.7]],profile),roof_radius,profile)
+ finial(skin,Vector3(0,(profile.reference-12)/(profile.scale*.66226618),0))
+ source_round(native,[[1,.025,outer,garden_depth],[.99,.335,outer-5,garden_depth-2],[.84,.375,inner,65]],garden_radius,profile)
+ var across=profile.rx/profile.scale;var depth=profile.ry/(profile.scale*.74926865)
+ var plane=-sqrt((across*across+depth*depth)*.5)-.13
+ var center_x=61.5 if snowy else 57.0
+ var z=(center_x-profile.cx)/(profile.scale*.70710678)-plane
+ var door_height=81.0/(profile.scale*.66226618);var width=52.0/(profile.scale*.70710678)
+ round_door(native,skin,serial,Vector3(plane,.3+door_height*.5,z),width,door_height)
+
 static func circular(native,skin,serial:int,w:float,d:float,height:float):
+ if serial in [11413,11414]:calibrated_circular(native,skin,serial,w,d);return
  var radius=w*.48;var body=height*.62
  skin.part="plaster"
  Parts.kili_round(skin,Vector3.ZERO,[Vector2(radius,0),Vector2(radius,body)])
@@ -440,22 +490,22 @@ const RAILS=[Vector4(0,0,-1,1),Vector4(-1,1,0,0),Vector4(-.25,1,-1,1),Vector4(-1
 static func fence_arms(serial:int)->Vector4:
  return RAILS[serial-(11378 if serial>=11378 else 11363)]
 
-static func fence(skin,serial:int,height:float):
+static func fence(skin,serial:int,height:float,thickness:float=1.0):
  var arms=fence_arms(serial);skin.part="tina_fence_wood"
- Parts.kili_round(skin,Vector3.ZERO,[Vector2(.12,0),Vector2(.12,height-.08),Vector2(.09,height),Vector2(0,height)])
+ Parts.kili_round(skin,Vector3.ZERO,[Vector2(.12*thickness,0),Vector2(.12*thickness,height-.08),Vector2(.09*thickness,height),Vector2(0,height)])
  for y in [height*.43,height*.73]:
-  if arms.y>arms.x:skin.box(AABB(Vector3(arms.x*1.52,y,-.09),Vector3((arms.y-arms.x)*1.52,.17,.18)))
-  if arms.w>arms.z:skin.box(AABB(Vector3(-.09,y,arms.z*1.52),Vector3(.18,.17,(arms.w-arms.z)*1.52)))
+  if arms.y>arms.x:skin.box(AABB(Vector3(arms.x*1.52,y,-.09*thickness),Vector3((arms.y-arms.x)*1.52,.17*thickness,.18*thickness)))
+  if arms.w>arms.z:skin.box(AABB(Vector3(-.09*thickness,y,arms.z*1.52),Vector3(.18*thickness,.17*thickness,(arms.w-arms.z)*1.52)))
   skin.part="tina_fence_rope"
-  Parts.kili_round(skin,Vector3.UP*y,[Vector2(.16,.025),Vector2(.16,.11)])
+  Parts.kili_round(skin,Vector3.UP*y,[Vector2(.16*thickness,.025),Vector2(.16*thickness,.11*thickness)])
   skin.part="tina_fence_wood"
   if serial>=11378:
    skin.part="snowroof"
-   if arms.y>arms.x:skin.box(AABB(Vector3(arms.x*1.54,y+.15,-.10),Vector3((arms.y-arms.x)*1.54,.055,.20)))
-   if arms.w>arms.z:skin.box(AABB(Vector3(-.10,y+.15,arms.z*1.54),Vector3(.20,.055,(arms.w-arms.z)*1.54)))
+   if arms.y>arms.x:skin.box(AABB(Vector3(arms.x*1.54,y+.15*thickness,-.10*thickness),Vector3((arms.y-arms.x)*1.54,.055,.20*thickness)))
+   if arms.w>arms.z:skin.box(AABB(Vector3(-.10*thickness,y+.15*thickness,arms.z*1.54),Vector3(.20*thickness,.055,(arms.w-arms.z)*1.54)))
    skin.part="tina_fence_wood"
  if serial>=11378:
-  skin.part="snowroof";Parts.kili_round(skin,Vector3.UP*height,[Vector2(.15,0),Vector2(.12,.06),Vector2(0,.08)])
+  skin.part="snowroof";Parts.kili_round(skin,Vector3.UP*height,[Vector2(.15*thickness,0),Vector2(.12*thickness,.06),Vector2(0,.08)])
 
 static func timber_log(skin,at:Vector3,axis:Vector3,length_:float,radius:float,bark:String="tina_log_bark",end_paint:String="tina_log_end"):
  var tangent=Vector3.UP.cross(axis);var previous=skin.part

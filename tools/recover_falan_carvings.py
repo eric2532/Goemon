@@ -20,9 +20,10 @@ PATCHES={
  'mansion_frieze':('mansion',[(167,267),(213,273),(213,292),(167,286)],True,(112,40)),
  'mansion_window':('mansion',[(220,343),(240,344),(240,385),(220,383)],True,(40,96)),
  'mansion_portal':('mansion',[(277,324),(307,340),(307,384),(277,368)],True,(64,96)),
+ 'office_frieze':(10607,[(235,310),(325,251),(325,274),(235,333)],True,(112,32)),
 }
-DEPTH={'office_mask':.18,'guild_relief':.16,'bank_frieze':.18,'mansion_frieze':.10,'mansion_window':0.0,'mansion_portal':.15}
-SAMPLE_STEP={'bank_frieze':1}
+DEPTH={'office_mask':.18,'guild_relief':.16,'bank_frieze':.18,'mansion_frieze':.10,'mansion_window':0.0,'mansion_portal':.15,'office_frieze':.16}
+SAMPLE_STEP={'bank_frieze':1,'office_frieze':1}
 
 
 def mansion_reference(library):

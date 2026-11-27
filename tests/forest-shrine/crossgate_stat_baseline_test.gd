@@ -61,7 +61,8 @@ func run():
   check(p.max_hp==1000 and p.damage_multiplier()==1 and p.magic_damage_multiplier()==1,"Fighter %d resets live health and both damage channels"%id)
   for key in ["critical_chance","dodge_chance","counter_chance"]:
    check(p.combat_tuning(key)==5,"Fighter %d starts with 5%% %s"%[id,key])
-  for key in ["walk_speed","sprint_speed","jump_speed","second_jump_speed"]:
+  check(is_equal_approx(p.combat_tuning("walk_speed"),10.2) and is_equal_approx(p.combat_tuning("sprint_speed"),18.0),"Fighter %d resets to the original walking/sprint pace"%id)
+  for key in ["jump_speed","second_jump_speed"]:
    check(p.combat_tuning(key)==PrototypeTuning.DEFAULTS[key],"Fighter %d retains original %s"%[id,key])
   check(p.combat_tuning("attack_speed")==1 and p.combat_tuning("melee_reach")==1 and p.combat_tuning("jump_height")==1,"Fighter %d keeps saved tuning separate from the melee trial and jump scale"%id)
   game.show_character_balance(false,id);await frames()

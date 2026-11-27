@@ -1,0 +1,12 @@
+{
+  "tool": "built-in image_gen",
+  "generated_file": "/Users/eric/.codex/generated_images/01a21678-b1d1-7b03-a8a6-4bdca4efd6f1/exec-55ad9f6c-cd8c-48e9-bbbd-fe30816dc4b1.png",
+  "sha256": "59b7ae89e9ea14a95e5055849197594027e0d61587fe6b56e304120f95df8b2c",
+  "status": "private_inferred_material_candidate_not_canonical",
+  "source_reference": "Original1230051pale irregular masonry, not a recovered bitmap",
+  "use": "Unseen pier faces only; retain original front source art and map placements. Tile pitch and 3D review pending.",
+  "original_assets_edited": false,
+  "private_material_repeat_source_units": 4.8,
+  "depth": "Continuous relief inferred up to0.09source units; source-facing height samples use exact original RGBA, unseen faces use this material.",
+  "canonical_shared_shader_changed": false
+}

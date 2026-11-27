@@ -28,7 +28,7 @@ static func furnish(root:Node3D,boxes,p:Vector3,span:Vector2,serial:int,kind:Str
  var pale=Fort.material(Color("c5b185"),false)
  var iron=Fort.material(Color("67736b"),false)
  var glaze=Fort.material(Color("76928b") if serial in [16790,16793,16520,16650] else Color("b18a5d"),false)
- if kind in ["coast_wall","coast_picture","coast_counter","coast_cabinet","coast_apothecary","coast_display","coast_weapons","coast_rug"]:
+ if kind in ["coast_wall","coast_picture","coast_counter","coast_cabinet","coast_apothecary","coast_display","coast_weapons","coast_rug","coast_native"]:
   if not meshes.has(serial):meshes[serial]=painted_shape(serial,kind)
   if not groups.has(serial):groups[serial]=[]
   groups[serial].append(p)
@@ -188,14 +188,15 @@ static func furnish(root:Node3D,boxes,p:Vector3,span:Vector2,serial:int,kind:Str
      Geo.beam(prop,a,b,.065,wood)
   _:assert(false,"Missing coastal furnishing: "+kind)
 
-static func painted_shape(serial:int,kind:String)->Mesh:
- var art:Array=Data.GRAPHICS[serial]
+static func painted_shape(serial:int,kind:String,art:Array=[],atlas:Texture2D=Atlas)->Mesh:
+ if kind=="coast_native":return native_shape(serial)
+ if art.is_empty():art=Data.GRAPHICS[serial]
  var span:Vector2=art[2]
  var rect:Rect2=art[0]
  var scale_=clampf(rect.size.x/((span.x+span.y)*32.0/3.0),.22,1.0)
  var extent=span*scale_
  var height=maxf(.20,(rect.size.y-(span.x+span.y)*8*scale_)*4.8/139.0)
- var skin=SourceMesh.new(art,Atlas,4.8/139.0)
+ var skin=SourceMesh.new(art,atlas,4.8/139.0)
  if kind=="coast_wall":
   skin.box(AABB(Vector3(-span.x*.5,0,-span.y*.5),Vector3(span.x,height,span.y)))
  elif kind=="coast_rug":
@@ -210,3 +211,21 @@ static func painted_shape(serial:int,kind:String)->Mesh:
   height=minf(height,4.5)
   skin.box(AABB(Vector3(-extent.x*.5,0,-extent.y*.5),Vector3(extent.x,height,extent.y)))
  return skin.finish()
+
+static func native_shape(serial:int)->Mesh:
+ var art=load("res://scripts/forest/forest_original_map_art.gd")
+ var forms=load("res://scripts/forest/forest_original_map_solids.gd")
+ var g:Dictionary=art.data().graphics.get(str(serial),{}).duplicate(true)
+ var texture:Texture2D
+ if g.is_empty():
+  g=Data.NATIVE[serial].duplicate(true)
+  var rect:Rect2=Data.GRAPHICS[serial][0]
+  g.rect=[rect.position.x,rect.position.y,rect.size.x,rect.size.y]
+  texture=Atlas
+ else:texture=art.solid_texture(int(g.page))
+ if g.family.is_empty() or g.family=="coast_native":g.family=Data.NATIVE[serial].family
+ var raw:Mesh=forms.mesh(serial,forms.kind(serial,false,g),g,texture)
+ var offset=Vector3((float(g.footprint[0])-1.)*1.5,0,(1.-float(g.footprint[1]))*1.5)
+ return PartsFit.transformed(raw,Transform3D(Basis.IDENTITY,-offset))
+
+const PartsFit=preload("res://scripts/forest/forest_falan_proportions.gd")

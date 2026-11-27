@@ -1,5 +1,17 @@
 # Forest Shrine tests
 
+## Ranged-hit enemy aggro
+
+Run `"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/ranged_aggro_test.gd`
+(add `--headless` for logic only). Actual Water Dragon arrows, knives and curved
+boomerangs, plus Maze's native knife volley, hit unaware patrols at 45 meters.
+Checks cover player pursuit, movement, prepared projectile reuse and release
+when the player becomes untargetable. Desktop captures show each hit and chase.
+Evidence belongs under `build/Other Files/Asset Toolkit/Ranged Aggro/`.
+Native `crowd/player_approach_test.cpp` also covers 120-meter hits, guarding,
+committed counters, non-provoking hits, death, patrol leashes, companion source
+attribution, taunt priority and generation-safe reuse at 20/30/60 Hz.
+
 ## 水龍 and 螳螂 family passives
 
 Run `"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/pet_family_passives_test.gd`
@@ -14,7 +26,7 @@ belongs under `build/Other Files/Asset Toolkit/Pet Family Passives/`.
 
 Run `"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/skill_cards_test.gd`.
 Add `--headless` for logic only. The fixture covers the 20-marble bag, queued
-choices, the level cap, stat points, compatible skills for empty loadouts,
+choices, equipped-only offers, empty and fully capped loadouts, stat points,
 and independent pet rewards. Screenshots and logs belong under
 `build/Other Files/Asset Toolkit/Skill Cards/`. Tests for the previous team
 buff, named recruitment and Qi rank card workflows below describe historical
@@ -103,21 +115,36 @@ The older `crossgate_combo_test.gd` and `shared_crossgate_skills_test.gd` still 
 historical fixed shine/contact/audio assertions that fail current level rules;
 their failures are recorded separately in that directory's `validation.json`.
 
-`weapon_icon_scaling_test.gd` compares the bandaged fist with the other weapon
+`weapon_icon_scaling_test.gd` compares the approved red boxing gloves with the other weapon
 icons at 1280×800 and 960×640, including 65–125% HUD scaling. It checks shared
 icon bounds, aspect ratio, six-column collection fit, all 48 slots reachable by
 scrolling, all four category grids and tabs inside their frames, half-size supported
-weapon icons, brighter white fist badges, larger equipped/skill icons and the selected source texture.
+weapon icons, untinted boxing gloves, larger equipped/skill icons and the selected source texture.
 Desktop captures go to `build/Other Files/Asset Toolkit/Equipment Hub/Icon Scaling/`.
 
-Run `weapon_equipment_test.gd` through Play Goemon for 80 Cross Gate appearances
-and 418 verified weapon choices. It covers outfit restrictions (including
+Run `weapon_equipment_test.gd` through Play Goemon for the current Cross Gate
+appearance/weapon catalog. It covers outfit restrictions (including
 Sword-only Kaz), selection drafts, atomic saves/reload, unlocked carried weapons with one active weapon,
 native contact damage and arrow release, existing Kunai quotas, all eight
 directions, weapon cycling, incompatible-outfit fallback/restoration and warmed
 melee resource reuse. Omit `--headless` to capture the equipment grid at two
 window sizes and representative native attack poses. Evidence lives under
 `build/Other Files/Asset Toolkit/Cross Gate Weapon Inventory/`.
+
+`original_boomerang_test.gd` covers all 237 compatible appearances against the
+source inventory, including eight-direction normal/counter frame identity,
+source release timing, one hit per flight, return/retirement, original/custom
+pool separation, saves, four native copies and actual click/Shift controls.
+It also checks the separate Lv1 wooden and 水龍 equipment icons. Run through
+Play Goemon for rendered evidence under `Asset Toolkit/Original Boomerang/Implementation/`.
+`water_dragon_weapons_test.gd` explicitly selects the separate 水龍 custom item;
+its contact checks fix crit/accuracy so random defenses cannot alter expected damage.
+
+`water_boomerang_contact_test.gd` checks the separated blue wave at confirmed
+enemy contacts: no caster-side release wave, exact contact position, misses,
+ordinary-weapon isolation, counters, four native copies, repeated effect/projectile
+reuse and damage with a full cosmetic pool. Run through Play Goemon for release
+and contact captures under `Asset Toolkit/Water Boomerang Contact/`.
 
 Run `equipment_hub_test.gd`, `pet_loadout_test.gd`,
 `preparation_menu_hotkeys_test.gd` and `arena_menu_test.gd` through Play Goemon
@@ -358,7 +385,7 @@ heights, thirteen buildings and NPC counts, visits eleven interiors and both
 Habaru entrances/exits, and captures outward views. It also accepts `--headless`.
 Evidence is under `BlueCG Map Study/Connected Villages/`.
 
-Habaru cave wayfinding and Il/Alyut village frontages:
+Habaru cave wayfinding and native Il/Alyut village dressing:
 
 ```sh
 "/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/habaru_wayfinding_test.gd -- --il-habaru-alyut
@@ -367,9 +394,37 @@ Habaru cave wayfinding and Il/Alyut village frontages:
 Also accepts `--headless` before `--script`. Checks both cave cutouts and normal
 walking camera framing, the twelve trail checkpoints, centre and both-side entry
 at both enlarged cave mouths, all eleven village doorway round trips, original
-grass/plant reuse, round-house wall orientation and furniture clearance. Captures
+grass/plant reuse, round-house wall orientation and exclusion of authored frontage furniture. Captures
 are under `build/Other Files/BlueCG Map Study/Habaru Wayfinding/` and
 `build/Other Files/BlueCG Map Study/Village Fidelity/`.
+
+Focused Explore visual-source integration (no walkthroughs or screenshots):
+
+```sh
+python3 tools/recover_venoa_walls.py --check
+"/Users/eric/Desktop/Play Goemon.command" --headless --script res://tests/forest-shrine/explore_southern_walls_test.gd
+```
+
+Checks fourteen weathered wall variants, cache sharing, finite geometry/normals,
+local batches, the two-armed corner, all 164 Venoa wall plans and preservation
+of their old physical shapes. It also compiles the existing village fixtures
+against the shared compound Il guild. Appearance remains for in-game review.
+
+The area continuation adds these focused checks without captures:
+
+```sh
+python3 tools/recover_venoa_buildings.py --check
+python3 tests/forest-shrine/test_venoa_paint.py
+"/Users/eric/Desktop/Play Goemon.command" --headless --script res://tests/forest-shrine/explore_venoa_buildings_test.gd
+python3 tools/recover_ghana_fronts.py --check
+"/Users/eric/Desktop/Play Goemon.command" --headless --script res://tests/forest-shrine/explore_ghana_fronts_test.gd
+```
+
+The Venoa fixture checks six source-specific forms across seven placements and
+their seven original physical shapes. Ghana checks eight reused building pieces,
+46 source wall pieces and all 52 old physical shapes. Source RGB checks protect
+dark interiors while excluding the original checkerboard ground shadow. These
+checks do not certify appearance or a full Explore match.
 
 
 乾坤 / 諸刃 red and blue burst visibility:
@@ -1532,6 +1587,17 @@ contacts, audio and the pinned encounter/guardian data. Evidence and captures
 are under `build/Other Files/Asset Toolkit/Cursed Maze/`.
 
 
+R power combos: run `Play Goemon.command --script res://tests/forest-shrine/combined_formation_test.gd`
+for same-step starts/impact, one-slot click buffering, six/twelve per-unit combo
+links, held LMB across three strokes for every Cross Gate fighter and dagger
+variant, release-to-stop, complete idle recovery, movement/focus cancellation,
+whiffs, distant queued
+approach, Cross Gate normal/dagger attacks, death/phase cleanup and warmed reuse.
+Add `-- --motion-review` for captures. Native `crowd/combined_formation_test.cpp`
+covers 20/30/60 Hz, settled native contacts, restarted/cancelled recovery and
+missing/recycled members. Evidence belongs under
+`build/Other Files/Asset Toolkit/Combined Formation/`.
+
 Pet recall formation: run `Play Goemon.command --script res://tests/forest-shrine/pet_formation_test.gd`
 for default summon/resummon placement, the approved five party slots, actual Z input, repeated recalls, facing/travel,
 no teleporting and existing F/right-click controls. Captures go to
@@ -1574,3 +1640,68 @@ also checks exact chance distributions over 100 contacts and damage at every
 level, ordinary-hit isolation, valid inputs, rest and pooled reuse. Evidence uses
 `bodyguard-level-*.log` under Asset Toolkit. The original 護衛 test remains the
 level-one rendered and repeated-use regression.
+
+## Directional pet attack move
+
+The responsiveness follow-up also checks whole-party acquisition of a nearby
+arrival within 150 ms. Native checks cover late arrivals at 20/30/60 Hz and
+starting from clear, spaced melee contact without orbiting to a reserved post.
+Before/after logs are in `build/Other Files/Asset Toolkit/Pet Stickiness/`.
+
+Run `Play Goemon.command --script res://tests/forest-shrine/pet_attack_move_test.gd`
+(add `--headless` for logic checks). Actual RMB input sends all five pet families
+and a summoned bear toward empty ground, engages forward enemies, immediately
+interrupts their attacks on a fresh directional click, resumes the advance,
+defends the destination and accepts F/Z overrides. Repeated commands
+check prepared presentation counts. Native `crowd/attack_move_test.cpp` covers
+20/30/60 Hz, cover, pursuit retention after passing an enemy, redirection, late
+arrivals, player-threat priority and recycling. Evidence is under
+`build/Other Files/Asset Toolkit/Attack Move/`. Empty-click hunt descriptions in
+older entries are historical; the default automatic defense still spreads pets.
+
+
+Explore area closeout checks (headless, no traversal/captures):
+`explore_courtyard_visual_test.gd` covers 232 courtyard obstacles, its stair shape
+and the uncompressed shared Il guild; `explore_venoa_buildings_test.gd` covers
+six forms/seven placements, actual native projection and seven old shapes;
+`explore_southern_walls_test.gd` covers fourteen forms/164 old shapes;
+`explore_ghana_fronts_test.gd` covers eight building pieces, 46 walls, the native
+open well, 73 rails, all 126 old shapes and all 21 Kili/Ghana source wall bounds.
+Run each separately through Play Goemon with `--headless --script res://tests/forest-shrine/NAME.gd`.
+`recover_ghana_details.py --check` and `recover_kili_wall_proportions.py --check`
+verify the new source derivatives. Any script error fails verification even if
+a later PASS line appears. Existing shutdown resource warnings remain; these
+checks do not certify visual fidelity, frame time or leak-free behavior.
+
+## Crowded enemy attack pace and damage
+
+Run `"/Users/eric/Desktop/Play Goemon.command" --script res://tests/forest-shrine/crowd_attack_pressure_test.gd`
+(add `--headless` for logic only). The Falan Arena fixture compares one, three,
+four, six, eight and fourteen ordinary melee enemies, exact damage, unchanged
+first contact, one second of extra recovery at four enemies (two-second cap),
+crowd clearing and repeated simultaneous combat
+with prepared presentation counts. `native/terrain_math/crowd/crowd_pressure_test.cpp`
+covers native boundaries, target exclusions, chase movement, committed swings,
+charge isolation and reuse at 20/30/60 Hz. Logs and captures belong under
+`build/Other Files/Asset Toolkit/Crowd Attack Pressure/`.
+
+### Permanent chest food
+
+`chest_nutrition_test.gd` exercises all sixteen recovered foods, the twenty-marble
+reward bag, ordinary weapon preservation, character/pet progression, fractional
+XP, capped/malformed saves, failed-write retry, recalled pets, reload/new-run and
+travel persistence, F input, the two stock audio streams, source-pixel identity,
+small-window receipts and repeated native/presentation reuse. Use Play Goemon
+with `--script res://tests/forest-shrine/chest_nutrition_test.gd`; add `--headless`
+for logic only. Evidence: `build/Other Files/Asset Toolkit/Chest Nutrition/`.
+
+
+Food pickup and jelly updates (2026-11-27): `food_magnet_test.gd` now covers the
+0.65-second rising orbit, moving eater, deferred effect/sound, pause/cover/cleanup,
+64-slot repeated reuse, a complete13food/52miss shuffle bag, and red/blue/green
+five-minute+50%bonuses across Cross Gate fighters. `chest_nutrition_test.gd`
+checks the same flight for all16meals, soup replacements for the former jelly
+meals, original-pixel hashes, changed-party recovery and duplicate-F rejection.
+`map_swarm_test.gd` verifies that four deaths do not activate pursuit, while eating
+original:15043 does. Native movement uses the bundled arena with -- --crossgate-pet-test, matching
+normal play; separate source-map model checks cover reset/trigger rules. Current evidence belongs under `build/Other Files/Asset Toolkit/Melon Bread/`.

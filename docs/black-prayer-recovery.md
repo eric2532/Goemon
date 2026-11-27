@@ -10,7 +10,8 @@ remains possible before victory.
 Each maze floor uses a deterministic run seed plus its own stable runtime ID
 30101–30106. Corridors, room extents and both stair positions change across runs;
 returning during a run preserves the map. The current reconstruction chooses
-64×64 cells and sixteen rooms, inside the pinned original 40–80 / 10–20 ranges.
+64×64 cells and sixteen rooms. The source specifies 40–80 cells on both map
+axes; its separate 10–20 fields describe door dimensions, not room count.
 It uses the existing DFS/carving helpers with three-tile corridors. The exact
 original server maze algorithm has not been recovered. These runtime IDs are
 not claims about original transient cache filenames. The fixed entrance and
@@ -48,15 +49,27 @@ Meadow flower/shrub meshes through owned color copies, preserving source meshes,
 all placements and collision. Lower stems enter the vases; unseen shapes and
 branch depth remain fitted from 2D evidence.
 
-The shared native army owns 96 patrol enemies per floor (six per room; 576
-across six floors): Ghosts and Bloody Blades at levels 20–23 from encounter table
-15001. The original 32 slots retain their positions, species and levels; 64
-reinforcements are appended so existing defeated-enemy records remain valid. Visible patrol population
-and HP/damage are real-time game adaptations. Deaths are recorded by floor/slot
-in `black_prayer_slain`, separate from `ruby_boss_slain`; maze deaths cannot
-unlock rewards, and backtracking does not resurrect cleared patrols. Starting
-a fresh adventure clears both run ledgers. No enemy-specific targeting owner,
-per-frame resource loader or new simulation backend was added.
+The six logical floors now resolve config301 encounter15001 through the existing
+native movement-encounter owner. Its equal-weight groups15006/15004/15005 retain
+the source mixed Ghost/Bloody Blade, Ghost-only and Blade-only rosters. The
+prepared source member IDs, levels/count fields and mandatory flags remain
+available in `assets/maps/falan/black_prayer/encounters.json`. Floor levels
+20/21/21/22/22/23 follow the pinned reference editor's formula; original server
+level progression is not authenticated. The existing native chance1–3 and
+uniform party sizes1–6 remain adaptations with raw source fields retained.
+
+The earlier96 static patrol stations and `black_prayer_slain` keys remain
+compatibility data, preserving old slot identities and generation. They no
+longer supply the live ordinary pool. Ordinary source deaths cannot unlock
+Ruby's separate reward ledger. This restores source-specific groups, rather
+than reducing population to claim performance. Existing native targeting,
+combat and pooled presentation still own every actor.
+
+Source boxAmount4 is a whole-branch total under the recovered reference
+generator; current Prayer loot/refresh remains a required reconciliation.
+Original room generation, door dimensions/placement, dynamic stair103012
+versus cached17974/17975 and encounter timing/count distributions remain
+qualified. Known config/floor indexes do not establish transient client map IDs.
 
 Ruby retains original actor 100654, five Blades 101600 and four Ghosts 101121,
 original cached animation/sound preparations and fourteen named spells: single
@@ -102,6 +115,25 @@ for four seconds while preserving stored orders and exact navigation; original
 random friendly-fire decisions are not implemented. Ward/Recovery clocks keep
 expiring during freeze, while a frozen caster pauses its committed spell. This
 is a closer real-time adaptation, not a complete 1:1 turn-based restoration.
+
+The source script contract now has a scoped live implementation. NPC81000 at16508(24,11)
+is `StandEnemy`, encounter11007→group11009; all ten members are mandatory and
+the source victory is16509(24,12). The prior39m activation, free guard crossing
+and legacy reward-door unlock have been replaced by the source NPC/item/solo
+programs through the existing F/dialogue/native owners. Natural letter/candle/
+proof acquisition, both ten-member source fights and original post-return
+coordinates pass the current465-check native fixture; rendered review remains
+separate. Original real-time combat and generation adaptations remain qualified.
+
+Post16509 uses the existing Ruby art at its own104 anchors. The exact pinned
+server map fills all571 uncached cells, preserving every recorded client tile
+and every flag.3354/5011 clients are fully recorded and have existing-owner
+supplements. See `assets/maps/falan/black_prayer/events/README.md` and canonical
+`Black Prayer source route/` evidence. Pre-battle16508's253 western cells now use their own pinned source completion,
+including73 nonzero floor cells and43 visible wall anchors. All2247 recorded
+cells/flags and recorded navigation remain exact;68 source-open cells are added.
+Focused native156/156 passes; final normal-camera review remains separate. Original template NPC count/refresh, StandEnemy
+repeat/cooldown/escape and profession/training parity remain unverified.
 
 ## Verification
 

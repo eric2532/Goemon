@@ -50,20 +50,22 @@ func run():
  var worst_spawn={};var worst_ms=0.0
  var wave_size:int=Roles.SLIME_COLORS if testing else 0
  for i in 240 if testing else 120:
-  if testing:army.profile_totals.clear()
-  var started=Time.get_ticks_usec()
-  game._physics_process(1.0/60)
   if testing:
+   army.profile_totals.clear()
+   var started=Time.get_ticks_usec()
+   # Stage the whole roster for the combat checks without advancing the wave timer.
+   model.waves.spawn_slimes(game.player.position);army.integration_tick(1.0/60)
    var elapsed=(Time.get_ticks_usec()-started)*.001
    spawn_samples.append(elapsed)
    if elapsed>worst_ms:
     worst_ms=elapsed;worst_spawn=army.profile_totals.duplicate()
-  if testing and army.latest.kinds.count(Roles.SLIME)==wave_size:break
+   if army.latest.kinds.count(Roles.SLIME)==wave_size:break
+  else:game._physics_process(1.0/60)
  army.profile_enabled=false
  var snapshot=army.render_snapshot()
  if testing:
   print("SLIME_SIDE_COUNTS ",model.waves.slime_arrivals," cursors=",model.waves.slime_placement_cursors)
-  check(complete_packs(snapshot,1),"The first wave has all 29 appearances at the north entrance only")
+  check(complete_packs(snapshot,1),"The staged first wave has all 29 appearances at the north entrance only")
   check(snapshot.teams.count(0)==wave_size and snapshot.kinds.count(Roles.SLIME)==wave_size and model.enemies.size()==wave_size,"All 29 opening enemies are slimes")
   check(model.enemies.values().all(func(row):return row.level==1 and row.xp_reward_tenths==10),"Each opening slime is level one and worth one XP")
   check(Array(snapshot.max_hp).all(func(hp):return is_equal_approx(hp,700)),"Every slime starts with 700 HP")
@@ -83,7 +85,7 @@ func run():
    if failures==0:await verify_survival()
   if not spawn_samples.is_empty():
    spawn_samples.sort()
-   print("SLIME_SETUP_WORLD_STEP_MAX_MS=",spawn_samples[-1]," profile=",worst_spawn)
+   print("SLIME_STAGED_SPAWN_STEP_MAX_MS=",spawn_samples[-1]," profile=",worst_spawn)
  else:
   check(snapshot.teams.has(0) and not snapshot.kinds.has(Roles.SLIME),"Regular launch still sends its original roster")
   check(not renderer.meshes.has(Roles.SLIME),"The normal renderer skips the slime atlas")
@@ -228,7 +230,7 @@ func verify_rebirths():
   var clock:float=waves.wave_clock
   for tick in 600:
    waves.spawn_slimes(game.player.position);army.integration_tick(1.0/60)
-   if waves.slime_returned>before:break
+   if waves.slime_returned>before and waves.spawned==waves.slime_scheduled_total():break
   var candidates=model.enemies.values().filter(func(row):return row.health_scale>1.2 if generation>1 else row.health_scale>1)
   check(candidates.size()==1 and waves.slime_rebirth_pending==0,"Generation %d returns once through the existing entrance"%generation)
   if candidates.size()!=1:return
@@ -292,7 +294,7 @@ func verify_waves():
    if army.latest.kinds.size()==waves.slime_scheduled_total():break
   var next:Dictionary=army.render_snapshot()
   var sides=mini(4,(wave+1)/2)
-  check(model.wave==wave and next.handles.size()==waves.slime_scheduled_total() and complete_packs(next,sides,previous.handles),"Wave %d adds 29 variants per active entrance, without a backlog at newly opened sides (live=%d sides=%s)"%[wave,next.handles.size(),str(waves.slime_arrivals)])
+  check(model.wave==wave and next.handles.size()==waves.slime_scheduled_total() and complete_packs(next,sides,previous.handles),"Wave %d queues 29 variants per active entrance (live=%d sides=%s)"%[wave,next.handles.size(),str(waves.slime_arrivals)])
   if failures:return
   previous=next
   game.forest_ui.sync();army.flush_presentation()
@@ -332,7 +334,7 @@ func verify_waves():
   await capture("Full slime roster")
  model.tick(waves.wave_clock+.01,hero)
  for tick in 240:
-  game._physics_process(1.0/60)
+  waves.spawn_slimes(hero);army.integration_tick(1.0/60)
   if army.latest.kinds.size()==cap:break
  var full:Dictionary=army.render_snapshot()
  check(model.wave==full_waves+1 and full.kinds.count(Roles.SLIME)==cap and waves.spawned==cap,"The next wave queues at the unchanged cap")
@@ -354,14 +356,14 @@ func verify_waves():
   if picked==3:break
  check(picked==3 and progression.total_kills==96,"Three skill choices unlock after 16, 32 and 48 XP")
  for tick in 240:
-  game._physics_process(1.0/60)
+  waves.spawn_slimes(hero);army.integration_tick(1.0/60)
   if army.latest.kinds.size()==cap:break
  var live_after_refill:int=army.latest.kinds.count(Roles.SLIME)
  check(live_after_refill>cap-96 and live_after_refill<=cap and live_after_refill==waves.spawned+waves.slime_returned-(game.kills-kills_before),"Queued slimes refill freed slots as entrances clear (live=%d, spawned=%d)"%[live_after_refill,waves.spawned])
  progression.cards_enabled=false
  for handle in army.render_snapshot().handles:army.apply_hit(handle,{"amount":100000.0})
  for tick in 240:
-  game._physics_process(1.0/60)
+  waves.spawn_slimes(hero);army.integration_tick(1.0/60)
   if waves.spawned==waves.slime_scheduled_total():break
  army.integration_tick(1.0/60)
  var live:int=army.latest.kinds.count(Roles.SLIME)

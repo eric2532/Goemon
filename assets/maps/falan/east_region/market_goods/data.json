@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10053": {
+      "role": "produce_stand",
+      "origin": [
+        -50,
+        -101
+      ],
+      "size": [
+        116,
+        110
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        106,
+        110
+      ],
+      "source_rgba_sha256": "5ea66d552546cb700b321672d4744b6872d85134397edf1c5baccf0841b128c1",
+      "source_pack": "original",
+      "source_row": 7800
+    },
+    "10054": {
+      "role": "meat_fish_stand",
+      "origin": [
+        -50,
+        -100
+      ],
+      "size": [
+        112,
+        107
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        105,
+        107
+      ],
+      "source_rgba_sha256": "c0397c59d94d7e694d999f019815f4beb8fc02abbeb0e14bfe67448cff50b844",
+      "source_pack": "original",
+      "source_row": 7801
+    },
+    "10056": {
+      "role": "produce_stand",
+      "origin": [
+        -54,
+        -99
+      ],
+      "size": [
+        124,
+        110
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        122,
+        110
+      ],
+      "source_rgba_sha256": "9a35a807c5bc42bf82b34af462c1816635402c6503280f6db111632fe7a674f7",
+      "source_pack": "original",
+      "source_row": 7803
+    },
+    "10057": {
+      "role": "meat_fish_stand",
+      "origin": [
+        -53,
+        -99
+      ],
+      "size": [
+        116,
+        108
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        116,
+        108
+      ],
+      "source_rgba_sha256": "1dfcb8830da4ed48ccffdf9edf6c507f20b4373556aceade8887f8460d9ff4be",
+      "source_pack": "original",
+      "source_row": 7804
+    },
+    "10098": {
+      "role": "vented_crate",
+      "origin": [
+        -35,
+        -61
+      ],
+      "size": [
+        84,
+        91
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "bounds": [
+        0,
+        0,
+        74,
+        91
+      ],
+      "source_rgba_sha256": "bc400066e16b689197c476e38c4e59eb57d4011393cdff626e1ebccc61804a0e",
+      "source_pack": "original",
+      "source_row": 251071
+    }
+  },
+  "scope": "Five exact native drawings, not trees. Reuse existing market display/crate construction; preserve source placements, navigation and NPC services.",
+  "inferred": [
+    "Board thickness, frame joints, hidden backs, product-bed height and sign/display support reconstruct the single native view. Small food/meat/fish drawings remain bounded native art; no new merchandise interaction or NPC behavior is introduced."
+  ]
+}

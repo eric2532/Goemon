@@ -14,6 +14,12 @@ const Ruby=preload("res://scripts/forest/crowd/ruby_boss_sprites.gd")
 const Habaru=preload("res://scripts/forest/crowd/habaru_sprites.gd")
 const Undersea=preload("res://scripts/forest/crowd/undersea_sprites.gd")
 const Patrols=preload("res://scripts/forest/crowd/falan_frontier_sprites.gd")
+const Snow=preload("res://scripts/forest/crowd/snow_region_sprites.gd")
+const University=preload("res://scripts/forest/crowd/university_region_sprites.gd")
+const East=preload("res://scripts/forest/crowd/east_region_sprites.gd")
+const UniversityRegion=preload("res://scripts/forest/forest_university_region.gd")
+const Elsa=preload("res://scripts/forest/crowd/elsa_region_sprites.gd")
+const South=preload("res://scripts/forest/forest_south_kili_population.gd")
 const Shalena=preload("res://scripts/forest/crowd/shalena_sprites.gd")
 const PatrolData=preload("res://assets/maps/falan/freyja_patrol_data.gd")
 const MapEncounters=preload("res://assets/maps/falan/map_encounter_data.gd")
@@ -24,6 +30,7 @@ const COUNTS=[360,540,716,896,1196]
 const SPAWN_INTERVAL=.13 # Retry blocked entrances without releasing the next group early.
 const WAVE_SECONDS=60.0
 const SLIME_WAVE_SECONDS=30.0
+const SLIME_SPAWN_INTERVAL=3.0
 const SLIME_SIDES=[Vector3.FORWARD,Vector3.RIGHT,Vector3.BACK,Vector3.LEFT]
 const SLIME_SIDE_NAMES=["NORTH","EAST","SOUTH","WEST"]
 const SLIMES_PER_WAVE=4*Roles.SLIME_COLORS
@@ -34,6 +41,7 @@ const SLIME_REBIRTH_GROWTH=1.1
 const ACTIVE_CAP=240
 const ADVENTURE_PACK_SIZE=3
 const ROAD_SPAWN_INTERVAL=.2
+const MAP_SWARM_RESPAWN_SCALE=5.0
 const SPAWN_ATTEMPTS=12
 const RANDOM_SPAWN_INTERVAL=1.0
 const RANDOM_SPAWN_COUNT=3
@@ -46,12 +54,14 @@ var pending=0
 var spawn_clock=0.0
 var random_spawn_clock=RANDOM_SPAWN_INTERVAL
 var kill_spawn_pending=0
+var swarm_active=false
 var wave_clock=WAVE_SECONDS
 var crossgate_pet_test=false
 var slime_placement_cursors=[0,0,0,0]
 var slime_arrivals=[0,0,0,0]
 var slime_side_cursor=0
 var slime_rebirths=[[],[],[],[]]
+var slime_return_turns=[true,true,true,true]
 var slime_rebirth_pending=0
 var slime_returned=0
 var released_waves=0
@@ -61,6 +71,8 @@ var remaining_counts: Array=[]
 var boss_pending: Dictionary={}
 var spawned=0
 var dungeon_boss_id=0
+var undersea_source_requested=false
+var undersea_source_pending=false
 var spawn_groups:Dictionary={}
 var navigation
 var routes
@@ -82,6 +94,13 @@ var patrol_frame:Transform2D
 var patrol_owners:Dictionary={}
 var patrol_cursor=0
 var patrol_fits=PackedFloat32Array()
+var snow_bags:Dictionary={}
+var snow_last=Vector3.INF
+var snow_distance=0.0
+var snow_pending:Array=[]
+var snow_group_ids:Array[int]=[]
+var route_state:Dictionary={}
+var route_owned_posts:Dictionary={}
 var habaru_cells:Array=[]
 var elite_posts:Dictionary={}
 func _init(model):
@@ -115,7 +134,7 @@ func _init(model):
 				patrol_posts.append(Vector4i(cell.x,cell.y,post.z,post.w))
 	if not patrol_posts.is_empty() and model.falan_floor!=13001:patrol_frame=model.FalanFrontier.Regions.frame(area).inverse()
 	if patrol_posts.any(func(post):return post.z==Patrols.BANDIT) and model.falan_floor!=13001:
-		var mask:Image=model.terrain.mask_texture().get_image()
+		var mask:Image=model.terrain.mask_image()
 		var origin:Vector2=model.terrain.mask_origin()
 		var clear_posts=[]
 		for post:Vector4i in patrol_posts:
@@ -128,10 +147,40 @@ func _init(model):
 						if x*x+y*y<169 and Rect2i(Vector2i.ZERO,mask.get_size()).has_point(at) and mask.get_pixelv(at).g>=.56:clear=false
 			if clear:clear_posts.append(post)
 		patrol_posts=clear_posts
-	if Shalena.owns(model.falan_floor):
+	if East.owns_model(model):
+		patrol_source=East;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
+		route_state=East.state(model)
+		var prepared:Dictionary=East.prepare(model);var enemy_keys=[]
+		for member in prepared.members:
+			if East.available(int(member)) and East.companion(int(member)):enemy_keys.append(East.data().species[int(member)].key)
+		model.set_meta("east_enemy_pet_keys",enemy_keys)
+	elif Snow.owns(model.falan_floor):
+		patrol_source=Snow;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
+		if model.falan_floor==51031:
+			for row in Shalena.posts(model.falan_floor,model.seed_value):
+				var point=Vector2(row[0].x,row[0].y)
+				var state=Winter.Recovered.state(model.falan_floor,model.seed_value)
+				var cell=Vector2i(((point-state.origin)/3.0).round())+Winter.Recovered.crop(model.falan_floor).position
+				if not Snow.in_scope(model.falan_floor,cell):patrol_posts.append(row[0]);patrol_levels.append(row[1])
+	elif University.owns(model.falan_floor):
+		patrol_source=University;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
+	elif Elsa.owns(model.falan_floor):
+		patrol_source=Elsa;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
+	elif South.encounters_own(model):
+		patrol_source=South.bank(model);route_state=South.state(model)
+		if model.falan_area in South.FREYJA_AREAS:patrol_posts.clear()
+		if model.falan_floor==15526:model.set_meta("east_enemy_pet_keys",["original:2911"])
+		if model.falan_area=="west_lakes":
+			var enemy_keys:Array=model.get_meta("east_enemy_pet_keys",[]).duplicate()
+			if "original:2807" not in enemy_keys:enemy_keys.append("original:2807")
+			model.set_meta("east_enemy_pet_keys",enemy_keys)
+		for i in patrol_posts.size():
+			var post:Vector4i=patrol_posts[i]
+			if South.in_scope(area,Vector2i(post.x,post.y)):route_owned_posts[i]=true
+	elif Shalena.owns(model.falan_floor):
 		patrol_source=Shalena;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
 		for row in Shalena.posts(model.falan_floor,model.seed_value):patrol_posts.append(row[0]);patrol_levels.append(row[1])
-	if not patrol_posts.is_empty():patrol_fits=preload("res://scripts/forest/crowd/pet_dimensions.gd").scales(patrol_source.ROOT,patrol_source.motions())
+	if not patrol_posts.is_empty() or East.owns_model(model) or Snow.owns(model.falan_floor) or University.owns(model.falan_floor) or Elsa.owns(model.falan_floor) or South.encounters_own(model):patrol_fits=preload("res://scripts/forest/crowd/pet_dimensions.gd").scales(patrol_source.ROOT,patrol_source.motions())
 	if model.falan_floor==0:
 		var elite_rng=RandomNumberGenerator.new();elite_rng.seed=model.seed_value+area.hash()
 		# One elite outcome per shuffled bag of twenty outdoor posts.
@@ -147,10 +196,12 @@ func begin()->bool:
 		remaining_counts=m.balance.waves[m.wave-1].duplicate()
 		for count in remaining_counts:pending+=count
 		if remaining_counts[Balance.TYPES.find(Roles.BOSS)]>0:boss_pending[0]=true
-	spawn_clock=0.0;random_spawn_clock=RANDOM_SPAWN_INTERVAL;kill_spawn_pending=0;spawned=0;dungeon_boss_id=0;spawn_groups.clear()
+	spawn_clock=0.0;random_spawn_clock=RANDOM_SPAWN_INTERVAL;kill_spawn_pending=0;spawned=0;dungeon_boss_id=0;spawn_groups.clear();undersea_source_requested=false;undersea_source_pending=false
+	swarm_active=false
 	if not patrol_posts.is_empty():spawn_clock=1.0
-	patrol_owners.clear();patrol_cursor=-1 if patrol_source==Shalena else 0
+	patrol_owners.clear();patrol_cursor=-1 if patrol_source in [Shalena,Snow] else 0
 	slime_placement_cursors.fill(0);slime_arrivals.fill(0);slime_side_cursor=0
+	slime_return_turns.fill(true)
 	for queue in slime_rebirths:queue.clear()
 	slime_rebirth_pending=0;slime_returned=0
 	rng.seed=m.seed_value+m.wave*7919;routes.portal_cursor=0
@@ -171,7 +222,7 @@ func slime_active_sides()->int:
 	return mini(4,(released_waves+1)/2)
 func countdown_text()->String:
 	if crossgate_pet_test:
-		if m.phase=="preparing":return "SLIME SURVIVAL · 1 → 4 SIDES\n29 PER SIDE EVERY 00:30"
+		if m.phase=="preparing":return "SLIME SURVIVAL · 1 → 4 SIDES\nONE ARRIVAL EVERY 00:03"
 		var sides=slime_active_sides()
 		var entrances="/".join(SLIME_SIDE_NAMES.slice(0,sides).map(func(side):return side.left(1)))
 		if sides<4 and released_waves%2==0 and wave_clock<=10.000001:
@@ -199,6 +250,7 @@ func spawn_enemy(variant: int,point: Vector3,source:int=-1,skin:int=0)->Dictiona
 	return e
 func mark_dungeon_boss(enemy:Dictionary):
 	enemy.boss=true;dungeon_boss_id=enemy.id
+	if is_instance_valid(m.army_runtime)and is_instance_valid(m.army_runtime.game.get("explore_access"))and m.army_runtime.game.explore_access.enabled():m.army_runtime.game.explore_access.discover(enemy)
 func role_stats(variant:int)->Dictionary:
 	# Public callers may mutate their copy. Simulation only borrows frozen rows.
 	return _simulation_stats(variant).duplicate()
@@ -217,7 +269,7 @@ func _simulation_stats(variant:int)->Dictionary:
 		stats.speed*=stats_speed
 		if variant!=Roles.BOSS:stats.hp*=stats_health
 		stats.damage*=stats_damage
-	elif not patrol_posts.is_empty():stats.merge(patrol_source.STATS,true)
+	elif not patrol_posts.is_empty() or East.owns_model(m) or Snow.owns(m.falan_floor) or University.owns(m.falan_floor) or Elsa.owns(m.falan_floor) or South.encounters_own(m):stats.merge(patrol_source.STATS,true)
 	stats.make_read_only();stats_cache[variant]=stats
 	return stats
 func active_cap()->int:
@@ -316,8 +368,32 @@ func spawn_space_clear(point:Vector3,radius:float)->bool:
 func end_spawn_query():
 	spawn_query_active=false;spawn_query_buckets.clear();spawn_query_max_radius=0.0
 
+func invite_map_enemies():
+	if m.phase!="wave" or swarm_active:return
+	swarm_active=true;spawn_clock*=MAP_SWARM_RESPAWN_SCALE
+	if is_instance_valid(m.army_runtime) and m.army_runtime.game!=null:
+		m.army_runtime.game.toast("哈密瓜麵包 · All map enemies are coming for you!")
+
 func enemy_defeated(enemy:Dictionary={}):
 	if m.phase!="wave":return
+	if is_instance_valid(m.army_runtime) and is_instance_valid(m.army_runtime.game.get("explore_access")):
+		m.army_runtime.game.explore_access.defeated(enemy)
+	if enemy.has("snow_quest_drop") and is_instance_valid(m.army_runtime):
+		var tree:SceneTree=m.army_runtime.get_tree();var key:String=enemy.snow_quest_drop
+		var drop:Dictionary=University.data().quest_drops[key]
+		var bags:Dictionary=tree.get_meta("university_drop_bags",{})
+		if Snow.draw(bags,key,range(100).map(func(i):return i<int(drop.percent)),rng):
+			UniversityRegion.item(tree,"source_item_"+str(int(drop.item)));m.army_runtime.game.toast("獲得香水？" if key=="snow_alraune" else "獲得薄冰的戒指")
+		tree.set_meta("university_drop_bags",bags)
+		if key=="snow_alraune":UniversityRegion.item(tree,"snow_alraune_victory")
+	if enemy.get("beast_scale_drop",false) and is_instance_valid(m.army_runtime):
+		var tree:SceneTree=m.army_runtime.get_tree()
+		if not UniversityRegion.has_item(tree,"beast_scale"):
+			var bags:Dictionary=tree.get_meta("university_drop_bags",{})
+			var rate:int=University.data().quest_drops.beast_scale.percent
+			if Snow.draw(bags,"beast_scale",range(100).map(func(i):return i<rate),rng):
+				UniversityRegion.item(tree,"beast_scale");m.army_runtime.game.toast("獲得地龍的鱗片")
+			tree.set_meta("university_drop_bags",bags)
 	if not crossgate_pet_test:kill_spawn_pending+=2
 	elif enemy.get("variant",-1)==Roles.SLIME and enemy.has("slime_side"):
 		slime_rebirths[enemy.slime_side].append({"skin":enemy.skin,"level":int(enemy.get("level",1))+1,"health_scale":enemy.health_scale*SLIME_REBIRTH_GROWTH,"damage_scale":enemy.damage_scale*SLIME_REBIRTH_GROWTH,"wave":released_waves+1})
@@ -431,11 +507,11 @@ func slime_entry(outward:Vector3,center:Vector3)->Vector3:
 		best=along;entry=Routes.exit_point(portal,Roles.SLIME)
 	return entry
 
-func spawn_slimes(hero:Vector3):
-	if spawned>=slime_scheduled_total() and slime_rebirth_pending==0:return
-	if m.enemies.size()>=active_cap():return
+func spawn_slimes(hero:Vector3)->bool:
+	if spawned>=slime_scheduled_total() and slime_rebirth_pending==0:return false
+	if m.enemies.size()>=active_cap():return false
 	var runtime=m.army_runtime
-	if not is_instance_valid(runtime) or runtime.navigation_revision!=m.navigation_revision:return
+	if not is_instance_valid(runtime) or runtime.navigation_revision!=m.navigation_revision:return false
 	var radius=Roles.SLIME_RADIUS*Roles.MAP_ENEMY_SCALE
 	var spacing=2*radius+.55
 	var padding=Vector3(radius+.4,Roles.height(Roles.SLIME),radius+.4)
@@ -445,13 +521,15 @@ func spawn_slimes(hero:Vector3):
 		if gate.kind=="gate" and not gate.get("breached",false):
 			var point:Vector3=m.center(gate)+navigation.gate_outward(gate)*12
 			point.y=m.surface_height(point.x,point.z);destinations.append(point)
-	var reserved:Array[Vector3]=[]
 	var start=slime_side_cursor
 	for offset in SLIME_SIDES.size():
 		var side=(start+offset)%SLIME_SIDES.size()
-		var side_total=slime_side_total(side)
+		var fresh_due=slime_arrivals[side]<slime_side_total(side)
 		var rebirths:Array=slime_rebirths[side]
-		if slime_arrivals[side]>=side_total and (rebirths.is_empty() or rebirths[0].wave>released_waves):continue
+		var return_due=not rebirths.is_empty() and rebirths[0].wave<=released_waves
+		if not fresh_due and not return_due:continue
+		# Alternating keeps both queues moving when waves schedule arrivals faster than we spawn them.
+		var returning=return_due and (not fresh_due or slime_return_turns[side])
 		var outward:Vector3=SLIME_SIDES[side]
 		var across=Vector3.UP.cross(outward)
 		var entry=slime_entry(outward,center)
@@ -460,7 +538,6 @@ func spawn_slimes(hero:Vector3):
 			var target=center+outward*(24.0+24.0*approach)
 			target.y=m.surface_height(target.x,target.z)
 			destinations[approach]=target
-		var placed=0
 		for attempt in 18:
 			var slot:int=slime_placement_cursors[side]%SLIME_ENTRY_SLOTS
 			slime_placement_cursors[side]+=1
@@ -471,9 +548,7 @@ func spawn_slimes(hero:Vector3):
 			if horizontal_distance(point,hero)<radius+4 or not navigation.move_clear(point,radius):continue
 			var bounds=AABB(point-padding,padding*2)
 			if not runtime.query_aabb(bounds,0).is_empty() or not runtime.query_aabb(bounds,1).is_empty():continue
-			if reserved.any(func(other):return horizontal_distance(point,other)<spacing):continue
 			if not destinations.any(func(destination):return runtime.native.can_reach(point,destination,radius)):continue
-			var returning=slime_arrivals[side]>=side_total
 			var rebirth:Dictionary=rebirths.pop_front() if returning else {}
 			var slime=spawn_enemy(Roles.SLIME,point,-1,rebirth.skin if returning else slime_arrivals[side]%Roles.SLIME_COLORS)
 			slime.slime_side=side
@@ -486,18 +561,16 @@ func spawn_slimes(hero:Vector3):
 			else:
 				spawned+=1;slime_arrivals[side]+=1
 			slime.facing=atan2(outward.x,outward.z)
-			reserved.append(point);placed+=1
-			if m.enemies.size()>=active_cap():
-				slime_side_cursor=(side+1)%SLIME_SIDES.size()
-				return
-			if placed==3 or (slime_arrivals[side]==side_total and (rebirths.is_empty() or rebirths[0].wave>released_waves)):break
+			slime_return_turns[side]=not returning
+			slime_side_cursor=(side+1)%SLIME_SIDES.size()
+			return true
+	return false
 
 func tick_outer_road(delta:float,hero:Vector3):
-	var city_side:bool=not m.falan_road.is_empty()
-	if city_side and hero.z<m.FalanFrontier.ENEMY_EDGE:return
+	if not m.FalanFrontier.enemy_exposed(m,Vector2(hero.x,hero.z)):return
 	spawn_clock-=delta
 	if spawn_clock>0:return
-	spawn_clock=ROAD_SPAWN_INTERVAL if m.falan_area in ["east_gate","east_coast","north_coast"] else .5
+	spawn_clock=(ROAD_SPAWN_INTERVAL if m.falan_area in ["east_gate","east_coast","north_coast"] else .5)*(MAP_SWARM_RESPAWN_SCALE if swarm_active else 1.0)
 	var released=0
 	if patrol_cursor<0:
 		var nearest=INF;patrol_cursor=0
@@ -509,10 +582,11 @@ func tick_outer_road(delta:float,hero:Vector3):
 	for offset in patrol_posts.size():
 		if m.enemies.size()>=ACTIVE_CAP:return
 		var slot=(start+offset)%patrol_posts.size()
+		if route_owned_posts.has(slot):continue
 		var owner:int=patrol_owners.get(slot,0)
 		if owner<0 or m.enemies.has(owner):continue
 		var post:Vector4i=patrol_posts[slot]
-		var at:Vector2=Vector2(post.x,post.y) if m.falan_floor==13001 or patrol_source==Shalena else patrol_frame*(Vector2(post.x,post.y)*3.0)
+		var at:Vector2=Vector2(post.x,post.y) if m.falan_floor==13001 or patrol_source in [Shalena,Snow] else patrol_frame*(Vector2(post.x,post.y)*3.0)
 		if m.FalanFrontier.Regions.village_contains(m.falan_area,at):
 			patrol_owners[slot]=-1
 			continue
@@ -539,9 +613,9 @@ func tick_outer_road(delta:float,hero:Vector3):
 				escorts.append(at_)
 			elite=escorts.size()==5
 			if elite and m.enemies.size()+6>ACTIVE_CAP:continue
-		var enemy=spawn_patrol(post,point,elite,patrol_levels[slot] if patrol_source==Shalena else 0)
+		var enemy=spawn_patrol(post,point,elite,patrol_levels[slot] if patrol_source in [Shalena,Snow] else 0)
 		if m.falan_floor==13001:enemy.map_patrol_slot=m.falan_floor*1000+slot
-		elif patrol_source==Shalena:enemy.source_patrol_slot=slot
+		elif patrol_source in [Shalena,Snow]:enemy.source_patrol_slot=slot
 		if elite:
 			for member in 5:
 				var escort=spawn_patrol(post,escorts[member],false)
@@ -553,7 +627,7 @@ func tick_outer_road(delta:float,hero:Vector3):
 
 func spawn_patrol(post:Vector4i,point:Vector3,elite:bool,level_:int=0)->Dictionary:
 	var enemy=spawn_enemy(Roles.SLIME,point*m.falan_scale,-1,post.z)
-	if patrol_source==Shalena:
+	if patrol_source in [Shalena,Snow]:
 		CaveProgression.apply(enemy,[Shalena.Data.SPECIES[post.z].name,level_,300,false],Shalena.STATS)
 	else:
 		var area:String=m.falan_road if not m.falan_road.is_empty() else m.falan_area
@@ -649,12 +723,12 @@ func tick_venoa_bears(formation:Array):
 		CaveProgression.apply(boss,CaveProgression.HABARU[Habaru.VENOA_BOSS_SKIN],Habaru.STATS)
 	spawned=1
 
-func tick_undersea(hero:Vector3):
+func tick_undersea(hero:Vector3,regular:bool=true):
 	if spawned>=2 or not is_instance_valid(m.army_runtime):return
 	var tree:SceneTree=m.army_runtime.get_tree()
 	var slain:Dictionary=tree.get_meta(Undersea.SLAIN,{})
 	if spawned==0:
-		var patrols:Array=Undersea.PATROLS[m.falan_floor]
+		var patrols:Array=Undersea.PATROLS[m.falan_floor] if regular else []
 		for i in patrols.size():
 			var slot:int=m.falan_floor*100+i
 			if not slain.has(slot):spawn_undersea(slot,patrols[i][0],patrols[i][1],true)
@@ -768,9 +842,11 @@ func tick_black_prayer():
 	spawned=1
 
 func tick_ruby(hero:Vector3):
-	if spawned!=0 or not is_instance_valid(m.army_runtime):return
+	if not is_instance_valid(m.army_runtime):return
+	var source=load("res://scripts/forest/forest_black_prayer_events.gd")
+	if source.victory(m.army_runtime.game):return
+	if spawned!=0 or not source.active(m.army_runtime.game):return
 	var formation:Array=m.FalanFrontier.Regions.Sites.RUBY_FORMATION
-	if Vector2(hero.x,hero.z).distance_to(formation[0][0])>39.0:return
 	var slain:Dictionary=m.army_runtime.get_tree().get_meta(Ruby.SLAIN,{})
 	for slot in formation.size():
 		if slain.has(slot):continue
@@ -778,12 +854,251 @@ func tick_ruby(hero:Vector3):
 		var skin:int=formation[slot][1]
 		var enemy=spawn_enemy(Roles.SLIME,m.world_point(at),-1,skin)
 		enemy.ruby_slot=slot
+		source.tag_member(enemy,slot)
 		if slot==0:mark_dungeon_boss(enemy)
 		enemy.footprint=.78 if slot==0 else .63
 		CaveProgression.apply(enemy,CaveProgression.RUBY[skin],Ruby.STATS)
 		enemy.facing=atan2(at.x-hero.x,at.y-hero.z)
 	spawned=1
 	if not slain.has(0):m.army_runtime.game.toast("Ruby · Black Prayer")
+
+func tick_map_encounters(hero:Vector3,route:bool=false):
+	if snow_last==Vector3.INF:snow_last=hero;return
+	var distance=snow_last.distance_to(hero);snow_last=hero
+	# Travel and teleports never count as walked encounter steps.
+	if distance>6.0:snow_distance=0.0;return
+	if snow_group_ids.any(func(id):return m.enemies.has(id)):snow_distance=0.0;return
+	snow_group_ids.clear()
+	snow_distance+=distance
+	var encounter_step=3.0*(MAP_SWARM_RESPAWN_SCALE if swarm_active else 1.0)
+	if snow_distance<encounter_step and snow_pending.is_empty():return
+	# Other branches share this map; distant patrols must not suppress this corridor.
+	var nearby=AABB((hero-Vector3(24,12,24))*m.falan_scale,Vector3(48,24,48)*m.falan_scale)
+	if not m.army_runtime.query_aabb(nearby,0).is_empty():snow_distance=0.0;return
+	var maps=Winter.Recovered
+	var eastern=East.owns_model(m)
+	var population=East if eastern else South if route else University if University.owns(m.falan_floor) else Elsa if Elsa.owns(m.falan_floor) else Snow
+	var state=route_state if route or eastern else maps.state(m.falan_floor,m.seed_value)
+	var cell=Vector2i(((Vector2(hero.x,hero.z)-state.origin)/3.0).round())
+	var source_cell=East.source_cell(m,Vector2(hero.x,hero.z)) if eastern else South.source_cell(m,Vector2(hero.x,hero.z)) if route else cell+maps.crop(m.falan_floor).position
+	var source_map=m.falan_floor if m.falan_area=="interior" else 300 if m.falan_area in South.SOKIA_AREAS else 100
+	var zone=South.zone_at(source_map,source_cell) if route else population.zone_at(m.falan_floor,source_cell)
+	if zone.is_empty():snow_distance=0.0;return
+	if route and m.falan_floor==Undersea.SOKIA and not undersea_source_pending and snow_pending.is_empty():
+		zone=zone.duplicate(true);zone.groups=zone.groups.filter(func(choice):return str(choice[0])not in["9033","9034"])
+	var source_items:Dictionary=m.army_runtime.get_tree().get_meta(UniversityRegion.ITEMS,{})
+	if (route or eastern and zone.get("source_party_contract",false)) and not snow_pending.is_empty() and snow_pending[0].size()>3:
+		var allowed=South.eligible_groups(zone,source_items,population.data().groups if eastern and not route else null)
+		if not allowed.any(func(choice):return choice[0]==snow_pending[0][3]):snow_pending=[];snow_distance=0.;return
+	if snow_pending.is_empty():
+		snow_distance-=encounter_step
+		var probability=int(Snow.draw(snow_bags,"probability:%s"%zone.id,range(int(zone.probability[0]),int(zone.probability[1])+1),rng))
+		var outcomes=range(100).map(func(i):return i<probability)
+		if not Snow.draw(snow_bags,"check:%s:%d"%[zone.id,probability],outcomes,rng):return
+		snow_pending=South.group(zone,snow_bags,rng,source_items) if route else East.group(zone,snow_bags,rng,source_items) if eastern else population.group(zone,snow_bags,rng)
+		if snow_pending.is_empty():return
+		if eastern and snow_pending.any(func(member):return not East.available(int(member[0]))):
+			var tree:SceneTree=m.army_runtime.get_tree();var blocked:Dictionary=tree.get_meta("east_encounter_blockers",{})
+			blocked[str(int(zone.id))]={"map":m.falan_floor,"reason":"Source group contains 107712; its original attack contact is not established."}
+			tree.set_meta("east_encounter_blockers",blocked);snow_pending=[];snow_distance=0.;return
+	if spawn_clock>0:return
+	spawn_clock=.2
+	var positions=[]
+	var gates=m.get_meta("falan_links",[]) if route or eastern and m.falan_area!="interior" else maps.links(m.falan_floor,m.seed_value)
+	# Bounded local placement: keep the documented group intact if a narrow passage is full.
+	for ring in range(2,7):
+		for offset in [Vector2i(ring,0),Vector2i(-ring,0),Vector2i(0,ring),Vector2i(0,-ring),Vector2i(ring,ring),Vector2i(-ring,ring),Vector2i(ring,-ring),Vector2i(-ring,-ring)]:
+			var candidate=cell+offset
+			if not maps.open(state.bits,state.size,candidate):continue
+			var point:Vector2=state.origin+Vector2(candidate)*3.
+			if route and not South.encounter_scope(m,point):continue
+			if eastern and not East.encounter_scope(m,point):continue
+			if gates.any(func(link):return point.distance_squared_to(link.at)<36):continue
+			var at=Vector3(point.x,m.surface_height(point.x,point.y),point.y)
+			var member:int=snow_pending[mini(positions.size(),snow_pending.size()-1)][0]
+			var skin:int=int(population.data().species[member].skin) if route or population==University or eastern else member
+			var radius:float
+			if eastern:radius=East.radius(member)
+			elif population==University:radius=University.radius(member)
+			else:radius=(South.footprint(member) if route else population.TREE_FOOTPRINT if population.tree(skin) else population.FOOTPRINT)*patrol_fits[skin]*Roles.MAP_ENEMY_SCALE
+			if not navigation.move_clear(at,radius):continue
+			if not m.army_runtime.native.can_reach(hero*m.falan_scale,at*m.falan_scale,radius):continue
+			positions.append(at)
+			if positions.size()==snow_pending.size():break
+		if positions.size()==snow_pending.size():break
+	if positions.size()!=snow_pending.size():return
+	var snow_trial=population==Snow and m.falan_floor==15522 and snow_pending.any(func(member):return int(population.data().species[int(member[0])].id)==101413)
+	for i in snow_pending.size():
+		var member:Array=snow_pending[i];var skin:int=int(population.data().species[member[0]].skin) if route or population==University or eastern else int(member[0])
+		var species:Dictionary=population.data().species[member[0]]
+		var road=route and m.falan_area!="interior"
+		var role=Roles.GATEKEEPER_HOUND if eastern and East.companion(int(member[0])) or population==University and University.companion(int(member[0])) else Roles.SLIME
+		var enemy=spawn_patrol(Vector4i(0,0,skin,int(zone.id)),positions[i],false) if road else spawn_enemy(role,positions[i]*m.falan_scale,-1,skin)
+		if route and m.falan_floor==Undersea.SOKIA and undersea_source_pending:enemy.explore_undersea_member=true
+		if role==Roles.GATEKEEPER_HOUND:enemy.skin=skin
+		if road:
+			enemy.level=int(member[1]);enemy.xp_reward_tenths=Roles.level_xp_tenths(enemy.level);enemy.enemy_name=species.name;enemy.erase("patrol_radius")
+		else:
+			var hp=500 if route and int(member[0])==0 else 450 if route and int(member[0])==2 else 400 if route and int(member[0])==3 else 300
+			if route and m.falan_floor in Prayer.FLOORS:hp=int(species.native_hp_per_level)
+			CaveProgression.apply(enemy,[species.name,member[1],hp,false],Roles.stats(role) if role==Roles.GATEKEEPER_HOUND else patrol_source.STATS)
+		enemy.footprint=South.footprint(int(member[0])) if route else population.TREE_FOOTPRINT if population.tree(skin) else population.FOOTPRINT
+		if route:enemy.route_encounter=int(zone.id)
+		else:enemy.snow_encounter=int(zone.id)
+		if (route or eastern and (zone.get("freyja_source",false) or zone.get("freyja_trial_source",false) or zone.get("wind_tower_source",false) or zone.get("source_party_contract",false))) and member.size()>3:
+			enemy.source_enemy=member[2];enemy.source_group=member[3]
+			if zone.get("freyja_trial_source",false) or zone.get("wind_tower_source",false) or zone.get("source_party_contract",false):
+				for original in population.data().groups[str(member[3])].source_members:
+					if str(original.enemy_id)==str(member[2]):enemy.enemy_name=original.name;break
+			if m.falan_floor in Prayer.FLOORS:
+				enemy.source_dungeon_config=301;enemy.source_dungeon_floor=Prayer.FLOORS.find(m.falan_floor)+1;enemy.source_encounter=15001
+			if member[2] in ["9067","9068"]:
+				enemy.undersea_slot=0;enemy.footprint=1.12
+				CaveProgression.apply(enemy,CaveProgression.UNDERSEA[0],Undersea.STATS)
+				mark_dungeon_boss(enemy)
+		if snow_trial:
+			enemy.snow_quest_drop="snow_alraune" if int(species.id)==101413 else "snow_mutant"
+		snow_group_ids.append(enemy.id)
+	snow_pending=[];snow_distance=0.0
+	if undersea_source_pending:undersea_source_pending=false;undersea_source_requested=true
+
+func tick_fixed_undersea(hero:Vector3)->bool:
+	if m.falan_floor!=Undersea.SOKIA:return false
+	var game=m.army_runtime.game;var access=game.get("explore_access")
+	if not is_instance_valid(access)or not access.enabled():return false
+	if access.encounters.get(access.scope()+":undersea_slot",{}).get("cleared",false):return false
+	if undersea_source_requested:return false
+	if Vector2(hero.x,hero.z).distance_squared_to(Undersea.BOSS_AT)>18.*18.:return false
+	var center=Vector3(Undersea.BOSS_AT.x,m.surface_height(Undersea.BOSS_AT.x,Undersea.BOSS_AT.y),Undersea.BOSS_AT.y)
+	if not undersea_source_pending:
+		var zone:Dictionary=South.zone_at(Undersea.SOKIA,South.source_cell(m,Undersea.BOSS_AT)).duplicate(true)
+		zone.groups=zone.groups.filter(func(choice):return str(choice[0])in["9033","9034"])
+		snow_pending=South.group(zone,snow_bags,rng,game.get_tree().get_meta(UniversityRegion.ITEMS,{}))
+		if snow_pending.is_empty():return false
+		undersea_source_pending=true
+	snow_last=center;tick_map_encounters(center,true)
+	return true
+
+func tick_university(hero:Vector3)->bool:
+	if not is_instance_valid(m.army_runtime):return false
+	var game=m.army_runtime.game;var tree:SceneTree=game.get_tree()
+	if UniversityRegion.victory(game):return true
+	UniversityRegion.advance(game)
+	if m.falan_floor==16520:
+		var at=Winter.Recovered.source_point(16520,UniversityRegion.BOSSES.lizard.cell)
+		if Vector2(hero.x,hero.z).distance_squared_to(at)<18.*18.:UniversityRegion.begin(game,"lizard")
+	elif m.falan_floor==51031:
+		var at=Winter.Recovered.source_point(51031,UniversityRegion.BOSSES.zombie.cell)
+		if Vector2(hero.x,hero.z).distance_squared_to(at)<12.*12.:UniversityRegion.begin(game,"zombie")
+	elif Winter.Recovered.generated().branch(m.falan_floor)=="tunnel":
+		var end:Dictionary=UniversityRegion.specification("dijiro",m.seed_value)
+		if m.falan_floor==int(end.map):
+			var at=Winter.Recovered.point(m.falan_floor,end.cell,m.seed_value)
+			if Vector2(hero.x,hero.z).distance_squared_to(at)<18.*18.:UniversityRegion.begin(game,"dijiro")
+	var key=UniversityRegion.active(tree,m.falan_floor,m.falan_area)
+	if key.is_empty():return false
+	if spawned!=0:return true
+	var spec:Dictionary=UniversityRegion.specification(key,m.seed_value)
+	var population=UniversityRegion.bank_for(key)
+	var battle:Dictionary=tree.get_meta(UniversityRegion.BATTLES,{})[key]
+	var state:Dictionary=South.state(m) if key.begins_with("sokia:") and m.falan_area!="interior" else East.state(m) if population==East else Winter.Recovered.state(m.falan_floor,m.seed_value)
+	var center:Vector2i=spec.cell-Winter.Recovered.crop(m.falan_floor).position if m.falan_area=="interior" else Vector2i(((load("res://scripts/forest/forest_east_region.gd").source_point(100,spec.cell,m.falan_area)-state.origin)/3.).round())
+	if spec.has("runtime_at"):center=Vector2i(((spec.runtime_at-state.origin)/3.).round())
+	var candidates=[]
+	for y in range(maxi(0,center.y-12),mini(state.size.y,center.y+13)):
+		for x in range(maxi(0,center.x-12),mini(state.size.x,center.x+13)):
+			var cell=Vector2i(x,y)
+			if Winter.Recovered.open(state.bits,state.size,cell):candidates.append(cell)
+	candidates.sort_custom(func(a,b):return a.distance_squared_to(center)<b.distance_squared_to(center))
+	var positions=[];var slots=[]
+	var slain:Dictionary=tree.get_meta(UniversityRegion.SLAIN,{})
+	var phase_offset:int=int(battle.phase)*1000
+	for i in battle.members.size():
+		if slain.has(UniversityRegion.slain_key(key,m.falan_floor,phase_offset+i)):continue
+		var member:Dictionary=battle.members[i];var radius=population.radius(int(member.species))
+		var reach_origin=hero
+		if not m.army_runtime.native.can_reach(reach_origin*m.falan_scale,reach_origin*m.falan_scale,radius):
+			# F can activate a mural with the hero closer to its wall than the larger enemy fits.
+			var hero_cell=Vector2i(((Vector2(hero.x,hero.z)-state.origin)/3.0).round())
+			var center_:Vector2=state.origin+Vector2(hero_cell)*3.0
+			reach_origin=Vector3(center_.x,m.surface_height(center_.x,center_.y),center_.y)
+			if not m.army_runtime.native.can_reach(reach_origin*m.falan_scale,reach_origin*m.falan_scale,radius):
+				# The player can approach a large boss from an aisle narrower than its body.
+				reach_origin=Vector3.INF
+				for cell:Vector2i in candidates:
+					var at:Vector2=state.origin+Vector2(cell)*3.;var point=Vector3(at.x,m.surface_height(at.x,at.y),at.y)
+					if not navigation.move_clear(point,radius):continue
+					if not m.army_runtime.native.can_reach(point*m.falan_scale,point*m.falan_scale,radius):continue
+					if not m.army_runtime.native.can_reach(hero*m.falan_scale,point*m.falan_scale,.55*m.falan_scale):continue
+					reach_origin=point;break
+				if not reach_origin.is_finite():return true
+		var selected=Vector3.INF
+		for cell:Vector2i in candidates:
+			var at:Vector2=state.origin+Vector2(cell)*3.
+			var point=Vector3(at.x,m.surface_height(at.x,at.y),at.y)
+			if positions.any(func(other):return other.distance_squared_to(point)<9.):continue
+			if not navigation.move_clear(point,radius):continue
+			if not m.army_runtime.native.can_reach(reach_origin*m.falan_scale,point*m.falan_scale,radius):continue
+			selected=point;break
+		if selected==Vector3.INF:return true
+		positions.append(selected);slots.append(i)
+	for n in slots.size():
+		var slot:int=slots[n];var member:Dictionary=battle.members[slot]
+		var species:Dictionary=population.data().species[member.species]
+		var role=Roles.GATEKEEPER_HOUND if population.companion(int(member.species)) else Roles.SLIME
+		var enemy=spawn_enemy(role,positions[n]*m.falan_scale,-1,int(species.skin))
+		enemy.skin=int(species.skin);enemy.university_battle=key;enemy.university_slot=phase_offset+slot
+		var source_zone:Dictionary=population.data().bosses.get(str(battle.encounter),{})
+		if source_zone.get("wind_tower_source",false) or source_zone.get("source_party_contract",false):
+			enemy.source_enemy=member.enemy;enemy.source_group=source_zone.groups[0][0];enemy.source_encounter=int(battle.encounter)
+		enemy.footprint=.92 if member.boss else .84;enemy.patrol_radius=18.
+		CaveProgression.apply(enemy,[member.name,member.level,660 if member.boss else 280,member.boss],Roles.stats(role) if role==Roles.GATEKEEPER_HOUND else population.STATS)
+		if member.boss:mark_dungeon_boss(enemy)
+	spawned=1;snow_pending=[];snow_distance=0.
+	return true
+
+func tick_elsa_battle(hero:Vector3)->bool:
+	var game=m.army_runtime.game;var tree:SceneTree=game.get_tree()
+	var route=load("res://scripts/forest/forest_elsa_route.gd")
+	if route.victory(game):return true
+	var key:String=route.active(tree,m.falan_floor)
+	if key.is_empty():return false
+	if spawned!=0:return true
+	var spec:Dictionary=Elsa.data().battles[int(key)]
+	var battle:Dictionary=tree.get_meta(route.BATTLES,{})[key]
+	var state:Dictionary=Winter.Recovered.state(m.falan_floor,m.seed_value)
+	var center=Vector2i(spec.cell[0],spec.cell[1]);var candidates=[]
+	for y in range(maxi(0,center.y-12),mini(state.size.y,center.y+13)):
+		for x in range(maxi(0,center.x-12),mini(state.size.x,center.x+13)):
+			var cell=Vector2i(x,y)
+			if Winter.Recovered.open(state.bits,state.size,cell):candidates.append(cell)
+	candidates.sort_custom(func(a,b):return a.distance_squared_to(center)<b.distance_squared_to(center))
+	var positions=[];var slots=[];var slain:Dictionary=tree.get_meta(route.SLAIN,{})
+	for i in battle.members.size():
+		if slain.has(key+":"+str(i)):continue
+		var selected=Vector3.INF
+		for cell:Vector2i in candidates:
+			var at:Vector2=state.origin+Vector2(cell)*3.
+			var point=Vector3(at.x,m.surface_height(at.x,at.y),at.y)
+			if positions.any(func(other):return other.distance_squared_to(point)<9.):continue
+			if not navigation.move_clear(point,.92):continue
+			if not m.army_runtime.native.can_reach(hero*m.falan_scale,point*m.falan_scale,.92):continue
+			selected=point;break
+		if selected==Vector3.INF:return true
+		positions.append(selected);slots.append(i)
+	for n in slots.size():
+		var slot:int=slots[n];var member:Dictionary=battle.members[slot]
+		var role=Roles.GATEKEEPER_HOUND if member.bank=="companion" else Roles.SLIME
+		var enemy=spawn_enemy(role,positions[n]*m.falan_scale,-1,int(member.skin))
+		enemy.skin=int(member.skin);enemy.elsa_battle=key;enemy.elsa_slot=slot
+		enemy.footprint=.92 if member.boss else .84;enemy.patrol_radius=18.
+		CaveProgression.apply(enemy,[member.name,member.level,660 if member.boss else 280,member.boss],Roles.stats(role) if role==Roles.GATEKEEPER_HOUND else Elsa.STATS)
+		if int(member.hp_override)>0:
+			enemy.hp=float(member.hp_override);enemy.max_hp=enemy.hp
+			enemy.health_scale=enemy.hp/(Roles.stats(role).hp if role==Roles.GATEKEEPER_HOUND else Elsa.STATS.hp)
+		if member.boss:mark_dungeon_boss(enemy)
+	spawned=1;snow_pending=[];snow_distance=0.
+	return true
 
 func tick_frostpass():
 	if spawned!=0 or not is_instance_valid(m.army_runtime):return
@@ -860,6 +1175,7 @@ func spawn_decree_row(row:Array,id:int):
 	var at=Winter.Recovered.point(id,row[0],m.seed_value) if Winter.Recovered.Beast.owns(id) else Winter.Decree.point(row[0],id)
 	var enemy=spawn_enemy(role,m.world_point(at),-1,maxi(0,skin))
 	if skin<0:enemy.skin=Pets.skin(row[1])
+	if Winter.Recovered.Beast.owns(id) and row[1]=="original:2935":enemy.beast_scale_drop=true
 	enemy.frostpass_slot=Vector2i(id,row[5])
 	enemy.footprint=.92 if row[4] else .84
 	enemy.patrol_radius=8.0 if row[4] else 11.0
@@ -895,6 +1211,34 @@ func reinforce_falken(source_id:int,skin:int):
 
 func tick(delta:float,hero:Vector3):
 	if m.phase!="wave":return
+	if East.owns_model(m):
+		if tick_university(hero/m.falan_scale):return
+		spawn_clock=maxf(0.,spawn_clock-delta)
+		if East.encounter_scope(m,Vector2(hero.x,hero.z)/m.falan_scale):tick_map_encounters(hero/m.falan_scale)
+		else:snow_last=Vector3.INF;snow_distance=0.;snow_pending=[]
+		return
+	if South.encounters_own(m):
+		hero/=m.falan_scale
+		if (m.falan_floor in [15524,15525,15526] or is_instance_valid(m.army_runtime) and UniversityRegion.active(m.army_runtime.get_tree(),m.falan_floor,m.falan_area).begins_with("sokia:")) and tick_university(hero):return
+		if m.falan_floor in [11000,11001,11002]:tick_venoa_bears([])
+		spawn_clock=maxf(0.0,spawn_clock-delta)
+		if tick_fixed_undersea(hero):return
+		if South.encounter_scope(m,Vector2(hero.x,hero.z)):tick_map_encounters(hero,true)
+		else:
+			snow_last=Vector3.INF;snow_distance=0.;snow_pending=[]
+			if not patrol_posts.is_empty():tick_outer_road(delta,hero)
+		return
+	if Snow.owns(m.falan_floor) or University.owns(m.falan_floor) or Elsa.owns(m.falan_floor):
+		if Elsa.owns(m.falan_floor) and tick_elsa_battle(hero/m.falan_scale):return
+		if (University.owns(m.falan_floor) or m.falan_floor==51031) and tick_university(hero/m.falan_scale):return
+		spawn_clock=maxf(0.0,spawn_clock-delta)
+		var state=Winter.Recovered.state(m.falan_floor,m.seed_value)
+		var source_cell=Vector2i(((Vector2(hero.x,hero.z)/m.falan_scale-state.origin)/3.0).round())+Winter.Recovered.crop(m.falan_floor).position
+		if University.owns(m.falan_floor) or Elsa.owns(m.falan_floor) or Snow.in_scope(m.falan_floor,source_cell):tick_map_encounters(hero/m.falan_scale)
+		else:
+			snow_last=Vector3.INF;snow_distance=0.0
+			if not patrol_posts.is_empty():tick_outer_road(delta,hero/m.falan_scale)
+		return
 	if not patrol_posts.is_empty():
 		tick_outer_road(delta,hero/m.falan_scale)
 		return
@@ -920,7 +1264,9 @@ func tick(delta:float,hero:Vector3):
 		while wave_clock<=.000001:
 			m.wave+=1;released_waves+=1;wave_clock+=SLIME_WAVE_SECONDS
 			m.wave_started.emit()
-		spawn_slimes(hero)
+		spawn_clock=maxf(0.0,spawn_clock-delta)
+		if spawn_clock<=.000001:
+			spawn_clock=SLIME_SPAWN_INTERVAL if spawn_slimes(hero) else SPAWN_INTERVAL
 		return
 	wave_clock-=delta
 	while wave_clock<=.000001 and released_waves<m.balance.waves.size():

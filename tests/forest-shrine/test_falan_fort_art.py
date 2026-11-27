@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 import sys
 import unittest
-from PIL import Image, ImageOps, ImageStat
+import statistics
+from PIL import Image, ImageOps, ImageStat, ImageFilter
 
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT.parent/'Magic Power'
@@ -96,23 +97,41 @@ class FortArt(unittest.TestCase):
  def test_arrow_atlas_and_foundation_feet_use_original_face_details(self):
   sys.path.insert(0,str(ROOT/'tools'))
   from recover_falan_architecture import opaque_paint
+  from recover_falan_forts import native_stone
   rows=json.loads((ROOT/'assets/maps/falan/city_fort_paint.json').read_text())
   with Image.open(ROOT/'assets/maps/falan/city_fort_arrow_details.png')as atlas:
    self.assertEqual(atlas.size,(544,216))
    for serial,count in [(10650,6),(10657,7)]:
     e=library.serial_index()[serial];im=opaque_paint(library.image_from_record(e['pack'],e['row']).convert('RGBA'));row=rows[str(serial)];self.assertEqual(len(row['lower_slits']),count)
     for slot in row['lower_slits']:
-     expected=im.transform((32,192),Image.Transform.QUAD,slot['source_quad'],Image.Resampling.BICUBIC);x,y,w,h=slot['paint']
+     expected=native_stone(im.transform((32,192),Image.Transform.QUAD,slot['source_quad'],Image.Resampling.BICUBIC),.85);x,y,w,h=slot['paint']
      self.assertEqual(atlas.crop((x,y,x+w,y+h)).tobytes(),expected.tobytes());self.assertEqual(atlas.getpixel((x-2,y-2)),expected.getpixel((0,0)))
     if serial!=10657:continue
     ox,oy=row['origin']
     for foot in row['feet']:
      q=[v+(ox if i%2==0 else oy)for i,v in enumerate(foot['quad'])];x,y,w,h=foot['paint']
-     self.assertEqual(atlas.crop((x,y,x+w,y+h)).tobytes(),im.transform((64,64),Image.Transform.QUAD,q,Image.Resampling.BICUBIC).tobytes())
+     self.assertEqual(atlas.crop((x,y,x+w,y+h)).tobytes(),native_stone(im.transform((64,64),Image.Transform.QUAD,q,Image.Resampling.BICUBIC),.55).tobytes())
     line=row['course']['points']
     for (u,v),(uu,vv)in zip(line,line[1:]):
-     q=(u+ox,v-1.5+oy,u+ox,v+2.5+oy,uu+ox,vv+2.5+oy,uu+ox,vv-1.5+oy);expected=im.transform(((uu-u)*4,16),Image.Transform.QUAD,q,Image.Resampling.BICUBIC);x=2+(u-line[0][0])*4
+     q=(u+ox,v-1.5+oy,u+ox,v+2.5+oy,uu+ox,vv+2.5+oy,uu+ox,vv-1.5+oy);expected=native_stone(im.transform(((uu-u)*4,16),Image.Transform.QUAD,q,Image.Resampling.BICUBIC),.55);x=2+(u-line[0][0])*4
      self.assertEqual(atlas.crop((x,198,x+expected.width,214)).tobytes(),expected.tobytes())
+
+ def test_tower_stone_details_do_not_magnify_palette_chroma(self):
+  rows=json.loads((ROOT/'assets/maps/falan/city_fort_paint.json').read_text())
+  with Image.open(ROOT/'assets/maps/falan/city_fort_arrow_details.png')as atlas:
+   regions=[slot['paint']for sid in ['10650','10657']for slot in rows[sid]['lower_slits']]+[slot['paint']for slot in rows['10657']['feet']]
+   line=rows['10657']['course']['points']
+   regions += [[2+(u-line[0][0])*4,198,(uu-u)*4,16]for(u,v),(uu,vv)in zip(line,line[1:])]
+   for x,y,w,h in regions:
+    pixels=list(atlas.crop((x,y,x+w,y+h)).getdata())
+    for a,b in [(0,1),(1,2)]:
+     chroma=[p[a]-p[b]for p in pixels];self.assertLess(statistics.pstdev(chroma),1)
+
+ def test_hidden_course_shading_connects_native_edge_profiles(self):
+  with Image.open(ROOT/'assets/maps/falan/city_fort_arrow_details.png')as atlas:
+   left=atlas.crop((2,198,3,214)).resize((1,48),Image.Resampling.BICUBIC);right=atlas.crop((541,198,542,214)).resize((1,48),Image.Resampling.BICUBIC)
+   for x in range(64):self.assertEqual(atlas.crop((474+x,138,475+x,186)).tobytes(),Image.blend(left,right,x/63).tobytes())
+   self.assertEqual(atlas.getpixel((472,136)),left.getpixel((0,0)));self.assertEqual(atlas.getpixel((539,187)),right.getpixel((0,47)))
 
  def test_native_support_curves(self):
   samples={10651:[(175,100),(200,102),(225,98),(250,94),(275,89),(300,85),(310,84)],10655:[(180,115),(200,118),(215,120),(240,116),(270,111),(300,106),(325,102),(330,101),(335,99)]}
@@ -209,17 +228,18 @@ class FortArt(unittest.TestCase):
     expected=Image.merge('RGBA',(*channels,expected.getchannel('A')))
    with Image.open(ROOT/f'assets/maps/falan/city_fort_{name}.png')as actual:self.assertEqual(actual.tobytes(),expected.tobytes())
 
- def test_unseen_faces_reuse_native_masonry(self):
-  e=library.serial_index()[10640]
+ def test_visible_masonry_uses_a_large_native_face(self):
+  sys.path.insert(0,str(ROOT/'tools'))
+  from recover_falan_forts import masonry_patch, native_stone, MASONRY_QUAD
+  e=library.serial_index()[10643]
   original=library.image_from_record(e['pack'],e['row']).convert('RGBA')
-  patch=original.transform((64,64),Image.Transform.QUAD,(45,130,45,139,52,144,52,135),Image.Resampling.BICUBIC)
-  tone=ImageStat.Stat(patch).mean[:3];luma=ImageOps.grayscale(patch);average=ImageStat.Stat(luma).mean[0]
-  channels=[luma.point(lambda value,c=c:round(max(0,min(255,c+(value-average)*.28))))for c in tone]
-  patch=Image.merge('RGBA',(*channels,patch.getchannel('A')))
+  source=native_stone(original.filter(ImageFilter.GaussianBlur(.65)).transform((128,128),Image.Transform.QUAD,MASONRY_QUAD,Image.Resampling.BICUBIC),.28)
   with Image.open(ROOT/'assets/maps/falan/city_fort_masonry.png')as actual:
-   self.assertEqual(actual.crop((0,0,64,64)).tobytes(),patch.tobytes())
-   self.assertEqual(actual.crop((64,0,128,64)).tobytes(),ImageOps.mirror(patch).tobytes())
-   self.assertEqual(actual.crop((0,64,128,128)).tobytes(),ImageOps.flip(actual.crop((0,0,128,64))).tobytes())
+   self.assertEqual(actual.tobytes(),masonry_patch(original).tobytes())
+   self.assertEqual(actual.crop((8,8,120,120)).tobytes(),source.crop((8,8,120,120)).tobytes())
+   self.assertEqual(actual.crop((0,0,1,128)).tobytes(),actual.crop((127,0,128,128)).tobytes())
+   self.assertEqual(actual.crop((0,0,128,1)).tobytes(),actual.crop((0,127,128,128)).tobytes())
+   self.assertNotEqual(actual.crop((0,0,64,64)).tobytes(),ImageOps.mirror(actual.crop((64,0,128,64))).tobytes())
    self.assertEqual(actual.getchannel('A').getextrema(),(255,255))
 
  def test_all_original_fort_paint_and_projection_anchors_are_preserved(self):

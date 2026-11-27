@@ -9,7 +9,13 @@ OUT = Path(__file__).resolve().parents[1] / "assets/items/crossgate"
 ROWS = {"chest": 15614, "black-chest": 15616, "white-chest": 15618,
         "bread": 14982, "roast-chicken": 15054, "bento": 15012,
         "hot-pot": 15076, "stew": 15011, "noodles": 15014,
-        "fruit-salad": 14986, "dumplings": 15022, "oyakodon": 15013}
+        "fruit-salad": 14986, "dumplings": 15022, "oyakodon": 15013,
+        "vitality-bread": 14981, "power-steak": 15045, "sage-jelly": 14989, "sage-soup": 15008,
+        "swift-sushi": 14995, "iron-meatballs": 15057, "ward-jelly": 14987, "ward-soup": 15007,
+        "lucky-cake": 14994, "feather-parfait": 15038, "duelist-fish": 15021,
+        "focus-riceball": 15065, "growth-rice": 15070, "royal-feast": 15058,
+        "pet-stew": 15052, "pet-skewers": 15061, "pet-melon": 15043, "pet-mana-broth": 15066,
+        "pet-feast": 15082, "melon-bread": 15043, "red-jelly": 14988, "blue-jelly": 14989, "green-jelly": 14987}
 
 
 def recover(source):

@@ -1,0 +1,82 @@
+{
+  "34:109146": {
+    "action": 6,
+    "duration": 0.72,
+    "frame_indices": [0, 2, 4, 5, 6, 7, 8, 9, 10],
+    "release_frames": [7, 7, 7, 7, 7, 7, 7, 7],
+    "reason": "Kaz's Yellow and Red Sparks casting gesture releases from the forward arm beside the skin's red sparks."
+  },
+  "34:109890": {
+    "action": 6,
+    "duration": 0.72,
+    "frame_indices": [0, 1, 2, 3, 4, 6, 7, 8, 9, 10],
+    "release_frames": [7, 7, 7, 7, 7, 7, 7, 7],
+    "reason": "Blond Kaz's raised free hand leads the release while the other hand keeps its sword down."
+  },
+  "34:109891": {
+    "action": 6,
+    "duration": 0.72,
+    "frame_indices": [0, 1, 2, 3, 4, 6, 7, 8, 9, 10],
+    "release_frames": [7, 7, 7, 7, 7, 7, 7, 7],
+    "reason": "Blond Kaz's raised free hand leads the release with this skin's own rose aura."
+  },
+  "35:108921": {
+    "action": 5,
+    "source_key": "puk2:854",
+    "duration": 0.66,
+    "frame_indices": [0, 2, 4, 6, 8, 9, 10, 12, 13],
+    "release_frames": [5, 5, 5, 5, 5, 5, 5, 5],
+    "reason": "Ruby's matching unarmed outfit withdraws her arm, extends it forward at the original contact marker, and returns to stance."
+  },
+  "35:109897": {
+    "action": 5,
+    "source_key": "puk3:842",
+    "duration": 0.69,
+    "frame_indices": [0, 4, 8, 15, 19, 20, 21, 27, 31],
+    "release_frames": [5, 5, 5, 5, 5, 5, 5, 5],
+    "reason": "Ruby's matching gold unarmed outfit uses its forward hand extension and original recovery."
+  },
+  "35:109903": {
+    "action": 5,
+    "source_key": "puk3:848",
+    "duration": 0.69,
+    "frame_indices": [0, 4, 8, 15, 19, 20, 21, 27, 31, 34],
+    "release_frames": [5, 5, 5, 5, 5, 5, 5, 5],
+    "reason": "Ruby's matching unarmed outfit retains the animated gold ring through its forward reach and recovery."
+  },
+  "35:109909": {
+    "action": 5,
+    "duration": 0.72,
+    "frame_indices": [0, 2, 6, 10, 12, 14, 15, 32, 34, 37],
+    "release_frames": [6, 6, 6, 6, 6, 6, 6, 6],
+    "reason": "Ruby's fixed flame outfit uses one forward sweep and its own final recovery, keeping the baked flames continuous."
+  },
+  "38:118987": {
+    "action": 6,
+    "duration": 0.78,
+    "frame_indices": [3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 17, 19],
+    "release_frames": [7, 7, 7, 7, 7, 7, 7, 7],
+    "reason": "Yellow Flame Shin's casting sequence rises into a forward pulse at frame 10 and settles with its original gold aura."
+  },
+  "38:118993": {
+    "action": 6,
+    "duration": 0.72,
+    "frame_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12],
+    "release_frames": [4, 4, 4, 4, 4, 4, 4, 4],
+    "reason": "Red Lightning Shin uses the first forward casting pulse with his fixed sword and lightning silhouette."
+  },
+  "46:109912": {
+    "action": 6,
+    "duration": 0.73,
+    "frame_indices": [0, 2, 5, 8, 9, 10, 11, 13, 15, 17, 20],
+    "release_frames": [6, 6, 6, 6, 6, 6, 6, 6],
+    "reason": "Rei's original cast leans into a forward reach at the original contact marker and returns with its runic ring intact."
+  },
+  "48:109876": {
+    "action": 5,
+    "duration": 0.68,
+    "frame_indices": [0, 4, 8, 12, 16, 18, 19, 22, 28, 32, 34],
+    "release_frames": [6, 6, 6, 6, 6, 6, 6, 6],
+    "reason": "Bei's unarmed stance shifts into a forward lunge with the throwing arm extended at the original contact marker."
+  }
+}

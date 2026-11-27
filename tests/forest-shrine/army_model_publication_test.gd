@@ -12,7 +12,8 @@ func run():
  game.start_wave();game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.explorer_helpers.set_process(false)
  game.model.waves.pending=100000000;game.model.waves.spawn_clock=100000000;game.model.workers.clear()
  var army=game.army_runtime;army.profile_enabled=true
- var row:Dictionary=game.model.waves.spawn_enemy(0,Vector3(-60,0,60));var far:Dictionary=game.model.waves.spawn_enemy(1,Vector3(100,0,-100));army.import_arrivals();army.sync_compatibility()
+ var row:Dictionary=game.model.waves.spawn_enemy(0,Vector3(-60,0,60));row.boss=true
+ var far:Dictionary=game.model.waves.spawn_enemy(1,Vector3(100,0,-100));army.import_arrivals();army.sync_compatibility()
  var actor=game.actors[row.id];var handle:int=actor.handle
  var gate:Dictionary=game.model.buildings.values().filter(func(b):return b.kind=="gate")[0]
  var readers={

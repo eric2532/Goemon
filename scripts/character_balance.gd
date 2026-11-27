@@ -17,8 +17,9 @@ const COMMON_ROWS=[
 	["critical_chance","Critical chance (%)",0,100,1],
 	["dodge_chance","Dodge chance (%)",0,100,1],
 	["counter_chance","Counter chance (%)",0,100,1],
+	["accuracy","Accuracy",0,100,1],
 	["walk_speed","Run speed",3,40,.1],
-	["sprint_speed","Sprint speed",8,60,.5],
+	["sprint_speed","Sprint speed",3,60,.1],
 	["jump_height","Jump height ×",.25,5,.05],
 	["jump_drop_speed","Jump drop speed ×",.25,2,.05],
 	["jump_speed","Jump launch speed",8,40,.25],
@@ -73,6 +74,7 @@ static func value(baseline: Dictionary,profiles: Dictionary,id: int,key: String)
 	if key in ["melee_reach","jump_height","jump_drop_speed"]:return 1.0
 	if key=="critical_chance":return clampf(float(baseline.get(key,5.0)),0,100)
 	if key in ["dodge_chance","counter_chance"]:return 5.0
+	if key=="accuracy":return 0.0
 	var result=float(baseline.get(key,PrototypeTuning.DEFAULTS.get(key,1.0)))
 	if Roster.is_rogue(id) and key in ["max_hp","walk_speed","sprint_speed","jump_speed","second_jump_speed"]:
 		# Authored class ratios are immutable. Live baseline values and editable

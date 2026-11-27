@@ -1,0 +1,12 @@
+[
+  {
+    "file": "DropItemGroup.java",
+    "url": "https://raw.githubusercontent.com/Muscipular/CrossGateData/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/item/DropItemGroup.java",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "path": "src/cg/data/item/DropItemGroup.java",
+    "bytes": 268,
+    "sha256": "2c42e0649f3e0b49769b78a812920c82047f5d69a320d769f809cce5736018b9",
+    "git_blob": "30fa6b29f1c655577693826de0834028d85ca8aa",
+    "qualification": "Reference editor/model interface; not authenticated original server execution."
+  }
+]

@@ -7,7 +7,7 @@ static void charges(KitData d){
  d.enemy_charge=true;
  d.soldier_kinds.push_back(1);d.soldier_profiles.insert(d.soldier_profiles.end(),{100,4,30,4,6,1.75f});
  d.skullpion={5,30};
- for(int hz:{20,30,60})for(int response=0;response<3;++response){
+ for(int hz:{20,30,60,120})for(int response=0;response<3;++response){
   Crowd c;c.configure(10,10);c.set_navigation({});assert(c.combat.configure(d));
   const double dt=1.0/hz;
   ExternalTarget hero;hero.kind=0;hero.hp=1000;hero.foot={0,0,-7};hero.guarding=response==1;
@@ -29,11 +29,12 @@ static void charges(KitData d){
    }
    for(const auto& event:c.combat.events())if(event.kind==EXTERNAL_DAMAGE&&event.source_id==1){
     assert(event.action_index==ENEMY_CHARGE_RUSH&&event.amount==30&&warned);++hits;
+    assert(unit.action==ENEMY_CHARGE_RECOVERY&&unit.position.z>hero.foot.z);
    }
    c.combat.clear_events();
   }
   assert(warned&&unit.action==ENEMY_CHARGE_RECOVERY&&hits==(response==2?0:1));
-  assert(response==1?unit.position.z>-7:unit.position.z<-10);
+  assert(response==2?unit.position.z<-10:unit.position.z>hero.foot.z);
   const Vec3 stopped=unit.position;c.step(.25);assert(length(unit.position-stopped)<.001f);
  }
  {

@@ -1,0 +1,122 @@
+{
+  "east_coast": {
+    "resource_sha256": "49b7ff6885cc711db74a43a42839cbb62d977a3185d83fe07dc202ce0ab3cb9a",
+    "rgba_sha256": "7676b8e2b5791c8651f1675e50a1a8d0b21b0e34205cea9cf506930c33cf5327",
+    "size": [
+      321,
+      321
+    ]
+  },
+  "east_coast-source-support": {
+    "resource_sha256": "2176cc47d7daf4f504756ab1c780777c9c2e24186a45cf47c64df1f7188abded",
+    "rgba_sha256": "2539eb980ec9b168a700c78e5e042c80835f363579654e3ff972a7e10188bee1",
+    "size": [
+      321,
+      321
+    ]
+  },
+  "east_gate": {
+    "resource_sha256": "af719822a4e2a13a7bdd5c153933806f12929e698d86ec5ad45ed7437d949fe2",
+    "rgba_sha256": "41ea92c37a7284fcc13303760bb48f9be31738f1a367d9a3f16cb8b3dbf7f705",
+    "size": [
+      387,
+      459
+    ]
+  },
+  "east_gate-source-support": {
+    "resource_sha256": "3c541c297a801eb7e894750e3bf50a9ebb955c3108ee1ab378c5d2a57372da17",
+    "rgba_sha256": "31429e88d24766ba2ff066d7bf1e4d78e29f8e5ad932448c4fa861a65273da01",
+    "size": [
+      387,
+      459
+    ]
+  },
+  "freyja": {
+    "resource_sha256": "2dea0c7ea32a86f65350e9e3a7ae4a57c949d2900de793053f300489989afd4c",
+    "rgba_sha256": "976139982755d241e226cd207e1024c761e29bb3f35acccf999cdb9d7092e1b4",
+    "size": [
+      321,
+      229
+    ]
+  },
+  "freyja-source-support": {
+    "resource_sha256": "4edbb6d43bdb99e5d9303f5d2a8e34b738eb5894f3df717aabf854b7a543a45d",
+    "rgba_sha256": "5c20cd6a6ad06684b0f7379d78e74a6599ac5617c68c5ad130c62badaa429b0c",
+    "size": [
+      321,
+      229
+    ]
+  },
+  "north_coast": {
+    "resource_sha256": "a54ef2f997dbf44ce3ef35225a24acb4929c0e6212002bdacfc69450b811a883",
+    "rgba_sha256": "200a3ecb2b0c356fe83f289b4e55795ca651a853aa24bd869233a1c65318d244",
+    "size": [
+      321,
+      321
+    ]
+  },
+  "north_coast-source-support": {
+    "resource_sha256": "b9145915ec69332c389a0b2d5d302cc1ad742410419b85dcdd3f494a159b2a39",
+    "rgba_sha256": "c59fe73d7191c886ffb91f3f7c0c0e92abea9432a226946b7f7f6668e59d8c53",
+    "size": [
+      321,
+      321
+    ]
+  },
+  "source-domain": {
+    "resource_sha256": "1f0353944129e7ebc78028dd3786d24b8651439103834e9bcea7ead97ae51ed8",
+    "rgba_sha256": "0d9093da2fe54994522e2c1f183e0664da4edce1c6186bd54925a402c0f09e33",
+    "size": [
+      840,
+      610
+    ]
+  },
+  "south_gate": {
+    "resource_sha256": "ab076b0eb43ca7644d789a14c451acde694f4978ee28b5d0dd7c442ffbbddf1d",
+    "rgba_sha256": "70eb83d5cf13ce7c6ac6c0aefe308c3193db7123b1a854d4c0bfff5aac91f14b",
+    "size": [
+      321,
+      229
+    ]
+  },
+  "south_gate-source-support": {
+    "resource_sha256": "5b6a16cd3ed856c80223e50426ef8d774e26e067578a5d6129a0bba58d8e10ab",
+    "rgba_sha256": "e5d0b58af6e403c6950179ef3071ee05ee6274c0ff4c785213a8f25713e53852",
+    "size": [
+      321,
+      229
+    ]
+  },
+  "south_lakes": {
+    "resource_sha256": "18af14f79ddb88bd995c83cdb72c00a290f48ff425710fcd41e4ed3f2df2a0f1",
+    "rgba_sha256": "5792f228d4737416b71308be439f38568e83c6d74367d671b3070d90a9904ceb",
+    "size": [
+      355,
+      321
+    ]
+  },
+  "south_lakes-source-support": {
+    "resource_sha256": "72732a4a00e003370ee39e6720702bbf32b440936b62214a2c304b2c590581ae",
+    "rgba_sha256": "b39acac92c36ad9bc6809a9a95ca2b4ced66426bf0405395e0962930750d0de0",
+    "size": [
+      355,
+      321
+    ]
+  },
+  "west_lakes": {
+    "resource_sha256": "a668384a603eb38ab774ec55af953ba263fd3c67d30bd4c696cf9cf7fc136323",
+    "rgba_sha256": "6c7e02ceac59cc3006d32b9a33951374726e07e4b51f44edeceef21ac6e62e91",
+    "size": [
+      321,
+      321
+    ]
+  },
+  "west_lakes-source-support": {
+    "resource_sha256": "7de5937c6edde72795176f82b73c5bd1c34da722288d772266a830c4fc78d737",
+    "rgba_sha256": "3e054f2f77b9ad16703332b9718399ecbca83c967f97a0cc4d6f1c3d173d4af0",
+    "size": [
+      321,
+      321
+    ]
+  }
+}

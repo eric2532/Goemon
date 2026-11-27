@@ -1,4 +1,5 @@
 extends Node
+const ContextRegions=preload("res://scripts/forest/forest_freyja_regions.gd")
 const Prayer=preload("res://scripts/forest/forest_black_prayer.gd")
 ## One owner for native NPC state. The playable Hero never enters this runtime.
 const NO_TICKET={}
@@ -9,6 +10,7 @@ const Ruby=preload("res://scripts/forest/crowd/ruby_boss_sprites.gd")
 const Freyja=preload("res://assets/maps/falan/freyja_destinations_data.gd")
 const Habaru=preload("res://scripts/forest/crowd/habaru_sprites.gd")
 const Undersea=preload("res://scripts/forest/crowd/undersea_sprites.gd")
+static var il_source_caps:Script
 var native:Object
 var game_ref:WeakRef
 var actor_root:Node3D
@@ -144,10 +146,7 @@ func static_collision_data(world:Node)->Dictionary:
    ancestor=ancestor.get_parent()
   var transform_:Transform3D=node.global_transform
   if cached.is_empty() or cached.node.get_ref()!=node or cached.local_faces!=faces or cached.transform!=transform_ or cached.owner!=owner_id:
-   var transformed=faces
-   if transform_!=Transform3D.IDENTITY:
-    transformed=PackedVector3Array();transformed.resize(faces.size())
-    for i in faces.size():transformed[i]=transform_*faces[i]
+   var transformed=faces if transform_==Transform3D.IDENTITY else transform_*faces
    var owner_rows=PackedInt64Array();owner_rows.resize(faces.size()/3);owner_rows.fill(owner_id)
    cached={"node":weakref(node),"local_faces":faces,"transform":transform_,"owner":owner_id,"faces":transformed,"owners":owner_rows}
    if node.shape is BoxShape3D:cached.box_size=node.shape.size
@@ -398,6 +397,10 @@ func dispatch_events()->void:
        var slain:Dictionary=get_tree().get_meta(route.SLAIN,{})
        slain[row.frostpass_slot]=true
        get_tree().set_meta(route.SLAIN,slain)
+      if row.has("university_battle"):
+       preload("res://scripts/forest/forest_university_region.gd").defeated(get_tree(),row)
+      if row.has("elsa_battle"):
+       load("res://scripts/forest/forest_elsa_route.gd").defeated(get_tree(),row)
       if row.has("falken_slot"):
        var route=preload("res://scripts/forest/forest_falken_route.gd")
        var slain:Dictionary=get_tree().get_meta(route.SLAIN,{})
@@ -440,7 +443,9 @@ func dispatch_events()->void:
        if slain.size()==Freyja.RUBY_FORMATION.size():game.toast("Black Prayer cleared · Way to Fengnu's House open")
       row.hp=event.hp;game.model.ryo.award_enemy_bounty(row)
       if is_instance_valid(actor):game.remember_defeat(actor)
-      if game.has_method("award_team_kill"):game.award_team_kill(int(row.get("xp_reward_tenths",10)),int(event.source_id),int(event.target_id))
+      if game.has_method("award_team_kill"):
+       event.xp_reward_tenths=int(row.get("xp_reward_tenths",10))
+       game.award_team_kill(event.xp_reward_tenths,int(event.source_id),int(event.target_id))
       if event.source_id==0 and not ticket.get("tower",false) and not ticket.get("allied",false):
        if not game.has_method("award_team_kill"):game.player.award_kill()
        if game.player.hp>0:game.player.hp=minf(game.player.max_hp,game.player.hp+9)
@@ -484,31 +489,49 @@ func take_events()->Array[Dictionary]:
  var result:Array[Dictionary]=[];result.assign(native.take_events());return result
 static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dictionary:
  var terrain=model.terrain
+ if model.get("falan_area") in["il_village","east_gate"]:
+  if il_source_caps==null:il_source_caps=load("res://scripts/forest/forest_east_il_source_completion.gd")
+  il_source_caps.install(model)
  var region:Rect2i=model.navigation_region
  var data={"width":0,"spacing":3.0,"origin":Vector3(-240,0,-240),"bounds_min":Vector3(-243,0,-243),"bounds_max":Vector3(237,0,237),"heights":PackedFloat32Array(),"covered":PackedByteArray(),"obstacle_min":PackedVector3Array(),"obstacle_max":PackedVector3Array(),"layer_min":PackedVector3Array(),"layer_max":PackedVector3Array(),"pieces":PackedFloat32Array(),"ray_min":PackedVector3Array(),"ray_max":PackedVector3Array(),"ray_owner":PackedInt64Array()}
  data.bounds_min=Vector3(region.position.x*6-3,0,region.position.y*6-3)
  data.bounds_max=Vector3(region.end.x*6-3,0,region.end.y*6-3)
  if terrain.has_method("contains"):
   data.width=terrain.width;data.spacing=terrain.spacing;data.heights=terrain.heights;data.covered=terrain.covered
+  if terrain.has_method("native_diagonal_flips"):
+   var flips:PackedByteArray=terrain.native_diagonal_flips()
+   if not flips.is_empty():data.diagonal_flips=flips
   var origin:Vector2=-terrain.coordinate(0,0)*terrain.spacing
   data.origin=Vector3(origin.x,0,origin.y)
  var recovery=preload("res://scripts/forest/forest_original_maps.gd")
- if model.get("falan_area")=="interior" and recovery.owns(model.falan_floor):
-  var floor_=recovery.floor_info(model.falan_floor,model.seed_value)
+ if model.get("falan_area")=="interior" and (recovery.owns(model.falan_floor) or model.falan_floor==13001):
+  # Great Wind exceeds the native flat-terrain fallback after map scaling.
+  var floor_=preload("res://scripts/forest/forest_falan_interior.gd").floor_info(model.falan_floor,model.seed_value)
   data.width=maxi(floor_[0].x,floor_[0].y)+1
   data.origin=Vector3(floor_[1].x,0,floor_[1].y);data.spacing=3.0;data.route_spacing=3.0
   data.heights.resize(data.width*data.width);data.covered.resize(data.width*data.width);data.covered.fill(1)
+ if model.get("falan_area")=="interior" and (model.falan_floor in model.CellarArt.RAISED_FLOORS or model.falan_floor==1511 or model.falan_floor in model.CivicExterior.Mansion.STAGES or model.falan_floor in model.CivicExterior.Arena.RAISED):
+  # The player already stands on these raised floors; native queries need the same surface.
+  var floor_=preload("res://scripts/forest/forest_falan_interior.gd").floor_info(model.falan_floor,model.seed_value)
+  data.width=maxi(floor_[0].x,floor_[0].y)*2+1;data.spacing=1.5;data.route_spacing=1.5
+  data.origin=Vector3(floor_[1].x,0,floor_[1].y)
+  data.heights.resize(data.width*data.width);data.covered.resize(data.width*data.width);data.covered.fill(1)
+  for z in data.width:
+   for x in data.width:data.heights[z*data.width+x]=model.surface_height(data.origin.x+x*data.spacing,data.origin.z+z*data.spacing)
+ if model.get("falan_area")=="interior" and model.get("falan_floor")==43700:
+  preload("res://scripts/forest/forest_east_lektal_annexes.gd").add_navigation(data)
  if model.get("falan_area")=="interior" and model.get("falan_floor")==model.FalkenArt.Route.ROOM:
   preload("res://scripts/forest/forest_falken_dais.gd").add_navigation(data)
+ if model.get("falan_area")=="interior" and preload("res://scripts/forest/forest_elsa_hall_steps.gd").owns(model.get("falan_floor")):
+  preload("res://scripts/forest/forest_elsa_hall_steps.gd").add_navigation(data,model.falan_floor)
  # Preserve authored rampart formulae instead of rasterizing decks/ramp edges.
  for piece in terrain.pieces:
   data.pieces.append_array(PackedFloat32Array([piece.a.x,piece.a.y,piece.along.x,piece.along.y,piece.half,piece.length,piece.start,piece.end,piece.h0,piece.h1]))
  data.friendly_navigation=true;data.friendly_obstacle_min=PackedVector3Array();data.friendly_obstacle_max=PackedVector3Array()
  if include_obstacles:
-  if not model.falan_road.is_empty():
-   # Keep native enemy movement beyond the approach, including when allies draw aggro.
-   data.obstacle_min.append(Vector3(data.bounds_min.x,-100,data.bounds_min.z))
-   data.obstacle_max.append(Vector3(data.bounds_max.x,1000,model.FalanFrontier.ENEMY_EDGE))
+  # Enemy-only source city/village boundaries preserve friendly navigation.
+  for box:AABB in model.FalanFrontier.enemy_barriers(model):
+   data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
   if model.has_meta("cave_combat_walls"):
    for box:AABB in model.get_meta("cave_combat_walls"):
     data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
@@ -548,6 +571,8 @@ static func navigation_data(model:RefCounted,include_obstacles:bool=true)->Dicti
    data.ray_min.append(box.position);data.ray_max.append(box.end);data.ray_owner.append(-1)
    data.obstacle_min.append(box.position);data.obstacle_max.append(box.end)
    data.friendly_obstacle_min.append(box.position);data.friendly_obstacle_max.append(box.end)
+ var context=ContextRegions.private_source_context
+ if context!=null:context.add_navigation(data,model)
  var scale_value=model.get("falan_scale")
  var map_scale:float=1.0 if scale_value==null else scale_value
  if map_scale!=1.0:

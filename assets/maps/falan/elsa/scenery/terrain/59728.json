@@ -1,0 +1,7 @@
+{
+  "map": 59728,
+  "grid_sha256": "b6a705081f5988c59e2360111d6019c655f97a75a4ae3729d85465b07a214378",
+  "walking_sha256": "ca59032d9b0ac4a4fdab5b3955f027d7627e2b5e9c48f377cc5a65aad4bfbc91",
+  "source": "Original top and cliff paint on separate surfaces. Connected cliff sections share continuous ledges and vertical native-pixel spacing. Existing navigation and brown walking ground stay at zero; hidden depth is inferred.",
+  "template": "templates/60bb5acfe98464ad868118a008a994b6c6aeaf099baad0fb752c944adebc922b.json"
+}

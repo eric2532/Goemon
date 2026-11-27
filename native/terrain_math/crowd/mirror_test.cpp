@@ -49,9 +49,9 @@ int main(){
   assert(boundary.set_mirror(emilia,7,7,3,{0,0,-1}));
   assert(boundary.set_mirror(lancelot,2,7,120,{}));
   boundary.despawn(shin);
-  for(int kind:{138,140,144,145,146,147,148,149,150,151,152}){
+  for(int kind:{138,140,144,145,146,147,148,149,150,151,152,153,154,155,156}){
    auto copy=boundary.spawn(-4,1,kind,{0,0,0},100,.4);
-   assert(boundary.set_mirror(copy,2,7,3,{0,0,-1})==(kind!=152));
+   assert(boundary.set_mirror(copy,2,7,3,{0,0,-1})==(kind!=156));
    boundary.despawn(copy);
   }
  }

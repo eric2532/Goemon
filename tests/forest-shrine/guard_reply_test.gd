@@ -76,8 +76,12 @@ func charge_case(response:String)->float:
  elif response=="dodge":
   check(p.hp==before and absf(p.position.x-home.x)>.35 and state.position.z>home.z,"Space moves sideways and the charge goes past without damage")
  else:
-  check(p.hp<before and state.position.z>home.z,"An unbraced charge hits and carries through the starting position")
+  check(p.hp<before and state.position.z<p.position.z,"An unbraced charge hits and stops in front of the player")
+  await capture_charge("charge-unbraced-stop",target)
  check(contacts.size()==(0 if response=="dodge" else 1),"The charge delivers at most one contact")
+ var stopped:Vector3=state.position
+ await driver.advance(1,func(_dt):advance(15))
+ check(army.unit_state(handle).position.distance_to(stopped)<.001,"The charge stays stopped during recovery: "+response)
  return before-p.hp
 
 func capture_charge(name_:String,target:Ninja):

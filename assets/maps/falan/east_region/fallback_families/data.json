@@ -1,0 +1,899 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10474": {
+      "pack": "original",
+      "row": 7675,
+      "origin": [
+        -16,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        85
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        85
+      ],
+      "source_rgba_sha256": "399e46e90f3b917af39b2cb7b5c8ebb4a15515d3ba51804f3fd972155a951685",
+      "structural_bounds": [
+        0,
+        0,
+        34,
+        81
+      ],
+      "iron_rgb": [
+        0.21562962263557106,
+        0.21664306171906964,
+        0.21540301513863974
+      ],
+      "reuse": "forest_falan_courtyard.gd::ironwork five bars/five caps/two rails; source-axis rotation and structural fit excludes baked ground shadow"
+    },
+    "10475": {
+      "pack": "original",
+      "row": 7676,
+      "origin": [
+        -17,
+        -74
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        60,
+        88
+      ],
+      "bounds": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "source_rgba_sha256": "8ec9e3d5cffa9991a294c367a6723a4203439e80d36f830a98c1f6a5ab771704",
+      "structural_bounds": [
+        0,
+        0,
+        35,
+        82
+      ],
+      "iron_rgb": [
+        0.21223529411764705,
+        0.2128313725490196,
+        0.2122980392156863
+      ],
+      "reuse": "forest_falan_courtyard.gd::ironwork five bars/five caps/two rails; source-axis rotation and structural fit excludes baked ground shadow"
+    },
+    "11150": {
+      "pack": "original",
+      "row": 8385,
+      "origin": [
+        -72,
+        -196
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        140,
+        216
+      ],
+      "bounds": [
+        0,
+        0,
+        137,
+        216
+      ],
+      "source_rgba_sha256": "2512093a0520bb6c1edd3d4e0eade164bc6d132cb44b09bd8c2a00b421d2e339",
+      "leaf_rgb": [
+        0.6573773222892976,
+        0.6149457625532313,
+        0.38859394449904067
+      ],
+      "base_leaf_rgb": [
+        0.3669987101660217,
+        0.5512748056374028,
+        0.27385423692711847
+      ],
+      "reuse": "WindMeadow cg_woodland whole Body and Canopy; existing Kili source fit"
+    },
+    "11151": {
+      "pack": "original",
+      "row": 8386,
+      "origin": [
+        -57,
+        -169
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        132,
+        194
+      ],
+      "bounds": [
+        0,
+        0,
+        132,
+        194
+      ],
+      "source_rgba_sha256": "c5ad472f18e6f1ce1a3206c1f2c8df50b6ec88cdd9df6f610aeb60450fba3bf7",
+      "leaf_rgb": [
+        0.4776819149530763,
+        0.5163148026767068,
+        0.34816497213033953
+      ],
+      "base_leaf_rgb": [
+        0.3669987101660217,
+        0.5512748056374028,
+        0.27385423692711847
+      ],
+      "reuse": "WindMeadow cg_woodland whole Body and Canopy; existing Kili source fit"
+    },
+    "11188": {
+      "pack": "original",
+      "row": 8423,
+      "origin": [
+        -114,
+        -372
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        204,
+        385
+      ],
+      "bounds": [
+        0,
+        0,
+        203,
+        385
+      ],
+      "source_rgba_sha256": "0b4aa4ef991c0c3f6f038f8c81344242df16055a613f0c790998c0c131e712d1",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11188), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11189": {
+      "pack": "original",
+      "row": 8424,
+      "origin": [
+        -85,
+        -231
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        176,
+        244
+      ],
+      "bounds": [
+        0,
+        0,
+        176,
+        244
+      ],
+      "source_rgba_sha256": "a15f70305d480aa133c7d6d566be0311a29177738839d9f34301572d35cdb99a",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11189), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11190": {
+      "pack": "original",
+      "row": 8425,
+      "origin": [
+        -81,
+        -230
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        176,
+        243
+      ],
+      "bounds": [
+        0,
+        0,
+        176,
+        243
+      ],
+      "source_rgba_sha256": "a67aaed4f319111b86fc8d5a5d58e06afbae442284fa09c6a9c9ff355a77dc23",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11190), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11191": {
+      "pack": "original",
+      "row": 8426,
+      "origin": [
+        -57,
+        -158
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        104,
+        171
+      ],
+      "bounds": [
+        0,
+        0,
+        101,
+        171
+      ],
+      "source_rgba_sha256": "de306a1366daeb76db84d4cc864c410a1bf607ae1b943d5aa8664a3799b4c438",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11191), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11192": {
+      "pack": "original",
+      "row": 8427,
+      "origin": [
+        -47,
+        -77
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        84,
+        90
+      ],
+      "bounds": [
+        0,
+        0,
+        81,
+        90
+      ],
+      "source_rgba_sha256": "ce1cd079efe2a67a058c5446639409df31a7b07d831064088ff7880c5796f09a",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11192), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11193": {
+      "pack": "original",
+      "row": 8428,
+      "origin": [
+        -52,
+        -105
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        84,
+        118
+      ],
+      "bounds": [
+        0,
+        0,
+        84,
+        118
+      ],
+      "source_rgba_sha256": "96084b348d53ff750445b37327400c3d31766163c5b086a2f1206956f675bbd7",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11193), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11194": {
+      "pack": "original",
+      "row": 8429,
+      "origin": [
+        -64,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        136,
+        178
+      ],
+      "bounds": [
+        0,
+        0,
+        133,
+        178
+      ],
+      "source_rgba_sha256": "4333e7b48fec77a4b744702ead961dc6fc6fb94e9a4d5aeab7690d10cc23dc17",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11194), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11195": {
+      "pack": "original",
+      "row": 8430,
+      "origin": [
+        -59,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        128,
+        176
+      ],
+      "bounds": [
+        0,
+        0,
+        128,
+        176
+      ],
+      "source_rgba_sha256": "2a7e7c0b7894b2ed4edc02543bc064529901dc5489065280793403ced4313abf",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11195), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11196": {
+      "pack": "original",
+      "row": 8431,
+      "origin": [
+        -61,
+        -153
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        128,
+        173
+      ],
+      "bounds": [
+        0,
+        0,
+        128,
+        173
+      ],
+      "source_rgba_sha256": "e1270e42082eb9e537dc91888ece353f57be400a49679b479df6c00987030aad",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11196), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11197": {
+      "pack": "original",
+      "row": 8432,
+      "origin": [
+        -84,
+        -330
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        192,
+        350
+      ],
+      "bounds": [
+        0,
+        0,
+        191,
+        350
+      ],
+      "source_rgba_sha256": "3d900476ac947a0ac8a0dfcf56a340677c561b60d6ff4cfc4b8548a551576998",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11197), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11198": {
+      "pack": "original",
+      "row": 8433,
+      "origin": [
+        -84,
+        -330
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        192,
+        350
+      ],
+      "bounds": [
+        0,
+        0,
+        191,
+        350
+      ],
+      "source_rgba_sha256": "502cb27e11b022a4771baf9e79a9553665665c34a8e7f24b1886921dcaa6d855",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11198), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11199": {
+      "pack": "original",
+      "row": 8434,
+      "origin": [
+        -77,
+        -299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        156,
+        313
+      ],
+      "bounds": [
+        0,
+        0,
+        156,
+        313
+      ],
+      "source_rgba_sha256": "7f38ad5dabedfe8104bb70d305a6d439cf78119729016503174ad3bbbffbe05f",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11199), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11200": {
+      "pack": "original",
+      "row": 8435,
+      "origin": [
+        -80,
+        -254
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        152,
+        268
+      ],
+      "bounds": [
+        0,
+        0,
+        149,
+        268
+      ],
+      "source_rgba_sha256": "e8780174a1e32c6faf02b4c34c65a93be69b42d033dc1f0c3d7923f336d880d3",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11200), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11201": {
+      "pack": "original",
+      "row": 8436,
+      "origin": [
+        -79,
+        -253
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        148,
+        267
+      ],
+      "bounds": [
+        0,
+        0,
+        148,
+        267
+      ],
+      "source_rgba_sha256": "3710ebb6b5ce85997f2d11d99077e7fd053e6f05bbf514534d30de84baaeab14",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11201), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11202": {
+      "pack": "original",
+      "row": 8437,
+      "origin": [
+        -84,
+        -299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        164,
+        313
+      ],
+      "bounds": [
+        0,
+        0,
+        161,
+        313
+      ],
+      "source_rgba_sha256": "e7b19b850ec1fa7a87a93a74ca84c085986987f2bafa19397d4cb8bce9a0b40f",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11202), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11203": {
+      "pack": "original",
+      "row": 8438,
+      "origin": [
+        -78,
+        -303
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        164,
+        322
+      ],
+      "bounds": [
+        0,
+        0,
+        163,
+        322
+      ],
+      "source_rgba_sha256": "5363b211b5fb2a193cc4ea4089206f272444bc05cbc405f81787c0bc57d96b6a",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11203), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11204": {
+      "pack": "original",
+      "row": 8439,
+      "origin": [
+        -84,
+        -268
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        164,
+        281
+      ],
+      "bounds": [
+        0,
+        0,
+        161,
+        281
+      ],
+      "source_rgba_sha256": "913a08d20aab1d4443eee98da02177e5cdf9e070c0d456f2f3f4f073830eed72",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11204), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11205": {
+      "pack": "original",
+      "row": 8440,
+      "origin": [
+        -70,
+        -203
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        148,
+        223
+      ],
+      "bounds": [
+        0,
+        0,
+        146,
+        223
+      ],
+      "source_rgba_sha256": "2d45b756236aac750782ddf00aa79649c7ad5e45d5bbe65fdde70640623677e1",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11205), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11206": {
+      "pack": "original",
+      "row": 8441,
+      "origin": [
+        -53,
+        -233
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        156,
+        254
+      ],
+      "bounds": [
+        0,
+        0,
+        155,
+        254
+      ],
+      "source_rgba_sha256": "300f70b6a21aafbcbb44c59e461a539074cf6c31b9721a8adb63636534b5cf48",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11206), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11207": {
+      "pack": "original",
+      "row": 8442,
+      "origin": [
+        -92,
+        -269
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        172,
+        290
+      ],
+      "bounds": [
+        0,
+        0,
+        172,
+        290
+      ],
+      "source_rgba_sha256": "e0ea021afad4d9222fdb41160a8db28d1bac3145da4c52a75d7e1db55d21701f",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11207), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "11208": {
+      "pack": "original",
+      "row": 8443,
+      "origin": [
+        -81,
+        -265
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        176,
+        286
+      ],
+      "bounds": [
+        0,
+        0,
+        174,
+        286
+      ],
+      "source_rgba_sha256": "fce054bf3ff8f4a15ce10e182cdf45d87be4ba3e5e60c2cb0cc5105452560926",
+      "reuse": "forest_ruby_region_art.gd::palm_shape(11208), existing Sokia original Trunk/fronds and native crown owner"
+    },
+    "1235161": {
+      "pack": "ex",
+      "row": 3547,
+      "origin": [
+        -37,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        72,
+        227
+      ],
+      "bounds": [
+        0,
+        0,
+        69,
+        227
+      ],
+      "source_rgba_sha256": "69578128d60998aed7c88b46d750ba62f5247fbf0458d7237552fd5da2246a20",
+      "section": [
+        3,
+        3
+      ],
+      "height": 8.1,
+      "form": "wall"
+    },
+    "1235162": {
+      "pack": "ex",
+      "row": 3548,
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        227
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        227
+      ],
+      "source_rgba_sha256": "04de691b7d3435f3f7d035929398d001f7ff39eeacb441f82399f6a41405134d",
+      "section": [
+        3,
+        3
+      ],
+      "height": 8.1,
+      "form": "wall"
+    },
+    "1235163": {
+      "pack": "ex",
+      "row": 3549,
+      "origin": [
+        -34,
+        -169
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        192
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        192
+      ],
+      "source_rgba_sha256": "67fb8ad3b64bf28425570470e8f6c9f2088ffff3b93f57f4e99db2ce29f16081",
+      "section": [
+        3,
+        3
+      ],
+      "height": 6.5249999999999995,
+      "form": "fluted_post"
+    },
+    "1235164": {
+      "pack": "ex",
+      "row": 3550,
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        227
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        227
+      ],
+      "source_rgba_sha256": "4d9d038926bc38e1c11b8f6c83830a6d871fec2780a327303ace613c63d67f03",
+      "section": [
+        3,
+        3
+      ],
+      "height": 8.1,
+      "form": "wall"
+    },
+    "1235165": {
+      "pack": "ex",
+      "row": 3551,
+      "origin": [
+        -32,
+        -204
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        227
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        227
+      ],
+      "source_rgba_sha256": "bcbf2b2a72a93e837828f73f6263d3de56567b33144fe7d75ce7bafc202d4aed",
+      "section": [
+        3,
+        3
+      ],
+      "height": 8.1,
+      "form": "wall"
+    },
+    "1235166": {
+      "pack": "ex",
+      "row": 3552,
+      "origin": [
+        -64,
+        -228
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        128,
+        250
+      ],
+      "bounds": [
+        0,
+        0,
+        128,
+        250
+      ],
+      "source_rgba_sha256": "a23e7fadc172d0ec772b76f2d47374c77629753711979791048dc319ec426eaa",
+      "section": [
+        9,
+        3
+      ],
+      "height": 8.1,
+      "form": "beam_post"
+    },
+    "1235167": {
+      "pack": "ex",
+      "row": 3553,
+      "origin": [
+        -64,
+        -228
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        128,
+        250
+      ],
+      "bounds": [
+        0,
+        0,
+        128,
+        250
+      ],
+      "source_rgba_sha256": "18e95df36c7f95826819e3dc0beec9a23b529f905b3f6501e51196752709accc",
+      "section": [
+        3,
+        9
+      ],
+      "height": 8.1,
+      "form": "beam_post"
+    }
+  },
+  "tiles": {
+    "stone": [
+      0,
+      0
+    ],
+    "gold": [
+      128,
+      0
+    ],
+    "cap": [
+      256,
+      0
+    ]
+  },
+  "tile_samples": {
+    "stone": [
+      1235165,
+      [
+        12,
+        116,
+        27,
+        160
+      ]
+    ],
+    "gold": [
+      1235165,
+      [
+        4,
+        36,
+        12,
+        44
+      ]
+    ],
+    "cap": [
+      1235165,
+      [
+        27,
+        14,
+        35,
+        24
+      ]
+    ]
+  },
+  "scope": "Only original East object-layer final-prop fallback. No route, placement, collision, source or master changes.",
+  "inferred": [
+    "Whole reused woodland crown/trunk volume within the measured native silhouette bounds; native dry-leaf palette ratio.",
+    "Closed palace backs use independent native dark-stone/gold/cap tiles. Original front/side pixels are observed paint.",
+    "Palace wall bevels, cap thickness, hidden flutes and beam braces follow measured cap/base sections; hidden surfaces are reconstruction."
+  ]
+}

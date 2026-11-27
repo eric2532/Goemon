@@ -1,6 +1,6 @@
 {
   "source_library": "Preserved Cross Gate library, palette 0",
-  "selection_numbers": "Original accessory gallery numbering; footwear uses its original graphic serial",
+  "selection_numbers": "Original accessory gallery numbering; footwear and clothing use their original graphic serial",
   "choices": [
     {
       "number": 22,
@@ -207,8 +207,55 @@
       "png_sha256": "28db7aa3acb53ed96a06d6d5011b3d07471b5b7ba94d02aeff6fb41d47a8ebf5",
       "number": 21818,
       "category": "footwear",
+      "palette": 0
+    },
+    {
+      "serial": 21903,
+      "pack": "v3",
+      "row": 4509,
+      "size": [
+        40,
+        38
+      ],
+      "file": "21903.png",
+      "rgba_sha256": "751206f46817f7b532fc2baef375cde871da7d5c38c7b8da82b6be248912d030",
+      "png_sha256": "10728b9b01bc86a1cedcf2ecd9dc1161b0ba2a641af70aba2b402ec48094f788",
+      "number": 21903,
+      "category": "footwear",
       "palette": 0,
       "item": "accessory:dash-boots"
+    },
+    {
+      "number": 21669,
+      "pack": "original",
+      "row": 14091,
+      "serial": 21669,
+      "category": "clothing",
+      "palette": 0,
+      "size": [
+        36,
+        40
+      ],
+      "file": "21669.png",
+      "rgba_sha256": "106d9afdf779e1148240a67db0a3109cf2224a65343b4bc3d15f923b5e972f80",
+      "png_sha256": "da44ee2ddd86aea1b8d587db58354b2ef2be3958fcc2476927113f8cb4496a91",
+      "source_sha256": "60f80dbc0a72e40baf4e9c83cd29300a6eab186f7d7f24719877766fe0c46e38"
+    },
+    {
+      "number": 21678,
+      "pack": "original",
+      "row": 14100,
+      "serial": 21678,
+      "category": "clothing",
+      "palette": 0,
+      "size": [
+        36,
+        40
+      ],
+      "file": "21678.png",
+      "rgba_sha256": "c8d43bcbbfe119cf031ac7cc29a24abf6516e071314b1e7111db8b2c27b510e0",
+      "png_sha256": "62cd69a1957ec2bc276d70b2bde2866550521adcbc7eee1df0d79e3037c94b41",
+      "source_sha256": "07d0052cfba7cec510b18dbc4faf12785f39aef1c2e612c54d183301879cc99b"
     }
   ]
 }

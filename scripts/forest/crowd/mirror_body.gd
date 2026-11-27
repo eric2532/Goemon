@@ -33,6 +33,8 @@ func _ready():
  if character_id==1:game.prepare_coin_projectiles(self)
 func prepare_loadout():
  if character_id==RogueRoster.KAZI_ID:model.set_kaz_skin(game.settings.kaz_skin)
+ elif RogueRoster.is_shin(character_id):model.set_shin_skin(RogueRoster.selected_skin(character_id,game.settings))
+ elif RogueRoster.has_variant_skins(character_id):model.set_variant_skin(RogueRoster.selected_skin(character_id,game.settings))
  if RogueRoster.is_crossgate_fighter(character_id):preload("res://scripts/forest/equipment.gd").apply(self)
  spell_loadout.cancel();spell_loadout.prepare()
  if assault_copy or not leased:refresh_actions()
@@ -74,7 +76,8 @@ func copy_from(source:Hero):
  if character_id==32:active_ability.demon=source.active_ability.demon
  if RogueRoster.has_variant_skins(character_id):model.set_variant_skin(source.model.variant_skin)
  if RogueRoster.is_shin(character_id):
-  model.set_shin_skin(source.model.shin_skin);model.set_stance(source.model.shin_weapon_index)
+  model.set_shin_skin(source.model.shin_skin)
+  if not model.gear_external:model.set_stance(source.model.shin_weapon_index)
   spell_loadout.refresh_numbered_slots()
  if RogueRoster.has_crossgate_throws(character_id):
   model.set_maze_weapon(source.model.maze_weapon)

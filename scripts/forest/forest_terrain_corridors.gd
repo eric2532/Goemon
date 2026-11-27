@@ -33,13 +33,13 @@ func _refresh(model):
   bounds=model.navigation_bounds();rect_bounds=terrain.get_script() in [BloodGulch,WindMeadow]
  var next=[terrain.get_instance_id(),terrain.pieces.duplicate(true),model.trees.duplicate(),model.scenery_obstacles.duplicate(),model.roads.duplicate()]
  if native_field:
-  next.append_array([terrain.width,terrain.spacing,terrain.heights.duplicate(),terrain.covered.duplicate(),origin,bounds,rect_bounds])
+  next.append_array([terrain.width,terrain.spacing,terrain.heights.duplicate(),terrain.covered.duplicate(),terrain.diagonal_mask_valid,terrain.diagonal_flips.duplicate(),origin,bounds,rect_bounds])
  elif terrain.get_script()!=Ramparts:
   # Custom terrain may have extra mutable geometry outside native fields.
   next.append(model.navigation_revision)
  var changed=signature!=next
  if changed:clear();signature=next
- if native_field and terrain.pieces.is_empty() and ClassDB.class_exists("GoemonTerrainMath"):
+ if native_field and terrain.diagonal_mask_valid and terrain.diagonal_flips.is_empty() and terrain.pieces.is_empty() and ClassDB.class_exists("GoemonTerrainMath"):
   if native_sampler==null:
    native_sampler=ClassDB.instantiate("GoemonTerrainMath");changed=true
   if changed:native_sampler.configure_field(terrain.width,terrain.spacing,terrain.heights,terrain.covered)

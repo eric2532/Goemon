@@ -38,7 +38,7 @@ func run():
  game.select_shin_skin(37,WATER_SKIN);await frames(2)
  var hub=game.equipment_hub
  hub.select_skin(WATER_SKIN)
- check(hub.available_items().size()==7 and "weapon:boomerang" in hub.available_items(),"Water Dragon Shin supplies all seven recovered weapons")
+ check("weapon:boomerang" in hub.available_items() and "weapon:water-dragon-boomerang" in hub.available_items(),"Water Dragon Shin offers the original boomerang and the separate 水龍 custom weapon")
  await water_picture("equipment-resting")
  hub.portrait_button.open_gallery();await frames(3)
  var choices=hub.portrait_button.choices

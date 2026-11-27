@@ -799,6 +799,32 @@
         64,
         96
       ]
+    ],
+    "office_frieze": [
+      10607,
+      [
+        [
+          235,
+          310
+        ],
+        [
+          325,
+          251
+        ],
+        [
+          325,
+          274
+        ],
+        [
+          235,
+          333
+        ]
+      ],
+      true,
+      [
+        112,
+        32
+      ]
     ]
   },
   "maximum_relief_metres": {
@@ -807,10 +833,12 @@
     "bank_frieze": 0.18,
     "mansion_frieze": 0.1,
     "mansion_window": 0.0,
-    "mansion_portal": 0.15
+    "mansion_portal": 0.15,
+    "office_frieze": 0.16
   },
   "source_pixel_sampling": {
-    "bank_frieze": 1
+    "bank_frieze": 1,
+    "office_frieze": 1
   },
   "stone_finish": "Original pale-stroke mask on fitted limestone; native color crops remain preserved separately.",
   "method": "Original rectified facade paint with shallow pale-stroke relief, reusing the arena depth recipe. Depth is an interpretation of 2D shading, not original recovered sculpture."

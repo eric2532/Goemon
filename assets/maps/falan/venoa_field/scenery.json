@@ -1,0 +1,3519 @@
+{
+  "schema": 1,
+  "source_map": 100,
+  "source_bounds": [
+    193,
+    405,
+    34,
+    39
+  ],
+  "source_map_sha256": "1005a9032918d1be6108d5b0a7e5925225c16a576519f2b772417df68ad18850",
+  "placements": [
+    {
+      "cell": [
+        202,
+        410
+      ],
+      "serial": 12505,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        203,
+        410
+      ],
+      "serial": 12535,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        201,
+        411
+      ],
+      "serial": 12511,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        204,
+        411
+      ],
+      "serial": 10087,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        206,
+        411
+      ],
+      "serial": 10065,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        209,
+        411
+      ],
+      "serial": 12171,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        202,
+        412
+      ],
+      "serial": 12166,
+      "family": "stump",
+      "native_open": true
+    },
+    {
+      "cell": [
+        204,
+        412
+      ],
+      "serial": 12169,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        219,
+        413
+      ],
+      "serial": 10074,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        225,
+        413
+      ],
+      "serial": 10072,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        211,
+        414
+      ],
+      "serial": 10092,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        209,
+        416
+      ],
+      "serial": 10073,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        203,
+        418
+      ],
+      "serial": 10061,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        217,
+        420
+      ],
+      "serial": 10090,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        201,
+        421
+      ],
+      "serial": 10074,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        221,
+        421
+      ],
+      "serial": 10074,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        211,
+        422
+      ],
+      "serial": 10086,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        226,
+        422
+      ],
+      "serial": 12175,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        204,
+        423
+      ],
+      "serial": 10067,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        204,
+        424
+      ],
+      "serial": 12176,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        207,
+        424
+      ],
+      "serial": 10088,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        214,
+        425
+      ],
+      "serial": 12177,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        218,
+        425
+      ],
+      "serial": 10069,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        224,
+        425
+      ],
+      "serial": 10091,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        201,
+        426
+      ],
+      "serial": 10066,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        206,
+        427
+      ],
+      "serial": 12509,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        207,
+        427
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        208,
+        427
+      ],
+      "serial": 12525,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        209,
+        427
+      ],
+      "serial": 12508,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        212,
+        427
+      ],
+      "serial": 12533,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        213,
+        427
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        427
+      ],
+      "serial": 12508,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        219,
+        427
+      ],
+      "serial": 12180,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        206,
+        428
+      ],
+      "serial": 12515,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        209,
+        428
+      ],
+      "serial": 12524,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        210,
+        428
+      ],
+      "serial": 12525,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        211,
+        428
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        212,
+        428
+      ],
+      "serial": 12526,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        428
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        222,
+        428
+      ],
+      "serial": 12177,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        201,
+        429
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        202,
+        429
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        203,
+        429
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        204,
+        429
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        205,
+        429
+      ],
+      "serial": 12513,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        206,
+        429
+      ],
+      "serial": 12526,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        429
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        430
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        431
+      ],
+      "serial": 12507,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        219,
+        431
+      ],
+      "serial": 12170,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        214,
+        432
+      ],
+      "serial": 12500,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        215,
+        432
+      ],
+      "serial": 12520,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        222,
+        432
+      ],
+      "serial": 10058,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        215,
+        433
+      ],
+      "serial": 12524,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        216,
+        433
+      ],
+      "serial": 12520,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        216,
+        434
+      ],
+      "serial": 12512,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        217,
+        434
+      ],
+      "serial": 12532,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        226,
+        434
+      ],
+      "serial": 10068,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        217,
+        435
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        217,
+        436
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        222,
+        436
+      ],
+      "serial": 10093,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        217,
+        437
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        225,
+        437
+      ],
+      "serial": 10089,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        217,
+        438
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        217,
+        439
+      ],
+      "serial": 12507,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        220,
+        439
+      ],
+      "serial": 10063,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        222,
+        439
+      ],
+      "serial": 10085,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        217,
+        440
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        217,
+        441
+      ],
+      "serial": 12512,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        218,
+        441
+      ],
+      "serial": 12520,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        226,
+        441
+      ],
+      "serial": 12521,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        218,
+        442
+      ],
+      "serial": 12524,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        219,
+        442
+      ],
+      "serial": 12513,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        220,
+        442
+      ],
+      "serial": 12513,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        221,
+        442
+      ],
+      "serial": 12513,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        222,
+        442
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        223,
+        442
+      ],
+      "serial": 12525,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        224,
+        442
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        225,
+        442
+      ],
+      "serial": 12501,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        226,
+        442
+      ],
+      "serial": 12502,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        209,
+        405
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        208,
+        406
+      ],
+      "serial": 12506,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        209,
+        406
+      ],
+      "serial": 12511,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        217,
+        406
+      ],
+      "serial": 10092,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        207,
+        407
+      ],
+      "serial": 12530,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        208,
+        407
+      ],
+      "serial": 12535,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        206,
+        408
+      ],
+      "serial": 12518,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        207,
+        408
+      ],
+      "serial": 12523,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        215,
+        408
+      ],
+      "serial": 12177,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        203,
+        409
+      ],
+      "serial": 12530,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        204,
+        409
+      ],
+      "serial": 12505,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        205,
+        409
+      ],
+      "serial": 12529,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        206,
+        409
+      ],
+      "serial": 12523,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        209,
+        409
+      ],
+      "serial": 10058,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        213,
+        409
+      ],
+      "serial": 10060,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        219,
+        409
+      ],
+      "serial": 10060,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        201,
+        410
+      ],
+      "serial": 12518,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        411
+      ],
+      "serial": 12506,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        198,
+        411
+      ],
+      "serial": 12505,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        199,
+        411
+      ],
+      "serial": 12517,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        200,
+        411
+      ],
+      "serial": 12529,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        412
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        200,
+        412
+      ],
+      "serial": 12178,
+      "family": "flowers",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        413
+      ],
+      "serial": 12507,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        414
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        196,
+        415
+      ],
+      "serial": 12518,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        415
+      ],
+      "serial": 12523,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        195,
+        416
+      ],
+      "serial": 12506,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        196,
+        416
+      ],
+      "serial": 12511,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        194,
+        417
+      ],
+      "serial": 12518,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        195,
+        417
+      ],
+      "serial": 12523,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        198,
+        417
+      ],
+      "serial": 10063,
+      "family": "tree",
+      "native_open": false
+    },
+    {
+      "cell": [
+        194,
+        418
+      ],
+      "serial": 12519,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        418
+      ],
+      "serial": 12167,
+      "family": "stump",
+      "native_open": true
+    },
+    {
+      "cell": [
+        200,
+        418
+      ],
+      "serial": 12168,
+      "family": "stump",
+      "native_open": true
+    },
+    {
+      "cell": [
+        194,
+        419
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        194,
+        420
+      ],
+      "serial": 12531,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        194,
+        421
+      ],
+      "serial": 12500,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        195,
+        421
+      ],
+      "serial": 12520,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        195,
+        422
+      ],
+      "serial": 12507,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        195,
+        423
+      ],
+      "serial": 12512,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        196,
+        423
+      ],
+      "serial": 12508,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        196,
+        424
+      ],
+      "serial": 12500,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        424
+      ],
+      "serial": 12532,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        425
+      ],
+      "serial": 12507,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        197,
+        426
+      ],
+      "serial": 12512,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        198,
+        426
+      ],
+      "serial": 12508,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        198,
+        427
+      ],
+      "serial": 12500,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        199,
+        427
+      ],
+      "serial": 12532,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        199,
+        428
+      ],
+      "serial": 12500,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        200,
+        428
+      ],
+      "serial": 12508,
+      "family": "shore",
+      "native_open": true
+    },
+    {
+      "cell": [
+        200,
+        429
+      ],
+      "serial": 12524,
+      "family": "shore",
+      "native_open": true
+    }
+  ],
+  "graphics": {
+    "12505": {
+      "origin": [
+        -20,
+        -14
+      ],
+      "bounds": [
+        2,
+        0,
+        52,
+        46
+      ],
+      "size": [
+        52,
+        46
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "065bb27b6f989bc736f33682937381fe332a6ee299c97a8dc69b31fb64fc55f0",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12535": {
+      "origin": [
+        -20,
+        -24
+      ],
+      "bounds": [
+        1,
+        0,
+        52,
+        47
+      ],
+      "size": [
+        52,
+        47
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "3062999e0b8dcae6408b5f9983763a30ba406d4538c8791c512854104fe8dc8f",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12511": {
+      "origin": [
+        -28,
+        -24
+      ],
+      "bounds": [
+        2,
+        0,
+        60,
+        67
+      ],
+      "size": [
+        60,
+        67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "984fa9d2934c151a4301a24f65c77f515f9b84b52014de8ab475286254ca80da",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "10087": {
+      "origin": [
+        -101,
+        -238
+      ],
+      "bounds": [
+        0,
+        0,
+        215,
+        257
+      ],
+      "size": [
+        216,
+        257
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "7b3cdef814b701b99fbfd33b3070081d1ce5c74a22875b63c98cff85b7614a6c",
+      "family": "tree",
+      "base_serial": 10085,
+      "crown_sample_limit_y": 202,
+      "crown_sample_pixels": 21750,
+      "crown_srgb_mean": [
+        0.40675231011945007,
+        0.5520061302681992,
+        0.3272340770791075
+      ],
+      "crown_linear_mean": [
+        0.19909863271812644,
+        0.33588342444583885,
+        0.13206568602441254
+      ],
+      "base_crown_linear_mean": [
+        0.20855585010014888,
+        0.36057450152318643,
+        0.10422427356023133
+      ],
+      "crown_linear_tint": [
+        0.9546537899681018,
+        0.9315229530290016,
+        1.2671298298672395
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10065": {
+      "origin": [
+        -93,
+        -272
+      ],
+      "bounds": [
+        0,
+        0,
+        173,
+        293
+      ],
+      "size": [
+        176,
+        293
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "458d1dc6ec87249f9f31625df9b47a720a513415c6ee4aef475eca3fe22fe3ca",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 236,
+      "crown_sample_pixels": 24527,
+      "crown_srgb_mean": [
+        0.29218732137532305,
+        0.5312148196825107,
+        0.2616909576241309
+      ],
+      "crown_linear_mean": [
+        0.10114900673097296,
+        0.3061271206695122,
+        0.07053759932141684
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.7565256426898822,
+        0.9482690807321692,
+        0.8157313929990352
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12171": {
+      "origin": [
+        -16,
+        -10
+      ],
+      "bounds": [
+        0,
+        0,
+        34,
+        22
+      ],
+      "size": [
+        36,
+        22
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "5a627e14830d543db841387a451a3f96a45a9424573f93842ca4fb91dc54c23f",
+      "family": "flowers",
+      "green": [
+        0.30861556743909685,
+        0.5489403842345019,
+        0.28203604674192906
+      ],
+      "petals": [
+        0.9238562091503268,
+        0.8772467320261438,
+        0.6268790849673203
+      ],
+      "asset": "flowers_ivory",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "12166": {
+      "origin": [
+        -14,
+        -15
+      ],
+      "bounds": [
+        0,
+        0,
+        34,
+        27
+      ],
+      "size": [
+        36,
+        27
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "eaa0a34bc108b1e4f49fb5d0c85c5ba3f0acbb4d5e17b3bb4614c4b0fc84374b",
+      "family": "stump",
+      "reuse": "OriginalMapSolids.mesh(stump); original solid atlas"
+    },
+    "12169": {
+      "origin": [
+        -16,
+        -10
+      ],
+      "bounds": [
+        0,
+        0,
+        32,
+        19
+      ],
+      "size": [
+        32,
+        19
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "1db30fd29082fe9c28e6653c2d11ef0dd9725c271221b2ed9d8d4fa191edd526",
+      "family": "flowers",
+      "green": [
+        0.3373937185493666,
+        0.6028457400659378,
+        0.30806871421134824
+      ],
+      "petals": [
+        0.9673653369393734,
+        0.9430245661482984,
+        0.5644354293441515
+      ],
+      "asset": "flowers_ivory",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "10074": {
+      "origin": [
+        -110,
+        -280
+      ],
+      "bounds": [
+        0,
+        0,
+        225,
+        299
+      ],
+      "size": [
+        228,
+        299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "34d6fae7e704b03143454c11f9bc640186ba12fedb5db44f5d7eab5c5bf0beed",
+      "family": "tree",
+      "base_serial": 10085,
+      "crown_sample_limit_y": 244,
+      "crown_sample_pixels": 33393,
+      "crown_srgb_mean": [
+        0.2829085348990014,
+        0.5169538291164697,
+        0.268491400393296
+      ],
+      "crown_linear_mean": [
+        0.08970295334688383,
+        0.27487483709743776,
+        0.07296196907925973
+      ],
+      "base_crown_linear_mean": [
+        0.20855585010014888,
+        0.36057450152318643,
+        0.10422427356023133
+      ],
+      "crown_linear_tint": [
+        0.4301147788652695,
+        0.7623246678183709,
+        0.7000477584244799
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10072": {
+      "origin": [
+        -76,
+        -205
+      ],
+      "bounds": [
+        0,
+        0,
+        152,
+        224
+      ],
+      "size": [
+        152,
+        224
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "7015cf3eb6382c8f43461a30e73179236ca64afa6c97f565be3bba912ca22930",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 169,
+      "crown_sample_pixels": 14652,
+      "crown_srgb_mean": [
+        0.47475951887716594,
+        0.5467424643895232,
+        0.33463516992928755
+      ],
+      "crown_linear_mean": [
+        0.2647872580981543,
+        0.32236063359076755,
+        0.1297021583162622
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        1.9804282521684728,
+        0.9985545253580027,
+        1.4999393698699637
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10092": {
+      "origin": [
+        -101,
+        -238
+      ],
+      "bounds": [
+        0,
+        0,
+        215,
+        257
+      ],
+      "size": [
+        216,
+        257
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "875e8c1c7a52601f63b8f142ece0946d5afbe37bfea1bcb81274a58d9b2fec9c",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 202,
+      "crown_sample_pixels": 25444,
+      "crown_srgb_mean": [
+        0.5337684295538684,
+        0.577970074997457,
+        0.37069119111250853
+      ],
+      "crown_linear_mean": [
+        0.3189207569647949,
+        0.36188073656533526,
+        0.16348259328627116
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        1.1756278657222412,
+        1.1588381034080815,
+        1.2037364133413153
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10073": {
+      "origin": [
+        -62,
+        -207
+      ],
+      "bounds": [
+        0,
+        0,
+        139,
+        226
+      ],
+      "size": [
+        140,
+        226
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "4877c31d8e238068d01ceee88e394fa17daff9381306ba1d42c7e6359a759002",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 171,
+      "crown_sample_pixels": 12580,
+      "crown_srgb_mean": [
+        0.3149680476324075,
+        0.5290579506842483,
+        0.2888659247482777
+      ],
+      "crown_linear_mean": [
+        0.12461725182470644,
+        0.30828563435978007,
+        0.09713820103509918
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.9320521236326141,
+        0.9549553612170265,
+        1.1233537972098673
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10061": {
+      "origin": [
+        -87,
+        -280
+      ],
+      "bounds": [
+        0,
+        0,
+        186,
+        299
+      ],
+      "size": [
+        188,
+        299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "b50230dbd5e8e689587ddede2fa160ce9018a8f39ff7d21cfc63aa0cdead2dad",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 244,
+      "crown_sample_pixels": 28061,
+      "crown_srgb_mean": [
+        0.35099150240617255,
+        0.5401599177142793,
+        0.29789065977411955
+      ],
+      "crown_linear_mean": [
+        0.15172807210348976,
+        0.3204478504806054,
+        0.10399359607452952
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        1.1348225847386455,
+        0.9926294277137739,
+        1.2026329476044182
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10090": {
+      "origin": [
+        -104,
+        -263
+      ],
+      "bounds": [
+        0,
+        0,
+        204,
+        282
+      ],
+      "size": [
+        204,
+        282
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "5673b2d8c96e5caeaceffa51c8ecd1b4f4e476680793b82ed46db35f8bf768f1",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 227,
+      "crown_sample_pixels": 19559,
+      "crown_srgb_mean": [
+        0.48297328645656334,
+        0.5180013413412812,
+        0.32395396933762
+      ],
+      "crown_linear_mean": [
+        0.25611229986755335,
+        0.2853740489271721,
+        0.1242783403594271
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        0.9440989647210184,
+        0.913843397024652,
+        0.9150721228058161
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10086": {
+      "origin": [
+        -121,
+        -233
+      ],
+      "bounds": [
+        0,
+        0,
+        223,
+        252
+      ],
+      "size": [
+        224,
+        252
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "a15ffc080faad5f563d0add433cca9050dc3b018f83a796e81b6afd8afe3062d",
+      "family": "tree",
+      "base_serial": 10085,
+      "crown_sample_limit_y": 197,
+      "crown_sample_pixels": 21292,
+      "crown_srgb_mean": [
+        0.4263249015555875,
+        0.5543694953089258,
+        0.32415212562575285
+      ],
+      "crown_linear_mean": [
+        0.20754826336340707,
+        0.32920836525971153,
+        0.12324071029724629
+      ],
+      "base_crown_linear_mean": [
+        0.20855585010014888,
+        0.36057450152318643,
+        0.10422427356023133
+      ],
+      "crown_linear_tint": [
+        0.9951687438340475,
+        0.9130106645617648,
+        1.1824568892391976
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12175": {
+      "origin": [
+        -13,
+        -27
+      ],
+      "bounds": [
+        0,
+        0,
+        30,
+        40
+      ],
+      "size": [
+        32,
+        40
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "46e5550618a0f854f9fe2fa6e4dfc3e57fbb59016b6d1b768a8dc14aacedb6a3",
+      "family": "flowers",
+      "green": [
+        0.31098615916955014,
+        0.529757785467128,
+        0.2819204152249135
+      ],
+      "petals": [
+        0.8226373811327107,
+        0.675603803753261,
+        0.658672052511992
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "10067": {
+      "origin": [
+        -67,
+        -234
+      ],
+      "bounds": [
+        0,
+        0,
+        150,
+        253
+      ],
+      "size": [
+        152,
+        253
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "cef4c66e1ac4a2f4c74b91a546bf2b8122ac3780503029c3c7017352906d787d",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 198,
+      "crown_sample_pixels": 16756,
+      "crown_srgb_mean": [
+        0.32866845472970757,
+        0.5310111917767822,
+        0.2794693384634828
+      ],
+      "crown_linear_mean": [
+        0.12591974638268671,
+        0.3024602039923102,
+        0.08325427136478547
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.941793895345676,
+        0.9369103233015732,
+        0.9627932252706557
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12176": {
+      "origin": [
+        -15,
+        -39
+      ],
+      "bounds": [
+        0,
+        0,
+        33,
+        53
+      ],
+      "size": [
+        36,
+        53
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "4b324351480a3d70009a6c9bac23ae64059ca8b6aa4fa4f3c4e79db051133332",
+      "family": "flowers",
+      "green": [
+        0.2518303138745993,
+        0.4475359725639305,
+        0.23955863714307016
+      ],
+      "petals": [
+        0.8974628468101938,
+        0.6751991863027632,
+        0.6323783692151212
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "10088": {
+      "origin": [
+        -124,
+        -267
+      ],
+      "bounds": [
+        0,
+        0,
+        231,
+        286
+      ],
+      "size": [
+        232,
+        286
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "d2a2f1fb910beff6e0c02d6c6c40f9594f96938347f1130990e2750d4fe3b978",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 231,
+      "crown_sample_pixels": 26672,
+      "crown_srgb_mean": [
+        0.4920437971229284,
+        0.5380162202853547,
+        0.33483112201089194
+      ],
+      "crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12177": {
+      "origin": [
+        -16,
+        -37
+      ],
+      "bounds": [
+        0,
+        0,
+        37,
+        51
+      ],
+      "size": [
+        40,
+        51
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "12acdf5d2cd111f2b6ffb28730e9a9cabba9f0085c7a926ae213118deaaea28e",
+      "family": "flowers",
+      "green": [
+        0.2961620057859209,
+        0.5086081645773064,
+        0.27312118289938925
+      ],
+      "petals": [
+        0.8756779307467668,
+        0.6766374634960367,
+        0.6260742594910305
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "10069": {
+      "origin": [
+        -66,
+        -205
+      ],
+      "bounds": [
+        0,
+        0,
+        141,
+        226
+      ],
+      "size": [
+        144,
+        226
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "5683a67e67c9fda14eb161f11e7af67f3d849a92233058752c63388c6b113bf9",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 169,
+      "crown_sample_pixels": 12779,
+      "crown_srgb_mean": [
+        0.3019494299010785,
+        0.4575757715246675,
+        0.43025061029967976
+      ],
+      "crown_linear_mean": [
+        0.10357658357794873,
+        0.21388467541512116,
+        0.1892079796785876
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.7746822632410068,
+        0.6625359559617567,
+        2.188093872127079
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10091": {
+      "origin": [
+        -76,
+        -220
+      ],
+      "bounds": [
+        0,
+        0,
+        175,
+        239
+      ],
+      "size": [
+        176,
+        239
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "058f32b4add1225232bf2d7de1f27e7caafd51d5749f22968de3cda2915a1abe",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 184,
+      "crown_sample_pixels": 13507,
+      "crown_srgb_mean": [
+        0.5074095204084448,
+        0.5351003183534464,
+        0.3380495516486005
+      ],
+      "crown_linear_mean": [
+        0.2775745741183118,
+        0.3037936828137183,
+        0.13406126330514667
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        1.023214692123327,
+        0.9728279503367421,
+        0.9871046269517108
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10066": {
+      "origin": [
+        -67,
+        -218
+      ],
+      "bounds": [
+        0,
+        0,
+        145,
+        237
+      ],
+      "size": [
+        148,
+        237
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "bb3a3ea1d5525f6176f0a80f9ab7de6000fcf276eb742a573219b21ccc0eae73",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 182,
+      "crown_sample_pixels": 15119,
+      "crown_srgb_mean": [
+        0.34715570201888546,
+        0.5514881288185622,
+        0.29548328359718784
+      ],
+      "crown_linear_mean": [
+        0.1472981892365044,
+        0.3331477781893849,
+        0.09838906414601888
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        1.1016900796226976,
+        1.0319691266840283,
+        1.1378193916975978
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12509": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        53,
+        57
+      ],
+      "size": [
+        56,
+        57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "5b826daf94a60bd2e829be93da75c7ee4a554bb3ebea0faea6647b6cb99a2511",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12501": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "24ca29db2905b364e3e5e6ea7d30602df075c059606788d341ad9f85e7db9301",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12525": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "31130c72e88bb29f78fb45b5e5a15d8a1cc3fee0167c0f42bce8f6f87b6c2f2b",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12508": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "0a4fec8a33a18cee7dfcc236be54c6b622f81343bd11a98bd5ccdd4485240b5b",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12533": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        52,
+        57
+      ],
+      "size": [
+        52,
+        57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "29613249a24c574c492ec1b2212cae841d0b0be8ab38ffb9436fda9e2f631330",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12180": {
+      "origin": [
+        -19,
+        -19
+      ],
+      "bounds": [
+        0,
+        0,
+        41,
+        31
+      ],
+      "size": [
+        44,
+        31
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "f989bd72a2cfa2e223d188f36cdc1535c26e56b7506e421b0fff21a7dc12d4cd",
+      "family": "flowers",
+      "green": [
+        0.2462812711291413,
+        0.47396889790398916,
+        0.236105476673428
+      ],
+      "petals": [
+        0.9144796380090497,
+        0.5260734037204625,
+        0.4623127199597788
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "12515": {
+      "origin": [
+        -32,
+        -14
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        43
+      ],
+      "size": [
+        52,
+        43
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "7b98a9cd26e4a694eda7c4774f5feadcdc3194a234fc8fe9782683c0bd3ffd3e",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12524": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "aad81ce6ec9d1d40d8ca75820abcd62d28d07ed17974d7761dbc2f01d018ffba",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12526": {
+      "origin": [
+        -32,
+        -12
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        83
+      ],
+      "size": [
+        64,
+        83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "f72c27ec0728c713a4665ad1626f39a7a6b2752a6934b6251f4bf57331aa9aad",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12519": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "1dfb889ea947dfcaa8bd969c9afc8e96ac91cdf4907e9707cc7c23a4352d2f98",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12513": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "fa8edc5b485422f9fc45548368c87ed9bf735841d99a0c2d8034344d4fd7fe9b",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12507": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "75ec2e83ed970e1c057db3eab1e5ba01e07c84d9944884aa8bc57c96253fe0f2",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12170": {
+      "origin": [
+        -14,
+        -10
+      ],
+      "bounds": [
+        0,
+        0,
+        33,
+        21
+      ],
+      "size": [
+        36,
+        21
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "1c31efdd4df4ca6e49ec6a669dc9bb477b4c26cc7e9f280c161e444db64c3682",
+      "family": "flowers",
+      "green": [
+        0.2870640873799184,
+        0.5069351230425055,
+        0.26206079747335176
+      ],
+      "petals": [
+        0.9358926728586171,
+        0.8721981424148607,
+        0.5873271413828689
+      ],
+      "asset": "flowers_ivory",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "12500": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "8042f6905a1c557dc33681a8bfee23a4f28964fd83dc624bb0f5aaf45a87d609",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12520": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "7a584144eec8c6cd1e5c0b53e8b97483653c5a3d55ad240db354190bf90b0019",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "10058": {
+      "origin": [
+        -84,
+        -280
+      ],
+      "bounds": [
+        0,
+        0,
+        187,
+        299
+      ],
+      "size": [
+        188,
+        299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "700a8a124b31bc8e59b9ff0c0e5637a9c40e34845e858681c162af2094510346",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 244,
+      "crown_sample_pixels": 27993,
+      "crown_srgb_mean": [
+        0.33919390211698586,
+        0.5486978187123812,
+        0.283844210352308
+      ],
+      "crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12512": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "da7373fd68da25343bc7b9b82b75b1fce19a1d02c82d0ba9eb040a68d0f8af2d",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12532": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "dd07e0af73f98de1eddf52180c5496190a9aaa8afbb409542ba3e5a5027b7bfa",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "10068": {
+      "origin": [
+        -75,
+        -205
+      ],
+      "bounds": [
+        0,
+        0,
+        151,
+        224
+      ],
+      "size": [
+        152,
+        224
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "152d52e6e42a4ff6473b1df0af907513b56ef8181515b88238c0455de344033e",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 169,
+      "crown_sample_pixels": 14644,
+      "crown_srgb_mean": [
+        0.34222166878223564,
+        0.5622772627215322,
+        0.28877677265935053
+      ],
+      "crown_linear_mean": [
+        0.1284827310651171,
+        0.3287539968125677,
+        0.08405507960945313
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.9609632742327773,
+        1.0183588101004457,
+        0.9720541645602286
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10093": {
+      "origin": [
+        -80,
+        -226
+      ],
+      "bounds": [
+        0,
+        0,
+        183,
+        245
+      ],
+      "size": [
+        184,
+        245
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "9869afbd88c59c8f114bed87bb8dce166859aff096b4465c9f447b26c79874c6",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 190,
+      "crown_sample_pixels": 21051,
+      "crown_srgb_mean": [
+        0.5393925676298736,
+        0.5849558634911853,
+        0.37611235458983366
+      ],
+      "crown_linear_mean": [
+        0.32434057521577164,
+        0.3702094653844272,
+        0.16718675276316006
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        1.1956067765452254,
+        1.1855089021914653,
+        1.2310104585685446
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10089": {
+      "origin": [
+        -109,
+        -263
+      ],
+      "bounds": [
+        0,
+        0,
+        216,
+        282
+      ],
+      "size": [
+        216,
+        282
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "8efa4317dc1b86ead1e0d85ded6840eb15fcba228e71c7886166e0c2755020ec",
+      "family": "tree",
+      "base_serial": 10088,
+      "crown_sample_limit_y": 227,
+      "crown_sample_pixels": 24680,
+      "crown_srgb_mean": [
+        0.48459401913115324,
+        0.5225889026599294,
+        0.32967028950964505
+      ],
+      "crown_linear_mean": [
+        0.2574382745484092,
+        0.288522302675393,
+        0.12893198399693134
+      ],
+      "base_crown_linear_mean": [
+        0.27127696294342896,
+        0.3122789417271172,
+        0.13581261767472697
+      ],
+      "crown_linear_tint": [
+        0.9489868647714637,
+        0.9239249405664897,
+        0.9493373016763815
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12531": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        95
+      ],
+      "size": [
+        64,
+        95
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "b01c621f7c1482bb9ef1565a3fa5bf31f20a15164f03ee202a65df29a81aac4e",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "10063": {
+      "origin": [
+        -92,
+        -294
+      ],
+      "bounds": [
+        0,
+        0,
+        191,
+        313
+      ],
+      "size": [
+        192,
+        313
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "46df0e791b665428f631c569fd0c89822c59ef3846a5155e2492f8f4afcf7bd5",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 258,
+      "crown_sample_pixels": 26915,
+      "crown_srgb_mean": [
+        0.30466938400847987,
+        0.4687850276651623,
+        0.2960779214156404
+      ],
+      "crown_linear_mean": [
+        0.1097683898510377,
+        0.23358542369144905,
+        0.10027374730036862
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.8209927547777023,
+        0.7235616188199573,
+        1.1596147920181292
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "10085": {
+      "origin": [
+        -95,
+        -225
+      ],
+      "bounds": [
+        0,
+        0,
+        202,
+        244
+      ],
+      "size": [
+        204,
+        244
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "4db8dc1917286f63f423993cecf402df39c91014f5e293d267073f5db64202a8",
+      "family": "tree",
+      "base_serial": 10085,
+      "crown_sample_limit_y": 189,
+      "crown_sample_pixels": 20172,
+      "crown_srgb_mean": [
+        0.4275116352311299,
+        0.5758039682261958,
+        0.3018643586722811
+      ],
+      "crown_linear_mean": [
+        0.20855585010014888,
+        0.36057450152318643,
+        0.10422427356023133
+      ],
+      "base_crown_linear_mean": [
+        0.20855585010014888,
+        0.36057450152318643,
+        0.10422427356023133
+      ],
+      "crown_linear_tint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12521": {
+      "origin": [
+        -32,
+        -24
+      ],
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "size": [
+        52,
+        49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "2ed7602971e2af522b9ae0aeac48c28f1cabc697dfd0e26d342408f65e82dbd8",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12502": {
+      "origin": [
+        -32,
+        -11
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        82
+      ],
+      "size": [
+        64,
+        82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "112eee8efa77b7ee0e5282414c568c714b04fbcaf7418f3742e52d75fd77542d",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12506": {
+      "origin": [
+        -32,
+        -11
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        82
+      ],
+      "size": [
+        64,
+        82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "6b09a67772607742dbc2649ced4eff60c94b3eb8ac4c0f0c3e4d910344dfd9e8",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12530": {
+      "origin": [
+        -32,
+        -12
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        83
+      ],
+      "size": [
+        64,
+        83
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "d779074de40cc0eb5879b0149d6040eb59a3c12adb2ce3b320d940e787e159aa",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12518": {
+      "origin": [
+        -32,
+        -13
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        84
+      ],
+      "size": [
+        64,
+        84
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "ec5de62942cc8c948cfac1d7cd61377669926ba7f6daff1fac106642cd934235",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12523": {
+      "origin": [
+        -20,
+        -24
+      ],
+      "bounds": [
+        3,
+        0,
+        52,
+        47
+      ],
+      "size": [
+        52,
+        47
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "b7eac72bda7b905b10fcf24c305953e2137f8ad3a04a90b8f009d4f78591be28",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12529": {
+      "origin": [
+        -20,
+        -12
+      ],
+      "bounds": [
+        1,
+        0,
+        52,
+        38
+      ],
+      "size": [
+        52,
+        38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "21fedcb1ff15edcec0600271fccaac42038385e391aa0c488b81ee4e7080d052",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "10060": {
+      "origin": [
+        -81,
+        -280
+      ],
+      "bounds": [
+        0,
+        0,
+        185,
+        299
+      ],
+      "size": [
+        188,
+        299
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "f084efe22098c6a2e71d28560f0e4f5f16fdd17a80cbfabb69d2bfc8474ad91f",
+      "family": "tree",
+      "base_serial": 10058,
+      "crown_sample_limit_y": 244,
+      "crown_sample_pixels": 29031,
+      "crown_srgb_mean": [
+        0.32421285968143587,
+        0.5180142119884018,
+        0.2728283018625796
+      ],
+      "crown_linear_mean": [
+        0.12056052070008416,
+        0.2877403812819552,
+        0.08047028256027865
+      ],
+      "base_crown_linear_mean": [
+        0.13370202016065216,
+        0.32282727222651614,
+        0.08647160073377276
+      ],
+      "crown_linear_tint": [
+        0.9017105392665153,
+        0.8913137334941711,
+        0.9305978133564237
+      ],
+      "reuse": "RubyRegionArt.tree_fit; Meadow.crossgate_tree; owned crown-only linear source/base tint, bark and old Ruby materials unchanged"
+    },
+    "12517": {
+      "origin": [
+        -24,
+        -12
+      ],
+      "bounds": [
+        3,
+        0,
+        56,
+        37
+      ],
+      "size": [
+        56,
+        37
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "34747b355b873852cc21dba8012713011f3ca6fc433fc8504e0bb0d17f389bd1",
+      "family": "shore",
+      "reuse": "OriginalArt base/east raw atlas; existing TinaGround.bank_mesh cap/descending-face/water form, visually fitted between unchanged terrain and water"
+    },
+    "12178": {
+      "origin": [
+        -18,
+        -19
+      ],
+      "bounds": [
+        0,
+        0,
+        42,
+        33
+      ],
+      "size": [
+        44,
+        33
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "5611c80674748c3fe80c9fca5e419b9a2a654f8b401041dedb416e2ab6702da4",
+      "family": "flowers",
+      "green": [
+        0.3077371489136195,
+        0.5308691043985161,
+        0.2857445680975093
+      ],
+      "petals": [
+        0.922272498743087,
+        0.5790484025778144,
+        0.5226107226107226
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    },
+    "12167": {
+      "origin": [
+        -20,
+        -20
+      ],
+      "bounds": [
+        0,
+        0,
+        41,
+        34
+      ],
+      "size": [
+        44,
+        34
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "2933d8f0383fbf76cb1cb901708da20307c6d15d003fc9a37017c15c1c7538cf",
+      "family": "stump",
+      "reuse": "OriginalMapSolids.mesh(stump); original solid atlas"
+    },
+    "12168": {
+      "origin": [
+        -17,
+        -20
+      ],
+      "bounds": [
+        0,
+        0,
+        37,
+        34
+      ],
+      "size": [
+        40,
+        34
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "d98013e0dcdb84a6ea906ef1c33ab81d824b9c816fc372e05727b199cb0f63f0",
+      "family": "stump",
+      "reuse": "OriginalMapSolids.mesh(stump); original solid atlas"
+    },
+    "12179": {
+      "origin": [
+        -19,
+        -17
+      ],
+      "bounds": [
+        0,
+        0,
+        42,
+        32
+      ],
+      "size": [
+        44,
+        32
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rgba_sha256": "43e0c65611d75bb9c51bf189ba7d78a86788ee94813974fc69818a8eb1be1a24",
+      "family": "flowers",
+      "green": [
+        0.2740970072239422,
+        0.5094206103494029,
+        0.25785050862450243
+      ],
+      "petals": [
+        0.913686274509804,
+        0.5297058823529411,
+        0.4683627450980392
+      ],
+      "asset": "flowers_coral",
+      "reuse": "Existing whole Meadow flower mesh; original source petal/leaf palette and source-sized fit"
+    }
+  },
+  "counts": {
+    "shore": 92,
+    "tree": 27,
+    "flowers": 10,
+    "stump": 3
+  },
+  "offshore_placements": [
+    {
+      "cell": [
+        20,
+        7
+      ],
+      "serial": 12175,
+      "family": "flowers",
+      "native_open": true,
+      "ground": 5006,
+      "flags": 49152,
+      "placement_surface": "existing_source_water"
+    },
+    {
+      "cell": [
+        21,
+        7
+      ],
+      "serial": 12176,
+      "family": "flowers",
+      "native_open": true,
+      "ground": 5007,
+      "flags": 49152,
+      "placement_surface": "existing_source_water"
+    },
+    {
+      "cell": [
+        22,
+        7
+      ],
+      "serial": 12177,
+      "family": "flowers",
+      "native_open": true,
+      "ground": 5000,
+      "flags": 49152,
+      "placement_surface": "existing_source_water"
+    },
+    {
+      "cell": [
+        23,
+        7
+      ],
+      "serial": 12178,
+      "family": "flowers",
+      "native_open": true,
+      "ground": 5007,
+      "flags": 49152,
+      "placement_surface": "existing_source_water"
+    },
+    {
+      "cell": [
+        24,
+        7
+      ],
+      "serial": 12179,
+      "family": "flowers",
+      "native_open": true,
+      "ground": 5004,
+      "flags": 49152,
+      "placement_surface": "existing_source_water"
+    }
+  ],
+  "reused_source_sha256": {
+    "assets/maps/falan/black_prayer/region-trees.json": "0979b28de78b99343d2e9fe2693f6b06100069d6d82b5e2f7387b67a60d12063",
+    "assets/maps/falan/undersea_coast_banks.png": "7b6032abb075cd30ac081c4d999a64d7c5dd01a00d3d15528c503918d82ef248",
+    "assets/maps/original_crossgate/catalog.json": "ae20ed5db45e1ecfee1a8e97c4ae222677fbbaafb2d184156a28c6c8438100c0",
+    "assets/maps/original_crossgate/east/catalog.json": "554a2dbae3de1aaae3b05f5bde293c5c5d01054f5f68cc1d8efd3fa85379e0bc",
+    "assets/models/environments/wind_meadow/crossgate_flora/cg_evergreen.glb": "344c96ebf2a09e2454a97021244d2301a528fa6af9d515d94cba607b3e79768d",
+    "assets/models/environments/wind_meadow/crossgate_flora/cg_woodland.glb": "e0f82e676eaadbbe42c88b111f5f2ed3f205619c0987816d6b1863bea7d8e204",
+    "assets/models/environments/wind_meadow/crossgate_flora/cg_silverleaf.glb": "0fd59b4cb4c071f2124a294f44b2a60436234ac88dc860e0e6571dcc144caa11",
+    "assets/models/environments/wind_meadow/flowers_ivory.glb": "4592ce90ca125b35d7653dd1e52489828ef23fb21f4cd258848aa1141a71500e",
+    "assets/models/environments/wind_meadow/flowers_coral.glb": "d19121573c6e43e9b52170b6aff8f8e9dd09572116538b4698017ab8ab92f72a"
+  },
+  "collision_contract": "Existing source-blocked trunk obstacles for the27land trees only; no shore/flower/stump or offshore props add support/collision/navigation.",
+  "scope": "132southwest source stations, including all35anchors in the added8columns and17adjacent previously unowned stations, plus5source-water props. The original80land/5water prefixes and every prior graphic record remain exact. Offshore tree/stump/flower forms reuse existing models at source water height, adding no land/support/collision/navigation. Original placement intent beyond the source coordinates is unverified.",
+  "preserved_client_source_sha256": "bc286a9dfcad277a4f1dbdad6e35277e5ed62d02165aa79862bec33db1df9905",
+  "source_extension_bounds": [
+    193,
+    405,
+    34,
+    39
+  ],
+  "source_extension_anchors": [
+    [
+      209,
+      405,
+      12531
+    ],
+    [
+      208,
+      406,
+      12506
+    ],
+    [
+      209,
+      406,
+      12511
+    ],
+    [
+      217,
+      406,
+      10092
+    ],
+    [
+      207,
+      407,
+      12530
+    ],
+    [
+      208,
+      407,
+      12535
+    ],
+    [
+      206,
+      408,
+      12518
+    ],
+    [
+      207,
+      408,
+      12523
+    ],
+    [
+      215,
+      408,
+      12177
+    ],
+    [
+      203,
+      409,
+      12530
+    ],
+    [
+      204,
+      409,
+      12505
+    ],
+    [
+      205,
+      409,
+      12529
+    ],
+    [
+      206,
+      409,
+      12523
+    ],
+    [
+      209,
+      409,
+      10058
+    ],
+    [
+      213,
+      409,
+      10060
+    ],
+    [
+      219,
+      409,
+      10060
+    ],
+    [
+      201,
+      410,
+      12518
+    ],
+    [
+      197,
+      411,
+      12506
+    ],
+    [
+      198,
+      411,
+      12505
+    ],
+    [
+      199,
+      411,
+      12517
+    ],
+    [
+      200,
+      411,
+      12529
+    ],
+    [
+      197,
+      412,
+      12519
+    ],
+    [
+      200,
+      412,
+      12178
+    ],
+    [
+      197,
+      413,
+      12507
+    ],
+    [
+      197,
+      414,
+      12531
+    ],
+    [
+      196,
+      415,
+      12518
+    ],
+    [
+      197,
+      415,
+      12523
+    ],
+    [
+      195,
+      416,
+      12506
+    ],
+    [
+      196,
+      416,
+      12511
+    ],
+    [
+      194,
+      417,
+      12518
+    ],
+    [
+      195,
+      417,
+      12523
+    ],
+    [
+      198,
+      417,
+      10063
+    ],
+    [
+      194,
+      418,
+      12519
+    ],
+    [
+      197,
+      418,
+      12167
+    ],
+    [
+      200,
+      418,
+      12168
+    ],
+    [
+      194,
+      419,
+      12531
+    ],
+    [
+      194,
+      420,
+      12531
+    ],
+    [
+      194,
+      421,
+      12500
+    ],
+    [
+      195,
+      421,
+      12520
+    ],
+    [
+      195,
+      422,
+      12507
+    ],
+    [
+      195,
+      423,
+      12512
+    ],
+    [
+      196,
+      423,
+      12508
+    ],
+    [
+      196,
+      424,
+      12500
+    ],
+    [
+      197,
+      424,
+      12532
+    ],
+    [
+      197,
+      425,
+      12507
+    ],
+    [
+      197,
+      426,
+      12512
+    ],
+    [
+      198,
+      426,
+      12508
+    ],
+    [
+      198,
+      427,
+      12500
+    ],
+    [
+      199,
+      427,
+      12532
+    ],
+    [
+      199,
+      428,
+      12500
+    ],
+    [
+      200,
+      428,
+      12508
+    ],
+    [
+      200,
+      429,
+      12524
+    ]
+  ],
+  "preserved_prefixes": {
+    "placements": 80,
+    "offshore_placements": 5
+  }
+}

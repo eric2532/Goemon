@@ -91,6 +91,80 @@ int main(){
   c.combat.set_targets({t});c.combat.before_move(c,1.0/hz);
   assert((u->external_kind==0)==(kills>=42&&scenario==0));++checks;
  }
+ // A map swarm crosses the former patrol boundary through native routes at each tick rate.
+ for(int hz:{20,30,60})for(int kind:{SLIME_KIND,BEAR_KIND,HOUND_KIND})for(int scenario=0;scenario<5;++scenario){
+  Crowd c;setup(c);auto h=enemy(c,100,{0,0,120},kind);auto u=c.unit(h);
+  c.set_guard(h,u->position,8);u->external_kind=-1;
+  auto t=hero();t.map_swarm=scenario!=0;
+  if(scenario==2)t.targetable=false;
+  if(scenario==3)t.hp=0;
+  if(scenario==4){
+   NavigationData nav;nav.bounds_min={-500,0,-500};nav.bounds_max={500,0,500};
+   nav.obstacle_min={{-3,0,65}};nav.obstacle_max={{3,4,70}};c.set_navigation(nav);
+  }
+  c.combat.set_targets({t});c.combat.before_move(c,1.0/hz);
+  assert((u->external_kind==0)==(scenario==1||scenario==4));++checks;
+  if(scenario==1||scenario==4){
+   for(int tick=0;tick<hz*4;++tick){c.step(1.0/hz);assert(c.terrain.clear(u->position,u->radius,0));}
+   assert(u->external_kind==0&&u->position.z<119);++checks;
+   // Keep the patrol identity for guard/retaliation and return home when the map flag clears.
+   assert(u->guard_radius==8&&u->guard_post.z==120);++checks;
+   t.map_swarm=false;c.combat.set_targets({t});c.combat.before_move(c,1.0/hz);
+   assert(u->external_kind<0&&!u->target_handle);++checks;
+  }
+ }
+ // Swarm activation preserves an already committed strike and native contact timing.
+ {
+  auto d=kits();for(size_t row=0;row<d.slime_attacks.size();row+=HOUND_TIMELINE_STRIDE)d.slime_attacks[row+3]=135;
+  Crowd c;setup(c,d);auto h=enemy(c,100,{0,0,1});auto u=c.unit(h);u->yaw=0;c.set_guard(h,u->position,8);
+  c.step(1.0/60);assert(u->action_active);auto action=u->action;auto tick=u->action_time;
+  auto t=hero();t.map_swarm=true;c.combat.set_targets({t});c.step(1.0/60);
+  assert(u->action_active&&u->action==action&&u->action_time>tick);++checks;
+  for(int i=0;i<60;++i)c.step(1.0/60);
+  bool contact=false;for(auto& event:c.combat.events())if(event.kind==EXTERNAL_DAMAGE){assert(event.amount==30&&event.target_id==0);contact=true;}
+  assert(contact);++checks;
+ }
+ // A ranged hit provokes a distant enemy even when guarding or mid-strike.
+ for(int hz:{20,30,60})for(int scenario=0;scenario<7;++scenario){
+  Crowd c;setup(c);auto h=enemy(c,100,{0,0,scenario==0?120.f:40.f});auto u=c.unit(h);
+  c.set_guard(h,u->position,80);u->external_kind=-1;
+  if(scenario==1){u->blocking=true;u->guard_left=1;u->yaw=0;}
+  if(scenario==2){u->counter_active=true;u->action_active=true;u->action=1;u->action_time=.1;}
+  auto t=hero();c.combat.set_targets({t});
+  Hit shot;shot.amount=1;shot.projectile=true;shot.direction={0,0,1};shot.provoke=scenario!=3;
+  assert(c.combat.hit(c,h,shot).accepted);++checks;
+  if(scenario==3){assert(u->retaliation==0);++checks;continue;}
+  assert(u->retaliation>4&&u->retaliation_source==0);++checks;
+  if(scenario==1){assert(u->blocking&&u->stun==0);++checks;}
+  if(scenario==2){assert(u->action_active&&u->action_time==.1);++checks;u->counter_active=false;u->action_active=false;}
+  if(scenario==4)t.targetable=false;
+  if(scenario==5)t.hp=0;
+  if(scenario==6){u->position={0,0,241};}
+  c.combat.set_targets({t});
+  for(int tick=0;tick<hz*2;++tick)c.step(1.0/hz);
+  if((u->external_kind==0)!=(scenario<3))std::cerr<<"RANGED_PURSUIT hz="<<hz<<" scenario="<<scenario<<" target="<<u->external_kind<<" z="<<u->position.z<<"\n";
+  assert((u->external_kind==0)==(scenario<3));++checks;
+  if(scenario<3){
+   assert(u->position.z<(scenario==0?120:40)-1);++checks;
+   for(int tick=0;tick<hz*5;++tick)c.step(1.0/hz);
+   assert(u->external_kind==0&&u->position.z<(scenario==0?120:40)-10);++checks;
+  }
+  c.despawn(h);auto reused=enemy(c,101,{0,0,40});
+  assert(c.unit(reused)->retaliation==0&&c.unit(reused)->retaliation_range==28);++checks;
+ }
+ // Companion projectiles provoke their actual shooter, with taunts still first.
+ for(bool native:{false,true}){
+  Crowd c;setup(c);auto h=enemy(c,100,{0,0,50});auto u=c.unit(h);c.set_guard(h,u->position,40);u->external_kind=-1;
+  auto t=hero();t.foot={0,0,48};t.minimum=t.maximum=t.foot;
+  ExternalTarget shooter;shooter.id=-20;shooter.kind=3;shooter.hp=1000;
+  if(native)c.spawn(-20,1,0,{},1000,.3);
+  c.combat.set_targets(native?std::vector<ExternalTarget>{t}:std::vector<ExternalTarget>{t,shooter});
+  Hit shot;shot.amount=1;shot.projectile=true;shot.source_id=-20;
+  assert(c.combat.hit(c,h,shot).accepted);c.step(1);++checks;
+  assert(native?u->target_handle&&c.unit(u->target_handle)->logical_id==-20:u->external_kind==3&&u->external_target==-20);++checks;
+  t.taunting=true;c.combat.set_targets(native?std::vector<ExternalTarget>{t}:std::vector<ExternalTarget>{t,shooter});c.step(.2);
+  assert(u->external_kind==0&&!u->target_handle);++checks;
+ }
  // Once a strike begins, changing the crowd cannot cancel or retime its contact.
  {
   Crowd c;setup(c);auto h=enemy(c,100,{0,0,1});auto u=c.unit(h);u->yaw=0;

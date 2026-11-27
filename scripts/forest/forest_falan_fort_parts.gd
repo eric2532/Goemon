@@ -155,7 +155,7 @@ static func pier(root:Node3D,serial:int,stone:Material,trim:Material,base:Materi
  var body=Node3D.new();root.add_child(body)
  if serial in [10643,10645]:body.basis=Basis(Vector3.BACK,Vector3.UP,Vector3.RIGHT)
  var bottom=pier_ring(8.34,8.34*aspect,0,0);var middle=pier_ring(bt,bt*aspect,3.8,-offset*fraction);var neck=pier_ring(top_width,top_width,3.8+taper,-offset);var top=pier_ring(top_width,top_width,3.8+taper+shaft,-offset)
- Geo.mesh(body,pier_loft(bottom,middle,cut,slope),Vector3.ZERO,base)
+ Geo.mesh(body,pier_loft(bottom,middle,cut,slope),Vector3.ZERO,base).set_meta("falan_fort_feature","base")
  Geo.mesh(body,pier_loft(middle,neck,cut,slope),Vector3.ZERO,stone)
  Geo.mesh(body,pier_loft(neck,top,cut,slope),Vector3.ZERO,stone)
  Geo.mesh(body,pier_loft(pier_ring(8.5,8.5*aspect,0,0),pier_ring(8.5,8.5*aspect,.16,0),cut,slope),Vector3.ZERO,trim)
@@ -238,6 +238,77 @@ static func gallery_coping(root:Node3D,at:Vector3,size_:Vector3,material:Materia
    for j in 3:tool.set_normal(normals[i+j]);tool.add_vertex(points[i+j])
  var node=Geo.mesh(root,tool.commit(),Vector3.ZERO,material);node.basis=turn.inverse();return node
 
+
+# Setup-only resource-owned arrays; no geometry/material or per-frame change.
+static var cpu_stats={"retained":0,"readback_fallback":0}
+
+static func cpu_committed(arrays:Array)->Array:
+ var result=Paint.committed_arrays(arrays)
+ var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL];var input_tangents=arrays[Mesh.ARRAY_TANGENT];var tangents=PackedFloat32Array()
+ for index in normals.size():
+  var n:Vector3=normals[index];var sign_=1.
+  var tangent:Vector3
+  if input_tangents is PackedFloat32Array and not input_tangents.is_empty():
+   tangent=Vector3(input_tangents[index*4],input_tangents[index*4+1],input_tangents[index*4+2]);sign_=input_tangents[index*4+3]
+  else:tangent=Vector3(n.z,-n.x,n.y).cross(n.normalized()).normalized()
+  var encoded=tangent.octahedron_encode();encoded.y=maxf(encoded.y,1./32767.);encoded.y=encoded.y*.5+.5
+  if sign_<0:encoded.y=1.-encoded.y
+  var packed=encoded*65535.;var x=clampi(int(packed.x),0,65535);var y=clampi(int(packed.y),0,65535)
+  if x==0 and y==65535:x=65535
+  var decoded=Vector2(x/65535.,y/65535.);decoded.y=decoded.y*2.-1.;sign_=1. if decoded.y>=0 else -1.;decoded.y=absf(decoded.y)
+  var restored=Vector3.octahedron_decode(decoded);tangents.append_array(PackedFloat32Array([restored.x,restored.y,restored.z,sign_]))
+ result[Mesh.ARRAY_TANGENT]=tangents
+ if result[Mesh.ARRAY_COLOR] is PackedColorArray:
+  var colors:PackedColorArray=result[Mesh.ARRAY_COLOR]
+  for index in colors.size():
+   var color=colors[index]
+   for channel in 4:color[channel]=clampi(int(color[channel]*255.),0,255)/255.
+   colors[index]=color
+  result[Mesh.ARRAY_COLOR]=colors
+ return result
+
+static func cpu_commit(tool:SurfaceTool)->Mesh:
+ var arrays=cpu_committed(tool.commit_to_arrays());var result=tool.commit()
+ result.set_meta("source_surface_arrays",arrays)
+ return result
+
+static func cpu_arrays(mesh:Mesh,part:int)->Array:
+ if mesh.has_meta("source_surface_arrays_all"):
+  cpu_stats.retained+=1;return mesh.get_meta("source_surface_arrays_all")[part]
+ if part==0 and mesh.has_meta("source_surface_arrays"):
+  cpu_stats.retained+=1;return mesh.get_meta("source_surface_arrays")
+ cpu_stats.readback_fallback+=1;var arrays=mesh.surface_get_arrays(part)
+ var cached:Array=mesh.get_meta("source_surface_arrays_all",[])
+ if cached.is_empty():cached.resize(mesh.get_surface_count())
+ cached[part]=arrays
+ # A partially cached multi-surface resource must retain its remaining surfaces.
+ for slot in mesh.get_surface_count():
+  if cached[slot]==null:cached[slot]=mesh.surface_get_arrays(slot);cpu_stats.readback_fallback+=1
+ mesh.set_meta("source_surface_arrays_all",cached);mesh.set_meta("source_surface_arrays",cached[0])
+ return arrays
+
+static func cpu_append(tool:SurfaceTool,mesh:Mesh,part:int,pose:Transform3D):
+ var arrays=cpu_arrays(mesh,part);var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+ var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL];var colors:PackedColorArray=arrays[Mesh.ARRAY_COLOR]
+ var tangents:PackedFloat32Array=arrays[Mesh.ARRAY_TANGENT];var uv=arrays[Mesh.ARRAY_TEX_UV];var uv2=arrays[Mesh.ARRAY_TEX_UV2]
+ var indices=arrays[Mesh.ARRAY_INDEX]
+ assert(indices==null or indices.is_empty(),"Fort CPU append preserves the original unindexed raw input contract")
+ for index in indices if indices is PackedInt32Array and not indices.is_empty() else range(vertices.size()):
+  # Match SurfaceTool.append_from's existing basis transform exactly.
+  tool.set_normal(pose.basis*normals[index]);tool.set_color(colors[index])
+  if not tangents.is_empty():tool.set_tangent(Plane(pose.basis*Vector3(tangents[index*4],tangents[index*4+1],tangents[index*4+2]),tangents[index*4+3]))
+  if uv is PackedVector2Array and not uv.is_empty():tool.set_uv(uv[index])
+  if uv2 is PackedVector2Array and not uv2.is_empty():tool.set_uv2(uv2[index])
+  tool.add_vertex(pose*vertices[index])
+ # append_from leaves the fresh tool's tangent state unchanged for later manual vertices.
+ tool.set_tangent(Plane())
+
+static func cpu_points(mesh:Mesh)->Array[Vector3]:
+ var result:Array[Vector3]=[]
+ for part in mesh.get_surface_count():
+  for point:Vector3 in cpu_arrays(mesh,part)[Mesh.ARRAY_VERTEX]:result.append(point)
+ return result
+
 static func merlon(narrow_stem:bool=false)->Mesh:
  if narrow_stem and wall_tooth!=null:return wall_tooth
  if not narrow_stem and square_tooth!=null:return square_tooth
@@ -256,7 +327,7 @@ static func merlon(narrow_stem:bool=false)->Mesh:
  Shapes.quad(tool,rings[0][0],rings[0][1],rings[0][2],rings[0][3])
  tool.set_color(Color.WHITE)
  Shapes.quad(tool,rings[-1][3],rings[-1][2],rings[-1][1],rings[-1][0])
- var result=tool.commit()
+ var result=cpu_commit(tool)
  if narrow_stem:wall_tooth=result
  else:square_tooth=result
  return result
@@ -590,8 +661,8 @@ static func raw(serial:int)->Mesh:
  elif serial in range(10655,10661):
   if round_tooth==null:
    var cap=SurfaceTool.new();cap.begin(Mesh.PRIMITIVE_TRIANGLES)
-   cap.append_from(merlon(),0,Transform3D(Basis.IDENTITY.scaled(Vector3(1.20/1.18,.85/.76,.84/1.18)),Vector3(0,.425,2.53)))
-   round_tooth=cap.commit()
+   cpu_append(cap,merlon(),0,Transform3D(Basis.IDENTITY.scaled(Vector3(1.20/1.18,.85/.76,.84/1.18)),Vector3(0,.425,2.53)))
+   round_tooth=cpu_commit(cap)
   if round_rim==null:round_rim=crown_sector(2.18,2.95,1.05)
   if round_course==null:round_course=crown_sector(2.85,3.02,.10)
   if round_base_band==null:
@@ -627,6 +698,7 @@ static func raw(serial:int)->Mesh:
  var crown_points=[];var crown_feet:Array[Vector3]=[];var crown_vertices:Array[Vector3]=[];var iron_spikes=0;var iron_tips:Array[Vector3]=[];var beam_bounds=AABB()
  var features={};var lancet=load(Court.Keep.CIVIC_ART).lancet()
  for node in root.find_children("*","MeshInstance3D",true,false):
+  for surface_index in node.mesh.get_surface_count():cpu_arrays(node.mesh,surface_index)
   var pose=node.transform;var parent=node.get_parent()
   while parent!=root:pose=parent.transform*pose;parent=parent.get_parent()
   if node.has_meta("falan_gate_beam"):
@@ -643,13 +715,14 @@ static func raw(serial:int)->Mesh:
    crown_feet.append(pose*(foot/count))
   for part in node.mesh.get_surface_count():
    # Explicitly share a vertex format: append_from resets earlier geometry when box UVs differ from profiles.
-   var arrays=node.mesh.surface_get_arrays(part);var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+   var arrays=cpu_arrays(node.mesh,part);var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
    var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL];var indices=arrays[Mesh.ARRAY_INDEX]
    var paint=node.get_active_material(part);var tint=Color.WHITE
    var feature:String=node.get_meta("falan_fort_feature","")
    if paint is ShaderMaterial and paint.shader==Court.Fort.SHADER:
     var native:Color=paint.get_shader_parameter("stone_color")
     tint=Color(minf(native.r/masonry_tone.r,1.0),minf(native.g/masonry_tone.g,1.0),minf(native.b/masonry_tone.b,1.0))
+    tint.a=1.0 if native.is_equal_approx(masonry_tone) else 0.0
     if node.mesh==lancet and native.is_equal_approx(Color("394547")):feature="window"
    elif paint is StandardMaterial3D:tint=paint.albedo_color
    var normal_pose=pose.basis.inverse().transposed()
@@ -668,16 +741,21 @@ static func raw(serial:int)->Mesh:
     var vertex_tint=tint
     if (node.mesh in [square_tooth,round_tooth] or node.has_meta("falan_crown_block")) and arrays[Mesh.ARRAY_COLOR]!=null:vertex_tint*=arrays[Mesh.ARRAY_COLOR][i]
     target.set_normal(n);target.set_uv(uv/2.0 if layer.is_empty() or layer in ["paving","base"] else arrays[Mesh.ARRAY_TEX_UV][i]);target.set_color(vertex_tint if layer.is_empty() else Color.WHITE);target.add_vertex(p)
- var result=tool.commit();root.free()
+ var result=cpu_commit(tool);var retained=[result.get_meta("source_surface_arrays")];root.free()
  if stone_paint==null:
   stone_paint=Paint.material(Masonry).duplicate();stone_paint.set_shader_parameter("use_vertex_color",true);stone_paint.set_shader_parameter("vertex_color_srgb",true);stone_paint.set_shader_parameter("alpha_cutout",false);stone_paint.set_shader_parameter("original_palette",false)
+  stone_paint.set_shader_parameter("archive_triplanar",true);stone_paint.set_shader_parameter("uv_scale",Vector2(1/Data.MASONRY_SPAN.x,-1/Data.MASONRY_SPAN.y))
+  stone_paint.set_shader_parameter("use_brush_finish",false)
+  stone_paint.set_shader_parameter("architecture_facade",true)
  result.surface_set_material(0,stone_paint)
  for feature in features:
-  result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,features[feature].commit().surface_get_arrays(0))
+  var feature_arrays=cpu_committed(features[feature].commit_to_arrays())
+  result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,feature_arrays);retained.append(cpu_committed(feature_arrays))
   var texture:Texture2D={"base":BasePaint,"window":WindowPaint,"gate_window":GateWindowPaint,"gate_badge":GateBadgePaint,"banner":BannerPaint,"blue_banner":BlueBannerPaint,"leaf":LeafPaint,"leaf_front":LeafFrontPaint,"paving":GatePaving if serial in [10646,10662] else PavingPaint}[feature]
   if feature=="base":
    if base_paint==null:
     base_paint=Paint.material(texture).duplicate();base_paint.set_shader_parameter("original_palette",false);base_paint.set_shader_parameter("alpha_cutout",false)
+    base_paint.set_shader_parameter("use_brush_finish",false)
    result.surface_set_material(result.get_surface_count()-1,base_paint)
   else:result.surface_set_material(result.get_surface_count()-1,Paint.material(texture))
  result.set_meta("falan_crown_points",crown_points)
@@ -688,6 +766,7 @@ static func raw(serial:int)->Mesh:
  result.set_meta("falan_iron_tips",iron_tips)
  result.set_meta("falan_gate_beam",beam_bounds)
  result.set_meta("falan_gate_detail_planes",gate_planes)
+ result.set_meta("source_surface_arrays_all",retained)
  return result
 
 static func square_windows(serial:int,pose:Transform3D)->Mesh:
@@ -829,7 +908,7 @@ static func lower_details(serial:int,pose:Transform3D)->Mesh:
  var square=Data.WINDOWS.has(serial);var family="square" if square else "round"
  var stone=SurfaceTool.new();stone.begin(Mesh.PRIMITIVE_TRIANGLES)
  var paint=SurfaceTool.new();paint.begin(Mesh.PRIMITIVE_TRIANGLES)
- var ray=Vector3(1,2*Fit.FLOOR/Fit.VERTICAL,1);var controls=[];var panes=0
+ var ray=Vector3(1,2*Fit.FLOOR/Fit.VERTICAL,1);var controls=[];var panes=0;var course_joins=[]
  for rear in [false,true]:
   # shortcut: unseen openings repeat the source-facing row; revisit when original rear art is recovered.
   var turn=Basis(Vector3.UP,PI) if rear else Basis.IDENTITY
@@ -872,19 +951,27 @@ static func lower_details(serial:int,pose:Transform3D)->Mesh:
  if not square:
   var center=pose*ROUND_CENTER;var line:Array=Data.ROUND_COURSE[1]
   var a=round_surface(line[0],pose,.008);var b=round_surface(line[-1],pose,.008)
-  # Close the unseen side joins with solid trim; only the recovered front/rear strips use original paint.
+  # Unseen joins interpolate the native edge profiles across the same closed stone cross-section.
   for ends in [[a,center*2-b],[b,center*2-a]]:
    ends[1].y=(b.y if ends[0]==a else a.y)
    var begin=atan2(ends[0].x-center.x,ends[0].z-center.z);var delta=wrapf(atan2(ends[1].x-center.x,ends[1].z-center.z)-begin,-PI,PI)
-   var radius=ROUND_RADIUS*pose.basis.x.x;var bridge=crown_sector(radius-.005,radius+.025,.045,absf(delta));var turn=Basis(Vector3.UP,begin+delta*.5)
+   var radius=ROUND_RADIUS*pose.basis.x.x;var bridge=crown_sector(radius-.005,radius+.025,4.0/Fit.VERTICAL,absf(delta));var turn=Basis(Vector3.UP,begin+delta*.5)
    var vs:PackedVector3Array=bridge.surface_get_arrays(0)[Mesh.ARRAY_VERTEX];var points=[]
    for p:Vector3 in vs:
     var t=(atan2(p.x,p.z)+absf(delta)*.5)/absf(delta)
     var y=lerpf(ends[0].y,ends[1].y,t if delta>0 else 1-t)
-    points.append(turn*p+Vector3(center.x,y-.0225,center.z))
+    points.append(turn*p+Vector3(center.x,y-2.5/Fit.VERTICAL,center.z))
    for i in range(0,points.size(),3):
     var n:Vector3=(points[i+2]-points[i]).cross(points[i+1]-points[i]).normalized()
     for j in 3:stone.set_normal(n);stone.set_color(Color("61594b"));stone.set_uv(Vector2(points[i+j].x+points[i+j].z,-points[i+j].y)/2);stone.add_vertex(points[i+j])
+    var radial=Vector3(points[i].x-center.x,0,points[i].z-center.z).normalized()
+    if n.dot(radial)>.1:
+     for j in 3:
+      var p:Vector3=vs[i+j];var t=(atan2(p.x,p.z)+absf(delta)*.5)/absf(delta);var u=t if delta>0 else 1-t
+      if course_joins.size()==1:u=1-u
+      var uv=Vector2(u,1-p.y/(4.0/Fit.VERTICAL));var rect:Rect2=Data.ROUND_COURSE_JOIN
+      paint.set_normal(n);paint.set_color(Color.WHITE);paint.set_uv((rect.position+uv*rect.size)/Vector2(ArrowDetails.get_size()));paint.add_vertex(points[i+j]+n*.001)
+   course_joins.append({"points":points,"ends":ends})
   for row in Data.ROUND_FEET:
    var region:Rect2=row[0];var top=[]
    for pixel:Vector2 in row[1]:
@@ -898,6 +985,7 @@ static func lower_details(serial:int,pose:Transform3D)->Mesh:
  var result=stone.commit();result.surface_set_material(0,stone_paint)
  result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,paint.commit().surface_get_arrays(0));result.surface_set_material(1,Paint.material(ArrowDetails))
  result.set_meta("falan_arrow_panes",panes);result.set_meta("falan_arrow_controls",controls)
+ result.set_meta("falan_course_joins",course_joins)
  return result
 
 static func wall_details(serial:int,pose:Transform3D)->Mesh:
@@ -1001,7 +1089,7 @@ static func square_courses()->Mesh:
 static func prepare(serial:int)->Mesh:
  if meshes.has(serial):return meshes[serial]
  var source=raw(serial);var reference:Rect2=Data.PARTS[serial][1]
- var pose:Transform3D=WALL_FRAMES[serial] if WALL_FRAMES.has(serial) else Fit.measure(Fit.mesh_points(source),"",Basis.IDENTITY,reference)
+ var pose:Transform3D=WALL_FRAMES[serial] if WALL_FRAMES.has(serial) else Fit.measure(cpu_points(source),"",Basis.IDENTITY,reference)
  if serial in range(10647,10654) or serial in range(10655,10662):
   var crown: Array[Vector3]=source.get_meta("falan_crown_vertices")
   var square=serial in range(10647,10654) or serial==10661
@@ -1027,7 +1115,7 @@ static func prepare(serial:int)->Mesh:
  var spur=wall_spur(serial) if Data.WALL_SPURS.has(serial) else null
  var result=ArrayMesh.new()
  for part in source.get_surface_count():
-  var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES);tool.append_from(source,part,pose)
+  var tool=SurfaceTool.new();tool.begin(Mesh.PRIMITIVE_TRIANGLES);cpu_append(tool,source,part,pose)
   if part==0 and windows!=null:
    var frames=windows.surface_get_arrays(0);var vertices:PackedVector3Array=frames[Mesh.ARRAY_VERTEX];var normals:PackedVector3Array=frames[Mesh.ARRAY_NORMAL];var uvs:PackedVector2Array=frames[Mesh.ARRAY_TEX_UV];var colors:PackedColorArray=frames[Mesh.ARRAY_COLOR]
    for i in vertices.size():tool.set_normal(normals[i]);tool.set_uv(uvs[i]);tool.set_color(colors[i]);tool.add_vertex(vertices[i])
@@ -1037,7 +1125,12 @@ static func prepare(serial:int)->Mesh:
   if part==0 and wall!=null:tool.append_from(wall,0,Transform3D.IDENTITY)
   if part==0 and brackets!=null:tool.append_from(brackets,0,Transform3D.IDENTITY)
   if part==0 and spur!=null:tool.append_from(spur,0,Transform3D.IDENTITY)
-  var arrays=tool.commit().surface_get_arrays(0)
+  var arrays=cpu_committed(tool.commit_to_arrays())
+  if part==0:
+   var colors:PackedColorArray=arrays[Mesh.ARRAY_COLOR]
+   # Keep existing coursing on broad stone, leaving appended detail backings as single pieces.
+   for i in range(cpu_arrays(source,part)[Mesh.ARRAY_VERTEX].size(),colors.size()):var color=colors[i];color.a=0;colors[i]=color
+   arrays[Mesh.ARRAY_COLOR]=colors
   if source.surface_get_material(part).get_shader_parameter("base_texture")==GatePaving:
    var floor_points:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var floor_uvs=PackedVector2Array()
    var native=Vector2(26,59)+Data.PARTS[10662][1].position;var height=(WEST_EAST_FRAME*Vector3(0,18.5,0)).y

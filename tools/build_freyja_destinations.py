@@ -116,9 +116,9 @@ KILI_HOMES = {
 }
 KILI_ROOMS = {3200, 3201, 3202, 3208, 3210, 3212, 3213, 3214, 3220, 3221, 3299} | KILI_HOMES.keys()
 GHANA_HOMES = {
-    3804: ((76,79), 3020, (3,9)),
-    3805: ((85,69), 3021, (9,15)),
-    3806: ((38,63), 3021, (9,15)),
+    3804: ((76,79), 3804, (3,10)),
+    3805: ((85,69), 3805, (12,16)),
+    3806: ((38,63), 3806, (10,14)),
 }
 HOUSING = KILI_HOMES | GHANA_HOMES
 GHANA_ROOMS = {3000, 3001, 3002, 3008, 3010, 3012, 3013, 3014, 3020, 3021, 3099} | GHANA_HOMES.keys()
@@ -175,7 +175,7 @@ TITLES = {1155: "Woodcutter's House", 2001: "Equipment Shop", 2002: "San Francis
           2112: "Village Chief's House", 2113: "Chief's Side Room", 2120: "Curry Shop",
           2121: "Village Residence", 2198: "Chief's Passage", 2199: "Teleport Room",
           2301: "Equipment Shop", 2302: "Equipment Shop, Landing", 2303: "Underground Workshop",
-          2306: "Church", 2307: "Church, Lower Floor", 2308: "Village Tavern",
+          2306: "Food Shop · 食品店", 2307: "Materials Shop · 原料店", 2308: "Village Tavern",
           2310: "Hospital", 2311: "Hospital, Inner Room", 2312: "Village Chief's House",
           2313: "Chief's House, Inner Room", 2320: "Village House", 2399: "Teleport Room",
           2401: "General Store", 2410: "Hospital", 2412: "Village Chief's House",
@@ -319,26 +319,27 @@ def read_housing_map(raw, ident):
 
 
 def load_map(library, ident):
+    if ident in (100,300):
+        from prepare_sokia_outdoor_source import active_map
+        completed=active_map(library,ident)
+        if completed is not None:return completed
+    if ident == 2307:
+        source=Path(__file__).resolve().parents[1]/'assets/references/crossgate_laruka_basement/02307_sozai'
+        return read_housing_map(source.read_bytes(),ident)
     if ident == tomato.STOREHOUSE:
         return tomato.storehouse()
     if ident in GRAVE_TREES - {47010,47011,47013}:
         return grave_reconstruction(ident)
-    if ident in KILI_HOMES:
-        source=Path(__file__).resolve().parents[1]/'assets/references/crossgate_kili_houses'/f'{ident:05d}_room'
+    if ident in HOUSING:
+        village = 'kili' if ident in KILI_HOMES else 'ghana'
+        source=Path(__file__).resolve().parents[1]/f'assets/references/crossgate_{village}_houses'/f'{ident:05d}_room'
         return read_housing_map(source.read_bytes(),ident)
-    if ident in GHANA_HOMES:
-        # shortcut: These housing interiors are absent from the cache; use local residence plans until recovered.
-        ident = HOUSING[ident][1]
     path = "1/4/410" if ident == 410 else f"0/{ident}"
     with library.connection() as db:
         row = db.execute("SELECT id FROM files WHERE path=?", (f"BlueCrossgate/map/{path}.dat",)).fetchone()
     if row is not None:
         return library.parse_map(library.source_file(row[0])[1].read_bytes())
-    assert ident == 2307, f"Missing archived map {ident}"
-    # The church's lower floor is in the server warp list but absent from the
-    # client cache. Keep its original stair in a small stone storage room.
-    w,h = 14,12
-    return w,h,[0]*(w*h),[0]*(w*h),None
+    raise ValueError(f"Missing archived map {ident}")
 
 
 def entrances(magic):
@@ -691,10 +692,6 @@ def build(magic_power, output, library, width, height, tiles, sokia):
         map_width, map_height, floor, objects, _ = original(dest)
         origin = (map_width // 2, map_height // 2)
         walk = navigation_grid(map_width, map_height, floor, objects, lookup)
-        if dest == 2307:
-            for z in range(3,9):
-                for x in range(3,11):
-                    walk[z*map_width+x] = 1
         seeds = [z*map_width+x for x,z in sorted(cells)]
         if dest in solid_roofs or dest in connected_rooms:
             assert all(walk[i] for i in seeds), (dest, cells)

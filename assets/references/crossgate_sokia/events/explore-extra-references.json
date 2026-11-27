@@ -1,0 +1,34 @@
+[
+  {
+    "file": "mayko_gm_1102644.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/mayko_gm_1102644.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "285901b3d154ffb14a516a4ab92be2a79bc1fcd1",
+    "sha256": "54b19a2af4ef7ddd50242ac1f8e681989b0caead2cf04e9d3a1e09545e9e55e0",
+    "bytes": 718
+  },
+  {
+    "file": "EV_rk_1odr_tane15.txt",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_1odr_tane15.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "84a3d0a2c226f82c8b7855a22384ef1d93bc4b28",
+    "sha256": "4126cafe01f5f7d34d8eb7af92a5aeeae4f0aba1225f1917e79115534bc5f678",
+    "bytes": 2946
+  },
+  {
+    "file": "EV_tane_ahimuro_100.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_tane_ahimuro_100.txt",
+    "git_blob_sha1": "2668d0a70369589443a8e966ffffa5f2408a5110",
+    "sha256": "5029da5025f24f7339337baca096782deb280649b1d9fb6ccf1d916af37071a6",
+    "bytes": 1500
+  },
+  {
+    "file": "EV_tane_ahimuro_001.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_tane_ahimuro_001.txt",
+    "git_blob_sha1": "94ab2a26d0e8d9a86664d3c5a6fb6688bb5cda35",
+    "sha256": "25a498eb087c6fd5906786ed2f8c6ce169ff7c8556da95cfbcac86d2061f3c98",
+    "bytes": 5329
+  }
+]

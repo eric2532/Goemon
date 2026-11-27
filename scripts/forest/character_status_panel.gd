@@ -16,11 +16,11 @@ const BEE_MIRAGE_HINT="Each bee in your party grants the player +%d percentage p
 const PAPER=Color("e5d9a7")
 const GOLD=Color("d8bd80")
 const INK=Color("181d23")
-const CURRENT_STATS=["vitality","regeneration","attack","magic_power","attack_speed","defense","reduction","critical_chance","dodge_chance","counter_chance","magic_defense"]
-const CURRENT_TITLES=["Maximum health","Health regeneration","Physical damage multiplier","Magic damage multiplier","Attack speed multiplier","Defense","Damage reduction","Critical chance","Dodge chance","Counter chance","Magic defense"]
-const CURRENT_FORMATS=["%d","%.1f / sec","x%.2f","x%.2f","x%.2f","%d","%.1f%%","%.1f%%","%.1f%%","%.1f%%","%d"]
-const OVERVIEW_FORMATS=["%d","%d / sec","","%d","%d%%","%d","%d%%","%d%%","%d%%","%d%%","%d"]
-const NOTES=["+100 HP / +1 HP per sec","+15% physical damage","+15% base magic damage","+10% attack speed","+10 defense","+10 magic defense","+1% crit (max 100%)","+1% dodge (max 100%)","+1% counter (max 100%)"]
+const CURRENT_STATS=["vitality","regeneration","attack","magic_power","attack_speed","defense","reduction","critical_chance","dodge_chance","counter_chance","magic_defense","accuracy"]
+const CURRENT_TITLES=["Maximum health","Health regeneration","Physical damage multiplier","Magic damage multiplier","Attack speed multiplier","Defense","Damage reduction","Critical chance","Dodge chance","Counter chance","Magic defense","Accuracy"]
+const CURRENT_FORMATS=["%d","%.1f / sec","x%.2f","x%.2f","x%.2f","%d","%.1f%%","%.1f%%","%.1f%%","%.1f%%","%d","%+.0f"]
+const OVERVIEW_FORMATS=["%d","%d / sec","","%d","%d%%","%d","%d%%","%d%%","%d%%","%d%%","%d","%+d"]
+const NOTES=["+100 HP / +1 HP per sec","+15% physical damage","+15% base magic damage","+10% attack speed","+10 defense","+10 magic defense","+1% crit (max 100%)","+1% dodge (max 100%)","+1% counter (max 100%)","+1 Accuracy · cancels 1% dodge"]
 var game
 var embedded=false
 var wearer_key=""
@@ -37,7 +37,6 @@ var pet_mana:Label
 var pet_mana_bar:ProgressBar
 var pet_state:Label
 var pet_values:Dictionary={}
-var pet_stat_buttons:Dictionary={}
 var pet_summary_icons:Array[TextureRect]=[]
 var pet_summary_names:Array[Label]=[]
 var pet_summary_levels:Array[Label]=[]
@@ -46,11 +45,12 @@ var pet_passive_icon:TextureRect
 var pet_passive_heading:Label
 var pet_passive_name:Label
 var pet_passive_value:Label
-var pet_passive_button:Button
 var pet_profile:Dictionary={}
 var panel:Control
 var font:Font
 var point_label:Label
+var point_header:Control
+var pet_growth_note:Label
 var name_label:Label
 var level_label:Label
 var values:Array[Label]=[]
@@ -212,11 +212,14 @@ func make_equipment_stats():
   tab.name=title+"Tab";tab.toggle_mode=true;tabs.append(tab)
  name_label=text("",16,46,240,false,PAPER,17);level_label=text("",266,46,58,true,GOLD,17)
  name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+ point_header=Control.new();panel.add_child(point_header);content=point_header
  icon("point",Rect2(16,73,24,24),"Points for character stat upgrades")
  point_label=text("",49,69,74,false,GOLD,23);text("AVAILABLE STAT POINTS",122,77,202,false,GOLD,11)
+ content=null
+ pet_growth_note=text("HP, MP and attack grow with each level.",16,77,308,false,GOLD,12);pet_growth_note.hide()
  fill(Rect2(16,106,308,1),Color("485055"))
  overview_content=Control.new();overview_content.name="CombatStats";panel.add_child(overview_content);content=overview_content
- var order=[0,2,3,5,10,1,4,6,7,8,9]
+ var order=[0,2,3,5,10,1,4,6,7,8,9,11]
  for row in order.size():
   var i:int=order[row]
   var id:String=CURRENT_STATS[i]
@@ -228,6 +231,7 @@ func make_equipment_stats():
   if id=="magic_power":hint+="\nAdded to each magic spell's damage per target."
   if id=="defense":hint+="\nReduces incoming physical damage."
   if id=="magic_defense":hint+="\nReduces incoming magic damage."
+  if id=="accuracy":hint+="\nEach point cancels 1 percentage point of enemy dodge. Axes subtract 10. Physical hits only."
   if id=="reduction":hint+="\nPhysical damage reduction from Defense, shown as a percentage."
   icon(id,Rect2(18,y+2,17,17),hint)
   text(title,43,y,199,false,PAPER,14)
@@ -258,11 +262,9 @@ func make_equipment_stats():
  pet_stats_content=Control.new();panel.add_child(pet_stats_content);content=pet_stats_content
  icon("vitality",Rect2(16,114,28,28),"Selected pet health")
  pet_health=text("",48,115,94,false,PAPER,16)
- make_pet_stat_button("vitality",Rect2(144,118,20,22))
  pet_health_bar=game.forest_ui.meter(pet_stats_content,"SelectedPetHealth",Color("62c477"));pet_health_bar.step=0.0;pet_health_bar.position=Vector2(16,148);pet_health_bar.size=Vector2(148,12)
  var mana_icon=icon("mana",Rect2(176,114,28,28),"Selected pet mana")
  pet_mana=text("",208,115,94,false,PAPER,16)
- make_pet_stat_button("mana",Rect2(304,118,20,22))
  pet_mana_bar=game.forest_ui.meter(pet_stats_content,"SelectedPetMana",Color("278fdb"));pet_mana_bar.step=0.0;pet_mana_bar.position=Vector2(176,148);pet_mana_bar.size=Vector2(148,12)
  pet_mana_bar.accessibility_name=mana_icon.accessibility_name
  mana_icon.tooltip_text="Mana · Regenerates 1 per second while summoned"
@@ -281,7 +283,6 @@ func make_equipment_stats():
   card(Rect2(x,y,148,30));icon(row[1],Rect2(x+6,y+5,20,20),row[3])
   text(row[2],x+29,y+6,56,false,GOLD,10)
   var value=text("",x+85,y+5,40,true,PAPER,12);value.mouse_filter=Control.MOUSE_FILTER_PASS;value.tooltip_text=row[3];value.accessibility_name=row[3];pet_values[row[0]]=value
-  if Progression.PET_STATS.has(row[0]):make_pet_stat_button(row[0],Rect2(x+127,y+4,18,22))
  text("EQUIPPED SKILLS",16,339,170,false,GOLD,11)
  for i in Pets.MAX_SKILLS:
   var y=365+i*31
@@ -303,7 +304,6 @@ func make_equipment_stats():
  pet_passive_value=text("",206,432,118,false,GOLD,11)
  pet_passive_value.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
  content=pet_stats_content
- pet_passive_button=button("+",Rect2(300,429,24,24),spend_pet_stat.bind("passive"));pet_passive_button.name="SpendPetPassive"
  content=null;pet_stats_content.hide()
 
 static func passive_texture(skin:int)->Texture2D:
@@ -320,9 +320,13 @@ func show_equipment_tab(show_stats:bool):
 func refresh_attack_damage(p:Hero):
  var amount=0.0
  var unit="Per hit"
+ var defense_note="before crits and enemy defense"
  var primary:String=p.accessory_bonuses.get("primary","")
  if p.RogueRoster.is_crossgate_fighter(p.character_id):
-  if primary=="fire":
+  if p.model.beast_master:
+   amount=Skills.BASIC_ATTACK_DAMAGE*p.base_character_attack_multiplier()
+   unit="Dagger";defense_note="before enemy defense"
+  elif primary=="fire":
    var id="kazi/fire"
    amount=p.magic_spell_damage(float(Skills.Levels.stats(id,1).base_damage))*Skills.effective(p,id,"damage","",0,1)
    unit="Fire · per target per cast"
@@ -332,20 +336,11 @@ func refresh_attack_damage(p:Hero):
    unit="Random Shot · per arrow"
   else:
    amount=Skills.basic_damage(p.model.normal_attack_pattern(),p)*p.damage_multiplier()
-  attack_damage.text=str(roundi(amount*p.attack_chain.damage_multiplier()))
+  var chain_scale=1.0 if p.model.beast_master else p.attack_chain.damage_multiplier()
+  attack_damage.text=str(roundi(amount*chain_scale))
  else:attack_damage.text="—"
- attack_damage.tooltip_text=unit+" · before crits and enemy defense"
+ attack_damage.tooltip_text=unit+" · "+defense_note
  attack_damage.accessibility_description=attack_damage.text+" · "+attack_damage.tooltip_text
-
-func make_pet_stat_button(id:String,rect:Rect2):
- var plus=button("+",rect,spend_pet_stat.bind(id));plus.name="SpendPetStat_"+id
- plus.tooltip_text="Spend 1 pet point · "+Progression.PET_STATS[id]
- plus.accessibility_name="Upgrade pet "+id.replace("_"," ");plus.accessibility_description=plus.tooltip_text
- pet_stat_buttons[id]=plus
-
-func spend_pet_stat(id:String):
- if not embedded or not wearer_key.begins_with("pet:"):return
- if game.spend_pet_stat(wearer_key.trim_prefix("pet:"),id):game.equipment_hub.refresh()
 
 func refresh_pet_stats():
  overview_content.hide();character_stats_content.hide();pet_stats_content.show();heading_label.show()
@@ -353,8 +348,6 @@ func refresh_pet_stats():
  var key=wearer_key.trim_prefix("pet:");var skin=Pets.skin(key);var progression=game.model.team_progression
  var passive=Pets.passive(skin);var passive_level=progression.pet_passive_level(key)
  pet_passive.visible=not passive.is_empty()
- pet_passive_button.visible=passive.get("upgrade",false)
- pet_passive_button.disabled=not progression.can_spend_pet_stat(key,"passive")
  if pet_passive.visible:
   pet_passive_icon.texture=passive_texture(skin)
   pet_passive_icon.tooltip_text=Pets.passive_hint(skin,passive_level)
@@ -362,12 +355,8 @@ func refresh_pet_stats():
   pet_passive_name.text=passive.name
   pet_passive_heading.text="PASSIVE · Lv %d"%passive_level if passive.upgrade else "PASSIVE"
   var value=Pets.passive_value(skin,passive_level)
-  pet_passive_value.size.x=90 if passive.upgrade else 118
   pet_passive_value.text="+%d HP/sec"%value if passive.stat=="regeneration" else "+%d%% Crit"%value if passive.stat=="critical_chance" else "+%d%% Player Dodge"%value
-  pet_passive_button.tooltip_text="Spend 1 pet point · "+Pets.passive_hint(skin,passive_level+1)
-  pet_passive_button.accessibility_name="Upgrade "+passive.name;pet_passive_button.accessibility_description=pet_passive_button.tooltip_text
- point_label.text=str(progression.pet_points(key));level_label.text=""
- for id in pet_stat_buttons:pet_stat_buttons[id].disabled=skin<0 or not progression.can_spend_pet_stat(key,id)
+ point_header.hide();pet_growth_note.show();level_label.text=""
  name_label.text=Pets.display_name(skin,game.settings.forest_pet_names) if skin>=0 else "Empty pet slot"
  pet_profile=game.army_runtime.pet_stats(skin)
  pet_health_bar.visible=not pet_profile.is_empty()
@@ -400,7 +389,7 @@ func refresh():
  if embedded and wearer_key.begins_with("pet:"):
   refresh_pet_stats();game.forest_ui.sync();return
  if embedded:
-  pet_stats_content.hide();heading_label.hide()
+  pet_stats_content.hide();heading_label.hide();point_header.show();pet_growth_note.hide()
   for tab in tabs:tab.show()
   show_equipment_tab(overview_selected)
  var p=game.player;var progression=game.model.team_progression
@@ -410,8 +399,8 @@ func refresh():
  point_label.text=str(progression.stat_points)
  var index=0
  for id in Progression.STAT_NAMES:
-  ranks[index].text=str(progression.stat_ranks[id]);buttons[id].disabled=progression.stat_points<=0 or (id in ["critical_chance","dodge_chance","counter_chance"] and p.combat_tuning(id)>=100);index+=1
- var totals=[p.max_hp,p.health_regeneration(),p.damage_multiplier(),p.magic_damage_multiplier(),p.attack_speed_multiplier(),progression.stat_defense()+p.food_defense(),100*(1-progression.stat_incoming_multiplier(p.food_defense())),p.combat_tuning("critical_chance"),p.effective_dodge_chance(),p.combat_tuning("counter_chance"),progression.stat_magic_defense()+p.food_defense()]
+  ranks[index].text=str(progression.stat_ranks[id]);ranks[index].mouse_filter=Control.MOUSE_FILTER_PASS;ranks[index].tooltip_text="Points spent: %d\nFood boosts (this run): %d"%[progression.stat_ranks[id],progression.food_ranks.get(id,0)];buttons[id].disabled=progression.stat_points<=0 or (id in ["critical_chance","dodge_chance","counter_chance"] and p.combat_tuning(id)>=100);index+=1
+ var totals=[p.max_hp,p.health_regeneration(),p.damage_multiplier(),p.magic_damage_multiplier(),p.attack_speed_multiplier(),progression.stat_defense()+p.extra_defense(),100*(1-progression.stat_incoming_multiplier(p.extra_defense())),p.combat_tuning("critical_chance"),p.effective_dodge_chance(),p.combat_tuning("counter_chance"),progression.stat_magic_defense()+p.extra_defense(true),p.combat_tuning("accuracy")]
  for i in values.size():
   values[i].text=CURRENT_FORMATS[i]%totals[i];values[i].accessibility_description=values[i].text
  game.forest_ui.sync()

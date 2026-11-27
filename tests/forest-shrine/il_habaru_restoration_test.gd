@@ -6,7 +6,7 @@ func check_il_habaru_alyut():
  await open_area("east_coast")
  await site(2000,"il_village")
  village_entries(6)
- var buildings=game.world.find_children("BlueCGVillageBuilding_*","MeshInstance3D",true,false)
+ var buildings=game.world.find_children("BlueCGVillageBuilding_*","Node3D",true,false)
  check(buildings.size()==8,"All eight Il buildings use original facade graphics")
  check(game.world.find_child("ArchivedIlGardens",true,false)!=null,"Il restores its original small scenery anchors")
  var source_ground=false

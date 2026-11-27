@@ -29,11 +29,11 @@ func _ready():
 	if not web:items.append(["Arena · Slime Waves",game.begin_arena,"ForestPlay"])
 	if web:
 		var joining:bool=not game.web_coop.join_code().is_empty()
-		items.append(["Join Co-op" if joining else "Freyja and Falan",game.web_coop.begin if joining else game.begin_saved_falan.bind(falan_path),"ForestPlay"])
-		items.append(["Play Solo" if joining else "Host Co-op",game.begin_saved_falan.bind(falan_path) if joining else game.web_coop.begin,"ForestCoop"])
+		items.append(["Freyja and Falan",game.begin_saved_falan.bind(falan_path),"ForestFalan"])
+		items.append(["Join Co-op" if joining else "Host Co-op",game.web_coop.begin,"ForestCoop"])
 	elif has_falan:items.append(["Freyja and Falan",game.begin_saved_falan.bind(falan_path),"ForestFalan"])
 	items.append(["Settings",func():game.show_settings(false),"ForestSettings"])
 	if not web:items.append(["Quit",game.quit_clean,"ForestQuit"])
 	for item in items:
-		var button=game.forest_ui.make_preparation_button(item[0],item[1],280,item[2]=="ForestPlay")
+		var button=game.forest_ui.make_preparation_button(item[0],item[1],280,item[2]==("ForestFalan" if web else "ForestPlay"))
 		button.name=item[2];button.custom_minimum_size.y=56;button.add_theme_font_size_override("font_size",20);column.add_child(button)

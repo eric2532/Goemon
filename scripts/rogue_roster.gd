@@ -29,6 +29,11 @@ const BEI_ID = 48
 const MOE_ID = 49
 const AMI_ID = 50
 const KUMAGO_ID = 51
+const BAU_ID = 52
+const EL_ID = 53
+const GEN_ID = 54
+const SARAH_ID = 55
+const FourCastSkins=preload("res://scripts/crossgate_four_cast_skins.gd")
 const CastSkins=preload("res://scripts/crossgate_cast_skins.gd")
 const SpecialSkins=preload("res://scripts/crossgate_special_skins.gd")
 static var skin_catalogs:Dictionary={}
@@ -100,7 +105,11 @@ const BEI={"id":"bei","name":"Bei","root":"fighters/bei","skins":SpecialSkins.CA
 const MOE={"id":"moe","name":"Moe","root":"fighters/moe","skins":SpecialSkins.CAST_CATALOG[MOE_ID],"skin_default":105275,"skin_setting":"moe_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#d7a1d5","description":PETE.description}
 const AMI={"id":"ami","name":"Ami","root":"fighters/ami","skins":SpecialSkins.CAST_CATALOG[AMI_ID],"skin_default":105300,"skin_setting":"ami_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#f5b962","description":PETE.description}
 const KUMAGO={"id":"kumago","name":"熊哥","root":"fighters/kumago","skins":SpecialSkins.CAST_CATALOG[KUMAGO_ID],"skin_default":100800,"skin_setting":"kumago_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#e7654e","description":"Original Cross Gate fists and weapons · Q Equipment and shared skills · Space Timed Dodge."}
-const CROSSGATE={RUBY_ID:RUBY,KAZI_ID:KAZI,MAZE_ID:MAZE,SHIN_ID:SHIN[SHIN_ID],SHIN_SPECIAL_ID:SHIN[SHIN_SPECIAL_ID],SAIZO_ID:SAIZO,BOG_ID:BOG,EMILIA_ID:EMILIA,LANCELOT_ID:LANCELOT,PETE_ID:PETE,GRACE_ID:GRACE,REI_ID:REI,CEDI_ID:CEDI,BEI_ID:BEI,MOE_ID:MOE,AMI_ID:AMI,KUMAGO_ID:KUMAGO}
+const BAU={"id":"bau","name":"Bau","root":"fighters/bau","skins":FourCastSkins.BAU,"skin_default":105000,"skin_setting":"bau_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#8db759","description":PETE.description}
+const EL={"id":"el","name":"El","root":"fighters/el","skins":FourCastSkins.EL,"skin_default":105400,"skin_setting":"el_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#6ca887","description":PETE.description}
+const GEN={"id":"gen","name":"Gen","root":"fighters/gen","skins":FourCastSkins.GEN,"skin_default":105100,"skin_setting":"gen_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#d38a68","description":PETE.description}
+const SARAH={"id":"sarah","name":"Sarah","root":"fighters/sarah","skins":FourCastSkins.SARAH,"skin_default":106250,"skin_setting":"sarah_skin","portrait_origin":Vector2.ZERO,"strike":"timed","weapon_skills":true,"audio":SHIN_ID,"color":"#e3bd81","description":PETE.description}
+const CROSSGATE={RUBY_ID:RUBY,KAZI_ID:KAZI,MAZE_ID:MAZE,SHIN_ID:SHIN[SHIN_ID],SHIN_SPECIAL_ID:SHIN[SHIN_SPECIAL_ID],SAIZO_ID:SAIZO,BOG_ID:BOG,EMILIA_ID:EMILIA,LANCELOT_ID:LANCELOT,PETE_ID:PETE,GRACE_ID:GRACE,REI_ID:REI,CEDI_ID:CEDI,BEI_ID:BEI,MOE_ID:MOE,AMI_ID:AMI,KUMAGO_ID:KUMAGO,BAU_ID:BAU,EL_ID:EL,GEN_ID:GEN,SARAH_ID:SARAH}
 const KAZI_PORTRAIT="res://assets/characters/crossgate/kazi/portrait-front.png"
 const WARCRAFT={33:{"id":"mountain-king","name":"Mountain King","color":"#278dff","description":"LMB Hammer and axe · RMB / 1 Storm Bolt · 2 Thunder Clap · 3 Avatar · 4 Taunt / War Cry · Passive Bash. WASD Move · Shift Sprint · Space Jump · C Evade · Q Shared skills."},31:{"id":"blademaster","name":"Blademaster","color":"#a2bf70","description":"LMB Sword combo · RMB Critical strike · 1 Bladestorm · 2 Wind Walk · 3 Mirror Image · Space Jump · C Evade. Equip shared skills with Q."},32:{"id":"demon-hunter","name":"Illidan","color":"#b195dc","description":"LMB Glaive combo / Demon bolt · RMB / 1 Metamorphosis · 2 Immolation · Space Jump · C Evade. Meta form: hold Space to fly, release to descend; Shift boosts. Equip shared skills with Q."}}
 static var PLAYABLE_IDS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]+CROSSGATE.keys()
@@ -128,6 +137,8 @@ static func valid_skin(character:int,value:Variant)->int:
 	return int(value) if value is int and skin_catalog(character).has(value) else int(profile.skin_default)
 static func skin_root(character:int,skin:int)->String:
 	if character==RUBY_ID and skin==0:return "res://assets/characters/crossgate/ruby/"
+	# Old Bau lookups still resolve after correcting these skins' ownership.
+	if character==BAU_ID and skin in FourCastSkins.BAU_HIDDEN:character=GEN_ID
 	return "res://assets/characters/crossgate/%s/%d/"%[CROSSGATE[character].root,skin]
 static func skin_portrait(character:int,skin:int)->Texture2D:return load(skin_root(character,skin)+"portrait.png")
 static func skin_portrait_origin(character:int,skin:int)->Vector2:
@@ -136,7 +147,8 @@ static func skin_portrait_origin(character:int,skin:int)->Vector2:
 static func skin_catalog(character:int)->Dictionary:
 	if character==KAZI_ID:return preload("res://scripts/kaz_skins.gd").CATALOG
 	if is_shin(character):return ShinSkins.gallery(character==SHIN_SPECIAL_ID)
-	if not skin_catalogs.has(character):skin_catalogs[character]=crossgate_profile(character).get("skins",{}).merged(SpecialSkins.CATALOG.get(character,{})).merged(SpecialSkins.URU_CATALOG if character==RUBY_ID else {})
+	if not skin_catalogs.has(character):
+		skin_catalogs[character]=crossgate_profile(character).get("skins",{}).merged(SpecialSkins.CATALOG.get(character,{})).merged(SpecialSkins.URU_CATALOG if character==RUBY_ID else {})
 	return skin_catalogs[character]
 static func skin_setting(character:int)->String:
 	if character==KAZI_ID:return "kaz_skin"
@@ -157,7 +169,7 @@ static func valid_loadout_key(value:Variant)->bool:
 	if parts.size()>2 or parts[0]!=str(int(parts[0])) or int(parts[0]) not in PLAYABLE_IDS:return false
 	if parts.size()==1:return true
 	var character=int(parts[0]);var skin=int(parts[1])
-	return parts[1]==str(skin) and (skin_catalog(character).has(skin) or (character==SHIN_SPECIAL_ID and skin in ShinSkins.HIDDEN_CLASSIC))
+	return parts[1]==str(skin) and (skin_catalog(character).has(skin) or (character==SHIN_SPECIAL_ID and skin in ShinSkins.HIDDEN_CLASSIC) or (character==BAU_ID and skin in FourCastSkins.BAU_HIDDEN))
 static func has_kagerou(id:int)->bool:return crossgate_profile(id).get("kagerou",false)
 static func has_crossgate_throws(id:int)->bool:return crossgate_profile(id).get("throwing",false)
 static func is_crossgate_archer(id:int)->bool:return crossgate_profile(id).get("strike","")=="bow"
@@ -172,8 +184,6 @@ static func selection_ids() -> Array[int]:
 	var result:Array[int]=[]
 	result.assign(CROSSGATE.keys())
 	result.erase(MAZE_ID)
-	if OS.has_feature("web"):
-		return result.filter(func(id):return ResourceLoader.exists(selection_portrait_path(id)))
 	return result
 
 static func gallery_id(character:int)->int:
@@ -186,8 +196,6 @@ static func skin_character(character:int,settings:Dictionary)->int:
 static func sound_ids() -> Array[int]:
 	var result: Array[int] = []
 	result.assign(CROSSGATE.keys())
-	if OS.has_feature("web"):
-		return result.filter(func(id):return ResourceLoader.exists(selection_portrait_path(id)))
 	return result
 
 ## Selection art has its own full-body framing. HUD portraits retain the stable

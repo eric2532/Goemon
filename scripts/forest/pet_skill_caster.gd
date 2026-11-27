@@ -163,6 +163,15 @@ func prepare_skill_count(id:String):
   if Skills.Levels.family(skill)==Skills.Levels.family(id):controllers[skill].prepare_projectiles()
  if Skills.Levels.family(id)==Skills.Levels.family(Pets.Spells.COMBO) and native_handle:
   runtime.native.set_pet_skills(native_handle,Pets.skill_codes(selected),int(Skills.effective(self,Pets.Spells.COMBO,"count")))
+ prepare_skill_groups()
+func prepare_skill_groups():
+ if not native_handle:return
+ var mask=0
+ for slot in selected.size():
+  var id:String=selected[slot]
+  if Skills.Levels.family(id) in Skills.Levels.ELEMENTS and Skills.effective(self,id,"count")>=2:mask|=1<<slot
+ var configured:bool=runtime.native.set_pet_skill_groups(native_handle,mask)
+ assert(configured,"Invalid pet group skill profile")
 func damage_multiplier()->float:return team_progression.pet_damage_multiplier(pet_key)
 func base_magic_damage()->float:return 0.0
 func combat_tuning(key:String)->float:return 0.0 if key=="critical_chance" else game.balance_value(RogueRoster.KAZI_ID,key)

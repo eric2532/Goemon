@@ -1,0 +1,1274 @@
+{
+  "schema": 1,
+  "graphics": {
+    "11269": {
+      "pack": "original",
+      "row": 7855,
+      "size": [
+        284,
+        428
+      ],
+      "origin": [
+        -143,
+        -421
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "center": [
+        127,
+        337
+      ],
+      "source_rgba_sha256": "b1edc646a961b7c2d916540390dd555dfbe37dcdf672e09d2a4cc4319d94daa5",
+      "rooster_rect": [
+        129,
+        0,
+        163,
+        56
+      ]
+    },
+    "11271": {
+      "pack": "original",
+      "row": 7856,
+      "size": [
+        376,
+        467
+      ],
+      "origin": [
+        -74,
+        -436
+      ],
+      "footprint": [
+        9,
+        2
+      ],
+      "center": [
+        186,
+        328
+      ],
+      "source_rgba_sha256": "614f10ac082f3c6a004f11e376127732c539cdb374e4ea96d8cecb20abf3f7e1",
+      "left_wing_fit": {
+        "floor_pixels": [
+          [
+            13,
+            411
+          ],
+          [
+            80,
+            459
+          ],
+          [
+            141,
+            416
+          ]
+        ],
+        "roof_pixels": [
+          [
+            0,
+            310
+          ],
+          [
+            64,
+            242
+          ],
+          [
+            137,
+            294
+          ],
+          [
+            81,
+            373
+          ]
+        ],
+        "inferred_wall_roof_height": 9.2,
+        "note": "Visible native ground feet and timber eaves; height/depth are reconstructed. Source map footprint and doors are unchanged."
+      },
+      "rooster_rect": [
+        171,
+        0,
+        206,
+        56
+      ]
+    },
+    "11272": {
+      "pack": "original",
+      "row": 7857,
+      "size": [
+        368,
+        415
+      ],
+      "origin": [
+        -206,
+        -387
+      ],
+      "footprint": [
+        4,
+        5
+      ],
+      "center": [
+        190,
+        303
+      ],
+      "source_rgba_sha256": "1af24202b2e99dc9e3dbf54b3ec23b9928d04f913660bcc6b59bf15957de648e",
+      "form": {
+        "floor": [
+          [
+            30,
+            282
+          ],
+          [
+            185,
+            403
+          ],
+          [
+            337,
+            294
+          ]
+        ],
+        "end": "right",
+        "roof": [
+          [
+            179,
+            314
+          ],
+          [
+            198,
+            280
+          ],
+          [
+            221,
+            232
+          ],
+          [
+            247,
+            185
+          ],
+          [
+            270,
+            144
+          ],
+          [
+            300,
+            164
+          ],
+          [
+            330,
+            183
+          ],
+          [
+            359,
+            202
+          ]
+        ],
+        "peak": 4,
+        "rear": [
+          103,
+          24
+        ],
+        "dormers": [
+          {
+            "face": "left",
+            "anchor": [
+              83,
+              145
+            ],
+            "roof": [
+              [
+                59,
+                81
+              ],
+              [
+                72,
+                69
+              ],
+              [
+                88,
+                81
+              ],
+              [
+                105,
+                93
+              ]
+            ],
+            "peak": 1,
+            "rear": [
+              124,
+              31
+            ]
+          },
+          {
+            "face": "left",
+            "anchor": [
+              219,
+              220
+            ],
+            "roof": [
+              [
+                197,
+                177
+              ],
+              [
+                210,
+                162
+              ],
+              [
+                228,
+                175
+              ],
+              [
+                244,
+                187
+              ]
+            ],
+            "peak": 1,
+            "rear": [
+              262,
+              112
+            ]
+          }
+        ]
+      }
+    },
+    "11273": {
+      "pack": "original",
+      "row": 7858,
+      "size": [
+        400,
+        419
+      ],
+      "origin": [
+        -221,
+        -391
+      ],
+      "footprint": [
+        5,
+        6
+      ],
+      "center": [
+        205,
+        283
+      ],
+      "source_rgba_sha256": "5acf8de073c1ae52214ff12c59cbb537ee5a314d5cd41ab30b4b5cdd690da3f4",
+      "form": {
+        "floor": [
+          [
+            32,
+            280
+          ],
+          [
+            205,
+            407
+          ],
+          [
+            364,
+            294
+          ]
+        ],
+        "end": "right",
+        "roof": [
+          [
+            198,
+            321
+          ],
+          [
+            216,
+            282
+          ],
+          [
+            241,
+            232
+          ],
+          [
+            267,
+            183
+          ],
+          [
+            292,
+            140
+          ],
+          [
+            320,
+            157
+          ],
+          [
+            356,
+            180
+          ],
+          [
+            389,
+            200
+          ]
+        ],
+        "peak": 4,
+        "rear": [
+          112,
+          22
+        ],
+        "dormers": [
+          {
+            "face": "left",
+            "anchor": [
+              169,
+              190
+            ],
+            "roof": [
+              [
+                135,
+                121
+              ],
+              [
+                157,
+                101
+              ],
+              [
+                175,
+                112
+              ],
+              [
+                200,
+                131
+              ]
+            ],
+            "peak": 1,
+            "rear": [
+              223,
+              52
+            ]
+          }
+        ]
+      }
+    },
+    "11275": {
+      "pack": "original",
+      "row": 7860,
+      "size": [
+        392,
+        433
+      ],
+      "origin": [
+        -124,
+        -438
+      ],
+      "footprint": [
+        7,
+        4
+      ],
+      "center": [
+        172,
+        330
+      ],
+      "source_rgba_sha256": "73bc428abdeb8976cd77df334f8f4d1e94e12a8602c4aa40ae99b339070ad6c4",
+      "form": {
+        "floor": [
+          [
+            89,
+            313
+          ],
+          [
+            180,
+            398
+          ],
+          [
+            365,
+            270
+          ]
+        ],
+        "end": "left",
+        "roof": [
+          [
+            13,
+            200
+          ],
+          [
+            35,
+            181
+          ],
+          [
+            57,
+            163
+          ],
+          [
+            80,
+            149
+          ],
+          [
+            104,
+            184
+          ],
+          [
+            129,
+            223
+          ],
+          [
+            152,
+            262
+          ],
+          [
+            174,
+            301
+          ]
+        ],
+        "peak": 3,
+        "rear": [
+          261,
+          20
+        ],
+        "canopies": [
+          [
+            [
+              [
+                17,
+                243
+              ],
+              4.5
+            ],
+            [
+              [
+                72,
+                216
+              ],
+              6.3
+            ],
+            [
+              [
+                112,
+                244
+              ],
+              6.3
+            ],
+            [
+              [
+                54,
+                272
+              ],
+              4.5
+            ]
+          ]
+        ],
+        "dormers": [
+          {
+            "face": "right",
+            "anchor": [
+              235,
+              169
+            ],
+            "roof": [
+              [
+                211,
+                102
+              ],
+              [
+                226,
+                89
+              ],
+              [
+                245,
+                100
+              ],
+              [
+                264,
+                114
+              ]
+            ],
+            "peak": 1,
+            "rear": [
+              183,
+              59
+            ]
+          },
+          {
+            "face": "right",
+            "anchor": [
+              335,
+              155
+            ],
+            "roof": [
+              [
+                306,
+                39
+              ],
+              [
+                321,
+                25
+              ],
+              [
+                340,
+                35
+              ],
+              [
+                357,
+                50
+              ]
+            ],
+            "peak": 1,
+            "rear": [
+              278,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "11268": {
+      "pack": "original",
+      "row": 7854,
+      "size": [
+        344,
+        522
+      ],
+      "origin": [
+        -161,
+        -512
+      ],
+      "footprint": [
+        6,
+        7
+      ],
+      "center": [
+        145,
+        380
+      ],
+      "source_rgba_sha256": "f25739c0e26cca871c8cb10b68bfa5798391a58db142ef9382299ada767c7196"
+    },
+    "10607": {
+      "pack": "original",
+      "row": 7523,
+      "size": [
+        364,
+        452
+      ],
+      "origin": [
+        -206,
+        -439
+      ],
+      "footprint": [
+        5,
+        7
+      ],
+      "center": [
+        174,
+        319
+      ],
+      "source_rgba_sha256": "02a16b156027d55b61ad7df4dc71bbb925c93d99bb577d57550114ac50c06710"
+    }
+  },
+  "maps": {
+    "2000": {
+      "size": [
+        90,
+        120
+      ],
+      "path": "BlueCrossgate/map/0/2000.dat",
+      "sha256": "ab2e1c47f27d7a06f415e2c4369dafdd0a23c7b99c6d891d7ebf94e0854c1710",
+      "placements": [
+        {
+          "cell": [
+            36,
+            26
+          ],
+          "graphic": 11272,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            37.5,
+            24.0
+          ],
+          "center_local": [
+            -22.5,
+            -108.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            49,
+            38
+          ],
+          "graphic": 11275,
+          "footprint": [
+            7,
+            4
+          ],
+          "center_cell": [
+            52.0,
+            36.5
+          ],
+          "center_local": [
+            21.0,
+            -70.5
+          ],
+          "collision_size": [
+            20.65,
+            12,
+            11.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            32,
+            41
+          ],
+          "graphic": 11275,
+          "footprint": [
+            7,
+            4
+          ],
+          "center_cell": [
+            35.0,
+            39.5
+          ],
+          "center_local": [
+            -30.0,
+            -61.5
+          ],
+          "collision_size": [
+            20.65,
+            12,
+            11.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            40,
+            61
+          ],
+          "graphic": 11273,
+          "footprint": [
+            5,
+            6
+          ],
+          "center_cell": [
+            42.0,
+            58.5
+          ],
+          "center_local": [
+            -9.0,
+            -4.5
+          ],
+          "collision_size": [
+            14.65,
+            12,
+            17.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            33,
+            66
+          ],
+          "graphic": 11272,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            34.5,
+            64.0
+          ],
+          "center_local": [
+            -31.5,
+            12.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            43,
+            73
+          ],
+          "graphic": 11272,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            44.5,
+            71.0
+          ],
+          "center_local": [
+            -1.5,
+            33.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            71,
+            75
+          ],
+          "graphic": 10607,
+          "footprint": [
+            5,
+            7
+          ],
+          "center_cell": [
+            73.0,
+            72.0
+          ],
+          "center_local": [
+            84.0,
+            36.0
+          ],
+          "collision_size": [
+            14.65,
+            12,
+            20.65
+          ],
+          "appearance_owner": "approved_existing"
+        },
+        {
+          "cell": [
+            48,
+            86
+          ],
+          "graphic": 11268,
+          "footprint": [
+            6,
+            7
+          ],
+          "center_cell": [
+            50.5,
+            83.0
+          ],
+          "center_local": [
+            16.5,
+            69.0
+          ],
+          "collision_size": [
+            17.65,
+            12,
+            20.65
+          ],
+          "appearance_owner": "approved_existing"
+        }
+      ],
+      "doors": [
+        {
+          "source_cell": [
+            52,
+            39
+          ],
+          "destination": 2010,
+          "arrival_cell": [
+            14,
+            20
+          ],
+          "building_cell": [
+            49,
+            38
+          ],
+          "graphic": 11275,
+          "return_warps": [
+            [
+              2010,
+              14,
+              20,
+              2000,
+              52,
+              39
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            35,
+            25
+          ],
+          "destination": 2001,
+          "arrival_cell": [
+            5,
+            13
+          ],
+          "building_cell": [
+            36,
+            26
+          ],
+          "graphic": 11272,
+          "return_warps": [
+            [
+              2001,
+              5,
+              13,
+              2000,
+              35,
+              25
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            47,
+            83
+          ],
+          "destination": 2012,
+          "arrival_cell": [
+            6,
+            13
+          ],
+          "building_cell": [
+            48,
+            86
+          ],
+          "graphic": 11268,
+          "return_warps": [
+            [
+              2012,
+              6,
+              13,
+              2000,
+              47,
+              83
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            35,
+            42
+          ],
+          "destination": 2013,
+          "arrival_cell": [
+            9,
+            16
+          ],
+          "building_cell": [
+            32,
+            41
+          ],
+          "graphic": 11275,
+          "return_warps": [
+            [
+              2013,
+              9,
+              16,
+              2000,
+              35,
+              42
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            42,
+            72
+          ],
+          "destination": 2014,
+          "arrival_cell": [
+            2,
+            9
+          ],
+          "building_cell": [
+            43,
+            73
+          ],
+          "graphic": 11272,
+          "return_warps": [
+            [
+              2014,
+              2,
+              9,
+              2000,
+              42,
+              72
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            32,
+            65
+          ],
+          "destination": 2002,
+          "arrival_cell": [
+            7,
+            19
+          ],
+          "building_cell": [
+            33,
+            66
+          ],
+          "graphic": 11272,
+          "return_warps": [
+            [
+              2002,
+              7,
+              19,
+              2000,
+              32,
+              65
+            ]
+          ]
+        }
+      ]
+    },
+    "2400": {
+      "size": [
+        100,
+        100
+      ],
+      "path": "BlueCrossgate/map/0/2400.dat",
+      "sha256": "b7f34e44ea4e41d3a02851d80379a96f34a4f5a9af52a90ee18420ad51a484cc",
+      "placements": [
+        {
+          "cell": [
+            45,
+            36
+          ],
+          "graphic": 11275,
+          "footprint": [
+            7,
+            4
+          ],
+          "center_cell": [
+            48.0,
+            34.5
+          ],
+          "center_local": [
+            -6.0,
+            -46.5
+          ],
+          "collision_size": [
+            20.65,
+            12,
+            11.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            33,
+            41
+          ],
+          "graphic": 11271,
+          "footprint": [
+            9,
+            2
+          ],
+          "center_cell": [
+            37.0,
+            40.5
+          ],
+          "center_local": [
+            -39.0,
+            -28.5
+          ],
+          "collision_size": [
+            26.65,
+            12,
+            5.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            57,
+            50
+          ],
+          "graphic": 11269,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            58.5,
+            48.0
+          ],
+          "center_local": [
+            25.5,
+            -6.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            32,
+            55
+          ],
+          "graphic": 11272,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            33.5,
+            53.0
+          ],
+          "center_local": [
+            -49.5,
+            9.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        },
+        {
+          "cell": [
+            53,
+            64
+          ],
+          "graphic": 11272,
+          "footprint": [
+            4,
+            5
+          ],
+          "center_cell": [
+            54.5,
+            62.0
+          ],
+          "center_local": [
+            13.5,
+            36.0
+          ],
+          "collision_size": [
+            11.65,
+            12,
+            14.65
+          ],
+          "appearance_owner": "east_village_buildings"
+        }
+      ],
+      "doors": [
+        {
+          "source_cell": [
+            48,
+            37
+          ],
+          "destination": 2420,
+          "arrival_cell": [
+            9,
+            16
+          ],
+          "building_cell": [
+            45,
+            36
+          ],
+          "graphic": 11275,
+          "return_warps": [
+            [
+              2420,
+              10,
+              16,
+              2400,
+              48,
+              37
+            ],
+            [
+              2420,
+              9,
+              16,
+              2400,
+              48,
+              37
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            37,
+            44
+          ],
+          "destination": 2401,
+          "arrival_cell": [
+            15,
+            22
+          ],
+          "building_cell": [
+            33,
+            41
+          ],
+          "graphic": 11271,
+          "return_warps": [
+            [
+              2401,
+              16,
+              22,
+              2400,
+              37,
+              44
+            ],
+            [
+              2401,
+              15,
+              22,
+              2400,
+              37,
+              44
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            31,
+            54
+          ],
+          "destination": 2421,
+          "arrival_cell": [
+            2,
+            9
+          ],
+          "building_cell": [
+            32,
+            55
+          ],
+          "graphic": 11272,
+          "return_warps": [
+            [
+              2421,
+              2,
+              10,
+              2400,
+              31,
+              54
+            ],
+            [
+              2421,
+              2,
+              9,
+              2400,
+              31,
+              54
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            52,
+            63
+          ],
+          "destination": 2410,
+          "arrival_cell": [
+            2,
+            9
+          ],
+          "building_cell": [
+            53,
+            64
+          ],
+          "graphic": 11272,
+          "return_warps": [
+            [
+              2410,
+              2,
+              10,
+              2400,
+              52,
+              63
+            ],
+            [
+              2410,
+              2,
+              9,
+              2400,
+              52,
+              63
+            ]
+          ]
+        },
+        {
+          "source_cell": [
+            56,
+            48
+          ],
+          "destination": 2412,
+          "arrival_cell": [
+            6,
+            13
+          ],
+          "building_cell": [
+            57,
+            50
+          ],
+          "graphic": 11269,
+          "return_warps": [
+            [
+              2412,
+              6,
+              13,
+              2400,
+              56,
+              48
+            ],
+            [
+              2412,
+              6,
+              14,
+              2400,
+              56,
+              48
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "round_roof_surface": {
+    "patch": [
+      11269,
+      [
+        [
+          91,
+          236
+        ],
+        [
+          139,
+          259
+        ],
+        [
+          170,
+          238
+        ],
+        [
+          123,
+          215
+        ]
+      ],
+      false,
+      [
+        96,
+        64
+      ]
+    ],
+    "reused_atlas_layout": "il_laruka/building-surfaces.gd",
+    "reason": "The green round-house straw stays distinct from the yellow rectangular-house straw."
+  },
+  "reused_parts": [
+    "forest_il_chief.gd source projection and octagonal/thatch construction",
+    "forest_il_laruka_buildings.gd timber/window/roof/dormer parts",
+    "assets/maps/falan/il_laruka/building-surfaces.png separate native material patches"
+  ],
+  "inferred": [
+    "Hidden walls, roof slopes and wooden wing backs use native part paint at fixed world scale.",
+    "Thatch depth, eave irregularity, rafters, rear window rhythm and ridge cap thickness are inferred.",
+    "Only observed source faces receive the source-camera paint; no whole front image is wrapped onto unseen sides.",
+    "No new entrance, route, collider, interior, NPC or quest owner is added."
+  ]
+}

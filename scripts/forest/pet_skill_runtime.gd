@@ -14,7 +14,9 @@ func reconcile():
   if skills.has(key) and not casters.has(key):
    var caster=preload("res://scripts/forest/pet_skill_caster.gd").new();caster.game=runtime.game;caster.runtime=runtime;caster.pet_key=key;caster.gate_id=runtime.HOUND_ID-Pets.skin(key);caster.team_progression=runtime.game.model.team_progression
    add_child(caster);casters[key]=caster
-  var handle:int=runtime.handles.get(runtime.HOUND_ID-Pets.skin(key),0)
+  var skin=Pets.skin(key)
+  if runtime.beast_pet_orders.has(skin):continue
+  var handle:int=runtime.handles.get(runtime.HOUND_ID-skin,0)
   if casters.has(key):
    casters[key].team_progression=runtime.game.model.team_progression
    casters[key].configure(slots)
@@ -22,12 +24,14 @@ func reconcile():
   if handle:
    var assigned:bool=runtime.native.set_pet_skills(handle,Pets.skill_codes(slots),int(preload("res://scripts/spells/skill_balance.gd").effective(casters[key],Pets.Spells.COMBO,"count")) if casters.has(key) else 3)
    assert(assigned,"Invalid pet skill loadout")
+   if casters.has(key):casters[key].prepare_skill_groups()
 func receive(event:Dictionary):
  var skin=runtime.HOUND_ID-int(event.source_id)
  if skin<0 or skin>=Pets.COUNT:return
  var caster=casters.get(Pets.key(skin))
  if caster!=null:caster.receive(event)
 func step(delta:float):
+ if runtime.hound_order==runtime.HoundOrder.COMBINED:return
  for caster in casters.values():caster.step(delta)
 func retire(handle:int):
  for caster in casters.values():

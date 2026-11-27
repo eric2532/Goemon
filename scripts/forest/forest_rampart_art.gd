@@ -11,6 +11,9 @@ static func build(world: Node3D,parent: Node3D,cap_ends:bool=true):
  root.set_meta("rampart_materials",[stone,cap,dark])
  for piece_index in terrain.pieces.size():
   var piece:Dictionary=terrain.pieces[piece_index]
+  # Source shore strips only feed bounded height/support queries. Their native
+  # cap owner supplies art/collision; they are not fortress decks or parapets.
+  if piece.get("source_bank_cap",false) or piece.get("source_il_low_floor",false):continue
   var a: Vector2=piece.a;var along: Vector2=piece.along;var side: Vector2=piece.side
   var start: Vector2=a+along*piece.start;var end: Vector2=a+along*piece.end
   var h0=lerpf(piece.h0,piece.h1,clampf(piece.start/piece.length,0,1));var h1=lerpf(piece.h0,piece.h1,clampf(piece.end/piece.length,0,1))

@@ -1,0 +1,296 @@
+{
+  "11230": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      2,
+      2,
+      52,
+      130
+    ],
+    "rgba_sha256": "552185a45ae3ec258c5b7f1c4b83375d3c9a187f39dfaece5d7461b6d47e5696",
+    "removed_ground_shadow": 0
+  },
+  "11231": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      58,
+      2,
+      56,
+      134
+    ],
+    "rgba_sha256": "66d726ae6c174ff54a14b4ed85a023b33568a722276460c212cc45f23bcbf302",
+    "removed_ground_shadow": 103
+  },
+  "11232": {
+    "origin": [
+      -25,
+      -113
+    ],
+    "rect": [
+      118,
+      2,
+      52,
+      133
+    ],
+    "rgba_sha256": "be58dd4bba51712c4ba22ca701bde593277acf24442db727c0b00542ba1b8ab1",
+    "removed_ground_shadow": 24
+  },
+  "11233": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      174,
+      2,
+      52,
+      134
+    ],
+    "rgba_sha256": "7a6321555c9b3dac7cae476088b34dbf8dbe059f7d1ad92e4f1b698b382ad2c2",
+    "removed_ground_shadow": 25
+  },
+  "11234": {
+    "origin": [
+      -25,
+      -107
+    ],
+    "rect": [
+      230,
+      2,
+      52,
+      129
+    ],
+    "rgba_sha256": "b5fd0a37d98ffd08cabccaca291e490907c87998ab19184867984348ca12ac54",
+    "removed_ground_shadow": 25
+  },
+  "11235": {
+    "origin": [
+      -28,
+      -152
+    ],
+    "rect": [
+      286,
+      2,
+      60,
+      174
+    ],
+    "rgba_sha256": "d03fc191085054e7685cd14b96ef507284cc33f5e18ac16c832c6224b5dfe30d",
+    "removed_ground_shadow": 114
+  },
+  "11236": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      350,
+      2,
+      48,
+      137
+    ],
+    "rgba_sha256": "b5f670693d495215b6ef55cb0b136d2d0ffe03d2f8ad5f7fa0e82ef2e07c3329",
+    "removed_ground_shadow": 80
+  },
+  "11237": {
+    "origin": [
+      -33,
+      -148
+    ],
+    "rect": [
+      402,
+      2,
+      64,
+      171
+    ],
+    "rgba_sha256": "6aa4483554224e1e0201c8e4dea074af454fd938c886da3568e104c548fc6b26",
+    "removed_ground_shadow": 114
+  },
+  "11238": {
+    "origin": [
+      -28,
+      -154
+    ],
+    "rect": [
+      470,
+      2,
+      60,
+      177
+    ],
+    "rgba_sha256": "dad998276afa9ca5a60d1989f32dcb1af19b4dba54cb6f361e0cc725ee4adb2f",
+    "removed_ground_shadow": 127
+  },
+  "11239": {
+    "origin": [
+      -25,
+      -113
+    ],
+    "rect": [
+      534,
+      2,
+      56,
+      133
+    ],
+    "rgba_sha256": "d9ab809459089426bb5a48472fbd32e3cd820f1de01a8e1023a5430544e8b66e",
+    "removed_ground_shadow": 97
+  },
+  "11240": {
+    "origin": [
+      -25,
+      -116
+    ],
+    "rect": [
+      594,
+      2,
+      56,
+      139
+    ],
+    "rgba_sha256": "a50d739df09c8b1578042383a2a2ec328af9a5ebac31860f697766334257ade0",
+    "removed_ground_shadow": 109
+  },
+  "11241": {
+    "origin": [
+      -25,
+      -113
+    ],
+    "rect": [
+      654,
+      2,
+      56,
+      134
+    ],
+    "rgba_sha256": "3a74ccb45efc4d3ccc54a378485b16e0c4290ff87d0d9c121825d8ff0bb8de4b",
+    "removed_ground_shadow": 100
+  },
+  "11242": {
+    "origin": [
+      -25,
+      -116
+    ],
+    "rect": [
+      714,
+      2,
+      56,
+      137
+    ],
+    "rgba_sha256": "2a67a3c20f034b3fe3b943c32dd90b353a90d0c4bd197a0559e04e6c0d8d7c3b",
+    "removed_ground_shadow": 65
+  },
+  "11243": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      774,
+      2,
+      56,
+      126
+    ],
+    "rgba_sha256": "b25425bfd9fad9f1192e0c20a3e8bb2879d0f9bbce4d3ab77fcacb16f32caae0",
+    "removed_ground_shadow": 60
+  },
+  "11244": {
+    "origin": [
+      -26,
+      -116
+    ],
+    "rect": [
+      834,
+      2,
+      52,
+      135
+    ],
+    "rgba_sha256": "87b6b8a5d595a20819bab9a44bedeb88cd5a0f17caab7afe8c99e93c65ec929f",
+    "removed_ground_shadow": 36
+  },
+  "11245": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      890,
+      2,
+      52,
+      132
+    ],
+    "rgba_sha256": "0cd0497de4fea9813b37b680d1dcb074026d203d98eab5a2f3bed5cd94d6126d",
+    "removed_ground_shadow": 59
+  },
+  "11246": {
+    "origin": [
+      -26,
+      -116
+    ],
+    "rect": [
+      946,
+      2,
+      52,
+      134
+    ],
+    "rgba_sha256": "4b7767be5ae66f043fd6043da9876338fe29caca8b087e57b5cbbfd6a3fc0bb4",
+    "removed_ground_shadow": 43
+  },
+  "11247": {
+    "origin": [
+      -26,
+      -113
+    ],
+    "rect": [
+      2,
+      183,
+      52,
+      133
+    ],
+    "rgba_sha256": "303c7c97727864683d0ecca1c19fef7e7a2d7c1b459f95281b3a536a5a7ef2de",
+    "removed_ground_shadow": 51
+  },
+  "11248": {
+    "origin": [
+      -33,
+      -157
+    ],
+    "rect": [
+      58,
+      183,
+      60,
+      175
+    ],
+    "rgba_sha256": "dcc09a8e38ba86d24c0e85f6b8d8445ba143802dbfcc17e1dfa3131bf5be3199",
+    "removed_ground_shadow": 50
+  },
+  "11249": {
+    "origin": [
+      -26,
+      -148
+    ],
+    "rect": [
+      122,
+      183,
+      64,
+      172
+    ],
+    "rgba_sha256": "7759c17f12bae8d607aebc88614bdd255c8cc668defdf24c6069e6ecfb01cb9d",
+    "removed_ground_shadow": 76
+  },
+  "11250": {
+    "origin": [
+      -18,
+      -113
+    ],
+    "rect": [
+      190,
+      183,
+      44,
+      132
+    ],
+    "rgba_sha256": "6f4a4e095407c55f8770e582a91cecd101c4787d740be88c7fbab800231b5a2f",
+    "removed_ground_shadow": 30
+  }
+}

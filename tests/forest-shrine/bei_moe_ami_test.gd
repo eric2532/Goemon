@@ -79,14 +79,15 @@ func run():
   for skin in catalog:
    choose_skin(character,skin);appearances+=1
    var choices=Gear.allowed(character,game.settings)
+   var source_weapons:Dictionary=visual.profile(visual.native_root).source_weapons
    check(p.model==visual and visual.appearance.id==skin,"Skin changes the same existing model")
    if character==38:check(visual.body_height_pixels==80,"Shin 2.0 body scale excludes its weapon and aura")
-   check(choices.keys()==visual.appearance.source_weapons.keys(),"Only pack-qualified supplied weapons are offered")
+   check(choices.has("beast-master") and source_weapons.keys().all(func(weapon):return choices.has(weapon)),"The supplied weapons and Beast Master are offered")
    game.forest_ui.sync_character()
    check(game.forest_ui.hero_portrait.texture==game.forest_ui.PaintedHeads.portrait(character,game.settings) and game.forest_ui.hero_portrait.texture!=null,"Original model head follows the selected skin")
-   for weapon in choices:
+   for weapon in source_weapons:
     equip_weapon(character,weapon);combinations+=1
-    check(visual.current_weapon()==weapon and visual.motions.key==visual.appearance.source_weapons[weapon],"Weapon keeps its exact source record despite numeric ID collisions")
+    check(visual.current_weapon()==weapon and visual.motions.key==source_weapons[weapon],"Weapon keeps its exact source record despite numeric ID collisions")
     for direction in 8:
      var motion:Dictionary=visual.body_clip(5,"5:%d"%direction)
      check(motion.duration>0 and motion.contacts.all(func(at):return at>=0 and at<motion.duration),"Original contact clock is bounded")
@@ -99,7 +100,7 @@ func run():
    check(game.save_equipment_loadouts(no_gear,game.settings.skill_item_loadouts,game.settings.cosmetic_loadouts),"Skin can use its native weapon without carried equipment")
    for index in choices.size():
     p.swap_weapon()
-    check(visual.current_weapon()==choices.keys()[(index+1)%choices.size()],"Cycling visits only the supplied weapons")
+    check(visual.gear_weapon==choices.keys()[(index+1)%choices.size()],"Cycling visits each available weapon")
    game.load_settings()
    check(Gear.Roster.selected_skin(character,game.settings)==skin and choices.has(visual.current_weapon()),"Skin and weapon survive reload")
    p.position=home;p.velocity=Vector3.ZERO
@@ -128,7 +129,10 @@ func run():
  check(appearances==86 and combinations==465,"All 86 added appearances and 465 supplied weapon combinations exercised")
  for spec in [[48,109876,"unarmed"],[49,106708,"sword"],[49,120110,"staff"],[50,115258,"sword"],[48,120386,"sword"],[38,108312,"polearm"],[38,120382,"unarmed"],[38,120383,"unarmed"],[38,120445,"sword"]]:
   p.select_character(spec[0]);choose_skin(spec[0],spec[1])
-  check(Gear.allowed(spec[0],game.settings).keys()==[spec[2]],"Fixed pet/effect weapon cannot acquire invented siblings")
+  var supported:Array=[spec[2]]
+  if spec[1] in [120382,120383]:supported.append("boomerang")
+  supported.append("beast-master")
+  check(Gear.allowed(spec[0],game.settings).keys()==supported,"Fixed pet/effect appearance offers its prepared weapons and Beast Master")
  await simultaneous_cast_attacks()
  p.select_character(38)
  for skin in Gear.Roster.ShinSkins.HIDDEN_CLASSIC:

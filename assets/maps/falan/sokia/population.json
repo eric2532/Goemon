@@ -1,0 +1,12119 @@
+{
+  "schema": 1,
+  "area": "sokia_coast",
+  "bounds": [
+    48,
+    70,
+    421,
+    421
+  ],
+  "outdoor_bounds": {
+    "sokia_coast": [
+      48,
+      70,
+      421,
+      421
+    ],
+    "sokia_desert": [
+      269,
+      65,
+      411,
+      411
+    ],
+    "ghana_road": [
+      427,
+      1,
+      401,
+      401
+    ],
+    "ghana_north_road": [
+      623,
+      -13,
+      165,
+      165
+    ]
+  },
+  "npcs": [
+    {
+      "id": "3036",
+      "name": "机器狮",
+      "type": "Windowman",
+      "area": "interior",
+      "floor": 23600,
+      "source": 23600,
+      "cell": [
+        23,
+        14
+      ],
+      "direction": 6,
+      "graphic": 14127,
+      "token": "sokia:14127:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Windowman",
+        "机器狮",
+        "0",
+        "3036",
+        "0",
+        "1",
+        "1",
+        "0",
+        "23600",
+        "23",
+        "14",
+        "23",
+        "14",
+        "23",
+        "14",
+        "23",
+        "14",
+        "1",
+        "60000",
+        "6",
+        "14127",
+        "0",
+        "1",
+        "0",
+        "WM_rk_lion01.txt"
+      ]
+    },
+    {
+      "id": "5203",
+      "name": "柜台小姐真奈美",
+      "type": "Event",
+      "area": "interior",
+      "floor": 23600,
+      "source": 23600,
+      "cell": [
+        23,
+        33
+      ],
+      "direction": 6,
+      "graphic": 14153,
+      "token": "sokia:14153:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "柜台小姐真奈美",
+        "0",
+        "5203",
+        "0",
+        "1",
+        "1",
+        "0",
+        "23600",
+        "23",
+        "33",
+        "23",
+        "33",
+        "23",
+        "33",
+        "23",
+        "33",
+        "1",
+        "60000",
+        "6",
+        "14153",
+        "0",
+        "1",
+        "0",
+        "EV_rk_lion02.txt"
+      ]
+    },
+    {
+      "id": "5212",
+      "name": "来报仇的牛鬼",
+      "type": "Event",
+      "area": "interior",
+      "floor": 15527,
+      "source": 15527,
+      "cell": [
+        15,
+        5
+      ],
+      "direction": 4,
+      "graphic": 101922,
+      "token": "sokia:101922:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "来报仇的牛鬼",
+        "0",
+        "5212",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15527",
+        "15",
+        "5",
+        "15",
+        "5",
+        "15",
+        "5",
+        "15",
+        "5",
+        "1",
+        "60000",
+        "4",
+        "101922",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi01.txt"
+      ]
+    },
+    {
+      "id": "5224",
+      "name": "引导的狮子",
+      "type": "Event",
+      "area": "interior",
+      "floor": 23600,
+      "source": 23600,
+      "cell": [
+        23,
+        23
+      ],
+      "direction": 6,
+      "graphic": 101031,
+      "token": "sokia:101031:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "引导的狮子",
+        "0",
+        "5224",
+        "0",
+        "1",
+        "1",
+        "0",
+        "23600",
+        "23",
+        "23",
+        "23",
+        "23",
+        "23",
+        "23",
+        "23",
+        "23",
+        "1",
+        "60000",
+        "6",
+        "101031",
+        "0",
+        "1",
+        "0",
+        "EV_rk_lion11.txt"
+      ]
+    },
+    {
+      "id": "5239",
+      "name": "看守的星雄",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        707,
+        58
+      ],
+      "direction": 4,
+      "graphic": 101822,
+      "token": "sokia:101822:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "看守的星雄",
+        "0",
+        "5239",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "707",
+        "58",
+        "707",
+        "58",
+        "707",
+        "58",
+        "707",
+        "58",
+        "1",
+        "60000",
+        "4",
+        "101822",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi07.txt"
+      ]
+    },
+    {
+      "id": "5243",
+      "name": "牛鬼公主",
+      "type": "Event",
+      "area": "interior",
+      "floor": 15525,
+      "source": 15525,
+      "cell": [
+        16,
+        8
+      ],
+      "direction": 4,
+      "graphic": 101923,
+      "token": "sokia:101923:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "牛鬼公主",
+        "0",
+        "5243",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15525",
+        "16",
+        "8",
+        "16",
+        "8",
+        "16",
+        "8",
+        "16",
+        "8",
+        "1",
+        "60000",
+        "4",
+        "101923",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi09.txt"
+      ],
+      "quest_action": "sokia_cape:5243",
+      "map_body_foot_row": 184,
+      "map_body_top_row": 1,
+      "map_raw_origin": [
+        -120,
+        -141
+      ],
+      "map_foot_contract": "Existing body_rows excludes the original charcoal shadow; body feet align with the unchanged source-cell ground anchor. Native combat keeps its separate10px convention."
+    },
+    {
+      "id": "5244",
+      "name": "小鬼",
+      "type": "Event",
+      "area": "interior",
+      "floor": 15527,
+      "source": 15527,
+      "cell": [
+        20,
+        9
+      ],
+      "direction": 6,
+      "graphic": 101800,
+      "token": "sokia:101800:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "小鬼",
+        "0",
+        "5244",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15527",
+        "20",
+        "9",
+        "20",
+        "9",
+        "20",
+        "9",
+        "20",
+        "9",
+        "1",
+        "60000",
+        "6",
+        "101800",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi10.txt"
+      ]
+    },
+    {
+      "id": "5305",
+      "name": "地缚灵罗连斯",
+      "type": "StandEnemy",
+      "area": "interior",
+      "floor": 15526,
+      "source": 15526,
+      "cell": [
+        44,
+        9
+      ],
+      "direction": 0,
+      "graphic": 101532,
+      "token": "sokia:101532:0",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "StandEnemy",
+        "地缚灵罗连斯",
+        "0",
+        "5305",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15526",
+        "44",
+        "9",
+        "44",
+        "9",
+        "44",
+        "9",
+        "44",
+        "9",
+        "1",
+        "60000",
+        "0",
+        "101532",
+        "0",
+        "1",
+        "0",
+        "3|0,15526,47,7||0|||||0|12020|||||||||"
+      ],
+      "quest_action": "sokia_cape:5305",
+      "map_body_foot_row": 83,
+      "map_body_top_row": 1,
+      "map_raw_origin": [
+        -66,
+        -84
+      ],
+      "map_foot_contract": "Existing body_rows excludes the original charcoal shadow; body feet align with the unchanged source-cell ground anchor. Native combat keeps its separate10px convention."
+    },
+    {
+      "id": "5310",
+      "name": "风精",
+      "type": "Event",
+      "area": "interior",
+      "floor": 15564,
+      "source": 15564,
+      "cell": [
+        19,
+        9
+      ],
+      "direction": 5,
+      "graphic": 101511,
+      "token": "sokia:101511:5",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "风精",
+        "0",
+        "5310",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15564",
+        "19",
+        "9",
+        "19",
+        "9",
+        "19",
+        "9",
+        "19",
+        "9",
+        "1",
+        "60000",
+        "5",
+        "101511",
+        "0",
+        "1",
+        "0",
+        "EV_rk_aele01.txt"
+      ]
+    },
+    {
+      "id": "6117",
+      "name": "守门的腐尸",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        216,
+        222
+      ],
+      "direction": 2,
+      "graphic": 101103,
+      "token": "sokia:101103:2",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": true,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "守门的腐尸",
+        "0",
+        "6117",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "216",
+        "222",
+        "216",
+        "222",
+        "216",
+        "222",
+        "216",
+        "222",
+        "1",
+        "60000",
+        "2",
+        "101103",
+        "0",
+        "1",
+        "9",
+        "EV_ijk_6117.txt"
+      ]
+    },
+    {
+      "id": "6131",
+      "name": "山丘管理员欧莎",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        204,
+        236
+      ],
+      "direction": 6,
+      "graphic": 14107,
+      "token": "sokia:14107:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": true,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "山丘管理员欧莎",
+        "0",
+        "6131",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "204",
+        "236",
+        "204",
+        "236",
+        "204",
+        "236",
+        "204",
+        "236",
+        "1",
+        "60000",
+        "6",
+        "14107",
+        "0",
+        "1",
+        "9",
+        "EV_ijk_6131.txt"
+      ]
+    },
+    {
+      "id": "6132",
+      "name": "爱鼠的老婆婆",
+      "type": "Event",
+      "area": "interior",
+      "floor": 5001,
+      "source": 5001,
+      "cell": [
+        12,
+        9
+      ],
+      "direction": 6,
+      "graphic": 14097,
+      "token": "sokia:14097:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "爱鼠的老婆婆",
+        "0",
+        "6132",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5001",
+        "12",
+        "9",
+        "12",
+        "9",
+        "12",
+        "9",
+        "12",
+        "9",
+        "1",
+        "60000",
+        "6",
+        "14097",
+        "0",
+        "1",
+        "9",
+        "EV_ijk_6132.txt"
+      ]
+    },
+    {
+      "id": "6134",
+      "name": "饲养师师父",
+      "type": "Event",
+      "area": "interior",
+      "floor": 5003,
+      "source": 5003,
+      "cell": [
+        15,
+        7
+      ],
+      "direction": 4,
+      "graphic": 14549,
+      "token": "sokia:14549:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "饲养师师父",
+        "0",
+        "6134",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5003",
+        "15",
+        "7",
+        "15",
+        "7",
+        "15",
+        "7",
+        "15",
+        "7",
+        "1",
+        "60000",
+        "4",
+        "14549",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6134.txt"
+      ]
+    },
+    {
+      "id": "6135",
+      "name": "小浓",
+      "type": "Event",
+      "area": "interior",
+      "floor": 5003,
+      "source": 5003,
+      "cell": [
+        13,
+        13
+      ],
+      "direction": 0,
+      "graphic": 101020,
+      "token": "sokia:101020:0",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "小浓",
+        "0",
+        "6135",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5003",
+        "13",
+        "13",
+        "13",
+        "13",
+        "13",
+        "13",
+        "13",
+        "13",
+        "1",
+        "60000",
+        "0",
+        "101020",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6135.txt"
+      ]
+    },
+    {
+      "id": "6136",
+      "name": "大地鼠爷爷",
+      "type": "Event",
+      "area": "interior",
+      "floor": 5001,
+      "source": 5001,
+      "cell": [
+        10,
+        5
+      ],
+      "direction": 6,
+      "graphic": 14091,
+      "token": "sokia:14091:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "大地鼠爷爷",
+        "0",
+        "6136",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5001",
+        "10",
+        "5",
+        "10",
+        "5",
+        "10",
+        "5",
+        "10",
+        "5",
+        "1",
+        "60000",
+        "6",
+        "14091",
+        "0",
+        "1",
+        "6",
+        "EV_ijk_6136.txt"
+      ]
+    },
+    {
+      "id": "6137",
+      "name": "大地鼠",
+      "type": "Event",
+      "area": "interior",
+      "floor": 5001,
+      "source": 5001,
+      "cell": [
+        9,
+        13
+      ],
+      "direction": 6,
+      "graphic": 101020,
+      "token": "sokia:101020:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "大地鼠",
+        "0",
+        "6137",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5001",
+        "9",
+        "13",
+        "9",
+        "13",
+        "9",
+        "13",
+        "9",
+        "13",
+        "1",
+        "60000",
+        "6",
+        "101020",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6137.txt"
+      ]
+    },
+    {
+      "id": "6315",
+      "name": "古代人民",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        579,
+        275
+      ],
+      "direction": 4,
+      "graphic": 14526,
+      "token": "sokia:14526:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": true,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "古代人民",
+        "0",
+        "6315",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "579",
+        "275",
+        "633",
+        "326",
+        "579",
+        "275",
+        "579",
+        "275",
+        "1",
+        "60000",
+        "4",
+        "14526",
+        "0",
+        "1",
+        "8",
+        "EV_mag_6315.txt"
+      ]
+    },
+    {
+      "id": "6316",
+      "name": "古代人民",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        514,
+        337
+      ],
+      "direction": 4,
+      "graphic": 14526,
+      "token": "sokia:14526:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": true,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "古代人民",
+        "0",
+        "6316",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "514",
+        "337",
+        "566",
+        "388",
+        "514",
+        "337",
+        "514",
+        "337",
+        "1",
+        "60000",
+        "4",
+        "14526",
+        "0",
+        "1",
+        "8",
+        "EV_mag_6316.txt"
+      ]
+    },
+    {
+      "id": "6317",
+      "name": "古代人民",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        593,
+        332
+      ],
+      "direction": 4,
+      "graphic": 14526,
+      "token": "sokia:14526:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": true,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "古代人民",
+        "0",
+        "6317",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "593",
+        "332",
+        "653",
+        "385",
+        "593",
+        "332",
+        "593",
+        "332",
+        "1",
+        "60000",
+        "4",
+        "14526",
+        "0",
+        "1",
+        "8",
+        "EV_mag_6317.txt"
+      ]
+    },
+    {
+      "id": "6325",
+      "name": "坟墓",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        715,
+        34
+      ],
+      "direction": 4,
+      "graphic": 11054,
+      "token": "sokia:11054:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "坟墓",
+        "0",
+        "6325",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "715",
+        "34",
+        "715",
+        "34",
+        "715",
+        "34",
+        "715",
+        "34",
+        "1",
+        "60000",
+        "4",
+        "11054",
+        "0",
+        "1",
+        "0",
+        "EV_mag_6325.txt"
+      ]
+    },
+    {
+      "id": "6513",
+      "name": "伪造专家波塔",
+      "type": "Event",
+      "area": "interior",
+      "floor": 13015,
+      "source": 13015,
+      "cell": [
+        18,
+        7
+      ],
+      "direction": 0,
+      "graphic": 14120,
+      "token": "sokia:14120:0",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "伪造专家波塔",
+        "0",
+        "6513",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13015",
+        "18",
+        "7",
+        "18",
+        "7",
+        "18",
+        "7",
+        "18",
+        "7",
+        "1",
+        "60000",
+        "0",
+        "14120",
+        "0",
+        "1",
+        "0",
+        "EV_aoki_6513.txt"
+      ]
+    },
+    {
+      "id": "6719",
+      "name": "风之石碑",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        297,
+        225
+      ],
+      "direction": 6,
+      "graphic": 11566,
+      "token": "sokia:11566:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "风之石碑",
+        "0",
+        "6719",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "297",
+        "225",
+        "297",
+        "225",
+        "297",
+        "225",
+        "297",
+        "225",
+        "1",
+        "60000",
+        "6",
+        "11566",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6715.txt"
+      ]
+    },
+    {
+      "id": "6720",
+      "name": "火之石碑",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        512,
+        232
+      ],
+      "direction": 4,
+      "graphic": 11569,
+      "token": "sokia:11569:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "火之石碑",
+        "0",
+        "6720",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "512",
+        "232",
+        "512",
+        "232",
+        "512",
+        "232",
+        "512",
+        "232",
+        "1",
+        "60000",
+        "4",
+        "11569",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6716.txt"
+      ]
+    },
+    {
+      "id": "6721",
+      "name": "水之石碑",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        581,
+        422
+      ],
+      "direction": 4,
+      "graphic": 11567,
+      "token": "sokia:11567:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "水之石碑",
+        "0",
+        "6721",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "581",
+        "422",
+        "581",
+        "422",
+        "581",
+        "422",
+        "581",
+        "422",
+        "1",
+        "60000",
+        "4",
+        "11567",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6717.txt"
+      ]
+    },
+    {
+      "id": "6722",
+      "name": "地之石碑",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        630,
+        300
+      ],
+      "direction": 6,
+      "graphic": 11571,
+      "token": "sokia:11571:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "地之石碑",
+        "0",
+        "6722",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "630",
+        "300",
+        "630",
+        "300",
+        "630",
+        "300",
+        "630",
+        "300",
+        "1",
+        "60000",
+        "6",
+        "11571",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6718.txt"
+      ]
+    },
+    {
+      "id": "6724",
+      "name": "甘卡佐",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        534,
+        323
+      ],
+      "direction": 6,
+      "graphic": 14111,
+      "token": "sokia:14111:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "甘卡佐",
+        "0",
+        "6724",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "534",
+        "323",
+        "534",
+        "323",
+        "534",
+        "323",
+        "534",
+        "323",
+        "1",
+        "60000",
+        "6",
+        "14111",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6720.txt"
+      ]
+    },
+    {
+      "id": "6725",
+      "name": "部下葛霸",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        531,
+        322
+      ],
+      "direction": 4,
+      "graphic": 14175,
+      "token": "sokia:14175:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "部下葛霸",
+        "0",
+        "6725",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "531",
+        "322",
+        "531",
+        "322",
+        "531",
+        "322",
+        "531",
+        "322",
+        "1",
+        "60000",
+        "4",
+        "14175",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6721.txt"
+      ]
+    },
+    {
+      "id": "6730",
+      "name": "古代石碑",
+      "type": "Event",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        623,
+        362
+      ],
+      "direction": 6,
+      "graphic": 11574,
+      "token": "sokia:11574:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Event",
+        "古代石碑",
+        "0",
+        "6730",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "623",
+        "362",
+        "623",
+        "362",
+        "623",
+        "362",
+        "623",
+        "362",
+        "1",
+        "60000",
+        "6",
+        "11574",
+        "0",
+        "1",
+        "0",
+        "EV_smi_6730.txt"
+      ]
+    },
+    {
+      "id": "8240",
+      "name": "留言板",
+      "type": "Dengon",
+      "area": "ghana",
+      "floor": 0,
+      "source": 3000,
+      "cell": [
+        56,
+        43
+      ],
+      "direction": 6,
+      "graphic": 11555,
+      "token": "sokia:11555:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Dengon",
+        "留言板",
+        "0",
+        "8240",
+        "0",
+        "1",
+        "1",
+        "0",
+        "3000",
+        "56",
+        "43",
+        "56",
+        "43",
+        "56",
+        "43",
+        "56",
+        "43",
+        "1",
+        "60000",
+        "6",
+        "11555",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8470",
+      "name": "大街传送石",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 3099,
+      "source": 3099,
+      "cell": [
+        14,
+        5
+      ],
+      "direction": 4,
+      "graphic": 103013,
+      "token": "sokia:103013:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "大街传送石",
+        "0",
+        "8470",
+        "0",
+        "1",
+        "1",
+        "0",
+        "3099",
+        "14",
+        "5",
+        "14",
+        "5",
+        "14",
+        "5",
+        "14",
+        "5",
+        "1",
+        "60000",
+        "4",
+        "103013",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8534",
+      "name": "流星山丘　登山口",
+      "type": "Billboard",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        204,
+        235
+      ],
+      "direction": 4,
+      "graphic": 10414,
+      "token": "sokia:10414:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "流星山丘　登山口",
+        "0",
+        "8534",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "204",
+        "235",
+        "204",
+        "235",
+        "204",
+        "235",
+        "204",
+        "235",
+        "1",
+        "60000",
+        "4",
+        "10414",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8535",
+      "name": "流星山丘　下山口",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13002,
+      "source": 13002,
+      "cell": [
+        75,
+        82
+      ],
+      "direction": 6,
+      "graphic": 10413,
+      "token": "sokia:10413:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "流星山丘　下山口",
+        "0",
+        "8535",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13002",
+        "75",
+        "82",
+        "75",
+        "82",
+        "75",
+        "82",
+        "75",
+        "82",
+        "1",
+        "60000",
+        "6",
+        "10413",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8536",
+      "name": "由东边下山的路",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13008,
+      "source": 13008,
+      "cell": [
+        58,
+        36
+      ],
+      "direction": 4,
+      "graphic": 10414,
+      "token": "sokia:10414:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "由东边下山的路",
+        "0",
+        "8536",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13008",
+        "58",
+        "36",
+        "58",
+        "36",
+        "58",
+        "36",
+        "58",
+        "36",
+        "1",
+        "60000",
+        "4",
+        "10414",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8537",
+      "name": "由西边下山的路",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13008,
+      "source": 13008,
+      "cell": [
+        11,
+        29
+      ],
+      "direction": 4,
+      "graphic": 10414,
+      "token": "sokia:10414:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "由西边下山的路",
+        "0",
+        "8537",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13008",
+        "11",
+        "29",
+        "11",
+        "29",
+        "11",
+        "29",
+        "11",
+        "29",
+        "1",
+        "60000",
+        "4",
+        "10414",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8538",
+      "name": "流星山丘　下山口",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13014,
+      "source": 13014,
+      "cell": [
+        9,
+        60
+      ],
+      "direction": 6,
+      "graphic": 10414,
+      "token": "sokia:10414:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "流星山丘　下山口",
+        "0",
+        "8538",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13014",
+        "9",
+        "60",
+        "9",
+        "60",
+        "9",
+        "60",
+        "9",
+        "60",
+        "1",
+        "60000",
+        "6",
+        "10414",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8539",
+      "name": "流星山丘　登山口",
+      "type": "Billboard",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        187,
+        231
+      ],
+      "direction": 6,
+      "graphic": 10413,
+      "token": "sokia:10413:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "流星山丘　登山口",
+        "0",
+        "8539",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "187",
+        "231",
+        "187",
+        "231",
+        "187",
+        "231",
+        "187",
+        "231",
+        "1",
+        "60000",
+        "6",
+        "10413",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8540",
+      "name": "北　山顶",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13008,
+      "source": 13008,
+      "cell": [
+        22,
+        18
+      ],
+      "direction": 6,
+      "graphic": 10410,
+      "token": "sokia:10410:6",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "北　山顶",
+        "0",
+        "8540",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13008",
+        "22",
+        "18",
+        "22",
+        "18",
+        "22",
+        "18",
+        "22",
+        "18",
+        "1",
+        "60000",
+        "6",
+        "10410",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8541",
+      "name": "流星山丘　山顶",
+      "type": "Billboard",
+      "area": "interior",
+      "floor": 13009,
+      "source": 13009,
+      "cell": [
+        37,
+        57
+      ],
+      "direction": 4,
+      "graphic": 10414,
+      "token": "sokia:10414:4",
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Billboard",
+        "流星山丘　山顶",
+        "0",
+        "8541",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13009",
+        "37",
+        "57",
+        "37",
+        "57",
+        "37",
+        "57",
+        "37",
+        "57",
+        "1",
+        "60000",
+        "4",
+        "10414",
+        "0",
+        "1",
+        "0",
+        ""
+      ]
+    },
+    {
+      "id": "8616",
+      "name": "宠物技能店托彼特",
+      "type": "Techshop",
+      "area": "interior",
+      "floor": 5003,
+      "source": 5003,
+      "cell": [
+        14,
+        4
+      ],
+      "direction": 6,
+      "graphic": 14508,
+      "token": "sokia:14508:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Techshop",
+        "宠物技能店托彼特",
+        "0",
+        "8616",
+        "0",
+        "1",
+        "1",
+        "0",
+        "5003",
+        "14",
+        "4",
+        "14",
+        "4",
+        "14",
+        "4",
+        "14",
+        "4",
+        "1",
+        "60000",
+        "6",
+        "14508",
+        "0",
+        "1",
+        "0",
+        "100|10158|10159|10160|10161|10162|7532|7632|7732|7832|7932|8032|8132|1332|1432|1532|1632|1732|1832"
+      ]
+    },
+    {
+      "id": "22532",
+      "name": "夏瓦特",
+      "type": "Skillmaster",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        528,
+        327
+      ],
+      "direction": 4,
+      "graphic": 14173,
+      "token": "sokia:14173:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "Skillmaster",
+        "夏瓦特",
+        "0",
+        "22532",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "528",
+        "327",
+        "528",
+        "327",
+        "528",
+        "327",
+        "528",
+        "327",
+        "1",
+        "60000",
+        "4",
+        "14173",
+        "0",
+        "1",
+        "0",
+        "95|660|661|662|663|"
+      ]
+    },
+    {
+      "id": "60170",
+      "name": "鲁金",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13002,
+      "source": 13002,
+      "cell": [
+        50,
+        48
+      ],
+      "direction": 6,
+      "graphic": 14103,
+      "token": "sokia:14103:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "鲁金",
+        "0",
+        "60170",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13002",
+        "50",
+        "48",
+        "50",
+        "48",
+        "50",
+        "48",
+        "50",
+        "48",
+        "1",
+        "60000",
+        "6",
+        "14103",
+        "0",
+        "1",
+        "0",
+        "2308|2309"
+      ]
+    },
+    {
+      "id": "60171",
+      "name": "法达",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13002,
+      "source": 13002,
+      "cell": [
+        50,
+        47
+      ],
+      "direction": 4,
+      "graphic": 14106,
+      "token": "sokia:14106:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "法达",
+        "0",
+        "60171",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13002",
+        "50",
+        "47",
+        "50",
+        "47",
+        "50",
+        "47",
+        "50",
+        "47",
+        "1",
+        "60000",
+        "4",
+        "14106",
+        "0",
+        "1",
+        "0",
+        "2310|2311"
+      ]
+    },
+    {
+      "id": "60172",
+      "name": "艾伦斯特",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13008,
+      "source": 13008,
+      "cell": [
+        24,
+        42
+      ],
+      "direction": 4,
+      "graphic": 14101,
+      "token": "sokia:14101:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "艾伦斯特",
+        "0",
+        "60172",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13008",
+        "24",
+        "42",
+        "24",
+        "42",
+        "24",
+        "42",
+        "24",
+        "42",
+        "1",
+        "60000",
+        "4",
+        "14101",
+        "0",
+        "1",
+        "0",
+        "2312|2313"
+      ]
+    },
+    {
+      "id": "60173",
+      "name": "米鲁卡",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13008,
+      "source": 13008,
+      "cell": [
+        25,
+        41
+      ],
+      "direction": 6,
+      "graphic": 14105,
+      "token": "sokia:14105:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "米鲁卡",
+        "0",
+        "60173",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13008",
+        "25",
+        "41",
+        "25",
+        "41",
+        "25",
+        "41",
+        "25",
+        "41",
+        "1",
+        "60000",
+        "6",
+        "14105",
+        "0",
+        "1",
+        "0",
+        "2314|2315"
+      ]
+    },
+    {
+      "id": "60174",
+      "name": "卡姆依",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13006,
+      "source": 13006,
+      "cell": [
+        28,
+        20
+      ],
+      "direction": 0,
+      "graphic": 14104,
+      "token": "sokia:14104:0",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "卡姆依",
+        "0",
+        "60174",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13006",
+        "28",
+        "20",
+        "28",
+        "20",
+        "28",
+        "20",
+        "28",
+        "20",
+        "1",
+        "60000",
+        "0",
+        "14104",
+        "0",
+        "1",
+        "0",
+        "2316|2317"
+      ]
+    },
+    {
+      "id": "60175",
+      "name": "小兰",
+      "type": "TownPeople",
+      "area": "interior",
+      "floor": 13006,
+      "source": 13006,
+      "cell": [
+        29,
+        20
+      ],
+      "direction": 6,
+      "graphic": 14094,
+      "token": "sokia:14094:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "小兰",
+        "0",
+        "60175",
+        "0",
+        "1",
+        "1",
+        "0",
+        "13006",
+        "29",
+        "20",
+        "29",
+        "20",
+        "29",
+        "20",
+        "29",
+        "20",
+        "1",
+        "60000",
+        "6",
+        "14094",
+        "0",
+        "1",
+        "0",
+        "2318|2319"
+      ]
+    },
+    {
+      "id": "63010",
+      "name": "部下葛克",
+      "type": "TownPeople",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        534,
+        322
+      ],
+      "direction": 6,
+      "graphic": 14120,
+      "token": "sokia:14120:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "部下葛克",
+        "0",
+        "63010",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "534",
+        "322",
+        "534",
+        "322",
+        "534",
+        "322",
+        "534",
+        "322",
+        "1",
+        "60000",
+        "6",
+        "14120",
+        "0",
+        "1",
+        "0",
+        "3518|4006"
+      ]
+    },
+    {
+      "id": "63011",
+      "name": "部下普吉",
+      "type": "TownPeople",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        507,
+        232
+      ],
+      "direction": 4,
+      "graphic": 14121,
+      "token": "sokia:14121:4",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "部下普吉",
+        "0",
+        "63011",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "507",
+        "232",
+        "507",
+        "232",
+        "507",
+        "232",
+        "507",
+        "232",
+        "1",
+        "60000",
+        "4",
+        "14121",
+        "0",
+        "1",
+        "0",
+        "3519|3520"
+      ]
+    },
+    {
+      "id": "63012",
+      "name": "部下杰尔",
+      "type": "TownPeople",
+      "area": "sokia_coast",
+      "floor": 0,
+      "source": 300,
+      "cell": [
+        586,
+        433
+      ],
+      "direction": 6,
+      "graphic": 14174,
+      "token": "sokia:14174:6",
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "atlas_path": "res://assets/maps/falan/sokia/npc-atlas.png",
+      "night_only": false,
+      "messages": [
+        "這裡的詳細對話尚待恢復。"
+      ],
+      "raw": [
+        "TownPeople",
+        "部下杰尔",
+        "0",
+        "63012",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "586",
+        "433",
+        "586",
+        "433",
+        "586",
+        "433",
+        "586",
+        "433",
+        "1",
+        "60000",
+        "6",
+        "14174",
+        "0",
+        "1",
+        "0",
+        "3521|3522"
+      ]
+    }
+  ],
+  "art": {
+    "sokia:14127:6": {
+      "key": "graphic:14127",
+      "origin": [
+        -19,
+        -71
+      ],
+      "rgba_sha256": "ba3edaa75b70f2581a8806b9a1d78455f757f80217c617cdfa4fb20095f53539",
+      "rect": [
+        1,
+        1,
+        34,
+        79
+      ]
+    },
+    "sokia:14153:6": {
+      "key": "graphic:14153",
+      "origin": [
+        -11,
+        -74
+      ],
+      "rgba_sha256": "32c6a791a739cf0cf47d3f97668d9d914d49cc2267a8b48f4f5ea55c906d3458",
+      "rect": [
+        37,
+        1,
+        23,
+        82
+      ]
+    },
+    "sokia:101922:4": {
+      "key": "original:2974",
+      "origin": [
+        -144,
+        -129
+      ],
+      "rgba_sha256": "4aba3e6ec971a60f915ced1f2f3b587a116659eee526bd124118c162f36040ba",
+      "rect": [
+        62,
+        1,
+        210,
+        168
+      ]
+    },
+    "sokia:101031:6": {
+      "key": "original:2819",
+      "origin": [
+        -35,
+        -60
+      ],
+      "rgba_sha256": "12614ac737c13989419d242f46af51a8bb560a7b45267b3b06d04a1c56ea8732",
+      "rect": [
+        274,
+        1,
+        67,
+        80
+      ]
+    },
+    "sokia:101822:4": {
+      "key": "original:2954",
+      "origin": [
+        -34,
+        -62
+      ],
+      "rgba_sha256": "298e2a796e7b90c034798966428a9b7fbafb3e2670dac4d12cecd439de6bcf9f",
+      "rect": [
+        343,
+        1,
+        62,
+        76
+      ]
+    },
+    "sokia:101923:4": {
+      "key": "original:2975",
+      "origin": [
+        -120,
+        -141
+      ],
+      "rgba_sha256": "ce6c8f454551a2314c43826566e36b55b0458b7708a8282b01aa0b2668bc49a3",
+      "rect": [
+        407,
+        1,
+        194,
+        190
+      ]
+    },
+    "sokia:101800:6": {
+      "key": "original:2944",
+      "origin": [
+        -20,
+        -43
+      ],
+      "rgba_sha256": "ca65594debc125ae3aab51740b4c0f3573d18de030134a5b1c1b7da251de13d4",
+      "rect": [
+        603,
+        1,
+        36,
+        59
+      ]
+    },
+    "sokia:101532:0": {
+      "key": "original:2911",
+      "origin": [
+        -66,
+        -84
+      ],
+      "rgba_sha256": "76440afa4a90f3b66b10b6a73d265ab57e75c7b068f5dceb3abd601ab3be92a6",
+      "rect": [
+        641,
+        1,
+        95,
+        84
+      ]
+    },
+    "sokia:101511:5": {
+      "key": "original:2901",
+      "origin": [
+        -28,
+        -71
+      ],
+      "rgba_sha256": "1c9ac45a1393300c84e6ae9680817dfd80bb49654de21590d08b81ec0e509e7e",
+      "rect": [
+        738,
+        1,
+        56,
+        77
+      ]
+    },
+    "sokia:101103:2": {
+      "key": "original:2825",
+      "origin": [
+        -15,
+        -60
+      ],
+      "rgba_sha256": "03dadf0622d5bd4236fbabbc1501e512e76cd14145830c54cc1c0033fbdd4819",
+      "rect": [
+        796,
+        1,
+        41,
+        69
+      ]
+    },
+    "sokia:14107:6": {
+      "key": "graphic:14107",
+      "origin": [
+        -30,
+        -61
+      ],
+      "rgba_sha256": "d49fac58007d6029ed63a6eac4ac34ef7f1c212324edb50c0a5e353e981bee21",
+      "rect": [
+        839,
+        1,
+        42,
+        77
+      ]
+    },
+    "sokia:14097:6": {
+      "key": "graphic:14097",
+      "origin": [
+        -17,
+        -57
+      ],
+      "rgba_sha256": "43dcc4a2122f21a5310e3165f7c1ea9ed7af6ab4990544b3fe84853cb3a64647",
+      "rect": [
+        883,
+        1,
+        32,
+        65
+      ]
+    },
+    "sokia:14549:4": {
+      "key": "graphic:14549",
+      "origin": [
+        -16,
+        -82
+      ],
+      "rgba_sha256": "9d44a06fb8165170b861457a0068671418199ad2cf7fbb2c423e537e91354bd6",
+      "rect": [
+        917,
+        1,
+        31,
+        90
+      ]
+    },
+    "sokia:101020:0": {
+      "key": "original:2812",
+      "origin": [
+        -14,
+        -43
+      ],
+      "rgba_sha256": "236a615622762dfc08199f9df35388e89677368d0dfe0a8e543aa2fc2f3e341b",
+      "rect": [
+        950,
+        1,
+        45,
+        56
+      ]
+    },
+    "sokia:14091:6": {
+      "key": "graphic:14091",
+      "origin": [
+        -13,
+        -74
+      ],
+      "rgba_sha256": "e9bfb7202659b97a51540386e0666e168c0b939742fdfab8aa3055e427ac169f",
+      "rect": [
+        1,
+        193,
+        28,
+        82
+      ]
+    },
+    "sokia:101020:6": {
+      "key": "original:2812",
+      "origin": [
+        -20,
+        -37
+      ],
+      "rgba_sha256": "840390a286c9f35c4de717f6fce52a77267d9017c26c68278db8e9227cce7bac",
+      "rect": [
+        31,
+        193,
+        43,
+        45
+      ]
+    },
+    "sokia:14526:4": {
+      "key": "graphic:14526",
+      "origin": [
+        -15,
+        -67
+      ],
+      "rgba_sha256": "83e216caddd7ffef2c1de33b0609ccbc9a70ce4b58be3d150d1e22044f1bc6c1",
+      "rect": [
+        76,
+        193,
+        29,
+        82
+      ]
+    },
+    "sokia:11054:4": {
+      "key": "graphic:11054",
+      "origin": [
+        -24,
+        -51
+      ],
+      "rgba_sha256": "938e4b85eaed84e7e4dc573aacdee1491920eb00cebacd9ab4267e16e52085d1",
+      "rect": [
+        107,
+        193,
+        57,
+        68
+      ]
+    },
+    "sokia:14120:0": {
+      "key": "graphic:14120",
+      "origin": [
+        -21,
+        -80
+      ],
+      "rgba_sha256": "c95eed987f7dc9b2e31bf728bcc46de8246a424ff86cd8481057a727a17b07c4",
+      "rect": [
+        166,
+        193,
+        37,
+        88
+      ]
+    },
+    "sokia:11566:6": {
+      "key": "graphic:11566",
+      "origin": [
+        -32,
+        -99
+      ],
+      "rgba_sha256": "b121593463d72f0a70c5f093de44130147e7985ad7b73f404474f593545c7572",
+      "rect": [
+        205,
+        193,
+        64,
+        126
+      ]
+    },
+    "sokia:11569:4": {
+      "key": "graphic:11569",
+      "origin": [
+        -28,
+        -85
+      ],
+      "rgba_sha256": "9ad9b6d32f886577fa01f52dffb5524314eeb6fa7ce9b63251d660dfb49d2a4e",
+      "rect": [
+        271,
+        193,
+        58,
+        111
+      ]
+    },
+    "sokia:11567:4": {
+      "key": "graphic:11567",
+      "origin": [
+        -25,
+        -86
+      ],
+      "rgba_sha256": "9ebf47a5fb117e15a362d467d89747fe6552f60b6207d3a8689d7199fa82de0d",
+      "rect": [
+        331,
+        193,
+        63,
+        111
+      ]
+    },
+    "sokia:11571:6": {
+      "key": "graphic:11571",
+      "origin": [
+        -32,
+        -151
+      ],
+      "rgba_sha256": "4a65850f3d392856b2c98681220aae698136b2c6b3c46bec7dfd2fda3786af8f",
+      "rect": [
+        396,
+        193,
+        70,
+        180
+      ]
+    },
+    "sokia:14111:6": {
+      "key": "graphic:14111",
+      "origin": [
+        -43,
+        -106
+      ],
+      "rgba_sha256": "bad6752e6a0ff0aa44811122ccc32a5f29c03e5a50fd5be63650cbdda095034c",
+      "rect": [
+        468,
+        193,
+        73,
+        125
+      ]
+    },
+    "sokia:14175:4": {
+      "key": "graphic:14175",
+      "origin": [
+        -25,
+        -77
+      ],
+      "rgba_sha256": "421a4e98e3fa3c8501378911ddf7a225414c2a11bbdccbb2ab1d0e6d6d225a0d",
+      "rect": [
+        543,
+        193,
+        50,
+        88
+      ]
+    },
+    "sokia:11574:6": {
+      "key": "graphic:11574",
+      "origin": [
+        -45,
+        -111
+      ],
+      "rgba_sha256": "6d7e613f8d5fd4e0f6026559d8531f7081b2f296e139566ad97410f6e5096dfb",
+      "rect": [
+        595,
+        193,
+        93,
+        150
+      ]
+    },
+    "sokia:11555:6": {
+      "key": "graphic:11555",
+      "origin": [
+        -34,
+        -114
+      ],
+      "rgba_sha256": "2b8d4c39ea2d18b8d43d46621fc72b4b1580998a316f01728d4e83f571dbca77",
+      "rect": [
+        690,
+        193,
+        70,
+        151
+      ]
+    },
+    "sokia:103013:4": {
+      "key": "original:2986",
+      "origin": [
+        -27,
+        -101
+      ],
+      "rgba_sha256": "082d2b3cb5b73e77c3ff243b99303ed510d317f89957e8b789928590ea85529e",
+      "rect": [
+        762,
+        193,
+        53,
+        115
+      ]
+    },
+    "sokia:10414:4": {
+      "key": "graphic:10414",
+      "origin": [
+        -15,
+        -58
+      ],
+      "rgba_sha256": "6e42ea9cfda0adc43c20cc9a4d0540d7c4868c5d9f034ef99e0df3ae7fd73714",
+      "rect": [
+        817,
+        193,
+        44,
+        75
+      ]
+    },
+    "sokia:10413:6": {
+      "key": "graphic:10413",
+      "origin": [
+        -15,
+        -57
+      ],
+      "rgba_sha256": "023bf9c34757ba63f043a33f1ca618ef6e553646ac1b79bf0c98f42c5598281a",
+      "rect": [
+        863,
+        193,
+        44,
+        68
+      ]
+    },
+    "sokia:10414:6": {
+      "key": "graphic:10414",
+      "origin": [
+        -15,
+        -58
+      ],
+      "rgba_sha256": "6e42ea9cfda0adc43c20cc9a4d0540d7c4868c5d9f034ef99e0df3ae7fd73714",
+      "rect": [
+        909,
+        193,
+        44,
+        75
+      ]
+    },
+    "sokia:10410:6": {
+      "key": "graphic:10410",
+      "origin": [
+        -25,
+        -70
+      ],
+      "rgba_sha256": "d4aa91dcb863b852437d2fabf1cb60222559728ef4bc5b9a087b969a1f915ad1",
+      "rect": [
+        955,
+        193,
+        54,
+        76
+      ]
+    },
+    "sokia:14508:6": {
+      "key": "graphic:14508",
+      "origin": [
+        -26,
+        -65
+      ],
+      "rgba_sha256": "93f1456e6515759e4cbf37714f7db57dc7c7672e988b283bfb5b06a418b6496d",
+      "rect": [
+        1,
+        375,
+        47,
+        81
+      ]
+    },
+    "sokia:14173:4": {
+      "key": "graphic:14173",
+      "origin": [
+        -40,
+        -80
+      ],
+      "rgba_sha256": "0d2f7749a41c5d2a728c9a0139a2e33551e39dbc3d542fe1083618803a970b7f",
+      "rect": [
+        50,
+        375,
+        68,
+        93
+      ]
+    },
+    "sokia:14103:6": {
+      "key": "graphic:14103",
+      "origin": [
+        -32,
+        -32
+      ],
+      "rgba_sha256": "a95f19f0a2ad0908e32c5e364567e39aadefac0b24baf464e63db849184be7e7",
+      "rect": [
+        120,
+        375,
+        69,
+        52
+      ]
+    },
+    "sokia:14106:4": {
+      "key": "graphic:14106",
+      "origin": [
+        -14,
+        -59
+      ],
+      "rgba_sha256": "cf8b18968744ac252f10d05bd3e74b35f996b8fddd0fe0f25e8a520cf8ebf382",
+      "rect": [
+        191,
+        375,
+        27,
+        71
+      ]
+    },
+    "sokia:14101:4": {
+      "key": "graphic:14101",
+      "origin": [
+        -32,
+        -34
+      ],
+      "rgba_sha256": "ccd0e5dd2773293f67077abe314817c816e57f1f53a5fc9a751ad7677ae7710a",
+      "rect": [
+        220,
+        375,
+        68,
+        54
+      ]
+    },
+    "sokia:14105:6": {
+      "key": "graphic:14105",
+      "origin": [
+        -15,
+        -59
+      ],
+      "rgba_sha256": "c3b1324adfdfd63b68be6a208fb76afca5f2d4316e90788eb32b1ca8616439c2",
+      "rect": [
+        290,
+        375,
+        27,
+        71
+      ]
+    },
+    "sokia:14104:0": {
+      "key": "graphic:14104",
+      "origin": [
+        -35,
+        -33
+      ],
+      "rgba_sha256": "bdce10798ac8638c6c965e536a43a3ffde306213bd5637cb3588f1c0dc5c6980",
+      "rect": [
+        319,
+        375,
+        75,
+        46
+      ]
+    },
+    "sokia:14094:6": {
+      "key": "graphic:14094",
+      "origin": [
+        -16,
+        -76
+      ],
+      "rgba_sha256": "c5cf7530074fc258971ad48f1d87a543b60b666ee37d75ccadff05a8afd792f2",
+      "rect": [
+        396,
+        375,
+        28,
+        84
+      ]
+    },
+    "sokia:14120:6": {
+      "key": "graphic:14120",
+      "origin": [
+        -21,
+        -80
+      ],
+      "rgba_sha256": "c95eed987f7dc9b2e31bf728bcc46de8246a424ff86cd8481057a727a17b07c4",
+      "rect": [
+        426,
+        375,
+        37,
+        88
+      ]
+    },
+    "sokia:14121:4": {
+      "key": "graphic:14121",
+      "origin": [
+        -21,
+        -74
+      ],
+      "rgba_sha256": "0d7fd17dba17d78e6844bd19d87962d3cf7b69936f7c51407562e03b6b72efe5",
+      "rect": [
+        465,
+        375,
+        56,
+        82
+      ]
+    },
+    "sokia:14174:6": {
+      "key": "graphic:14174",
+      "origin": [
+        -30,
+        -76
+      ],
+      "rgba_sha256": "3fdc7f258b5f49dbb091c7ac438fffe08e0782399029030b44bcbfb4218d7fae",
+      "rect": [
+        523,
+        375,
+        51,
+        87
+      ]
+    }
+  },
+  "skipped": [
+    {
+      "id": "6267",
+      "name": "契约之地",
+      "cell": [
+        461,
+        404
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "6515",
+      "name": "",
+      "cell": [
+        53,
+        55
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "991197",
+      "name": "告示",
+      "cell": [
+        36,
+        65
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "991199",
+      "name": "告示",
+      "cell": [
+        74,
+        78
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "991201",
+      "name": "告示",
+      "cell": [
+        85,
+        71
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "305088",
+      "name": "确认点 8/10",
+      "cell": [
+        43,
+        36
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "305090",
+      "name": "确认点 10/10",
+      "cell": [
+        42,
+        9
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "305098",
+      "name": "问题",
+      "cell": [
+        44,
+        36
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "305100",
+      "name": "问题",
+      "cell": [
+        43,
+        9
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "1111801",
+      "name": "守墓人",
+      "cell": [
+        653,
+        180
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "1102710",
+      "name": "学长大鲁",
+      "cell": [
+        579,
+        275
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "1102711",
+      "name": "研究室主任",
+      "cell": [
+        55,
+        77
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "1102745",
+      "name": "水蓝鼠饲养师",
+      "cell": [
+        11,
+        6
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    },
+    {
+      "id": "1102746",
+      "name": "水蓝鼠",
+      "cell": [
+        11,
+        7
+      ],
+      "reason": "Inactive, invisible or later event record; no visible actor invented."
+    }
+  ],
+  "reconciled": [
+    {
+      "id": "1042",
+      "name": "武器店瓦鲁沙",
+      "map": 3001,
+      "cell": [
+        21,
+        6
+      ],
+      "existing_name": "武器店瓦鲁沙"
+    },
+    {
+      "id": "1043",
+      "name": "防具店奴里欧贝",
+      "map": 3001,
+      "cell": [
+        21,
+        21
+      ],
+      "existing_name": "防具店奴里欧贝"
+    },
+    {
+      "id": "1044",
+      "name": "杂货店恰咪",
+      "map": 3002,
+      "cell": [
+        12,
+        5
+      ],
+      "existing_name": "杂货店恰咪"
+    },
+    {
+      "id": "6190",
+      "name": "考古学家吉村",
+      "map": 3020,
+      "cell": [
+        10,
+        4
+      ],
+      "existing_name": "考古学家吉村"
+    },
+    {
+      "id": "6301",
+      "name": "亚莉耶鲁",
+      "map": 3350,
+      "cell": [
+        12,
+        4
+      ],
+      "existing_name": "亚莉耶鲁"
+    },
+    {
+      "id": "6306",
+      "name": "护卫强波",
+      "map": 3350,
+      "cell": [
+        14,
+        1
+      ],
+      "existing_name": "护卫强波"
+    },
+    {
+      "id": "6307",
+      "name": "护卫夫利登",
+      "map": 3350,
+      "cell": [
+        11,
+        14
+      ],
+      "existing_name": "护卫夫利登"
+    },
+    {
+      "id": "6313",
+      "name": "葛达",
+      "map": 3008,
+      "cell": [
+        13,
+        5
+      ],
+      "existing_name": "葛达"
+    },
+    {
+      "id": "6327",
+      "name": "传送石管理员",
+      "map": 3099,
+      "cell": [
+        15,
+        7
+      ],
+      "existing_name": "传送石管理员"
+    },
+    {
+      "id": "6717",
+      "name": "大鲶鱼研究家",
+      "map": 3008,
+      "cell": [
+        14,
+        14
+      ],
+      "existing_name": "大鲶鱼研究家"
+    },
+    {
+      "id": "7509",
+      "name": "护士浦莉西拉",
+      "map": 3010,
+      "cell": [
+        11,
+        9
+      ],
+      "existing_name": "护士浦莉西拉"
+    },
+    {
+      "id": "7606",
+      "name": "资深护士普雷妲",
+      "map": 3010,
+      "cell": [
+        13,
+        14
+      ],
+      "existing_name": "资深护士普雷妲"
+    },
+    {
+      "id": "8638",
+      "name": "宠物技能店的班",
+      "map": 3008,
+      "cell": [
+        11,
+        5
+      ],
+      "existing_name": "宠物技能店的班"
+    },
+    {
+      "id": "20270",
+      "name": "魔术师葛拉",
+      "map": 3021,
+      "cell": [
+        15,
+        7
+      ],
+      "existing_name": "魔术师葛拉"
+    },
+    {
+      "id": "20280",
+      "name": "魔术师寇兹",
+      "map": 3021,
+      "cell": [
+        13,
+        7
+      ],
+      "existing_name": "魔术师寇兹"
+    },
+    {
+      "id": "20290",
+      "name": "魔术师露露",
+      "map": 3021,
+      "cell": [
+        16,
+        9
+      ],
+      "existing_name": "魔术师露露"
+    },
+    {
+      "id": "20300",
+      "name": "魔术师弗葛",
+      "map": 3021,
+      "cell": [
+        16,
+        11
+      ],
+      "existing_name": "魔术师弗葛"
+    },
+    {
+      "id": "40131",
+      "name": "巫师冯奴",
+      "map": 3352,
+      "cell": [
+        9,
+        9
+      ],
+      "existing_name": "巫师冯奴"
+    },
+    {
+      "id": "60100",
+      "name": "弟子根德",
+      "map": 3020,
+      "cell": [
+        10,
+        10
+      ],
+      "existing_name": "弟子根德"
+    },
+    {
+      "id": "61003",
+      "name": "明娜",
+      "map": 3000,
+      "cell": [
+        46,
+        49
+      ],
+      "existing_name": "明娜"
+    },
+    {
+      "id": "61004",
+      "name": "卡西葛",
+      "map": 3000,
+      "cell": [
+        47,
+        50
+      ],
+      "existing_name": "卡西葛"
+    },
+    {
+      "id": "61005",
+      "name": "夏树",
+      "map": 3008,
+      "cell": [
+        11,
+        12
+      ],
+      "existing_name": "夏树"
+    },
+    {
+      "id": "61006",
+      "name": "小闲",
+      "map": 3000,
+      "cell": [
+        53,
+        39
+      ],
+      "existing_name": "小闲"
+    },
+    {
+      "id": "61009",
+      "name": "希涅尔",
+      "map": 3012,
+      "cell": [
+        11,
+        6
+      ],
+      "existing_name": "希涅尔"
+    },
+    {
+      "id": "61012",
+      "name": "村长",
+      "map": 3012,
+      "cell": [
+        11,
+        9
+      ],
+      "existing_name": "村长"
+    },
+    {
+      "id": "62007",
+      "name": "依莉",
+      "map": 3000,
+      "cell": [
+        54,
+        56
+      ],
+      "existing_name": "依莉"
+    },
+    {
+      "id": "63004",
+      "name": "柯里空",
+      "map": 3000,
+      "cell": [
+        44,
+        61
+      ],
+      "existing_name": "柯里空"
+    },
+    {
+      "id": "63005",
+      "name": "凯贝",
+      "map": 3000,
+      "cell": [
+        66,
+        68
+      ],
+      "existing_name": "凯贝"
+    },
+    {
+      "id": "63006",
+      "name": "力巴尔特",
+      "map": 3000,
+      "cell": [
+        57,
+        47
+      ],
+      "existing_name": "力巴尔特"
+    },
+    {
+      "id": "63015",
+      "name": "特特鲁",
+      "map": 3000,
+      "cell": [
+        40,
+        49
+      ],
+      "existing_name": "特特鲁"
+    }
+  ],
+  "zones": [
+    {
+      "id": 3000,
+      "map": 300,
+      "bounds": [
+        0,
+        0,
+        799,
+        531
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "3012",
+          1
+        ]
+      ],
+      "raw": [
+        "3000",
+        "",
+        "0",
+        "300",
+        "0",
+        "0",
+        "799",
+        "531",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3001,
+      "map": 300,
+      "bounds": [
+        182,
+        238,
+        218,
+        282
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3008",
+          3
+        ],
+        [
+          "3009",
+          3
+        ],
+        [
+          "3012",
+          3
+        ]
+      ],
+      "raw": [
+        "3001",
+        "",
+        "0",
+        "300",
+        "182",
+        "238",
+        "218",
+        "282",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "3",
+        "3",
+        "3",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3002,
+      "map": 300,
+      "bounds": [
+        200,
+        207,
+        278,
+        238
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3008",
+          3
+        ],
+        [
+          "3009",
+          3
+        ],
+        [
+          "3012",
+          3
+        ]
+      ],
+      "raw": [
+        "3002",
+        "",
+        "0",
+        "300",
+        "200",
+        "207",
+        "278",
+        "238",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "3",
+        "3",
+        "3",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3003,
+      "map": 300,
+      "bounds": [
+        218,
+        238,
+        278,
+        273
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3008",
+          3
+        ],
+        [
+          "3009",
+          3
+        ],
+        [
+          "3012",
+          3
+        ]
+      ],
+      "raw": [
+        "3003",
+        "",
+        "0",
+        "300",
+        "218",
+        "238",
+        "278",
+        "273",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "3",
+        "3",
+        "3",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3004,
+      "map": 300,
+      "bounds": [
+        218,
+        273,
+        308,
+        362
+      ],
+      "probability": [
+        1,
+        1
+      ],
+      "maximum": 5,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3010",
+          1
+        ]
+      ],
+      "raw": [
+        "3004",
+        "",
+        "0",
+        "300",
+        "218",
+        "273",
+        "308",
+        "362",
+        "1",
+        "1",
+        "5",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3010",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3005,
+      "map": 300,
+      "bounds": [
+        218,
+        319,
+        237,
+        341
+      ],
+      "probability": [
+        1,
+        1
+      ],
+      "maximum": 5,
+      "priority": 50,
+      "groups": [
+        [
+          "3001",
+          5
+        ],
+        [
+          "3003",
+          5
+        ],
+        [
+          "3010",
+          5
+        ],
+        [
+          "3000",
+          1
+        ]
+      ],
+      "raw": [
+        "3005",
+        "",
+        "0",
+        "300",
+        "218",
+        "319",
+        "237",
+        "341",
+        "1",
+        "1",
+        "5",
+        "50",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3010",
+        "3000",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3006,
+      "map": 300,
+      "bounds": [
+        261,
+        362,
+        308,
+        411
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3010",
+          1
+        ]
+      ],
+      "raw": [
+        "3006",
+        "",
+        "0",
+        "300",
+        "261",
+        "362",
+        "308",
+        "411",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3010",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3007,
+      "map": 300,
+      "bounds": [
+        308,
+        370,
+        361,
+        411
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3010",
+          1
+        ]
+      ],
+      "raw": [
+        "3007",
+        "",
+        "0",
+        "300",
+        "308",
+        "370",
+        "361",
+        "411",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3010",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3008,
+      "map": 300,
+      "bounds": [
+        268,
+        393,
+        293,
+        411
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 50,
+      "groups": [
+        [
+          "3001",
+          5
+        ],
+        [
+          "3003",
+          5
+        ],
+        [
+          "3010",
+          5
+        ],
+        [
+          "3002",
+          1
+        ]
+      ],
+      "raw": [
+        "3008",
+        "",
+        "0",
+        "300",
+        "268",
+        "393",
+        "293",
+        "411",
+        "1",
+        "3",
+        "6",
+        "50",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3010",
+        "3002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3009,
+      "map": 300,
+      "bounds": [
+        308,
+        285,
+        357,
+        349
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3007",
+          2
+        ],
+        [
+          "3008",
+          1
+        ],
+        [
+          "3009",
+          1
+        ],
+        [
+          "3012",
+          1
+        ]
+      ],
+      "raw": [
+        "3009",
+        "",
+        "0",
+        "300",
+        "308",
+        "285",
+        "357",
+        "349",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3007",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3010,
+      "map": 300,
+      "bounds": [
+        308,
+        349,
+        349,
+        370
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3007",
+          2
+        ],
+        [
+          "3008",
+          1
+        ],
+        [
+          "3009",
+          1
+        ],
+        [
+          "3012",
+          1
+        ]
+      ],
+      "raw": [
+        "3010",
+        "",
+        "0",
+        "300",
+        "308",
+        "349",
+        "349",
+        "370",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3007",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3011,
+      "map": 300,
+      "bounds": [
+        334,
+        306,
+        351,
+        317
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 50,
+      "groups": [
+        [
+          "3007",
+          6
+        ],
+        [
+          "3008",
+          3
+        ],
+        [
+          "3009",
+          3
+        ],
+        [
+          "3012",
+          3
+        ],
+        [
+          "3006",
+          1
+        ]
+      ],
+      "raw": [
+        "3011",
+        "",
+        "0",
+        "300",
+        "334",
+        "306",
+        "351",
+        "317",
+        "1",
+        "3",
+        "7",
+        "50",
+        "",
+        "",
+        "3007",
+        "3008",
+        "3009",
+        "3012",
+        "3006",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "6",
+        "3",
+        "3",
+        "3",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3012,
+      "map": 300,
+      "bounds": [
+        349,
+        349,
+        370,
+        370
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 100,
+      "groups": [
+        [
+          "3007",
+          1
+        ],
+        [
+          "3008",
+          1
+        ],
+        [
+          "3009",
+          1
+        ],
+        [
+          "3012",
+          1
+        ]
+      ],
+      "raw": [
+        "3012",
+        "",
+        "0",
+        "300",
+        "349",
+        "349",
+        "370",
+        "370",
+        "1",
+        "3",
+        "7",
+        "100",
+        "",
+        "",
+        "3007",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3013,
+      "map": 300,
+      "bounds": [
+        357,
+        286,
+        377,
+        349
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3007",
+          1
+        ],
+        [
+          "3008",
+          1
+        ],
+        [
+          "3009",
+          1
+        ],
+        [
+          "3012",
+          1
+        ]
+      ],
+      "raw": [
+        "3013",
+        "",
+        "0",
+        "300",
+        "357",
+        "286",
+        "377",
+        "349",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3007",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3014,
+      "map": 300,
+      "bounds": [
+        308,
+        273,
+        372,
+        285
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3005",
+          2
+        ],
+        [
+          "3007",
+          1
+        ],
+        [
+          "3011",
+          1
+        ]
+      ],
+      "raw": [
+        "3014",
+        "",
+        "0",
+        "300",
+        "308",
+        "273",
+        "372",
+        "285",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3005",
+        "3007",
+        "3011",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3015,
+      "map": 300,
+      "bounds": [
+        278,
+        207,
+        372,
+        273
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 10,
+      "groups": [
+        [
+          "3005",
+          2
+        ],
+        [
+          "3007",
+          1
+        ],
+        [
+          "3011",
+          1
+        ]
+      ],
+      "raw": [
+        "3015",
+        "",
+        "0",
+        "300",
+        "278",
+        "207",
+        "372",
+        "273",
+        "1",
+        "3",
+        "7",
+        "10",
+        "",
+        "",
+        "3005",
+        "3007",
+        "3011",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3016,
+      "map": 300,
+      "bounds": [
+        278,
+        207,
+        304,
+        219
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 50,
+      "groups": [
+        [
+          "3005",
+          8
+        ],
+        [
+          "3007",
+          4
+        ],
+        [
+          "3011",
+          4
+        ],
+        [
+          "3004",
+          1
+        ]
+      ],
+      "raw": [
+        "3016",
+        "",
+        "0",
+        "300",
+        "278",
+        "207",
+        "304",
+        "219",
+        "1",
+        "3",
+        "7",
+        "50",
+        "",
+        "",
+        "3005",
+        "3007",
+        "3011",
+        "3004",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "8",
+        "4",
+        "4",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3017,
+      "map": 300,
+      "bounds": [
+        373,
+        229,
+        450,
+        284
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3017",
+        "",
+        "0",
+        "300",
+        "373",
+        "229",
+        "450",
+        "284",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3018,
+      "map": 300,
+      "bounds": [
+        362,
+        353,
+        450,
+        388
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3018",
+        "",
+        "0",
+        "300",
+        "362",
+        "353",
+        "450",
+        "388",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3019,
+      "map": 300,
+      "bounds": [
+        435,
+        379,
+        506,
+        428
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3019",
+        "",
+        "0",
+        "300",
+        "435",
+        "379",
+        "506",
+        "428",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3020,
+      "map": 300,
+      "bounds": [
+        453,
+        387,
+        479,
+        411
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 200,
+      "groups": [
+        [
+          "3014",
+          5
+        ],
+        [
+          "3016",
+          5
+        ],
+        [
+          "3017",
+          5
+        ],
+        [
+          "3018",
+          3
+        ],
+        [
+          "3015",
+          1
+        ]
+      ],
+      "raw": [
+        "3020",
+        "",
+        "0",
+        "300",
+        "453",
+        "387",
+        "479",
+        "411",
+        "1",
+        "2",
+        "6",
+        "200",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "3015",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "3",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3021,
+      "map": 300,
+      "bounds": [
+        484,
+        428,
+        633,
+        465
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3021",
+        "",
+        "0",
+        "300",
+        "484",
+        "428",
+        "633",
+        "465",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3022,
+      "map": 300,
+      "bounds": [
+        616,
+        396,
+        686,
+        433
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3022",
+        "",
+        "0",
+        "300",
+        "616",
+        "396",
+        "686",
+        "433",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3023,
+      "map": 300,
+      "bounds": [
+        661,
+        370,
+        706,
+        396
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3023",
+        "",
+        "0",
+        "300",
+        "661",
+        "370",
+        "706",
+        "396",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3024,
+      "map": 300,
+      "bounds": [
+        674,
+        307,
+        706,
+        370
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3024",
+        "",
+        "0",
+        "300",
+        "674",
+        "307",
+        "706",
+        "370",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3025,
+      "map": 300,
+      "bounds": [
+        657,
+        275,
+        684,
+        307
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3025",
+        "",
+        "0",
+        "300",
+        "657",
+        "275",
+        "684",
+        "307",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3026,
+      "map": 300,
+      "bounds": [
+        642,
+        229,
+        728,
+        275
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3026",
+        "",
+        "0",
+        "300",
+        "642",
+        "229",
+        "728",
+        "275",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3027,
+      "map": 300,
+      "bounds": [
+        700,
+        202,
+        760,
+        229
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3027",
+        "",
+        "0",
+        "300",
+        "700",
+        "202",
+        "760",
+        "229",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3028,
+      "map": 300,
+      "bounds": [
+        700,
+        147,
+        760,
+        202
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3028",
+        "",
+        "0",
+        "300",
+        "700",
+        "147",
+        "760",
+        "202",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3029,
+      "map": 300,
+      "bounds": [
+        589,
+        147,
+        642,
+        205
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3029",
+        "",
+        "0",
+        "300",
+        "589",
+        "147",
+        "642",
+        "205",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3030,
+      "map": 300,
+      "bounds": [
+        589,
+        205,
+        599,
+        215
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 100,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3030",
+        "",
+        "0",
+        "300",
+        "589",
+        "205",
+        "599",
+        "215",
+        "1",
+        "2",
+        "6",
+        "100",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3031,
+      "map": 300,
+      "bounds": [
+        457,
+        185,
+        593,
+        229
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3031",
+        "",
+        "0",
+        "300",
+        "457",
+        "185",
+        "593",
+        "229",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3032,
+      "map": 300,
+      "bounds": [
+        457,
+        201,
+        485,
+        221
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 200,
+      "groups": [
+        [
+          "3014",
+          5
+        ],
+        [
+          "3016",
+          5
+        ],
+        [
+          "3017",
+          5
+        ],
+        [
+          "3018",
+          3
+        ],
+        [
+          "3013",
+          1
+        ]
+      ],
+      "raw": [
+        "3032",
+        "",
+        "0",
+        "300",
+        "457",
+        "201",
+        "485",
+        "221",
+        "1",
+        "2",
+        "6",
+        "200",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "3013",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "3",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3033,
+      "map": 300,
+      "bounds": [
+        450,
+        229,
+        473,
+        310
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3033",
+        "",
+        "0",
+        "300",
+        "450",
+        "229",
+        "473",
+        "310",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3034,
+      "map": 300,
+      "bounds": [
+        642,
+        147,
+        665,
+        181
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 100,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3034",
+        "",
+        "0",
+        "300",
+        "642",
+        "147",
+        "665",
+        "181",
+        "1",
+        "2",
+        "6",
+        "100",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3035,
+      "map": 300,
+      "bounds": [
+        665,
+        147,
+        671,
+        167
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 100,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3035",
+        "",
+        "0",
+        "300",
+        "665",
+        "147",
+        "671",
+        "167",
+        "1",
+        "2",
+        "6",
+        "100",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3036,
+      "map": 300,
+      "bounds": [
+        378,
+        285,
+        450,
+        353
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 60,
+      "groups": [
+        [
+          "3019",
+          1
+        ],
+        [
+          "3020",
+          1
+        ],
+        [
+          "3021",
+          1
+        ]
+      ],
+      "raw": [
+        "3036",
+        "",
+        "0",
+        "300",
+        "378",
+        "285",
+        "450",
+        "353",
+        "1",
+        "3",
+        "8",
+        "60",
+        "",
+        "",
+        "3019",
+        "3020",
+        "3021",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3037,
+      "map": 300,
+      "bounds": [
+        473,
+        229,
+        589,
+        275
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 60,
+      "groups": [
+        [
+          "3019",
+          1
+        ],
+        [
+          "3020",
+          1
+        ],
+        [
+          "3021",
+          1
+        ]
+      ],
+      "raw": [
+        "3037",
+        "",
+        "0",
+        "300",
+        "473",
+        "229",
+        "589",
+        "275",
+        "1",
+        "3",
+        "8",
+        "60",
+        "",
+        "",
+        "3019",
+        "3020",
+        "3021",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3038,
+      "map": 300,
+      "bounds": [
+        589,
+        205,
+        642,
+        244
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 60,
+      "groups": [
+        [
+          "3019",
+          1
+        ],
+        [
+          "3020",
+          1
+        ],
+        [
+          "3021",
+          1
+        ]
+      ],
+      "raw": [
+        "3038",
+        "",
+        "0",
+        "300",
+        "589",
+        "205",
+        "642",
+        "244",
+        "1",
+        "3",
+        "8",
+        "60",
+        "",
+        "",
+        "3019",
+        "3020",
+        "3021",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3039,
+      "map": 300,
+      "bounds": [
+        642,
+        181,
+        700,
+        229
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 60,
+      "groups": [
+        [
+          "3019",
+          1
+        ],
+        [
+          "3020",
+          1
+        ],
+        [
+          "3021",
+          1
+        ]
+      ],
+      "raw": [
+        "3039",
+        "",
+        "0",
+        "300",
+        "642",
+        "181",
+        "700",
+        "229",
+        "1",
+        "2",
+        "6",
+        "60",
+        "",
+        "",
+        "3019",
+        "3020",
+        "3021",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3040,
+      "map": 300,
+      "bounds": [
+        671,
+        147,
+        700,
+        181
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 60,
+      "groups": [
+        [
+          "3019",
+          1
+        ],
+        [
+          "3020",
+          1
+        ],
+        [
+          "3021",
+          1
+        ]
+      ],
+      "raw": [
+        "3040",
+        "",
+        "0",
+        "300",
+        "671",
+        "147",
+        "700",
+        "181",
+        "1",
+        "3",
+        "8",
+        "60",
+        "",
+        "",
+        "3019",
+        "3020",
+        "3021",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3041,
+      "map": 300,
+      "bounds": [
+        450,
+        310,
+        506,
+        379
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3041",
+        "",
+        "0",
+        "300",
+        "450",
+        "310",
+        "506",
+        "379",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3042,
+      "map": 300,
+      "bounds": [
+        506,
+        379,
+        619,
+        428
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3042",
+        "",
+        "0",
+        "300",
+        "506",
+        "379",
+        "619",
+        "428",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3043,
+      "map": 300,
+      "bounds": [
+        537,
+        397,
+        562,
+        413
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 200,
+      "groups": [
+        [
+          "3023",
+          5
+        ],
+        [
+          "3025",
+          5
+        ],
+        [
+          "3026",
+          5
+        ],
+        [
+          "3022",
+          1
+        ]
+      ],
+      "raw": [
+        "3043",
+        "",
+        "0",
+        "300",
+        "537",
+        "397",
+        "562",
+        "413",
+        "1",
+        "3",
+        "8",
+        "200",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "3022",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3044,
+      "map": 300,
+      "bounds": [
+        619,
+        275,
+        657,
+        370
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3044",
+        "",
+        "0",
+        "300",
+        "619",
+        "275",
+        "657",
+        "370",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3045,
+      "map": 300,
+      "bounds": [
+        625,
+        290,
+        640,
+        302
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 200,
+      "groups": [
+        [
+          "3023",
+          5
+        ],
+        [
+          "3025",
+          5
+        ],
+        [
+          "3026",
+          5
+        ],
+        [
+          "3024",
+          1
+        ]
+      ],
+      "raw": [
+        "3045",
+        "",
+        "0",
+        "300",
+        "625",
+        "290",
+        "640",
+        "302",
+        "1",
+        "3",
+        "8",
+        "200",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "3024",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3046,
+      "map": 300,
+      "bounds": [
+        657,
+        307,
+        674,
+        370
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3046",
+        "",
+        "0",
+        "300",
+        "657",
+        "307",
+        "674",
+        "370",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3047,
+      "map": 300,
+      "bounds": [
+        473,
+        275,
+        619,
+        310
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3047",
+        "",
+        "0",
+        "300",
+        "473",
+        "275",
+        "619",
+        "310",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3048,
+      "map": 300,
+      "bounds": [
+        589,
+        244,
+        642,
+        275
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3048",
+        "",
+        "0",
+        "300",
+        "589",
+        "244",
+        "642",
+        "275",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3049,
+      "map": 300,
+      "bounds": [
+        619,
+        370,
+        661,
+        396
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3023",
+          1
+        ],
+        [
+          "3025",
+          1
+        ],
+        [
+          "3026",
+          1
+        ]
+      ],
+      "raw": [
+        "3049",
+        "",
+        "0",
+        "300",
+        "619",
+        "370",
+        "661",
+        "396",
+        "1",
+        "3",
+        "8",
+        "50",
+        "",
+        "",
+        "3023",
+        "3025",
+        "3026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3050,
+      "map": 300,
+      "bounds": [
+        506,
+        310,
+        619,
+        379
+      ],
+      "probability": [
+        1,
+        4
+      ],
+      "maximum": 8,
+      "priority": 50,
+      "groups": [
+        [
+          "3031",
+          1
+        ],
+        [
+          "3030",
+          1
+        ],
+        [
+          "3028",
+          1
+        ]
+      ],
+      "raw": [
+        "3050",
+        "",
+        "0",
+        "300",
+        "506",
+        "310",
+        "619",
+        "379",
+        "1",
+        "4",
+        "8",
+        "50",
+        "",
+        "",
+        "3031",
+        "3030",
+        "3028",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3051,
+      "map": 300,
+      "bounds": [
+        580,
+        326,
+        600,
+        332
+      ],
+      "probability": [
+        1,
+        4
+      ],
+      "maximum": 8,
+      "priority": 200,
+      "groups": [
+        [
+          "3031",
+          5
+        ],
+        [
+          "3030",
+          5
+        ],
+        [
+          "3028",
+          5
+        ],
+        [
+          "3027",
+          1
+        ]
+      ],
+      "raw": [
+        "3051",
+        "",
+        "0",
+        "300",
+        "580",
+        "326",
+        "600",
+        "332",
+        "1",
+        "4",
+        "8",
+        "200",
+        "",
+        "",
+        "3031",
+        "3030",
+        "3028",
+        "3027",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3052,
+      "map": 300,
+      "bounds": [
+        529,
+        343,
+        549,
+        351
+      ],
+      "probability": [
+        1,
+        4
+      ],
+      "maximum": 8,
+      "priority": 200,
+      "groups": [
+        [
+          "3031",
+          5
+        ],
+        [
+          "3030",
+          5
+        ],
+        [
+          "3028",
+          5
+        ],
+        [
+          "3029",
+          1
+        ]
+      ],
+      "raw": [
+        "3052",
+        "",
+        "0",
+        "300",
+        "529",
+        "343",
+        "549",
+        "351",
+        "1",
+        "4",
+        "8",
+        "200",
+        "",
+        "",
+        "3031",
+        "3030",
+        "3028",
+        "3029",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3053,
+      "map": 300,
+      "bounds": [
+        51,
+        150,
+        199,
+        288
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 7,
+      "priority": 5,
+      "groups": [
+        [
+          "3001",
+          1
+        ],
+        [
+          "3003",
+          1
+        ],
+        [
+          "3008",
+          3
+        ],
+        [
+          "3009",
+          3
+        ],
+        [
+          "3012",
+          3
+        ]
+      ],
+      "raw": [
+        "3053",
+        "",
+        "0",
+        "300",
+        "51",
+        "150",
+        "199",
+        "288",
+        "1",
+        "3",
+        "7",
+        "5",
+        "",
+        "",
+        "3001",
+        "3003",
+        "3008",
+        "3009",
+        "3012",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "3",
+        "3",
+        "3",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3054,
+      "map": 300,
+      "bounds": [
+        634,
+        32,
+        760,
+        147
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 5,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3054",
+        "",
+        "0",
+        "300",
+        "634",
+        "32",
+        "760",
+        "147",
+        "1",
+        "2",
+        "6",
+        "5",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3055,
+      "map": 300,
+      "bounds": [
+        697,
+        32,
+        735,
+        98
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 6,
+      "priority": 8,
+      "groups": [
+        [
+          "3014",
+          2
+        ],
+        [
+          "3016",
+          2
+        ],
+        [
+          "3017",
+          2
+        ],
+        [
+          "3018",
+          1
+        ]
+      ],
+      "raw": [
+        "3055",
+        "",
+        "0",
+        "300",
+        "697",
+        "32",
+        "735",
+        "98",
+        "1",
+        "2",
+        "6",
+        "8",
+        "",
+        "",
+        "3014",
+        "3016",
+        "3017",
+        "3018",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "2",
+        "2",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3056,
+      "map": 300,
+      "bounds": [
+        740,
+        40,
+        780,
+        100
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 100,
+      "groups": [
+        [
+          "3035",
+          1
+        ],
+        [
+          "3032",
+          1
+        ],
+        [
+          "3034",
+          1
+        ]
+      ],
+      "raw": [
+        "3056",
+        "",
+        "0",
+        "300",
+        "740",
+        "40",
+        "780",
+        "100",
+        "1",
+        "3",
+        "8",
+        "100",
+        "",
+        "",
+        "3035",
+        "3032",
+        "3034",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3057,
+      "map": 300,
+      "bounds": [
+        765,
+        48,
+        766,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 200,
+      "groups": [
+        [
+          "3035",
+          5
+        ],
+        [
+          "3032",
+          5
+        ],
+        [
+          "3034",
+          5
+        ],
+        [
+          "3033",
+          1
+        ]
+      ],
+      "raw": [
+        "3057",
+        "",
+        "0",
+        "300",
+        "765",
+        "48",
+        "766",
+        "49",
+        "1",
+        "3",
+        "8",
+        "200",
+        "",
+        "",
+        "3035",
+        "3032",
+        "3034",
+        "3033",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7000,
+      "map": 13002,
+      "bounds": [
+        0,
+        0,
+        99,
+        99
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7000",
+        "",
+        "0",
+        "13002",
+        "0",
+        "0",
+        "99",
+        "99",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7001,
+      "map": 13004,
+      "bounds": [
+        0,
+        0,
+        99,
+        99
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7001",
+        "",
+        "0",
+        "13004",
+        "0",
+        "0",
+        "99",
+        "99",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7002,
+      "map": 13006,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7002",
+        "",
+        "0",
+        "13006",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7003,
+      "map": 13008,
+      "bounds": [
+        0,
+        0,
+        79,
+        79
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7003",
+        "",
+        "0",
+        "13008",
+        "0",
+        "0",
+        "79",
+        "79",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7004,
+      "map": 13010,
+      "bounds": [
+        0,
+        0,
+        99,
+        99
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7004",
+        "",
+        "0",
+        "13010",
+        "0",
+        "0",
+        "99",
+        "99",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7005,
+      "map": 13012,
+      "bounds": [
+        0,
+        0,
+        29,
+        29
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          2
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          2
+        ]
+      ],
+      "raw": [
+        "7005",
+        "",
+        "0",
+        "13012",
+        "0",
+        "0",
+        "29",
+        "29",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7006,
+      "map": 13014,
+      "bounds": [
+        0,
+        0,
+        79,
+        79
+      ],
+      "probability": [
+        1,
+        2
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7000",
+          2
+        ],
+        [
+          "mountain:7001",
+          1
+        ],
+        [
+          "mountain:7002",
+          2
+        ]
+      ],
+      "raw": [
+        "7006",
+        "",
+        "0",
+        "13014",
+        "0",
+        "0",
+        "79",
+        "79",
+        "1",
+        "2",
+        "4",
+        "1",
+        "",
+        "",
+        "7000",
+        "7001",
+        "7002",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "2",
+        "1",
+        "2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7007,
+      "map": 13003,
+      "bounds": [
+        0,
+        0,
+        79,
+        79
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          1
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          1
+        ]
+      ],
+      "raw": [
+        "7007",
+        "",
+        "0",
+        "13003",
+        "0",
+        "0",
+        "79",
+        "79",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7008,
+      "map": 13005,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          1
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          1
+        ]
+      ],
+      "raw": [
+        "7008",
+        "",
+        "0",
+        "13005",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7009,
+      "map": 13007,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          1
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          1
+        ]
+      ],
+      "raw": [
+        "7009",
+        "",
+        "0",
+        "13007",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7010,
+      "map": 13011,
+      "bounds": [
+        0,
+        0,
+        79,
+        79
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          1
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          1
+        ]
+      ],
+      "raw": [
+        "7010",
+        "",
+        "0",
+        "13011",
+        "0",
+        "0",
+        "79",
+        "79",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7011,
+      "map": 13013,
+      "bounds": [
+        0,
+        0,
+        29,
+        29
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7003",
+          1
+        ],
+        [
+          "mountain:7004",
+          1
+        ],
+        [
+          "mountain:7005",
+          1
+        ]
+      ],
+      "raw": [
+        "7011",
+        "",
+        "0",
+        "13013",
+        "0",
+        "0",
+        "29",
+        "29",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7003",
+        "7004",
+        "7005",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7012,
+      "map": 13001,
+      "bounds": [
+        0,
+        0,
+        149,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "7007",
+          1
+        ],
+        [
+          "7009",
+          1
+        ],
+        [
+          "7010",
+          1
+        ]
+      ],
+      "raw": [
+        "7012",
+        "",
+        "0",
+        "13001",
+        "0",
+        "0",
+        "149",
+        "49",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7007",
+        "7009",
+        "7010",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7013,
+      "map": 13001,
+      "bounds": [
+        3,
+        27,
+        12,
+        36
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "7007",
+          5
+        ],
+        [
+          "7009",
+          5
+        ],
+        [
+          "7010",
+          5
+        ],
+        [
+          "7006",
+          1
+        ]
+      ],
+      "raw": [
+        "7013",
+        "",
+        "0",
+        "13001",
+        "3",
+        "27",
+        "12",
+        "36",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "7007",
+        "7009",
+        "7010",
+        "7006",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7014,
+      "map": 13001,
+      "bounds": [
+        121,
+        25,
+        130,
+        36
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "7007",
+          5
+        ],
+        [
+          "7009",
+          5
+        ],
+        [
+          "7010",
+          5
+        ],
+        [
+          "7008",
+          1
+        ]
+      ],
+      "raw": [
+        "7014",
+        "",
+        "0",
+        "13001",
+        "121",
+        "25",
+        "130",
+        "36",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "7007",
+        "7009",
+        "7010",
+        "7008",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7030,
+      "map": 13500,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 4,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7027",
+          1
+        ],
+        [
+          "mountain:7024",
+          1
+        ],
+        [
+          "mountain:7026",
+          1
+        ]
+      ],
+      "raw": [
+        "7030",
+        "",
+        "0",
+        "13500",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "3",
+        "4",
+        "1",
+        "",
+        "",
+        "7027",
+        "7024",
+        "7026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7031,
+      "map": 13501,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 5,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7027",
+          1
+        ],
+        [
+          "mountain:7024",
+          1
+        ],
+        [
+          "mountain:7026",
+          1
+        ]
+      ],
+      "raw": [
+        "7031",
+        "",
+        "0",
+        "13501",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "3",
+        "5",
+        "1",
+        "",
+        "",
+        "7027",
+        "7024",
+        "7026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7032,
+      "map": 13502,
+      "bounds": [
+        0,
+        0,
+        49,
+        49
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7027",
+          1
+        ],
+        [
+          "mountain:7024",
+          1
+        ],
+        [
+          "mountain:7026",
+          1
+        ]
+      ],
+      "raw": [
+        "7032",
+        "",
+        "0",
+        "13502",
+        "0",
+        "0",
+        "49",
+        "49",
+        "1",
+        "3",
+        "6",
+        "1",
+        "",
+        "",
+        "7027",
+        "7024",
+        "7026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7033,
+      "map": 13502,
+      "bounds": [
+        11,
+        37,
+        25,
+        43
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "mountain:7027",
+          10
+        ],
+        [
+          "mountain:7024",
+          10
+        ],
+        [
+          "mountain:7026",
+          10
+        ],
+        [
+          "mountain:7025",
+          1
+        ]
+      ],
+      "raw": [
+        "7033",
+        "",
+        "0",
+        "13502",
+        "11",
+        "37",
+        "25",
+        "43",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "7027",
+        "7024",
+        "7026",
+        "7025",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "10",
+        "10",
+        "10",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7034,
+      "map": 13502,
+      "bounds": [
+        23,
+        15,
+        33,
+        20
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 6,
+      "priority": 10,
+      "groups": [
+        [
+          "mountain:7027",
+          10
+        ],
+        [
+          "mountain:7024",
+          10
+        ],
+        [
+          "mountain:7026",
+          10
+        ],
+        [
+          "mountain:7023",
+          1
+        ]
+      ],
+      "raw": [
+        "7034",
+        "",
+        "0",
+        "13502",
+        "23",
+        "15",
+        "33",
+        "20",
+        "1",
+        "3",
+        "6",
+        "10",
+        "",
+        "",
+        "7027",
+        "7024",
+        "7026",
+        "7023",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "10",
+        "10",
+        "10",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7044,
+      "map": 15526,
+      "bounds": [
+        0,
+        0,
+        99,
+        19
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 1,
+      "groups": [
+        [
+          "mountain:7036",
+          1
+        ],
+        [
+          "mountain:7033",
+          1
+        ],
+        [
+          "mountain:7035",
+          1
+        ]
+      ],
+      "raw": [
+        "7044",
+        "",
+        "0",
+        "15526",
+        "0",
+        "0",
+        "99",
+        "19",
+        "1",
+        "3",
+        "8",
+        "1",
+        "",
+        "",
+        "7036",
+        "7033",
+        "7035",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 7045,
+      "map": 15526,
+      "bounds": [
+        74,
+        4,
+        74,
+        5
+      ],
+      "probability": [
+        1,
+        3
+      ],
+      "maximum": 8,
+      "priority": 10,
+      "groups": [
+        [
+          "mountain:7036",
+          5
+        ],
+        [
+          "mountain:7033",
+          5
+        ],
+        [
+          "mountain:7035",
+          5
+        ],
+        [
+          "mountain:7034",
+          1
+        ]
+      ],
+      "raw": [
+        "7045",
+        "",
+        "0",
+        "15526",
+        "74",
+        "4",
+        "74",
+        "5",
+        "1",
+        "3",
+        "8",
+        "10",
+        "",
+        "",
+        "7036",
+        "7033",
+        "7035",
+        "7034",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        "5",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "groups": {
+    "3012": {
+      "members": [
+        [
+          7,
+          17,
+          19,
+          1
+        ],
+        [
+          30,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_821&822_16/19",
+        "5,1,2,8,9,6,7,3,4,0",
+        "3012",
+        "-1",
+        "-1",
+        "3008",
+        "3009",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,1,2,8,9,6,7,3,4,0",
+      "source_group": "3012"
+    },
+    "3001": {
+      "members": [
+        [
+          11,
+          15,
+          17,
+          1
+        ]
+      ],
+      "raw": [
+        "300_23_15/17",
+        "0,5,1,2,6,7,3,8,4,9",
+        "3001",
+        "-1",
+        "-1",
+        "3001",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,2,6,7,3,8,4,9",
+      "source_group": "3001"
+    },
+    "3003": {
+      "members": [
+        [
+          12,
+          15,
+          17,
+          1
+        ]
+      ],
+      "raw": [
+        "300_204_15/17",
+        "5,0,6,1,7,2,8,3,9,4",
+        "3003",
+        "-1",
+        "-1",
+        "3003",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,6,1,7,2,8,3,9,4",
+      "source_group": "3003"
+    },
+    "3008": {
+      "members": [
+        [
+          7,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_821_17/19",
+        "6,1,7,2,5,0,3,8,4,9",
+        "3008",
+        "-1",
+        "-1",
+        "3008",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "6,1,7,2,5,0,3,8,4,9",
+      "source_group": "3008"
+    },
+    "3009": {
+      "members": [
+        [
+          7,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_822_17/19",
+        "5,6,7,1,2,0,3,8,4,9",
+        "3009",
+        "-1",
+        "-1",
+        "3008",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,1,2,0,3,8,4,9",
+      "source_group": "3009"
+    },
+    "3010": {
+      "members": [
+        [
+          11,
+          15,
+          17,
+          1
+        ],
+        [
+          12,
+          15,
+          17,
+          1
+        ]
+      ],
+      "raw": [
+        "300_23&204_15/17",
+        "0,1,2,6,7,5,8,9,3,4",
+        "3010",
+        "-1",
+        "-1",
+        "3001",
+        "3003",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,1,2,6,7,5,8,9,3,4",
+      "source_group": "3010"
+    },
+    "3000": {
+      "members": [
+        [
+          11,
+          1,
+          1,
+          50
+        ],
+        [
+          11,
+          15,
+          17,
+          1
+        ]
+      ],
+      "raw": [
+        "300_23_1&15/17",
+        "0,5,1,2,6,7,3,8,4,9",
+        "3000",
+        "-1",
+        "-1",
+        "3000",
+        "3001",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "50",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,2,6,7,3,8,4,9",
+      "source_group": "3000"
+    },
+    "3002": {
+      "members": [
+        [
+          12,
+          1,
+          1,
+          50
+        ],
+        [
+          12,
+          15,
+          17,
+          1
+        ]
+      ],
+      "raw": [
+        "300_204_1&15/17",
+        "5,0,6,1,7,2,8,3,9,4",
+        "3002",
+        "-1",
+        "-1",
+        "3002",
+        "3003",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "50",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,6,1,7,2,8,3,9,4",
+      "source_group": "3002"
+    },
+    "3007": {
+      "members": [
+        [
+          26,
+          16,
+          18,
+          1
+        ]
+      ],
+      "raw": [
+        "300_434_16/18",
+        "6,7,8,9,5,0,1,2,3,4",
+        "3007",
+        "-1",
+        "-1",
+        "3007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "6,7,8,9,5,0,1,2,3,4",
+      "source_group": "3007"
+    },
+    "3006": {
+      "members": [
+        [
+          26,
+          1,
+          1,
+          50
+        ],
+        [
+          26,
+          16,
+          18,
+          1
+        ]
+      ],
+      "raw": [
+        "300_434_1&16/18",
+        "6,7,8,9,5,0,1,2,3,4",
+        "3006",
+        "-1",
+        "-1",
+        "3006",
+        "3007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "50",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "6,7,8,9,5,0,1,2,3,4",
+      "source_group": "3006"
+    },
+    "3005": {
+      "members": [
+        [
+          18,
+          16,
+          18,
+          1
+        ]
+      ],
+      "raw": [
+        "300_321_16/18",
+        "5,1,2,6,7,9,8,4,3",
+        "3005",
+        "-1",
+        "-1",
+        "3005",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,1,2,6,7,9,8,4,3",
+      "source_group": "3005"
+    },
+    "3011": {
+      "members": [
+        [
+          18,
+          16,
+          18,
+          1
+        ],
+        [
+          26,
+          16,
+          18,
+          1
+        ]
+      ],
+      "raw": [
+        "300_321&433_15/17",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3011",
+        "-1",
+        "-1",
+        "3005",
+        "3007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3011"
+    },
+    "3004": {
+      "members": [
+        [
+          18,
+          1,
+          1,
+          50
+        ],
+        [
+          18,
+          16,
+          18,
+          1
+        ]
+      ],
+      "raw": [
+        "300_321_1&16/18",
+        "5,1,2,6,7,9,8,4,3",
+        "3004",
+        "-1",
+        "-1",
+        "3004",
+        "3005",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "50",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,1,2,6,7,9,8,4,3",
+      "source_group": "3004"
+    },
+    "3014": {
+      "members": [
+        [
+          27,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_633_17/29",
+        "6,7,5,0,1,2,8,9,3,4",
+        "3014",
+        "-1",
+        "-1",
+        "3011",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "6,7,5,0,1,2,8,9,3,4",
+      "source_group": "3014"
+    },
+    "3016": {
+      "members": [
+        [
+          33,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_833_17/19",
+        "0,5,1,6,2,7,4,9,3,8",
+        "3016",
+        "-1",
+        "-1",
+        "3013",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,6,2,7,4,9,3,8",
+      "source_group": "3016"
+    },
+    "3017": {
+      "members": [
+        [
+          27,
+          17,
+          19,
+          1
+        ],
+        [
+          33,
+          17,
+          19,
+          1
+        ]
+      ],
+      "raw": [
+        "300_633&833_17/29",
+        "5,6,7,1,0,2,3,4,8,9",
+        "3017",
+        "-1",
+        "-1",
+        "3011",
+        "3013",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,1,0,2,3,4,8,9",
+      "source_group": "3017"
+    },
+    "3018": {
+      "members": [
+        [
+          31,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "300_823_18/20",
+        "5,0,8,3,9,4,6,1,7,2",
+        "3018",
+        "-1",
+        "-1",
+        "3014",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,8,3,9,4,6,1,7,2",
+      "source_group": "3018"
+    },
+    "3015": {
+      "members": [
+        [
+          33,
+          1,
+          1,
+          1
+        ],
+        [
+          33,
+          17,
+          19,
+          10
+        ]
+      ],
+      "raw": [
+        "300_833_1&17/19",
+        "0,5,1,6,2,7,4,9,3,8",
+        "3015",
+        "-1",
+        "-1",
+        "3012",
+        "3013",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,6,2,7,4,9,3,8",
+      "source_group": "3015"
+    },
+    "3013": {
+      "members": [
+        [
+          27,
+          1,
+          1,
+          1
+        ],
+        [
+          27,
+          17,
+          19,
+          10
+        ]
+      ],
+      "raw": [
+        "300_633_1&17/29",
+        "6,7,5,0,1,2,8,9,3,4",
+        "3013",
+        "-1",
+        "-1",
+        "3010",
+        "3011",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "6,7,5,0,1,2,8,9,3,4",
+      "source_group": "3013"
+    },
+    "3019": {
+      "members": [
+        [
+          7,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "300_821_18/20",
+        "5,0,8,3,9,4,6,1,7,2",
+        "3019",
+        "-1",
+        "-1",
+        "3015",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,8,3,9,4,6,1,7,2",
+      "source_group": "3019"
+    },
+    "3020": {
+      "members": [
+        [
+          30,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "300_822_18/20",
+        "5,0,8,3,9,4,6,1,7,2",
+        "3020",
+        "-1",
+        "-1",
+        "3016",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,8,3,9,4,6,1,7,2",
+      "source_group": "3020"
+    },
+    "3021": {
+      "members": [
+        [
+          7,
+          18,
+          20,
+          1
+        ],
+        [
+          30,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "300_821&822_18/20",
+        "5,0,8,3,9,4,6,1,7,2",
+        "3021",
+        "-1",
+        "-1",
+        "3015",
+        "3016",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,8,3,9,4,6,1,7,2",
+      "source_group": "3021"
+    },
+    "3023": {
+      "members": [
+        [
+          24,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "300_432_19/21",
+        "1,0,2,5,6,7,8,9,3,4",
+        "3023",
+        "-1",
+        "-1",
+        "3018",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,0,2,5,6,7,8,9,3,4",
+      "source_group": "3023"
+    },
+    "3025": {
+      "members": [
+        [
+          25,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "300_433_19/21",
+        "1,0,2,5,6,7,8,9,3,4",
+        "3025",
+        "-1",
+        "-1",
+        "3020",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,0,2,5,6,7,8,9,3,4",
+      "source_group": "3025"
+    },
+    "3026": {
+      "members": [
+        [
+          24,
+          19,
+          21,
+          1
+        ],
+        [
+          25,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "300_432&433_19/21",
+        "1,0,2,5,6,7,8,9,3,4",
+        "3026",
+        "-1",
+        "-1",
+        "3018",
+        "3020",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,0,2,5,6,7,8,9,3,4",
+      "source_group": "3026"
+    },
+    "3022": {
+      "members": [
+        [
+          24,
+          1,
+          1,
+          1
+        ],
+        [
+          24,
+          19,
+          21,
+          10
+        ]
+      ],
+      "raw": [
+        "300_432_1&19/21",
+        "1,0,2,5,6,7,8,9,3,4",
+        "3022",
+        "-1",
+        "-1",
+        "3017",
+        "3018",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,0,2,5,6,7,8,9,3,4",
+      "source_group": "3022"
+    },
+    "3024": {
+      "members": [
+        [
+          25,
+          1,
+          1,
+          1
+        ],
+        [
+          25,
+          19,
+          21,
+          10
+        ]
+      ],
+      "raw": [
+        "300_433_1&19/21",
+        "1,0,2,5,6,7,8,9,3,4",
+        "3024",
+        "-1",
+        "-1",
+        "3019",
+        "3020",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,0,2,5,6,7,8,9,3,4",
+      "source_group": "3024"
+    },
+    "3031": {
+      "members": [
+        [
+          14,
+          20,
+          22,
+          1
+        ],
+        [
+          15,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "300_301&303_20/22",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3031",
+        "-1",
+        "-1",
+        "3022",
+        "3024",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3031"
+    },
+    "3030": {
+      "members": [
+        [
+          15,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "300_303_20/22",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3030",
+        "-1",
+        "-1",
+        "3024",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3030"
+    },
+    "3028": {
+      "members": [
+        [
+          14,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "300_301_20/22",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3028",
+        "-1",
+        "-1",
+        "3022",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3028"
+    },
+    "3027": {
+      "members": [
+        [
+          14,
+          1,
+          1,
+          1
+        ],
+        [
+          14,
+          20,
+          22,
+          10
+        ]
+      ],
+      "raw": [
+        "300_301_1&20/22",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3027",
+        "-1",
+        "-1",
+        "3021",
+        "3022",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3027"
+    },
+    "3029": {
+      "members": [
+        [
+          15,
+          1,
+          1,
+          1
+        ],
+        [
+          15,
+          20,
+          22,
+          10
+        ]
+      ],
+      "raw": [
+        "300_303_1&20/22",
+        "5,6,7,0,1,2,8,9,3,4",
+        "3029",
+        "-1",
+        "-1",
+        "3023",
+        "3024",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,0,1,2,8,9,3,4",
+      "source_group": "3029"
+    },
+    "3035": {
+      "members": [
+        [
+          13,
+          48,
+          51,
+          1
+        ],
+        [
+          28,
+          48,
+          51,
+          1
+        ]
+      ],
+      "raw": [
+        "300_251&723_48/51",
+        "",
+        "3035",
+        "-1",
+        "-1",
+        "3025",
+        "3027",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "",
+      "source_group": "3035"
+    },
+    "3032": {
+      "members": [
+        [
+          13,
+          48,
+          51,
+          1
+        ]
+      ],
+      "raw": [
+        "300_251_48/51",
+        "5,6,7,8,9,0,1,2,3,4",
+        "3032",
+        "-1",
+        "-1",
+        "3025",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,6,7,8,9,0,1,2,3,4",
+      "source_group": "3032"
+    },
+    "3034": {
+      "members": [
+        [
+          28,
+          48,
+          51,
+          1
+        ]
+      ],
+      "raw": [
+        "300_723_48/51",
+        "0,1,2,3,4,5,6,7,8,9",
+        "3034",
+        "-1",
+        "-1",
+        "3027",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,1,2,3,4,5,6,7,8,9",
+      "source_group": "3034"
+    },
+    "3033": {
+      "members": [
+        [
+          28,
+          48,
+          51,
+          10
+        ],
+        [
+          28,
+          1,
+          1,
+          1
+        ]
+      ],
+      "raw": [
+        "300_723_1",
+        "0,1,2,3,4,5,6,7,8,9",
+        "3033",
+        "-1",
+        "-1",
+        "3027",
+        "3026",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "10",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,1,2,3,4,5,6,7,8,9",
+      "source_group": "3033"
+    },
+    "mountain:7000": {
+      "members": [
+        [
+          34,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_21_21/24",
+        "0,5,1,6,2,7,3,8,4,9",
+        "7000",
+        "-1",
+        "-1",
+        "7000",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,6,2,7,3,8,4,9",
+      "source_group": "7000"
+    },
+    "mountain:7001": {
+      "members": [
+        [
+          35,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_23_21/24",
+        "0,5,2,7,1,6,4,9,3,8",
+        "7001",
+        "-1",
+        "-1",
+        "7001",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,2,7,1,6,4,9,3,8",
+      "source_group": "7001"
+    },
+    "mountain:7002": {
+      "members": [
+        [
+          34,
+          18,
+          20,
+          1
+        ],
+        [
+          35,
+          18,
+          20,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_21&23_21/24",
+        "1,6,2,7,0,5,3,8,4,9",
+        "7002",
+        "-1",
+        "-1",
+        "7000",
+        "7001",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,6,2,7,0,5,3,8,4,9",
+      "source_group": "7002"
+    },
+    "mountain:7003": {
+      "members": [
+        [
+          36,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_331_21/24",
+        "5,0,6,1,7,2,8,3,9,4",
+        "7003",
+        "-1",
+        "-1",
+        "7002",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,6,1,7,2,8,3,9,4",
+      "source_group": "7003"
+    },
+    "mountain:7004": {
+      "members": [
+        [
+          37,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_333_21/24",
+        "5,0,7,2,6,1,9,4,8,3",
+        "7004",
+        "-1",
+        "-1",
+        "7003",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,7,2,6,1,9,4,8,3",
+      "source_group": "7004"
+    },
+    "mountain:7005": {
+      "members": [
+        [
+          36,
+          19,
+          21,
+          1
+        ],
+        [
+          37,
+          19,
+          21,
+          1
+        ]
+      ],
+      "raw": [
+        "13002/14_331&333_21/24",
+        "7,2,6,1,5,0,9,4,8,3",
+        "7005",
+        "-1",
+        "-1",
+        "7002",
+        "7003",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "7,2,6,1,5,0,9,4,8,3",
+      "source_group": "7005"
+    },
+    "7007": {
+      "members": [
+        [
+          20,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "13001_332_20/22",
+        "1,6,2,7,3,4,9,8,5,0",
+        "7007",
+        "-1",
+        "-1",
+        "7005",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,6,2,7,3,4,9,8,5,0",
+      "source_group": "7007"
+    },
+    "7009": {
+      "members": [
+        [
+          19,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "13001_323_20/22",
+        "0,5,1,6,2,7,4,9,3,8",
+        "7009",
+        "-1",
+        "-1",
+        "7007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,6,2,7,4,9,3,8",
+      "source_group": "7009"
+    },
+    "7010": {
+      "members": [
+        [
+          20,
+          20,
+          22,
+          1
+        ],
+        [
+          19,
+          20,
+          22,
+          1
+        ]
+      ],
+      "raw": [
+        "13001_332&323_20/22",
+        "5,0,7,2,6,1,9,4,8,3",
+        "7010",
+        "-1",
+        "-1",
+        "7005",
+        "7007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,7,2,6,1,9,4,8,3",
+      "source_group": "7010"
+    },
+    "7006": {
+      "members": [
+        [
+          20,
+          1,
+          1,
+          1
+        ],
+        [
+          20,
+          20,
+          22,
+          10
+        ]
+      ],
+      "raw": [
+        "13001_332_1&20/22",
+        "1,6,2,7,3,4,9,8,5,0",
+        "7006",
+        "-1",
+        "-1",
+        "7004",
+        "7005",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "1,6,2,7,3,4,9,8,5,0",
+      "source_group": "7006"
+    },
+    "7008": {
+      "members": [
+        [
+          19,
+          1,
+          1,
+          1
+        ],
+        [
+          19,
+          20,
+          22,
+          10
+        ]
+      ],
+      "raw": [
+        "13001_323_1&20/22",
+        "0,5,1,6,2,7,4,9,3,8",
+        "7008",
+        "-1",
+        "-1",
+        "7006",
+        "7007",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "10",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,5,1,6,2,7,4,9,3,8",
+      "source_group": "7008"
+    },
+    "mountain:7027": {
+      "members": [
+        [
+          38,
+          23,
+          25,
+          1
+        ],
+        [
+          40,
+          23,
+          25,
+          1
+        ]
+      ],
+      "raw": [
+        "13500/2_302&721_23/25",
+        "",
+        "7027",
+        "-1",
+        "-1",
+        "7019",
+        "7017",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "",
+      "source_group": "7027"
+    },
+    "mountain:7024": {
+      "members": [
+        [
+          40,
+          23,
+          25,
+          1
+        ]
+      ],
+      "raw": [
+        "13500/2_302_23/25",
+        "5,0,6,2,0,7,8,4,3,9",
+        "7024",
+        "-1",
+        "-1",
+        "7017",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,6,2,0,7,8,4,3,9",
+      "source_group": "7024"
+    },
+    "mountain:7026": {
+      "members": [
+        [
+          38,
+          23,
+          25,
+          1
+        ]
+      ],
+      "raw": [
+        "13500/2_721_23/25",
+        "7,6,0,1,2,9,8,3,4,5",
+        "7026",
+        "-1",
+        "-1",
+        "7019",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "7,6,0,1,2,9,8,3,4,5",
+      "source_group": "7026"
+    },
+    "mountain:7025": {
+      "members": [
+        [
+          38,
+          23,
+          25,
+          10
+        ],
+        [
+          38,
+          1,
+          1,
+          1
+        ]
+      ],
+      "raw": [
+        "13500/2_721_1",
+        "7,6,0,1,2,9,8,3,4,5",
+        "7025",
+        "-1",
+        "-1",
+        "7019",
+        "7018",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "10",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "7,6,0,1,2,9,8,3,4,5",
+      "source_group": "7025"
+    },
+    "mountain:7023": {
+      "members": [
+        [
+          40,
+          23,
+          25,
+          10
+        ],
+        [
+          40,
+          1,
+          1,
+          1
+        ]
+      ],
+      "raw": [
+        "13500/2_302_1",
+        "5,0,6,2,0,7,8,4,3,9",
+        "7023",
+        "-1",
+        "-1",
+        "7017",
+        "7016",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "10",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,0,6,2,0,7,8,4,3,9",
+      "source_group": "7023"
+    },
+    "mountain:7036": {
+      "members": [
+        [
+          45,
+          45,
+          47,
+          1
+        ],
+        [
+          46,
+          45,
+          47,
+          1
+        ]
+      ],
+      "raw": [
+        "15526_32&122_45/47",
+        "",
+        "7036",
+        "-1",
+        "-1",
+        "7025",
+        "7027",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "",
+      "source_group": "7036"
+    },
+    "mountain:7033": {
+      "members": [
+        [
+          45,
+          45,
+          47,
+          1
+        ]
+      ],
+      "raw": [
+        "15526_32_45/47",
+        "5,1,2,6,7,3,4,9,8,0",
+        "7033",
+        "-1",
+        "-1",
+        "7025",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "5,1,2,6,7,3,4,9,8,0",
+      "source_group": "7033"
+    },
+    "mountain:7035": {
+      "members": [
+        [
+          46,
+          45,
+          47,
+          1
+        ]
+      ],
+      "raw": [
+        "15526_122_45/47",
+        "0,1,2,6,7,8,9,3,4,5",
+        "7035",
+        "-1",
+        "-1",
+        "7027",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,1,2,6,7,8,9,3,4,5",
+      "source_group": "7035"
+    },
+    "mountain:7034": {
+      "members": [
+        [
+          46,
+          45,
+          47,
+          10
+        ],
+        [
+          46,
+          1,
+          1,
+          1
+        ]
+      ],
+      "raw": [
+        "15526_122_1",
+        "0,1,2,6,7,8,9,3,4,5",
+        "7034",
+        "-1",
+        "-1",
+        "7027",
+        "7026",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "10",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "order": "0,1,2,6,7,8,9,3,4,5",
+      "source_group": "7034"
+    }
+  },
+  "extra_species": [
+    {
+      "id": 101020,
+      "name": "大地鼠",
+      "key": "original:2812",
+      "height": 0.55,
+      "skin": 0,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101022,
+      "name": "火焰鼠",
+      "key": "original:2814",
+      "height": 0.55,
+      "skin": 1,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101330,
+      "name": "土蜘蛛",
+      "key": "original:2872",
+      "height": 0.6,
+      "skin": 2,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101332,
+      "name": "火蜘蛛",
+      "key": "original:2874",
+      "height": 0.6,
+      "skin": 3,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101720,
+      "name": "地龍蜥",
+      "key": "original:2940",
+      "height": 0.8,
+      "skin": 4,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101722,
+      "name": "火龍蜥",
+      "key": "original:2942",
+      "height": 0.8,
+      "skin": 5,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101301,
+      "name": "紅蠍",
+      "key": "original:2859",
+      "height": 0.6,
+      "skin": 6,
+      "family": "sokia_region"
+    },
+    {
+      "id": 101211,
+      "name": "血魔",
+      "key": "original:2843",
+      "height": 1.3452380952380953,
+      "skin": 7,
+      "family": "sokia_region",
+      "source_body_pixels": 113,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      }
+    },
+    {
+      "id": 101613,
+      "name": "謎之箱",
+      "key": "original:2920",
+      "height": 0.7380952380952381,
+      "skin": 8,
+      "family": "sokia_region",
+      "source_body_pixels": 62,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      }
+    },
+    {
+      "id": 101214,
+      "name": "守護者",
+      "key": "original:2846",
+      "height": 1.75,
+      "skin": 9,
+      "family": "sokia_region",
+      "source_body_pixels": 147,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      }
+    },
+    {
+      "id": 101921,
+      "name": "最終決戰型牛鬼",
+      "key": "original:2973",
+      "height": 1.5714285714285714,
+      "skin": 10,
+      "family": "sokia_region",
+      "source_body_pixels": 132,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      }
+    },
+    {
+      "id": 101031,
+      "name": "巨狼",
+      "key": "original:2819",
+      "height": 1.4897435897435896,
+      "skin": 11,
+      "family": "sokia_region",
+      "source_body_pixels": 83,
+      "fit_reference": "existing hounds HOUND_PIXEL_SIZE*HOUND_SCALE"
+    },
+    {
+      "id": 101121,
+      "name": "鬼靈",
+      "key": "original:2833",
+      "height": 1.15,
+      "skin": 12,
+      "family": "sokia_region",
+      "source_body_pixels": 52,
+      "fit_reference": "existing black_prayer explore HEIGHTS[2]",
+      "native_action_sources": {
+        "3": 1
+      },
+      "native_action_adaptation": "Original2833 run3 is one transparent frame in each direction; native continuous locomotion reuses the same actor's original walk1. Raw run3 remains in the untouched archive."
+    },
+    {
+      "id": 101923,
+      "name": "牛鬼公主",
+      "key": "original:2975",
+      "height": 2.1785714285714284,
+      "source_body_pixels": 183,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      },
+      "prepared_from": {
+        "bank": "east_region",
+        "skin": 1
+      },
+      "skin": 13,
+      "family": "sokia_region"
+    },
+    {
+      "id": 100553,
+      "name": "帝國兵的亡靈",
+      "key": "original:1159",
+      "height": 0.8333333333333334,
+      "source_body_pixels": 70,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      },
+      "prepared_from": {
+        "bank": "east_region",
+        "skin": 58
+      },
+      "skin": 14,
+      "family": "sokia_region"
+    },
+    {
+      "id": 100678,
+      "name": "帝國兵的亡靈",
+      "key": "original:1189",
+      "height": 0.9642857142857143,
+      "source_body_pixels": 81,
+      "source_scale_reference": {
+        "key": "ex:1727",
+        "body_pixels": 84
+      },
+      "prepared_from": {
+        "bank": "east_region",
+        "skin": 59
+      },
+      "skin": 15,
+      "family": "sokia_region"
+    },
+    {
+      "id": 100452,
+      "name": "杰特",
+      "key": "original:2719",
+      "height": 1.0232558139534884,
+      "source_body_pixels": 88,
+      "fit_reference": "existing Shin100450 pixel scale GOEMON_HEIGHT/86; joy754 is pixel-identical",
+      "skin": 16,
+      "family": "sokia_region"
+    },
+    {
+      "id": 100527,
+      "name": "梅兹",
+      "key": "original:2737",
+      "height": 0.9879518072289156,
+      "source_body_pixels": 82,
+      "fit_reference": "existing Maze/Kaz pixel scale GOEMON_HEIGHT/83; joy598 is pixel-identical",
+      "skin": 17,
+      "family": "sokia_region"
+    }
+  ],
+  "base_species_count": 34,
+  "source_hashes": {
+    "npc.txt": "729e18e044d5383460b74ba76ed648b7a036464b7b768a38b73f556d4c2f2fa9",
+    "encount.txt": "05fbadb3cac31f975c3f21d3e47f4ee95d05c7e9d16374eb27fa00865d318b81",
+    "group.txt": "7b1f371d7a4d746ea9c69f5f42dc5a58df432486ec39f8f13027d3734380c0a0",
+    "enemy.txt": "b3dc7d207cae7f6a63ccba6562b6af9a10b94acffff84b314e689bb874b5ff10",
+    "enemybase.txt": "a28025d168828815adb884b073ca5cfa5100518bb19c060ce321c17368bba165"
+  },
+  "limits": [
+    "Pinned server records corroborate identities, coordinates and encounter distributions; original BlueCG server execution is unavailable.",
+    "Dialogue is one placeholder line. Conditional corpse/mountain quest warps are not replaced with unconditional shortcuts.",
+    "Existing native group spawning, shuffled outcome bags, combat and special fights remain authoritative."
+  ],
+  "gorge_corridor": {
+    "map": 15526,
+    "ambient_zones": [
+      7044,
+      7045
+    ],
+    "source_groups": [
+      "7033",
+      "7034",
+      "7035",
+      "7036"
+    ],
+    "pending": [
+      "Generated configs305/306 each have ten source-contract floors through the existing generator; original procedural topology remains unrecovered.",
+      "NPC5305 encounter12020 resolves through encount.txt to group12098: Lorens101532 with two100553 and two100678 soldiers; original barrier and post-victory landing remain authoritative.",
+      "Native ambient combat uses species/level adaptation; distinct source enemy/base IDs remain in raw groups and are not yet native stat bindings."
+    ]
+  }
+}

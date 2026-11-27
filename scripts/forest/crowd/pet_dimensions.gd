@@ -4,6 +4,7 @@ extends RefCounted
 const KAZ_HEIGHT=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const COMPANION_SKINS=617
+const CAVE_SKINS=192
 static var extra_profiles:Array=[]
 const MANTIS_SCALE=.85
 const BEE_SCALE=.8
@@ -23,9 +24,13 @@ const BEE_BODY=Vector3(32,52,34)
 const MANTIS_BODIES=[Vector3(46,92,48),Vector3(48,97,50),Vector3(46,92,48),Vector3(48,94,50),Vector3(46,92,48)]
 const MANTIS_FITS=[0,1,2,3,4,1,1,1,0,0,0,1,0,0,0,0,1,2,3,4]
 const HEIGHTS={
+ "university_region":[.7,.7,1.,2.,1.8,1.1,1.1,1.1,.8,.6,.8,.85,1.2,.7,.7,.7,.8],
+ "elsa_region":[1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.],
+ "snow_region":[1.6,.85,1.0,1.0,.85,.8,1.1,1.9,1.9,.8,.7,1.05,.7,1.0,1.1,1.1,1.4,.85,1.,.8,.7],
  "shalena":[1.6,.85,1.0,1.0,.85,.8,1.1,1.9,1.9,.8,.7,1.05,.7,1.0,1.1,1.1],
  "falan_encounters":preload("res://assets/maps/falan/map_encounter_data.gd").HEIGHTS,
  "habaru":[2.0,2.1,.65,1.65,1.35],
+ "venoa_route":[2.0,2.1,.65,1.65,1.35,.75],
  "zombie_cave":[1.15,1.0,1.0,.85],
  "pirate_cave":[1.1,.80,1.0],
  "forest_grave":[1.35,1.0,1.55,.75],
@@ -49,6 +54,9 @@ static func scales(root:String,data:Dictionary)->PackedFloat32Array:
  if HEIGHTS.has(family):
   assert(HEIGHTS[family].size()==data.variants.size())
   for skin in data.variants.size():result[skin]=KAZ_HEIGHT*HEIGHTS[family][skin]/float(data.variants[skin].standing_height)
+ elif family=="east_region":
+  assert(data.variant_heights.size()==data.variants.size() and data.variants.size()<=CAVE_SKINS)
+  for skin in data.variants.size():result[skin]=KAZ_HEIGHT*float(data.variant_heights[skin])/float(data.variants[skin].standing_height)
  return result
 static func companion_body(skin:int)->AABB:
  assert(skin>=0 and skin<COMPANION_SKINS)
@@ -82,16 +90,23 @@ static func extras()->Array:
  return extra_profiles
 static func body(source:Script,skin:int)->AABB:
  var family:String=source.ROOT.trim_suffix("/").get_file()
+ if family=="east_region":
+  var original:Variant=source.motions().variant_sources[skin]
+  if original!=null:
+   var owners={"falan_encounters":"falan_frontier","forest_grave":"grave","habaru":"habaru","venoa_route":"venoa_route","shalena":"shalena","sokia_region":"sokia_region","university_region":"university_region","elsa_region":"elsa_region","cursed_maze":"cursed_maze","beast_maze":"beast_maze"}
+   assert(owners.has(original.bank),"Retain the approved source body owner for copied East frames")
+   return body(load("res://scripts/forest/crowd/"+owners[original.bank]+"_sprites.gd"),int(original.skin))
  var box:AABB=source.BODY
  match family:
-  "falan_encounters","shalena":
+  "falan_encounters","shalena","snow_region":
    if source.tree(skin):box=source.TREE_BODY
-  "habaru":
+  "habaru","venoa_route":
    box=source.CHAMBER_BODY if skin<2 else source.SLIME_BODY if skin==2 else source.VENOA_BOSS_BODY if skin==3 else source.BODY
   "forest_grave":
    if skin==2:box=source.FINAL_BODY
   "cursed_maze":
-   if skin>=2:box=companion_body(load("res://scripts/forest/pet_catalog.gd").skin(source.KEYS[skin]))
+   # These guardian boxes are already fitted world bounds from the shared companion bank.
+   if skin>=2:return companion_body(load("res://scripts/forest/pet_catalog.gd").skin(source.KEYS[skin]))
   "black_prayer":
    if skin>0:box=source.ESCORT_BODY
   "undersea":
@@ -99,15 +114,18 @@ static func body(source:Script,skin:int)->AABB:
  var scale_=scales(source.ROOT,source.motions())[skin]
  box=AABB(box.position*scale_,box.size*scale_)
  if HEIGHTS.has(family):box.size.y=KAZ_HEIGHT*HEIGHTS[family][skin]
+ elif family=="east_region":box.size.y=KAZ_HEIGHT*float(source.motions().variant_heights[skin])
+ elif family=="sokia_region" and source.motions().variants[skin].has("height"):
+  box.size.y=KAZ_HEIGHT*float(source.motions().variants[skin].height)
  return box
 static func offset(kind:int,skin:int)->int:
- return (skin+(COMPANION_SKINS if kind==Roles.SLIME else COMPANION_SKINS+29 if kind==Roles.CAVE_BEAR else 0))*7
+ return (skin+(COMPANION_SKINS if kind==Roles.SLIME else COMPANION_SKINS+CAVE_SKINS if kind==Roles.CAVE_BEAR else 0))*7
 static func geometry(cave:Script,world_sizes:bool=true,enemy_scale:float=1.0)->PackedFloat32Array:
  var rows=PackedFloat32Array()
  for kind in [Roles.GATEKEEPER_HOUND,Roles.SLIME,Roles.CAVE_BEAR]:
   var source:Script=load("res://scripts/forest/crowd/habaru_sprites.gd") if kind==Roles.CAVE_BEAR else cave if kind==Roles.SLIME else null
   var factors=scales(source.ROOT,source.motions()) if source!=null else PackedFloat32Array()
-  for skin in (COMPANION_SKINS if kind==Roles.GATEKEEPER_HOUND else 29 if kind==Roles.SLIME else 5):
+  for skin in (COMPANION_SKINS if kind==Roles.GATEKEEPER_HOUND else CAVE_SKINS if kind==Roles.SLIME else 5):
    var box:AABB
    var factor=1.0
    if kind==Roles.GATEKEEPER_HOUND:

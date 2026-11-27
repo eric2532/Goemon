@@ -1,5 +1,1992 @@
 # Keeping Goemon smooth
 
+## Clothing accessories 21669 and 21678 — 2026-11-27
+
+Equipment → Accessories offers **#21669 · Shadow Vest** and **#21678 · Evasion
+Vest**, with unchanged original graphics (`original:14091` / `original:14100`,
+palette 0). Names and effects are local gameplay choices. Per the user's
+correction, every accepted manual Space dodge starts the Shadow Vest's normal
+counter **automatically**, regardless of Counter Chance. No attack click is
+required. The shadow attacks from the pre-dodge origin while the real body
+completes its ordinary dodge. Timed dodges retain the original attacker. With
+Backstep Boots, warning-free steps query one nearby visible target from the
+origin, using the existing bounded query. With no target there is no counter,
+as with ordinary retaliation. An existing counter
+finishes its swing before the shared pending slot begins the new retaliation.
+Automatic stat/skill dodges retain their ordinary Counter Chance; Shift+Space
+still jumps. Unequip, character changes and death clear the prepared counters.
+Only the manual dodge call bypasses the Counter Chance roll. It uses the same
+normal counter damage, reach, timing, frames and queue as getting hit or an
+automatic dodge; the dormant click-triggered bonus-reach counter is not used.
+This supersedes the older Backstep Boots note that free backsteps can never
+leave a shadow.
+
+The Evasion Vest adds 100 percentage points to Dodge, using the existing 100%
+cap, and 100 physical defense. Damage reduction and both Stats presentations
+consume the same extra defense; level and food bonuses still stack. Magic
+defense is unchanged. Wearing both garments does not give automatic Dodge
+reactions the manual dodge's guaranteed counter.
+
+No simulation bottleneck was measured or targeted. These effects reuse cached
+equipment bonuses, the prepared shadow, existing combat/projectile owners and
+native queries. The automatic counter starts from the input event; there is no
+per-frame target search, asset load, new pool or targeting owner. Correctness
+checks do not establish frame-time improvements or long-session stability.
+
+Reproduce `tests/forest-shrine/clothing_accessories_test.gd` through Play Goemon.
+It covers the Cross Gate roster, native warnings, automatic counter damage
+without any attack click, full dodge movement, manual/automatic separation,
+physical/magic defense, free steps, pending counters, saves, original icon
+pixels, menu/Stats and thirty warmed reuse cycles. Evidence belongs under
+`build/Other Files/Asset Toolkit/Accessories/Clothing/`; current logs use the
+`clothing-regular-counter` prefix. In ordinary play, equip 21669 via Q → Accessories and
+press Space during a warning; its shadow retaliates on its own. Add Backstep
+Boots to try a warning-free step near an enemy. Unequip each garment and verify
+its effect disappears.
+
+Hit assertions give the fixture 100 Accuracy so the target's ordinary Dodge
+cannot obscure counter damage. Asset preservation passes. The shared Play Goemon script slot remains
+occupied by an independent route sweep, so the focused run uses the identical
+complete painterly source directly with an isolated save. Earlier click-triggered
+counter and mirror results predate this automatic-trigger correction; they do
+not establish verification of the current behavior. Godot reports resource/RID
+warnings at shutdown; warmed reuse checks measure runtime growth, not a clean
+engine-shutdown leak audit.
+
+The final regular-counter trigger passes 399 checks in an isolated Metal run
+across all 21 Cross Gate roster entries, with no script errors. It verifies
+automatic counter damage with no attack click at zero Counter Chance, ordinary
+counters still respecting zero Counter Chance, the complete dodge distance,
+existing pending-counter behavior, both clothing bonuses, save/UI/imported
+pixels and thirty warmed cycles without retained node/resource growth. The
+rendered automatic counter was reviewed separately; no frame-time improvement
+or long-session stability claim is made.
+
+## Keep fortress setup arrays before upload — 2026-11-27
+
+An actual Il setup backtrace stopped at the round-tooth builder reading a newly
+committed merlon back from Metal. FortParts now retains the existing merlon/raw
+CPU arrays and carries them through its direct prepare consumers. It uses the
+same resource ownership and geometry, without adding per-frame work or another
+renderer. Primitive/imported meshes and independent details still have counted
+fallback reads; this change does not remove every scenery readback.
+
+The isolated comparison passed15,042checks across two merlons,22raw and22prepared
+forms, including exact vertices, packed normals/tangents/colors, UVs, indices,
+materials, bounds and gameplay/fit metadata. The candidate counted2,156retained
+accesses and767fallback accesses. Matching Godot4.6.1's packed-upload sequence
+was necessary: simply retaining unquantized arrays changed the old output.
+These are preservation results, not measured startup speed or smoothness.
+The published source and immutable comparison evidence are under
+`build/Other Files/Asset Toolkit/East Gate Region/Bank Caps/Fort CPU Candidate/`.
+Use the current Il desktop fixture to check startup, banks and native pets;
+inspect its visible captures and errors separately from the headless proof.
+
+## Source shoreline supports — 2026-11-27
+
+Small original shore lips can lie over a field cell marked uncovered. The old
+early void return ignored an explicitly prepared Ramparts floor there. Kai and
+the native army now consider that existing floor owner before rejecting the
+point. Heights and covered-mask bytes stay unchanged. Source placement owners
+must still prove which joins and routes existed; a grass-alpha shape alone
+does not establish original walkability.
+
+Native support candidates are indexed in12m buckets once during configuration.
+Movement checks exact nearby piece boundaries so its usual0.7m sample interval
+cannot step across a tiny water gap. Ordinary flat-field certificates remain
+available away from those pieces. Preserve projected tolerances for rotated and
+nonunit piece directions; a fixed world margin failed that contract in review.
+
+The published C++ source passes18,833focused bank checks,974,401shared clearance
+checks,19,330navigation-cache checks and124movement-worker checks. The isolated
+5,000piece/1,000distant-query case uses1,000height samples. Those are numeric and
+bounded-work results; they establish no gameplay frame-time or visual claim.
+Actual player/pet approaches and source/reverse shoreline views remain required.
+Reproduction and original/current/candidate evidence are under
+`build/Other Files/Asset Toolkit/East Gate Region/Bank Caps/Native Support Proof/`;
+the source fixture is `tests/forest-shrine/east_bank_caps_native_probe.cpp`.
+
+## Keep generated floor arrays on the CPU — 2026-11-26
+
+A Cape camera pass had passing assertions but a black first-floor ground.
+Its two Metal fence errors pointed to `mesh.surface_get_arrays(0)` in original
+floor batching: the synchronous GPU readback returned empty geometry. The
+existing coastal mesh builder now retains `commit_to_arrays()` on floor,
+water and flat-panel mesh resources; batching reads that immutable metadata.
+Other mesh builders keep their existing default. There is no per-frame work
+or global cache keyed by an instance ID.
+
+The focused array check passes15 assertions: positions/UVs match exactly and
+normal differences are the old packed readback's1.53e-5 quantization. The
+106-check native integration confirms nonempty floor batches, contacts and
+preserved physics. Corrected rendered floor review is still required; neither
+headless result establishes smoothness. Run `original_ground_arrays_test.gd`
+and the Cape normal-camera fixture through Play Goemon, then inspect the first
+floor rather than accepting assertion counts alone.
+
+Shared sprite-page selection also needs restoration on each map setup.
+`Hound.prepare_pages` already skips unchanged selections; a separate "prepared"
+boolean became stale after another East map replaced the shared page table.
+The source13509/13512 adapter now requests its selection on setup and passes
+the return-after-other-selection check in its133-check native review. This
+reuses the existing page owner and avoids loading the whole bank or rebuilding
+textures during combat.
+
+## Prepare terrain collision from its existing CPU triangles — 2026-11-26
+
+A rendered Sokia preview hit a Metal fence inside generated-terrain collision
+readback. The Wind Meadow builder already computes vertices and indices before
+uploading them. It now keeps those arrays on its owned mesh until collision is
+prepared, expands the same first-surface triangles, then releases the staging
+metadata. Decorative aprons remain excluded; baked collision resources and
+Freyja's existing three-entry geometry cache are preserved. No per-frame work or
+additional retained geometry cache was added.
+
+Keep the engine's original0.0001coordinate snapping. Godot4.6.1 routes
+`create_trimesh_shape()` through
+[TriangleMesh's snapping](https://github.com/godotengine/godot/blob/4.6.1-stable/core/math/triangle_mesh.cpp#L127);
+the initial unsnapped candidate failed exact comparison and is retained as
+failed evidence. The corrected46-check headless fixture compares every triangle
+and its order byte-for-byte for standard/large Falan Arena, raised meadow with
+apron, expanded meadow and three Sokia terrains. It also checks cross-instance
+cache reuse, staging release and unchanged baked collision. No script/engine
+errors occurred. The measured CPU setup durations are single-run diagnostics,
+not a comparative benchmark or evidence of gameplay smoothness. Reproduce with
+`terrain_collision_arrays_test.gd`; results are under
+`Sokia Venoa Coverage/Server completion/terrain-collision-arrays.json`.
+
+A separate earlier mask readback flattened77,046Desert field samples in a GUI
+preview. Fresh source/field checks show only134intended changed samples; that
+GUI remains invalid evidence. Sokia now prepares four CPU Image resources from
+validated imported RGBA, so field generation can read its mask without a GPU
+round trip. Its own pixel, source-field and corrected camera checks are recorded
+by the outdoor owner; the46collision assertions do not establish those passes.
+
+## Distinguish client caches from complete outdoor sources — 2026-11-26
+
+A client DAT can contain unrecorded zeros. Checking a crop against those zeros
+does not establish complete original coverage. The pinned server LS2MAP sources
+now expose 16,455 additional dry cells on Freyja and 4,336 on Sokia. Reuse
+`prepare_east_region_maps.reference_map/complete_map`; do not add another loader.
+`prepare_sokia_outdoor_source.py` stages the full candidates. A separately recorded
+24×16source300 preview is active; full Freyja/Sokia completion stays staged.
+
+Every recorded client layer and all flags remain exact, including the one/53
+recorded client variations on Freyja/Sokia. The candidate navigation decoder
+changes zero recorded walk cells. These are data-preservation results, not
+runtime collision or rendering passes. New water/control-marker cells need
+separate interpretation, and the source-only scenery/entrances still require
+recovery. Do not turn a zero mask, a walkable-cell count or a file inventory into
+scenery completion. Evidence is in `Sokia Venoa Coverage/Server completion/`.
+
+## Reuse prepared source actors without loading unrelated pages — 2026-11-26
+
+The Sokia bank now has18 appearances. Three Cape actors reuse complete existing
+East bank entries; only their referenced indexed rectangles are compacted
+offline. Copying the page list literally would add134 scattered pages; the
+unchanged rectangles fit13 additional pages. Every preceding13 Sokia variant,
+frame, atlas pixel, palette and cue is preserved. The next two source actors,
+Jet100452/original2719 and Meyz100527/original2737, append at16/17, preserving
+all16 preceding variants and10,760 frame references. Use the declared
+`timeline_stride` when expanding cues; the current bank needs42 columns.
+
+This is setup/asset work through the existing native army and sprite owner.
+It does not add per-frame loads, a species targeting loop or another pool.
+The current publication has1,008 clips,11,552 frame references and42 atlas pages.
+All24 focused Sokia source tests and the three shared asset checks pass.
+The two new actors pass54 headless and56 rendered checks over six direct fights;
+their clear body/facing studies and contact views are separate. This is not a
+frame-time benchmark, and preparing their art does not restore their original
+quests, boss phases or encounter triggers. Evidence is under
+`Sokia Venoa Coverage/Scripted Bosses/` and `Cape caves/`.
+
+## Trace encounter IDs before restoring scripted fights — 2026-11-26
+
+The regional source extractor had confused script encounter IDs with group IDs
+and omitted `Encount` commands. Resolving encounter → weighted group → enemy →
+base removes all seven previously reported boss identity conflicts. For example,
+Lorens uses encounter12020, group12098: one Lorens and two of each ghost soldier.
+Group fields25–34 mean mandatory members; required/forbidden items are fields3/4.
+The reference readers, exact primary URLs and hashes are pinned under
+`assets/references/crossgate_sokia/schema/`. Some older reader indexes conflict
+with our table revision, so probability/count algorithms remain qualified.
+
+The corrected graph has460 scripts,297 candidate maps and47 fight declarations,
+including script-only encounters and follow-on encounter chains. All referenced
+scripts are present. This is data evidence, not a claim that those maps are
+playable or that every original rule is implemented. The twelve focused Python
+checks cover namespace resolution, cyclic chains, mandatory counts, ordered AI
+slots, dynamic templates, exact raw-byte validation and coverage.
+There is no measured performance improvement from this audit.
+
+Black Prayer now also uses coherent ghost actor2833, with its blank run3 mapped
+offline to the original walk1. Ruby and Blade art, cues and source banks remain
+unchanged. Fresh headless59 and rendered65 checks pass through six repeated
+native fights each, including damage, cues, death and cleanup. No runtime asset
+loading, per-species target owner or new simulation was added. Review normal63°
+camera evidence under `Sokia Venoa Coverage/Black Prayer Ghost/`; these short
+checks do not establish frame-time or memory-growth behavior.
+
+## Full Sokia source publication and current limits — 2026-11-27
+
+The full client-known plus pinned server-unrecorded map300 is now active:
+425,600 source ground cells,26,450 raw object anchors and97,605 decoder-open
+cells across44components. All dry/object/open/known-port cells are within the
+four existing crops;96,161 out-of-crop cells are source water. Decoder openness
+is separate from native support, especially for water/control graphics.
+
+The full publication passes42 headless and52 rendered assertions with10
+nonblank63° views. CPU Images pass13 checks, water/material state56, and the
+21existing wall meshes84 exact-array checks. The rendered run has zero script
+errors and seven Metal fence diagnostics; it does not establish smoothness.
+Fixed-camera review found suspended North crags. A scoped lower-foundation fix
+then passed708 geometry/native-preservation checks, preserving existing crowns,
+source anchors, all four terrain arrays and eight cave crags. Its rendered
+recheck passes33 checks at five fixed views, with zero script errors and seven
+Metal fence diagnostics. The same-camera North gap is closed. Repeated rock
+forms and compound views that obscure houses remain qualified; compound
+silhouettes are not accepted. Evidence is
+under `Sokia Venoa Coverage/Sokia full-source outdoors/`; full300 coverage is not
+regional scenery approval or fullFreyja100 recovery.
+
+## Bounded Freyja source headland — 2026-11-27
+
+The southwest source100 recovery adds52 exact scenery anchors to the existing80
+and extends the same terrain owner eight source columns. Seven prepared CPU
+mask Images preserve all unaffected fields; only153SouthLakes dry samples and
+450floor-index cells change. The original atlas stays pixel-identical. The
+existing water/scenery owners retain132land stations plus five offshore flowers;
+the other35source-water props remain staged for whole-map100. Five new trees
+are delegated to the existing27-trunk owner, avoiding duplicate stone colliders.
+No repeated frame/attack resource loading or simulation owner was added.
+
+Current rendered verification passes30 checks with three nonblank63° views,
+zero script errors, seven Metal fence diagnostics and no other engine errors.
+Actual MultiMesh readback confirms all132source positions with measured error0;
+the204,420camera exactly matches its protected before eye/rotation/FOV. Normal
+forward input reaches198.4647; all previously verified old native points remain
+available. Close foreground foliage limits west/north prop visibility, and shore
+depth/unseen faces remain fitted. This is source/control evidence, not an FPS or
+smoothness measurement. Evidence: `Freyja full-source scenery/headland-rendered.json`
+under the canonical Sokia Venoa Coverage directory.
+
+Two original dry/open shore centers (195,420 and210,407) remain rejected by the
+inherited four-corner finite-radius terrain rule when a neighboring corner is
+source water. Neither has an obstacle overlap. Retain that source-fidelity gap
+for further native review; changing water coverage would change the source
+layout. Dummy-renderer MultiMesh readback returned identity matrices and was
+discarded as position evidence. A concurrent shared-catalog metadata change also
+required fresh original-source preparation: all60graphic/palette/placement
+records and all30used runtime atlas crops/origins/sizes stayed exact. Original
+failed guard/output and the revalidation proof are retained; no authored
+preservation baseline was rewritten.
+
+Map100encounters now use56source zones,32groups and13already available
+appearances through the existing Falan and East/companion owners. All436
+existing-owner shuffle-bag/index checks pass. Direct native fights pass230
+checks with124actors and1316contacts across all32groups; every handle retires
+and repeated parties preserve handle count. Four representative party views
+are readable after selecting source-valid stations and the existing legal22zoom.
+The mixed wasp1031party remains scenery-obscured despite51passing camera checks
+and13passing isolated checks: projected body points and clear physics rays do
+not establish rendered visibility. Failed views remain saved. Source member
+caps/flags and distinct rare IDs are retained; original
+count/probability/AI execution remains qualified. Whole terrain/art activation
+is separate: source spans intersect the current opaque mask and native local
+placement queries, so no unprepared terrain is silently activated.
+
+The existing frontier owner now supplies exact city/village enemy-only boxes
+and matching player targetability, replacing its old220half-plane. Metadata
+passes90checks;156native checks preserve every friendly/terrain/height/bridge/
+ray field byte-for-byte across seven areas, with source-supported outdoor probes
+newly reachable. This is a fidelity fix, with no measured performance bottleneck
+or speedup. Barriers are prepared only with navigation setup, and player safety
+uses one bounded region check per existing target snapshot; no per-enemy army
+scan/owner or new backend was added. Companion/tree placement also avoids an
+unneeded East-bank fit-array lookup for companion-owned skins, using the
+existing exact radius query. CA/Dummy shutdown diagnostics are retained; no
+script errors occur in the passing headless cases. Reproduce via
+`freyja_enemy_safety_test.gd`, `freyja_source_encounters_test.gd` and
+`freyja_source_fights_test.gd` through Play Goemon, using the documented
+same-engine/current-source fallback when its shared script slot is occupied.
+For its `--views-only` retry, preserve the source station and normal camera
+limits. A frozen game loop also freezes `world.sync`: call that existing owner
+after positioning the hero so foliage receives its ordinary hero/cutaway state.
+Reset both camera transforms' interpolation before capturing. Framing scores and
+physics rays only choose candidate angles; inspect the saved images separately.
+
+New source floor packages can reuse `SouthPopulation.group_from_data` with their
+prepared groups under the existing native owner. This keeps the same item gates,
+shuffle bags, source IDs, member caps and mandatory members without another
+party loop. The extraction passes4,099pure checks: all157existing zones retain
+identical party/RNG/bag output, and4,096trial/mine draws preserve both rare level1
+variants and all six enemy IDs. This is data equivalence, not new native contact,
+appearance or performance proof. The11source-matched trial/mine layouts remain
+staged until their original entrances, NPC conditions, fights and cameras pass.
+
+## Black Prayer source encounters — 2026-11-27
+
+The six logical floors now draw source encounter15001 groups15006/15004/15005,
+with equal group weights, original ghost/blade identities and a maximum6 party.
+Members remain optional; the mixed group does not guarantee both species. The
+existing movement-triggered shuffle bags and native combat/presentation owners
+handle every group. All192 maze/seed combinations preserve their old walk bits,
+geometry and stairs. Old96-patrol slots remain compatibility data rather than
+live ordinary spawns. This restores the source group contract; it is not a
+performance count reduction or a measured speedup.
+
+Fresh checks pass600 source assertions,111,010 maze preservation assertions and
+295 native assertions. Seventeen direct parties across all six floors produce
+38actors,443contacts and414original audio cues, including the maximum6 boundary.
+All17 generations return handles/nodes/resources/texture counters to baseline;
+retired handles reject damage. The native run has zero script/engine errors.
+Those295/315 native/rendered checks used the earlier Blade1328 bank and remain
+historical. The coherent original2913 replacement preserves every Ruby/Ghost
+frame and all existing actor timing/audio cues. Its isolated current-source
+body review passes57 checks at13 fixed views, including all eight idle facings
+and the complete15-frame attack. The blue/white Blade is readable; live palace
+FX and hero overlap qualify contact images. Evidence is under
+`Sokia Venoa Coverage/Black Prayer Blade/`; initial fixture failures and the old
+incoherent actor study remain separately preserved.
+
+Original party-size/probability algorithms and random-floor topology remain
+qualified. A separate source-chest patch now uses the shared whole-branch
+allocator: exactly4 chests across six floors, with34 allocation checks and52
+actual-placement checks passing. All four have native reachability and stair
+clearance; consumed keys stay absent on reentry. Eight pre-change Cape
+branch/seed allocations remain exact. The headless placement run has zero
+script errors and one macOS certificate diagnostic. Original random chest
+placement/contents remain qualified; no frame-time improvement is claimed.
+
+The current source-route fixture passes223 pure checks,465 native checks and497
+rendered checks with16 nonblank63° views, zero script errors and two Metal fence
+diagnostics. It exercises original quest-item acquisition through18 F
+interactions, NPC6305's18421/solo guard, NPC81000's source ten-member Ruby party,
+surviving-party reentry, victory travel to16509(24,12), Shanti returns and pooled
+cleanup. Seventeen ordinary Prayer generations also use the coherent2913 bank;
+their current10 images are retained with hashes in `Black Prayer source
+route/Prayer views/`. Mixed Ghost/Blade bodies are readable, while maximum-party
+and live-slash views remain crowded. This is direct branch verification, not a
+recording of the entire natural outdoor route. Original StandEnemy scheduling,
+cooldown/escape, procedural topology, dynamic NPC count/refresh, inventory
+capacity, profession and skill-service semantics remain qualified. A later
+focused156-check native/170-check rendered pass restores16508's western253
+source cells, proves support for68new open cells, the west wall, normal forward
+input and the source ten-member fight/victory. The source camera view is clear;
+3354/5011 furniture paint and intermittent imported-floor corruption remain
+required visual work, separately from the verified map/quest behavior.
+Reproduce with the source-route fixture through Play Goemon; evidence
+and exact logs are in `Sokia Venoa Coverage/Black Prayer source route/`.
+
+## Keep conditional source fights in the existing encounter owner — 2026-11-26
+
+Map15003 had omitted source groups9033/9034 while retaining a fixed-position
+Oznik boss. It now draws their documented2/1weights only when item18403 is
+absent/present, using the existing quest-item dictionary. Eligibility gets a
+separate shuffle-bag key so an inventory change cannot release an old forbidden
+ticket. Pending groups are checked again before local placement. Both source
+identities retain one boss and both escort types, respecting maximum8 and each
+member's count cap. Existing native boss combat/body fitting is reused; the old
+fixed-position dispatch is suppressed on this source-owned map.
+
+This is a source-fidelity fix, with no measured frame-time bottleneck or speedup.
+It scans only the bounded zone choices when a movement encounter is drawn and
+adds no per-frame asset loading, whole-army scan or simulation owner. Selection
+passes12 checks; the latest six direct native fights pass62 checks with37actors
+and375contacts, including maximum8 parties, ordinary player damage and complete
+handle cleanup. Headless verification has zero script/engine errors. The latest
+rendered run also passes62 checks at the same fixed63° camera for both variants,
+with zero script errors and five Metal fence diagnostics. The boss is readable;
+escorts are partly cropped or briefly covered by a live cast, and stretched cave
+wall paint remains a scenery issue. This is not whole-map visual signoff.
+Source9067 escape behavior, item18404 reward/natural18403 access, and original
+probability/count algorithms remain unverified. The pinned AI rows confirm
+9067 has an escape slot (raw rate20) and Qi BlastLV6, while9068 uses LV5 without
+that escape slot; original condition/rate execution is not verified. Reproduce with
+`sokia_oznik_encounters_test.gd` through Play Goemon; evidence and initial failed
+fixtures are retained under `Sokia Venoa Coverage/Oznik encounters/`.
+
+## Venoa undersea source groups and native contracts — 2026-11-26
+
+Floors 15592–15594 now use the existing movement-triggered source encounter
+owner with zones 5044–5046/group 5040. It retains water lizards and warriors,
+levels 26–27, equal member weights and the documented maximum five. The old
+fixed patrol scheduler stays suppressed there; boss ownership is preserved.
+The original probability/count algorithms remain qualified in the source guide.
+
+Direct fights exposed a format error: the undersea bank has 28 timeline columns,
+but the shared kit preparer inferred 32 after the source adapter selected it.
+Select its actual 28-column contract before expanding to the native layout.
+The same review found a source-furnishing cycle on 15004: `coast_native` routed
+back into its own builder. Selecting the concrete prepared family removes that
+cycle, and retaining the existing coastal batch output restores dropped meshes.
+These changes reuse setup-time caches, native combat and existing presentation;
+there is no new per-frame asset load, target owner or pool.
+
+Fresh focused headless and rendered seven-map runs each pass 234 checks with
+no script/error lines. They cover all six undersea bank contracts, direct mixed
+fights, boss preservation, native cleanup and 44 concrete coastal mesh families.
+The final rendered run supersedes an earlier concurrent-run Metal fence timeout.
+This is correctness evidence, not a measured performance improvement or soak.
+The 15004 guard-room view still exposes obstructed furniture/blank backs, so
+visual completion stays open. Logs and exact gameplay cameras are under
+`build/Other Files/Asset Toolkit/Sokia Venoa Coverage/`. Use Play Goemon and the
+`south_kili_population_test.gd -- --venoa-undersea --visual` fixture to reproduce;
+a busy launcher slot required the
+same-engine/current-source/painterly fallback for these final checks. No export.
+
+## Check outdoor coverage across existing map owners — 2026-11-26
+
+The Venoa approach shares original map 100 with several existing Freyja scenes.
+Checking Southern Lakes alone obscured a real 672-cell southwest hole and also
+misclassified terrain supplied by other scenes. Compare the union of their
+source rectangles and visible masks before adding a new region or terrain owner.
+Rectangle coverage, visible scenery and native movement clearance are separate
+checks; the current audit keeps their remaining gaps separate.
+
+The small fix extends Southern Lakes' existing mask 26 columns west and keeps
+its old terrain arrays exact. Reuse its existing expansion and native bounds for
+the player clamp: the old symmetric field clamp admitted invisible padding.
+Ground and water materials are configured once through the existing art owner;
+inferred offshore water reuses the original atlas graphic and adds no walkable
+area. No new simulation, per-frame query or asset load is needed. The terrain
+stage's field, rendered-camera and normal-input edge checks pass 20, 22 and 5 checks.
+These are preservation/correctness results, not a fresh frame-time benchmark or
+full-region scenery signoff. Reproduce with the `venoa_southwest_*` fixtures and
+review the fixed 63° gameplay views under `Sokia Venoa Coverage/Freyja union audit/`.
+The later 80-station scenery stage passes 35 rendered assertions and preserves
+all 20 field checks, with zero newly lost source-open queries. Sample every
+opaque crown hue when fitting source colors: a green-only sample lost the grey
+tree variant. Owned canopy tints retain bark and the older Ruby materials.
+Three Metal fence errors qualify that rendered run; no smoothness claim follows.
+
+## Append recovered enemies through the existing native bank — 2026-11-26
+
+The Sokia bank now has 13 actors and preserves every frame of its preceding
+eight actors. New appearances use the existing seven-action/32-column native
+cue contract, shared setup-time atlas resources and pooled presentation. There
+is no new enemy simulation or species-specific target loop.
+
+Compare duplicate client source records before choosing one. Both 鬼靈 records
+1248/2833 declare appearance 101121, but the eight-direction source sheet shows
+1248 mixing one blue ghost with seven red facings. The new Sokia slot uses the
+coherent red `original:2833` actor and retains its 1.15 standing-height fit;
+the original archive remains intact. The later Black Prayer correction is
+documented above; this paragraph describes the initial Sokia-only stage. This is a
+prepared whole-actor source choice, with no runtime recolor or facing patch.
+巨狼 uses measured `original:2819` and the existing hound scale. Preserve source
+enemy/base IDs separately: the normal and level-one ghost share art/base 122
+but remain distinct encounter records. Full source stat/AI binding remains open.
+
+The focused repeated-use art fixture passes 123 headless checks across 15 native
+generations, including contacts, ordinary player damage, cues and cleanup. This
+is correctness evidence, not a frame-time or memory-growth measurement. During
+manual stepping, advance normal invulnerability/dodge clocks and give only the
+temporary test hero enough HP for the source levels. Clear the existing corpse
+and effect presentation between named art studies; frozen test clocks otherwise
+leave misleading overlapping screenshots. Review a whole-body view with the
+normal 63° camera and a clear sightline before judging appearance.
+The final clear art studies are visual-only: their separate GUI combat fixture
+failed 35 assertions and logged a Metal timeout. Passing headless contacts does
+not replace that missing rendered combat evidence. The 15526 corridor's direct
+mixed fights have their own 111/122 headless/rendered assertion evidence, with
+one Metal timeout and unresolved rock-paint/east-foreground visual problems.
+
+## Map-wide Explore swarm — 2026-11-26
+
+Historical trigger: superseded by the 2026-11-27 melon-bread food rule below.
+
+The fourth enemy defeated on an Explore map starts a swarm for that map.
+`forest_waves.gd` counts deaths and publishes its `swarm_active` state through
+the existing coordinator's `player_map_swarm` hero target field. Starting a new
+run or creating Waves for another map resets the count and flag. Late arrivals
+read the same shared signal, so they join without a second activation pass.
+Arena waves retain their existing rules.
+
+The native target owner admits the player from any reachable distance and lifts
+the patrol home boundary during the swarm, including for bosses. Navigation,
+walls, exact contacts, damage and committed strike timing retain their existing
+owners. Taunts, retaliation and nearby pet pursuits keep their existing rules.
+Patrol identity remains intact for guards and retaliation. Ally candidate queries
+stay local to 28 units; there is no whole-army search per enemy, extra simulation
+owner, renderer or combat-time asset loading.
+
+Ordinary patrol arrivals use five times their previous interval after activation.
+Movement-triggered encounters require five times the walked distance between
+checks (15 instead of 3), retaining the same shuffle bags, chances, safe zones
+and spawn clearance. Authored boss summons retain their attack patterns.
+The minimap now shows bosses without
+ordinary enemy dots.
+
+This is encounter-pressure tuning, not a fix for a measured frame-time bottleneck.
+Fresh native target-selection checks pass 221 assertions; native approach checks
+pass 574, including three enemy families at 20/30/60 Hz, distant and covered
+approaches, hidden/dead targets, reset, preserved patrol metadata and an unchanged
+committed strike with exact damage. Asset-preservation checking passes. Final
+headless and rendered integration each pass 21 swarm checks; the unchanged arena
+scheduler passes 37 checks and the boss-only minimap passes 51. The desktop
+Metal swarm run has 236 living enemies after four real native deaths; 202 of
+229 enemies beyond 50 world units reduce their distance over two simulated
+seconds. Others may need routes that initially turn away. The rendered capture
+shows the swarm notice and a map without ordinary enemy dots.
+
+Short desktop native-step p95/max samples are .167/7.309 ms before activation
+and .777/3.727 ms during the swarm. They measure different activity, exclude
+complete frame cost and were collected on a shared machine; they do not establish
+full-army smoothness, a performance gain or long-session resource stability.
+Logs and captures are under `build/Other Files/Asset Toolkit/Map Swarm/`.
+The launcher refreshed imports on the initial headless run. Final corrected
+checks used the launcher's same engine, source and painterly flag directly while
+another review held its script slot. Completed runs have no script errors;
+existing resource/RID teardown diagnostics remain. The model-publication fixture
+passes its minimap packed-position/no-copy checks but has one world-tick
+publication failure also reproduced with its original ordinary-enemy setup.
+No app export or long-session soak was performed.
+
+Verify with Play Goemon: enter Explore, defeat four enemies on the same map,
+then retreat and watch distant enemies approach through the existing routes.
+Check slower replacement arrivals and boss-only enemy markers on the minimap.
+Enter another map to check that ordinary patrol behavior starts fresh. Keep this
+feature in Waves and the shared native target owner when tuning it; do not add
+species-specific chase loops.
+
+## Qi Blast homing with ordinary dodge — 2026-11-26
+
+Qi Blast steers toward a solid contact at the target's body-center height,
+instead of preserving the caster's height on the nearest collider face. This
+keeps large enemies' feet from becoming the flight destination. A living lock
+follows lateral and vertical movement, including movement behind cover after
+release. Initial selection still uses the existing range, visibility and cover
+checks. Each arrival makes one ordinary native hit attempt: accuracy, evasion,
+active dodge, damage and defenses are unchanged. A dodge can still make it miss.
+
+If the target dies or is removed before contact, the existing projectile chooses
+the nearest eligible visible enemy within the caster's original skill reach.
+That bounded query runs only when a lock is lost. A new target gets its own
+pre-hit shine; an empty search retires the shot. The lease remembers whether it
+was targeted, because Godot clears a freed target reference to null. Intentionally
+untargeted fan shots retain their ordinary flight and expiration.
+
+This fixes aim and lifecycle behavior, not a measured frame-time bottleneck.
+Homing increases its speed only when necessary to reach a fleeing target by
+the existing flight deadline. Keeping that deadline avoids indefinite volleys
+outgrowing the prepared pool. Body-height aim reuses cached combat bounds and
+the existing exact contact helper. There is no new renderer, simulation owner,
+combat-time asset loading or repeated whole-army search.
+
+Verify through Play Goemon: equip Qi, hover over an enemy or select it with Tab,
+cast from raised ground, and watch the lock follow a moving enemy. Defeat the
+first target during a volley and check the remaining shots redirect or disappear
+when no eligible target remains. Ordinary native dodges should still miss.
+The focused fixture is `tests/forest-shrine/qi_targeting_test.gd`; mouse/Tab
+selection and native-copy charge regressions remain separate. Logs, rendered
+evidence and any asset-check limitations are under
+`build/Other Files/Asset Toolkit/Qi Targeting/`.
+
+Fresh verification passes 85 desktop Metal targeting checks, 85 headless
+targeting checks, 532 mouse/Tab checks, 721 native-copy movement checks and
+663 skill-level/gameplay checks. These include a continuously fleeing 40 m/s
+target, defeated/freed targets, pre-hit shine reset, zero-radius contact,
+100% native evasion producing real misses, and nine allies releasing 144 Qi
+blasts simultaneously. Four warmed repeated volleys retain no additional nodes,
+resources or projectile capacity; the focused runs report zero pool misses.
+The rendered capture separately shows an orb above the floor approaching the
+slime's body. The asset-preservation, player-audio and cosmetic checks pass;
+the earlier stale-cosmetic log is superseded by the final asset check.
+
+The short projectile-callback diagnostic reports desktop p95/max of
+0.117/66.563 ms and headless 0.292/85.465 ms while other reviews were running.
+These are not full-frame measurements or a controlled speed comparison.
+Fixture shutdown still reports renderer/resource cleanup warnings, separate
+from the passing assertions and warmed reuse checks. Play Goemon's script
+slot was occupied by another source review, so final runs used its same Godot
+engine, complete source and painterly flag directly. No app export or full-army
+performance soak was run.
+
+## Beast Master pet orders — 2026-11-26
+
+Beast Master replaces the six numbered skill bindings while it is equipped.
+Keys 1–5 use the five saved Equipment → Party slots. Key 6 adds one attack to
+every selected pet's queue. A press summons the pet with the existing summon
+effect, or adds to its queue if it is already out. The pet recalls after a short
+pause once its queue and last attack animation finish. The character's spells
+and pet loadout stay saved. The dagger uses the ordinary character damage stat
+and bypasses equipment attack bonuses, criticals and skill procs.
+
+An accepted order also plays the character's existing magic-cast frames as a
+short gesture. Rapid presses share that gesture and still add every pet order.
+Attacks, guard, dodge and jumps keep pose priority. The gesture uses the
+equipped body's prepared art and carries no spell controller, mana cost,
+player hit or movement lock.
+
+The native companion owner consumes one order when it starts an ordinary
+attack. It reuses the local pursuit, target claims, authored contact events and
+exact cover checks. The coordinator tracks at most five ordered pets and reads
+a native boolean for each while they are active. Summoning reuses the existing native
+unit, sprite batches, effect and audio pool instead of creating a combat node
+per attack. Switching weapons, death or a world reset clears the pet orders.
+
+Beast Master searches up to 60 m from the player and places all five requested
+pets on the first native step when each has a valid landing. The earlier
+18 m search started at each pet, and the coordinator admitted three pets per
+step. Beast Master shares one nearby-enemy query across ordered pets and can
+stage the whole group even if the area near the player is crowded. Each pet
+appears in front of a target or at a nearby clear angle. The existing summon
+effect plays there and the original strike starts immediately. The jump to
+the target ignores intervening objects. It still requires continuous ground
+support and a clear landing with exact melee contact. If there is no eligible
+landing, the summon stays offstage. A committed swing finishes if its target
+falls. The next queued swing searches for a living target. The five landings
+commit after target decisions, avoiding an army grid rebuild per pet.
+
+All 349 Cross Gate appearances can equip Beast Master. It reuses existing
+weapon routes on 309 appearances and prepares their own sprites for the other
+40. Of those, 29 have a recovered throw with an original release cue. The 11
+without that source action use a timed release made from their own existing
+poses. `tools/prepare_crossgate_beast_master.py --check` verifies the new routes
+against the source pixels, frame origins and clocks.
+
+Use Play Goemon to equip Beast Master, set the five party slots, then enter
+combat. Press 6 with enemies about 50 m away, then try 1 around a wall and in an
+empty area. Each pet should appear at a clear striking position on the enemy's
+side of an intervening object, then hit on its original contact frame. Tap 1
+repeatedly and press 2–6 while the first pet is swinging to check each queue.
+The focused fixture is `tests/forest-shrine/beast_master_test.gd`. Native queue
+correctness also runs in `native/terrain_math/crowd/pet_defense_test.cpp`.
+
+The 60 m desktop Metal fixture passed 70 checks. Five pets appeared and
+committed to five distinct enemies about 50 m away on native tick one. A
+62 m target produced no summon, and cover added during windup stopped the
+strike. Four warmed cycles retained zero extra nodes or resources. The short
+desktop runs sampled native step p95 at 0.50–0.64 ms idle and 0.52–0.76 ms during
+repeated use. The renderer reported a minimap startup fence timeout. The
+samples do not measure full-army frame pacing. The native pet-defense suite
+passed 111,872 checks, including five pets sharing one target and queued attacks
+switching to another distant target after the first disappears. The skin
+fixture passed 1,164 desktop checks, with frame and clock coverage in eight
+facings for all 349 appearances and live casts and dagger throws on the 40
+added routes. The Cross Gate Mirror Image movement fixture passed all 721
+checks. See the `Beast Master Rush` and `Beast Master Skins` folders in the
+Asset Toolkit.
+
+The previous desktop Metal fixture passed 62 checks. Three pets started their
+strikes on the first native tick and the remaining two started on the second,
+with five distinct targets and effects at the landing positions. Four warmed
+cycles retained no extra nodes or resources. That native pet-defense
+suite passed 111,862 checks, including object bypass and blocked landings. The
+ordinary terrain-clearance suite passed 974,401 checks. That evidence is
+under `build/Other Files/Asset Toolkit/Beast Master Rush/`.
+
+The original desktop Metal run passed 58 checks, with five concurrent pets,
+real native pet damage, the dagger's base damage readout, and the original cast
+frames playing without a spell. The native pet-defense suite passed 111,816
+assertions. The shared Mirror Image fixture passed 721 checks through Play
+Goemon, including nine simultaneous Kaz copies. Four warmed five-pet
+summon/recall cycles retained zero extra nodes
+or resources. The short native integration samples measured 0.151 ms p95 idle
+and 0.120 ms p95 during repeated use. These samples include different amounts
+of pet activity on a shared machine and do not establish a performance gain or
+full-army frame pacing. Engine shutdown resource diagnostics are separate from
+the gameplay checks. Logs and captures are under
+`build/Other Files/Asset Toolkit/Beast Master/`.
+
+## Player passage through scenery — 2026-11-26
+
+The player can walk through trees, rocks and decorative props. Terrain, bridges,
+structural walls, buildings and closed gates still support or stop movement as
+before. The existing scenery colliders remain on their physics layer for combat,
+camera queries and native navigation. Map load and scenery rebuilds give only
+the player a movement exception for each decorative body. The exception is
+removed when the body leaves the scene, so travel and scenery edits do not
+accumulate stale collision references. There is no per-frame scenery scan.
+
+Use Play Goemon to walk through a tree and approach a solid wall in the same
+area. The focused `tests/forest-shrine/player_scenery_passage_test.gd` fixture
+passed 30 desktop Metal checks and 30 headless checks. It covers actual player
+movement, floor support, walls and gate frames, combat cover, native collision
+export, and cleanup after scenery rebuilds and map reload. Logs are under
+`build/Other Files/Asset Toolkit/Beast Master Rush/`.
+
+## Falan city source coverage and house facades — 2026-11-26
+
+The observed issue was visual/source coverage, not a measured frame-time
+bottleneck: marker-only recovery omitted original building 10310, and the
+ordinary-house renderer used two roof profiles despite having individual native
+contours. Some long-facade doors and signs also faced away from the native view.
+The smallest shared fix extends the existing unmarked-house recovery, passes the
+source graphic into the cached family builder and puts facade details on the
+source-facing wall. It preserves the street grid, source stations, native
+collision/navigation ownership, room connections and all 78 city NPC stations.
+
+There are now 24 cached ordinary-house meshes / 48 surfaces / 32,342 prepared
+triangles, including the restored house. Fifty-seven sloped-house placements
+use their own contours. Setup prepares the geometry and materials; play and
+city/room/gate returns reuse them. No new update loop, renderer, army query,
+asset load during combat or simulation owner was introduced. These counts and
+cache-identity checks do not establish a frame-time gain or long-session memory
+stability. The user's earlier smooth-gameplay experience and older stress
+measurements remain separate from this pass.
+
+Fresh desktop Metal verification through Play Goemon passes 1,213 checks with
+no gameplay script/engine errors: fixed views, native doorway approaches,
+sixteen main building round trips, one reusable house, all three gates and the
+four castle approaches. The source inventory verifies 78,352 navigation cells
+across all 77 city rooms and all 231 scoped original warp records; adjacent
+trigger tiles retain their existing doorway grouping. Eight focused Python
+tests, a 319-asset audit and all shared asset-preservation groups pass. Standalone
+fit/import teardown diagnostics remain separate from the passing gameplay run.
+
+To verify visually, launch Play Goemon, choose Freyja and Falan, then Explore.
+Compare the coloured shops, a residential side street and the arena-side house
+with the report's fixed before/after views. Entrances should read from their
+original streets. The original street/warp owners should determine layout;
+extra foliage or scenery is unnecessary. Future city recovery must inventory
+source graphics as well as saved markers, and regenerate fitted dependencies
+after mesh changes. Run `python3 tools/audit_falan_city.py` and the focused
+`falan_city_layout_test.gd` launcher fixture. Evidence, the full district/room
+checklist and the 32 missing original-room references are in
+`build/Other Files/Asset Toolkit/Falan City Reconstruction/`. No full walk-through,
+app export, army stress test or new smoothness claim was made.
+
+## Bau, El, Gen and Sarah — 2026-11-26
+
+The four gallery selections now use stable IDs 52–55 and the existing Cross
+Gate model/combat owners. Bau now has 19 gallery entries, El 17, Gen 18 and Sarah 21.
+The preserved preparation inventory contains 419 native weapon/skin combinations plus 72 matching
+boomerang routes. Original pixels, offsets, eight-facing motions, source contact
+markers and recovered weapon/effect cues remain authoritative. These additions
+identify no new frame-time bottleneck and make no new smoothness claim.
+
+Two integration boundaries needed explicit updates: the settings defaults must
+contain all four skin keys so selections survive reload, and the native mirror
+kind limit must include 152–155. The old limit rejected the new characters'
+copies even though their body/charge setup was valid. The same native owner now
+accepts them while rejecting 156 and the retired 141; no separate ally logic,
+target search or renderer was added. Future character additions must check both
+save defaults and this native validation boundary.
+
+Preparation embeds each outfit's verified weapon stances and reuses existing
+atlas/material/audio caches at selection. Attacks advance those prepared
+resources. The existing head preparer uses reviewed crops for all 75 entries;
+painted masters and dialogue portraits remain intact. The cosmetic preparer's
+optional `--extend-heads-from` takes the exact previously preserved head receipt,
+requires every old record and both attachment outputs to match, and reuses only
+hash-verified atlas attachment points. New or changed atlas regions still pass
+through the fitter. This keeps approved old attachments intact while extending
+the cache; it does not replace preservation hashes to suppress a failure.
+
+Fresh checks pass 210,471 source frame/origin/clock/cue comparisons, all 350 HUD
+head routes and all 1,217 player-audio manifests. The full prepared boomerang
+bank also passes 26,512 throw-frame comparisons across 309 compatible
+appearances (including the 72 new routes). The focused combat fixture
+passes 18,110 headless checks across 75 skins and 491 weapon choices. A desktop
+Metal run passes 18,244 checks, including warmed node/resource/projectile-pool
+reuse. The separate rendered controls fixture passes 572 checks, including
+walking, Shift press/release and matching source gait animation. The native
+mirror unit test and 721 Cross Gate movement/charge/interruption/reuse checks
+pass, including the four new identities and nine Kaz copies, without script
+errors. Existing shutdown resource diagnostics remain separate from assertions.
+The prepared cosmetic matrix also passes 1,054 rendered checks across all 75
+skins, 491 weapon choices and 94,272 sampled motion frames, including simultaneous
+native copies of the special appearances and warmed attachment-resource reuse.
+
+The final isolated warmed desktop scene sampled frame intervals of 16.650 ms
+median, 17.205 ms p95 and 34.081 ms maximum. Other development work was running on this
+machine; this is neither a before/after comparison nor a full-army benchmark.
+Do not infer whole-game smoothness or long-session stability from these numbers.
+
+Verify by relaunching Play Goemon, scrolling to Bau/El/Gen/Sarah, opening the
+existing skin gallery, changing weapons and entering the map. Check ordinary
+movement and Shift, normal attacks, special artwork and sounds, then reopen the
+game to confirm the selected skin and loadout survive. Reproduction commands,
+source exceptions and inventories are in
+`assets/characters/crossgate/fighters/bau-el-gen-sarah-README.md`; logs and captures
+are under `build/Other Files/Asset Toolkit/Bau El Gen Sarah/`. No app export or
+full-army/long-session stress test was requested.
+
+### Bau gallery ownership correction — 2026-11-26
+
+The initial discovery pass wrongly seeded gold dragon fist 115257 and silver
+martial sword 124999 as Bau. Their clocks and body poses follow Gen; all 128
+lower-body idle/walk/run frames of 124999 match Gen's pixels exactly. They are
+now belong to Gen's shared gallery, leaving 19 Bau and 18 Gen choices, with 75
+visible entries across the four characters. Soccer variants 120384/120385 remain: the
+original family index associates them with Bau.
+
+The correction reassigns the original prepared art without changing its pixels,
+motions or clocks, and refreshes its weapon/audio/head/attachment routes. Old Bau
+loadout keys remain valid and their asset roots alias Gen; a saved old Bau
+selection resolves to Bau's existing default. The two skins' saved stance and
+spell assignments are copied to Gen only when that Gen entry is absent;
+original records and newer Gen edits remain intact. Whole-character gear,
+balance and jump choices retain their existing owners. No combat, army owner or frame
+loop changes. The 75-appearance measurements above describe the
+initial integration, before the ownership correction; they are historical
+evidence, not a fresh run of this correction. Verify through Play Goemon by
+opening Bau's skin gallery (19 choices), then Gen's (18 choices) and selecting
+the gold and silver variants there.
+
+Fresh focused source verification passes 1,096 exact native frames across the
+two reassigned skins, including origins, clocks, flags, contacts and sound cues.
+Their two manifests and six atlases retain the latest pre-move preservation
+hashes. The gold boomerang and silver Beast Master route each pass 80 original
+throw-frame comparisons; player audio routes were regenerated and checked.
+Reports are under `Bau El Gen Sarah/Bau Skin Correction/` in the Asset Toolkit.
+
+The final desktop-launcher checks pass 118 Equipment/gallery/save/native-copy
+assertions and all 721 Cross Gate Mirror Image movement/charge/interruption/reuse
+checks, including nine Kaz copies, without script errors. Three captures of the
+actual shared gallery widget pass on Metal: Bau has only his 19 entries; Gen has
+18, with both martial specials visible. These are UI captures, not a fresh
+full-world render or smoothness measurement. The earlier full-scene Metal attempt
+hit fence timeouts while another regional review was doing the same; its log is
+retained separately. Existing resource/RID shutdown diagnostics remain.
+
+For an ownership/path-only correction, preserve verified attachment positions.
+This preparation first matched all 2,995 original inputs and 31 outputs to their
+frozen receipts, proved the head records changed only ownership/path fields,
+then remapped the atlas routes. All 1,159,016 frame references across 1,259 model
+roots retain coverage; the anchor binary, source pixels and coordinates remain
+byte-identical. The existing asset/audio/cosmetic checks pass. Use the recorded
+preparer only with its exact source preconditions; actual crop or artwork changes
+still require the normal fitter and visual review. No app was exported.
+
+
+## Situational pet skill selection — 2026-11-26
+
+Selectable pets choose at the existing native attack-start boundary. In exact
+melee contact, a target within one estimated ordinary hit gets a normal attack
+without spending MP or skill cooldowns. The estimate includes the pet's current
+native damage/growth, conservative guard reduction and existing boss armor;
+active physical wards prevent this shortcut. A distant weak target can still
+receive a ranged cast instead of leaving a Hold pet unable to act.
+
+Otherwise, ready Fire/Ice/Wind/Meteor casts get preference when their current
+trained target count is at least two and another living, unsheltered enemy is
+within the existing 16 m cast range with a clear lane. These spells explicitly
+cap their victim lists, so this uses actual target eligibility rather than an
+invented splash radius. Outside exact melee contact, ready ranged casts take
+priority over blink attacks. Equally suitable skills draw without replacement
+through the existing native bag helper. Mana, readiness, silence, cooldowns,
+original contacts, commands, target ownership and R group strikes retain their
+owners. Already committed 連擊 and Bee Flurry continue through their existing
+paths; a victim becoming weak does not restart selection mid-sequence.
+
+The prepared caster publishes three group-capability bits on loadout setup and
+skill-count/level changes. The native owner adds at most one unsorted local
+spatial query when a new attack has an eligible group skill; it exits after
+finding a second legal victim. Ordinary finishers and committed combo steps do
+not add this query. There is no per-frame script selector, new simulation,
+asset loading, projectile owner or pool. Rest retains the skill bag/profile;
+loadout replacement and pooled reuse reset them.
+
+This adds decision work, not a performance optimization. An isolated 20-enemy,
+60,000-decision native comparison measured median 0.156 microseconds before
+versus 0.616 after (p95 0.188 versus 0.697). This synthetic result includes the
+new group query on every decision, not rendered frame time or a full-army
+smoothness claim. Evidence is under
+`build/Other Files/Asset Toolkit/Pet Skill Decisions/`.
+
+Fresh native checks pass 58 focused selection assertions, 106,875 pet-skill,
+111,783 defense, 262 surround, 896 attack-move, 1,863 R-combo and 4,574 Bodyguard
+checks. Bee Flurry's cancellation/return assertion at line 72 fails on both the
+captured preceding source and this change; do not report that suite as passing.
+The focused gameplay fixture passes 28 headless and 30 desktop Metal checks,
+including five pet families, real two-target Meteor damage and physical F/Z/R
+orders. The shared casting fixture passes 111 desktop checks, including committed
+combos, focus, recall/death retirement, resummoning and five simultaneous trained
+casters. Its lethal-combo cases now weaken a target after the combo starts;
+contact/damage cases account for recorded enemy dodge events instead of assuming
+every physical hit lands. Production evasion remains unchanged.
+
+The warmed mixed-casting sample keeps 2,061 nodes, 2,537 resources and prepared
+projectile capacity stable, with zero pool misses. Ordinary and mixed native
+integration/presentation p95 are both 0.221 ms in this short fixture. Rendered
+frame intervals are 31.273 ms p95 / 66.355 ms maximum while other development
+work is running. These are focused shared-machine samples, not an isolated
+before/after frame comparison, full-army benchmark or long-session proof.
+Godot still reports shutdown resource diagnostics separately from assertions.
+The global asset check reports stale cosmetic inputs from the independently
+changed `assets/ui/portraits/crossgate/model-head-provenance.json`; pet selection
+changes no art or preservation receipts, and that cache was left untouched.
+
+Verify with Play Goemon: equip 乾坤, 隕石 and 氣功蛋. A nearly defeated adjacent
+enemy should get a normal hit; a trained level-five Meteor should be preferred
+with two clear targets; a distant enemy should get a legal ranged skill. Repeat
+F/Z, right-click and R, and watch an already started combo through its target's
+death. The focused rendered fixture is
+`tests/forest-shrine/pet_skill_selection_test.gd`; add `-- --full` to include the
+shared skill/pool checks and five simultaneous trained casters.
+
+## Mouse and Tab focus for offensive magic — 2026-11-26
+
+Fire, Ice, Wind, Meteor, both Qi Orb skills, 追月 and Spirit capture the enemy
+under the combat pointer when a cast starts, falling back to the blue-triangle
+Tab target when no enemy is under the pointer. All Qi blasts, Moon waves and
+Wind shots focus that enemy. Ground effects and each Spirit strike also focus
+that enemy, retaining their existing per-target damage and area contacts.
+Moving the pointer during the charge does not redirect an accepted cast.
+Without an eligible selection, the original automatic targeting applies.
+Death, range, visibility and each spell's cover rules still apply. Recovery
+remains self-healing. Pets and native copies retain independent targeting.
+
+The shared Qi controller adds one existing bounded pointer query per player
+cast and stores a weak target reference in the cast ticket. It reuses the
+existing candidate sort and Spirit queue. A valid focus skips the ordinary
+candidate query; every focused projectile retains its own combo completion.
+No frame-loop target query, army scan, new pool or asset preparation was added.
+This is a targeting change, not a measured performance improvement.
+Verify with Play Goemon: aim at a farther enemy with a nearer enemy off to the
+side, cast each magic, then repeat while pointing elsewhere. The regression is
+`tests/forest-shrine/magic_mouse_target_test.gd`; focused evidence belongs under
+`build/Other Files/Asset Toolkit/Magic Mouse Target/`.
+
+Fresh verification passes 532 headless and 533 Metal focus checks, including
+three real Qi contacts on one selected enemy, mouse-to-Tab fallback, cast-facing,
+repeated use, cover, range and combo completion. Native copy verification passes
+721 checks across the current 21-fighter roster, including nine Kaz copies,
+charge progression, follow recovery and interrupted reuse. The shared native
+skill fixture passes every spell timing/count/damage check; three melee-combo
+assertions for Saizo, Bog and Lancelot also fail with the unchanged Qi controller.
+Its overlapping-Qi fixture now refills mana between isolated casts. The broader
+asset check reports stale cosmetic input `model-head-provenance.json` from the
+concurrent character work; this change does not rebuild or approve that cache.
+The final runs used the same source and painterly Godot directly while another
+review occupied Play Goemon's script session. No full-battle performance claim
+or app export follows from these focused checks.
+
+## Zone-to-zone loading — 2026-11-26
+
+The user reported long waits between Explorer zones. A desktop Metal profile
+put the largest cost in destination scenery construction. The South and East
+Gate views were rebuilding the same city scenery that already existed in town.
+Falan now moves one set of static city scenery between the town and its gate
+views when their authored layouts match. The city restores editor collision
+anchors when it returns. Gate views, markers, NPCs, buildings, run progress and
+native actors still use their existing destination setup.
+
+The three most recently used Freyja terrain meshes and collision shapes can be
+reused on a return trip. A single-surface terrain can build collision directly
+from its mesh. Keep the first-surface rule for terrain with a decorative apron.
+Impact material ranges use surface counts without reading vertex buffers back
+from the renderer. The native collision export applies the same transforms to
+a packed array in one call. Southern banks now sample each unique vertex once,
+and the cliff builder reuses the same interpolation calculation across a ring.
+
+Across 17 paired crossings on this Mac, total wait to see the destination
+fell from **48.8 to 23.0 seconds**. Synchronous scene installation fell from
+43.2 to 22.1 seconds. Time to the first rendered destination frame fell from
+**6.0 to 2.1 seconds** at South Gate, **7.1 to 2.9 seconds** on the
+first East Gate crossing, and **2.8–3.0 to 0.4–0.8 seconds** on returns to Falan.
+South Lakes went from **6.0 to 3.8 seconds**. First arrival on Sokia Coast
+still took **4.4 seconds**, compared with **5.5** before. The sampled resource
+count matched at every corresponding stop. The cache can park one city scenery
+tree outside the active world. This is a loading measurement with a fixed
+route and seed.
+
+A separate exact comparison passed 355 checks for cliff and bank vertex
+attributes, triangle order, terrain collision faces, bounded mesh reuse and
+packed collision transforms. Gate round trips, East Il Road, southern zone
+populations across 11 maps, native collision and impact materials passed. The
+map editor scenery test reported the same three failures with and without
+the transition changes, covering rotation and a native clearance probe.
+
+To verify in Play Goemon, walk out East Gate, turn around, and repeat. Then
+enter the southern cave and travel through to the coast. Compare the wait
+until the first visible frame and check movement and interaction at the
+arrival. The raw traces and evidence are under
+`build/Other Files/Asset Toolkit/Zone Transitions/`.
+
+## Startup and Falan map loading — 2026-11-25
+
+Repeat Play Goemon launches were refreshing imports after Godot rewrote its
+class cache with identical bytes. Compare the contents of the generated class
+and extension lists. Source edits, changes to the lists, missing imports and
+engine changes still trigger a refresh. The title prepares the selected fighter
+and its required Goemon bootstrap. The map backdrop is built for the selected
+map or when Settings needs a live preview.
+
+Freyja and Falan validates the saved adventure and all four linked layouts, then
+starts from the validated city layout. The temporary editor-normalization world
+is unnecessary in this flow. The map editor still normalizes editable layouts.
+Falan also reuses each exact stone section while fitting the masonry joins. The
+cache lives only for that build and keys on the part, transform, height and
+clipping range. All 314 joins, contacts, collision bounds and mesh arrays match
+the original byte for byte.
+
+In paired desktop Metal runs, the Freyja and Falan button reached the rendered
+fighter picker in **23.8–29.2 seconds before and 10.7–10.8 seconds after**.
+The isolated masonry-join build fell from **18.2 to 2.2 seconds**. Later
+unchanged desktop launches printed `Goemon assets are up to date.` The
+initial title still loads shared gameplay resources, so full startup time varies
+with system load. These measurements cover loading, with no gameplay frame-time
+or long-session estimate.
+
+Fresh checks passed the launcher and import cache, 52 rendered camera and HUD
+checks, 11 rendered Arena start and wave checks, 7,685 Falan gate checks, 605
+native Mirror Image checks including nine Kaz copies, and shared asset
+preservation. The separate Arena geometry fixture reported the same 18
+relief, gate-bay and backing assertions on both revisions.
+
+To verify, close and reopen Play Goemon twice without editing. The second
+launch should skip the importer. Choose Freyja and Falan and time the wait
+until the fighter picker appears. Open Settings from a fresh title and check
+that Camera & HUD still has its live backdrop. The paired logs and geometry
+fingerprints are under `build/Other Files/Asset Toolkit/Startup and Loading/`.
+
+## Elsa CUT background construction — 2026-11-26
+
+The59530 BG pedestal now reuses the reviewed406 fitter and retained CPU arrays.
+Its source-paint variant and masked apron repair are prepared at map setup and
+cached by their content hashes. No per-frame mesh/material work or GPU mesh
+readback was added. A512px page serves the nine relocated BG crops. The original
+stair art and flat navigation remain intact until their separate candidate is
+ready. Production Metal review passes28 checks/four inspected views without
+runtime errors/fences; this is not a frame-time benchmark or full-room signoff.
+
+For alpha-masked native floor repairs, extend neighboring RGB beneath unchanged
+alpha before generating mipmaps. Transparent black caused a dark repair outline
+even when its visible source pixels were exact. Preserve all visible paint and
+alpha; do not blur the whole texture or change the shared renderer to hide it.
+Source sampling, the inferred medallion continuation and five independent checks
+are documented in `assets/maps/falan/elsa/scenery/entry-pedestals/README.md`.
+
+The Elsa backgrounds contain thousands of distinct photo patches. Building a
+temporary cached mesh for every patch retained 8,979 form meshes for map 59520.
+Appending the same six vertices and source UVs directly to the existing atlas
+batches reduced that cache to 26 meshes. Classic map floors are unchanged.
+
+A paired headless construction probe measured 2,062 ms before and 1,864 ms after,
+with the same 3,005 scene children. Reported static memory fell by 18.6 MiB.
+These are single map-construction measurements, not gameplay frame times or a
+smoothness claim. Later scenery changes need their own measurements. Reproduce
+through `Play Goemon.command --headless --script
+res://tests/forest-shrine/elsa_route_test.gd -- --build-probe`; paired logs are in
+`build/Other Files/Asset Toolkit/Elsa Island/build-before.log` and `build-after.log`.
+
+## Original pace, bonuses for both gaits, no movement streaks — 2026-11-25
+
+The user reports the reduced default pace feels too slow to play, while the
+animation looks good. Restore ordinary defaults to 10.2/18 m/s by removing the
+Cross Gate-only slowdown factors. The user then chose movement bonuses for BOTH
+walking and sprinting because slow walking during combat is annoying, and asked
+to remove the ordinary speed lines. This supersedes the sprint-only experiment
+below. Saved global tuning, per-character overrides, equipment and food remain
+authoritative: Speed Shoes give 30.6/54 m/s at these defaults; a +20% food buff
+alone gives 12.24/21.6. Ctrl keeps its slower gait with the same movement modifiers.
+
+Keep the current drawings, 2.8/4.4 m stride calibration and actual-ground-travel
+animation clock. The legs must follow the distance covered, including buffs and
+collision slowdown. Increasing speed advances the existing cycle faster; no new
+poses, art or simulation owner was introduced. Discrete sprite frames and the
+existing footstep-sound limiter still limit extreme speeds; phase matching alone
+does not establish visual approval of every boosted combination.
+
+Remove only Hero's ordinary horizontal-speed `game.wind` emission and its timer.
+Keep the shared effect for explicit dash, Sky Strike and projectile uses. This
+is visual cleanup, not a measured CPU bottleneck or full-army speedup claim.
+Use Play Goemon to compare ordinary movement and Shift, then Speed Shoes/fruit
+salad/Wind Walk: legs should track ground travel without automatic speed streaks.
+Focused logs are in `build/Other Files/Asset Toolkit/Restored Movement Pace/`.
+No app export or fresh full-army/long-session benchmark was requested.
+
+Fresh final verification passes 504 rendered movement/buff checks and 605 native
+Mirror Image movement/charge/reuse checks without script errors, including nine
+Kaz copies. The rendered samples measure 10.2/18 unboosted and 30.6/54 with Speed
+Shoes. Stacked buffs, poison, Ctrl, timed expiry, removal, blocked movement,
+stride continuity and warmed resource reuse pass. Asset preservation passes.
+`restored-contact-review.png` and `restored-walk-run.gif` show the current
+unboosted leg sequence over a one-metre grid without automatic movement lines;
+this is a focused visual review, not a guarantee of perfect foot locking for
+every skin or approval of extreme boosted cadence. Desktop captures replay held
+modifier states so macOS focus changes cannot release their synthetic Shift/Ctrl.
+
+## Speed bonuses boost Shift sprint, not walking — 2026-11-25 (superseded)
+
+The user requested a steady walking pace while movement buffs increase running.
+For the controlled Cross Gate fighter, normal movement now targets the configured
+walking speed without positive item, food, level, cape or Wind Walk multipliers.
+Holding Shift applies the existing full bonus stack to configured sprint speed.
+Ctrl slow-walk and guarding also ignore positive speed bonuses; poison and the
+existing input/status slowdowns still apply. Explicit walking/sprint balance
+settings remain editable. Existing acceleration/braking response is retained so
+releasing Shift can shed boosted speed promptly.
+
+The small `Hero.locomotion_multiplier(sprinting)` selection is shared by ordinary
+movement, walking during mobile spell casts and cape-removal momentum cleanup.
+The full `movement_multiplier()` retains the existing contract for native copies,
+follow budgets, prepared flight and committed skills. No native targeting owner,
+per-frame resource creation or sprite art change was added. Speed Shoes, fruit
+salad and Wind Walk descriptions now identify the sprint bonus; saved equipment,
+food keys and recorded audio remain compatible. The earlier all-gait bonus advice
+and Speed Shoes walking measurements below describe the superseded behavior.
+
+With default balance, shoes now give 4.8 m/s walking and 21.6 m/s Shift sprinting;
+unboosted walking/sprinting remain 4.8/7.2. The distance-driven walk/run animation
+continues to follow actual travel. This is a requested movement rule, not a
+measured CPU bottleneck or performance improvement. Verify through Play Goemon:
+equip Speed Shoes, walk, hold/release Shift, then add fruit salad or Wind Walk.
+Walking should keep its pace while sprinting gains the bonus. Check Ctrl and
+poison too. Focused logs belong in
+`build/Other Files/Asset Toolkit/Sprint Bonuses/`; the movement fixture is
+`tests/forest-shrine/crossgate_movement_feel_test.gd`. No app export is needed.
+
+Fresh verification passes 335 headless roster/input checks, 504 rendered
+movement/buff checks and the required 605 native-copy checks (including nine
+Kaz copies, borrowed charge progression, follow recovery and interrupted reuse).
+The rendered run covers stacked shoes/food/level/Wind Walk bonuses, Shift release
+within 200 ms, Ctrl, poison, timed expiry and equipment removal without script
+errors. Asset preservation passes. These are focused checks, not a full-army or
+long-session performance benchmark; existing Godot shutdown diagnostics remain.
+
+## Ground travel and Cross Gate footsteps — 2026-11-25 (slow-pace trial rejected)
+
+The user reports floaty movement, especially the jump in speed when holding
+Shift. Fresh real-physics baseline checks found normal/sprint travel of
+10.2/18 m/s, while the recovered sprite cycles advanced by time alone. The
+saved 水龍shin loadout also equips Speed Shoes: its existing ×3 bonus produced
+54 m/s sprinting. Releasing movement and Shift together carried the body another
+1.30 m, or 3.89 m with those shoes, on the isolated flat platform. This is a
+movement/animation mismatch, not an identified CPU bottleneck.
+
+The shared Cross Gate balance defaults now resolve to 4.8/7.2 m/s at the normal
+baseline: sprint is a 50% increase. Baseline tuning remains proportional and
+explicit per-character overrides still win. The sprint balance slider accepts
+the new value. Saved preferences, upgrades and Speed Shoes are preserved; shoes
+still multiply travel by three, giving 21.6 m/s sprinting at these defaults.
+Other character families retain their defaults.
+
+The existing sprite phase now advances from actual horizontal distance divided
+by a gait's stride, including body scale. Walk/run use rounded 2.8/4.4 m strides
+at the shared 3.22 m body height, fitted against the original side-view support
+feet and reviewed over a one-metre ground grid. They are shared approximate
+fits, not exact per-foot locking for every skin: six-frame source drawings can
+still show discrete contact changes. Original body/weapon art, origins and
+attack/cast clocks stay intact. Direction/Shift transitions retain phase;
+obstructions and airborne travel advance no grounded steps. The existing sound
+sample, voice pool and footstep rate limit remain authoritative. No additional
+runtime model, material, search, effect owner or allocation was added.
+
+Fresh Play Goemon rendered samples measure 4.8/7.2 m in a steady physics second;
+stopping distance drops to 0.18/0.43 m, with 1.30 m from Speed Shoes sprinting.
+The distance clock is checked across the current Cross Gate roster at different
+speeds and body scales, plus Shift/slow-walk transitions, obstruction, airborne
+cleanup and warmed repeated use. The rendered contact strips show reduced ground
+sliding on 水龍shin, Kaz and Red Lightning; that visual judgment is separate
+from assertions and the user still decides whether the new pace feels right.
+This is not a fresh full-army performance or long-session benchmark.
+
+Fresh verification passes 262 headless movement/input checks, 402 rendered
+movement checks, 3,003 focused rendered animation checks and the required 605
+native Mirror Image movement/charge/reuse checks, including nine Kaz copies.
+Asset preservation passes. Desktop captures use the existing held-movement
+fixture so macOS focus changes cannot cancel their synthetic movement key;
+headless physics checks exercise held keyboard input. The older Shift fixture
+now flushes queued synthetic events before checking their state. Existing Godot
+shutdown resource diagnostics remain; warmed animation reuse adds no observed
+nodes/resources in the focused fixture.
+
+Reproduce with `Play Goemon.command --script
+res://tests/forest-shrine/crossgate_movement_feel_test.gd -- --visual`.
+Review before/after measurements, contact strips and GIFs in
+`build/Other Files/Asset Toolkit/Movement Feel/`. For normal play, compare WASD,
+Shift+WASD, release Shift while moving, release movement, then reverse direction.
+Check equipped Speed Shoes separately. Use this source launcher; no app export
+was made. The historical time-based animation checks below describe older code;
+the retired illustrated-Kazi stride calibration must not be reactivated.
+
+## 水龍 boomerang wave on confirmed contacts — 2026-11-25
+
+The custom 水龍 Boomerang's blue wave has moved from the caster's throw frames
+to the enemy contact point. Ordinary throws, counters and native copies share
+the existing projectile contact hook. The original default boomerang and the
+other custom weapons retain their presentation. Damage, broad swept queries,
+one-hit-per-enemy tracking, curved return, release timing and ice audio are unchanged.
+
+The same three wave drawings formerly baked into each throw now occupy one
+cached eight-direction effect sheet, playing through ArmyPresentation's bounded
+cosmetic pool for .25 seconds. Snapshot visual scale at launch. Do not load art,
+construct materials or attach a new effect owner on each hit. The wave replaces
+the custom throw's generic hit spark; keep native damage/labels/recoil/audio and
+the existing Reduced Flashes preference authoritative. Misses and empty flight
+create no wave, and a full effect pool cannot suppress combat damage.
+
+Fresh rendered checks pass 76 assertions for contact position, normal/counter
+frame identity, misses, ordinary-boomerang isolation, empty flight, four native
+copies with real target identities, repeated leases and cosmetic capacity.
+The existing seven-weapon fixture also passes 100 checks, including repeated
+crowd hits, ice audio, counters, native copies and Shift controls. Recomposition
+matches all 376 previous character frames and clocks exactly; all 24 separated
+wave cells match their source pixels. The item and projectile images are
+byte-identical. Source archives and other weapon art remain intact.
+
+The warmed twelve-hit sample retains 2,444 nodes, 2,878 resources and 81 prepared
+projectiles. The former generic hit spark created six short-lived nodes per hit
+in this manually stepped fixture; those pending timers were not a leak result.
+The custom pooled wave avoids stacking that extra presentation. These are focused
+correctness/reuse observations, not a new full-army frame-time or long-session
+memory benchmark. Existing Godot shutdown diagnostics remain.
+
+Review the release/contact captures under
+`build/Other Files/Asset Toolkit/Water Boomerang Contact/`, or equip the separate
+水龍 Boomerang on 水龍shin through Play Goemon and throw at a group. Waves should
+start on each confirmed enemy hit, with none beside Shin when he releases it.
+No app export was performed.
+
+## Original default boomerang across compatible skins — 2026-11-25
+
+`weapon:boomerang` now uses the original eight flight drawings and the Lv1A
+木製大型回力鏢 icon. All 237 verified compatible Cross Gate appearances use
+their own matching native unarmed throw (action 7 exposed as equipped action 5),
+with source release timing and origins. Existing movement/casting atlases are
+referenced directly; missing throw/guard frames are prepared offline. The other
+37 appearances retain their restrictions because a complete matching native
+set was not verified. The source inventory is
+`assets/characters/crossgate/weapons/boomerang/provenance.json`.
+
+水龍shin separately offers **水龍 Boomerang**. It retains the approved custom
+body, sixteen rotations, original icon, ice impacts and blue wave. At that
+checkpoint its 32 existing art/motion files remained byte-identical; the later
+contact-wave change above preserves the body pixels while separating its wave.
+Saved `weapon:boomerang`
+selects the original; the custom item has its own stable save key. Separate
+existing-pool profiles keep in-flight artwork and reused leases distinct.
+Counters and native copies use the equipped normal attack and projectile.
+
+This is an art/equipment coverage feature, not a measured performance fix.
+Reuse the shared curve, broad bounded segment queries, once-per-flight hits,
+moving return and projectile lifecycle. Resources load at selection/setup;
+there is no per-frame art fitting, resource loading or new targeting owner.
+The original flight pictures include ground shadows; preserve the complete
+source PNGs but keep those baked shadows out of the airborne atlas. Shared
+atlas paths are converted to the loader's typed string array at setup. Existing
+pixel-verified cosmetic anchors are reused when their textures, approved head
+references and fitter inputs are unchanged; new regions get prepared anchors.
+
+Fresh verification: the rendered launcher sweep passes 7,009 checks across all
+237 supported skins, including normal/counter frame identity in eight facings,
+exact release, once-per-enemy damage, return/retirement, save/reload, repeated
+original/custom switching, four simultaneous native copies and actual LMB/Shift
+controls. Every reused movement/guard clip has an explicit clock; Maze retains
+the timing supplied by its existing Kazi driver. Original throws play the native
+action-7 release cue at release, while the custom ice layer stays with 水龍.
+The separate rendered 水龍 suite passes 100 checks, including its
+retained crowd sweep, counters, ice audio route, copies and resource reuse.
+Its contact fixture explicitly disables crit and offsets Dodge with Accuracy.
+The required Cross Gate Mirror Image regression passes 605 checks, including
+nine Kaz copies, borrowed charge progression, resumed following, interruption
+and pooled reuse. All 19,520 new frame/origin comparisons and shared asset/audio/
+cosmetic preservation pass; the GLB audit reads 319 assets without errors.
+
+Rendered review confirms the original flight silhouette, coherent native throw
+and run poses, and distinct original/custom Equipment icons. Evidence is under
+`build/Other Files/Asset Toolkit/Original Boomerang/Implementation/`. Existing
+Godot shutdown resource/RID diagnostics remain. These are focused correctness
+and visual checks, not a full-army frame-time or long-session memory benchmark.
+No app export was performed. Verify in Play Goemon: equip the brown wooden
+Boomerang, throw and counter, then select 水龍shin and compare its separate
+blue custom item. Regeneration commands are in the weapon asset guide.
+
+## Encounter battle music — 2026-11-25
+
+Living native enemies within 16 map units now select the original Cross Gate
+`cgbgm_b0` battle theme. Four quiet active seconds restore the area's theme,
+resuming its saved playback position when the theme is unchanged. Preparation,
+map travel and title reset the encounter; paused menus freeze its timer. The
+existing Background Music preference, Master volume, -9 dB music mix and Sound
+Studio recording pause remain authoritative. Fresh settings still default to
+music off: enable Background Music to hear both area and battle themes.
+
+This is an audio feature, not a measured performance fix. The smallest change
+reuses the single player and the native spatial index after integration. One
+local enemy query every 0.25 active seconds checks exact 3D distance and stops
+at the first living nearby enemy. Allies, training dummies and idle dialogue
+hosts are excluded. No whole-army scan, per-enemy music owner, runtime asset
+load or new player/pool was added. The original WAV is preserved; the prepared
+MP3 retains 22050 Hz stereo, duration, gain and decoded frame count. Provenance
+and maintenance details are in `assets/audio/crossgate/music/README.md`.
+
+Fresh verification: the desktop run passed 141 assertions and captured non-silent
+battle and area audio from Master at 48 kHz stereo. The final headless run passed
+139 assertions, including a joined-village crossing during battle and clearing
+an obsolete area resume position. Nearby/distant/allied/defeated enemies,
+repeated encounters, playback reuse, preferences, recording and preparation
+reset are covered. All 319 asset-audit reads and the shared asset/audio/cosmetic
+preservation checks pass. No script errors occurred; existing Godot resource/RID
+shutdown diagnostics remain. These are focused correctness and mixer-output
+checks, not a subjective listening or frame-time benchmark.
+
+Verify after relaunching Play Goemon: enable Background Music in Settings, enter
+a map, approach enemies, then defeat them or move away. Battle music should
+start within a quarter second, remain through brief gaps, and return to the
+area music after four quiet seconds. Confirm music mute and Sound Studio
+recording still work. Evidence belongs under
+`build/Other Files/Asset Toolkit/Cross Gate Music/battle-*`.
+No app export or full-army frame-time/long-session benchmark was requested.
+
+## Food and level reset for fresh runs — 2026-11-25
+
+The user's current testing rule supersedes permanent chest nutrition below:
+restart/new runs begin at character/pet level one with no food bonuses. Meals
+now accumulate in the existing team progression, which already resets on a
+fresh run. Scene startup, settings reload and fresh-map creation no longer
+restore saved nutrition. Travel and character changes retain the current run.
+Legacy nutrition data remains in preferences for compatibility, without being
+applied or updated by meals. Receipts and stat tooltips describe run lifetime.
+
+This is a lifetime rule change, not a measured performance fix. It removes the
+meal's settings write and retains existing validation, stat calculations and
+native pet growth. No new loop, asset load, simulation or pool is needed.
+Verify through Play Goemon: eat a stat/level meal, travel to confirm it remains,
+then restart and check level one and baseline character/pet stats in Equipment.
+Focused evidence belongs under `Asset Toolkit/Chest Nutrition/run-reset-*`.
+The previous saved-food results below describe the earlier behavior.
+
+Fresh rendered verification passes 263 checks, including all sixteen meals,
+retained-run travel, preference reload, fresh-map reset and scene recreation
+with an existing legacy food save. Weapon collection and archived nutrition
+data remain intact. Repeated rewards reuse prepared nodes/resources and existing
+native pet growth; the updated receipt was visually checked. Shared asset,
+audio and cosmetic preservation passes, along with 217 headless stat allocation
+checks. The launcher's script slot was busy,
+so after trying it the rendered fixture used the same engine/source/painterly
+settings directly. No new full-army or long-session performance claim is made;
+existing Godot shutdown diagnostics remain. No app export was performed.
+
+## South Gate to 其利村 source population and route — 2026-11-25
+
+The complete route is city South Gate → southern Freyja → 維諾亞洞窟
+11000/11001/11002 → the existing southern road → 索奇亞海底洞窟
+15005/15003/15004 → Sokia Coast → 其利村 west gate and streets. Three stale
+undersea shortcut overrides skipped the side floors; removing them restores the
+already prepared original door rows. Source maps, collision, scenery masters,
+saved data and unrelated connections remain authoritative. The original 15004
+warrior crossing remains part of the physical route.
+
+Missing source populations now extend the existing waves/Explorer NPC owners.
+Nineteen source NPC/sign interactions retain eleven existing placement anchors
+and add eight missing placements. The current-map NPC group is selected by area
+and floor, preventing an adjoining city group from taking its talk lookup.
+Movement-triggered native encounter groups replace ambient posts only inside
+the source corridor; original branch indices/persistence keys stay stable.
+The existing shuffle bags retain source weights/level bounds. The Venoa bank
+reuses the original five Habaru actors and adds the recovered crab. Other enemy
+banks, native behavior, special bosses and pooled presentation are reused.
+
+This is a source-fidelity/correctness pass, not a measured frame-time fix.
+Prepare source walk bits, actor art and owned surface materials at area entry.
+Reuse the existing bounded nearby query and at most forty local placement
+candidates per retry; do not add full-army scans, per-species targeting owners,
+per-attack loading or a second encounter loop. Owned material copies preserve
+shared materials and their existing world update registries. Route finishes
+default off elsewhere and use the source corridor mask outdoors. Preserve the
+warm/cool cave distinction, source chamber shapes, stairs, water and Kili roofs.
+
+Fresh local evidence and the final continuous run are recorded under
+`build/Other Files/Asset Toolkit/South Gate Kili Route/REVIEW.md`: separate
+eleven-map art/population/crossing ledger, fixed gameplay views, nineteen actual
+F interactions, source-weight/native-group tests, full village street-sector
+clearance, asset preservation and shared snow regression. Direct loads establish
+local behavior; only the continuous fixture establishes the end-to-end route.
+It starts on the playable city side, then uses movement/attack input and actual
+crossings with invincibility off and no later debug teleports. These results
+are not a new full-army stress profile or long-session memory result; prior
+smooth-play feedback and historical measurements elsewhere remain distinct.
+
+Verify through Play Goemon: walk out the South Gate, traverse all six required
+cave floors and both outdoor roads, enter Kili through the west gate, and press
+F near the source NPCs/signs. The asset guide at
+`assets/maps/falan/south_kili_route/README.md` records commands and specific gaps:
+the unavailable original encounter probability/count algorithms, quest-item
+18403 conditions for source boss groups, two uncorroborated invisible/later-event
+records, and event dialogue placeholders. Do not invent those quest states or
+turn conditional bosses into unconditional random spawns. No app was exported.
+
+## Permanent chest nutrition and original pickup audio — 2026-11-25
+
+Chests now share a twenty-marble shuffle bag: four weapon rewards, ten foods for
+all allocatable character stats, two character level meals (+1/+3), and four
+party-pet meals (HP/attack/MP/+1 level). Draw without replacement, then reshuffle;
+ineligible capped/no-party meals are skipped. The existing nine-weapon bag,
+duplicate upgrades, optional F interaction, native death drops and bounded ground
+loot presentation retain their owners. Original Cross Gate food graphics are
+recovered unchanged with `tools/recover_crossgate_explore_loot.py` and recorded in
+`assets/items/crossgate/provenance.json`.
+
+Permanent means saved across new runs and application restarts. Nutrition uses
+`settings.chest_nutrition` in the existing settings file; it never edits balance
+profiles or turns normal kill XP into persistent XP. Saved food levels form the
+next run's starting level. The same team progression combines food and allocated
+stats, and saved party-pet growth stays with stable pet keys, including recalled
+pets. Saved data is validated. Atomic save succeeds before applying any live
+bonus or consuming a chest; a failure keeps the same reward for retry. Existing
+level/MP/chance caps remain. Reapplying food cannot duplicate levels, while normal
+level rewards and fractional XP retain their existing behavior. Exact food names,
+bonuses and artwork sources are in `assets/items/crossgate/README.md`.
+
+Chests play cgsys02; ground-food pickups play cgsys03. Both reuse the prepared SFX
+voices and existing pickup recording/gain/mute handling. Their PCM is identical
+to the preserved Blue Cross Gate client (provenance in the audio folder). A shared
+dark receipt displays the source icon, actual effect and “Permanent (saved)”; its
+contrast and wrapping were reviewed at 1280×800 and the smaller 960-pixel window.
+
+This is a progression/presentation feature, not a measured frame-time fix. The
+sixteen new food textures preload with the shared catalog. Nutrition applies on
+reward/load, and live pets reuse `apply_pet_growth` on the existing native owner.
+No frame/attack-loop loading, target scans, new pet simulation, ground-loot batch
+or per-use presentation nodes were added. The smallest maintenance path is to
+add catalog data and source rows, then reuse these same save/stat/growth routes.
+
+Fresh verification: 256 rendered nutrition checks pass, including all sixteen
+foods, F input, source pixels, distinct audio streams, bag refills, reload/new-run
+and travel persistence, save-failure rollback, recalled/resummoned pets and twenty
+pairs of repeated player/party rewards with stable node/resource counts. The
+isolated paired save-and-apply calls measured 2.787 ms p95 / 2.840 ms maximum on a
+shared machine; these are not display frame intervals, full-army measurements or
+proof of long-session smoothness. Existing character stat allocation (217), pet
+progression (1,011) and food magnet (65) headless checks pass. Asset audit reads
+319 assets without errors; shared asset/audio/cosmetic preservation passes.
+Final runs have no script errors; existing Godot resource/RID shutdown diagnostics
+remain. The launcher's script slot was occupied by a separate snow-region review,
+so after trying it these fixtures used the same engine/source/painterly flag
+directly. Evidence: `build/Other Files/Asset Toolkit/Chest Nutrition/`.
+
+Verify with Play Goemon in an exploration area: approach optional chests and press
+F, read the food receipt, then compare character/pet stats in Q → Equipment.
+Restart or start a new run to verify that food bonuses remain. Normal floor food
+still heals or grants its documented temporary/run-only effects. No app export
+or long-session soak was requested or performed.
+
+## Family-focused pet growth — 2026-11-23
+
+The demo's automatic growth now specializes by existing catalog family:
+螳螂 and bees gain twice the former attack/skill damage bonus per level, while
+水龍 gain twice the former maximum-HP bonus. This means 20% base damage or
+16% base HP per tapered effective level step, rather than 10% or 8%. Level-one
+stats, MP growth, other families, family passives, skill levels and authored
+attack timing remain unchanged. All family variants qualify. The earlier
+automatic-growth measurements below describe the preceding uniform tuning.
+
+This is balance tuning, not a measured performance fix. Two shared progression
+calculations supply Equipment, the existing native growth setter and prepared
+skill casters. There is no new per-unit loop, asset load, target scan or pool.
+Verify after restarting Play Goemon: level a mantis, a bee and a dragon lizard,
+then compare their Attack and maximum HP in Q → Equipment. At level 10, a mantis
+or bee has 112.07 base attack per contact and a dragon lizard has 298.97 HP,
+before team cards or previously allocated run bonuses. Full formulas are in
+`docs/team-leveling-spec.md`. Evidence is under Asset Toolkit's
+`Pet Progression/family-growth-*` logs.
+
+Fresh verification passes all 1,013 rendered progression checks, including all
+617 appearances at levels 1/2/10/99, exact live family growth over four rounds
+with five companions, individual XP, healing, recall, retained-run travel,
+character-point isolation and repeated application without node/resource growth.
+Shared asset/audio/cosmetic preservation passes. The launcher test slot was
+occupied, so the rendered fixture used the same engine/source/painterly flag
+directly after trying the launcher. No script errors occur; existing Godot
+resource/RID shutdown diagnostics remain. These results establish focused
+correctness, not fresh full-army frame times or long-session smoothness.
+No app export or long-session soak was run.
+
+## Automatic pet stats for the demo — 2026-11-23
+
+Pet levels now automatically increase maximum HP, attack/skill damage and MP.
+The existing tapered HP/damage curve is reused; MP adds three per effective
+level step through the same curve. At level 2 the base 150 HP / 50 attack /
+50 MP pet has about 161.43 HP / 54.76 attack / 52.86 MP. Pet stat points and
+all stat/passive purchase buttons are removed. Character point spending,
+individual XP/participation, skill levels and family bonuses retain their owners.
+Previous run allocations remain readable, with MP bounded by the native limit.
+The November 22 point-spending workflow below is historical and superseded.
+
+This is a demo simplification, not a measured frame-time bottleneck or speed
+improvement. It adds no update loop, asset load, targeting owner or new pool:
+level-up and spawn/refresh apply the values to the existing native body, while
+prepared skill casters read the same damage multiplier. Ordinary refreshes
+retain wounds; a living pet still heals fully when it levels up.
+
+Verify by restarting Play Goemon, letting a pet participate in a kill, and
+checking its HP, MP, attack and XP in Q → Equipment. Its panel explains automatic
+growth and has no points or purchase controls. Selecting the character restores
+the character's existing points. Recall/resummon and retained-run travel retain
+pet growth; a fresh run resets it. Formulas and examples are in
+`docs/team-leveling-spec.md`; evidence belongs in Asset Toolkit's
+`Pet Progression/automatic-*` logs and `pet-auto-growth*.png` captures.
+
+Fresh rendered verification passes 376 checks, including every level from 1 to
+99, individual XP credit, native HP/MP, shared skill damage, character-point
+isolation, wounds/healing, rest, recall, travel and four rounds of simultaneous
+level-ups across five family representatives. Repeated native refreshes and
+five-pet level-ups retain prepared node/resource counts. The rendered Equipment
+captures were inspected at 1280×800 and 960×640. Family-passive preservation
+passes 34 focused headless checks and existing pet scaling/live combat passes
+24. Shared asset/audio/cosmetic preservation passes. These are correctness and
+short reuse checks, not a full-army frame-time or long-session memory result.
+Godot still reports existing resource/RID teardown warnings; final test runs
+have no script errors. The launcher script slot was occupied, so after trying
+it these fixtures used the same Godot engine, complete source and painterly
+flag directly. No app export was requested or made.
+
+## Quicker pet engagement during attack move — 2026-11-23
+
+The user still felt hounds hesitated beside enemies after right-click movement,
+while bees felt better. The shared native owner had two reproducible waits:
+an empty advance polled for enemies every 0.22–0.34 seconds, and pets already in
+clear melee contact could still walk around to their reserved surround post.
+Bee Flurry, when equipped and ready, already bypasses that positioning gate;
+all families otherwise share the same target selector. This does not establish
+which part accounts for the user's subjective bee/hound difference.
+
+An empty attack move now polls every 0.06–0.10 seconds through the existing
+three-search-per-tick budget. Fresh orders still interrupt and begin moving on
+the first tick. A pet already in exact melee contact may start from its current
+position if that position has safe companion spacing. Other arrivals still
+use reserved surround posts. Stable pursuits, local reachability, player-threat
+priority, claim-based target spreading, original contacts/damage and F/Z remain
+under the same owner. No per-species loop, new asset or runtime allocation path
+was added. This tunes response time, not a measured frame-time bottleneck.
+
+Fresh native reproduction measured late acquisition at 0.300–0.333 seconds
+before, versus 0.067–0.083 seconds after, across 20/30/60 Hz and the five family
+representatives plus a bear. The original code also fails the new clear-contact
+surround assertion. Current checks pass 896 attack-move assertions, 111,783 pet
+defense assertions, 262 surround checks and 106,875 pet-skill assertions.
+The existing Bee Flurry suite fails its final cancellation/return assertion at
+line 72 on both the preceding code and this change; it is not a passing suite.
+Asset/audio/cosmetic preservation passes, and the universal library is rebuilt.
+
+Play Goemon Metal verification passes all 26 directional-command checks,
+including actual RMB/F/Z input, repeated use with stable prepared resources,
+charge interruption, and whole-party acquisition of a new arrival in 83 ms.
+The short fixture records integration/presentation p95 2.857 ms / max 46.987 ms
+over 2,175 steps on a shared machine, not display frame intervals or an isolated
+before/after performance benchmark. Captures confirm engagement and continued
+travel; they do not establish subjective stickiness in motion. Initial fixture
+startup hit a missing equipment panel; the retry explicitly starts the arena
+and tolerates its already-closed panel. The completed run has no script errors;
+existing Godot resource/RID teardown diagnostics remain.
+
+Restart Play Goemon, summon several hounds, and right-click empty ground beyond
+a nearby enemy. They should notice new arrivals promptly and start attacking
+from a clear position instead of circling first. Try a moving enemy, then F and
+Z. Evidence logs are under `build/Other Files/Asset Toolkit/Pet Stickiness/`;
+rendered captures remain in `Attack Move/`. No app export or long-session soak
+was run, and the user's judgment of the revised feel remains unverified.
+
+## 猶大 pet size reduction — 2026-11-23
+
+All 36 saved 猶大 boss identities, including the twelve hidden archive aliases,
+use 80% of their preceding render scale and fitted body bounds. Their cumulative
+size is now 1.3× the initial import baseline. The authoritative family review
+list, boss motion metadata, companion profiles and composed guard-pet bank are
+synchronized through the existing preparation path. Other pets, source art,
+anchors, animation timing and saved identities are unchanged.
+
+This is size tuning; no performance bottleneck was measured or runtime machinery
+added. Fresh catalog consistency and complete archive-alias checks pass, as do
+2,419 native size/contact assertions and active asset preservation. The native
+fixture retains its documented shutdown resource/RID warnings. Rendered idle
+and attack-contact sheets were inspected separately from these technical checks.
+The desktop review produced five of six sheets, then stalled on the final
+attack sheet and was stopped; no complete rendered-review pass is claimed.
+To verify the appearance, restart Play Goemon → Shift+P → bosses and summon with P.
+Logs are under `build/Other Files/Asset Toolkit/Judas Size 2026-11-23/`.
+No app export or full-army benchmark is needed for this size adjustment.
+
+## Crowded melee attacks trade pace for damage — 2026-11-23
+
+User direction: enemies surrounding the player should attack less often but hit
+harder. Ordinary melee enemies pursuing the player within 12 meters and 3.5
+meters vertically now share a count in the existing once-per-tick claim pass.
+One to three retain normal damage and recovery. The user's follow-up increases
+the extra pause to one second at four enemies, then adds 0.25 seconds per enemy,
+capped at two seconds with eight or more. Damage still increases by 10% per
+enemy above three, capped at +50%. Distant enemies, enemies fighting pets, ranged
+enemies and specialized bosses do not add to this melee count. Boss patterns,
+charges, counters and guard-break damage keep their existing behavior.
+
+The native attack owner snapshots the tradeoff when an ordinary swing begins.
+Authored windup, contacts, combos and animation speed stay intact even if the
+crowd changes mid-swing. The extra pause gates the next melee attack; enemies
+can still chase a player who moves away. Leaving the close encounter, switching
+to a pet or reducing the group to three removes the extra wait. A committed
+swing retains its original snapshotted damage until it ends. Existing enemy
+damage scaling, defenses, terrain contact and player dodge checks still apply.
+
+This is gameplay tuning, not a measured performance bottleneck or optimization.
+It adds one close count to the existing army pass and two reset-on-spawn numbers
+per unit, without a per-enemy army scan, targeting owner, asset load or pool.
+The initial shorter-pause trial's native `crowd/crowd_pressure_test.cpp` passed
+1,225 assertions across 20/30/60 Hz,
+slime/bear/shared companion-body enemies, thresholds/caps, exact damage and
+cadence, committed contacts, pet targets, frozen supporting populations,
+chasing during recovery, charge isolation and recycled units. Shared approach
+(473), targeting (212), guard (330), pet defense (111,783) and snow-patrol checks
+also passed in that initial trial. Asset/audio/cosmetic preservation passed. These checks do not
+establish rendered smoothness or long-session memory behavior.
+
+The earlier 0.15–0.75-second tuning passed all 30 focused Play Goemon Metal
+checks. Its 20-damage slime
+delivers 20 with one/three enemies, 22 with four, 26 with six and 30 with eight
+or fourteen. Contact intervals are approximately 0.817, 0.950, 1.250 and 1.550
+seconds respectively, with the same first-contact timing. Clearing the group
+restores both values. Repeated simultaneous eight-enemy combat retains prepared
+presentation nodes/resources. The 4,387 isolated integration/presentation
+samples measure 0.517 ms p95 / 13.890 ms maximum on a shared machine; these are
+not rendered frame intervals or a full-army smoothness result. Reviewed captures
+show the original slime poses and the group, not proof of subjective dodge feel.
+No script errors occur in the final run; existing Godot teardown resource/RID
+diagnostics remain. Initial fixture failures came from allowing the measured
+slime to start its first unscaled swing while other new arrivals were acquiring
+the player, plus an incorrect presentation-owner reference. The final fixture
+establishes pursuit outside melee range before measuring.
+
+The one-second follow-up passes 1,171 fresh native pressure assertions, 473
+approach checks, all 30 Play Goemon Metal checks and asset/audio/cosmetic
+preservation. This changes only the completed-swing recovery arithmetic; the
+native universal library is rebuilt. Current slime contact intervals are about
+0.817 seconds with one/three enemies, 1.800 with four, 2.300 with six and 2.800
+with eight/fourteen, retaining the same first contact and 20/22/26/30 damage.
+Crowd clearing restores base cadence and damage, and repeated simultaneous
+combat retains prepared presentation counts. The 4,387 isolated fixture steps
+measure 0.370 ms p95 / 13.896 ms maximum, not display frame intervals or a
+full-army benchmark. No script errors occur; existing shutdown resource/RID
+warnings remain. Follow-up logs have the `one-second-` prefix in the same
+evidence folder. No long-session soak or app export was run.
+
+Verify with Play Goemon by comparing a single melee enemy with four, six and
+eight nearby enemies in Falan Arena: hits should stay on the original animation
+contact, with longer openings between attacks and stronger damage. Clear the
+group back to three to restore normal pace. The focused launcher fixture is
+`tests/forest-shrine/crowd_attack_pressure_test.gd`; logs and rendered captures
+belong under `build/Other Files/Asset Toolkit/Crowd Attack Pressure/`.
+No app export is part of this iteration.
+
+## Dash Boots 21903 — 2026-11-23
+
+The user selected recovered footwear graphic 21903 for Dash Boots. The existing
+`accessory:dash-boots` save ID now uses its unchanged v3 row 4509, palette 0 PNG;
+the previous 21818 art remains preserved. Equipped left-click melee approaches
+use 48 units/second before movement bonuses, 50% faster than the previous 32.
+The ordinary final rush keeps 32. The existing approach flag already selects
+native run clips without Shift, so no animation assets or runtime animation
+owner changed. Existing terrain, cover, exact contact, cancellation and ranged
+rules remain with their current owners. This is gameplay tuning, not a measured
+performance bottleneck or optimization; it adds no per-frame asset work.
+
+Fresh Metal verification passes 272 focused checks across all 17 Cross Gate
+fighters, including actual LMB input, native run selection, completed attacks,
+save reload, Speed Shoes plus Three-Weapon Combo, ranged position, cancellation,
+cover, target loss and thirty warmed starts without node/resource growth.
+Six 60 Hz steps cover 4.80 units equipped versus 1.80 for ordinary approach;
+the older 3.20-unit equipped measurement below is historical. The first run's
+single missed combo hit came from the current enemy evasion bag; the movement
+fixture now sets character Accuracy to 100 so contact checks are deterministic.
+Normal gameplay evasion is unchanged. Source PNG/RGBA identity and shared
+asset/audio/cosmetic preservation pass. Separate rendered review confirms the
+21903 equipment icon and the original running pose. These focused checks do
+not establish full-army frame times, long-session memory or clean shutdown:
+existing Godot resource/RID teardown diagnostics remain.
+
+Verify with Play Goemon: Q → Accessories → **#21903 · Dash Boots**, equip a
+melee weapon and left-click a distant visible enemy. Compare after removing
+the boots; the equipped approach should run faster without holding Shift.
+The launcher script slot was occupied by another test, so after attempting it,
+the rendered suite used the same Godot engine, complete source and painterly
+flag directly. Logs and captures are under
+`build/Other Files/Asset Toolkit/Accessories/` with `dash-boots-21903-*` logs.
+No app export or source-art rebuild was needed.
+
+## R power combos — 2026-11-23
+
+R toggles five selected companions between independent defense and the close
+power formation: two per side, one behind, retaining saved slot order and empty
+slots. Pets share the player's native movement/facing at walk and sprint speed;
+blocked posts compress toward the valid player root. R works with Shift, its
+former character-ability binding is removed here, and preparation/editor
+rotation uses T. Between attacks, right-click/F/Z retain their explicit orders.
+
+The user rejected the full-party movement lock as too stuck. The current rule
+is: start together, commit through the player's impact, click to chain, move to
+break recovery. All eligible selected pets start the source attack in the same
+input transaction as the player and use the existing contact solver to surround
+the target (player front, two pets per side, one behind). Native pet windups
+scale toward their first source contact using the player's current windup time;
+they cannot independently hit before the player's contact signal. At that
+signal the native owner settles each participant's authored normal contacts
+once through existing exact melee, terrain, evasion, damage, death and joint-hit
+rules. Multiple authored pet contacts settle in that stroke while each pet earns
+at most one combo link. Subsequent source cues/recovery cannot deliver more
+damage. Melee impacts align with the player's first contact. For bow/throw
+normals the pet stroke aligns with release; the player's projectiles retain
+normal travel and collision rather than becoming instant hits.
+
+Holding LMB now continues group strokes using the existing weak
+`primary_hold_target`, at the player's normal ready time. Releasing the button
+removes held continuation; an explicitly buffered click keeps its existing
+one-slot behavior. Losing the target or entering a non-wave phase clears the
+hold. Moving after impact returns the group and clears held intent, so a still-
+held button cannot immediately root the player again. A distant queued target
+restores held intent only after entering the existing approach path. No new
+input poll, timer, state owner, native code or resource pool was needed.
+
+A new LMB press fills one follow-up slot, including clicks during windup. Rapid
+clicking cannot accumulate a longer backlog. When the player finishes its own
+swing, that slot starts the next group stroke immediately, replacing unfinished
+pet recovery. Existing weapon-combo drawings and equipment repeat rules remain
+with their owners. A weak target reference retains the queued selection; a
+distant selection goes through the existing approach before beginning another
+group stroke. A pending phase transition clears the queued stroke instead of
+starting more attacks after victory.
+
+Holding movement before contact commits through impact. After impact (and the
+existing hit stop), movement clears the queued strike, cancels remaining group
+recovery, returns the player collision-safely to its saved origin and returns
+the pets together to the actual player root. Walking/sprinting resumes with
+rigid formation following. If standing still without another click, everyone
+finishes the full original recovery at its trained speed, with early finishers
+holding until the optional native completion barrier is ready. Focus changes
+clear held/queued input without cancelling the committed windup. Pause/settings
+preserve clocks. Reset, target death and generation-checked despawn/reuse cannot
+strand the barrier or create stale recovery hits.
+
+User clarification: each unit that connects adds one link. The player's ordinary
+per-swing credit remains unchanged; the native group stroke returns the number
+of unique damaging pets (zero to five), which feed the same primary HitCombo
+counter and AttackChain bonuses. Six connected participants give six links;
+two full group strokes give twelve. Missed/blocked-with-zero-damage pet contacts
+and cancelled windups add none. Repeated contact cues from one pet cannot farm
+additional links. Existing speed/damage caps, saved training, equipped skills,
+original art, native retaliation/defenses and effect/audio pools remain. This
+mode adds no separate stat multiplier, invulnerability, mana cost or cooldown.
+
+This is a game-feel change, not a measured CPU optimization. The old bottleneck
+was the control rule making every recovery wait for the slowest pet. The fix
+reuses the current player input/normal-combo owner and five native generation
+handles. It adds no per-species target owner, army scan, per-attack scene node,
+material creation or runtime asset load. Source contact scans are bounded to
+those five authored timelines. Do not replace native exact checks or add
+per-unit runtime retargeting for future companions.
+
+Run `Play Goemon.command --script res://tests/forest-shrine/combined_formation_test.gd`
+for actual R/LMB input, simultaneous starts and melee impact, six/twelve combo
+links, one-slot click buffering, movement cancellation, complete idle recovery,
+misses, distant retargeting, all 17 Cross Gate normal attacks and dagger
+variants, phase/death cleanup, warmed reuse and independent-order restoration.
+Add `-- --motion-review` for source frames. Use `physics_step_driver.gd`: movement
+must run inside real physics because CharacterBody3D reads the engine's delta.
+The native fixture checks 20/30/60 Hz, quiet windup, one settled group contact,
+restarts before slow recovery, early cancellation, no late damage and recycled
+handles. Keep evidence under `build/Other Files/Asset Toolkit/Combined Formation/`.
+
+Initial combo verification: the native fixture passed 1,863 checks at 20/30/60 Hz;
+the rendered fixture passes 100 checks, and the final headless run passes 97,
+including the added interrupted-windup case. A hurt/counter reaction aborts the
+group and queued input without cancelling the player's reaction or moving it
+back to the old origin. Native joint-hit and all 4,574 Bodyguard checks pass.
+The required Cross Gate Mirror Movement regression passes all 605 checks,
+including nine Kaz copies, borrowed-charge progression/cleanup and pooled reuse.
+All three asset/audio/cosmetic preservation groups pass. Final runs contain no
+script errors; existing Godot RID/resource teardown diagnostics remain.
+
+Separate visual review confirms six/twelve HitCombo feedback, original source
+attack drawings, close following and the group return after movement breaks
+recovery. The large review enemy still naturally obscures part of its rear pet.
+`power-combos.gif` is paced from the fixture's four-/two-tick review captures,
+with a held final frame; use actual Play Goemon input to judge responsiveness.
+The short rendered native integration/presentation sample is p95 1.498 ms /
+max 19.610 ms, not a display-frame FPS measurement or controlled before/after
+benchmark. Repeated warmed attacks stay within the fixture's +2 node/resource
+tolerance. No full-army or long-session soak was run. The rendered suite runs
+through the desktop launcher with temporary compatibility rendering; the Mirror
+launcher attempt encountered its occupied script slot and then used the same
+Godot binary, source and painterly flag directly. No saved rendering preference
+or launcher path changed. Current logs and hashes are in `verification.json`.
+
+Fresh held-input verification passes 122 rendered checks through Play Goemon,
+including three consecutive held strokes and release-to-stop for all 17 Cross
+Gate fighters plus Maze/Saizo dagger variants. Movement cannot re-root the
+player while LMB remains held; focus loss stops continuation while preserving
+the current attack. Existing queued-click, six/twelve combo, interruption,
+retargeting, phase/death and warmed-reuse checks still pass. A fresh required
+Mirror Movement run passes 605 checks, including nine Kaz copies, and all three
+asset/audio/cosmetic preservation groups pass. Final logs contain no script
+errors; existing Godot resource/RID teardown diagnostics remain. The native
+sources and universal library are byte-identical to the prior combo report;
+no native rebuild or app export was needed. The short integration/presentation
+sample is p95 1.194 ms / max 18.584 ms, not full-render FPS, a controlled
+performance comparison or long-session evidence. Logs use `hold-*` filenames.
+
+The initial short-pose, independent full-motion and full-party-lock versions are
+historical. In particular, 1,848 native / 92 rendered / 89 headless checks and
+`power-strike.gif` describe the now-rejected full-party movement lock. Use the
+current combo report and captures when evaluating responsiveness. Earlier user
+smooth-play reports and army stress measurements are historical; this short
+feature fixture cannot certify current full-army FPS or long-session memory.
+No app export is part of this iteration.
+
+The shared regression previously exposed a HUD/equipment initialization cycle:
+stance icons preload the same original PNGs directly, avoiding an initializing
+equipment-catalog read. No icon art changes.
+
+## Ranged-hit retaliation — 2026-11-23
+
+Arrows, thrown knives and boomerangs now mark their existing pooled hit tickets
+as projectiles. Their shared native hit owner records provocation after accepted
+nonlethal damage, including blocked hits and enemies that resist stagger.
+Previously retaliation was set only inside the ordinary stagger branch and
+could select attackers only within 28 meters despite 120-meter weapon reach.
+
+Projectile provocation reuses each victim's retaliation source and timer, with
+one range value set to the actual shooter distance plus 8 meters (minimum 28).
+The timer allows travel at the existing crowded approach pace plus four seconds.
+Melee keeps the ordinary range/timer. Taunts remain first; unrelated fallback
+targets keep their normal range. Reachability, death, stealth, patrol home
+boundaries, combat clocks and specialized boss movement remain with their
+existing owners. Actual companions provoke pursuit of the shooter rather than
+automatically redirecting distant enemies to the player.
+
+This is a behavior repair, not a measured performance improvement. It adds no
+simulation, per-species targeting loop, army scan per projectile, asset load or
+pool. Keep the range on native unit state so normal despawn/reuse clears it;
+mark tickets when each projectile lease restarts so reused throws retain it.
+
+Verify with `ranged_aggro_test.gd` through Play Goemon: hit an unaware patrol with
+each ranged weapon and watch it advance toward the shooter. Normal patrol
+leashes still apply. Native `player_approach_test.cpp` covers distant hits,
+defenses, actual movement, companion attribution, taunts and reuse at three
+tick rates; `target_decision_test.cpp`, `guard_test.cpp` and `snow_patrol_test.cpp`
+preserve the surrounding behavior. Evidence belongs under
+`build/Other Files/Asset Toolkit/Ranged Aggro/`. No app export or full-army
+smoothness claim follows from these focused checks.
+
+Fresh verification passes 473 native approach/patrol assertions, 212 targeting
+checks, 330 guard checks and the snow-patrol regression. The Metal game fixture
+passes 60 checks across all four projectile routes: each patrol closes from
+about 45 meters to 37.6–37.7 meters after three simulated seconds. Corrected
+camera captures show the player and approaching enemy; motion is also checked
+from native positions rather than inferred from a still. Repeated attacks add
+no prepared projectiles or pool misses. Asset/audio/cosmetic preservation passes
+and the universal native library is rebuilt. The launcher script lock was
+occupied by another run, so the game fixture used its same Godot engine,
+complete source and painterly flag directly after attempting the launcher.
+No script errors occurred; Godot still reports resource/RID teardown warnings,
+so these checks do not establish a clean shutdown or long-session memory result.
+
+## Right-click directional attack move — 2026-11-23
+
+Right-click empty ground sends selected pets and summoned bears toward that
+area. They acquire nearby reachable enemies along the advance, retain valid
+pursuits, and resume toward the destination after combat. They defend locally
+on arrival instead of returning to the player or starting an unrestricted hunt.
+A click into empty sky advances along the horizontal aim. Right-click follows
+the cursor even with a player Tab lock; that lock remains available for the
+player's own attacks. Explicit cursor focus, local player-threat priority, F hold
+and Z recall keep their existing owners. Per the user's follow-up, every fresh cursor order immediately
+cancels the old native attack, combo, flurry charge/sequence or counter and drops
+its target. A ground order starts moving on that simulation tick, then searches
+along the new direction; clicking an enemy immediately focuses that enemy. A flurry cancellation stays at its current position
+rather than blinking back to the old cast origin. Repeated snapshots of the
+same command retain valid pursuits; only a fresh click interrupts. Already
+released projectiles keep their ordinary independent lifetime. This supersedes the November
+19 empty-click hunt behavior described below; ordinary automatic defense still
+uses the approved scattered-target preference.
+
+The existing command snapshot carries one destination, resolved on the click.
+The native owner filters its local target candidates to the ordered corridor
+and retains its three-search-per-tick budget and claim counts. Movement uses
+the existing terrain routing and party offsets. No extra simulation, global
+per-pet army scan, runtime asset load, effect or presentation pool is added.
+Prepared caster adapters release their old charge/sequence presentation on the
+click through the existing finish-cast path; emitted projectiles are retained.
+This is a behavior change, not a measured performance improvement.
+
+Verify through Play Goemon: summon the party, aim at empty ground beyond a
+forward enemy with other enemies behind or far to the side, and right-click.
+Watch forward engagement, continued travel after the kill, and F/Z overrides.
+`pet_attack_move_test.gd` exercises actual RMB/F/Z input with the five pet
+families and a summoned bear; native `crowd/attack_move_test.cpp` covers
+20/30/60 Hz, cover routing, stable pursuits after passing a target, redirection,
+arrival, late enemies, player protection and recycled units. Evidence belongs
+under `build/Other Files/Asset Toolkit/Attack Move/`. Older smooth-play reports
+and benchmarks remain historical. No app export is part of this change.
+
+Before the immediate-interruption follow-up, native verification passed 272
+directional checks, 111,783 existing pet
+defense assertions, 262 surround checks and 106,875 pet-skill assertions. Global
+asset/audio/cosmetic preservation passes, and the universal native library is
+rebuilt. These are correctness checks, not a full-army frame-time benchmark or
+long-session resource soak. That earlier rendered Play Goemon verification passed all
+15 checks with real RMB/F/Z input, all five pet families and a summoned bear.
+Visual review confirms the forward fight and the party at its destination;
+rear/side enemies remain untouched. Repeated commands preserve prepared
+presentation counts. The short fixture records native integration work at
+p95 2.154 ms / max 70.042 ms, not display frame intervals or an isolated gameplay
+benchmark. Existing Godot resource/RID teardown diagnostics remain.
+
+The first mixed-party run exposed a pet releasing its enemy after passing it
+on uneven ground. Existing pursuits now skip the new-target progress cutoff
+while retaining the ordered corridor and local range; the focused native suite
+includes that case. The final rendered run has no script errors. Initial
+headless failures predate this correction; the final rendered run rechecks the
+same behavior plus its two captures.
+
+
+Immediate-interruption follow-up: native verification passes 866 directional /
+interruption assertions, plus 111,783 pet-defense and 106,875 pet-skill assertions.
+The updated native defense fixture now requires a new cursor focus to interrupt
+an old strike. Final Play Goemon Metal verification passes all 25 checks,
+including real RMB redirection while all six companions are fighting, repeated
+redirection back, unchanged HP on the abandoned enemy, a preserved player Tab
+lock, and cancellation of an actual equipped Bee Flurry charge. Its prepared
+charge visual and retained target clear, without a return-origin blink. Visual
+review of `redirected-during-combat.png` confirms the group has moved to the
+new enemy while the former enemy remains alive. Repeated commands retain the
+prepared presentation counts. Asset/audio/cosmetic preservation passes; the
+universal native library containing the interruption change is rebuilt.
+
+The short fixture's native-integration sample is p95 0.717 ms / max 43.612 ms
+across 2,162 steps. This is not a display-frame benchmark or full-army smoothness
+claim. No script errors occur in the final run; existing Godot teardown
+resource/RID diagnostics remain. No app export or long-session soak was run.
+
+## Purple enemy EXP feedback — 2026-11-23
+
+Native enemy deaths carry the same authored XP reward into the existing pooled
+presentation event. A purple `+N EXP` receipt floats above the defeated enemy,
+separated from its final damage number, then fades. Per the user's follow-up,
+all popup amounts round to the nearest whole number without decimal places.
+Character and participating-pet XP retain their exact fractional rewards; their rules,
+combat, bounty delivery and source assets are unchanged.
+
+This is feedback work, not a measured performance improvement. It reuses the
+32 prepared damage-label slots, battle font, visibility checks and animation
+tick. Bursts may omit cosmetics when those slots are occupied; rewards still
+apply independently. No nodes, materials, targeting queries or random draws
+are added per kill. Keep the ordinary label reset so reuse cannot leave damage
+numbers purple or outlined.
+
+Verify through Play Goemon by defeating an enemy or letting a pet finish it.
+`experience_feedback_test.gd` checks native death rewards, whole-number formatting,
+pet credit, duplicate hits, pause/fade/expiry, final-hit separation and repeated
+pooled reuse. Evidence lives under `Asset Toolkit/Experience Feedback/` and
+`experience-feedback-*.log`. The first rendered review exposed an overlap with
+the final hit; the EXP anchor was raised and its text enlarged. Existing
+resource/RID shutdown diagnostics remain; this is not a long-session or
+full-army frame-time benchmark. No app export was requested.
+
+Before the whole-number formatting follow-up, verification passed 40 rendered
+and 39 headless EXP checks, including
+4,000 repeated popup requests without prepared-node or resource growth. The
+shared pooled damage regression passes 37 checks, and asset/audio/cosmetic
+preservation passes. Final runs have no script errors. Visual review separately
+confirms readable purple text above the damage digits in `purple-exp.png`.
+
+The whole-number follow-up passes 40 focused headless checks and asset/audio/
+cosmetic preservation. Display rounding leaves the exact 1.2 XP native reward
+unchanged. The rendered capture above predates this formatting-only follow-up;
+no new rendered run or app export was made.
+
 ## 護衛 pushes preserve the protected action — 2026-11-23
 
 User direction: the protected character or pet is pushed clear while continuing
@@ -76,6 +2063,40 @@ contacts with zero warmed node/resource growth. Those results and the November
 1% chance. Existing shutdown RID/resource warnings remain. No app export,
 full-army frame-time comparison or long-session soak is part of this correction.
 
+
+## Tina round hospitals and grave markers — 2026-11-23
+
+The two round hospitals now share source-calibrated wall/roof/garden profiles;
+all eleven grave variants retain their original contours, inscriptions, flowers
+and snow. Flat plaque 11050 stays on the ground, and 11062 separates its upright
+stone and low slab. These are visual corrections, not measured frame-time
+improvements. Existing mesh caches/spatial batches prepare the geometry once.
+The offline wall contour preparer also prepares grave components and literal
+stone pigment samples, so map entry does not need GPU texture readback. Owned
+lit backing materials reuse the original atlas without changing shared paint.
+No frame loop, targeting query, army owner or clock work was added.
+
+Verify with tina_area_polish_review.gd -- --round-stone, inspect actual placements
+with tina_explorer_review.gd -- --round-stone-review, then recheck native night
+and road combat with tina_night_encounters_test.gd through Play Goemon. Keep
+Metal reviews sequential. The original 2D view supplies front paint and shape;
+unseen backs/depth remain reconstructed. See the Tina building asset guide and
+Tina Recovery/Round and Stone Polish/ under Asset Toolkit for editable sources,
+source/before/after images and verification. The 24-minute world cycle, 20%
+larger monsters, map/navigation and removed Tina NPC gameplay are preserved.
+
+Fresh verification: 161 focused headless and Metal checks, 22,791 round-building
+checks, 111 street-prop and 130 earlier-polish checks, 197 day/night checks,
+eight live Explorer placements and 1,976 rendered encounter checks pass. The
+native owner populates 64 night-village, 192 southern-road and 85 northern-road
+enemies; a live attack damages the player, dawn cleanup and repeat population
+pass without duplicate patrols or extra warmed nodes/resources. Five source
+tests pass, all contours reproduce and 14 original catalog/atlas files remain
+unchanged. Asset preservation passes; audit reads 319 assets without read errors.
+No script errors or Metal fence timeouts occur in final runs; existing shutdown
+resource/RID diagnostics remain. This is not a long-session soak or measured
+performance improvement. No app was exported. Final evidence is recorded in
+Round and Stone Polish/verification.json under Asset Toolkit.
 
 ## Tina remaining street props — 2026-11-23
 
@@ -374,6 +2395,89 @@ To verify in play, open a second chest containing an already collected sword,
 read its +1 upgrade receipt, then press Q and check its new ATK. Reload the
 game and confirm that rank remains. Critical chance and its special attack
 should retain the same values. No app was exported.
+
+## Visible Falan masonry finish — 2026-11-23
+
+For this exterior fidelity pass, the user asked us to ignore fully concealed
+surfaces. The visible fabric/flower pattern came partly from the generic ground
+brush applied over stone. Private fort masonry and foundation materials now set
+`use_brush_finish` false; the shared shader default stays true. A larger clean
+stone crop from original 10643 replaces the mirrored seven-by-nine-pixel sample.
+Native palette integration and edge-only blending retain source tone without a
+fourfold mirror motif. The existing world-axis mapping uses a 2.25 by 2.706-metre
+span. Existing facade coursing is masked to broad stone, excluding trim and detail
+backings. Four buttress archetypes now reuse the green base texture at sixteen
+placements. Original detail art and all source measurement records remain.
+
+Every oriented triangle and all 22 bounds are verified unchanged. The measured
+kit is 88,990 triangles / 115 surfaces: zero additional triangles and four
+additional cached surfaces for the green bases. Texture/material counts and the
+128-by-128 masonry texture memory remain unchanged. The existing caches and
+placement batches own the work; the alpha mask is prepared during setup. This
+is a visible art repair, not a measured gameplay speed improvement.
+
+Evidence is in `Falan Exterior Fidelity/Visible Masonry/` under Asset Toolkit:
+source/before/current comparisons, all 22 front/rear sheets, twelve gate captures,
+source hashes and geometry preservation. Fresh checks pass 22 art tests, recovery
+of 22 originals, a 319-asset audit with zero read errors, three preservation groups,
+22 rendered variants, 7,697 desktop gate checks, 7,685 headless gate checks and
+1,800 city checks. Physical closure and winding pass. The shared brush default
+and private material overrides are checked. Existing shutdown resource/RID
+messages remain. The finish combines source-derived wear, reconstructed coursing
+and dynamic light; it is not a pixel-for-pixel copy of baked source shading.
+No app export, long-session soak or army frame-time benchmark was run. The user
+then asked us to finish the current work and stop; this pass is closed.
+
+## Falan tower raster shading and hidden band joins — 2026-11-23
+
+Magnified palette dithering made lower tower slits, the curved stone band and
+small footings look iridescent. `tools/recover_falan_forts.py` now applies the
+existing native-stone treatment to thirteen slit crops, eight band segments and
+two footing crops. It retains their native mean hue and luminance structure with
+restrained contrast. Across those 23 patches, mean colour-noise standard deviation
+falls from 23.66 to 0.574 RGB units (97.6% lower); the largest average RGB channel
+change is 0.1094/255. These are offline texture measurements, not renderer colour
+identity. The shared repair reaches fourteen archetypes and 181 placements.
+
+Round towers had two unseen band joins only 0.045 metres high, while the recovered
+front/rear strip spans four native pixels. The existing closed sector now uses
+`4/Fit.VERTICAL`, about 0.400892 metres, with endpoint offsets +1.5 and -2.5 native
+pixels. Twelve closed template joins cover 84 joins at 42 round-tower stations.
+Tests check closure, outward volume, endpoint cross-sections and paint backing.
+A plain-stone candidate showed a colour jump in macro review. A 64-by-48 strip
+now interpolates the native left/right edge profiles across the outward join
+faces. It occupies unused space in the same 544-by-216 arrow-detail atlas; its
+source record is `course_join`, with runtime rectangle `ROUND_COURSE_JOIN`.
+Known source faces retain their 0.05-pixel UV controls. The unseen span is an
+explicit interpolation, not independently recovered rear artwork.
+
+The kit is 88,990 triangles / 111 surfaces: 144 additional painted triangles
+across the six round archetypes, or 1,008 across their 42 placements. There are
+no new textures, materials, scene owners or frame loops. Archetype caches, closed
+sectors, shared materials and placement batches remain the owners. All 22 complete
+bounds and green foundation bounds are unchanged; only six geometry records
+change. Twenty-one other fort PNGs remain byte-identical, including stained glass,
+heraldry and cloth. The 314 masonry returns retain 11,280 triangles / two surfaces.
+This is a visual repair, not a measured gameplay speed improvement.
+
+Evidence is in `Falan Exterior Fidelity/Hidden Faces and Shading/` under Asset
+Toolkit: atlas comparisons, four hidden-join close-ups, all-variant front/rear
+sheets, twelve gate views, source hashes and topology. Fresh checks pass 22 art
+tests, recovery of 22 graphics, a 319-asset audit with zero read errors, three
+preservation groups, 22 rendered variants, 7,697 desktop gate checks, 7,685 headless
+gate checks and 1,800 city checks. All physical variants remain closed, outward
+and consistently wound. Earlier 202 shaft-edge, 63 coping and crown samples
+remain. Selected logs have no script errors; fixture shutdown resource/RID
+messages remain. Historical plain-join and strict chroma-extrema attempts are
+kept separately from final evidence.
+
+Verify through Play Goemon at all three gates, then inspect round-tower side
+angles: the band should keep its height through both joins and blend into the
+native faces. Lower slit texture should read as dark recesses. Original source
+files remain intact. One view cannot certify unseen depth; broad masonry,
+baked lighting and microscopic raster differences still prevent a complete 1:1
+claim. No app export, long-session soak or army frame-time benchmark was run.
+Earlier sections retain their historical results.
 
 ## Falan foundation-strip caps and feet — 2026-11-23
 
@@ -2117,17 +4221,18 @@ hero and selected pets. Awarding XP still grants a stat point per level. A
 choice updates the existing learned level and prepares affected skill capacity
 while the picker pauses combat. Pet preparation uses the chosen caster; hero
 preparation uses the existing skill balance path. Draft construction reads the
-equipped skills, with the compatible character catalog as a fallback when no
-equipped skill can advance. The rarity bag holds twenty entries and refills
-only after the last draw. The picker reuses its three controls for queued levels.
+equipped skills only (updated 2026-11-26). Empty or fully capped loadouts skip
+cards while retaining XP and stat points. The rarity bag holds twenty entries
+and refills only after the last draw. The picker reuses its three controls for
+queued levels.
 
 Use Play Goemon, equip a character skill and a pet skill, then reach the next
 team level. Check that a card lists the recipient and exact level change, that
 the other skills and stat points stay as they were, and that the next cast uses
 the new level. The focused `skill_cards_test.gd` covers bag counts, seed
-reproduction, fallback skills, capped skills, queued choices, two window
-sizes and pet ownership. See `build/Other Files/Asset Toolkit/Skill Cards/`.
-The desktop card fixture passed 29 checks and the native survival fixture
+reproduction, equipped-only offers, empty/capped loadouts, queued choices, two
+window sizes and pet ownership. See `build/Other Files/Asset Toolkit/Skill Cards/`.
+The 2026-11-19 desktop card fixture passed 29 checks and the native survival fixture
 passed 91, including three consecutive in-battle card choices. The team
 progression, Equipment, stat allocation and asset checks passed. The broader
 Core Balance fixture flagged legacy fall recovery, and the separate pet-level
@@ -2168,6 +4273,69 @@ it, join a room in two Chrome tabs, land a hit on the city practice target,
 and switch tabs. The score should catch up and the partner should be visible.
 WebGL also required an instance color buffer on the minimap to keep its 2D
 draw from interfering with the 3D scene's vertex attributes.
+
+### Ground sampler budget in WebGL — 2026-11-26
+
+A live Chrome draw of Falan Arena on the M3 showed 16 fragment texture units.
+The terrain's `connected_village_atlas` and Godot's directional shadow atlas
+both used unit 13. Chrome rejected the draw even when the connected-village
+option was off for that map, because the sampler was still in the program.
+
+The Compatibility shader shares one sampler between castle courtyard and city
+paving. Each layout already chooses one source and both use the same filter
+and address mode. The original textures and their sampling coordinates stay
+with each layout. Shader source inspection counts 13 material samplers in
+Compatibility, compared with 14 in Forward+. The final material slot moves
+from 13 to 12, leaving the directional shadow atlas at 13.
+
+In Chrome 158, the repaired Adventure draws the Falan City pavement, textures
+and directional shadows. The earlier mixed sampler-type error did not recur
+on the city, Tina and University route. The Web title offers Freyja and Falan.
+Arena Slime Waves remains a desktop mode.
+
+On this M3 at 1440 × 900, the final local browser build took 50.8 seconds
+from navigation to the title. In Falan City, 351 browser frame intervals over
+12.05 seconds had a 33.33 ms median and a 50.01 ms p95. A separate pinned Metal
+capture of the same city view measured a 15.43 ms median and a 35.35 ms p95
+over 120 frames. These runs cover the tested city view. The public tunnel adds
+the transfer time for the complete pack.
+
+To reproduce, open the versioned Web export and enter Freyja and Falan. Match
+the default Kaz camera at the employment plaza. Check the pavement and shadow
+draws, then open the Chrome console and sample frame intervals with the menu
+closed. Keep transfer time, engine startup and frame timings separate.
+
+The Web04 loader retains completed 64 MiB parts in Cache Storage by their
+SHA-256. It checks cached bytes before mounting and fetches any missing or
+invalid part. Web03 lost 1.66 GiB after its test tab closed because the pack
+was held only in memory. Real Chrome on the loopback Web04 origin retained
+all 52 parts and made zero pack range requests during a full reload.
+The warm public run also reused all 52 parts and reached the title in
+56 seconds with zero pack requests. Both timings include checking the
+disk cache and initializing Godot. A first visit still needs the 3.24 GiB pack.
+
+## Enemy charges stop on contact — 2026-11-25
+
+A charge now enters its existing .55-second recovery immediately after contacting
+the player, whether guarded or unbraced. The enemy stays in front instead of
+continuing through the player. Dodged charges still travel down their committed
+lane. This supersedes the unbraced pass-through behavior documented below.
+
+The smallest fix removes the guard-only condition in the shared native charge
+owner. No new collision owner, target query, asset load or per-enemy loop is
+needed. This is a behavior correction, not a measured performance improvement.
+The updated native regression failed before the fix and passes at 20/30/60/120
+Hz afterward. Play Goemon's rendered North Coast fixture passes 29 checks,
+including real Space/X inputs, one damage contact, planted recovery and the
+existing 75% block reduction. The unbraced impact capture was visually reviewed;
+asset/audio/cosmetic preservation passes. Evidence is under
+`build/Other Files/Asset Toolkit/Enemy Charge/Contact Stop/`; the impact image is
+`Enemy Charge/charge-unbraced-stop.png`. Existing Godot shutdown resource/RID
+diagnostics remain; no full-army profile, long-session soak or app export was run.
+
+Verify through Play Goemon: let a charging enemy hit you without X, then repeat
+while blocking and while dodging with Space. Both contacts should stop the enemy
+in front; a dodged charge should continue past.
 
 ## Charging attacks on exploration maps — 2026-11-19
 
@@ -12000,6 +14168,24 @@ alternating piers, then start battle and watch the distant packs advance quickly
 before easing to the original close-range pace. Saved maps and original city
 rooms remain intact. No app export or long-session benchmark was run.
 
+### Arena slime test pacing — 2026-11-26
+
+Arena slimes now chase the player at 12 m/s from 120 m out and ease to
+4.5 m/s inside 40 m for a lone pursuer at default balance. The existing
+native pursuit curve uses the selected target and its existing crowding count.
+Slime waves release one arrival immediately when the entrance is ready, then
+one every three seconds. Thirty-second waves still queue their full rosters.
+Ready returns alternate with fresh arrivals at each entrance so the queue can
+carry forward without delaying returns indefinitely.
+
+In Play Goemon, choose **Arena · Slime Waves**, choose a fighter and enter the
+map. Watch the north entrance for the first two arrivals. To test a return,
+defeat an opening slime and watch for it after the next wave starts. The
+desktop menu run passed 16 checks, including the three-second boundary and a
+return during a fresh backlog. Native movement passed 85 checks across both
+arena sizes. The staged 97-check Standard arena replay covered wave counts,
+the 928-slime cap, combat, rebirths and restart. These are gameplay checks.
+
 ## Bog's bear spell icon — 2026-11-12
 
 Key 3 now shows a prepared 64×64 bear-face icon extracted from the same original
@@ -13702,6 +15888,24 @@ including the damage sequence, the reset, and reuse of the existing effects.
 Sampled player callbacks took 0.22 ms p95 and 1.23 ms maximum, excluding
 rendering and native army integration. Logs and captures are in
 `build/Other Files/Asset Toolkit/Kaz Combo/Cast Streak/`.
+
+## Solid 追月 crescent — 2026-11-26
+
+The folded mesh's transparent atlas left open-looking blade faces. The approved
+solid crescent uses one closed 390-triangle mesh with tapered tips and an opaque,
+depth-writing bevel shader. The blade opens wider on release and sits slightly
+above the ground trace so rendered stair treads do not split the silhouette.
+The projectile pool shares one prepared mesh and material across casts. The
+blade shader draws the bevel from vertex coordinates and three colors.
+
+Fresh checks found zero open mesh edges. All 105 Moon assertions passed across
+21 Cross Gate fighters, and five simultaneous Kaz allies completed 60 casts and
+180 waves with zero pool misses. The native-pattern fixture's three Combo misses
+also occur with the previous Moon visuals. The frame-time measurements below
+apply to their respective revisions. In Play Goemon, equip 追月 on Kaz and cast
+toward open ground from the Falan steps. Look for a continuous silver edge at
+release, then orbit to see the thin profile during flight. Captures and logs are
+under `build/Other Files/Asset Toolkit/Moon Crescent Concepts/`.
 
 ## White sparks on 追月 — 2026-11-10
 
@@ -27180,3 +29384,1509 @@ The required Cross Gate Mirror Image movement regression also freshly passes
 605 checks, without script errors. An intervening concurrent minimap edit used
 `Skin` as a constant, conflicting with Godot's native class; renaming that local
 alias to `PrepSkin` restores compilation without changing minimap behavior.
+
+
+## Abanis road: joined native cliff sections — 2026-11-23
+
+The camera comparison exposed a scenery construction problem: adjoining native
+cliff sections were being rendered as separate mounds, and large native paintings
+were repeated per small wall cell or clamped into stretched bands. This was a
+visual defect, not a measured frame-time bottleneck. Tall cliffs on source maps
+400/402 and western cave floors 14000/14001/14002 now share footprint-based masses,
+contour corners/cap centres and original compound paint anchors. Rounded wall
+relief stays inside the blocked footprints. Native paint projection uses the same calibrated
+height per pixel as its recovered volume; a fixed floor-paint height was wrong
+for these rescaled source profiles. Shared internal walls are omitted. Forty-eight
+metre spatial chunks and one cached material keep construction at area setup;
+there is no per-frame terrain generation or new navigation owner.
+
+Maintain the original walk bits and entrance reservations when changing contours.
+The source map remains responsible for movement; never clear blocked cells to
+make a new visual opening appear reachable. The undersea exit (12838) and both western-cave entrances (12839/12834) retain
+their separate source rim curves and receding upper lips. Native RGBA masters are
+unchanged; `tools/prepare_abanis_cliffs.py` prepares the paint/profile derivatives.
+
+Verify source preservation with `test_abanis_road_source.py`, then run
+`abanis_road_recovery_test.gd` through Play Goemon. It follows the full original
+western-cave route in both directions, checks the native path, and captures the
+normal camera at the entrances and six road waypoints. `--cliffs-only` is a
+shorter visual iteration. Evidence and per-map chunk/triangle counts live under
+`build/Other Files/Asset Toolkit/Abanis Road Recovery/Contour Recovery/`.
+Data/navigation checks and visual judgment are separate. Hidden depth and unseen
+surfaces remain reconstructed; this is not proof of pixel-exact 3D identity, and
+no new FPS, full-army stress or long-session smoothness claim is made.
+
+Fresh verification for this continuation: the full route passed 690 checks with
+20 normal-camera captures, the focused source/mesh checks passed 534, shared
+original-map data passed 859, and all four read-only client preservation tests
+passed. The GLB audit read 319 assets without read errors; the procedural cliff
+counts are recorded separately in `Contour Recovery/verification.json`. The
+capture process still reports shutdown RID/resource cleanup diagnostics; these
+assertion results are not evidence of a leak-free soak test. A shared shader
+change during capture only added a default-on optional brush guard: removing
+that guard exactly reproduces the pre-capture shader hash, and these cliff
+materials keep the unchanged default.
+
+
+## Chest axes, enemy Dodge and Accuracy — 2026-11-23
+
+AX018 is Lv3 / +150 ATK / +30 critical-chance points; AX013 is Lv4 / +300 ATK /
++30 critical-chance points; AX024 is Lv8 / +500 ATK and adds a level 4 乾坤 hit
+when a normal contact connects. The extra hit uses the existing native damage
+owner, skill-level snapshot and prepared 乾坤 impact, without a cast controller,
+mana cost, learned-level change or recursive proc. Guard replies, Guard Break,
+misses and cancelled windups do not activate it. Original body/weapon sprites
+remain unchanged. The exact item-icon PNGs are copied from the archived catalog;
+provenance and behavior are in `assets/items/crossgate/axes/README.md`.
+
+All axe stances subtract 10 Accuracy through the shared current-weapon owner.
+Accuracy starts at zero and gains one point per allocated stat point; it appears
+in Stats, Upgrades and Character Balance. Ordinary enemy Dodge starts at 5% and
+is editable in Enemy Balance. General physical miss chance is
+`clamp(Dodge - Accuracy, 0, 100)`: default axes hit 85% before other defenses,
++10 Accuracy restores their ordinary baseline, and +15 offsets the default
+Dodge too. Magic and damage-free statuses bypass general physical evasion.
+Towers retain their prior hit behavior. Existing reactive movement/counter rules
+stay separate; physical Accuracy also offsets reactive dodge rolls. General
+Dodge applies to native companion hits through the same contact owner.
+
+The native target holds a fixed 100-marble bag and reshuffles after exhausting
+it; actor reuse clears the bag. No per-attacker army scan, new simulation,
+projectile, animation player or effect pool was added. All chest colors now draw
+equally from six swords plus three axes, without replacement. Existing saved
+collection/upgrade keys remain compatible; active equipment alone contributes
+bonuses, and failed saves retain the unopened chest and original reward.
+
+For the requested testing period, Play Goemon supplies `--all-weapons`: all
+compatible defaults and all nine collectible weapons are immediately available
+in Equipment. This access does not create saved discoveries or upgrades.
+Normal script tests retain collection locks unless explicitly passed the flag.
+Remove that launcher flag when the testing period ends.
+
+Fresh verification: the focused rendered axe/Accuracy fixture passes 146 checks,
+including real LMB press/release, Cross Gate axe-compatible fighters, on-hit
+level/damage, cancellation, same-family Z switching, save/retry, negative
+Accuracy, pooled MISS feedback and five simultaneous native allies across four
+rounds. The focused headless run passes 141 checks. The startup-flag fixture
+passes 24 checks, including ownership/rank preservation after reload. Existing
+chest/sword-upgrade/stat-allocation regressions pass 207/116/217 checks. The
+required Mirror Image regression passes all 605 checks, including borrowed
+charge setup/progression/cleanup, resumed following, reuse and nine Kaz copies.
+Native checks pass exact 100-marble distributions, physical Accuracy, magic,
+status, invalid input, reactive dodge, companion delivery and recycled actors;
+existing boss-reaction and joint-attack checks also pass. Asset audit reads 319
+assets without read errors, and all three preservation groups pass.
+
+Visual review separately confirmed the original axe inventory sprites, the
+negative Accuracy display and upgrade tile, the existing 乾坤 burst at contact,
+and MISS feedback. The warmer repeated-ally sample holds 4,077 nodes and 2,831
+resources. The final short rendered fixture reports p95 17.383 ms / max 33.303 ms;
+these are unisolated fixture frames, not a controlled before/after benchmark or
+a claim about full-army smoothness. Godot still reports resource/RID warnings at
+fixture teardown. Earlier user smooth-play reports and historical stress tests
+remain historical; no full-army or long-session soak was run here.
+
+Verify in Play Goemon: select an axe-compatible Cross Gate fighter, press Q,
+choose one of the new axes, and compare Attack, Critical chance and Accuracy.
+Spend points in Accuracy and compare misses; AX024's connected contacts should
+add the familiar 乾坤 impact. Switch weapons with Z when multiple slots are
+unlocked. Evidence is under `build/Other Files/Asset Toolkit/Axes and Accuracy/`.
+No app export was requested or performed.
+
+## West Gate–snow route appearance review — 2026-11-23
+
+Fixed cameras exposed appearance defects, not a measured simulation bottleneck:
+Western Freyja was omitted from original floor-texture binding, source trees
+had been thinned, undersea rock faces stretched black sprite margins, and some
+cliff rims enclosed flat lawns with leftover proxy spikes. The route now binds
+its original floor cells, reuses fitted native flora and source palettes, and
+fills only recorded blocked cliff interiors with the existing spatial meshes.
+Old collision shapes, open cells, NPCs, encounters and travel links remain.
+
+`prepare_west_route_scenery.py` prepares 655 tree anchors and 169 roadside detail
+anchors plus 895 native shore-bank paint tiles in the path-visible corridor.
+The banks reuse the existing terrain-conforming coast builder. Repeated meshes/materials remain shared;
+new palette/snow variants are prepared at area setup, not in frame/attack loops.
+The sparse snowy trees reuse the native paint projector and shared branch/oval
+primitives. Freyja cliff bases sample the existing terrain once per cell; they
+do not replace its height field. Keep all of this in the existing scenery owner.
+
+Read the ordered route and limits in
+`build/Other Files/Asset Toolkit/West Gate Snow Route/ROUTE_REVIEW.md`. The
+source check independently verifies original bytes/graphics, and the fixed
+review script jumps to views instead of running a long walk. A historical
+baseline must be captured before editing; exact additional first-snow views
+are clearly labelled as preserved-scenery replay. Current original mountain
+layout/order, unavailable summit transfer 15536, collision grades and unseen
+3D geometry remain explicit limits.
+
+Fresh checks for this change: five read-only source tests, 534 focused geometry
+checks, asset preservation, source scenery regeneration, and desktop-rendered
+route comparisons. These are separate from the user’s earlier smooth gameplay
+experience and previous stress measurements. No new FPS, full-army stress or
+leak-free soak result is inferred; the capture process still reports the
+baseline’s shutdown RID/resource cleanup diagnostics.
+
+
+## 阿巴尼斯・傑諾瓦 full snow-region art pass — 2026-11-24
+
+This was an appearance issue, not a newly measured simulation bottleneck.
+Fixed cameras showed stretched snow-house facades, magnified palette dithering,
+fragmented snow-tree paint and incomplete coverage beyond earlier road corridors.
+The pass now covers eleven maps: both villages, the three Jenova approaches,
+the local southern road/first snow, western cave floors 1–3, the complete reachable
+402 snowfield crop, the university exterior, both current generated snow floors
+and the summit exterior. The boundary/checklist and source comparisons are in
+`build/Other Files/Asset Toolkit/Snow Region/`.
+
+Reuse the existing town geometry helpers for local house variants and the
+existing route scenery owner for source anchors. Keep small props at readable
+sizes: fitting every prop to a complete sprite bounding box enlarged fences and
+plants. Retain the editable tree master's coherent leaf/bark UVs; projecting one
+flat native sprite separately onto each leaf produced fragmented crowns. Native
+colour/snow coverage still supplies the local palette. Prepared floor gutters,
+filtered native derivatives and mipmaps reduce enlarged pixel noise without
+changing original assets, cell boundaries, collision or travel. These resources,
+meshes and materials are cached at area entry, with existing spatial batching;
+there is no per-frame art processing or new gameplay owner.
+
+Fresh verification for this pass: 17,621 focused art/scope/UV/source-plane checks
+and 10,797 regional route-preservation checks pass; the existing road/cliff
+fixture also passes 534 checks. The desktop launcher captured
+219 fixed-map sectors, 24 generated-floor survey views and 17 before/after
+gameplay pairs. Map bytes, walk masks and exit metadata match; camera poses match
+within 1.49e-8 floating-point roundoff. Asset toolkit preservation passed and the
+GLB audit read 319 assets with no read errors. Procedural house mesh budgets are
+recorded separately from the GLB audit. Exact original walkable heights, unseen
+3D geometry and original random mountain-floor ordering remain unverified; some
+close follow views retain inherited occlusion. These results are separate from
+the user's historical smooth-play experience: no new army FPS or long-session
+resource-growth claim is made. Godot's existing shutdown resource diagnostics
+remain.
+
+To verify appearance, open the region comparison gallery or launch Play Goemon
+and visit the village streets, first-snow bend and snowy clearing. No app export
+was requested or performed.
+
+## Snow-region encounter continuity and material follow-up — 2026-11-24
+
+The current baseline already had 42 source-placed NPC/sign interactions and
+weighted regional encounter pools. Review found a shared-map guard that waited
+for every enemy on the map to disappear. An enemy left alive on another branch
+could therefore prevent encounters after returning to the snowy corridor.
+The existing Waves owner now waits for its current group and checks nearby
+combat through the native spatial query when a movement check is due. It does
+not scan the army, and stationary frames do not issue this query. Keep that
+distinction when extending encounters to another corridor on a shared map.
+
+This is a correctness fix, not a measured frame-time bottleneck or speed gain.
+The focused reproduction covers a distant original patrol, duplicate-group
+prevention and nearby combat. Original group weights, levels, conditions and
+safe villages/campus retain their current owners and data. Exact original
+server probability/count behavior and the two adapted mountain-floor mappings
+remain documented fidelity limits.
+
+The art follow-up retains existing house/tree geometry and source anchors.
+Regional foliage uses broader colour and smoother lighting; the owned cliff
+finish has softer native sampling and less rock contrast. Both reuse existing
+materials and area-setup overrides, with no per-frame art preparation. Review
+the first-snow bend at (212,349), Abanis pub street at (64,66), western-cave rock
+faces and university exterior through Play Goemon.
+
+Fresh verification: 439 rendered checks cover all eleven maps, 42 F-key talk
+interactions and 21 reachable encounter zones; 17 normal-camera poses and exit
+metadata match the fresh baseline. All 17,657 focused art/source-plane/walk-mask
+checks, three independent source/atlas tests and asset preservation checks pass.
+The per-map ledger, fixed views and 36-record reference-gap list are under
+`build/Other Files/Asset Toolkit/Snow Region Followup/`. Four university farm
+positions lack original walkable ground; the invisible grave and later/uncertain
+objects remain excluded with their exact source cells. Existing RID/resource
+shutdown diagnostics remain. These checks do not establish new full-army FPS
+or long-session resource-growth results, and no app export was made.
+
+### Snow-region readability cleanup — 2026-11-24
+
+The follow-up uses a fresh current-source baseline and the same 260 fixed cameras
+across all eleven maps. It repairs overlapping/off-wall house windows, porch-door
+clearance, a bay-wall gap and detached-looking snow caps. Broader house snow,
+coherent bark/crown/drift materials, mipmapped Jenova floor detail and restrained
+local foliage wind reduce visual noise without removing source anchors. Jenova's
+existing ground boundary fade remains: strengthening it exposed a visible seam.
+
+These are appearance fixes, not a newly profiled simulation bottleneck. Material
+variants, meshes and fine twig supports are cached at area setup in the existing
+scenery owner; no per-frame rebuilding or new gameplay owner was added. The
+cleaned foliage/sapling variants are selected locally, with previous defaults
+retained for other users of the shared helpers.
+
+Fresh results: 17,657 art checks, 64,335 Jenova preservation checks and 10,797
+regional preservation checks pass. Asset/source-derivative preservation passes;
+all 260 before/after camera poses and map/walk/exit records match. The three
+requested gameplay comparisons and eleven-map findings are in
+`build/Other Files/Asset Toolkit/Snow Region Cleanup/index.html` and `REVIEW.md`.
+Review those images or launch Play Goemon to inspect the pub doorway, Jenova
+street and first-snow bend. An additional twelve-view stationary check (144
+frames) found no obvious visible surface flicker; variation was confined to
+foliage. It does not prove behavior at every moving camera, smooth gameplay or
+long-session resource behavior; no new performance claim is made.
+
+### Snow-region population restoration — 2026-11-24
+
+This is a correctness/art follow-up to the preceding eleven-map cleanup, not a
+new FPS or long-session performance measurement. Fixed normal-camera captures
+showed strong enlarged cliff/earth contrast. The smallest art change is an owned
+regional cliff shader and continuous earth finish, masked away from native
+paving; source geometry, terrain/collision, scenery anchors and travel stay with
+the existing owners. Snow houses gain a solid roof underside using the existing
+block helper. Do not repaint the original atlas or change the village layout to
+hide texture noise.
+
+Missing NPCs use `forest_falan_tour.gd`'s existing builder and
+`forest_explorer_npcs.gd`'s existing talk/portrait/dialogue flow. Data and native
+pixels are prepared offline by `tools/prepare_snow_region_population.py`.
+There are 42 reachable interactions (25 residents and 17 signs/objects). Four
+university farm records are blocked by absent walkable terrain in the preserved
+snapshot; their exact cells and other uncertain records are in the regional
+guide and `population.json.skipped`. Preserve their source positions rather than
+moving them to make a test pass.
+
+The existing Waves owner now checks walked tiles for this corridor/cave/snow
+scope and installs complete encounter groups in the native army. It does not
+create another simulation, renderer, species targeting owner or ambient patrol
+system. Group/member/level/check outcomes use shuffle bags. Zone data is bucketed
+by source map; the shared-road boundary has a cached row lookup. A group uses at
+most 40 local candidate cells, exact native reachability/clearance, and retries
+no faster than five times per second. It waits for the current fight to finish.
+Asset decoding, sprite packing and shared mesh/material preparation stay outside
+combat loops. Other branches of map 400 retain their existing patrol data.
+
+Fresh verification: desktop launcher population/location checks pass 436
+assertions across all eleven maps, including all 42 talk interactions, all 21
+reachable encounter zones, each source pool in those zones, native import/reuse,
+stationary safety, walked-tile dispatch and bag refills. Regional art checks pass
+17,657 assertions; independent source/atlas/preservation tests and toolkit checks
+pass. Seventeen gameplay camera transforms and native exit metadata match the
+last pass. Logs/captures and separate art/enemy/NPC checklist are under
+`build/Other Files/Asset Toolkit/Snow Region Restoration/`. Existing Godot
+shutdown resource diagnostics remain; script/shader errors fail verification.
+These results do not establish moving-camera smoothness or resource growth.
+
+In Play Goemon, continue through Jenova, the western cave and the snowfield.
+Walk rather than stand still to trigger a local encounter; villages and campus
+remain safe. Speak to Jenova's Hank (67,47), the western-cave miner (27,14), the
+Abanis hunters (49,31)/(48,30), and the university guide (75,127). The summit
+restores one ice alraune with three mutant liquid slimes, using compatible native
+combat. Exact original server probability/count distributions, the mapping of the
+two adapted mountain floors, special summit spell/escape/reward scripting and
+unavailable directional NPC art remain explicit fidelity limits in the guide.
+No app export or legacy-character sweep was performed.
+
+## Sokia reconstruction: Great Wind native navigation extent — 2026-11-26
+
+The eastern special encounter pool on map 13001 could not spawn. All 47
+archived walking cells passed route clearance, but even a 0.1-radius native
+self-reach query failed. The old flat-terrain fallback used an unscaled
+480-unit extent from a scaled origin, ending at world x168; the tested eastern
+cells start at x195. No collision or monster-size change was needed.
+
+Map 13001 now supplies its 150×50 room dimensions to the existing native
+navigation data owner, as recovered fixed maps already do. Actor loading,
+queries, group placement and combat remain with the existing native army.
+The desktop launcher population fixture freshly passes 91 checks across
+13001–13014 and all 15 effective encounter zones, including every source pool
+in the formerly missing eastern area. This checks native import and source
+placement, not moving-camera smoothness or combat balance.
+
+To verify, enter Great Wind from the desert mouth at source (133,26), walk
+toward the southeastern chamber around (121–130,25–36), and trigger a local
+encounter by walking. Do not shrink footprints or remove walls to work around
+a clipped navigation extent. Logs are in `build/Other Files/Asset Toolkit/
+Sokia Region Reconstruction/mountain-native-navigation-fixed.log`. Regional
+art, native-versus-stored walking-grid differences and quest gates are tracked
+separately in that reconstruction report.
+
+### Snow-region patrol adapter contract (2026-11-26)
+
+A continuous Beast approach exposed repeated `spawn_patrol` errors on the western part of recovered map400: the Snow sprite adapter used the existing Shalena patrol posts but did not expose that owner's `LEASH` constant. The smallest fix reuses Shalena's14-unit leash in the adapter. No query, targeting, counts or combat timing changed. Check the normal Jenova hospital→outside-priest walk through Play Goemon and require a script-error-free log; a direct dungeon-room test never traversed this road-spawn path. This is a correctness finding, not a fresh FPS/stress or smoothness measurement.
+
+### Recovered-map edge exits (2026-11-26)
+
+Continuous University-region controller tests found that the generic interior rectangle was shrunk twice: model navigation bounds were inset by3 local units, then player movement applied its body margin. On the15×15 snow cabin this clamped Kaz at localz16.46154 while the original exit was atz21. The same problem cut off the mayor-house bottom stair after returning from its teleport room. Recovered interiors now derive the rectangular safety domain from the actual source grid, with a3-unit outer allowance; the existing source walk-mask collision walls remain authoritative. No walk cell, wall, gate, speed or combat parameter was changed. This is a correctness diagnosis, not a frame-time measurement. Verify by walking out of 雪山小屋 and by returning from 阿巴尼斯村傳送點 through both mayor-house floors; fresh controller results are recorded in the University regional checklist.
+
+The Abyss mural also exposed a setup-only reachability problem: F can leave the hero nearer a wall than the larger summoned enemy can fit. The regional boss owner now uses the center of that same source walk cell when the enemy-radius start test fails, validates that center, and keeps the native route query and actual enemy footprint. Walls and combat remain unchanged. A standalone controller probe confirmed that backing away let the old path spawn and finish; full-route verification of the correction is recorded separately. Do not infer a frame-time gain from that probe.
+
+Fresh full-route Abyss confirmation:249 checks,55 original crossings and119796 movement frames, with no failures or script errors in the completed branch. The actual F mural interaction spawns immediately without backing away; normal attacks defeat the boss and the messenger returns to1530. This was a headless fixed60fps qualified/invincible fixture, with no placements after the initial road approach or injected hits. The public terrain `move_clear` query was insufficient: it omits the original map-wall clearance included by the native `can_reach(origin, origin, enemy_radius)` start test. Keep that setup-only native validation when reusing this fix. The report is `build/Other Files/Asset Toolkit/University Region/continuous-abyss.json`; rendered Beast/curse/Sando evidence is separate and does not establish Abyss FPS.
+
+### Sokia region closure (2026-11-26)
+
+The later regional population check covers20 effective Great Wind, Meteor and
+Water Cave zones and passes119 checks through the desktop launcher. The outdoor
+union exercise covers all58 map300 source-zone IDs; a clipped overlap sliver is
+verified in its full coast crop rather than weakening spawn clearance. Seven
+regional sprite appearances extend the existing native bank, preserving the
+prior34, and no second army, target-search or pool owner was introduced. See
+`Sokia Region Reconstruction/whole-fixed-native-population.log` and
+`regional-encounter-coverage.json`. Source placement/conversation/movement
+checks do not establish frame-time stability or original encounter balance.
+The regional visual work also reuses cached complete meshes/materials and a
+local bounded cave-cut shader; no new per-frame asset loading was added.
+
+## Signed temple-floor support — 2026-11-27
+
+The private59530 stair review exposed a player fall guard that assumed floor0.
+Valid descending contact crossed its rescue threshold and reset the player
+upward. The guard now uses the local floor below0, preserving the ladder floor
+and existing positive-floor behavior. This adds one player height query; no
+per-army work, new simulation owner or native slope-rule change was added.
+There is no measured FPS or long-session stability claim for this functional fix.
+
+Keep visible mesh, player height, physical triangles and native navigation on
+one prepared support grid. The candidate37-check actual-control fixture covers
+entry at59,93, ascent/descent, six shared contact probes, native reach and the
+scripted return to200,96. Positive hall compatibility passes122 assertions.
+The grid's eased risers are inferred collision ramps; they do not prove the
+painted stair or landing contact looks correct. The inspected Metal views still
+expose those art gaps, so59530 support remains fixture-only. Reproduce with
+`elsa_hall_entry_support_test.gd` through the normal Play launcher; judge fixed
+views separately. Do not weaken native traversal rules to make a test pass.
+
+## Elsa island area music — 2026-11-26
+
+The native music IDs are retained for all 95 scoped containers from the pinned
+LS2MAP headers. Four original PUK2 streams extend the existing single-player
+selector; there is no extra audio owner or combat search. The time passage and
+other sound-218 rooms stop music through a null stream. Normal muted/recording
+behavior and the user's preference remain with the shared player.
+
+Fresh verification: the enabled-music normal Explore castle round trip passed
+46 assertions, including each real crossing, silence, castle return music and
+unchanged saved preference bytes. The rendered building/music fixture passed
+178 assertions, including nine Elsa destination selections and actual Master
+audio captures for the four PUK2 tracks. Source and prepared hashes, native
+sound IDs for every scoped container, and complete decoded frame counts passed
+the 25-test Elsa source suite. These establish routing and audio output, not
+subjective mix quality or a fresh frame-time benchmark. The rendered fixture
+still reports the existing resource/RID teardown diagnostics.
+
+To verify in play, enable Background Music in Settings, use the castle stone,
+cross the passage, ruins, forest and plain, then return from beside immigration.
+The passage is silent; ruins, field, island and temple have their original
+tracks. Re-entering a map with the same theme keeps playback position. See
+`assets/audio/crossgate/music/README.md` for sources and preparation. No app was
+exported.
+
+
+### Elsa native crowns and stone travel (2026-11-26)
+
+The forest/plain banyans reuse the existing Cross Gate woodland canopy's
+2,990 leaf quads. Native crown samples and elliptical depth are prepared in
+`prepare_elsa_props.py`; `forest_elsa_scenery.gd` fits them once per source form
+and retains the existing static batches and foliage shader. It does not fit
+leaves during gameplay frames or modify the shared GLB. The 24 native tree
+forms contain 26 crowns across 276 placements. Prepared copies use the target
+art's dappled paint, rather than another tree graphic's vertex shading.
+
+Godot may reverse the second triangle's winding during import. Identify a
+leaf's four vertices from all six indices; assuming the sixth index names the
+fourth vertex stretches triangles across the scene. The source test checks
+quad independence and all native center projections. Fixed views check
+appearance separately. Broad trunk/root volume remains unfinished.
+
+The latest fixed-view fixture reported 5,420 ms for the first forest point,
+2,515 ms for the following plain point and 693 ms for another view in that
+same plain. Those times include scene setup and deliberate frame waits. They
+are not per-frame measurements or a controlled speed comparison. No current
+combat smoothness or stress-test claim follows from them. If a transition
+becomes a measured bottleneck, profile setup before changing leaf counts or
+adding another runtime owner.
+
+A free-stone check found that the island return used the travel path that
+resets a run. The Elsa interaction now supplies zero velocity to the existing
+continuing-run travel path. This preserves gold and the progression object,
+with the same E confirmation and exact landing. The enabled-music round trip
+passes 49 checks, including castle activation at level 1 with zero gold and
+return with an unchanged nonzero balance. The native event fixture passes
+52 checks on the latest sampled groups, including repeated use and stale-handle
+cleanup; this is lifecycle evidence, not a balance or frame-rate benchmark.
+
+
+### Elsa inner-hall source roles (2026-11-26)
+
+The 59535 enclosure combines foreground and background art. Projecting their
+composite onto every surface put front portal fragments on rear walls. The
+fitter now separates structural paint, continues gray exterior masonry and blue
+interior surfaces, and retains the measured planes for original-facing art.
+Hidden counterparts reuse an adjacent original face at comparable physical scale.
+The existing source mesh/column builders and setup cache own the geometry.
+
+Coarse alpha-grid caps made thin painted details visibly jagged. For this local
+hard-surface frame, prepare substantial material regions first, trace the actual
+rendered alpha boundary and simplify within one source pixel. Keep fine engraving
+on the surface. Do not apply that repair globally to unrelated foliage or art.
+There is no fitting or asset loading in gameplay frame/attack loops.
+
+The initial enclosure review had eight gameplay images and twelve placement
+checks without script or GPU fence errors. Its paint/mask/cap checks are separate
+from the earlier 31-test full-source baseline. The subsequent room/steps pass
+extends that coverage below; neither result establishes current combat frame time.
+
+The curved-tread pass shares one small prepared support grid between physical
+collision, model height and native movement. It retains original walk bits and
+the existing movement owner. The native field is prepared on map setup; actor
+height reads cached local triangle samples. The current support test passes 53
+open samples and 122 assertions, including actual forward/back movement controls,
+landings and outward-facing risers. The visible hall assembly has 12 surfaces
+and 10,165 triangles. These establish height agreement and component coverage,
+not combat frame time or long-session resource behavior.
+
+Keep mesh-count readbacks in the headless fixture. A live mesh audit waited on
+Metal fences during a failed capture; the later screenshot fixture omits that
+readback. Startup fence errors also occurred before the audit, so the observation
+does not attribute every GPU timeout to it. Check actual gameplay pictures too:
+correct paint and collision checks missed inward-facing risers until the close-up.
+The final corrected step views have no script or GPU fence errors.
+
+## Il and Saint Laruka source scenery — 2026-11-26
+
+The two villages prepare their source objects once on map entry and reuse the
+existing native scenery, furniture, flora and shared mesh caches. No per-frame
+asset load, army owner, target query or combat clock was added. Preserve the
+existing source walking grids, warp links, NPC/dialogue owners and saved data
+when changing this art.
+
+A geometry-only check missed visibly stretched reverse roof paint and overlong
+dormers. Important houses now use coherent solid walls/roofs and separate
+rectified original paint, with source compound footprints and measured height
+profiles. Reuse the recovered native cliff contours and broken-wall meshes;
+do not replace those prepared profiles with tall generic boxes. Source log
+crossings need shallow decks, rather than a firewood-pile furnishing.
+
+The focused source suite, mesh inventory, fixed-camera review and selected door
+crossings are recorded under `build/Other Files/Asset Toolkit/Il and Laruka/`.
+The follow-up recovers map 2307 from pinned server data, checks it against its
+matching cached partner, and reviews every house from four unobstructed corners.
+All 19 reachable interiors now have source plans. Laruka's former graphic gaps
+were compressed DAT map IDs: 38046/38051 expand to EX-pack serials 238046/238051.
+The adjacent 38043/38044 had incorrectly selected portrait art. Resolve the map
+ID domain before declaring source art missing. The scoped preparer preserves the
+shared archive index and prepares the source cap/paving meshes once on entry.
+The local quay top/skirt uses fixed UV scale on the existing terrain triangles;
+foliage skips hard paving after taking its scatter draws. Fine reverse-surface
+design is still inferred. These are
+layout/art and connection checks, not a fresh FPS or long-session growth result.
+The complete street walk is left to the user's requested review. No app export.
+
+## Kili and Ghana villages — 2026-11-26
+
+Both village checklists cover the original street/door graphs, all 27 reachable
+interiors and the four immediate gate approaches. No new performance bottleneck
+was measured. This is a bounded art/source-completion pass, not an FPS fix or a
+new full-army smoothness result. Eight native building pieces retain source
+footprints/anchors and the existing collision/travel owners. Individual low
+terrace caps and shallow door/sign relief extend the cached solid building kit.
+Native wall projection is limited to its two recorded faces; hidden faces and
+caps retain the kit's stone paint, avoiding dark stretched image-edge panels.
+
+Omitted source scenery adds 139 Kili and 103 Ghana placements. Existing native
+solid builders, woodland masters, original paint/material caches and spatial
+batches are reused. Original tree bounds/colors fit the woodland masters; fine
+source crown branching remains inferred. Setup prepares/reuses immutable meshes;
+combat and frame loops do not load them. New scenery adds no physical shape,
+actor, encounter selector, targeting owner or effect pool. Maintain this by
+preparing art at map setup and keeping the original map navigation authoritative.
+
+Ghana's 13 interiors now use complete native coastal furnishings. Three missing
+client-cache residences use distinct SHA-pinned classic LS2MAP sources, replacing
+borrowed 3020/3021 rooms. Only their masks and housing door arrivals change;
+original return cells remain. No NPC or dialogue is invented. These source maps
+corroborate the classic version, not independently captured live BlueCG parity.
+
+Fresh desktop checks pass 281 assertions: all 27 interiors load with complete
+source furnishings, safe arrivals and open source thresholds; three restored
+house doors, both chief-house passages and all four gate round trips are
+spot-checked. Four independent Python source tests and three prior Kili-house
+preservation tests pass; native fixture/source preparations reproduce. The
+319-asset audit has zero read errors; shared asset/audio/cosmetic checks pass.
+126 unique fixed camera pairs cover both villages and their approaches/interiors.
+Use the source-aligned isometric views for visual comparison: some raw close
+third-person captures are obstructed and are retained as diagnostics. Technical
+coverage does not establish exact hidden 3D geometry or visual approval.
+
+Verify with Play Goemon, enter each village through its existing gates, check the
+main street/landmark views and enter the three restored Ghana homes. Full street
+walking is left to the user as requested. Reproduction/owners are in
+`assets/maps/falan/village_street_props/README.md`; separate checklists, source
+coverage, matched captures and logs are under
+`build/Other Files/Asset Toolkit/Kili Ghana Villages/`. Existing shutdown RID/
+resource diagnostics remain in logs. No long-session/resource-growth benchmark,
+full-army timing comparison, long-route/cave/desert rebuild or app export was
+performed; do not infer these from the bounded desktop checks.
+
+## Falan cathedral static setup batching — 2026-11-26
+
+The city-art continuation measured 1,283 authored cathedral geometry nodes,
+including the existing stone MultiMeshes. The city runtime now flattens those
+static pieces into 13 batches by their existing material and shadow setting,
+then shares the immutable meshes on later city returns. The editable source
+remains `forest_falan_civic_exterior.gd`; other civic buildings keep their existing
+builders. No army, frame-loop, global light or rendering-quality setting changed.
+
+`Play Goemon.command --headless --script res://tests/forest-shrine/falan_cathedral_batch_test.gd`
+compares every oriented triangle and its normal, UVs, color and original material
+before and after batching, and checks repeated mesh identity. Fresh result:
+86,208 triangles retained, maximum vertex difference .000032, maximum normal
+difference .000124 (ArrayMesh packing), and zero UV/color difference. Evidence is
+`build/Other Files/Asset Toolkit/Falan City Reconstruction/Visual Continuation/cathedral-batch.json`.
+These are setup and preservation measurements; no fresh FPS or long-session
+memory result is claimed. Keep the authored and batched camera views visually
+consistent after future edits. Do not reduce detail or bypass preservation to
+make this check pass.
+
+## East Gate and overseas source banks — 2026-11-26
+
+The expanded regional source needs161 prepared enemy appearances. The former29
+shared cave slots could not represent that roster. The existing native sprite
+bank now has192 slots, with matching Godot geometry offsets and42-value attack
+rows. This extends the existing native owner; it adds no enemy simulation,
+targeting loop or per-species renderer. Relative to29 slots, the serialized kit
+adds219072 bytes of attack rows and4564 bytes of fitted geometry, once per kit,
+not per enemy. Original tagged contact/audio events remain distinct; newly
+recovered audio111,141,158 and302 are accepted only with their original tags.
+
+Fresh standalone native checks cover the final slot's exact collision bounds,
+contacts and cue rejection. Through Play Goemon, the published native bridge
+passes652 checks covering all161 source bodies/timelines, two full spawn/despawn
+passes, the final reserved slot and one-past-capacity rejection. Reports are in
+`build/Other Files/Asset Toolkit/East Gate Region/Native Capacity/` and
+`Verification/native-bank-contracts.json`. These are capacity and lifecycle
+results, not a fresh FPS, visual approval or long-session growth measurement.
+
+Keep new appearances in the shared prepared bank or the existing companion
+bank. Prepare only the current map's possible texture pages when setting up the
+map; combat must reuse those pages, meshes and materials. Keep both native and
+Godot capacity constants aligned and publish their tested binary together.
+Source maps and topology checks do not establish smooth rendered gameplay:
+review normal-camera captures and repeated map returns separately. Unknown
+attack contact markers remain explicit source blockers instead of guessed hits.
+
+## East Gate generated CPU images — 2026-11-27
+
+A source-map review observed a Metal fence wait in `joined_mask` while downloading
+an ImageTexture that the residual-surface builder had just uploaded from a CPU
+Image. The field then downloaded the merged texture again. The map illustration
+also downloaded a chart immediately after its CPU image was uploaded. This is a
+specific observed setup bottleneck, not evidence that every GPU stall has the
+same cause.
+
+The existing generated textures now retain their original CPU Image as metadata.
+Field and terrain consumers read it; village merging and illustration duplicate
+it before painting or resizing. Imported textures keep their existing fallback,
+and Sokia keeps its existing CPU-image API. This changes no pixels, coverage,
+terrain arrays, scenery counts or rendering quality. Keep the generated residual
+template and its published GDScript synchronized.
+
+The focused `east_cpu_masks_test.gd` check passed48 checks: exact residual and
+village-merge bytes including transparent RGB, dimensions/format/mips, four East
+Road field arrays, retained-image identity and unchanged chart pixels after actual
+illustration resizing/painting. Source pins stayed current. Evidence is in
+`build/Other Files/Asset Toolkit/East Gate Region/Runtime Audit/cpu-mask-preservation.json`.
+The isolated headless test has no script errors; it does not measure gameplay
+frame time. Initial imported-texture reads and concurrent GPU contention remain.
+Normal East Gate return and source-map camera acceptance are still pending the
+current visual freeze. Verify those through Play Goemon before claiming improved
+rendered startup or smoothness.
+
+### Elsa temple body/material pass (2026-11-26)
+
+The initial island temple candidate cached three entrance bodies, two connecting
+wings and one replacement floor at map setup. That baseline body had five material
+surfaces and 1,978 triangles; its floor added one surface and two triangles. No source
+walking bits, travel triggers or movement owners change in this pass. The
+headless fixture has 20 assertions, including preservation of the shared source
+material when hidden surfaces receive private lit overrides. Eight fixed
+gameplay images pass twelve placement checks without script or Metal fence
+errors; earlier failed capture logs remain separate. This is art/setup evidence,
+not a frame-time or resource-growth benchmark.
+
+A source texture can contain transparent pixels where another original layer
+covered it. Lifting that covering layer into 3D exposed green streaks in the
+temple stairs. Repair only the known occluded floor, retain every opaque pixel
+and record an infill mask. Do not fill large keyed doorway openings by extending
+nearest gold pixels across them: that produced obvious streaks. The current
+body/material baseline preceded the physical entrance steps and rail fit below;
+it does not accept the whole temple.
+
+### Elsa temple entrance steps and BG separation (2026-11-26)
+
+The later entrance candidate raises the three original stair footprints by
+inferred 0.5m levels (7/9/8), using the inner hall's existing cached support and
+navigation helper with an optional map ID. The corrected candidate passes 107
+movement/support assertions at 40 samples; the hall's default path still passes
+122 assertions at 53 samples. These checks establish movement and preservation,
+not rendered quality or frame time. Earlier stair images were rejected for wide
+rear slabs, oversized gold risers and open side faces. The corrected stairs close
+their sides to the ground, move the riser bands onto real vertical faces and use
+a two-dimensional native paving repeat rather than stretched column samples.
+All six original rails remain. Rail 294 continues the original neighboring motif
+through its old tower occlusion; that continuation is explicitly inferred.
+
+Native BG can already contain the same landmark photograph as FG. Lifting FG
+alone leaves a second tower or railing stretched across the floor. Check the
+native layers before building another model. The current repair uses private
+placement-specific BG atlas tiles, retaining original origins/extents and the
+existing shoreline geometry. It replaces the old flat garden slab, which could
+discard shore heights. Two cached atlas pages supply the repaired ground; source
+palette grass/paving continues occluded regions, explicitly marked inferred.
+The preparation mask removes duplicate tower pixels outside the land instead of
+turning them into ground. Materials and geometry are assembled at map setup,
+with no additional per-frame asset loading or movement owner. The new geometry
+fixture passes 985 checks, including exact positions/normals for all 320 affected
+shoreline profiles. The current assembly has 20 surfaces and 41,556 triangles,
+plus a separate two-triangle alpha-only ground infill. Targeted doors pass 90
+checks and the inner-hall regression passes 122. Eight current fixed gameplay
+images pass twelve placement checks. The stair/ground repair reads correctly in
+those views; the central pylon's two round side bays still need fitted volumes.
+No whole-temple approval, smoothness or memory-growth claim follows from this.
+
+Do not sample arbitrary neighboring BG pixels when repairing a facade hidden by
+another original layer: this copied grass and rainbow paving onto white walls.
+The current facade mask restricts continuation to original architecture colors.
+For ground holes, use a fixed-camera ray probe and the original BG alpha. The
+recorded west-side probe exposed a blocked, exterior-connected cell beneath the
+tower; only that original silhouette uses an inferred outer-walk outline. This
+restores the hidden surface without changing shoreline geometry or walkability.
+
+### Elsa central facade bays (2026-11-27)
+
+The paired pale lobes now have a source-guided rounded facade candidate. Six
+metres of added depth is inferred; it follows the original view direction, so
+the native facade projection stays fixed. Contact lines are only subdivided,
+not moved. The curved front and upper/reverse enclosure use the same segmented
+boundary, avoiding an open top seam. Source paint, stairs, support, doors and
+walking data are unchanged. The mesh still builds once through the existing
+temple cache and reuses its five material roles. There is no new frame loop.
+
+The current source/material check passes (one test, 14.350s), asset audit reports
+319 assets and zero read errors, and the three toolkit preservation checks pass.
+Geometry passes 29 assertions, including unchanged contacts, zero ground shift,
+0.501 px maximum source projection error and a segmented, bounded upper cap.
+The body is now 4,820 triangles; body, stairs and rails total 44,282 triangles
+and 20 surfaces. Earlier 3,576/43,038 counts describe the pre-cap revision.
+Headless shutdown still reports cached-resource warnings; this is not a growth
+check. A 32-stand normal-camera scout passed 67 checks and selected clear stands
+at original cells (153,127) and (198,151), both retaining 24.3 units of camera
+distance. Use the camera's legal upward pitch for this tall landmark, rather than
+forcing a cramped downward view. Four revised Vulkan frames pass six placement
+checks and have been inspected at both angles. They led to replacing oversized
+inferred white pyramids with short continuations and curved blue caps. Available
+client data caches only 40 of 5,390 cells above the facade; no mapped roof art is
+recovered. The roof is inferred, not original-geometry proof. The whole temple
+remains open. No FPS, default-Metal stability or memory-growth claim follows.
+
+
+### Elsa trial surface roles (2026-11-26)
+
+Four repeated brown cap crops now use the existing ground-surface builder across
+168 placements in 56 trial maps. The mixed crop keeps two source-matched pillars
+on the existing column builder. Its private floor paint uses original BG under
+the FG silhouettes; only 306 missing pixels use inferred nearby native brown
+paint. Row-based column sampling prevents neighboring floor colors from wrapping
+onto the round bases. Source masks, UV scale, anchors and walking data stay intact.
+
+One repeated FG arch now follows the existing BG cliff quads rather than standing
+on a second upright plane. An all-map audit found two BG depth fits across its 56
+placements. Reusing 59609 everywhere changed 137 quads on 28 maps, affecting 6,605
+opaque pixels. The loader now selects by the map's prepared BG template and shares
+only two meshes. Each retains 1,152 triangles, one surface and a 3 cm offset. The
+all 56-map source check passes; updated runtime geometry passes23 assertions.
+The five-point Vulkan review passes25 checks; the doorway-height defect remains. Earlier 19 geometry assertions and 0.424 px projection error describe
+the primary fit before this variant correction. Its room is unowned on 59609 but
+adjoins the original entrance on 59603; scenery adds no new access. Other unmatched
+candidates remain staged. JSON and meshes are cached at setup, with no new
+movement owner or per-frame loading. These results do not measure FPS.
+
+
+### Elsa resident-atlas diagnosis (2026-11-27)
+
+The same source atlas40 is exact in isolated upload/readback checks but was
+corrupted after full Metal map setup: native brown pixels read back gray before
+any mesh picker readback. A safe-thread repeat reproduces those three wrong
+resident samples while fresh cache-ignored loading and a direct ImageTexture
+upload return the original colors. A later run has correct resident samples,
+so the failure is not deterministic. No production loader workaround or global
+renderer switch is approved by these observations. Keep original PNG/import
+hashes and compare all alpha plus visible RGB; imported transparent RGB may be
+cleared. A late-rebind diagnostic must await its asynchronous probe and freeze
+the same camera; the first comparison failed those controls and is rejected.
+
+The five-point Vulkan batch passes25 checks and ten captures with no runtime
+script/fence errors. Its brown floors are intact. The owned59603 doorway still
+shows a separate physical fit defect: the source-painted opening is below the
+walkway. Texture diagnosis does not fix that geometry. The first503 angle pair
+looks too similar despite different recorded camera positions; fixed-view tests
+now reset the rig and camera interpolation and wait a physics tick before
+capture. These setup/capture checks do not measure FPS or long-session growth. A corrected
+same-camera single-page rebind passes seven assertions and restores only part
+of a corrupted floor; seven setup fence timeouts remain. A later three-page
+control passes nine assertions with exact native visible RGB/alpha before and
+after rebinding, but does not reproduce corruption and has one fence timeout.
+Keep both results: neither establishes a complete production workaround.
+
+The existing prepared-Image tool now accepts paired `--pages` and `--output`
+arguments for a scoped trial-page candidate; its two Sokia defaults are retained.
+Elsa pages40–43 now use that same production CPU-image owner, loaded lazily.
+Minimap/sign sampling reuses the retained Image and crops before editing.
+The candidate passed26 checks; the production default-Metal run passes33 checks
+over four inspected fixed views, with exact visible source RGB/all alpha on
+every bound trial page, unchanged retained sampling images and no runtime
+ScriptErrors or fence timeouts. Existing Sokia/prayer manifest entries remain.
+The four RGBA8 images add at most64MiB of retained CPU pixel data as their pages
+are used; this is a size calculation, not measured process growth. No global
+renderer/import change, FPS improvement or long-session stability is claimed.
+Evidence: Elsa Island/production-cpu-page-review.log and Full Island Review/
+cpu-page-review/. Keep geometry acceptance separate: the entrance now has a
+source-proven BG/FG front fit and inferred recess, but surrounding trial props
+and the full island art pass remain unfinished.
+
+
+### East village source masks, 2026-11-27 follow-up
+
+The current residual owner now loads prepared whole-source CPU Image resources under `assets/maps/falan/freyja_residual/full/cpu-masks/`, retaining the source Image on the uploaded texture. The previous residual exception-paint oracle is historical; it is not the current source layout. The focused CPU-mask check was updated to independently decode the current source PNGs, verify their declared RGBA hashes, and compare the retained Image plus joined-village painting, terrain arrays and illustration copies. It passed59/0 after Il's unknown-only source completion, with no ScriptErrors. Test-only direct-PNG-loading warnings do not describe production loading. The earlier51/1run used the obsolete exception-paint oracle and is retained as failed historical evidence.
+
+Il deliberately adds six dry source-mask cells and the original ground-index data while preserving recorded cells. This source expansion is separate from the CPU-image preservation claim. Six newly recovered wet bank lips still need source-bounded visible caps and native player/pet support; a source graphic's open attribute does not prove its entire3m cell is physical land. No fresh desktop smoothness claim follows from these headless checks.
+
+### Trial and No.24 Mine source encounters, 2026-11-27
+
+Eleven review-only source layouts reuse the existing Original map builder and
+East mixed-bank native owner. The source party selector now accepts an explicit
+group table through `group_from_data`; the existing South entry point delegates
+to it. Seeded checks preserve the old party, bag and RNG results for157existing
+zones, while4096Trial draws retain source counts, levels and both rare identities.
+Keep source enemy names on each party member: appearance101250 also has another
+valid scripted name, so changing its shared species name would affect other fights.
+
+Warm the existing companion186 and East103 pages at map setup through the East
+owner, including `east_enemy_pet_keys`; do not load or rebuild them on attacks.
+The focused `freyja_trial_review.gd` headless run passes286checks, including
+272native contacts across four groups used twice, six ordinary F interactions,
+25directed fixed ports and the on-foot Mine entrance. It uses temporary in-memory
+review flags and a temporary settings file. These are control/combat checks,
+not a desktop smoothness, scenery, original server probability/AI or job-rule
+approval. The eleven maps remain gated pending those separate reviews. Evidence
+and retained failed attempts are in `Sokia Venoa Coverage/Trial caves/`.
+
+The first Metal gameplay run passes307technical assertions and saves21views,
+but emits three fence timeouts near the11500transition. Hall wall/prop fitting
+and repeated cave-wall paint fail visual review; the initial fixed party yaw
+also crops mixed members. Retain those failures and use a focused legal-camera
+retry for member visibility. Neither the passing assertions nor readable bat
+sprites approve the scenery or establish renderer stability.
+
+The wider Trial views exposed stale atlas coordinates in East skins103/104
+(fire/earth spiders), copied from Sokia skins3/2 before an upstream repack.
+The source palette and anchors were correct; the cached rectangles read unrelated
+pixels. Do not fix feet or change source art to compensate for a bad lookup.
+`prepare_east_region_population.py --refresh-native-skins 103 104` stages a
+bounded refresh from the existing source bank, preserving every clip/timeline,
+size, palette and unrelated frame row. Its upstream hash records are checked by
+the preparer's `--check`; a stale dependency requires regeneration.
+
+After publication, `test_east_native_refresh.py` compares all1296frames across
+112clips against original RGBA and anchors. The native bank passes652checks
+across161skins; the Trial integration again passes286checks. A focused Metal
+camera run passes35checks with six views, no script errors or fence timeouts,
+and the red fire-spider body and legs are visibly correct. Complementary legal
+views cover each four-member group across three views; cave limits do not fit
+every member into one view. At that checkpoint, Earth-spider104 had
+original-pixel/native-bank checks but no separate new gameplay view, and a
+post-repair rendered attack sequence remained open. Keep the earlier
+three-fence run and failed views; the follow-up below records the later checks.
+This repairs cached dependencies; it is not regional art or FPS approval.
+
+### Original room-wall paint and spider motion follow-up, 2026-11-27
+
+The hall's smeared stone was a generated-paint defect. The edge extender
+discarded dark opaque source pixels as though they were transparent shadow
+gaps, including mortar and the dark wall face. A texture-only comparison
+restored7541pixels on17087/17088/17089:32checks and six fixed63degree views
+passed, with identical wall bounds, surface counts and native support. The
+stone joints became readable without reducing the wall height.
+
+Both existing solid-page preparers now preserve opaque RGB for `room_wall`.
+Ten existing derivative PNGs were regenerated for283wall graphics, verifying
+2725077opaque pixels against original atlases. Original PNGs, catalog/map data
+and every unrelated cached pixel stay exact. Full-page East regeneration also
+found unrelated cached differences; those were retained outside the wall mask,
+and the failed broad attempt is recorded. Never overwrite unrelated approved
+paint as a side effect of a bounded repair. No runtime loop or geometry changed.
+
+The real-atlas wall test fails on the old paint and passes after rebuilding.
+Run `python3 -m unittest discover -s tests/forest-shrine -p test_original_wall_solid_pixels.py`
+to detect drift. After serialized imports, the official desktop launcher passes
+15checks over three current Hall views, with no script errors or Metal fences.
+Reproduce with `Play Goemon.command --script res://tests/forest-shrine/trial_hall_wall_paint_review.gd -- --published-only`.
+This is appearance recovery, not a measured gameplay performance improvement.
+
+`spider_source_motion_review.gd` then runs original Trial group5002 and Cow Ghost
+config2/group14001 through the existing East/native owner, followed by Trial
+reentry. It directly selects two earth spiders within the source maximum5;
+the Trial mixed group uses its maximum4including the level1rare spider. Two
+generations per case produce206contacts, live player damage and complete
+native cleanup. Headless65checks and official-launcher Metal248checks pass.
+Three60-frame,20FPS sequences show coherent red/green spider bodies, legs and
+attack/recovery across map reentry, with no script errors or fence timeouts.
+The original1296-frame RGBA/anchor proof remains separate. This is representative
+combat and cache reuse, not maximum-party performance or a full facing matrix.
+Cow Ghost geometry remains the existing seeded adaptation, not tile-by-tile
+original-floor proof. Evidence is in `Trial caves/Spider atlas repair/Motion/`.
+
+The eleven Trial/Mine maps remain review-only: cave paint, original gates and
+the broader regional map/encounter coverage still need work. Earlier Metal
+timeouts remain unresolved; these clean focused runs do not prove global
+renderer stability. The full-source Freyja cliff/house study remains staged,
+with height calibration and appearance unaccepted after the roof-support study.
+
+A read-only follow-up checks34East variants with declared source/body links:
+32copies retain15768frames identical to their current upstream banks. The two
+apparent exceptions are direct source-key variants: skin81/ex:818 and
+skin83/original:2841 retain1080original RGBA/anchor/duration-exact frames.
+Their `prepared_from`/`variant_sources` fields supply body proportions, not
+animation ownership. The refresh command now rejects these direct variants
+before writing files; do not replace valid original art from a body reference.
+The initial differences and original-source resolution are both retained in
+`Sokia Venoa Coverage/Shared enemy cache audit/`. This does not independently
+certify all upstream art, the remaining127direct variants or companion art.
+
+### Source31900 low-furniture camera boundary — 2026-11-27
+
+One original8.5m navigation boundary extends above the actual2.2275m stamp/bed
+meshes and compressed the room camera. The source31900only setup refinement
+splits that body at measured mesh height plus.03m, retaining the complete
+original player collision union and native obstacle AABB. Only the invisible
+upper portion joins the existing camera owner's map-change exclusion cache;
+the lower furniture still blocks the camera. Do not exempt real cliff walls.
+
+Read immutable mesh bounds during setup. MultiMesh instance-transform getters
+returned identity in RendererDummy, so the initial contract correctly failed;
+that GPU readback is unnecessary for this flat source map's y=0 placements.
+The corrected contract18/0, existing water-camera24/0and official-launcher
+default room38/0pass with source-current fingerprints. Both reachable views
+show the upper drawers, while the bed still obscures their lower pedestal.
+The room's coarse wall paint remains unfinished. This proves the bounded
+camera behavior, not whole-region art quality, smoothness or performance.
+Evidence: `East Gate Region/Display Furniture/Low Prop Camera/` in Asset Toolkit.
+
+### Arcas and Wind Tower source package — 2026-11-27
+
+`prepare_sokia_wind_tower.py` stages fourteen connected source layouts: the full
+150×150Arcas outdoor map301, Contract Sea302, gates20002/20003 and ten tower
+floors20301–20310. All127925floor/object cells match the pinned server source;
+76093unrecorded cells are recovered while every recorded client tuple and all
+flags remain unchanged. Seven source checks also compare the actual cached pixels,
+origins and footprints of all600graphics:522shared and78newly recovered into one
+staged page. Existing catalogs and atlas pages are preserved.
+
+Fourteen ambient zones and three scripted pools retain19distinct groups,
+25enemy identities and14appearances. The existing source-party helper passes
+5922assertions over5045draws: full shuffle bags reproduce source group ticket
+proportions, both floor10rare subzones remain distinct, Arcas has five mandatory
+members and each floor6guardian party has seven. This is data/selection evidence,
+not native combat, original probability/party-size/AI parity or a frame-time test.
+Source probability denominators, follow-on selection and original AI still need
+verification. The uniform valid party-size choice remains an explicit adaptation.
+
+Five appearances now append to the shared East native bank as skins161–165:
+101211,101214,101212,101213and101630. The existing append workflow reuses immutable
+Venoa/Sokia/University atlas pages. All2336added frames across280clips match
+original RGBA, anchors and duration; every established161variant, frame row,
+timeline, sound, palette pixel and source metadata record remains unchanged.
+Direct source-body records must not silently gain a later bank's body ownership
+when the page indexer discovers another appearance match.
+
+The first staged native check failed because the shared body resolver did not
+recognize the existing Venoa body owner. Its owner table now delegates to the
+existing Venoa profile. The corrected stage and official-launcher published bank
+both pass672checks over166variants, including two spawn/despawn bank passes.
+The original failure and ScriptErrors are retained in `Wind Tower/Native bank/`;
+only the corrected runs establish native kit acceptance. This does not verify
+live source-party contacts, GPU appearance, original AI, FPS or long-session
+growth. The unchanged1296spider frames also pass their original-source check.
+Load possible pages at setup through the existing owner, then verify direct
+source fights and repeated cleanup when the map/roster owner is integrated.
+
+All sixteen source actors now join the existing East NPC/event registry, including
+eleven invisible anchors and two StandEnemy guardians. Namespace their art tokens,
+reuse the existing automatic-event buckets and load the merged records at setup.
+Ordinary F now dispatches Wind scripts immediately through the existing dialogue
+owner. Preserve item18575 plus the exact17034phrase `以军神之名开启海路` at both
+entrances, all nine literalR/item18566branches, the one-way302→300return and the
+original post-Arcas predicates. Source LeaveGroup clears the event context's
+group count; it does not dismiss AI companions. Unknown predicates remain guarded.
+The fourteen maps are still review-only; normal access remains gated.
+
+Fresh event contracts pass83checks over47branches. Ordinary F/chat/dialogue tests
+pass271headless and276rendered checks, with no ScriptErrors or Metal fence
+timeouts. Fourteen unique actors respond to actual F input; all22event transfers
+reach the exact source floor/cell, including18item-dependent tower destinations,
+Arcas victory and the existing1530return. Both original guardian proximity rows
+start their seven-member source parties. Five captured dialogue views show the
+original words and visible Arcas/goddess sprites, but still expose broken tower
+wall paint and black gaps; this is not portrait or scenery approval. The existing
+East event contract remains49/0, original1799actor source check passes, asset
+audit reads319assets without errors and all3asset checks pass.
+
+The initial F run opened a generic placeholder before the source script; immediate
+dispatch is scoped to this new dialogue owner. A later fixture could not reach
+the Arcas shore actor after deferred travel because the frozen test had not
+finished native integration and refreshed navigation. Settle the fixture using
+the existing runtime methods after travel. Normal5mreach, source actor anchors,
+terrain and production navigation are unchanged; retain both failed reports.
+
+Natural prerequisites remain separate: priest6326 on existing map3300 grants
+staff18575 only under its original quest flags, and source guardian enemies10041/
+10050 list feather18566 with raw drop rate100. Staff acquisition/service parity,
+the drop denominator and native feather award are unverified. The test's items
+are temporary contexts, not gameplay grants. The original input that produces
+literalR is also unproven; typing R in the fixture only verifies the guarded
+branch and destinations. Do not invent a binding or guaranteed drop. Original
+StandEnemy scheduling, escape/repeat/cooldown and idle presentation remain open.
+
+The runtime data check passes6731assertions, retaining complete extents and all
+source planes. The current headless integration passes654checks; the full Metal
+review passes720checks over33fixed gameplay-camera views. Sixteen ambient groups
+and three scripted parties each run twice, exercising all25source identities and
+1024native contacts with live hero damage and pooled cleanup. Every one of96ports
+retains its source/destination anchor and native support within the existing
+2.1mwalk-in radius. The last-row20301(50,99)center is outside native disk support,
+but its unchanged activation radius is reachable and ordinary on-foot travel
+reaches301. Arcas's original victory transfer reaches20003twice.
+
+Keep the initial698/4rendered failure and focused194/13failure. The port-center
+assertion was too strict for a boundary cell. Later placement failures occurred
+after the fixture entered defeat: source kill XP can refresh ordinary maximum
+health while a camera capture yields frames. The follow-up records actual
+post-capture HP494/832/884/910instead of the intended1e9recording health. Reapply
+that test-only health immediately after capture, before contact recording.
+No enemy count, damage, timing, source tile or production placement rule changes.
+The corrected full run has no ScriptErrors or Metal fence timeouts; it is not
+an FPS or long-session stability result.
+
+Visual review fails tower wall paint/UV fitting and black gaps. The outdoor301
+coast/cliff volumes and complete off-route scenery need source comparisons.
+Some fixed party views crop ghosts/other members, and retained player counter
+effects obscure others; use clean legal complementary views/motion before
+approving all enemy presentation. The current native contact result does not
+approve this art. The existing Trial regression still passes286checks after
+the new runtime owner wiring. Global metadata now identifies180candidate map
+owners with117still unassigned;24zones remain unmatched across inspected native
+adapters. These are data/owner counts, not whole-region completion. Evidence and
+reproduction commands are in `Sokia Venoa Coverage/Wind Tower/`.
+
+The follow-up wall diagnosis compares an independent489-placement original
+context with the actual shared form dispatch. Several directional walls, columns
+and arches fell through to generic boxes. Four wall pieces now reuse the existing
+measured-profile preparation and renderer:17310/17316/17362/17364. All64previous
+profiles remain unchanged. Measure each source top-edge slope before choosing its
+axis; the two tall pieces have opposite axes to the first thumbnail interpretation.
+The ice mask's45brightness cutoff cuts out real dark brown paint. For this family,
+exclude only the measured uniformRGB20grey occluder and retain dark coloured
+paint. Keep source anchors and below-ground fragments instead of moving every
+outline onto the ground. Original art pixels/layouts remain unchanged; .48mdepth
+and unseen sides are inferred. Original black occluders and zero-floor void must
+stay distinct from rendering defects.
+
+Canonical source/geometry/native-station checks pass72/0over4fixed views; a
+earlier dense-contour65/0run visits Babel32106/32107, the two source-layout classes
+shared by32110/32111/32112. The later simplification preserves their source masks,
+layout, anchors, axes and17362bounding extent. No ScriptErrors or Metal fence
+timeouts were observed. These
+are limited wall/native-support checks, not full tower or Babel scenery approval.
+The usage audit counts6937instances across15registered rows, not simultaneous
+draws.58generic graphics remain queued, including visibly wrong columns/arches.
+Seven source tests and all3asset checks pass;319assets audit without read errors.
+
+Do not turn pixel-sized shadow noise into thousands of wall vertices. The first
+dense contours used759outline points over these four graphics and raised one
+static1280×800view from102992to586450drawn primitives. Over180samples per state,
+frame p95 rose3.742→4.752ms; rendering-CPU p95 rose.498→.567ms. GPU timestamps
+returned0and are unavailable, not zero GPU cost. A scoped2pixel offline contour
+tolerance reduces these to233points, leaving original paint and map layout
+intact. The same fixed view retains continuous faces and readable trim; drawn
+primitives fall to241394. A fresh180samples/state A/B records frame p95 of
+4.362msfor boxes and4.252msfor profiles, rendering-CPU p95 of.330and.335ms.
+Mean frame times are3.830and4.041ms; do not infer a speedup from the p95 alone.
+Compare the same source camera visually and measure before making a performance
+claim. The detailed contour-distance proof, retained dense run,
+canonical captures and reproduction commands are in the Wind Tower evidence
+folder. Frozen scenery measurements do not prove army or ordinary-gameplay
+smoothness, and other desktop work can influence frame intervals.
+
+The next source batch adds wall17312/17314/17360/17366and coherent columns
+17309/17311/17315/17317. All68previous wall records remain exact; the shared
+wall file now contains72profiles. Both reverse wall sprites contain only uniform
+RGB20grey. Their bottom-edge slopes match17316/17310, whose paint supplies the
+inferred3Dbacks; original grey sprites and source placements remain intact.
+The low panels retain their own measured paint and anchors.
+
+Do not size a joined column from its whole crop. Exact bright-shaft registration
+finds713/838/658matching pixels of1231template pixels in17311/17315/17317,
+respectively, without a mirror. After accounting for crop origins, all three
+translations are zero in world-screen coordinates. Reuse the complete17309body
+fit (6.7725mheight,2.895602mdiameter) through the existing round-column builder;
+keep every variant's own paint/origin. The rejected first fit used each joined
+crop's width/height and made those bodies bulky or short. Hidden circumference
+and moulding volume remain inferred, not recovered3Dgeometry.
+
+Corrected canonical verification passes79headless and91rendered checks with no
+ScriptErrors or Metal fence timeouts. Two native walkable cells with two fixed
+yaw angles per phase capture the changes; the inventory covers8245source object
+placements over all10tower maps.50generic graphics remain queued, including
+other dark column backs and arch/column variants. The initial concatenated
+constant registry failed external ICE_COLUMNS resolution; keep the literal
+registry used by surrounding code. Failed logs remain under
+`Column constant resolution first/`, not counted as passing evidence.
+
+The fresh180samples/state scenery A/B keeps the first four recovered wall forms
+in both states and changes only these eight new wall/column meshes. Primitives
+rise241394→352948, mean frame time3.884→4.141msand p95 3.980→4.362ms;
+rendering-CPU p95 is.508→.311ms. GPU timestamps remain unavailable. These are
+frozen1280×800scenery measurements with no enemies, not an army/gameplay
+smoothness result. Source tests7/0, reproducible72profile generation, all3asset
+checks and319assets without read errors pass. No enemy count, source level,
+damage, timing, travel predicate or source walk mask is reduced to obtain them.
+The asset contract is `assets/maps/original_crossgate/sokia_wind_tower/README.md`;
+the current publication and limitations are in `wall-infill-publication.json`.
+
+
+## Private East field texture and source-context preparation — 2026-11-27
+
+The separate original100/2000/2400scene work uses one process-only source-context switch, currently null. The native army remains the only simulation owner. Its terrain delegate runs at navigation setup before the existing map-scale pass; it does not add a per-unit terrain owner or a gameplay backend selector. Default travel was freshly verified through Play Goemon with17checks and all four private scripts unloaded. This is preservation evidence, not a fresh frame-time or stress result.
+
+A recovered floor must keep every existing ground tile’s layer ID. The private merged100atlas appends floor5250at layer544, beyond the old image and padding, rather than inserting it into the old sorted tile list. The renderer’s texture array uses one32×32layer per source tile; the shader’s layer/UV encoding remains unchanged when the atlas gains a row. The Metal input proof checked all532legacy layers, their mip data and43,092sample pixels, plus original town support, blank-cell omission, bank-water backing and teardown:83,540checks, zero failures or ScriptErrors. Direct-PNG reads are private development inputs; this does not establish an exported app’s resource loading.
+
+Keep immutable source masks separate from water-only backing masks. Bank alpha needs source water behind it, while sourceBG0/100void must not turn into grass or an ocean merely because a village uses a broad water plane. Clone the water mask once at setup, change only the exact original bank cells and retain the original source/ground mask and walk bits. Private scenes use bounded water planes and the existing shader.
+
+The existing FreyjaArt.tile_arrays cache keys by atlas Texture2D. Clearing a private adapter’s own texture dictionary alone leaves its atlas and array retained by that shared cache. Teardown now erases only the exact privately owned atlas key, retaining canonical array identity, then releases its references. Repeated setup checks should verify that owned entries disappear and canonical entries stay the same; do not clear the shared cache globally or create arrays in movement/combat loops.
+
+Evidence is under build/Other Files/Asset Toolkit/East Gate Region/Village Props/Cliff Audit/Source Context Audit/Prototype/ and Verification/Source Context Default Off/. The canonical maps are not migrated. Player/pet movement in active private source scenes, original gates/returns and assembled art still require their own checks.
+
+
+### Desert Temple source states and native party preservation — 2026-11-27
+
+The required surroundings include the entire Desert Temple branch, not only the
+village roads. Seven complete fixed states13016–13022 now have source catalogs
+and remain gated for review. Their13,200 cells preserve recorded client tuples
+and flags;4,094 unrecorded cells come from pinned LS2MAPs. All181used graphic
+records are checked against original pixels/origins/footprints. Reuse161shared
+records and add only20novel ones rather than repacking established pages.
+
+The source also requires config303砂漠之祠: five generated approach floors,
+template21600, moving map300entrance rectangle570,300–640,400 and terminal
+13022(7,4). These maps/entrance are missing. Config fields39/40give5/5floors;
+other generator dimensions are not floor counts. Pool15003's26–28is a configured
+interval, not a verified per-floor level curve. Directly exercising those five
+parties on a temporary13022fixture does not recover the five-floor approach.
+
+Nine fixed zones and twelve total groups retain eight source enemy identities,
+three appearances, rare level-one pockets, item18462conditions and mandatory
+General counts. Reuse the existing East source-party helper, source item context
+and native army owner. Check queued item-dependent parties again before spawn,
+so removing an item cannot commit an obsolete gated draw. Propagate source enemy
+and group IDs in both the outer dispatch branch and contextual-name branch.
+The first fixture exposed missing metadata despite live native contacts; combat
+alone cannot establish source identity. A missing appearance key also caused a
+setup ScriptError and was corrected before accepting any passing run.
+
+Source selectors pass44,865checks over6,016fixed draws plus640approach draws.
+The473previous zones preserve1,892recorded parties, bag states and RNG states
+exactly. The native Trial regression passes286checks and Wind contracts6,731.
+The shared direct-party assertion now compares a multiset of source ID, level
+and skin: copies of one enemy at26and28are legitimate, while a missing rare
+identity replaced by a common member must fail. Do not lower enemy counts or
+levels to fix a fixture's identity matching.
+
+The current Metal review passes452checks with twelve parties repeated twice,
+824native contacts,33captures and fourteen ordinary initial-F interactions.
+All thirteen fixed port records match the selected pinned primary warp rows,
+with source arrival anchors and native walk-in support checked. Actual on-foot
+traversal through each port is not verified by that fixture. Temporary settings,
+adventure and item contexts are preserved. The earlier all-party headless run
+passes288checks; the later GPU run additionally checks fixture-overlay removal.
+No ScriptErrors or Metal errors occur in the final GPU run. Headless CA and
+Dummy-renderer/resource teardown diagnostics are retained separately. Asset
+audit reads319assets without errors; all three asset checks pass.
+
+All2,384reused enemy frames across144clips match original RGBA/crops/duration
+and unchanged anchor offsets. General's declared run fallback uses original
+action1. This byte proof does not approve scale or motion: the current gameplay
+images crop the large General, omit some party members and retain Kaz counter
+FX over mummy/scorpion fights. Fixed map cameras show repeated/smeared walls,
+black faces and void that require original-composite comparison and correction.
+These visual failures remain open despite successful native contacts. Initial
+NPC capture follows dialogue closure, so it does not approve rendered text.
+
+No measured gameplay bottleneck or smoothness conclusion follows from this
+checkpoint. Loading remains at map/appearance setup; combat uses existing native
+handles, immutable caches and pools. No new simulation or per-frame asset loader
+was added. To verify, use the desktop launcher with desert_temple_maps_test.gd
+for source selectors and desert_temple_review.gd -- --npcs --approach-pool for
+original parties and fixed cameras. Inspect images separately from test counts.
+Reproduction commands and retained failed runs are in Sokia Venoa Coverage/
+Desert Temple/README.md and checkpoint.json. Original probability/count/AI,
+keeper/chest choices, job/capacity predicates and natural item acquisition are
+still unverified; unknown predicates remain guarded. Global source warp parity
+also remains open because the two research tables differ outside these13rows.
+
+
+### Dragon and Wind Cave summit source stage — 2026-11-27
+
+The existing original-map owner now registers 22 complete, gated layouts for
+15568–15590, reusing 15577's unchanged server owner. They preserve 103,175 cells,
+all recorded tuples/flags, and recover 42,803 unrecorded cells. Reuse 1,867 of
+1,887 original graphics; 20 novel records occupy one new page. Six source tests
+compare complete planes, actual cached pixels/anchors/footprints, NPC art/scripts
+and every declared pool. Eight client castle entrance markers 13996/13997 differ
+from server zero and remain intact. Twenty selected branch ports match the
+pinned primary table; this does not establish global release/warp parity.
+
+The branch requires72generated floors across108/109(19each),110/111(9each)
+and309(16). Their data, entrances/terminals and configured level intervals
+remain explicit. All 72 floors remain unregistered. Do not infer their original
+topology or a per-floor curve from testing
+its pool on a fixed fixture. Altar enemies2023–2026retain the source2–58range;
+castle configuration levels do not replace fixed-zone source rows.
+
+Staged selectors pass33,119checks over2,432draws across eight source groups
+and sixteen enemy identities. Exact group-ticket bags and mandatory counts are
+checked without a scene. The first fixture expected15identities and was fixed
+to assert all sixteen actual source IDs; source rows were not changed. The
+invisible piano 5648 is an Event with graphic 0: use the existing transparent
+manual F anchor, not an automatic trigger or invented visible piano. An initial
+automatic classification caused a missing quest_action ScriptError; that run
+is retained and rejected. Six actors on 15577 keep their current server owner;
+the new 42 visible actors and one invisible Event must not duplicate them.
+
+Jete 100452 now reuses original:2719 from Sokia skin 16 in the published East
+bank. The existing append_native_bank and native_page_index workflows make
+skin 166: 400 original-exact frames across 56 clips,
+with unchanged source contact/audio, while all166earlier variants, frame rows,
+timelines, metadata, palette pixels and atlas paths remain exact. The native
+bridge accepts both staged and published 167-variant kits and passes 676 checks,
+including two complete reuse passes and capacity boundaries. A staged live-body
+study passes 52 rendered checks, 35 contacts, three legal camera views and 24
+motion samples. Correct original Jete poses are visible; all-facing approval and
+full Dragon scenery remain separate. Never equate cache availability with a
+rendered body or full encounter pass.
+
+Fixed-map contracts pass 178 checks. The full 23-map study passes 736 headless
+and 898 rendered checks, with 81 captures, nine party contexts, all eight groups
+and 781 native contacts. The rendered run has no ScriptErrors and one Metal fence
+timeout. Its 49 initial F interactions include seven explicit source-condition
+blockers; they are not full quest traversal. Separate original F/dialogue boss
+tests pass 135 headless and 145 rendered checks: all five actor triggers repeated
+twice, 294 native contacts and exact declared return map/cells. Original mode-2
+result semantics, natural prerequisites, loss/escape/repeat rules and AI remain
+unverified.
+
+Native can_reach(point, point) alone does not prove original walkability. The
+first Wind God F fixture stood on a source-blocked 17644 marker: all 194 open
+spawn candidates failed reachability even though its self-query passed. Requiring
+the original walk bit selects a legal ordinary F station and starts the complete
+three-member fight, with no collision/spawner change. An independent audit found
+one other source-closed fixture station on 15577. Focused 18 headless/22 rendered
+checks replace those two stations; all 49 combined F stations now pass original
+walk-bit validation. Keep the failed studies; do not lower party counts, move
+NPCs or alter source walk masks to make a fixture pass.
+
+Full native-art composites cover all 23 fixed maps, but the 3D views still fail
+complete visual acceptance: gold walls smear, yellow backs and generic rocks
+remain, Dark Window has gaps, and several fight views crop or obscure members.
+The boss dialogue controls work, but legacy leading blank lines hide the original
+words in the current box. Renderer/source-presentation changes are pending the
+shared one-writer window. Two downhill returns still target unavailable 15551;
+its pinned source is now recovered, not yet registered. Map 15571 is a prepared
+source variant without a resolved inbound link in the inspected graph.
+
+No gameplay frame-time, smoothness or long-session performance signoff was made.
+Keep immutable pages shared, loading possible source resources once at setup;
+use existing native handles/queries/pools. Headless CA and Dummy-renderer/resource
+teardown diagnostics are separate from ScriptErrors. Asset audit reads319assets
+without errors and all three asset checks pass. Reproduction commands, source
+pins, retained failures and separate missing-map/asset/rule ledgers are in
+Sokia Venoa Coverage/Dragon Summit/README.md and checkpoint.json. Normal access
+remains gated and no app was exported. Future shared changes are recorded in
+coordination-checkpoint.json; preserve the other chats' renderer edits.
+
+
+### East carved pier: reuse the existing shader — 2026-11-27
+
+A private1230051 continuous-pier material created two first-use draw pipelines and five surface pipelines; frame0 took244.228ms despite a16.702ms warm median. Reusing the existing painted-surface shader with physical UVs removed all new mesh/surface/draw/specialization compilations in the next focused120-frame comparison. That run had a28.556ms maximum and16.57ms warm median with VSync60Hz, all frames focused. CPU preparation of the one cached two-surface mesh cost160.514ms at first setup. No extra warmup system or per-frame loader was added.
+
+The separately published canonical fixture passes44checks and preserves the178-placement/ten-map census; its static-room sample varied up to50.063ms. These are frozen small-scene measurements, not army, long-session or whole-game smoothness proof. To reproduce, run the desktop launcher with `--script res://tests/forest-shrine/east_carved_pier_default_review.gd` and inspect the gameplay views and logs under East Gate Region/Mouse Room Piers/Carved Published Actual/. The earlier material A/B is retained under Carved Private Actual Shared Paint Candidate/. Use pipeline counts and ordered first frames to distinguish compilation from steady-state work.
+
+Runtime uses prepared lossless Image resources for source/hidden relief and loads them at appearance setup; it never calls Image.load_from_file on a raw PNG. Verify the inferred derivative with `tools/prepare_east_carved_pier_masonry.gd -- --check`. The authoritative source front and shared stone shader are preserved. Generated hidden masonry and relief depth are labeled inference. The other carved wall variants and whole-room visual defects remain unfinished.
+
+
+### Source100 frame consistency and optional terrain diagonals — 2026-11-27
+
+Two display frames for one original map sampled different inferred heights, up to3.5059worldm in the frozen private seam audit. Equal corner heights alone cannot repair a quarter-turn frame: it changes which diagonal splits a nonplanar quad. The fix adds an optional prepared per-quad byte mask to the existing terrain owner; empty keeps current arithmetic and payloads. No new movement owner, runtime source reads, source map changes or private-field activation were added by this contract.
+
+The mask is shared by GDScript height/building sampling, Native interpolation, exact triangle-edge checks and air triangles; it participates in cache identity. One Kai method exports either the mask or an invalid sentinel. Army copies only nonempty data at setup, and the older GoemonTerrainMath corridor accelerator is disabled for a masked or invalid field. Invalid metadata must not turn width0 into valid flat ground. Private Host production must reuse that same method.
+
+The published universal build and canonical API344/0 pass with unchanged sources; complete empty navigation payload bytes are identical at scales1.0/1.3. Shared clearance974401/0, navigation19330/0 and air-sharing30011/0 pass, plus three asset checks. These are correctness results, not fresh FPS/smoothness measurements. The existing segment contract assumes a clear start and only inspects triangle-edge extrema for paths longer than0.7m; retained short-path negatives are not silently called continuous-path proof. Actual repaired source-field short movement and player/pet handoff still need verification.
+
+Reproduction, isolated failing stages and canonical reports are under East Gate Region/Il Source Completion/Low Source Candidate/Host/Original100 Candidate/Diagonal Contract/. Keep one prepared source-space height/coverage/piece authority, source-consistent triangle orientation, and exact source/bridge/other-goal scope ledgers. Passing API tests do not establish field or visual acceptance.
+
+
+### Melon-bread invitation and visible food consumption — 2026-11-27
+
+Four kills no longer start map-wide pursuit. Original Blue Cross Gate row 15043
+(graphic 26665, corroborating itemset name 魅惑的哈密瓜面包) now drops as
+哈密瓜麵包. Eating it calls the existing Waves swarm owner once for that map;
+its native targeting, safe zones, reachability, local claims, taunts/retaliation,
+committed strikes and slower swarm arrival intervals remain in place. Ordinary
+kill-based local awareness is unchanged. New maps and new runs clear the flag.
+
+All dropped and chest foods now rise and curl around the moving character for
+0.65 seconds, shrinking into them before applying their effect and eating audio.
+This is requested presentation, with no newly measured bottleneck. Keep the
+existing bounded loot slots and prepared MultiMesh batches; the added flight
+fields update transforms in that same loop. Do not add per-food nodes/tweens,
+materials, runtime file loads, army scans or another targeting owner. Chest
+opening still plays its prepared sound; meal consumption plays the food sound.
+Changed party/caps restore the same chest at its original position for retry.
+Pause/death/menus freeze flight, cover blocks it, and travel clears unfinished
+servings. Pooled slot assignment clears all obsolete flight/reward fields.
+
+Red/blue/green original jelly rows 14988/14989/14987 now give+50%general damage,
++50%to the existing magic-damage stat, and+50%attack speed for300 gameplay seconds.
+Blue follows the existing stat contribution to spell damage without changing
+its authored base. Red/green add their percentages to other damage/speed food
+percentages. Each color stacks additively, refreshes only its own timer, and
+expires independently. Existing ten-minute foods keep 600 seconds. Attack speed
+caps and the authored combat clocks are preserved. Soup 15008/15007 replaces the
+old chest magic/ward jelly art while keeping those meals' effects and IDs.
+Pet mana broth 15066 keeps its party MP bonus without sharing the invitation icon.
+
+The new death-outcome shuffle bag contains 13 food tickets and 52 misses, preserving
+20% drops and equal food proportions without replacement before refill. This
+follows the user's marble-bag direction for new gameplay distributions. The
+existing chest and weapon bags keep their owners.
+
+Current food checks pass 133 headless/143 desktop assertions through Play Goemon;
+all 16 chest meals and restart/save behavior pass 384 headless checks. Food checks
+cover all active original pixel hashes, three Cross Gate fighters, exact jelly
+stat/timer/stack/expiry rules, actual walking, blocked paths, a moving eater,
+pause/cleanup, and twelve repeated 64-food bursts without retained nodes/resources.
+The desktop run uses Metal; the complete 55-frame motion sequence and separate
+jelly receipt/icon captures were inspected. The food visibly rises around the
+head, curls to the other side and shrinks away; this is visual review of the
+focused fixture, not approval of every map, camera, character or army stress
+case. Dummy-renderer/resource teardown diagnostics in headless logs remain
+separate from ScriptErrors; do not call them a clean teardown.
+
+Reproduce with Play Goemon and food_magnet_test.gd, chest_nutrition_test.gd,
+map_swarm_test.gd or exploration_loot_test.gd. Current logs, source identification,
+retained failed fixture attempts and the actual-renderer GIF are under
+build/Other Files/Asset Toolkit/Melon Bread/. Asset audit reads 319 assets without
+errors and all three asset checks pass. Native/full-food integration results
+are recorded separately in that folder's report. Short fixture CPU totals do
+not measure full frame time or establish fresh army smoothness/long-session
+stability. No app export was requested or made.
+
+
+Final integration for the food entry: native invitation passes22headless checks
+with five of five distant native enemies approaching after bread consumption;
+four real deaths remain insufficient. The native movement fixture uses the
+bundled Falan Arena with -- --crossgate-pet-test, matching ordinary play; separate
+source-map model checks cover reset/trigger rules. The full food regression
+passes251checks with all13native food drops, native arena returns, source travel,
+HP/timers, authored attack-clock scaling and current HUD placement.
+
+The mixed64-food burst loop now yields ordinary engine frames before counting
+objects: old temporary effects retire (scene children68to62,HUDchildren17to17),
+and total objects fall46821to46794over20cycles. A previous tight no-frame loop
+rose one object per feedback call; its contrast with normal frames is consistent
+with temporary playback/effect objects. It was rejected as a stability test.
+The focused12x64-food fixture also retains its warmed nodes/resources exactly.
+Do not increase tolerances or change asset preservation baselines to bypass a
+failure. Failed old source-map/arena-mode fixtures and corrected logs remain
+separate in verification.json; the22/251results have no ScriptErrors. All prior
+performance limits and engine teardown caveats still apply.
+
+
+### Matching jello glow — 2026-11-27
+
+Historical first presentation: the user replaced its cylinder/ground glow with
+the approved silhouette-border style in the entry below.
+
+Red, blue and green jello now light the controlled player's existing SurgeAura
+with their matching colors for the lifetime of the food bonus. Multiple active
+colors cycle every 1.5 seconds instead of blending to white. Expiring one color
+removes only that color; food cleanup removes the glow. Character changes reuse
+the same aura, death hides it, and retained buffs restore it on respawn. Pause
+and travel freeze its animation. Golden Surge keeps its original gold while
+active and the food color resumes afterward.
+
+No bottleneck was measured; this is a requested visual cue. The smallest change
+reuses the prepared cylinder, light and rising rays, with one aura-owned ray
+material duplicated at character setup. Never recolor Geo.mat directly: it is
+shared across characters and effects. The energy shader and owned ray/light
+parameters change only when the displayed color changes. No per-pickup geometry,
+materials, loaders, extra effects or army targeting/simulation were added.
+The existing visible-aura animation still updates its fourteen rays; this is
+one controlled player's effect, not an aura added to the native army.
+
+Play Goemon's jello_glow_test.gd passes 37 headless and 40 Metal desktop checks;
+the existing food regression passes 133. Checks cover real pickup timing, the
+three shader/ray/light tints, shared-material isolation, exact expiry, multiple
+colors, pause/travel, character switching, death/resume, Golden Surge and one
+hundred repeated three-color uses without retained nodes/resources. The earlier
+fixture measured resources before selecting other characters; that cold-setup
+failure remains in headless.log, separate from headless-final.log. Warmed reuse
+is checked after character setup. All three asset checks pass.
+
+Red/blue/green actual-game screenshots were visually reviewed; the source body
+art remains readable inside the colored aura. Verification, source hashes and
+three-glows.png are under build/Other Files/Asset Toolkit/Jello Glow/. These are
+focused correctness/reuse and visual results, not fresh army FPS or long-session
+smoothness proof. Existing engine teardown diagnostics remain separate from
+ScriptErrors. No app was exported. To verify manually, eat each color through
+Play Goemon, then try multiple colors and let one timer expire.
+
+
+### Approved silhouette border and fairy lights — 2026-11-27
+
+The user approved the final character-shape border and requested this style and
+method for future visual work. AGENTS.md now records both the glow default and
+the workflow: a focused change, an actual in-game preview, visual feedback and
+refinement before broad extension. Preserve the permanent approved images under
+assets/references/jello_glow/. This style approval does not claim every pose,
+character, map or camera has been individually reviewed.
+
+Jello now uses about1.75source pixels of the body's existing alpha silhouette
+as its colored inner border, preserving the readable source interior. The same
+shader/draw handles the border; no expanded quad, replacement art or extra body
+pass is added. Current-frame UV bounds prevent atlas-neighbor sampling during
+pose changes, including jump-guard frames. Eight nearby alpha samples run only
+on opaque, above-ground pixels of a glowing instance. Inactive models skip the
+UV-bound updates. Ground-painted source shadows/effects keep their original
+colors. All source pixels, anchors, geometry and combat timing remain unchanged.
+
+The existing fourteen small floating lights remain. Jello hides the old energy
+cylinder and its point light, eliminating the generic ground shape/light pool.
+Golden Surge keeps its original separate gold presentation and shader. Color
+cycling, expiry, pause/travel, death/resume and repeated-use ownership keep their
+existing food timers. Model selection synchronizes the current instance color
+so a hidden, previously glowing model cannot return with a stale outline.
+
+This is a requested style correction, not a measured performance bottleneck fix.
+Keep colors and atlas bounds in per-instance parameters; never mutate shared
+sprite materials. Do not add effects or targeting owners per army unit. The
+outline adds texture samples to one active controlled sprite and removes jello's
+cylinder/light work; no frame-time improvement is claimed without measurement.
+
+Current verified glow checks pass41headless/49Metal desktop assertions. The
+mandatory Cross Gate Mirror Image test passes721checks over9060native steps,
+including nine Kaz copies, progressing charges, resumed following, interrupted
+cleanup and pooled reuse. All three asset checks pass. No ScriptErrors occur in
+these verified logs. An early visual pose fixture called unavailable raw9:2;
+headless-final.log is retained as failed evidence and replaced by the existing
+show_jump_pose path in headless-verified.log. The first outline also colored the
+foot shadow; its capture is retained separately, and desktop-no-ground.log plus
+the current approved captures cover the corrected above-ground border.
+
+Actual idle, walk, attack and jump screenshots were reviewed separately from the
+technical checks. The user explicitly approved the border after viewing the
+corrected in-game presentation. Verification and source hashes are under
+build/Other Files/Asset Toolkit/Jello Glow/Shape Border/. Existing engine teardown
+diagnostics remain distinct from ScriptErrors. No app export or new full-army
+FPS/long-session signoff was made. Reproduce through Play Goemon with
+jello_glow_test.gd and mirror_movement_test.gd; compare against the permanent
+approved references before changing the look.
+
+### Explore gates, boss returns and boss weapon chests — 2026-11-27 (audit in progress)
+
+Explore access uses the existing map travel, original NPC/event owners and native
+army. Gate/NPC station preparation must wait until the native coordinator has the
+current model and matching navigation revision. A check against the previous
+map can reject every legal station, especially in a room without ambient patrols.
+Do not fix that by broadening interaction range or disabling collision. Keep the
+station search local, check the actual player capsule, original open cells,
+physical sight and native reachability, and keep ordinary working doors/warps.
+
+Boss registration reuses native boss marking and the existing minimap iteration.
+Death callbacks look up their encounter group; they do not scan the whole army
+for every death. Only pending victory groups check for surviving required members
+at the existing slow update interval. Scripted owners keep their phase decisions;
+a return/weapon chest waits for the owner's victory and surviving group members.
+Retries reset only that encounter's combat ledger. Taking the optional portal
+uses normal travel with checkpoint preservation, to outdoor city point
+(-144, -204), east of hospital doorway (-153, -204).
+
+Collectible weapons now come only from earned boss chests. Their existing
+nine-weapon shuffle bag is unchanged. Regular chests use all 16 eligible chest
+foods and 13 accessories, without weapon tickets; boss chests draw a guaranteed
+weapon plus the same nonweapon bonus pool. Accessories record collected counts
+without changing existing loadouts. A failed settings save rolls back collection,
+upgrade and accessory changes together. Earned unclaimed chest keys/contents
+survive arena travel in the current run and do not duplicate on restoration.
+The existing prepared loot renderer, native deaths and original item art are
+reused. No new per-enemy targeting, renderer or combat owner is added.
+
+Focused current checks passed: nutrition/restart 384, weapon collection/combat
+227, weapon upgrades 116, axes 157, and boss-chest interaction/retry 68 headless
+assertions (the earlier rendered version passed 64). The latter uses native Habaru-party deaths for
+setup, real movement/F to loot, and two original-dialogue victories with hospital
+return. Separate normal attack-input checks of the wind-tower source boss and
+new prison/temple endpoints passed 20 assertions with temporary hero invulnerability
+and damage boost. Original enemy membership and combat clocks were retained.
+These results do not establish every map, every boss or current army frame time.
+The full entrance/boss/NPC checklist is still being verified; see the Explore
+Access artifact directory for per-route evidence and retained failed attempts.
+
+Source recovery preserves existing recorded map tuples/flags and original art.
+Fifteen newly connected fixed layouts use pinned map blobs; 59721 uses its
+original extended header and auxiliary plane, preserved separately from the
+renderer visibility flags. Seventy-seven missing generated floors retain original
+config counts/tiles/entry/terminal data, using the existing room-graph adaptation;
+this is not a claim to recreate original server random topology. Asset audit
+reads 319 assets without errors, and the three preservation checks pass.
+
+Reproduce through Play Goemon with boss_chest_test.gd, chest_nutrition_test.gd,
+chest_swords_test.gd, sword_upgrades_test.gd, axes_accuracy_test.gd,
+explore_access_test.gd -- --routes, and explore_bosses_test.gd. Logs, screenshots,
+source ownership census and the map checklist live under
+build/Other Files/Asset Toolkit/Explore Access/. A completed source census is
+not a substitute for walking/interacting/entering/leaving or a rendered review.
+No app export was requested or made.
+
+The wider route audit found two additional geometry contracts. Player-side gate
+and NPC checks must use the native friendly terrain, via `can_reach_ally`, rather
+than enemy terrain: protected village rectangles intentionally block enemies.
+The binding shares the existing friendly terrain and joins pending native work;
+it adds no path owner or combat loop. Six focused native checks preserve closed
+enemy boundaries, real walls, open friendly doorways and invalid-input rejection.
+Raised floors in rooms 1522/1530 now provide their existing surface heights to
+native navigation during setup. The repaired 2099→1522 entrance/return passed
+eight checks, and both 11038→Freyja routes passed sixteen after safe outdoor
+landing selection. This is interaction evidence, not a frame-time measurement.
+
+Access gates for automatic source watchers sit outside their original trigger
+rectangles, on the player's side, so approaching a bypass does not first open
+the old item-gated window. The original watcher and boss triggers remain owned
+by their existing event interpreter. Direct-spawn test setup freezes the clock
+until the player is on legal ground outside these watchers; actual approach and
+F interaction then run with the normal clock and event owner enabled.
+
+Victory placement retries at the existing slow interval if temporary collision
+occupies the arena. Both portal and chest wait for safe ground; an existing
+visual container must not prevent a retry. A shared location exposes both return
+and loot choices. The 68-check loot test includes these cases. First source-boss
+retry/second-victory/return checks passed 19 assertions using actual attack input
+and movement around source scenery. Broad boss and entrance batches remain in
+progress; `tools/write_explore_verification.py` joins their history into the
+per-map checklist without treating ownership or pending items as played proof.
+The expanded graph check passed 564 assertions for 77 generated floors and 75
+fixed layouts, including six already prepared server interiors newly connected
+to Explore. Their source pixels/layouts were reused; no app was exported.

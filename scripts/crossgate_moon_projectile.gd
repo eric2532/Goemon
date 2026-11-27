@@ -1,14 +1,17 @@
 extends "res://scripts/character_projectile.gd"
-## Recovered Blue Cross Gate sword wave on Kojiro's ground-wave fold.
-const ATLAS=preload("res://assets/characters/crossgate/kazi/moon-waves-relief.png")
-const Wind=preload("res://scripts/kojiro_projectile.gd")
+## Ground-gliding Cross Gate sword wave with a shared solid crescent.
 const TICK=1.0/60.0
 const PIXEL=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT/83.0
 const SPEED=10.0*PIXEL/TICK
 const GROUND_CLEARANCE=.08
 const VISUAL_SCALE=Vector3(.72,.34,1.0)*preload("res://scripts/spells/skill_balance.gd").BASE_DIAMETER/78.0
 const VISUAL_LENGTH=78.0*VISUAL_SCALE.z
-const CREST_SUBDIVISIONS=6
+const ARC_SEGMENTS=40
+const ARC_HALF_SPAN=4.1
+const ARC_DEPTH=3.3
+const BLADE_WIDTH=1.18
+const BLADE_THICKNESS=.11
+const PROFILE=[Vector2(0,0),Vector2(.17,.82),Vector2(1,.82),Vector2(1,-.18),Vector2(.17,-.18)]
 static var shock_mesh:ArrayMesh
 static var shock_material:ShaderMaterial
 static var spark_mesh:QuadMesh
@@ -31,7 +34,6 @@ func _ready():
   shock_mesh=build_shock_mesh()
   shock_material=ShaderMaterial.new()
   shock_material.shader=preload("res://assets/characters/crossgate/kazi/moon-shockwave.gdshader")
-  shock_material.set_shader_parameter("atlas",ATLAS)
   var glint=GradientTexture2D.new()
   glint.width=16;glint.height=16
   glint.fill=GradientTexture2D.FILL_RADIAL
@@ -53,6 +55,8 @@ func _ready():
   spark_shrink.add_point(Vector2(1,0))
  visual=MeshInstance3D.new()
  visual.mesh=shock_mesh;visual.material_override=shock_material;visual.scale=VISUAL_SCALE
+ # Clear the visible stair treads above the ground trace.
+ visual.position.y=.42
  visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  add_child(visual)
  sparks=CPUParticles3D.new()
@@ -75,35 +79,36 @@ func _ready():
  add_child(sparks)
 
 static func build_shock_mesh()->ArrayMesh:
- var vertices:PackedVector3Array=Wind.prepared_wind_mesh().surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
  var surface=SurfaceTool.new()
  surface.begin(Mesh.PRIMITIVE_TRIANGLES)
- for start in range(0,vertices.size(),3):
-  var face=vertices.slice(start,start+3)
-  var pixels=PackedVector2Array()
-  for point in face:
-   pixels.append(Vector2(72.5,25.5) if point.z>0 else (Vector2(72.5,76.0) if point.y>0 else Vector2(90.0,103.0)))
-  for x in CREST_SUBDIVISIONS:
-   for y in CREST_SUBDIVISIONS-x:
-    var cell=Vector2(x,y)
-    for vertex in [cell,cell+Vector2.RIGHT,cell+Vector2.DOWN]:
-     add_crest_vertex(surface,face,pixels,vertex/CREST_SUBDIVISIONS)
-    if x+y+2<=CREST_SUBDIVISIONS:
-     for vertex in [cell+Vector2.RIGHT,cell+Vector2.ONE,cell+Vector2.DOWN]:
-      add_crest_vertex(surface,face,pixels,vertex/CREST_SUBDIVISIONS)
- surface.index()
+ var tip_angle=deg_to_rad(85.0)
+ var ring_size=PROFILE.size()
+ for section in range(ARC_SEGMENTS+1):
+  var t=2.0*section/ARC_SEGMENTS-1.0
+  var taper=pow(1.0-t*t,1.18)
+  var x=ARC_HALF_SPAN*sin(t*tip_angle)/sin(tip_angle)
+  var edge_z=ARC_DEPTH*(cos(t*tip_angle)-1.0)/(1.0-cos(tip_angle))
+  # Each tip is one vertex shared by all five faces.
+  var count_=1 if section==0 or section==ARC_SEGMENTS else ring_size
+  for side in count_:
+   var profile:Vector2=PROFILE[side]
+   var z=edge_z-BLADE_WIDTH*taper*profile.x
+   var y=-.20*z+BLADE_THICKNESS*taper*profile.y
+   surface.set_uv(Vector2(profile.x,(t+1.0)*.5))
+   surface.add_vertex(Vector3(x,y,z)/VISUAL_SCALE)
+ for segment in ARC_SEGMENTS:
+  var first=segment==0
+  var last=segment==ARC_SEGMENTS-1
+  var from=0 if first else 1+(segment-1)*ring_size
+  var to=1+segment*ring_size
+  for side in ring_size:
+   var next=(side+1)%ring_size
+   if not first:
+    for index in [from+side,from+next,to+(0 if last else side)]:surface.add_index(index)
+   if not last:
+    for index in [from+(0 if first else next),to+next,to+side]:surface.add_index(index)
  surface.generate_normals()
  return surface.commit()
-
-static func add_crest_vertex(surface:SurfaceTool,face:PackedVector3Array,pixels:PackedVector2Array,weights:Vector2):
- var origin_weight=1.0-weights.x-weights.y
- var point=face[0]*origin_weight+face[1]*weights.x+face[2]*weights.y
- # Round the two faces while retaining the authored leading vertex and edges.
- point.y+=756.0*origin_weight*weights.x*weights.y
- point.z-=52.0
- var pixel=pixels[0]*origin_weight+pixels[1]*weights.x+pixels[2]*weights.y
- surface.set_uv(pixel/Vector2(144.0,128.0))
- surface.add_vertex(point)
 
 func restart_visual():
  first_from=ground_point(global_position,12.0)
@@ -174,9 +179,13 @@ func update_visual():
  var forward=velocity.slide(ground_normal).normalized()
  var facing=Basis(ground_normal.cross(forward),ground_normal,forward)
  visual.global_rotation=facing.get_euler()
+ var size_factor=skill_factor("size")
+ var blade_scale=1.0
  if visual_growth<1.0:
   # Let the full crest unfold behind the tip as it clears the muzzle.
   var travelled=(global_position-first_from).dot(forward)
-  visual_growth=clampf((travelled+.55)/(VISUAL_LENGTH*skill_factor("size")),.05,1.0)
-  visual.set_instance_shader_parameter("growth",visual_growth)
- sparks.global_transform=Transform3D(facing,global_position-forward*(VISUAL_LENGTH*.82*visual_growth*skill_factor("size"))+ground_normal*.23)
+  visual_growth=clampf((travelled+.55)/(VISUAL_LENGTH*size_factor),.05,1.0)
+  blade_scale=lerpf(.55,1.0,visual_growth)
+  visual.set_instance_shader_parameter("growth",blade_scale)
+ var spark_offset=BLADE_WIDTH*1.35*blade_scale*size_factor
+ sparks.global_transform=Transform3D(facing,global_position-forward*spark_offset+ground_normal*.23)

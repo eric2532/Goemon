@@ -427,9 +427,9 @@ static func tomb(root:Node3D,boxes,serial:int,stone:Material,pale:Material,dark:
 
 static func sign_mesh(serial:int,g:Dictionary)->Mesh:
  if serial in Harbor.SIGNS:return Harbor.sign_mesh(serial,g)
- var texture:Texture2D=load(Art.ROOT+Art.data().pages[int(g.page)])
+ var texture:Texture2D=Art.page_texture(int(g.page))
  var rect=Rect2i(g.rect[0],g.rect[1],g.rect[2],g.rect[3])
- var image=texture.get_image().get_region(rect)
+ var image=Art.page_image(int(g.page)).get_region(rect)
  var crop=Rect2i(0,0,rect.size.x,maxi(1,int(rect.size.y*(.67 if serial==10413 else 1.0))))
  var mask=BitMap.new();mask.create_from_image_alpha(image.get_region(crop),.35)
  mask.grow_mask(-1,Rect2i(Vector2i.ZERO,crop.size));mask.grow_mask(1,Rect2i(Vector2i.ZERO,crop.size))

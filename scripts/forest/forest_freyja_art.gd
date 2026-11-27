@@ -4,7 +4,7 @@ const Terrain=preload("res://scripts/forest/forest_freyja_terrain.gd")
 const Fort=preload("res://scripts/forest/forest_stone_fort.gd")
 const Frontier=preload("res://scripts/forest/forest_falan_frontier.gd")
 const Art=preload("res://scripts/forest/forest_art.gd")
-const ARCHIVE_AREAS=["freyja","east_gate","south_gate","east_coast","north_coast","south_lakes","sokia_coast","sokia_desert","ghana_road","ghana_north_road","kili","venoa","il_village","alyut"]
+const ARCHIVE_AREAS=["freyja","west_lakes","east_gate","south_gate","east_coast","north_coast","south_lakes","sokia_coast","sokia_desert","ghana_road","ghana_north_road","kili","venoa","il_village","laruka","alyut","ghana"]
 
 static var tile_arrays:Dictionary={}
 
@@ -31,14 +31,18 @@ static func build(root:Node3D,ground:ShaderMaterial,terrain,map_scale:float,city
  var bounds_uniform=Vector4(bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y)
  ground.set_shader_parameter("detail_mask",mask)
  ground.set_shader_parameter("detail_bounds",bounds_uniform)
- ground.set_shader_parameter("clip_archive_land",Frontier.FRAMES.has(terrain.variant))
+ ground.set_shader_parameter("clip_archive_land",Frontier.FRAMES.has(terrain.variant) or Terrain.Sokia.owns(terrain.variant))
+ preload("res://scripts/forest/forest_freyja_residual_art.gd").clipping(ground,terrain,false)
+ Terrain.Sokia.northeast_clip_material(ground,terrain,true)
  if terrain.variant in ARCHIVE_AREAS:archive_surface(ground,terrain)
+ if terrain.variant in ["freyja","west_lakes"]:ground.set_shader_parameter("archive_floor_weight",1.0)
  if terrain.variant=="east_gate":
   var plot=Terrain.Regions.TOMATO_PLOT
   ground.set_shader_parameter("tomato_plot",Vector4(plot.position.x,plot.position.y,plot.end.x,plot.end.y))
  if terrain.variant=="castle":
   ground.set_shader_parameter("use_courtyard_paving",true)
-  ground.set_shader_parameter("courtyard_paving",preload("res://assets/maps/falan/castle_courtyard_paving.png"))
+  var courtyard_sampler="city_paving_atlas" if RenderingServer.get_current_rendering_method()=="gl_compatibility" else "courtyard_paving"
+  ground.set_shader_parameter(courtyard_sampler,preload("res://assets/maps/falan/castle_courtyard_paving.png"))
  elif terrain.variant=="city" or Frontier.FRAMES.has(terrain.variant):
   ground.set_shader_parameter("use_city_paving",true)
   if terrain.variant!="city":
@@ -54,29 +58,58 @@ static func build(root:Node3D,ground:ShaderMaterial,terrain,map_scale:float,city
   return
  var water=PlaneMesh.new()
  var extend_shore=(not exterior.is_empty() or Terrain.Regions.Data.RIDGES.has(terrain.variant)) and terrain.variant not in ARCHIVE_AREAS
- var island=terrain.variant in ["castle","il_village","alyut"]
+ var island=terrain.variant in ["castle","il_village","laruka","alyut"]
  water.size=Vector2.ONE*3400.0 if island or extend_shore else bounds.size
  var water_material=ShaderMaterial.new()
  water_material.shader=preload("res://assets/maps/freyja_west_gate/water.gdshader")
  var city_fort=load("res://scripts/forest/forest_falan_fortifications.gd") if terrain.variant=="city" else null
  var river_bridge:Rect2=terrain.il_bridge_bounds()
  var water_mask=mask
+ var water_bounds=bounds
+ if Terrain.Sokia.owns(terrain.variant) or terrain.variant=="ghana":
+  water_mask=load("res://assets/maps/falan/sokia/scenery/ghana-water.png") if terrain.variant=="ghana" else Terrain.Sokia.WATER
+  var zero:Vector2=Terrain.Regions.Sites.VILLAGES.ghana[2]-Vector2.ONE*1.5 if terrain.variant=="ghana" else Terrain.Regions.frame(terrain.variant).inverse()*Vector2(-1.5,-1.5)
+  water_bounds=Rect2(zero,water_mask.get_size()*3.)
+  water.size=water_bounds.size
+  ground.set_shader_parameter("use_native_land_visibility",true)
+  ground.set_shader_parameter("native_land_visibility",water_mask)
+  ground.set_shader_parameter("native_visibility_bounds",Vector4(water_bounds.position.x,water_bounds.position.y,water_bounds.size.x,water_bounds.size.y))
+ elif terrain.variant=="south_lakes":
+  # Blank source cells get an ocean backdrop only; native ground/support stay local.
+  water_mask=Terrain.VenoaField.OCEAN_BACKDROP
+  var source_zero:Vector2=Terrain.Regions.frame(terrain.variant).inverse()*Vector2(-1.5,-1.5)
+  water_bounds=Rect2(source_zero,water_mask.get_size()*3.)
+  water.size=water_bounds.size
+  ground.set_shader_parameter("use_native_land_visibility",true)
+  ground.set_shader_parameter("native_land_visibility",Terrain.VenoaField.VISIBILITY)
+  ground.set_shader_parameter("native_visibility_bounds",bounds_uniform)
+ else:
+  ground.set_shader_parameter("use_native_land_visibility",false)
  if city_fort:water_mask=city_fort.water_mask(mask,bounds.position+Vector2.ONE*1.5)
  elif river_bridge.has_area():
   water_mask=preload("res://scripts/forest/forest_falan_fortifications.gd").water_mask(mask,terrain.mask_origin(),[river_bridge])
  water_material.set_shader_parameter("layout_mask",water_mask)
- water_material.set_shader_parameter("bounds",bounds_uniform*map_scale)
+ water_material.set_shader_parameter("bounds",Vector4(water_bounds.position.x,water_bounds.position.y,water_bounds.size.x,water_bounds.size.y)*map_scale)
  water_material.set_shader_parameter("island",island)
  water_material.set_shader_parameter("extend_shore",extend_shore)
  if terrain.variant in ARCHIVE_AREAS:
   archive_surface(water_material,terrain)
+  if terrain.variant=="south_lakes":water_material.set_shader_parameter("freyja_ground_index",load(Terrain.VenoaField.OCEAN_INDEX_PATH))
   water_material.set_shader_parameter("map_scale",map_scale)
+ if terrain.variant in ["alyut","north_coast"]:
+  var complete=load("res://scripts/forest/forest_east_alyut_source_completion.gd")
+  if complete.enabled():complete.apply_materials(ground,water_material,terrain)
+ if Terrain.Regions.private_source_context!=null:
+  if Terrain.Regions.private_source_context.standalone(terrain.variant):water.size=bounds.size
+  Terrain.Regions.private_source_context.apply_materials(ground,water_material,terrain)
  var center=bounds.get_center()
- var surface=Geo.mesh(root,water,Vector3(center.x,Terrain.WATER_HEIGHT,center.y),water_material)
+ var water_center=water_bounds.get_center()
+ var surface=Geo.mesh(root,water,Vector3(water_center.x,Terrain.WATER_HEIGHT,water_center.y),water_material)
  surface.name="FreyjaWater"
  surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ var support_size:Vector2=bounds.size if Terrain.Sokia.owns(terrain.variant) or terrain.variant=="south_lakes" else water.size
  var river_ground=Art.solid(root,Vector3(center.x,Terrain.WATER_HEIGHT-.10,center.y),
-  Vector3(water.size.x,.20,water.size.y),1,"stone")
+  Vector3(support_size.x,.20,support_size.y),1,"stone")
  river_ground.name="WaterWalkingGround"
  if terrain.bridge_bounds().has_area():
   bridge(root,terrain.bridge_bounds(),exterior)
@@ -93,17 +126,17 @@ static func build(root:Node3D,ground:ShaderMaterial,terrain,map_scale:float,city
   if city_defenses:city_fort.build(root,ground)
 
 static func archive_surface(material:ShaderMaterial,terrain):
- if Terrain.Regions.CONNECTED_VILLAGES.has(terrain.variant):
+ if Terrain.Regions.CONNECTED_VILLAGES.has(terrain.variant) and (Terrain.Regions.private_source_context==null or not Terrain.Regions.private_source_context.suppress_joined(terrain.variant)):
   var village:String=Terrain.Regions.CONNECTED_VILLAGES[terrain.variant]
   var local=Transform2D(0.0,-Terrain.Regions.Sites.VILLAGES[village][2])*Terrain.Regions.village_transform(village).inverse()
   var grass:Vector2=(Frontier.Il if village=="il_village" else Frontier.Alyut).GRASS_TILE
   material.set_shader_parameter("use_connected_village",true)
   material.set_shader_parameter("connected_village_frame",Vector4(local.origin.x,local.origin.y,local.x.x,local.x.y))
-  material.set_shader_parameter("connected_village_mask",Terrain.Regions.Sites.VILLAGES[village][3])
-  material.set_shader_parameter("connected_village_index",load("res://assets/maps/falan/"+village+"_ground_index.png"))
-  material.set_shader_parameter("connected_village_atlas",ground_tiles(load("res://assets/maps/falan/"+village+"_ground_atlas.png")))
+  material.set_shader_parameter("connected_village_mask",Terrain.Regions.village_mask(village))
+  material.set_shader_parameter("connected_village_index",Terrain.Regions.village_ground_index(village))
+  material.set_shader_parameter("connected_village_atlas",ground_tiles(Terrain.Regions.village_ground_atlas(village)))
   material.set_shader_parameter("connected_village_grass",Vector4(grass.x/255.0,grass.y/255.0,0,1))
- var frame:Transform2D=Transform2D(0.0,-Terrain.Regions.Sites.VILLAGES[terrain.variant][2]) if terrain.variant in ["kili","venoa","il_village","alyut"] else Terrain.Regions.frame(terrain.variant)
+ var frame:Transform2D=Transform2D(0.0,-Terrain.Regions.Sites.VILLAGES[terrain.variant][2]) if terrain.variant in ["kili","venoa","il_village","laruka","alyut","ghana"] else Terrain.Regions.frame(terrain.variant)
  material.set_shader_parameter("use_freyja_surface",true)
  if terrain.variant in ["east_gate","east_coast","north_coast"]:
   # Original Freyja grass graphic 5045 fills blank land in both gameplay and village views.
@@ -114,9 +147,15 @@ static func archive_surface(material:ShaderMaterial,terrain):
   if sokia else preload("res://assets/maps/falan/freyja_ground_index.png"))
  material.set_shader_parameter("freyja_ground_atlas",ground_tiles(preload("res://assets/maps/falan/sokia_ground_atlas.png")
   if sokia else preload("res://assets/maps/falan/freyja_ground_atlas.png")))
- if terrain.variant in ["kili","venoa","il_village","alyut"]:
-  material.set_shader_parameter("freyja_ground_index",load("res://assets/maps/falan/"+terrain.variant+"_ground_index.png"))
-  material.set_shader_parameter("freyja_ground_atlas",ground_tiles(load("res://assets/maps/falan/"+terrain.variant+"_ground_atlas.png")))
+ if Terrain.Regions.private_source_context!=null and Terrain.Regions.private_source_context.host(terrain.variant):
+  material.set_shader_parameter("freyja_ground_index",Terrain.Regions.private_source_context.field_ground_index())
+  material.set_shader_parameter("freyja_ground_atlas",ground_tiles(Terrain.Regions.private_source_context.field_ground_atlas()))
+ if terrain.variant in ["kili","venoa","il_village","alyut","ghana"]:
+  material.set_shader_parameter("freyja_ground_index",Terrain.Regions.village_ground_index(terrain.variant))
+  material.set_shader_parameter("freyja_ground_atlas",ground_tiles(Terrain.Regions.village_ground_atlas(terrain.variant)))
+ if terrain.variant=="laruka":
+  material.set_shader_parameter("freyja_ground_index",preload("res://assets/maps/falan/il_laruka/laruka_ground_index.png"))
+  material.set_shader_parameter("freyja_ground_atlas",ground_tiles(preload("res://assets/maps/falan/il_laruka/laruka_ground_atlas.png")))
  if terrain.bridge_bounds().has_area():
   material.set_shader_parameter("freyja_surface_start",terrain.bridge_bounds().end.y)
 

@@ -60,6 +60,9 @@ func equip(character:int,action:String,id:String)->bool:
 func prepare():
  hero.jump_style.prepare()
  refresh_numbered_slots()
+ if not beast_master_equipped() and hero.game.get("player")==hero:
+  var army=hero.game.get("army_runtime")
+  if is_instance_valid(army):army.recall_beast_pets()
  air_attack_action=""
  var slots=assignments(hero.character_id)
  if hero.timed_dodge!=null:hero.timed_dodge.bodyguard_equipped=slots.values().has(Catalog.BODYGUARD) and not hero.ai_controlled
@@ -73,7 +76,7 @@ func prepare():
   elif hero.active_ability.mirrors!=null:hero.active_ability.mirrors.clear()
   if Catalog.Roster.has_crossgate_throws(hero.character_id):hero.active_ability.disable_assassination()
  for action in Catalog.SLOTS:
-  if slots.has(action) and Catalog.all()[slots[action]].get("air_attack",false):
+  if not beast_master_equipped() and slots.has(action) and Catalog.all()[slots[action]].get("air_attack",false):
    air_attack_action=action;break
  # Selection/equipment pays setup once; input only starts prepared controllers.
  var equipped=slots.values().filter(func(id):
@@ -98,6 +101,8 @@ func prepare():
 
 func refresh_numbered_slots():
  numbered_slots=slots_for(hero.character_id)
+ if beast_master_equipped():
+  for i in numbered_slots.size():numbered_slots[i]=["Pet %d"%(i+1) if i<5 else "All pets","pet_attack"]
  # A weapon swap can add contacts; prepare the larger volley before combat.
  for key in instances:
   if key.begins_with("%d:"%hero.character_id) and instances[key].controller is Instance.Qigong:instances[key].controller.prepare_projectiles()
@@ -113,8 +118,17 @@ func slots_for(character:int)->Array:
   if equipped.has(action):result[i]=[Catalog.all()[equipped[action]].name,action]
  return result
 
+func beast_master_equipped()->bool:
+ return is_instance_valid(hero) and not hero.ai_controlled and Catalog.Roster.is_crossgate_fighter(hero.character_id) and is_instance_valid(hero.model) and hero.model.beast_master
+
 func number_input(number:int,pressed:bool):
  if number<1 or number>numbered_slots.size():return
+ if beast_master_equipped():
+  if pressed and not hero.defend_held and hero.cursed_afflictions[5]<=0 and hero.combat_hold_left<=0:
+   var army=hero.game.get("army_runtime")
+   if is_instance_valid(army) and army.queue_beast_pet_attacks(number):hero.model.preview_beast_cast()
+  elif not pressed:held_numbers.erase(number)
+  return
  if not pressed:
   var slot:Array=held_numbers.get(number,[]);held_numbers.erase(number)
   if slot.is_empty():return
@@ -407,6 +421,7 @@ func seal_for(seconds:float):
 
 func cancel(preserve_power:bool=false):
  if dispatching:return
+ if beast_master_equipped():hero.model.clear_beast_cast()
  magic_result={}
  dispatching=true
  for instance in instances.values():instance.cancel(preserve_power)
@@ -468,6 +483,12 @@ static func damage_for_hit(enemy,amount:float,ticket:Dictionary)->float:
  return amount
 
 static func hit_effects(enemy,amount:float,ticket:Dictionary):
+ if ticket.has("axe_sure_ticket") and not ticket.has("guard_break_target") and not ticket.get("guard_reply",false) and not enemy.dead:
+  var axe_ref=ticket.get("source_hero")
+  var axe_owner=axe_ref.get_ref() if axe_ref is WeakRef else null
+  if is_instance_valid(axe_owner):
+   enemy.take_hit(float(ticket.axe_sure_damage),axe_owner.facing,true,ticket.axe_sure_ticket)
+
  if ticket.has("sword_fire_ticket") and not ticket.has("guard_break_target") and not ticket.get("guard_reply",false):
   var sword_owner_ref=ticket.get("source_hero")
   var sword_owner=sword_owner_ref.get_ref() if sword_owner_ref is WeakRef else null

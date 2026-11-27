@@ -1,0 +1,7 @@
+# Native broken-wall candidates
+
+Private preparation is`tools/prepare_east_broken_wall_forms.py`; use`--check`to verify exact native RGBA, SQL origins/footprints and generated derivatives. Current20IDs are11701/02/04/07/10/11/13/16..22/24..29. No runtime caller is active. Circular basin11708and horizontal fluted pieces11714/15remain separate work requiring compatible round parts.
+
+The pure`forest_east_broken_wall_forms.gd::mesh(g,front,ground)`returns closed wall parts in the final.045source-height frame. It reuses the Tina measured native-foot contract and Coastal closed quads. Two-native-pixel contour strips retain real arch holes and broken crests; independent existing Tina ruin-stone paint covers full backs/caps. Native below-floor fringe art stays a flat alpha overlay. Hidden1.0/1.2mdepth, half-depth face plane and contour sampling are inferred reconstruction. Original source cells, collision, walk bits, warps and quests are unchanged.
+
+Read-only placement proof is`build/Other Files/Asset Toolkit/East Gate Region/Classic Architecture/ruin-source-contracts.json`:97placements across3maps, exact source anchors, native walk windows and nearby directed routes/returns. It does not establish new raised walking or runtime ownership. Source/reverse review is consolidated in`east_architecture_candidates_review.gd`; individual studies remain available in`east_broken_wall_forms_review.gd`. Actual normal/reachable-second views and independent image judgment are required before publication.

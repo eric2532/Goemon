@@ -23,6 +23,7 @@ static func build(root:Node3D,model):
 
 static func open(game)->bool:
  if not game.playing or game.paused or game.transitioning or game.settings_open or game.rogue_roster_open or is_instance_valid(game.team_upgrade_picker) or game.model.phase!="wave" or game.player.hp<=0:return false
+ if Tour.Elsa.open(game):return true
  var index=nearby(game)
  if index<0:return false
  game.ordinary_pause=true;game.paused=true;game.get_tree().paused=true;Engine.time_scale=1

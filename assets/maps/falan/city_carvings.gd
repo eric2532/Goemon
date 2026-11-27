@@ -10,4 +10,5 @@ const FEATURES={
  "mansion_window":[Rect2i(428,16,40,96),0.0],
  "mansion_frieze":[Rect2i(8,172,112,40),0.1],
  "mansion_portal":[Rect2i(160,144,64,96),0.15],
+ "office_frieze":[Rect2i(264,176,112,32),0.16,1],
 }

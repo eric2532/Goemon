@@ -61,14 +61,22 @@ func refresh():
  if not is_instance_valid(game) or game.model==null:return
  var model=game.model
  chart.refresh(model)
+ if is_instance_valid(game.get("explore_access")):
+  chart.pins=chart.pins.filter(func(pin):return not pin.get("explore_encounter",false))
+  for pin in game.explore_access.pins():
+   pin.explore_encounter=true;chart.pins.append(pin)
  var rectangles=map_rectangles()
  player_marker=project_point(game.player.global_position,rectangles[0],rectangles[1])
  var runtime=game.get("army_runtime");var view=runtime.snapshot_view if is_instance_valid(runtime) else null
  var handles:Dictionary=runtime.handles if view!=null else {}
- # Read simulation positions directly, including portals outside shared sight.
- # Friendly units and the immortal training dummy are not wave enemies.
+ # Bosses remain visible outside shared sight; ordinary enemies stay off the map.
  for enemy in model.enemies.values():
-  if enemy.hp<=0:continue
+  if enemy.hp<=0 or not enemy.get("boss",false):continue
+  if is_instance_valid(game.get("explore_access")):
+   var access=game.explore_access
+   if access.enabled():access.discover(enemy)
+   var key=access.scope()+":"+access.group(enemy)
+   if not access.encounters.get(key,{}).get("discovered",false):continue
   var point:Vector3=enemy.pos
   if view!=null:
    var handle:int=handles.get(enemy.id,0);var slot:int=handle&0xffffffff
@@ -113,7 +121,7 @@ func _prepare_dot_mesh():
  var shadow=Color(.07,.055,.04,.72)
  for i in 12:
   var a=Vector2.from_angle(TAU*i/12.0);var b=Vector2.from_angle(TAU*(i+1)/12.0)
-  for point in [Vector2.ZERO,a*radius,b*radius]:vertices.append(point);colors.append(DOT)
+  for point in [Vector2.ZERO,a*radius,b*radius]:vertices.append(point);colors.append(chart.BOSS)
   for point in [a*radius,a*(radius+.8),b*(radius+.8),a*radius,b*(radius+.8),b*radius]:vertices.append(point);colors.append(shadow)
  var arrays=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_COLOR]=colors
  var mesh=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
@@ -159,7 +167,7 @@ func draw_chart():
  draw_string(font,compass+Vector2(-4,4),"N",HORIZONTAL_ALIGNMENT_LEFT,-1,12,text_color)
  if expanded:
   var x=22.0
-  for entry in [[PLAYER,"You"],[DOT,"Enemies"],[chart.PIN,"Exits"],[chart.BOSS,"Boss"]]:
+  for entry in [[PLAYER,"You"],[chart.PIN,"Exits"],[chart.BOSS,"Boss"]]:
    draw_circle(Vector2(x+4,size.y-26),3.5,entry[0])
    draw_string(font,Vector2(x+16,size.y-21),entry[1],HORIZONTAL_ALIGNMENT_LEFT,84,14,text_color)
    x+=105

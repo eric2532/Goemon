@@ -36,6 +36,7 @@ const NEIGHBOR_RING=[Vector2i.UP,Vector2i(1,-1),Vector2i.RIGHT,Vector2i(1,1),
 const SIMPLE=[Vector2i(8,7),Vector2(-9,-9),"ffffffffffffff"]
 
 static func floor_info(id:int,run_seed:int=0)->Array:
+ if RoomArt.palace(id):return RoomArt.RubySource.palace_info(id)
  if Original.owns(id):return Original.floor_info(id,run_seed)
  if Winter.TITLES.has(id):return Winter.floor_info(id)
  if Winter.Decree.owns(id):return Winter.Decree.floor_info(id,run_seed)
@@ -44,6 +45,7 @@ static func floor_info(id:int,run_seed:int=0)->Array:
  return Data.FLOORS.get(id,Freyja.ROOMS.get(id,SIMPLE))
 
 static func layout(id:int)->Dictionary:
+ if id==RoomArt.RubySource.POST:return {"format":"forest_shrine_map","schema":1,"title":"露比的宮殿 · 戰鬥後","falan_area":"interior","falan_floor":id,"buildings":[],"trees":[],"deposits":[]}
  if Original.owns(id):return Original.layout(id)
  var title:String=Winter.TITLES.get(id,"")
  if title.is_empty():title=Winter.Decree.title(id)
@@ -59,6 +61,7 @@ static func open_cell(bits:PackedByteArray,size:Vector2i,x:int,z:int)->bool:
  return (bits[index>>3] & (1<<(index&7)))!=0
 
 static func walk_mask(id:int,size:Vector2i,source:PackedByteArray,run_seed:int)->PackedByteArray:
+ if RoomArt.palace(id):return source
  if Original.owns(id):return source
  if id in Winter.SNOW_FLOORS:return Winter.snow_maze(id,run_seed).bits
  if id in Falken.FLOORS:return Falken.maze(id,run_seed).bits
@@ -67,7 +70,7 @@ static func walk_mask(id:int,size:Vector2i,source:PackedByteArray,run_seed:int)-
  if id in Imur.FLOORS:return Imur.walk_mask(size,id,run_seed)
  if id==ZombieMaze.ROOM:return ZombieMaze.walk_mask(size,source,run_seed)
  if id in Dungeons.UNDERSEA_FLOORS+Dungeons.VENOA_FLOORS:return source
- if Dungeons.roofed(id) and id not in [2307,Ruby.ROOM] and id not in Dungeons.HABARU_FLOORS:
+ if Dungeons.roofed(id) and not RoomArt.palace(id) and id not in Dungeons.HABARU_FLOORS:
   source=widen_corridors(id,size,source)
  if id==Dungeons.GRAVE:
   var maze=Imur.walk_mask(GRAVE_MAZE_SIZE,id,run_seed)
@@ -123,6 +126,7 @@ static func safe_point(id:int,preferred:Vector2,run_seed:int=0)->Vector2:
  return best if best.is_finite() else Vector2.ZERO
 
 static func build_ceiling(root:Node3D,id:int,opening:Vector2i=Vector2i(-1,-1)):
+ var ceiling_height=Original.ceiling_height(id) if Original.owns(id) else CEILING_HEIGHT
  var floor_=floor_info(id)
  var size:Vector2i=floor_[0]
  var origin:Vector2=floor_[1]
@@ -139,24 +143,25 @@ static func build_ceiling(root:Node3D,id:int,opening:Vector2i=Vector2i(-1,-1)):
    var span=Vector2(mini(step,size.x-x),mini(step,size.y-z))
    for corner:Vector2 in ROCK_TRIANGLES:
     var at=origin+(Vector2(x,z)+corner*span-Vector2.ONE*.5)*3.0
-    var y=CEILING_HEIGHT+relief*absf(sin(at.x*.23+sin(at.y*.16))*cos(at.y*.28))
+    var y=ceiling_height+relief*absf(sin(at.x*.23+sin(at.y*.16))*cos(at.y*.28))
     if rock:
      var shelves=.5+.5*sin(at.x*.34+at.y*.21+sin(at.y*.47)*.9)
      var relief_scale=.42 if opening.x>=0 else 1.0
-     y=CEILING_HEIGHT+(shelves*.94+absf(sin(at.x*.63-at.y*.54))*.38)*relief_scale
+     y=ceiling_height+(shelves*.94+absf(sin(at.x*.63-at.y*.54))*.38)*relief_scale
     if not vault.is_empty():y=vault[(z+int(corner.y))*(size.x+1)+x+int(corner.x)]
     mesh.add_vertex(Vector3(at.x,y,at.y))
  mesh.generate_normals()
  var ceiling=Geo.mesh(root,mesh.commit(),Vector3.ZERO,cave_material(id,true))
  ceiling.name="SolidCaveCeiling" if full_roof else "HabaruRockCeiling"
+ if RoomArt.palace(id):ceiling.position.y=25.
  ceiling.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  var center=origin+(Vector2(size)-Vector2.ONE)*1.5
  if opening.x>=0:
   ceiling.name="HabaruBasementCeiling"
   Ladder.split_slab(root,Rect2(origin-Vector2.ONE*1.5,Vector2(size)*3.0),
-   [origin+Vector2(opening)*3.0],CEILING_HEIGHT+.12,.24)
+   [origin+Vector2(opening)*3.0],ceiling_height+.12,.24)
   return
- var solid=Art.solid(root,Vector3(center.x,CEILING_HEIGHT+.12,center.y),Vector3(size.x*3.0,.24,size.y*3.0),1,"stone")
+ var solid=Art.solid(root,Vector3(center.x,ceiling_height+.12,center.y),Vector3(size.x*3.0,.24,size.y*3.0),1,"stone")
  solid.name="SolidCaveCeilingCollision" if full_roof else "HabaruCeilingCollision"
 
 static func undersea_roof_heights(size:Vector2i,bits:PackedByteArray)->PackedFloat32Array:
@@ -225,6 +230,22 @@ static func rock_panel(mesh:SurfaceTool,at:Vector2,along_x:bool,open_before:bool
     mesh.add_vertex(Vector3(point.x,height,point.y))
 
 static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
+ var source:Dictionary=load("res://scripts/forest/forest_sokia_scenery.gd").fixed_map(id)
+ if source.get("sokia_visual_only",false):
+  var physical=Node3D.new();physical.name="SokiaPreservedRoomPhysics";root.add_child(physical)
+  var obstacles=build_legacy(physical,id,run_seed)
+  for node in physical.find_children("*","GeometryInstance3D",true,false):node.hide()
+  var visual=Node3D.new();visual.name="SokiaNativeRoomVisuals";root.add_child(visual)
+  Original.build(visual,id,run_seed)
+  var delta:Vector2=floor_info(id,run_seed)[1]-Original.floor_info(id,run_seed)[1]
+  visual.position=Vector3(delta.x,0,delta.y)
+  for body in visual.find_children("*","CollisionObject3D",true,false):
+   body.get_parent().remove_child(body);body.queue_free()
+  root.set_meta("sokia_visual_source",id)
+  return obstacles
+ return build_legacy(root,id,run_seed)
+
+static func build_legacy(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
  if Original.owns(id):return Original.build(root,id,run_seed)
  var obstacles:Array[AABB]=[]
  var floor_=floor_info(id,run_seed)
@@ -268,7 +289,7 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
      floors.encode_u16((z*size.x+x)*2,grass)
      if z%2==1 and (x+z)%3==0 and not open_cell(bits,size,x,z):
       tree_points.append(origin+Vector2(x,z)*3.0)
- if Dungeons.roofed(id) and id not in [2307,Ruby.ROOM] and id not in Prayer.FLOORS:
+ if Dungeons.roofed(id) and not RoomArt.palace(id) and id not in Prayer.FLOORS:
   var fallback=1
   if not floors.is_empty():
    for i in size.x*size.y:
@@ -314,8 +335,8 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
     floors.encode_u16((z*size.x+x)*2,fallback if open_cell(bits,size,x,z) else 0)
     archived.encode_u16((z*size.x+x)*2,0)
  var arena:Rect2i=RoomArt.BossProps.ARENAS.get(id,Rect2i())
- var furnished=RoomArt.build_fixtures(root,boxes,id,origin,arena) if id not in [Ruby.ROOM,11004,11028] else {}
- if id==Ruby.ROOM or RoomArt.BossProps.PLACEMENTS.has(id):
+ var furnished=RoomArt.build_fixtures(root,boxes,id,origin,arena) if not RoomArt.palace(id) and id not in [11004,11028] else {}
+ if RoomArt.palace(id) or RoomArt.BossProps.PLACEMENTS.has(id):
   furnished.merge(RoomArt.build_archived_props(root,id,origin,size,pools,bits))
  if Winter.INTERIORS.has(id):
   furnished=WinterRooms.build(root,boxes,id)
@@ -363,7 +384,7 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
   RoomArt.PrayerArt.stairs(root,id,run_seed)
   RoomArt.PrayerArt.scatter(root,id,bits,run_seed)
   if id==Prayer.ENTRY:
-   var stair_material=RoomArt.painted_atlas(preload("res://assets/maps/falan/undersea_stair_13268.png"))
+   var stair_material=RoomArt.painted_atlas(preload("res://assets/maps/falan/black_prayer/entry-stair.png"))
    stair_material.set_shader_parameter("original_palette",true)
    stair_material.set_shader_parameter("archive_triplanar",true)
    RoomArt.HabaruStairs.build(root,id,Vector2i(7,4),origin+Vector2(7,4)*3.0,13268,stair_material)
@@ -381,10 +402,10 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
   rock_walls=SurfaceTool.new()
   rock_walls.begin(Mesh.PRIMITIVE_TRIANGLES)
  if not rock and not RoomArt.Coastal.Data.ROOMS.has(id):
-  RoomArt.build_walls(root,boxes,archived,size,origin,wall_scale,upper_flight,
-   CEILING_HEIGHT+.50 if roofed else 0.0,cavern and id!=Ruby.ROOM,
-   RoomArt.FalkenArt.Walls if Falken.owns(id) else RoomArt.WallAtlas,
-   Falken.Data.WALL_HEIGHTS if Falken.owns(id) else RoomArt.Data.WALL_HEIGHTS)
+  RoomArt.build_walls(root,boxes,archived,size,origin,139.0/(4.8*RoomArt.PrayerArt.Proportions.VERTICAL) if RoomArt.palace(id) else wall_scale,upper_flight,
+   CEILING_HEIGHT+.50 if roofed else 0.0,cavern and not RoomArt.palace(id),
+   RoomArt.FalkenArt.Walls if Falken.owns(id) else RoomArt.PrayerArt.PalaceWalls if RoomArt.palace(id) else RoomArt.WallAtlas,
+   Falken.Data.WALL_HEIGHTS if Falken.owns(id) else RoomArt.PrayerArt.palace_data().wall_heights if RoomArt.palace(id) else RoomArt.Data.WALL_HEIGHTS)
  if id==1121:RoomArt.Bank.details(root,boxes,origin)
  if id==1092:RoomArt.Guild.details(root,boxes,origin)
  if id==1091:RoomArt.Employment.build(root,boxes,origin)
@@ -409,7 +430,7 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
   wall_stone=Fort.material(Color("5a6b66"),true)
  elif Falken.owns(id):
   wall_stone=RoomArt.painted_atlas(RoomArt.FalkenArt.boundary_paint());wall_stone.set_shader_parameter("original_palette",true)
- if id==Ruby.ROOM:
+ if RoomArt.palace(id):
   wall_stone=RoomArt.painted_atlas(RoomArt.PrayerArt.PalaceWall)
   wall_stone.set_shader_parameter("original_palette",true)
   wall_stone.set_shader_parameter("archive_triplanar",true)
@@ -442,6 +463,7 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
      if not stair_entry and a_open!=b_open:
       var blocked=b if a_open else a
       edge=2 if furnished.has(blocked) else 1
+      if is_same(furnished.get(blocked),RoomArt.PLAYER_SCENERY_FIXTURE):edge=4
       if decree or id==Winter.ABANIS:
        var landing=origin+Vector2(a if a_open else b)*3.0
        if (id==Winter.ABANIS and not along_x and b_open and landing==Winter.Decree.ABANIS_WEST_GATE
@@ -507,7 +529,7 @@ static func build(root:Node3D,id:int,run_seed:int=0)->Array[AABB]:
        trim.y=.15
        boxes.add(Vector3(point.x,1.03,point.y),trim,cap)
        boxes.add(position+Vector3.UP*(height*.5+.02),Vector3(extent.x+.12,.24,extent.z+.12),cap)
-     Art.solid(root,position,extent,1,"stone")
+     Art.solid(root,position,extent,1,"stone",current==4)
     start=col
     current=edge
  if rock or random_cave:

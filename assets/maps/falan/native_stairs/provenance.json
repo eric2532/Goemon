@@ -1,0 +1,116 @@
+{
+  "method": "Measured native stone-face pigment with existing Habaru six-tread geometry and painterly stone material; original art unchanged",
+  "inferred": "Unseen stone volume and darker riser shade (60% of native pigment); no new collision or map placement",
+  "graphics": {
+    "17964": {
+      "source_rgba_sha256": "2f3275a864ca15a25d7092eea7234c273fff68398e8ca32fcad512f695afcdff",
+      "stone_color": [
+        0.35805759803921566,
+        0.5824180453431372,
+        0.4034083946078431
+      ],
+      "source_face": {
+        "origin": [
+          10,
+          20
+        ],
+        "across": [
+          18,
+          -13
+        ],
+        "down": [
+          2,
+          2
+        ]
+      }
+    },
+    "17966": {
+      "source_rgba_sha256": "36c2333ee34dc4fcee384dd4d67bf48db3782d3b8184d07320ca7e022dfdabd0",
+      "stone_color": [
+        0.45749080882352944,
+        0.6079082414215686,
+        0.6898246017156863
+      ],
+      "source_face": {
+        "origin": [
+          10,
+          20
+        ],
+        "across": [
+          18,
+          -13
+        ],
+        "down": [
+          2,
+          2
+        ]
+      }
+    },
+    "17972": {
+      "source_rgba_sha256": "43628ef1a1ffac073afcc10659dce2e27808b313d6cba0d2ba2343c4c09d74f0",
+      "stone_color": [
+        0.7021484375,
+        0.6663296568627451,
+        0.4705078125
+      ],
+      "source_face": {
+        "origin": [
+          10,
+          20
+        ],
+        "across": [
+          18,
+          -13
+        ],
+        "down": [
+          2,
+          2
+        ]
+      }
+    },
+    "17984": {
+      "source_rgba_sha256": "f4596d23ad7f948e8476d73a65c99d62e8350e1bbbe21d52a1d08772ca6a06be",
+      "stone_color": [
+        0.7775314031862746,
+        0.5444776348039215,
+        0.27688802083333336
+      ],
+      "source_face": {
+        "origin": [
+          10,
+          20
+        ],
+        "across": [
+          18,
+          -13
+        ],
+        "down": [
+          2,
+          2
+        ]
+      }
+    },
+    "17996": {
+      "source_rgba_sha256": "ffc2d1b5057b1a1d8112270c66a16f79be3324e258bebf5d1eadedfff5ebd79e",
+      "stone_color": [
+        0.6092218137254902,
+        0.2115579044117647,
+        0.14563802083333333
+      ],
+      "source_face": {
+        "origin": [
+          10,
+          20
+        ],
+        "across": [
+          18,
+          -13
+        ],
+        "down": [
+          2,
+          2
+        ]
+      }
+    }
+  }
+}

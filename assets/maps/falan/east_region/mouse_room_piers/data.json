@@ -1,0 +1,357 @@
+{
+  "schema": 1,
+  "graphics": {
+    "1230051": {
+      "size": [
+        72,
+        185
+      ],
+      "bounds": [
+        0,
+        0,
+        69,
+        185
+      ],
+      "origin": [
+        -33,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "0f2f723bfa0319b59a7401f24f60ca80b7815d3923a5fa1b429afcf33e256fcc",
+      "source_pack": "ex",
+      "source_row": 3743,
+      "runtime_page": 13,
+      "runtime_rect": [
+        1546,
+        932,
+        72,
+        185
+      ]
+    },
+    "1230052": {
+      "size": [
+        68,
+        186
+      ],
+      "bounds": [
+        0,
+        0,
+        67,
+        186
+      ],
+      "origin": [
+        -34,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "f24e6a7b754f5b6071ebb99744d79118a9d91c9c23370f569e499a41d2f496b1",
+      "source_pack": "ex",
+      "source_row": 3744,
+      "runtime_page": 13,
+      "runtime_rect": [
+        1622,
+        932,
+        68,
+        186
+      ]
+    },
+    "1230054": {
+      "size": [
+        68,
+        186
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        186
+      ],
+      "origin": [
+        -34,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "3d2c502e589faf90b9ceb6f5f2fe5cf3de76e6d6be34f7de6e896b50fd5c6455",
+      "source_pack": "ex",
+      "source_row": 3746,
+      "runtime_page": 13,
+      "runtime_rect": [
+        1766,
+        932,
+        68,
+        186
+      ]
+    },
+    "1230055": {
+      "size": [
+        68,
+        186
+      ],
+      "bounds": [
+        0,
+        0,
+        68,
+        186
+      ],
+      "origin": [
+        -34,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "80ab273d7f977fa7874bac671d64a7ddcde0d9656a56e6156ccd2dc4ec84b4d9",
+      "source_pack": "ex",
+      "source_row": 3747,
+      "runtime_page": 13,
+      "runtime_rect": [
+        1838,
+        932,
+        68,
+        186
+      ]
+    },
+    "1230056": {
+      "size": [
+        64,
+        185
+      ],
+      "bounds": [
+        0,
+        0,
+        63,
+        185
+      ],
+      "origin": [
+        -31,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "092be96127163b48c4f672f3d569c355f0c7d7969a2d3c57f1016a48a3471986",
+      "source_pack": "ex",
+      "source_row": 3748,
+      "runtime_page": 13,
+      "runtime_rect": [
+        1910,
+        932,
+        64,
+        185
+      ]
+    },
+    "1230122": {
+      "size": [
+        48,
+        124
+      ],
+      "bounds": [
+        0,
+        0,
+        47,
+        124
+      ],
+      "origin": [
+        -23,
+        -108
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "bcbf10de24d1ccff25e3e74ccb0d79377f6ab00cc5974c1e19d8e0b3071c2fe4",
+      "source_pack": "ex",
+      "source_row": 3758,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1478,
+        1254,
+        48,
+        124
+      ]
+    },
+    "1230123": {
+      "size": [
+        48,
+        124
+      ],
+      "bounds": [
+        0,
+        0,
+        47,
+        124
+      ],
+      "origin": [
+        -23,
+        -108
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "a42f3bc4717a26c6fb53d13d8f86db7dad69dff39451a43e3734e0cf820634c5",
+      "source_pack": "ex",
+      "source_row": 3759,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1530,
+        1254,
+        48,
+        124
+      ]
+    },
+    "1230124": {
+      "size": [
+        56,
+        124
+      ],
+      "bounds": [
+        0,
+        0,
+        54,
+        124
+      ],
+      "origin": [
+        -23,
+        -108
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "1bdeca15313a83a6b6641cad8e1b98f84861e6b6446bb04c0c5d0fb88c58af46",
+      "source_pack": "ex",
+      "source_row": 3760,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1582,
+        1254,
+        56,
+        124
+      ]
+    },
+    "1230125": {
+      "size": [
+        52,
+        124
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        124
+      ],
+      "origin": [
+        -27,
+        -108
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "da7b5a66aab8df3514c1353c765b722f6e878052e5b41ecd3c69a90079bc6ee0",
+      "source_pack": "ex",
+      "source_row": 3761,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1642,
+        1254,
+        52,
+        124
+      ]
+    },
+    "1230127": {
+      "size": [
+        48,
+        123
+      ],
+      "bounds": [
+        0,
+        0,
+        47,
+        123
+      ],
+      "origin": [
+        -24,
+        -106
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "c4d5465038caec3944356f80069ab9cff9ce3acef4891038aac2fb2fd41dae7c",
+      "source_pack": "ex",
+      "source_row": 3763,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1750,
+        1254,
+        48,
+        123
+      ],
+      "ball_front_crop": [
+        10,
+        0,
+        37,
+        24
+      ],
+      "hidden_surface_source": {
+        "path": "assets/textures/edo/rock.png",
+        "sha256": "8b30bca744c78813ca5a87f08c84765d0955815545a9b37cbd93895371e3405b",
+        "pitch_m": 1.2,
+        "tint_srgb": [
+          0.8,
+          0.75,
+          1.0
+        ],
+        "inferred": true
+      }
+    },
+    "1230128": {
+      "size": [
+        188,
+        164
+      ],
+      "bounds": [
+        0,
+        0,
+        185,
+        164
+      ],
+      "origin": [
+        -152,
+        -149
+      ],
+      "footprint": [
+        1,
+        5
+      ],
+      "source_rgba_sha256": "ca353eaa0ccdb92d9e7de342e49ad761c7012272de729371d1ade77a2f0d8b59",
+      "source_pack": "ex",
+      "source_row": 3764,
+      "runtime_page": 14,
+      "runtime_rect": [
+        1802,
+        1254,
+        188,
+        164
+      ]
+    }
+  },
+  "scope": "Exact source measurements only. Private geometry; no map activation or completion claim.",
+  "reuse": "Existing closed moulded profile, rounded furniture blocks, sphere primitive and Edo natural-rock texture. Native face paint references the existing East atlas. Hidden sphere uses independent triplanar natural-rock grain at1.2m, never the complete front drawing.",
+  "inferred": [
+    "Unseen pier backs, bevel thickness and full ball circumference. Original footprints, placements, navigation and events remain authoritative."
+  ]
+}

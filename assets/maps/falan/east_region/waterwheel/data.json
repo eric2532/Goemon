@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "graphic": 1238504,
+  "origin": [
+    -102,
+    -211
+  ],
+  "footprint": [
+    1,
+    1
+  ],
+  "size": [
+    196,
+    233
+  ],
+  "source_rgba_sha256": "62ab2d6d5063c3fecd476201977c97b3afc0df50efc60f4228cc57a0cb70329e",
+  "source_pack": "ex",
+  "source_row": 3615,
+  "placements": [
+    {
+      "source": 43500,
+      "cell": [
+        85,
+        85
+      ],
+      "native_object": 38504,
+      "native_floor": 5001
+    }
+  ],
+  "front_hub_pixel": [
+    62,
+    136
+  ],
+  "hub_height": 4.55,
+  "radius": 4.2,
+  "wheel_depth": 6.0,
+  "sectors": 12,
+  "water_offset": -2.1,
+  "frame_rise": 3.1,
+  "frame_width": 0.7,
+  "inferred": [
+    "The visible shaft and repeated rim/paddle divisions guide a closed timber wheel. Hidden circumference, twelve regular sectors, depth, frame joints and measured physical scale reconstruct the single native view; they are not original3D measurements.",
+    "Only native blue water/foam pixels are separated into a flat source-ground motif. The source anchor is water floor5001; the assembly follows the existing aquatic/boat owner offset -2.1m, keeping the motif on the original-map water surface. This vertical reconstruction does not change its sourceXZ anchor.",
+    "The wheel is static; no unverified animation, collision, route or interaction is added.",
+    "Timber faces reuse the existing clean Tina fence11363 grain at a fixed1.35m pitch; the front-facing wheel drawing is a reference rather than a texture stretched across rims, paddles and hidden supports.",
+    "The source-facing supports are heavy boards rising close to the rim, not thin poles. Their0.70m width and3.10m rise above the hub are inferred from the native silhouette; the shared grain is color-fitted to this wheel native wood median without changing the source tile."
+  ],
+  "timber_reference": {
+    "path": "assets/maps/original_crossgate/building-surfaces.png",
+    "rect": [
+      256,
+      1664,
+      128,
+      128
+    ],
+    "native_graphic": 11363,
+    "original_rgba_sha256": "acbdb0962abe7ece2be8c904241cef430e309f9ec87ee0db860727c997ce97fa",
+    "prepared_rgba_sha256": "f2abfdf4ec11a412163fdaa4c5d9e795103435a07ba2fde085bc7d7906aa1452",
+    "native_wheel_wood_median": [
+      143,
+      113,
+      69
+    ],
+    "rgb_gain": [
+      1.361904761904762,
+      1.486842105263158,
+      1.5
+    ],
+    "world_pitch": 1.35
+  }
+}

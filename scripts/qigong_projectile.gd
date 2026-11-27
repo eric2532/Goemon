@@ -18,6 +18,8 @@ static var material:ShaderMaterial
 static var ex_material:ShaderMaterial
 var visual:MeshInstance3D
 var target:Ninja
+var target_range=0.0
+var was_targeted=false
 var velocity=Vector3.ZERO
 var hit_radius=DIAMETER*.5
 var effect_height=0.0
@@ -51,6 +53,7 @@ func _ready():
 
 func restart_visual():
  set_process(false)
+ was_targeted=is_instance_valid(target)
  var size=effect_height/DIAMETER if effect_height>0 else 1.0
  collision_scale=size
  visual.scale=Vector3.ONE*size*VISUAL_SCALE
@@ -77,6 +80,25 @@ func reveal():
   var source=int(attack_ticket.get("crossgate_sound_source",SOURCE_ID))
   game.sound("qigong_launch",.8,false,attack_ticket,source)
 
+static func flight_aim_point(enemy:Ninja,from:Vector3)->Vector3:
+ if enemy.has_method("combat_bounds"):
+  var bounds:AABB=enemy.combat_bounds()
+  from.y=bounds.get_center().y
+ return AttackChain.aim_point(enemy,from)
+
+func replacement_target()->Ninja:
+ var nearest:Ninja
+ var closest=INF
+ for enemy in AttackChain.enemy_candidates(game,hero.global_position,target_range):
+  if not is_instance_valid(enemy) or enemy.dead or enemy.hp<=0:continue
+  if hero.global_position.distance_squared_to(enemy.global_position)>target_range*target_range:continue
+  if game.has_method("forest_enemy_visible") and not game.forest_enemy_visible(enemy):continue
+  var point=flight_aim_point(enemy,global_position)
+  var distance=global_position.distance_squared_to(point)
+  if distance>=closest or not AttackChain.clear_line(self,global_position,point,terrain_exclude):continue
+  nearest=enemy;closest=distance
+ return nearest
+
 func _physics_process(delta:float):
  if not is_instance_valid(hero) or not game.playing:retire();return
  if game.paused or game.transitioning:return
@@ -94,21 +116,27 @@ func _physics_process(delta:float):
    if shine_age>=SHINE_DURATION:retire()
    return
  age+=delta
- if age>=flight_life:retire();return
+ var tracking=is_instance_valid(target) and not target.dead and target.hp>0
+ if was_targeted and not tracking:
+  target=replacement_target()
+  shine_age=-1.0;shine_anchor={};shine.hide();set_process(false)
+  if target==null:retire();return
+  tracking=true
+ if age>=flight_life and not tracking:retire();return
  var from=global_position
  var next=from+velocity*delta
- var tracking=is_instance_valid(target) and not target.dead
  var max_radius=hit_radius*collision_scale
  if tracking:
-  var offset=AttackChain.aim_point(target,from)-from
+  var offset=flight_aim_point(target,from)-from
   var distance=offset.length()
   if distance>.001:
-   var speed=velocity.length()
+   # Catch a fleeing target by the prepared flight deadline instead of leaking leases.
+   var speed=maxf(velocity.length(),distance/maxf(delta,flight_life-age))
    velocity=offset/distance*speed
    var pace=lerpf(CONTACT_SPEED_FACTOR,1.0,smoothstep(0.0,BRAKE_DISTANCE,distance-max_radius))
    next=from+offset.limit_length(speed*pace*delta)
-  else:next=from
- var wall=AttackChain.world_ray(self,from,next,1,terrain_exclude)
+  else:next=from+offset
+ var wall={} if tracking else AttackChain.world_ray(self,from,next,1,terrain_exclude)
  var next_frame=posmod(floori(age*60.0),8)
  if tracking:
   var end:Vector3=next if wall.is_empty() else wall.position
@@ -118,7 +146,7 @@ func _physics_process(delta:float):
   var touching=distance_sq<=radius*radius
   var shine_reach=radius+2.0
   var starts_shine=rank11_shine and shine_age<0.0 and distance_sq<=shine_reach*shine_reach
-  if (touching or starts_shine) and AttackChain.clear_line(self,from,point,terrain_exclude):
+  if touching or starts_shine:
    if starts_shine:
     shine_age=0.0;shine.show();set_process(true)
    if rank11_shine:

@@ -178,6 +178,10 @@ def prepare(source, check=False):
                          if not (c.get('id') == 139 and ('/ruby/' in root or fitted))]
                 if not sound:
                     sound = swings[:1] or [0]
+                if '/weapons/boomerang/' in root:
+                    sound = impact[:1]
+                    exceptions.append(dict(root=root, clip=clip_key, source=key,
+                        reason='Native action-7 release cue plays at the equipped throw draw/release, without a custom ice layer'))
                 if fitted:
                     sound, impact = [109], [140]
                 if key == 'ex:1727':

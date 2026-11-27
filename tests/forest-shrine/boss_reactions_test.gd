@@ -29,7 +29,9 @@ func visit(floor_:int):
   15505:waves.tick_zombie_cave(Vector3.ZERO,Tour.Regions.Sites.ZOMBIE_FORMATIONS[floor_]+game.model.Dungeons.ZOMBIE_PATROLS)
   16503:
    var at:Vector2=Tour.Regions.Sites.CAPTAIN_FORMATION[0][0];waves.tick_captain(Vector3(at.x,0,at.y))
-  16508:waves.tick_ruby(Vector3(-3,0,-42))
+  16508:
+   Tour.RubyEvents.begin(game,Tour.RubyEvents.data().actors["81000"],Tour.RubyEvents.data().actors["81000"].script)
+   waves.tick_ruby(Vector3(-3,0,-42))
   47017:waves.tick_grave(0,Vector3(3,0,-15))
  army.import_arrivals();army.sync_compatibility()
 

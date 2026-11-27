@@ -1,0 +1,14 @@
+{
+  "cgsys02.wav": {
+    "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/godot/assets/sounds/cgsys02.wav",
+    "sha256": "b930696fac8b54e0f1289c7edc7104ccd0310375b1359f5aa8d36f8637ba8df6",
+    "pcm_sha256": "fca87a60c78a6b78ddd0bbfa8ae1987c611dd0223f78eb071bca3c79308a05cc",
+    "verified_original": "/Users/eric/Desktop/Projects_Codex/Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgsys02.wav"
+  },
+  "cgsys03.wav": {
+    "source": "/Users/eric/Desktop/Projects_Codex/Magic Power/godot/assets/sounds/cgsys03.wav",
+    "sha256": "fbae20a7558ece9c2615bcbe2075b623e77b9c339fc224df0f0348befc53eb03",
+    "pcm_sha256": "acb2872d4d78b25e6911c56415b11be0a909b092984679b8ff522f0716c33afa",
+    "verified_original": "/Users/eric/Desktop/Projects_Codex/Magic Power/data/crossgate/source/BlueCrossgate/bin/se/cgsys03.wav"
+  }
+}

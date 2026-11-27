@@ -4,6 +4,12 @@ Run from the complete project selected by `Play Goemon.command`, currently
 `/Users/eric/Desktop/Projects_Codex/Sonic`. Uses Python 3.9+ standard library and
 Godot 4.6. No new dependencies or Blender installation are required.
 
+Use `GOEMON_WAIT_FOR_SCRIPT_SLOT=1` before a `Play Goemon.command --script ...`
+invocation when another script may be running. The launcher queues on its existing
+POSIX record lock through `tools/goemon_script_lock.py`, retains that lock through
+the game process, and serializes asset imports as usual. Waiting uses the kernel
+rather than a polling retry loop. Normal interactive play keeps its existing path.
+
 ```sh
 python3 tools/goemon_assets.py audit
 python3 tools/goemon_assets.py audit assets/optimized

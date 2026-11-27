@@ -1,7 +1,6 @@
 extends RefCounted
 ## Draw the same source grid the terrain and cave navigation use.
 const Tour=preload("res://scripts/forest/forest_falan_tour.gd")
-const Undersea=preload("res://scripts/forest/crowd/undersea_sprites.gd")
 const WATER=Color("285770")
 const STONE=Color("95846b")
 const ROAD=Color("c5a675")
@@ -50,16 +49,13 @@ func refresh(model)->void:
     if Tour.Indoor.RoomArt.is_pool(pools,size,Vector2i(x,z)):image.set_pixel(x,z,WATER)
     elif Tour.Indoor.open_cell(walk,size,x,z):image.set_pixel(x,z,STONE)
   texture=ImageTexture.create_from_image(image)
+  texture.set_meta("source_cpu_image",image)
   if below:
    bounds.position+=ladder.HATCH-ladder.LOWER_HATCH
    add_pin(ladder.HATCH,"Ladder Up",PIN)
    illustration=preload("res://scripts/forest/forest_map_illustration.gd").prepare(self,model)
    return
   if id==ladder.CHAMBER:add_pin(ladder.HATCH,"Basement Ladder",PIN)
-  if id==Tour.Dungeons.HABARU_FLOORS[1]:add_pin(Tour.Regions.Sites.HABARU_FORMATION[0],"熊弟",BOSS)
-  if id==Tour.Indoor.ZombieMaze.ROOM:add_pin(Tour.Regions.Sites.ZOMBIE_FORMATIONS[id][0][0],"Modified Zombie",BOSS)
-  if id==Undersea.SOKIA:add_pin(Undersea.BOSS_AT,Undersea.BOSS_NAME,BOSS)
-  if id==Tour.Regions.Sites.VENOA_BOSS_FLOOR:add_pin(Tour.Regions.Sites.VENOA_BOSS_AT,"Great Bear",BOSS)
  else:
   if not model.terrain.has_method("mask_bounds"):return
   title=area.capitalize()
@@ -71,7 +67,7 @@ func refresh(model)->void:
   var east_road=east_gate or area=="east_coast"
   if east_gate:map_frame=Transform2D(Vector2.UP,Vector2.RIGHT,Vector2.ZERO)
   bounds=map_frame*local_bounds
-  var mask:Image=model.terrain.mask_texture().get_image()
+  var mask:Image=model.terrain.mask_image()
   var bridge:Rect2=model.terrain.bridge_bounds()
   var first_cell=local_bounds.position+Vector2.ONE*1.5
   var dimensions=Vector2i(mask.get_height(),mask.get_width()) if east_gate else mask.get_size()
@@ -87,6 +83,7 @@ func refresh(model)->void:
     if paved or (bridge.has_area() and bridge.grow(.01).has_point(at)):image.set_pixelv(pixel,STONE)
     else:image.set_pixelv(pixel,WATER if tile.r>.52 else ROAD if tile.g>.38 else LAND)
   texture=ImageTexture.create_from_image(image)
+  texture.set_meta("source_cpu_image",image)
   if east_gate:add_pin(Tour.Regions.TOMATO_PLOT.get_center(),"Tomato Plot",PIN)
   if area=="tomato_farm":add_pin(Tour.Regions.Sites.TOMATO_WELL,"Farm Well",PIN)
  for link in model.get_meta("falan_links",[]):
@@ -97,6 +94,10 @@ func refresh(model)->void:
   var diamond:bool=link.get("diamond",false) or link.get("kind","")=="diamond"
   add_pin(link.at,name_,DIAMOND if diamond else PIN)
  if area in Tour.Regions.GATE_FRAMES or area in Tour.Regions.Data.REGIONS:
+  if Tour.Regions.GATE_TRAIL.has(area):
+   var trail:Dictionary=Tour.Regions.GATE_TRAIL[area]
+   var edge=Vector2(Tour.Regions.GATE_TRAIL_CENTER,trail.edge)
+   add_pin(Tour.Regions.frame(area).inverse()*edge,"Trail to "+Tour.Regions.GATE_NAMES[trail.to],PIN)
   for row in Tour.Regions.Data.LINKS:
    if area not in [row[0],row[1]]:continue
    var outward:bool=area==row[0]

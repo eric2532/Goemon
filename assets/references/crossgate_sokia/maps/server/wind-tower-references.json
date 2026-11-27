@@ -1,0 +1,142 @@
+[
+  {
+    "file": "00301_dari",
+    "path": "gmsv/data/map/00301_dari",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/00301_dari",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "bbc350c276bb8e96cf59bb8b33e554f3cf547c22",
+    "bytes": 90044,
+    "sha256": "4a252a1526537053a20cabd02f053a7a473f467483580105ba4d2a11883231e1",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "00302_umi",
+    "path": "gmsv/data/map/00302_umi",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/00302_umi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "442e94beb9fcc47b23c8ef4fb3aff3ca075fff5a",
+    "bytes": 19244,
+    "sha256": "7d78593803a260b890442ff8265cfce3997cc7a54e0df0159a2a8e24746a608c",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20002_gate",
+    "path": "gmsv/data/map/20002_gate",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20002_gate",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "980b5e1d13029e2bf1305bbd82ba738b066ce787",
+    "bytes": 10044,
+    "sha256": "66edef2f4c231e5390d08047ace4b8e8e77fcd8d641e81607a78666add774e07",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20003_gate",
+    "path": "gmsv/data/map/20003_gate",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20003_gate",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "829f237c88112e25cb4d3b8a5a634349116783e4",
+    "bytes": 10044,
+    "sha256": "ae75ed56fd7b36f03163175ad209041924170e565cf687742a10b5eca96bdb5f",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20301_towerB",
+    "path": "gmsv/data/map/20301_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20301_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "186b3fba4c248c74b5e24663cb2541b8b69e61ce",
+    "bytes": 40044,
+    "sha256": "5617178d46235e68f202f06a2fb51a2c0ae86dc3adeb730e3706868be82a67a9",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20302_towerB",
+    "path": "gmsv/data/map/20302_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20302_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "05b01df2daa31b08a3b391ca4a37da5e499a19f9",
+    "bytes": 40044,
+    "sha256": "531fde63c6dd3a241317649d08e9db6807a86869953bc9d71279a8115bddbdbe",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20303_towerB",
+    "path": "gmsv/data/map/20303_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20303_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "af8c57a4db622ffd9a8045b969f43583b339f704",
+    "bytes": 40044,
+    "sha256": "247aa6086c8b229b2c5733da5420a2ef9e6610fcdcc9398afb320d4d3bbd1f72",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20304_towerB",
+    "path": "gmsv/data/map/20304_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20304_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "088fc86ad95e293459a627fcebc2c7dba6254be3",
+    "bytes": 40044,
+    "sha256": "8cc3288a2af76076ab54865b9ec244f3062e3eea5e476ff069de5e264a3e09da",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20305_towerB",
+    "path": "gmsv/data/map/20305_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20305_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "60efd04ef7f8e9ce805377ad1c7ecc43c035f8b7",
+    "bytes": 40044,
+    "sha256": "48f4133d9da940ee35ad7f77fc951891b36e4add19373626a34b09d23cf15f0f",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20306_towerB",
+    "path": "gmsv/data/map/20306_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20306_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "c93c33232d13ac45b67fcb528cf06891fee7f09a",
+    "bytes": 40044,
+    "sha256": "85e0945ffb007609e06c813e759b6b39df6fab81d2c363f44279837f03c90aa9",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20307_towerB",
+    "path": "gmsv/data/map/20307_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20307_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "d5e44ed8d5ce5fb5d0a2ac068231acceadb4c641",
+    "bytes": 40044,
+    "sha256": "2e4a0c899f9871b696ed71cb7f7e34e8858bbff2081aec5cd2e076272aa212b7",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20308_towerB",
+    "path": "gmsv/data/map/20308_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20308_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "7ee13de4578cbdf77e7e89bab94d1950a2d39acd",
+    "bytes": 40044,
+    "sha256": "db68c9a767d683396b9ed2f309f5131a4e6820c35ea9cd6e569113ecb1028148",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20309_towerB",
+    "path": "gmsv/data/map/20309_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20309_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "a8ac20a9118b4bef83ca9af39c64b94a13efd6ff",
+    "bytes": 40044,
+    "sha256": "6215c026f8d7090d8a59ebb81e38f08255ff62ff2e7a61b97373104a358f0f52",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  },
+  {
+    "file": "20310_towerB",
+    "path": "gmsv/data/map/20310_towerB",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/20310_towerB",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "3237b3dec410db3c85709434ea0dd4b2f4e1a520",
+    "bytes": 22544,
+    "sha256": "21a978ee535cb34db9fd14a27e0e30f2793ffee56884589cf6a48d02e9098bab",
+    "qualification": "Pinned LS2MAP source; original production-server/client-release parity remains separately unverified."
+  }
+]

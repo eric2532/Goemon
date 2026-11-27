@@ -26,6 +26,7 @@ var model
 var falan_crossing_position=Vector2.INF
 var explorer_helpers
 var explorer_npcs
+var explore_access
 var explorer_clock=preload("res://scripts/forest/forest_explorer_clock.gd").new()
 var army_runtime:Node
 var forest_ui
@@ -79,13 +80,20 @@ var ryo_feedback_left=0.0
 var wall_audio:Node3D
 var placement_audio:Node
 var chase_click_shape:=BoxShape3D.new()
+var battle_music_left=0.0
+var battle_music_probe=0.0
+var music_resume_stream:AudioStream
+var music_resume_position=0.0
 func _ready():
+	if OS.has_feature("web"):
+		preload("res://scripts/forest/preparation_skin.gd").install_web_font_fallback()
 	preload("res://scripts/recovered_ed_beam_native_state.gd").world_clock(self)
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	character_control_hints=false
 	descent_mode=false;rogue_battle_mode=false;rogue_roster_mode=true;tower_defense_mode=false
 	smoke_test="--test" in OS.get_cmdline_user_args() or "--visual" in OS.get_cmdline_user_args()
 	setup_inputs()
+	InputMap.action_erase_events("surge")
 	if not InputMap.has_action("rally_workers"):
 		InputMap.add_action("rally_workers");var key=InputEventKey.new();key.physical_keycode=KEY_V;InputMap.action_add_event("rally_workers",key)
 	load_settings();setup_audio()
@@ -94,9 +102,10 @@ func _ready():
 	model=ForestModel.new();run_seed=90824 if smoke_test else int(Time.get_ticks_usec())%2147483647;model.reset(run_seed,core_balance,active_forest_map(),false)
 	model.team_progression.cards_enabled=settings.forest_level_up_cards
 	painterly_preview=bool(get_tree().get_meta("forest_painterly_preview",OS.has_feature("painterly_preview") or "--painterly-preview" in OS.get_cmdline_user_args()))
-	world=ForestWorld.new();world.model=model;world.painterly_preview_enabled=painterly_preview;world.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(world)
+	world=ForestWorld.new();world.model=model;world.painterly_preview_enabled=painterly_preview;world.defer_map=launch_to_title;world.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(world)
 	tower_arrows=preload("res://scripts/forest/forest_tower_arrows.gd").new();tower_arrows.game=self;add_child(tower_arrows)
-	player=Hero.new();player.game=self;player.room_ladder=world.habaru_ladder;player.position=FalanTour.spawn(model,PLAYER_SPAWN_CELL);player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
+	player=Hero.new();player.warm_legacy_roster=false;player.game=self;player.room_ladder=world.habaru_ladder;player.position=FalanTour.spawn(model,PLAYER_SPAWN_CELL);player.process_mode=Node.PROCESS_MODE_PAUSABLE;add_child(player)
+	world.apply_player_scenery_passage()
 	var default_fighter:int=player.RogueRoster.KAZI_ID
 	selected_rogue_id=int(get_tree().get_meta("forest_fighter",default_fighter))
 	if selected_rogue_id==player.RogueRoster.MAZE_ID:settings.kaz_skin=KazSkins.MAZE
@@ -137,6 +146,7 @@ func _ready():
 	explorer_helpers=preload("res://scripts/forest/explorer_helpers.gd").new();explorer_helpers.name="ExplorerHelpers";explorer_helpers.game=self;add_child(explorer_helpers)
 	exploration_loot=preload("res://scripts/forest/exploration_loot.gd").new();exploration_loot.game=self;add_child(exploration_loot)
 	explorer_npcs=preload("res://scripts/forest/forest_explorer_npcs.gd").new();explorer_npcs.game=self;add_child(explorer_npcs)
+	explore_access=preload("res://scripts/forest/forest_explore_access.gd").new();explore_access.game=self;add_child(explore_access)
 	if model.has_elevation():
 		var frame=preparation_map_frame();pan=frame.pan;preparation_size=frame.size
 	rogue_view.set_enabled(false);rogue_feedback.set_enabled(false);set_phase_view()
@@ -229,33 +239,47 @@ func _sync_camera_mouse(capture_from_click:bool=false)->bool:
 	var mode=Input.MOUSE_MODE_CAPTURED if live else Input.MOUSE_MODE_VISIBLE
 	if Input.mouse_mode!=mode:Input.mouse_mode=mode
 	return live
+func pet_attack_move_point()->Vector3:
+	var hit=crosshair_ray_hit()
+	var point:Vector3=hit.position
+	if not hit.has("collider"):
+		var direction=camera_rig.camera.project_ray_normal(crosshair_screen_position());direction.y=0
+		if direction.length_squared()<.0001:direction=Vector3.FORWARD.rotated(Vector3.UP,camera_rig.yaw)
+		point=player.global_position+direction.normalized()*40
+	var offset=point-player.global_position;offset.y=0
+	point=player.global_position+offset.limit_length(120)
+	var cell=model.cell_of(point/model.falan_scale)
+	cell=cell.clamp(model.navigation_region.position,model.navigation_region.end-Vector2i.ONE)
+	cell=model.nearest_open(cell)
+	return model.point(cell)*model.falan_scale if model.navigation_region.has_point(cell) else player.global_position
 func issue_hound_order(order:int):
+	if is_instance_valid(army_runtime) and army_runtime.combined_committed:return
 	if model==null or not playing or model.phase!="wave" or paused or get_tree().paused or ordinary_pause or settings_open or transitioning or rogue_roster_open or is_instance_valid(team_upgrade_picker) or not is_instance_valid(player) or player.hp<=0 or not is_instance_valid(army_runtime):return
 	var focus=0
 	if order==army_runtime.HoundOrder.ATTACK:
 		army_runtime.finish_integration()
 		var kit=player.active_ability
-		var enemy:Ninja=kit.locked_primary_enemy()
-		if enemy is ArmyEnemy and enemy.runtime==army_runtime:
-			var camera_origin:Vector3=camera_rig.camera.global_position
-			if not forest_enemy_visible(enemy) or not AttackChain.clear_line(self,camera_origin,AttackChain.aim_point(enemy,camera_origin)):
-				kit.primary_tab_target=null
-				enemy=null
-		else:enemy=null
-		if enemy==null:
-			enemy=crosshair_ray_hit(kit.PRIMARY_SELECTION_DISTANCE).get("collider") as Ninja
-			if not enemy is ArmyEnemy or enemy.runtime!=army_runtime or enemy.dead or enemy.hp<=0:enemy=enemy_near_crosshair(kit.PRIMARY_SELECTION_DISTANCE,1.0,true)
+		var enemy=crosshair_ray_hit(kit.PRIMARY_SELECTION_DISTANCE).get("collider") as Ninja
+		if not enemy is ArmyEnemy or enemy.runtime!=army_runtime or enemy.dead or enemy.hp<=0:enemy=enemy_near_crosshair(kit.PRIMARY_SELECTION_DISTANCE,1.0,true)
 		if enemy is ArmyEnemy and enemy.runtime==army_runtime and not enemy.dead and enemy.hp>0:focus=enemy.handle
-	if army_runtime.order_hounds(order,focus):
+	var destination=pet_attack_move_point() if order==army_runtime.HoundOrder.ATTACK and focus==0 else Vector3(INF,0,0)
+	if army_runtime.order_hounds(order,focus,destination):
 		if focus!=0:player.play_sound("shin_target_select",.65)
-		toast("Pets · Focus marked enemy" if focus!=0 else {army_runtime.HoundOrder.ATTACK:"Pets · Hunt enemies",army_runtime.HoundOrder.RETURN:"Pets · Return and defend",army_runtime.HoundOrder.HOLD:"Pets · Defending this position · No need to hold F"}[order])
+		toast("Pets · Focus marked enemy" if focus!=0 else {army_runtime.HoundOrder.ATTACK:"Pets · Attack move",army_runtime.HoundOrder.RETURN:"Pets · Return and defend",army_runtime.HoundOrder.HOLD:"Pets · Defending this position · No need to hold F",army_runtime.HoundOrder.COMBINED:"Power combos · Click to chain · Move after impact to break",army_runtime.HoundOrder.DEFEND:"Pets · Independent defense"}[order])
 	else:toast("Press P to summon your selected pets")
 func _notification(what):
 	if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
 		camera_focused=false;_sync_camera_mouse()
 	elif what==NOTIFICATION_APPLICATION_FOCUS_IN:
 		camera_focused=true;_sync_camera_mouse()
+func combined_power_pending_phase()->bool:
+	return model!=null and model.phase in ["preparing","victory"] and is_instance_valid(army_runtime) and army_runtime.combined_committed and is_instance_valid(player) and player.hp>0
 func set_phase_view():
+	if combined_power_pending_phase():return
+	if model.phase!="wave":
+		if is_instance_valid(army_runtime):army_runtime.recall_beast_pets()
+		battle_music_left=0.0;battle_music_probe=0.0
+		sync_area_music()
 	if not model.construction_completed.is_connected(_clear_construction_occupants):model.construction_completed.connect(_clear_construction_occupants)
 	if not model.wave_started.is_connected(_sync_wave_balance):model.wave_started.connect(_sync_wave_balance)
 	if model.phase=="preparing" and is_instance_valid(player):
@@ -406,6 +430,7 @@ func _preparation_zoom_input(event:InputEvent,editor:bool=false)->bool:
 	return false
 func start_wave():
 	if not playing or ordinary_pause or rogue_roster_open or (is_instance_valid(map_editor) and map_editor.active):return
+	ensure_map_visuals()
 	if model.phase=="preparing":
 		model.balance.waves=core_balance.waves.duplicate(true)
 		for key in ["spawn_group_start","spawn_group_growth"]:model.balance[key]=core_balance[key]
@@ -611,6 +636,8 @@ func _input(event):
 			get_viewport().set_input_as_handled()
 		return
 	if not playing and not rogue_roster_open:return
+	if is_instance_valid(army_runtime) and army_runtime.combined_committed and event is InputEventKey and not event.is_action("pause"):
+		get_viewport().set_input_as_handled();return
 	if event.is_action("character_toggle"):
 		if event.is_pressed() and not event.is_echo():
 			if rogue_roster_open:close_rogue_roster()
@@ -623,6 +650,10 @@ func _input(event):
 	if model.phase=="wave" and not paused and not transitioning and player.hp>0 and event.is_action("assist",true) and Hero.RogueRoster.is_crossgate_fighter(player.character_id) and player.active_ability.uses_primary_targeting():
 		if event.is_pressed() and not event.is_echo():player.active_ability.cycle_primary_lock()
 		get_viewport().set_input_as_handled();return
+	if event is InputEventKey and not event.alt_pressed and not event.ctrl_pressed and not event.meta_pressed and (event.physical_keycode==KEY_R or (event.physical_keycode==0 and event.keycode==KEY_R)):
+		if event.pressed and not event.echo and not ordinary_pause:
+			issue_hound_order(army_runtime.HoundOrder.DEFEND if army_runtime.hound_order==army_runtime.HoundOrder.COMBINED else army_runtime.HoundOrder.COMBINED)
+		get_viewport().set_input_as_handled();return
 	if event is InputEventKey and not event.alt_pressed and not event.ctrl_pressed and not event.meta_pressed and not event.shift_pressed:
 		var code=event.physical_keycode if event.physical_keycode!=0 else event.keycode
 		if code==KEY_E:
@@ -630,7 +661,12 @@ func _input(event):
 			get_viewport().set_input_as_handled();return
 		if code==KEY_F:
 			if event.pressed and not event.echo:
-				if can_talk_habaru():show_habaru_dialogue()
+				var chest_index=exploration_loot.nearest()
+				var chest_distance=player.position.distance_squared_to(exploration_loot.slots[chest_index].pos) if chest_index>=0 else INF
+				var npc_distance=player.position.distance_squared_to(explorer_npcs.nearest.get("interaction_point",explorer_npcs.nearest.node.global_position)) if not explorer_npcs.nearest.is_empty() and is_instance_valid(explorer_npcs.nearest.get("node")) else INF
+				if chest_index>=0 and exploration_loot.slots[chest_index].get("boss",false) and chest_distance<explore_access.interaction_distance_squared() and chest_distance<=npc_distance:exploration_loot.open_nearest()
+				elif explore_access.interact():pass
+				elif can_talk_habaru():show_habaru_dialogue()
 				elif can_talk_falken():show_falken_dialogue()
 				elif explorer_npcs.interact():pass
 				elif exploration_loot.open_nearest():pass
@@ -687,7 +723,7 @@ func _unhandled_input(event):
 		get_viewport().set_input_as_handled();return
 	if event is InputEventKey and not event.echo:
 		var code=event.physical_keycode if event.physical_keycode!=0 else event.keycode
-		if event.pressed and code==KEY_R and not build_kind.is_empty():
+		if event.pressed and code==KEY_T and not build_kind.is_empty():
 			build_rotation=(build_rotation+1)%4;wall_start=Vector2i(-999,-999)
 			get_viewport().set_input_as_handled();return
 	if event is InputEventMouseMotion and event.button_mask&MOUSE_BUTTON_MASK_MIDDLE:
@@ -729,7 +765,8 @@ func update_build_preview(cell:Vector2i):
 	else:world.show_preview(build_kind,cell,build_rotation,reason.is_empty())
 func _process(delta):
 	if model==null:return
-	if model.team_progression.pending()>0 and not is_instance_valid(team_upgrade_picker) and playing and not ordinary_pause and not settings_open and not rogue_roster_open and not transitioning and model.phase in ["preparing","wave"] and not map_editor.active:show_team_upgrade()
+	if combined_power_pending_phase():army_runtime.flush_presentation();forest_ui.sync();return
+	if model.team_progression.pending()>0 and not army_runtime.combined_committed and not is_instance_valid(team_upgrade_picker) and playing and not ordinary_pause and not settings_open and not rogue_roster_open and not transitioning and model.phase in ["preparing","wave"] and not map_editor.active:show_team_upgrade()
 	if is_instance_valid(team_upgrade_picker):return
 	var cpu_clock=_army_profile_clock()
 	_sync_camera_mouse()
@@ -761,6 +798,7 @@ func _advance_world(delta:float)->bool:
 	if world_step_elapsed+.000001<world_update_interval():return false
 	model.tick(world_step_elapsed,player.position);world_step_elapsed=0;model_tick_serial+=1;return true
 func _physics_process(delta):
+	if combined_power_pending_phase():army_runtime.integration_tick(delta);return
 	if is_instance_valid(dialogue):return
 	if is_instance_valid(team_upgrade_picker):return
 	if model!=null and model.phase!=last_phase:set_phase_view()
@@ -785,6 +823,7 @@ func _physics_process(delta):
 	model.hero_targetable=player.hp>0 and not player.rogue_untargetable()
 	if army_pending:army_runtime.finish_integration()
 	else:army_runtime.integration_tick(delta)
+	_tick_battle_music(delta)
 	cpu_clock=_army_profile("game_army_total",cpu_clock)
 	if army_prepare_ms>0:
 		army_runtime.profile_totals["game_army_prepare"]=float(army_runtime.profile_totals.get("game_army_prepare",0))+army_prepare_ms
@@ -850,6 +889,7 @@ func forest_point_visible(point: Vector3)->bool:return model!=null and model.vis
 func show_rogue_roster(starting: bool=false):
 	if not playing and not starting:return
 	if model.phase not in ["preparing","wave"] or player.hp<=0 or rogue_roster_open:return
+	ensure_map_visuals()
 	roster_return_pause=ordinary_pause
 	player.cancel_charge(true);model.workforce.cancel_rally();Engine.time_scale=1
 	ordinary_pause=true;paused=true;get_tree().paused=true
@@ -886,6 +926,7 @@ func close_rogue_roster():
 	elif roster_return_pause:show_pause()
 	else:resume()
 func show_equipment_hub(from_game:bool=false):
+	if is_instance_valid(army_runtime) and army_runtime.combined_committed:return
 	if is_instance_valid(equipment_hub) or model.phase not in ["preparing","wave"] or player.hp<=0 or transitioning:return
 	equipment_from_game=from_game;equipment_return_pause=ordinary_pause
 	player.cancel_charge(true);model.workforce.cancel_rally();Engine.time_scale=1
@@ -924,7 +965,7 @@ func save_equipment_loadouts(value:Dictionary,skill_items:Dictionary,cosmetics:D
 	if pet_skills!=null and (not pet_skills is Dictionary or preload("res://scripts/forest/pet_catalog.gd").sanitized_skills(pet_skills)!=pet_skills):return false
 	for owner in clean:
 		for id in clean[owner].values():
-			if id in preload("res://scripts/forest/equipment.gd").CHEST_SWORDS and id not in settings.chest_swords:return false
+			if id in preload("res://scripts/forest/equipment.gd").CHEST_WEAPONS and not preload("res://scripts/forest/equipment.gd").test_all_weapons and id not in settings.chest_swords:return false
 	var changed_characters=[]
 	for setting in appearances:
 		var matched=false
@@ -967,6 +1008,7 @@ func enter_equipped_map():
 	if not is_instance_valid(equipment_hub):return
 	if equipment_from_game:
 		back_from_equipment();return
+	ensure_map_visuals()
 	equipment_hub.hide();equipment_hub.queue_free();equipment_hub=null
 	playing=true;forest_ui.show();set_phase_view()
 	army_runtime.prepare_navigation()
@@ -977,7 +1019,8 @@ func show_pause():
 	if is_instance_valid(team_upgrade_picker):return
 	if model==null or model.phase not in ["preparing","wave"]:return
 	settings_open=false;clear_menu();forest_ui.show()
-	ordinary_pause=true;paused=true;get_tree().paused=true;model.workforce.cancel_rally();player.cancel_charge(true);Engine.time_scale=1
+	ordinary_pause=true;paused=true;get_tree().paused=true;model.workforce.cancel_rally();Engine.time_scale=1
+	if not player.combined_power_busy():player.cancel_charge(true)
 	_sync_camera_mouse()
 	forest_ui.show_overlay("REST A MOMENT","",true)
 func resume():
@@ -1035,13 +1078,7 @@ func show_status_panel():
 func close_status_panel():
 	if not is_instance_valid(status_panel):return
 	status_panel.hide();status_panel.queue_free();status_panel=null;resume()
-func spend_pet_stat(key:String,id:String)->bool:
-	if not is_instance_valid(equipment_hub) or equipment_hub.wearer_key!="pet:"+key or key not in settings.forest_pet_loadout or model.phase not in ["wave","preparing"] or player.hp<=0:return false
-	army_runtime.finish_integration()
-	if not model.team_progression.spend_pet_stat(key,id):return false
-	var handle:int=army_runtime.handles.get(army_runtime.HOUND_ID-SkillPets.skin(key),0)
-	if handle!=0 and army_runtime.valid(handle):army_runtime.apply_pet_growth(handle,key)
-	forest_ui.sync();return true
+func spend_pet_stat(_key:String,_id:String)->bool:return false
 func spend_level_stat(id:String)->bool:
 	if id in ["critical_chance","dodge_chance","counter_chance"] and player.combat_tuning(id)>=100:return false
 	if (not is_instance_valid(status_panel) and not is_instance_valid(equipment_hub)) or (not playing and not is_instance_valid(equipment_hub)) or model.phase not in ["wave","preparing"] or player.hp<=0 or not model.team_progression.spend_stat(id):return false
@@ -1092,10 +1129,6 @@ func skill_card_targets()->Array[String]:
 			if not id.is_empty() and not SkillBalance.Levels.stats(id,1).is_empty():
 				var target:String=id+"|"+pet_key
 				if skill_card_level(target)<SkillBalance.Levels.MAX_LEVEL:targets.append(target)
-	if targets.is_empty() and SkillBalance.Catalog.Roster.is_crossgate_fighter(player.character_id):
-		var catalog=SkillBalance.Catalog.all()
-		for id in SkillBalance.level_skills():
-			if catalog.has(id) and SkillBalance.Catalog.available(catalog[id]) and SkillBalance.Catalog.weapon_compatible(catalog[id],player.model) and skill_card_level(id)<SkillBalance.Levels.MAX_LEVEL:targets.append(id)
 	return targets
 
 func show_team_upgrade():
@@ -1214,19 +1247,42 @@ func wall_cells(end: Vector2i)->Array:
 
 func apply_music_setting():
 	# The preference controls gameplay music; the title and its menus stay silent.
-	if not playing:
+	if not playing or is_instance_valid(music) and music.stream==null:
 		if is_instance_valid(music):music.stop()
 		return
 	super.apply_music_setting()
 
+func _tick_battle_music(delta:float):
+	# Probe the native spatial index after integration, never the whole army.
+	var was_battle=battle_music_left>0
+	battle_music_left=maxf(0,battle_music_left-delta)
+	battle_music_probe-=delta
+	if battle_music_probe<=0:
+		battle_music_probe=AreaMusic.BATTLE_PROBE_INTERVAL
+		if player.hp>0:
+			var radius=AreaMusic.BATTLE_RADIUS*model.falan_scale
+			var center=player.global_position
+			var bounds=AABB(center-Vector3.ONE*radius,Vector3.ONE*radius*2)
+			for handle in army_runtime.query_aabb(bounds,0):
+				var enemy:Dictionary=army_runtime.unit_state(handle)
+				if not enemy.is_empty() and enemy.hp>0 and center.distance_squared_to(enemy.position)<=radius*radius:
+					battle_music_left=AreaMusic.BATTLE_HOLD;break
+	if was_battle!=(battle_music_left>0):sync_area_music()
+
 func sync_area_music():
 	var at=Vector2(player.position.x,player.position.z)/model.falan_scale
-	var stream:AudioStream=AreaMusic.STREAMS[AreaMusic.key(FalanTour.area(model),model.falan_floor,at)]
+	var stream:AudioStream=AreaMusic.STREAMS.get(AreaMusic.key(FalanTour.area(model),model.falan_floor,at))
+	if model.phase=="wave" and battle_music_left>0:stream=AreaMusic.STREAMS.b0
 	if music.stream==stream:return
+	if stream==AreaMusic.STREAMS.b0:
+		music_resume_stream=music.stream;music_resume_position=music.get_playback_position()
 	music.stop()
 	music.stream=stream
-	music.stream.loop=true
+	if stream!=null:music.stream.loop=true
 	apply_music_setting()
+	if stream!=AreaMusic.STREAMS.b0:
+		if stream==music_resume_stream and music.playing:music.seek(music_resume_position)
+		music_resume_stream=null;music_resume_position=0.0
 
 func menu_base()->Control:
 	var root=super.menu_base();root.theme=preload("res://scripts/forest/preparation_skin.gd").theme()
@@ -1238,10 +1294,12 @@ func button_at(parent:Control,words:String,p:Vector2,action:Callable,width:float
 	return button
 func show_title():
 	if playing:save_settings()
+	battle_music_left=0.0;battle_music_probe=0.0;music_resume_stream=null;music_resume_position=0.0
 	if is_instance_valid(equipment_hub):equipment_hub.hide();equipment_hub.queue_free();equipment_hub=null
 	clear_dialogue()
 	if model!=null:model.team_progression.skill_food_stacks=0
-	if is_instance_valid(exploration_loot):exploration_loot.clear();exploration_loot.opened_chests.clear()
+	if is_instance_valid(exploration_loot):exploration_loot.clear();exploration_loot.opened_chests.clear();exploration_loot.boss_contents.clear()
+	if is_instance_valid(explore_access):explore_access.reset_run()
 	if is_instance_valid(player):player.clear_food_buffs()
 	respawn_left=0.0
 	if is_instance_valid(explorer_helpers):explorer_helpers.clear()
@@ -1254,9 +1312,11 @@ func show_title():
 	var root=menu_base()
 	var title_ui=preload("res://scripts/forest/forest_title_ui.gd").new();title_ui.game=self;root.add_child(title_ui)
 func show_settings(from_pause: bool):
+	ensure_map_visuals()
 	settings_open=true;settings_from_pause=from_pause
 	ordinary_pause=true;paused=true;get_tree().paused=true
-	model.workforce.cancel_rally();player.cancel_charge(true);Engine.time_scale=1
+	model.workforce.cancel_rally();Engine.time_scale=1
+	if not player.combined_power_busy():player.cancel_charge(true)
 	_sync_camera_mouse()
 	forest_ui.view_settings_preview=false;forest_ui.close_overlay();forest_ui.hide()
 	super.show_settings(from_pause)
@@ -1284,7 +1344,8 @@ func show_settings(from_pause: bool):
 func load_settings():
 	super.load_settings()
 	explorer_clock.load_hour(settings.explorer_hour)
-	if model!=null:model.team_progression.cards_enabled=settings.forest_level_up_cards
+	if model!=null:
+		model.team_progression.cards_enabled=settings.forest_level_up_cards
 	apply_forest_view_settings()
 func save_settings()->Error:
 	settings.explorer_hour=explorer_clock.hour
@@ -1319,8 +1380,10 @@ func set_forest_show_crosshair(value):
 	if is_instance_valid(forest_ui):forest_ui.reticle.queue_redraw()
 	save_settings()
 func show_view_settings(from_pause: bool):
+	ensure_map_visuals()
 	settings_open=true;settings_from_pause=from_pause;ordinary_pause=true;paused=true;get_tree().paused=true
-	model.workforce.cancel_rally();player.cancel_charge(true);Engine.time_scale=1;_sync_camera_mouse()
+	model.workforce.cancel_rally();Engine.time_scale=1;_sync_camera_mouse()
+	if not player.combined_power_busy():player.cancel_charge(true)
 	forest_ui.close_overlay();forest_ui.view_settings_preview=true;forest_ui.show();forest_ui.sync()
 	var root=menu_base();root.get_child(0).color.a=.22
 	var controls=preload("res://scripts/forest/forest_view_settings.gd").new();controls.game=self;controls.from_pause=from_pause;root.add_child(controls)
@@ -1337,18 +1400,28 @@ func begin_arena():
 	player.reset_physics_interpolation()
 	checkpoint=player.position
 
-func begin_forest():
+func ensure_map_visuals():
+	if is_instance_valid(world.map_features):return
+	world.reload_map()
+	player.room_ladder=world.habaru_ladder
+
+func begin_forest(layout:Dictionary={}):
 	if playing:return
 	player.timed_dodge.reset()
 	# Title settings belong to the run about to start, not the preview snapshot.
 	kills=0
-	model.reset(run_seed,core_balance,active_forest_map(),false);world.reload_map();army_runtime.reset_world();forest_ui.sync()
+	var start_layout=active_forest_map() if layout.is_empty() else layout
+	model.reset(run_seed,core_balance,start_layout,false)
+	world.reload_map(layout)
+	player.room_ladder=world.habaru_ladder
+	army_runtime.reset_world();forest_ui.sync()
 	show_rogue_roster(true)
 
 func begin_saved_falan(path:String):
 	if playing:return
 	var document=MapDocument.new(false)
-	var error=document.read_file(path)
+	# The adventure uses its validated linked layouts, never the editor's wrapper world.
+	var error=document.read_file(path,false)
 	if not error.is_empty() or not document.data.has("falan_areas"):
 		OS.alert("Could not load the Freyja and Falan save." if error.is_empty() else error,"Freyja and Falan")
 		return
@@ -1370,11 +1443,17 @@ func begin_saved_falan(path:String):
 	tree.remove_meta(FalanTour.Winter.SLAIN)
 	tree.remove_meta(FalanTour.Winter.Decree.BLADE)
 	tree.remove_meta(FalanTour.Winter.Decree.COMPLETE)
+	for key in [FalanTour.Winter.Decree.STRAWBERRY,FalanTour.Winter.Decree.REWARDS,"university_quest_items","university_battles","university_battle_slain","university_victory","university_drop_bags","university_shanti_rewards"]:
+		tree.remove_meta(key)
+	for key in ["east_ship_voyage","east_legacy_battle","east_battle_blockers","east_encounter_blockers","east_event_blockers","east_event_bags","east_event_refills","east_route_blockers"]:
+		if tree.has_meta(key):tree.remove_meta(key)
+	for key in ["east_event_session","east_auto_cooldown","east_auto_elapsed"]:
+		if has_meta(key):remove_meta(key)
 	tree.remove_meta(FalanTour.Falken.SLAIN)
 	tree.remove_meta(FalanTour.Falken.SCROLL)
 	tree.remove_meta(FalanTour.Prayer.SLAIN)
 	tree.remove_meta(model.waves.Undersea.SLAIN)
-	begin_forest()
+	begin_forest(document.data.falan_areas.city)
 	player.position=FalanTour.spawn(model,PLAYER_SPAWN_CELL)
 	if web_coop!=null and web_coop.connected:
 		player.position.z-=web_coop.spawn_slot*1.7
@@ -1398,7 +1477,7 @@ func active_forest_map()->Dictionary:
 	var layout=get_tree().get_meta("forest_custom_layout",{})
 	if layout is Dictionary and not layout.is_empty() and MapDocument.validate(layout).is_empty():return layout.duplicate(true)
 	var document=MapDocument.new()
-	if document.load_wind_meadow().is_empty():return document.data.duplicate(true)
+	if document.read_file(MapDocument.WIND_MEADOW_PATH,false).is_empty():return document.data
 	push_error("Could not load the Falan Arena preset")
 	return {}
 var map_resize_pending=false
@@ -1450,7 +1529,7 @@ func open_map_editor():
 	if not playing or ordinary_pause or settings_open or rogue_roster_open or model.phase!="preparing":return
 	build_kind="";wall_start=Vector2i(-999,-999);world.preview.hide();forest_ui.selected_id=-1
 	map_editor.open()
-func preview_forest_map(layout: Dictionary,preview: bool=true,reuse_world:bool=false,keep_runner:bool=false):
+func preview_forest_map(layout: Dictionary,preview: bool=true,reuse_world:bool=false,keep_runner:bool=false,travelling:bool=false):
 	clear_dialogue()
 	player.guard_reply_left=0.0
 	if is_instance_valid(exploration_loot):exploration_loot.clear()
@@ -1478,7 +1557,7 @@ func preview_forest_map(layout: Dictionary,preview: bool=true,reuse_world:bool=f
 	var reuse=preview and reuse_world and world.can_reuse_map(model)
 	world.model=model
 	if reuse:world.reload_preview(previous)
-	else:world.reload_map()
+	else:world.reload_map(layout if travelling else {})
 	player.room_ladder=world.habaru_ladder
 	army_runtime.reset_world();set_phase_view()
 	if preview:pan=saved_pan;update_preparation_camera()

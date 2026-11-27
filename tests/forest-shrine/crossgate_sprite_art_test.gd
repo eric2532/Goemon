@@ -60,7 +60,7 @@ func run():
  var idle="0:%d"%direction_
  model.show_pose(0,0,true)
  check(is_equal_approx(model.sprite.offset.x,float(originals[SHIN].clips[idle].frames[0][5])+float(model.sprite.region_rect.size.x)*.5+4),"Selecting Shin draws the adjusted idle artwork")
- check(game.save_equipment_loadouts({Gear.character_key(37):{"1":"weapon:boomerang"}},{},{}),"Equip the boomerang through the saved gear route")
+ check(game.save_equipment_loadouts({Gear.character_key(37):{"1":"weapon:water-dragon-boomerang"}},{},{}),"Equip the boomerang through the saved gear route")
  var attack="5:%d"%model.direction()
  var pattern:Dictionary=model.normal_attack_pattern()
  check(timing(model.motions,attack)==timing(originals[BOOMERANG],attack) and pattern.contacts==[originals[BOOMERANG].clips[attack].release],"Replacement weapon keeps the complete attack timing, release and audio data")
@@ -79,7 +79,7 @@ func run():
  kit.tick((float(pattern.contacts[0])-.001)/rate)
  check(shots.is_empty(),"The new art cannot launch a projectile before the release cue")
  kit.tick(.002/rate)
- check(shots.size()==1 and shots[0].kind=="crossgate_boomerang","The original release cue launches one boomerang")
+ check(shots.size()==1 and shots[0].kind=="water_dragon_boomerang","The original release cue launches one boomerang")
  for shot in shots:shot.retire()
  kit.cancel(true)
  check(game.save_equipment_loadouts({},{},{}),"Clear the equipped weapon")

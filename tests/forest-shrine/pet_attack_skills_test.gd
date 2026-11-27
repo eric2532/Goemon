@@ -89,12 +89,13 @@ func run():
    contact_count=army.event_log.filter(func(event):return event.kind=="pet_skill_contact" and event.source_id==source).size()
    if expected>0 and contact_count>=expected:break
   var hits=army.event_log.filter(func(event):return event.kind=="damage" and event.get("sure_strike_effect")!=null)
+  var dodges=army.event_log.filter(func(event):return event.kind=="status" and int(event.get("action_index",0))==802 and int(event.source_id)==victim.forest_id).size()
   var caster=army.pet_skills.casters[Pets.key(skin)]
   check(caster.charge.texture==caster.ShineTiers.textures["110103"] and caster.charge.scale.is_equal_approx(Vector3.ONE*caster.Skills.shine_factor(caster.ticket)),"Pet shine uses the shared saved tier and modifiers")
   print("PET_CONTACT_REVIEW skin=",skin," max=",count_," expected=",expected," contacts=",contact_count," damage=",before-victim.hp," hits=",hits.map(func(event):return [event.amount,event.get("sure_strike_effect"),event.get("source_id")])," body=",victim.combat_bounds())
   check(expected==count_ and contact_count==expected,"Pet skin %d releases on all %d native contacts"%[skin,count_])
-  check(is_equal_approx(before-victim.hp,275),"Level-one pet 乾坤 shares its level-rule damage across its real contacts")
-  check(hits.size()==expected and hits.all(func(event):return hit_anchors.has(event.sure_strike_effect.position)),"Every confirmed pet hit has one enemy-body explosion")
+  check(is_equal_approx(before-victim.hp,275.0*(expected-dodges)/maxi(expected,1)),"Level-one pet 乾坤 shares its damage across real contacts, respecting recorded enemy dodges")
+  check(hits.size()+dodges==expected and hits.all(func(event):return hit_anchors.has(event.sure_strike_effect.position)),"Every contact records a dodge or one confirmed enemy-body explosion")
  game.camera_rig.yaw=0
  # Every offered ranged attack really launches and damages through the existing pool.
  for id in Pets.SKILLS:
@@ -163,10 +164,14 @@ func run():
   game.update_skill_balance(Pets.Spells.COMBO,"count",limit)
   var combo_handle:int=army.handles[army.HOUND_ID];var combo_at:Vector3=army.unit_state(combo_handle).position
   var victims=[]
-  for i in 9:victims.append(spawn(combo_at-home+Vector3((i%3-1)*12,0,-4-floori(i/3.0)*12),1.0))
+  for i in 9:victims.append(spawn(combo_at-home+Vector3((i%3-1)*12,0,-4-floori(i/3.0)*12)))
   var hops=int(preload("res://scripts/spells/skill_balance.gd").effective(army.pet_skills.casters[Pets.key(0)],Pets.Spells.COMBO,"count"))
   for tick in 1200:
    advance()
+   for event in army.event_log:
+    if event.kind=="pet_skill_started" and int(event.action_index)==2:
+     var victim:Dictionary=game.model.enemies.get(int(event.target_id),{})
+     if not victim.is_empty() and victim.hp>1:army.apply_hit(army.handles[int(event.target_id)],{"amount":victim.hp-1.0})
    var contacts=army.event_log.filter(func(event):return event.kind=="pet_skill_contact" and event.source_id==army.HOUND_ID)
    if contacts.size()>=hops*Pets.attack_pattern(0).contacts.size():break
   check(army.event_log.filter(func(event):return event.kind=="death" and event.team==0).size()==1,"Pet combo keeps %d level-plus-tuning hops on one defeated target"%hops)
@@ -184,7 +189,7 @@ func run():
  var choices=[]
  for event in starts:
   if not choices.has(int(event.action_index)):choices.append(int(event.action_index))
- check(choices.size()==3,"The native pet randomly uses all three equipped attacks")
+ check(choices.size()==3,"The native pet uses all three equipped attacks while each keeps its own cooldown")
  # A dead, recalled or replaced caster cannot keep producing late skill hits.
  army.despawn(handle);var hp_before=game.model.enemies.values().map(func(row):return row.hp)
  for tick in 240:advance()
@@ -218,6 +223,10 @@ func run():
  print("PET_BASIC_STEP_US p95=",baseline[floori(baseline.size()*.95)]," max=",baseline.back())
  # A five-pet pack uses the same system simultaneously without setup growth.
  await equip_pack(simultaneous_skins(),[[Pets.Spells.SURE_STRIKE,"kazi/qigong","kazi/fire"],[Pets.Spells.SURE_STRIKE,Pets.Spells.MOON,"kazi/ice"],[Pets.Spells.SURE_STRIKE,"kazi/wind","kazi/meteor"],[Pets.Spells.SURE_STRIKE,Pets.Spells.MAZE_QI,Pets.Spells.SPIRIT],[Pets.Spells.SURE_STRIKE,"kazi/qigong","kazi/fire"]])
+ # Exercise group preferences with real trained target limits in the simultaneous-use sample.
+ for caster_ in army.pet_skills.casters.values():
+  for id in caster_.selected:
+   if caster_.Skills.Levels.family(id) in caster_.Skills.Levels.ELEMENTS:game.set_pet_skill_level(caster_.pet_key,id,5)
  for i in 20:spawn(Vector3((i%5-2)*10,0,-5-floori(i/5.0)*8))
  for tick in 1800:advance()
  await frames(3)

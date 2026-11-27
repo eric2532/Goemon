@@ -2,10 +2,23 @@
 
 The current main-city building surface repair is documented in
 [`Falan painted architecture`](../../blender/environments/wind_meadow/falan/START_HERE.md).
-All 40 archetypes / 89 placements use coherent building parts and separate
+All 41 archetypes / 90 buildings use coherent building parts and separate
 facade, slate and detail materials. Whole-building isometric picture projection
 is retired for these houses and civic assemblies. Original archives, reference
 pictures, source positions, native room links and saved-map records remain intact.
+
+The November 26 city-wide pass restores missing source building 10310, uses
+individual recovered roof contours at 57 house stations and corrects native
+street-facing facade details. The 11-district / 80-grid inventory (77 city rooms plus three preserved
+city-access annexes), 31 unmatched reusable-room references, source comparisons
+and bounded route checks are in
+[`Falan City Reconstruction`](../../../build/Other%20Files/Asset%20Toolkit/Falan%20City%20Reconstruction/README.md).
+Regenerate the source inventory with `python3 tools/audit_falan_city.py`.
+Six omitted city-room furnishing inventories (1810/1811/1156/1182/1181/1172) now
+recover 193 original placements through `forest_falan_city_room_fixtures.gd`,
+reusing the existing furniture, market and source-shaped evergreen masters.
+Their original navigation, collision and doors are unchanged; source, reverse
+and actual Explore views are linked from the reconstruction report.
 
 The recovered outdoor regions now use their matching reference wild creatures:
 Freyja's goblin variants, mice, bees, plants, northern cold trees and birdmen;
@@ -20,8 +33,7 @@ Choose **Freyja and Falan** on the Play Goemon title screen, select a fighter,
 then choose **Explore** to start in Falan City near the employment office.
 The **Freyja and Falan - Test** save contains the city, castle, and all three
 crossings. Walk through any gate arch to travel between the approach and the
-city. Press **F** at castle and building entrances. Original NPC sprites stay
-in place without dialogue. Defeat occurs when the player dies.
+city. Press **F** at castle and building entrances. Original NPCs and their existing dialogue stay in place. Defeat occurs when the player dies.
 
 The original Frostpass branch leaves the Western Lakes road at the signed
 cave mouth and bypasses the mining dungeon. Its three connected floors have
@@ -177,8 +189,11 @@ The archive renders and desktop comparisons are under
   `python3 tools/build_freyja_surface.py '../Magic Power' assets/maps/falan`.
 - The countryside roads lead from the bridges to farmsteads, groves and ruins.
   The East and South trail follows the land route in Freyja's `100.dat`, with
-  both sides using the same tile coordinates at the crossing. The West
-  approach retains its separate waterways and the causeway through the marsh.
+  both sides using the same tile coordinates at the crossing. Follow the
+  roadside labels or open the area chart with M to find the trail exit.
+  Walking across the trail carries your heading and movement into the other
+  gate exterior. The West approach retains its separate waterways and the
+  causeway through the marsh.
   West/South retain single arrivals; East Gate releases packs of three and
   stays beyond the safe gate approach. Freyja water supports the player at the visible surface,
   including the city pond. Walking into a river keeps the player there.
@@ -390,14 +405,23 @@ lists the new masters and their exports.
   reads the cached Blue CG grids and Magic Power's fixed warp list.
   The room art generator reuses the painted wall and furniture kit.
   Village NPCs use server placements and original static sprites.
-  The cache is missing Laruka church's lower floor (2307); its
-  replacement keeps the documented stair link.
+  The absent 2307 client cache is now supplied by the pinned original server
+  map in `assets/references/crossgate_laruka_basement/`. Its partner matches
+  the archived client exactly. The source headers identify 2306 as the food
+  shop and 2307 as the materials shop, correcting the former church labels.
+  See `il_laruka/README.md` for current house, ornament and lower-room preparation.
+  The waterfront's former 38046/38051 gap is also resolved: these compressed DAT
+  map IDs expand to EX-pack serials 238046/238051. Adjoining bank images and
+  paving use the same original lookup rule, with source anchors and existing
+  dialogue/quest/door owners retained.
 - Il's exterior restoration uses `tools/build_il_restoration.py '../Magic Power'`.
   It recovers all 180 original ground graphics into `il_village_ground_*`,
   eight building placements and their five source graphics into
   `il_restoration_data.gd` / `il_buildings.png`. The existing coastal building
-  renderer fits the thatched houses, shops, chief's house and stone church to
-  the existing scenery bounds; unseen faces reflect the two archived faces.
+  renderer is retained as a reusable asset. Current Explore placement uses
+  `tools/prepare_il_laruka.py` and `forest_il_laruka_buildings.gd`: original
+  compound footprints, coherent solid roofs, rectified paint and complete
+  reverse framing. Unseen surfaces are inferred from the original single view.
   The existing meadow plants and rocks fill the original small scenery anchors.
   Village roads, shore, fences, doors, NPCs and saved maps retain their owners.
   The shared source-ground shader now paints Il's full land/water grid.
@@ -440,14 +464,15 @@ lists the new masters and their exports.
   The cliff's existing collision boxes are split around the enlarged passage,
   retaining solid sides and overhead rock. The wider walk-in threshold still
   reaches the original dungeon at the original warp anchor.
-  Il and Alyut reuse Falan's signposts, benches, produce tables and
-  planted beds at their existing building frontages. These are authored dressing,
-  not recovered archive placements. Placement checks protect the current doors,
-  gates, NPCs and solid scenery; door links are queried before marker construction.
+  The earlier authored service signs, benches, produce tables and planted beds
+  are excluded from Il/Alyut's source-based scenery. The reusable frontage
+  builder is preserved, but normal Explore does not call it. Original archived
+  plants, doors, gates, NPCs and collision remain under their existing owners.
   Source graphics 11268/11269 use round walls and tiered thatch. Round shop 11271
   adds its low side wings; houses 11272/11273 and shop 11275 use source-style dormers,
-  with the shop's sloping entrance canopy. Church 10607 uses its blue roof terrace,
-  crenellations and round porch. These extend the shared source-painted mesh builder;
+  with the shop's sloping entrance canopy. Guild 10607 now reuses the city's
+  source-specific barrel-roof office facade instead of the earlier blue terrace
+  and rounded vestibule. These extend the shared source-painted mesh builder;
   they retain existing fitted collision footprints and original texture atlases.
   Il/Alyut no longer project the whole sprite over every face. The shared mesh
   builder uses `village_building_surfaces.*`: 14 rectified patches recovered from
@@ -1055,3 +1080,219 @@ res://tests/forest-shrine/falan_npc_dialogue_test.gd` for all-appearance coverag
 and representative city/castle/interior interaction checks; omit `--headless`
 for rendered portraits/dialogue captures. Evidence stays under
 `build/Other Files/Asset Toolkit/Falan NPC Dialogue/`.
+
+
+## Explore visual matching — 2026-11-23, bounded review pass
+
+The current route-bounded comparison starts at the employment plaza. Evidence
+is under `build/Other Files/Asset Toolkit/Explore Visual Match/`. The native city
+reference is rendered read-only from `BlueCrossgate/map/0/1000.dat` (library file
+1120); `original-office-city.json` records its viewport and archive placement.
+`explore_visual_review.gd` renders the real Explore world at the same 32/24-pixel
+source camera and at two walkable plaza/side-street positions. Camera calibration
+is separate from visual acceptance. The review uses temporary settings.
+
+The office's visible main-roof inset, wall/parapet height, small roof caps,
+rounded porch hood and hanging pennants are being corrected in
+`forest_falan_civic_exterior.gd`. `recover_falan_landmarks.py` now also prepares
+the native 10607 pennant and porch-face crops. The earlier atlas cells retain
+their original pixel content. These are part-specific materials, with no
+whole-building sprite projection. Keep the existing collision fits, doors and
+map data separate from these visual adjustments.
+
+The resumed comparison replaces the office's generic rectangular body with a
+closed native-footprint extrusion and twenty measured parapet-cap stations.
+The large invented right-wall window is removed; the native medallion uses a
+circular solid mesh, and the side frieze reuses the existing cached shallow
+relief builder (`recover_falan_carvings.py`). The two tall front panes have
+different measured dimensions. The same landmark atlas now holds the right
+pane and two lower-window crops for the six source-visible lower slits.
+Three visible lower corner posts use source ground/cap stations; the reverse
+post and hidden wall depth remain unverified. No whole-army or frame loop is
+involved. All geometry/material work occurs during existing scenery setup.
+
+`CornerPosts` is an intermediate capture, not a geometry baseline: its wall
+floor was too high and clipped the new lower windows. `LowerFoundation` removes
+the invented broad box plinth and lowers the wall foundation using the source
+corner-post evidence. This exposes remaining silhouette/detail differences;
+the earlier exact outer-AABB result must not be used to certify the new model.
+`LowerPosts` and `FacadeDepth` continue the correction. Check their perspective
+views as well as the source camera: matching projected positions alone does
+not prevent a porch or roof from intersecting the wall.
+
+Native clothesline 11004 was absent from the city scenery classification.
+`build_falan_city_streets.py` now records its two original compound-footprint
+centres in `GARDEN_LAUNDRY`. `forest_falan_gardens.gd` places these visual meshes
+without registering obstacles or adding physics bodies. The existing
+`forest_falan_street_details.gd` mesh cache owns the solid poles, rod and thin
+extruded linen/trousers. Its UVs use the unmodified native atlas through
+`forest_original_map_art.gd`; the checkerboard ground shadow is excluded from
+the geometry. Source-face dimensions are calibrated to the native city frame;
+hidden cloth backs and pole depth are inferred.
+
+Reproduction:
+
+```sh
+python3 tools/recover_falan_landmarks.py --check
+python3 tools/recover_falan_carvings.py --check
+/Users/eric/Desktop/Play\ Goemon.command --script res://tests/forest-shrine/explore_visual_review.gd -- --stage=Review
+python3 tools/goemon_assets.py check
+```
+
+The bounded pass ends with area-specific reference flags in the handoff below.
+Office wall finish, ordinary houses, foliage and reconstructed depths remain
+unverified; the original single-angle paint is not an all-route 3D reference.
+The user changed the workflow to area-by-area edits with short review notes:
+do not make further walkthroughs or verification screenshots. The user will
+review in-game later. Historical captures above are evidence of earlier work,
+not a request to continue that workflow. Nothing here certifies 1:1 fidelity.
+Preserve pre-existing scenery edits, archives and masters. No app export.
+
+### Area review notes
+
+- **Falan City, employment-office garden:** the native right-wall medallion,
+  frieze, two narrow upper side windows, six lower windows, front corner relief,
+  twenty parapet caps, roof/porch forms and the two recorded clotheslines have
+  source-supported corrections. Look along the office side street and the
+  fenced lawn. Masonry finish, ornate porch details and hidden/reverse geometry
+  remain unfinished or unverified.
+- **Castle courtyard:** all 45 curtain-wall, 47 square-tower/pier, 12 round-tower
+  and three gate-lintel placements now reuse the existing native-graphic fort
+  meshes/materials from the city. Look around the courtyard perimeter and its
+  four approaches. The original castle graphic IDs/anchors remain authoritative;
+  courtyard obstacles and the palace stair/ramp remain under their old owners.
+  The keep's clock now uses native graphic 10012 paint on its existing circular
+  solid face. Overall keep/annex silhouettes and unseen depths remain unverified.
+- **Freyja / Il / Alyut:** Il's native 10607 guild had a flat blue roof and a
+  generic rounded vestibule even though the archive uses the city's office
+  graphic. `forest_coastal_buildings.gd::build` now reuses that complete solid
+  facade, turned into the coastal source frame and fitted to the existing
+  building span/height. Look at Il's stone guild at native local (84,36).
+  Its origin, source ID, existing collision and door link remain unchanged.
+  The extra authored service boards, market furniture and house-corner garden
+  beds are also excluded. Look around the existing village doorways; original
+  source plants and household features remain. Other village houses and
+  unrecorded reverse views still need review.
+- **Venoa and its visible southern approach:** native wall graphics 11252–11265
+  now retain their individual weathered plaster/moss paint, broken crowns and
+  round wooden posts; 11261 retains both arms of its corner. Look at the street
+  boundary walls and post tops. `recover_venoa_walls.py` prepares the derivative
+  paint and profiles from the read-only archive, reusing opaque edge extension.
+  Original opaque RGB is preserved; checkerboard ground-shadow pixels are
+  excluded. The existing coastal vertical fit is reused. Hidden thickness,
+  crown spans obscured by posts and unseen backs remain inferred, not exact
+  recovered 3D geometry. `forest_venoa_walls.gd` uses the shared coastal mesh
+  and round-part builders, cached once per graphic and batched in 48 m chunks.
+  Source anchors and old wall collision plans remain unchanged.
+  The seven building placements now use six source-specific forms (11276 is
+  reused twice): flared gable curves and native ridge stations, paired open pots
+  on the chimney houses, four open stone flues on the matching houses/shop,
+  two dormers on the pink roof, and the bell building's pitched timber belfry
+  and enclosed yard. The equipment shop has its raised facade, supports,
+  cross-gable and the two existing entry stairs. Look at the roof furniture,
+  pink-roofed residence, long equipment shop and bell building on the next
+  source launch. Those are visual surfaces using the existing doorway/collision
+  owners. Hidden roof depth, occluded foundation segments and rear views remain
+  inferred. Source-paint preparation now identifies the gray-71 ground-shadow
+  checkerboard by transparent boundaries; opaque dark flues/carvings are
+  preserved instead of being removed by brightness. Reproduction and review
+  notes are in `venoa_scenery/README.md`.
+- **Next connected groups:** remaining Freyja/Il/Alyut details; Venoa/Kili and
+  the connected Sokia approaches; the western undersea/Shalena road with
+  Jenova/Tina; then the western cave/Abanis/university connection. Work only on
+  existing accessible portions and what is visible from them. Quest barriers,
+  sealed chambers and disconnected terrain do not enter scope through this list.
+  Existing client maps/art supply references; unavailable reverse views and
+  original lighting beyond the single archived view stay explicitly unverified.
+
+- **Ghana, connected Sokia route:** the pub, chief's house, two residences,
+  hospital and equipment-shop assembly now reuse all eight matching native Kili
+  pieces at map-3000 source centres. The shop includes its upper/lower fronts
+  and open arcade. Forty-six existing wall placements reuse the native wall and
+  column kit, with 11236's painted axis and the opposite attached returns on
+  11237/11238 corrected from the original graphics. Look along the village
+  streets and gate walls on the next launch. All six building and 46 wall
+  physical shapes keep their old extents; routes, NPCs and dialogues retain
+  their existing owners. `recover_ghana_fronts.py --check` reproduces the source
+  anchors, map hash and graphic hashes. The central well (native 11229) and
+  remaining plant/fence differences still need work. Three housing interiors
+  remain documented stand-ins because their original cache maps are missing;
+  those interiors are unverified and unchanged.
+
+
+### Fixed-area review handoff — 2026-11-23
+
+The list is frozen from the existing route notes, not expanded to the archive's
+other maps. All rows are handed off for in-game review with the reference gaps
+below explicitly flagged. Nothing here certifies 1:1. No new walkthrough or
+verification screenshots were made after the user's workflow change.
+
+| Fixed city / connected group | Changed in this pass; where to look | Flagged reference gap |
+| --- | --- | --- |
+| Falan / castle / open interiors | Office body, roof, pennants, windows, relief and lower posts; two original clotheslines; courtyard's 107 fort placements and native clock face. Look around the employment plaza and castle courtyard. | Original front artwork exists, but reliable alternate views of ordinary houses, keep/annex, concealed office structure and relief depth are missing. Their complete silhouettes, wall finish and lighting remain unverified. |
+| Freyja gates / Laruka / Il / Habaru / Alyut | Il's guild reuses the native office without the old collision-box compression. Removed invented service frontage clutter in Il/Alyut. Look at the guild and village doorways. | Source plants and cave art exist; original multi-view crowns, cave cross-sections and outdoor lighting are unavailable. Remaining scenery is fitted, not certified. |
+| Southern Freyja / Venoa / open cave approaches | Six native building forms across seven placements, including curved roofs, pots/flues, dormers, raised shop/stairs and belfry; 14 wall forms across 164 placements. Their source-projected heights now use the calibrated native camera. Look along village streets and boundary walls. | Hidden roof/body depth, concealed supports, reverse paint and cave morphology have only a single original view. |
+| Sokia / Kili / Great Wind / Ghana / north-coast approach | Kili/Ghana native building heights, all 21 wall/column proportions, Ghana's eight building pieces, 46 walls, open well and 73 rails. Look at gate columns, Ghana's shops, central well and housing fences. | Ghana rooms 3804/3805/3806 are absent from the client cache and remain unchanged stand-ins. Ghana tree variants have original 2D art but no reliable corresponding 3D crowns; fine sculpture/cliff profiles and reverse views remain inferred. |
+| Western Lakes / western undersea / Shalena / Jenova / Tina | Existing source-painted towns, harbor details, rails and road scenery retained; no additional supported correction identified from the available source records in this closeout. Look along the current linked streets and harbor. | Existing guides explicitly identify reconstructed hidden roofs, rear paint, hulls, sculptures and cliff depth; reliable alternate original views/lighting are missing. Earlier scenery passes are retained, not newly certified. |
+| Western cave / Frostpass / Abanis / existing snow branch | Existing recovered native cave entrances, continuous cliffs, snowfield and Abanis scenery retained. Look at the western cave mouths and Abanis street route. | One-view cliff geometry and unseen snow-covered forms remain inferred. The current seeded snow-floor route has no corresponding original snapshot for every seed. Snowpine/Ridgewatch are old labels whose recovered town aliases belong to Jenova/Tina above, not extra areas. |
+| Magic University / open rooms / roof gardens | Existing source-4400 campus and recovered room paint retained. Look at courtyard paths, room facades and current roof-garden landings. | The 2D maps do not establish complete roof-garden elevations, hidden structures, reverse architecture or original lighting. No all-angle 1:1 claim. |
+
+The shared scale correction is setup-only: `forest_falan_proportions.gd`
+transforms the immutable prepared meshes, preserving materials/UVs and inverse-
+transpose normals. Native source projection uses H=32/3, floor shear=8 and
+V=sqrt(2*(H²-8²)); the old .045 m/pixel UV construction is converted once to
+physical height 1/V. This affects the canonical Venoa forms and native Kili
+buildings, not tiled generic village families or already-calibrated Falan art.
+Il's same-graphic office keeps its full shared calibrated form. All old physical
+plans, controls, gameplay, NPC/dialogue owners and Arena paths remain unchanged
+by this pass.
+
+`recover_kili_wall_proportions.py` measures each source wall/column after
+excluding boundary checkerboard ground shadow. The existing solid kit is fitted
+to those projected bounds; native material tile density is retained, and old
+collision dimensions are untouched. This is a proportion correction, not proof
+that every cap/relief profile matches the original.
+
+`recover_ghana_details.py` preserves opaque source-11229 RGB in a separate paint
+derivative. The well reuses the existing round-profile and solid mesh builders;
+73 fences reuse Tina's native rail kit and paint. Shared 48 m batching keeps the
+same existing outdoor owner. The well's visual centre is the source compound
+centre (10.5,13.5); its original collider remains at its old position/extents.
+The Ghana focused check now covers all 126 old physical shapes (six building
+boxes, 46 walls, 73 fences and one well), rather than the earlier fronts-only 52.
+
+Current checks: courtyard 232 obstacles/one stair shape; Venoa seven building
+shapes and 164 wall shapes; Ghana 126 physical shapes; all 21 Kili/Ghana projected
+wall bounds. These are headless source/integration checks, not rendered visual
+approval, performance measurements or a full route walkthrough. Reproduction:
+
+```sh
+python3 tools/recover_ghana_fronts.py --check
+python3 tools/recover_ghana_details.py --check
+python3 tools/recover_kili_wall_proportions.py --check
+/Users/eric/Desktop/Play\ Goemon.command --headless --script res://tests/forest-shrine/explore_ghana_fronts_test.gd
+```
+
+Use the current source launcher for review; no app export was requested or made.
+Restart an already-running game to see these prepared scenery changes.
+
+## Both Kili and Ghana villages — 2026-11-26
+
+Both villages have separate complete map/warp checklists in
+`build/Other Files/Asset Toolkit/Kili Ghana Villages/`. The eight native building
+pieces retain their source anchors, footprints, chief-house tiers, hospital
+belfries and shop arcade, with individual low terrace contours and raised native
+door/sign paint. Recorded wall faces retain source paint; solid backs/caps keep
+tiled native stone rather than clamped dark edge pixels. All old physical shapes
+and surrounding-region connections remain authoritative.
+
+The omitted street-fixture recovery adds 139 Kili and 103 Ghana source placements,
+including signs, clotheslines, carts, containers, markers, plants/rocks and Ghana
+woodland trees fitted to native bounds/colors. Ghana's 13 interiors now receive
+all original walls/furnishings through the coastal owner; houses 3804/3805/3806
+use distinct pinned LS2MAP sources instead of 3020/3021 substitutions, with
+original (3,10)/(12,16)/(10,14) thresholds. See
+`village_street_props/README.md` and the Ghana housing provenance/guide for source
+ownership and reproduction. Missing BlueCG snapshots, hidden 3D faces and fine
+crown/relief structure remain explicitly unverified. No new NPC/dialogue, long
+route/cave/desert rebuild, saved-map rewrite or app export is included.

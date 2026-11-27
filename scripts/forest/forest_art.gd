@@ -7,9 +7,11 @@ const StoneFort=preload("res://scripts/forest/forest_stone_fort.gd")
 const Profile=preload("res://scripts/forest/forest_structure_profile.gd")
 const Worker=preload("res://scripts/forest/forest_worker_warcraft.gd")
 const WallDamage=preload("res://scripts/forest/forest_wall_damage.gd")
-static func solid(parent: Node3D,offset: Vector3,size_: Vector3,layer: int=1,halo_material: String=""):
+const PLAYER_PASSABLE_SCENERY="forest_player_passable_scenery"
+static func solid(parent: Node3D,offset: Vector3,size_: Vector3,layer: int=1,halo_material: String="",passable_scenery:bool=false):
 	var body=StaticBody3D.new();body.collision_layer=layer;body.collision_mask=0;parent.add_child(body)
 	if not halo_material.is_empty():body.set_meta("halo_material",halo_material)
+	if passable_scenery:body.add_to_group(PLAYER_PASSABLE_SCENERY)
 	var shape=CollisionShape3D.new();var box=BoxShape3D.new();box.size=size_;shape.shape=box;shape.position=offset;body.add_child(shape)
 	return body
 static func roof(parent: Node3D,p: Vector3,size_: Vector3,color: String):

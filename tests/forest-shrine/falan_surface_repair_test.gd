@@ -32,7 +32,7 @@ func capture(model:Node3D,key:String,points:Array[Vector3]):
    triangles+=node.mesh.get_faces().size()/3 if part==0 else 0
  if key.begins_with("house_"):
   var mesh:Mesh=nodes[0].mesh
-  check(mesh.get_surface_count()==2 and mesh.surface_get_material(1).get_shader_parameter("architecture_roof")==true,"Facade and slate have separate surfaces "+key)
+  check(mesh.get_surface_count()==2 and mesh.surface_get_material(1).get_shader_parameter("architecture_roof")==true,"Facade, slate and masonry details have separate shared surfaces "+key)
   check(mesh.surface_get_material(0).get_shader_parameter("base_texture")==Architecture.Atlas,"Recovered doors/windows remain on facade UVs "+key)
   check(mesh.surface_get_material(1).get_shader_parameter("use_base_texture")==true and mesh.surface_get_material(1).get_shader_parameter("base_texture")==Architecture.Atlas,"Slate retains its native weathered paint "+key)
   check(is_same(mesh,Architecture.prepare(int(key.trim_prefix("house_")))),"Repeated houses reuse the prepared mesh "+key)

@@ -39,6 +39,8 @@ def atlas(path):
 
 
 def texture_path(folder, manifest, page):
+    if 'art_pages' in manifest:
+        return ROOT / manifest['art_pages'][page].removeprefix('res://')
     return folder / (f'atlas-{page}.png' if page < manifest['pages'] else f'cast-{page-manifest["pages"]}.png')
 
 
@@ -247,6 +249,8 @@ def model_sources():
             if record is None:continue
             for route in routes.values():
                 if 'root' in route:roots.setdefault(ROOT/route['root'].removeprefix('res://')/'motions.json',record)
+            beast_master=ROOT/'assets/characters/crossgate/weapons/beast_master'/f'{character}-{skin}'/'motions.json'
+            if beast_master.is_file():roots.setdefault(beast_master,record)
     for folder, owner in [('kazi/qi-punch','34:102488'),('ruby/qi-punch','35')]:
         roots[ROOT/'assets/characters/crossgate'/folder/'motions.json']=owners[owner]
     return records,roots
@@ -353,7 +357,7 @@ def water_dragon_cross(page):
     return entry,atlas,icon
 
 
-def prepare_anchors(cg, wardrobe, sample=False):
+def prepare_anchors(cg, wardrobe, sample=False, previous_heads=None):
     records,roots=model_sources()
     review_path=OUT/'head-fits.json'
     reviewed=json.loads(review_path.read_text())['frames'] if review_path.exists() else []
@@ -393,11 +397,47 @@ def prepare_anchors(cg, wardrobe, sample=False):
             crop=record['crop'];bounds=record['bounds'];left=crop[0]+bounds[0];top=crop[1]+bounds[1]
             ratios[record['name']].append(((point[0]-left)/(bounds[2]-bounds[0]),(point[1]-top)/(bounds[3]-bounds[1])))
     output={};audit=[];dependencies={str(HEADS.relative_to(ROOT)):digest(HEADS)}
+    # Reused atlases keep their verified attachment points; changed pixels are fitted again.
+    preservation=OUT/'preservation.json'
+    if preservation.exists() and (OUT/'anchors.json').exists() and (OUT/'anchors.bin').exists():
+        previous=json.loads(preservation.read_text())['inputs']
+        reviewed_inputs=[str(HEADS.relative_to(ROOT)),'tools/crossgate_head_fit.c']
+        if previous_heads is not None:
+            name=str(HEADS.relative_to(ROOT))
+            assert digest(previous_heads)==previous[name], 'Previous heads must match the preserved attachment source'
+            current={record['key']:record for record in records}
+            old=json.loads(previous_heads.read_text())
+            assert all(current.get(record['key'])==record for record in old), 'Existing head crops changed; rebuild all attachments'
+            reviewed_inputs.remove(name)
+            # Preserve verified existing attachment art; the fitter applies to added/changed atlases.
+            preserved=json.loads(preservation.read_text())['outputs']
+            for filename in ('anchors.json','anchors.bin'):
+                artifact=OUT/filename
+                assert preserved[str(artifact.relative_to(ROOT))]==digest(artifact), 'Existing attachment output changed'
+            reviewed_inputs.remove('tools/crossgate_head_fit.c')
+        if review_path.exists():reviewed_inputs.append(str(review_path.relative_to(ROOT)))
+        if all(previous.get(name)==digest(ROOT/name) for name in reviewed_inputs):
+            tables=json.loads((OUT/'anchors.json').read_text());packed=(OUT/'anchors.bin').read_bytes()
+            for route,(start,count) in tables.items():
+                name=route.removeprefix('res://');path=ROOT/name
+                if name not in previous or not path.exists() or digest(path)!=previous[name]:continue
+                dependencies[name]=previous[name]
+                output[route]={}
+                for i in range(count):
+                    x,y,hx,hy=struct.unpack_from('<HHhh',packed,start+i*8)
+                    output[route][f'{x}:{y}']=[hx/4,hy/4]
     if review_path.exists():dependencies[str(review_path.relative_to(ROOT))]=digest(review_path)
     for count,(path,record) in enumerate(roots.items()):
         if sample and record['key'] not in ['34:102488','38:118993','37:100181']:continue
         manifest=json.loads(path.read_text());folder=path.parent
         dependencies[str(path.relative_to(ROOT))]=digest(path)
+        if previous_heads is not None:
+            covered=all(f'{frame[1]}:{frame[2]}' in output.get('res://'+str(texture_path(folder,manifest,int(frame[0])).relative_to(ROOT)),{})
+                        for stance in [manifest]+manifest.get('weapons',[])
+                        for clip in stance['clips'].values() for frame in clip['frames'])
+            guard=folder/'jump-guard.png'
+            if covered and (not guard.exists() or 'res://'+str(guard.relative_to(ROOT)) in output):
+                continue
         front=record['crop'];bounds=record['bounds']
         ratios_for_skin=ratios.get(record['name']) or [(.5,.38)]
         ratio=[statistics.median(p[i] for p in ratios_for_skin) for i in range(2)]
@@ -520,6 +560,7 @@ def check_local():
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check',action='store_true');parser.add_argument('--sample',action='store_true')
+    parser.add_argument('--extend-heads-from',type=Path,help='Reuse preserved attachments only when every previous head record is unchanged')
     args=parser.parse_args()
     if args.check:
         errors=check_local();print('\n'.join(errors) if errors else 'Cosmetic source/atlas preservation passed.');raise SystemExit(bool(errors))
@@ -528,7 +569,7 @@ def main():
     import cg_wardrobe as wardrobe
     REPORT.mkdir(parents=True,exist_ok=True);OUT.mkdir(parents=True,exist_ok=True)
     if not args.sample:prepare_items(cg,wardrobe)
-    prepare_anchors(cg,wardrobe,args.sample)
+    prepare_anchors(cg,wardrobe,args.sample,args.extend_heads_from)
     if not args.sample:
         inputs=json.loads((OUT/'model-sources.json').read_text());inputs[str(Path(__file__).relative_to(ROOT))]=digest(Path(__file__))
         inputs['tools/crossgate_head_fit.c']=digest(ROOT/'tools/crossgate_head_fit.c')

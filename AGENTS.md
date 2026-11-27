@@ -92,6 +92,23 @@ The game is named **Cross Gate**. On the next requested app export, the single c
 
 ## Game art inspiration
 
+- User approval (2026-11-27, jello glow and future visual work): use the approved
+  character-silhouette border with small floating fairy lights as the default
+  for future character/buff glows. Follow the actual body/equipped-weapon shape,
+  preserve the source art and readable interior, and avoid generic ground rings,
+  cylinders, floor shapes or ground-casting colored lights unless requested.
+  Keep original sprite ground shadows/effects out of the colored border. Approved
+  in-game references are under `assets/references/jello_glow/`; preserve their
+  current border width and presentation when extending this style.
+- User direction (2026-11-27, preferred visual iteration workflow): make a small,
+  focused change using existing art/effects and instance parameters, show the
+  actual in-game result early, and refine it from the user's image feedback
+  before extending it broadly. Review changing silhouettes in a short movement,
+  attack or jump sequence where relevant. Report technical checks separately
+  from visual judgment; passing tests alone does not establish the look. Reuse
+  existing native owners, prepared resources and pools, and preserve originals.
+
+
 - User approval (2026-11-12): use the approved 熊弟 conversation presentation as
   the default for all conversations: large painted character portrait, speaker
   nameplate, ivory-framed dark dialogue box, gradual text reveal and Space to

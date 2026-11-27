@@ -13,7 +13,7 @@ struct NavigationData {
     Vec3 origin{-240,0,-240};
     Vec3 bounds_min{-1e8f,0,-1e8f},bounds_max{1e8f,0,1e8f};
     std::vector<float> heights,pieces;
-    std::vector<uint8_t> covered;
+    std::vector<uint8_t> covered,diagonal_flips;
     std::vector<Vec3> obstacle_min,obstacle_max,layer_min,layer_max;
     bool friendly_navigation=false;
     std::vector<Vec3> friendly_obstacle_min,friendly_obstacle_max;
@@ -38,10 +38,10 @@ public:
     mutable NavigationWork navigation_profile;
     Vec3 move(Vec3 from,Vec3 goal,float speed,float delta,float radius,int& layer,bool& routing,Vec3 avoidance={},float lane=0,Vec3 sidestep={});
     double height(float x,float z,int layer=0) const;
-    bool clear(Vec3 point,float radius,int layer) const;
+    bool clear(Vec3 point,float radius,int layer,bool check_objects=true) const;
     bool reachable(Vec3 from,Vec3 goal,float radius,int layer);
     bool prepare_routes(const std::vector<float>& radii);
-    bool segment(Vec3 from,Vec3 to,float radius,int layer) const;
+    bool segment(Vec3 from,Vec3 to,float radius,int layer,bool check_objects=true) const;
     int choose_layer(Vec3 point) const;
     bool ray_clear(Vec3 from,Vec3 to,int64_t ignore=-1) const;
     Vec3 direct_move(Vec3 from,Vec3 motion,float radius,int& layer) const;
@@ -64,6 +64,10 @@ private:
     std::vector<double> field_spans_;
     Vec3 minimum_,maximum_;
     bool ready_=false;
+    std::unordered_map<uint64_t,std::vector<size_t>> piece_grid_;
+    std::vector<std::array<float,4>> piece_bounds_;
+    mutable std::vector<uint32_t> piece_visited_;
+    mutable uint32_t piece_visit_=0;
     std::unordered_map<uint64_t,std::vector<int>> obstacle_grid_;
     std::unordered_map<int64_t,Topology> topologies_;
     std::vector<Flow> flows_;

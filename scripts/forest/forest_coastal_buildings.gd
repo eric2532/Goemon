@@ -3,6 +3,7 @@ extends RefCounted
 const Data=preload("res://assets/maps/falan/coastal_building_art.gd")
 const Atlas=preload("res://assets/maps/falan/coastal_building_art.png")
 const SourceMesh=preload("res://scripts/forest/forest_coastal_mesh.gd")
+const Proportions=preload("res://scripts/forest/forest_falan_proportions.gd")
 const KILI_GRAPHICS=[11289,11290,11292,11293,11294,11295,11297,11298]
 const KiliSurfaces=preload("res://assets/maps/falan/kili_surfaces.gd")
 const KiliAtlas=preload("res://assets/maps/falan/kili_surfaces.png")
@@ -12,6 +13,18 @@ const SurfaceAtlas=preload("res://assets/maps/falan/village_building_surfaces.pn
 static var meshes:Dictionary={}
 
 static func build(parent:Node3D,at:Vector3,serial:int,data=Data,atlas:Texture2D=Atlas,fit:Vector3=Vector3.ONE):
+ if serial==10607:
+  # Il uses the same native guild graphic as the city employment office.
+  var civic=load("res://scripts/forest/forest_falan_civic_exterior.gd")
+  var spec:Array=civic.SHELLS[Vector2i(-42,-23)].duplicate()
+  spec[3]=Vector2(at.x,at.z)
+  var node:Node3D=civic.build(parent,at,spec)
+  node.rotation.y=-PI*.5
+  # This is the same graphic at the same three-metre tile scale as Falan.
+  # The old collision-box fit must not compress the calibrated source facade.
+  node.name="BlueCGVillageBuilding_10607"
+  node.set_meta("source_graphic",serial)
+  return
  var key=[SurfaceAtlas,serial,fit] if serial in VILLAGE_GRAPHICS else [atlas,serial]
  if not meshes.has(key):meshes[key]=shape(serial,data,atlas,fit)
  var node=Geo.mesh(parent,meshes[key],at,null)
@@ -20,12 +33,14 @@ static func build(parent:Node3D,at:Vector3,serial:int,data=Data,atlas:Texture2D=
  node.set_meta("source_graphic",serial)
 
 static func shape(serial:int,data=Data,atlas:Texture2D=Atlas,fit:Vector3=Vector3.ONE)->Mesh:
+ if data==Data and atlas==Atlas and serial in [11276,11279,11280,11283,11284,11286]:
+  return load("res://scripts/forest/forest_venoa_buildings.gd").prepare(serial)
  var art:Array=data.GRAPHICS[serial]
  var span:Vector2=art[2]
  var profile:Vector2=data.PROFILES[serial]*.045
  var body=SourceMesh.new(art,SurfaceAtlas if serial in VILLAGE_GRAPHICS else atlas,.045)
  var w=span.x;var d=span.y;var h=profile.x
- if serial in KILI_GRAPHICS:return kili_building(body,serial,w,d,h)
+ if serial in KILI_GRAPHICS:return Proportions.transformed(kili_building(body,serial,w,d,h),Proportions.native_coastal_frame())
  if serial in VILLAGE_GRAPHICS:
   body.tiles=Surfaces.TILES
   body.baked_scale=fit
@@ -212,18 +227,18 @@ static func kili_building(walls,serial:int,w:float,d:float,h:float)->Mesh:
  if serial==11297:
   walls.box(AABB(Vector3(-w*.5,h-.65,-d*.5),Vector3(w,.65,d)))
   for side in [-1,1]:walls.box(AABB(Vector3(side*(w*.5-.6)-.6,0,-d*.5),Vector3(1.2,h,d)))
-  kili_terrace(walls,skin,w,d,h)
+  kili_terrace(walls,skin,w,d,h,Vector3.ZERO,false,serial)
   skin.part="trim"
   skin.box(AABB(Vector3(-w*.5,h,-d*.5),Vector3(w,1.15,.45)))
   skin.box(AABB(Vector3(-w*.16,h+1.15,-d*.5),Vector3(w*.32,.65,.45)))
  elif serial==11294:
   walls.box(AABB(Vector3(-w*.5,0,-d*.5),Vector3(w,h,d*2/3)))
   walls.box(AABB(Vector3(-w*.5,0,d/6),Vector3(w,h*.60,d/3)))
-  kili_terrace(walls,skin,w,d*2/3,h,Vector3(0,0,-d/6))
-  kili_terrace(walls,skin,w,d/3,h*.60,Vector3(0,0,d/3))
+  kili_terrace(walls,skin,w,d*2/3,h,Vector3(0,0,-d/6),false,serial)
+  kili_terrace(walls,skin,w,d/3,h*.60,Vector3(0,0,d/3),false,serial)
  else:
   walls.box(AABB(Vector3(-w*.5,0,-d*.5),Vector3(w,h,d)))
-  kili_terrace(walls,skin,w,d,h,Vector3.ZERO,serial==11293)
+  kili_terrace(walls,skin,w,d,h,Vector3.ZERO,serial==11293,serial)
  if serial in [11289,11290]:
   var p=Vector3(-w*.23,h,d*.26 if serial==11289 else -d*.07)
   kili_canopy(skin,p,Vector2(3.3,2.9),1.5,"canopy")
@@ -246,6 +261,7 @@ static func kili_building(walls,serial:int,w:float,d:float,h:float)->Mesh:
  elif serial in [11295,11298]:
   for side in [-1,1]:
    kili_awning(skin,Vector3(side*w*.28,h*.63,d*.5+.02),Vector2(w*.25,1.04))
+ load("res://scripts/forest/forest_kili_building_details.gd").relief(walls,serial,w,d)
  # Keep original wall/window/door pixels; unwrap roofs so their props have real depth.
  var result=ArrayMesh.new()
  for source in [walls.finish(),skin.finish()]:
@@ -253,20 +269,8 @@ static func kili_building(walls,serial:int,w:float,d:float,h:float)->Mesh:
   result.surface_set_material(result.get_surface_count()-1,source.surface_get_material(0))
  return result
 
-static func kili_terrace(walls,skin,w:float,d:float,h:float,at:Vector3=Vector3.ZERO,white:bool=false):
- skin.part="white" if white else "roof"
- skin.quad(at+Vector3(-w*.5,h+.02,-d*.5),at+Vector3(w*.5,h+.02,-d*.5),at+Vector3(w*.5,h+.02,d*.5),at+Vector3(-w*.5,h+.02,d*.5))
- skin.part="white" if white else "plaster"
- var parapet=skin if white else walls
- for side in [-1,1]:
-  parapet.box(AABB(at+Vector3(-w*.5,h,side*(d*.5-.18)-.18),Vector3(w,.67,.36)))
-  parapet.box(AABB(at+Vector3(side*(w*.5-.18)-.18,h,-d*.5),Vector3(.36,.67,d)))
-  for i in maxi(2,roundi(w/1.6)):
-   var x=-w*.5+(i+.5)*w/maxi(2,roundi(w/1.6))
-   parapet.box(AABB(at+Vector3(x-.30,h+.67,side*(d*.5-.18)-.18),Vector3(.60,.24,.36)))
-  for i in maxi(2,roundi(d/1.6)):
-   var z=-d*.5+(i+.5)*d/maxi(2,roundi(d/1.6))
-   parapet.box(AABB(at+Vector3(side*(w*.5-.18)-.18,h+.67,z-.30),Vector3(.36,.24,.60)))
+static func kili_terrace(walls,skin,w:float,d:float,h:float,at:Vector3=Vector3.ZERO,white:bool=false,serial:int=0):
+ load("res://scripts/forest/forest_kili_building_details.gd").terrace(walls,skin,w,d,h,at,white,serial)
 
 static func kili_round(skin,p:Vector3,profile:Array):
  for level in profile.size()-1:

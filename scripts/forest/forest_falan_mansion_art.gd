@@ -78,7 +78,7 @@ static func rotunda(root:Node3D,p:Vector3,radius:float,wall:float,rise:float,sto
   for level in [.10,.79,.85]:
    Geo.cylinder(root,foot+Vector3.UP*wall*level,radius*.050,.22,trim)
   if main:
-   Carvings.add(root,"mansion_frieze",p+radial*(radius*.981)+Vector3.UP*(wall-.36),Vector2(radius*.36,.60),angle)
+   Carvings.add(root,"mansion_frieze",p+radial*(radius*1.015)+Vector3.UP*(wall-.48),Vector2(radius*.36,1.03),angle)
   if main and i in [0,1,bays-1]:continue
   Carvings.add(root,"mansion_window",p+radial*(radius*.865+.08)+Vector3.UP*wall*.44,Vector2(radius*.171,wall*.48),angle)
   var sill=Geo.box(root,p+radial*radius*.89+Vector3.UP*wall*.20,Vector3(radius*.208,.18,.37),trim)

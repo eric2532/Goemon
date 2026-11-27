@@ -1,0 +1,41 @@
+{
+  "records": [
+    {
+      "file": "EV_ijk_6117.txt",
+      "old_bytes": 889,
+      "raw_bytes": 692,
+      "git_blob": "476cb1d1845886fce51ac25c6ff2ac38ea2c92a9",
+      "old_utf8_equals_raw_gb18030": true
+    },
+    {
+      "file": "EV_ijk_6131.txt",
+      "old_bytes": 2729,
+      "raw_bytes": 2158,
+      "git_blob": "0c84d09e32a765990d7bb449ecde4a877163d9c9",
+      "old_utf8_equals_raw_gb18030": true
+    },
+    {
+      "file": "EV_mag_6315.txt",
+      "old_bytes": 272,
+      "raw_bytes": 228,
+      "git_blob": "35a774a5f7398a645d240dbcfa0d901830f25b28",
+      "old_utf8_equals_raw_gb18030": true
+    },
+    {
+      "file": "EV_mag_6316.txt",
+      "old_bytes": 272,
+      "raw_bytes": 228,
+      "git_blob": "35a774a5f7398a645d240dbcfa0d901830f25b28",
+      "old_utf8_equals_raw_gb18030": true
+    },
+    {
+      "file": "EV_mag_6317.txt",
+      "old_bytes": 272,
+      "raw_bytes": 228,
+      "git_blob": "35a774a5f7398a645d240dbcfa0d901830f25b28",
+      "old_utf8_equals_raw_gb18030": true
+    }
+  ],
+  "source_commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+  "qualification": "Reference-byte repair, not baseline bypass. Incorrect transcoded copies and their metadata are preserved; new bytes match the pinned Git tree."
+}

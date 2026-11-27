@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "scope": "PRIVATE source-layer prototype; no live dispatch.",
+  "source_rgba_sha256": "fd0636ffebad3f9eded31714aaf2cad79438c8680b456f5a442676ef436eaec2",
+  "source_origin": [
+    -124,
+    -698
+  ],
+  "source_size": [
+    536,
+    720
+  ],
+  "houses": [
+    {
+      "index": 0,
+      "file": "1230040-house-0.png",
+      "features": [
+        [
+          [
+            70,
+            593
+          ],
+          [
+            96,
+            596
+          ],
+          [
+            95,
+            629
+          ],
+          [
+            73,
+            623
+          ]
+        ],
+        [
+          [
+            137,
+            601
+          ],
+          [
+            163,
+            585
+          ],
+          [
+            171,
+            597
+          ],
+          [
+            169,
+            630
+          ],
+          [
+            152,
+            650
+          ],
+          [
+            135,
+            638
+          ]
+        ]
+      ],
+      "native_rgba_sha256": "bca28bdc887877a8b299010fb0dcd26bb3b809f1fb2aa7ca701cbbacbb152907",
+      "kept_pixels": 9843,
+      "feature_file": "1230040-features-0.png",
+      "feature_rgba_sha256": "617dc14fbb4cb64db80983e82b75fae31068e1ab15d3aae19785b193e3859400",
+      "inference": "Only measured original door/window and bounded blue ceramic roof pixels remain on the house. Source-overlapping leaves/branches remain with their separate compound layers; occluded architecture continues independent existing bark and ceramic materials."
+    },
+    {
+      "index": 1,
+      "file": "1230040-house-1.png",
+      "features": [
+        [
+          [
+            236,
+            406
+          ],
+          [
+            258,
+            394
+          ],
+          [
+            268,
+            406
+          ],
+          [
+            263,
+            442
+          ],
+          [
+            248,
+            452
+          ],
+          [
+            234,
+            436
+          ]
+        ]
+      ],
+      "native_rgba_sha256": "3d36597725ae29e63e6ed311977f8214e0dd119947fbb7c6246c5ab9d7894fa9",
+      "kept_pixels": 5957,
+      "feature_file": "1230040-features-1.png",
+      "feature_rgba_sha256": "b32cccabea924f07376dc1d8763db0555aaf9d52288766e901162744738bc86f",
+      "inference": "Only measured original door/window and bounded blue ceramic roof pixels remain on the house. Source-overlapping leaves/branches remain with their separate compound layers; occluded architecture continues independent existing bark and ceramic materials."
+    },
+    {
+      "index": 2,
+      "file": "1230040-house-2.png",
+      "features": [
+        [
+          [
+            397,
+            459
+          ],
+          [
+            423,
+            447
+          ],
+          [
+            433,
+            460
+          ],
+          [
+            430,
+            488
+          ],
+          [
+            411,
+            507
+          ],
+          [
+            396,
+            490
+          ]
+        ]
+      ],
+      "native_rgba_sha256": "acbf6d61e03f7a515c0d73959b721ce9db020bff8a9d53e3532aac1130004783",
+      "kept_pixels": 6577,
+      "feature_file": "1230040-features-2.png",
+      "feature_rgba_sha256": "cf2d97603d550daf68855690f74a3f9d64f809a2b51d77bee6caf07a9d64b624",
+      "inference": "Only measured original door/window and bounded blue ceramic roof pixels remain on the house. Source-overlapping leaves/branches remain with their separate compound layers; occluded architecture continues independent existing bark and ceramic materials."
+    }
+  ],
+  "flags": [
+    {
+      "box": [
+        148,
+        510,
+        175,
+        595
+      ],
+      "ground": 1,
+      "file": "1230040-flag-0.png",
+      "rgba_sha256": "82cc744dc033efd65bfc6cb36622adaf5ea309870d08a221143fdb4d2baf02e5"
+    },
+    {
+      "box": [
+        285,
+        337,
+        311,
+        433
+      ],
+      "ground": -46,
+      "file": "1230040-flag-1.png",
+      "rgba_sha256": "a9665fe5a60dc1f9bce1f37a2105121509409f82338a4b06c557b73ff5af0275"
+    },
+    {
+      "box": [
+        391,
+        309,
+        420,
+        445
+      ],
+      "ground": -25,
+      "file": "1230040-flag-2.png",
+      "rgba_sha256": "73d8d3c49691dc31c5477c48d9b084ac02a3143eb5426d4159c8fd7634c22631"
+    }
+  ],
+  "private_roof_material": {
+    "source_graphic": 1230040,
+    "source_rgba_sha256": "fd0636ffebad3f9eded31714aaf2cad79438c8680b456f5a442676ef436eaec2",
+    "patch": [
+      418,
+      420,
+      450,
+      452
+    ],
+    "patch_rgba_sha256": "76d1a0120f4f122f32afd4899551c84ed4d3dc07adfb0186dae40ce3e6b60833",
+    "atlas_tile": [
+      0,
+      128
+    ],
+    "inference": "The exact observed blue/gold ceramic patch repeats on inferred hidden roof slopes. No recoloring/random replacement; shared atlas and native front pixels stay unchanged."
+  },
+  "root_hubs": [
+    {
+      "base": [
+        137,
+        650
+      ],
+      "level_pixels": 0,
+      "height_pixels": 115,
+      "diameter": 165
+    },
+    {
+      "base": [
+        300,
+        464
+      ],
+      "level_pixels": 133,
+      "height_pixels": 108,
+      "diameter": 155
+    },
+    {
+      "base": [
+        445,
+        522
+      ],
+      "level_pixels": 97,
+      "height_pixels": 112,
+      "diameter": 155
+    }
+  ],
+  "root_hub_inference": "The original shrine has doors within connected organic roots. Reuse tapered round root sections beneath the measured roofs, instead of the rejected rectangular house cages. Hidden depth/profile and root continuity are inferred; original features, stairs, origins and routes are unchanged."
+}

@@ -1,0 +1,26 @@
+{
+  "AX018": {
+    "key": "original:13389",
+    "pack": "original",
+    "row": 13389,
+    "serial": 20217,
+    "file_sha256": "9c0f270f2473e3bf50a5bcb1350d2af0e9afe4b75f932015448c35466a2051ef",
+    "rgba_sha256": "2c273c90a1c334ffd68756e6a77b9a3c3e9776bacaad3f425a2017b9c8474bf9"
+  },
+  "AX013": {
+    "key": "original:13384",
+    "pack": "original",
+    "row": 13384,
+    "serial": 20212,
+    "file_sha256": "a7db5a56fd435b67f6301c81c0e6208bf29fba28c10c975ce1b8d691a3ef8e4e",
+    "rgba_sha256": "9faf1e05d980bf9cc12fdc4360968151d456c5f972132f0bdc86c00fea889a46"
+  },
+  "AX024": {
+    "key": "original:13395",
+    "pack": "original",
+    "row": 13395,
+    "serial": 20223,
+    "file_sha256": "dacf1c22deeac645be1e1cc95e4680a61f07f21cbe9f3106dcb1790ee05e7162",
+    "rgba_sha256": "3776ac06d6f83113396f70728a89e133d013dae23092e9de961927c7dcaad5a6"
+  }
+}

@@ -1,0 +1,7313 @@
+{
+  "schema": 1,
+  "graphics": {
+    "15804": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          59,
+          29
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15804,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10738,
+      "source_rgba_sha256": "da6513186f489d9449e524898c9ef858b3b93edc483b0112aa7ae5cacee687bb",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15805": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          67,
+          16
+        ],
+        [
+          70,
+          18
+        ],
+        [
+          71,
+          19
+        ],
+        [
+          72,
+          21
+        ],
+        [
+          72,
+          26
+        ],
+        [
+          71,
+          29
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15805,
+      "kit": "native_cap_wall",
+      "size": [
+        72,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10739,
+      "source_rgba_sha256": "0f8307dcbf85d86f08c982637d4d4ff330f9de526b7c2f40020afd4300048afe",
+      "visible": [
+        0,
+        0,
+        72,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15809": {
+      "cap_pixels": [
+        [
+          0,
+          21
+        ],
+        [
+          1,
+          19
+        ],
+        [
+          2,
+          18
+        ],
+        [
+          5,
+          16
+        ],
+        [
+          39,
+          0
+        ],
+        [
+          41,
+          0
+        ],
+        [
+          43,
+          1
+        ],
+        [
+          71,
+          22
+        ],
+        [
+          72,
+          23
+        ],
+        [
+          72,
+          24
+        ],
+        [
+          71,
+          25
+        ],
+        [
+          43,
+          46
+        ],
+        [
+          41,
+          47
+        ],
+        [
+          38,
+          47
+        ],
+        [
+          5,
+          31
+        ],
+        [
+          2,
+          29
+        ],
+        [
+          1,
+          28
+        ],
+        [
+          0,
+          26
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15809,
+      "kit": "native_cap_wall",
+      "size": [
+        72,
+        185
+      ],
+      "origin": [
+        -40,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10743,
+      "source_rgba_sha256": "acba86462fc497bdfb93b041120f18aa70f1ee2457a54a0ee1a59f7dc15c32ce",
+      "visible": [
+        0,
+        0,
+        72,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15810": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          30,
+          47
+        ],
+        [
+          25,
+          44
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15810,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10744,
+      "source_rgba_sha256": "82863ff8c9e23c1835a278a6d61b19109efb0a91df68c8e6f3ac9abb6dfb20c5",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15811": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          31,
+          48
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": false,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15811,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10745,
+      "source_rgba_sha256": "9d9fe61b00a79a910c7d44364c50afa8541a9fca9bca89b4b9f2ddee380a5355",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15815": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          31,
+          48
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          5,
+          29
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15815,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        193
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10749,
+      "source_rgba_sha256": "782691fa302b673dbf6f50f20e480eabdf45f4ce63941e640a23165cfec062c2",
+      "visible": [
+        0,
+        0,
+        64,
+        193
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15816": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          32,
+          48
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15816,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10750,
+      "source_rgba_sha256": "932cb0824e2900aa6dc29f74ec53987bbf30222cdbc238c8ef9fad105aa98454",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15819": {
+      "cap_pixels": [
+        [
+          8,
+          23
+        ],
+        [
+          21,
+          4
+        ],
+        [
+          22,
+          3
+        ],
+        [
+          25,
+          1
+        ],
+        [
+          28,
+          0
+        ],
+        [
+          36,
+          0
+        ],
+        [
+          39,
+          1
+        ],
+        [
+          42,
+          3
+        ],
+        [
+          43,
+          4
+        ],
+        [
+          56,
+          23
+        ],
+        [
+          56,
+          25
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          42,
+          45
+        ],
+        [
+          39,
+          47
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          28,
+          48
+        ],
+        [
+          25,
+          47
+        ],
+        [
+          22,
+          45
+        ],
+        [
+          21,
+          44
+        ],
+        [
+          8,
+          25
+        ]
+      ],
+      "wall_height": 6.48,
+      "cap_only": true,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15819,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        53
+      ],
+      "origin": [
+        -32,
+        -168
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10753,
+      "source_rgba_sha256": "95b27ebd7cff786792c667081af30c117757474c42ef5b6539409376abf17df2",
+      "visible": [
+        0,
+        0,
+        64,
+        53
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15823": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          31,
+          48
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": false,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15823,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10757,
+      "source_rgba_sha256": "9d9fe61b00a79a910c7d44364c50afa8541a9fca9bca89b4b9f2ddee380a5355",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15835": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          31,
+          48
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": false,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15835,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10769,
+      "source_rgba_sha256": "9d9fe61b00a79a910c7d44364c50afa8541a9fca9bca89b4b9f2ddee380a5355",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15840": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15840,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10774,
+      "source_rgba_sha256": "aa2541160fdfb2ef7102366e1107e0f4df9faf848fb1fa294cd04df8c71a49ee",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15846": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15846,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10780,
+      "source_rgba_sha256": "7dece85a6fcd805762a7bd7e3a045d0f5a33311934ea027351626c2e0b4d8bd3",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15804
+    },
+    "15851": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          59,
+          28
+        ],
+        [
+          49,
+          35
+        ],
+        [
+          35,
+          41
+        ],
+        [
+          34,
+          41
+        ],
+        [
+          23,
+          40
+        ],
+        [
+          9,
+          31
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15851,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        177
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10785,
+      "source_rgba_sha256": "bee8e35bd27c8d27aaa08dfd56b779130d1b3dde0f994a3a3363fc33641e77dd",
+      "visible": [
+        0,
+        0,
+        64,
+        177
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15852": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15852,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10786,
+      "source_rgba_sha256": "e926dd911ad4b44e2a123803fccfdd4e009ca92e44135c71c9c451a944bb4f84",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15853": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          39,
+          4
+        ],
+        [
+          44,
+          8
+        ],
+        [
+          48,
+          12
+        ],
+        [
+          49,
+          14
+        ],
+        [
+          51,
+          19
+        ],
+        [
+          51,
+          20
+        ],
+        [
+          47,
+          37
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15853,
+      "kit": "native_cap_wall",
+      "size": [
+        56,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10787,
+      "source_rgba_sha256": "d236a5df30f7ea79e365d9a8d36df3c1dd68766957ec0ed43d9a72588b3576ab",
+      "visible": [
+        0,
+        0,
+        54,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15857": {
+      "cap_pixels": [
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          20,
+          0
+        ],
+        [
+          22,
+          0
+        ],
+        [
+          24,
+          1
+        ],
+        [
+          52,
+          22
+        ],
+        [
+          53,
+          23
+        ],
+        [
+          53,
+          24
+        ],
+        [
+          52,
+          25
+        ],
+        [
+          24,
+          46
+        ],
+        [
+          22,
+          47
+        ],
+        [
+          20,
+          47
+        ],
+        [
+          7,
+          36
+        ],
+        [
+          5,
+          32
+        ],
+        [
+          4,
+          16
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15857,
+      "kit": "native_cap_wall",
+      "size": [
+        56,
+        185
+      ],
+      "origin": [
+        -21,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10791,
+      "source_rgba_sha256": "6bc4cb8f548068ecaa07f081dbf074c8c557301e9430a24718b33f72bb41bace",
+      "visible": [
+        0,
+        0,
+        53,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15858": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          32,
+          47
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15858,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10792,
+      "source_rgba_sha256": "2725f7a80e5228e2270e013039a2ecf90228ed4a4576aa72e3f6fd92cd38bee4",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15860": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          48
+        ],
+        [
+          31,
+          48
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": false,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15860,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10794,
+      "source_rgba_sha256": "9d9fe61b00a79a910c7d44364c50afa8541a9fca9bca89b4b9f2ddee380a5355",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15863": {
+      "cap_pixels": [
+        [
+          1,
+          23
+        ],
+        [
+          2,
+          22
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          32,
+          0
+        ],
+        [
+          34,
+          0
+        ],
+        [
+          36,
+          1
+        ],
+        [
+          64,
+          22
+        ],
+        [
+          65,
+          23
+        ],
+        [
+          65,
+          24
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          40,
+          37
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          25,
+          37
+        ],
+        [
+          9,
+          30
+        ],
+        [
+          7,
+          29
+        ],
+        [
+          2,
+          25
+        ],
+        [
+          1,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15863,
+      "kit": "native_cap_wall",
+      "size": [
+        68,
+        176
+      ],
+      "origin": [
+        -33,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10797,
+      "source_rgba_sha256": "a6073fab4b42e39084d297de39cc7e8011221268b0cf0bc495e88e0206cac0b8",
+      "visible": [
+        0,
+        0,
+        65,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15864": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          41,
+          42
+        ],
+        [
+          31,
+          46
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15864,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10798,
+      "source_rgba_sha256": "af8d7c3cdb4d894186769090f02ce726a93aef9b1e61b4962e900473804698fe",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15865": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          39,
+          4
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          51,
+          19
+        ],
+        [
+          51,
+          23
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15865,
+      "kit": "native_cap_wall",
+      "size": [
+        56,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10799,
+      "source_rgba_sha256": "f6bf4d512b700d4c1287814aaacaef7ec8a4c39c69f5eb172bda583e26de05ad",
+      "visible": [
+        0,
+        0,
+        53,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15867": {
+      "cap_pixels": [
+        [
+          0,
+          16
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          15,
+          5
+        ],
+        [
+          23,
+          1
+        ],
+        [
+          41,
+          1
+        ],
+        [
+          51,
+          6
+        ],
+        [
+          63,
+          15
+        ],
+        [
+          64,
+          16
+        ],
+        [
+          64,
+          17
+        ],
+        [
+          63,
+          18
+        ],
+        [
+          35,
+          39
+        ],
+        [
+          33,
+          40
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          1,
+          18
+        ],
+        [
+          0,
+          17
+        ]
+      ],
+      "wall_height": 5.895,
+      "cap_only": true,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15867,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        40
+      ],
+      "origin": [
+        -32,
+        -155
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10801,
+      "source_rgba_sha256": "b3a9e880399b6be914533b82073bc0db3b9699dcbdff691c3a10667f5fdf8170",
+      "visible": [
+        0,
+        0,
+        64,
+        40
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15869": {
+      "cap_pixels": [
+        [
+          2,
+          20
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          20,
+          0
+        ],
+        [
+          22,
+          0
+        ],
+        [
+          24,
+          1
+        ],
+        [
+          52,
+          22
+        ],
+        [
+          53,
+          23
+        ],
+        [
+          53,
+          24
+        ],
+        [
+          52,
+          25
+        ],
+        [
+          24,
+          46
+        ],
+        [
+          22,
+          47
+        ],
+        [
+          20,
+          47
+        ],
+        [
+          18,
+          46
+        ],
+        [
+          5,
+          32
+        ],
+        [
+          2,
+          22
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15869,
+      "kit": "native_cap_wall",
+      "size": [
+        56,
+        185
+      ],
+      "origin": [
+        -21,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10803,
+      "source_rgba_sha256": "9e706b3b3c5a51c51a65c959b7c54341f82d6cbe92674b184580eb022f0a2a44",
+      "visible": [
+        0,
+        0,
+        53,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15870": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          21,
+          40
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15870,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10804,
+      "source_rgba_sha256": "7649b79dc18cd1eb5c40d3552a4d6d604aac77b3c505ab2248e51194cb982abf",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15875": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          43,
+          37
+        ],
+        [
+          42,
+          37
+        ],
+        [
+          27,
+          35
+        ],
+        [
+          22,
+          34
+        ],
+        [
+          4,
+          27
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15875,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        179
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10809,
+      "source_rgba_sha256": "a99014fdc0eb368831445d9942323eda8700b275a8a8833f253f6f55ee9f32a0",
+      "visible": [
+        0,
+        0,
+        64,
+        179
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15876": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          55,
+          32
+        ],
+        [
+          39,
+          44
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15876,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10810,
+      "source_rgba_sha256": "7e9f2c0df3589182ae3651f102f1844c0ad6324ae880278a1ae1d4c7bd5bb0fe",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15877": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          47,
+          11
+        ],
+        [
+          48,
+          12
+        ],
+        [
+          51,
+          20
+        ],
+        [
+          51,
+          22
+        ],
+        [
+          49,
+          26
+        ],
+        [
+          46,
+          31
+        ],
+        [
+          39,
+          38
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15877,
+      "kit": "native_cap_wall",
+      "size": [
+        56,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10811,
+      "source_rgba_sha256": "c1031fe973f323d8bf0bab010fcff08a9ac92983a6d2a044dadb4e63720997a2",
+      "visible": [
+        0,
+        0,
+        53,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "15882": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          12,
+          34
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            36.0,
+            86.23999999999998
+          ],
+          [
+            36.0,
+            136.24
+          ],
+          [
+            60.0,
+            118.24
+          ],
+          [
+            60.0,
+            68.23999999999998
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            1.5
+          ],
+          [
+            1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 15882,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 10816,
+      "source_rgba_sha256": "644651d785ce54459c9e4c5e7c7d869d2d7dd8bbfee8bb1e27f3db4a0957262c",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 15851
+    },
+    "16710": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          96,
+          0
+        ],
+        [
+          96,
+          1
+        ],
+        [
+          64,
+          40
+        ],
+        [
+          0,
+          40
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16710,
+      "kit": "native_cap_wall",
+      "size": [
+        96,
+        176
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12339,
+      "source_rgba_sha256": "954ec73517fcd3e1739293797edc5499013358630c2caf641e156d803917bfd6",
+      "visible": [
+        0,
+        0,
+        96,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16710
+    },
+    "16712": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          95,
+          0
+        ],
+        [
+          95,
+          34
+        ],
+        [
+          93,
+          40
+        ],
+        [
+          31,
+          40
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16712,
+      "kit": "native_cap_wall",
+      "size": [
+        96,
+        176
+      ],
+      "origin": [
+        -63,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12341,
+      "source_rgba_sha256": "d68e02d10ac45ecb7e740e827f24a59ab9718f87f6124246f9aeaf6ae22b61e6",
+      "visible": [
+        0,
+        0,
+        95,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16710
+    },
+    "16736": {
+      "cap_pixels": [
+        [
+          4,
+          23
+        ],
+        [
+          5,
+          22
+        ],
+        [
+          33,
+          1
+        ],
+        [
+          35,
+          0
+        ],
+        [
+          37,
+          0
+        ],
+        [
+          39,
+          1
+        ],
+        [
+          67,
+          22
+        ],
+        [
+          68,
+          23
+        ],
+        [
+          68,
+          24
+        ],
+        [
+          67,
+          25
+        ],
+        [
+          39,
+          46
+        ],
+        [
+          37,
+          47
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          33,
+          46
+        ],
+        [
+          5,
+          25
+        ],
+        [
+          4,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        13,
+        62,
+        43,
+        134
+      ],
+      "window_native_points": [
+        [
+          16,
+          71
+        ],
+        [
+          18,
+          66
+        ],
+        [
+          19,
+          65
+        ],
+        [
+          23,
+          67
+        ],
+        [
+          32,
+          74
+        ],
+        [
+          38,
+          85
+        ],
+        [
+          39,
+          92
+        ],
+        [
+          39,
+          123
+        ],
+        [
+          38,
+          130
+        ],
+        [
+          37,
+          130
+        ],
+        [
+          32,
+          126
+        ],
+        [
+          21,
+          117
+        ],
+        [
+          17,
+          113
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16736,
+      "kit": "native_cap_wall",
+      "size": [
+        68,
+        185
+      ],
+      "origin": [
+        -36,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12365,
+      "source_rgba_sha256": "783a92680813c9d64b63e423bfb139cc8592a8c0b351c4846a71324556c1bf43",
+      "visible": [
+        0,
+        0,
+        68,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16710
+    },
+    "16956": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16956,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12584,
+      "source_rgba_sha256": "97de33cb386ff4e5f6ac7f8b123b26a1c2dadd80d3d11ce935f67af9d5db13db",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16958": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          53,
+          0
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          30,
+          47
+        ],
+        [
+          17,
+          38
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16958,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12586,
+      "source_rgba_sha256": "48018a128490bc6bedfb388d579e0682f0a43149190ec6eb04580ff5d7f2d439",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16959": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          47,
+          38
+        ],
+        [
+          44,
+          40
+        ],
+        [
+          20,
+          40
+        ],
+        [
+          17,
+          38
+        ],
+        [
+          13,
+          35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16959,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        186
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12587,
+      "source_rgba_sha256": "8e1d46e5e478c486c029dc54b9cc1c386a73905aa58766f73157485b077dfb22",
+      "visible": [
+        0,
+        0,
+        64,
+        186
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16961": {
+      "cap_pixels": [
+        [
+          9,
+          23
+        ],
+        [
+          11,
+          0
+        ],
+        [
+          64,
+          0
+        ],
+        [
+          64,
+          31
+        ],
+        [
+          63,
+          32
+        ],
+        [
+          43,
+          47
+        ],
+        [
+          41,
+          48
+        ],
+        [
+          22,
+          48
+        ],
+        [
+          17,
+          45
+        ],
+        [
+          11,
+          39
+        ],
+        [
+          9,
+          25
+        ]
+      ],
+      "wall_height": 6.525,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16961,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        192
+      ],
+      "origin": [
+        -32,
+        -169
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12589,
+      "source_rgba_sha256": "afa31e83471677473c91932815043f226d6bb27dab8a147e6f34da1e234f8e86",
+      "visible": [
+        0,
+        0,
+        64,
+        192
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16962": {
+      "cap_pixels": [
+        [
+          0,
+          22
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          32,
+          0
+        ],
+        [
+          64,
+          12
+        ],
+        [
+          64,
+          36
+        ],
+        [
+          34,
+          47
+        ],
+        [
+          30,
+          47
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16962,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12590,
+      "source_rgba_sha256": "8babf7690a3be4f73cb820ef294e538c88ba854dc11cc1991089ee8484f93e22",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16963": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          64,
+          0
+        ],
+        [
+          64,
+          35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "wall_height": 5.67,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        33,
+        60,
+        64,
+        145
+      ],
+      "window_native_points": [
+        [
+          36,
+          66
+        ],
+        [
+          52,
+          63
+        ],
+        [
+          61,
+          63
+        ],
+        [
+          61,
+          114
+        ],
+        [
+          56,
+          141
+        ],
+        [
+          47,
+          113
+        ],
+        [
+          37,
+          72
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16963,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        173
+      ],
+      "origin": [
+        -32,
+        -150
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12591,
+      "source_rgba_sha256": "b843f1495c118e0772df97c282c1cb6d2e4ea9fe21fd01717d96626642e2e9fe",
+      "visible": [
+        0,
+        0,
+        64,
+        173
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16964": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          64,
+          0
+        ],
+        [
+          64,
+          35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "wall_height": 5.67,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        0,
+        60,
+        32,
+        119
+      ],
+      "window_native_points": [
+        [
+          3,
+          94
+        ],
+        [
+          4,
+          66
+        ],
+        [
+          10,
+          63
+        ],
+        [
+          27,
+          69
+        ],
+        [
+          28,
+          80
+        ],
+        [
+          17,
+          114
+        ],
+        [
+          3,
+          115
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16964,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        173
+      ],
+      "origin": [
+        -32,
+        -150
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12592,
+      "source_rgba_sha256": "096e61793ac0aeaec60897e64bb29659343b32958e4279ea21dae123e0e40a14",
+      "visible": [
+        0,
+        0,
+        64,
+        173
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16965": {
+      "cap_pixels": [
+        [
+          0,
+          12
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          28,
+          47
+        ],
+        [
+          0,
+          36
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16965,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12593,
+      "source_rgba_sha256": "271db5f23ee4edb2e0d47d8b568fd227f9f7c1624ef87ef4365bad1c37fb2fad",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16966": {
+      "cap_pixels": [
+        [
+          0,
+          22
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          32,
+          0
+        ],
+        [
+          34,
+          1
+        ],
+        [
+          38,
+          4
+        ],
+        [
+          63,
+          23
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          30,
+          47
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16966,
+      "kit": "native_cap_wall",
+      "size": [
+        68,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12594,
+      "source_rgba_sha256": "1e784e548237e49f75907d0b73ae408242a92a9d761359f7ac8d671017e4c863",
+      "visible": [
+        0,
+        0,
+        65,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16967": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          97,
+          0
+        ],
+        [
+          97,
+          37
+        ],
+        [
+          32,
+          37
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        64,
+        63,
+        97,
+        148
+      ],
+      "window_native_points": [
+        [
+          67,
+          70
+        ],
+        [
+          84,
+          66
+        ],
+        [
+          93,
+          66
+        ],
+        [
+          93,
+          117
+        ],
+        [
+          88,
+          144
+        ],
+        [
+          79,
+          116
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16967,
+      "kit": "native_cap_wall",
+      "size": [
+        100,
+        176
+      ],
+      "origin": [
+        -65,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12595,
+      "source_rgba_sha256": "409d9c4f396228af5811e494abe90d4d33230ae45d4879fe7ed275f46e1b1259",
+      "visible": [
+        0,
+        0,
+        97,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16968": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          94,
+          0
+        ],
+        [
+          94,
+          1
+        ],
+        [
+          64,
+          37
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        0,
+        63,
+        31,
+        122
+      ],
+      "window_native_points": [
+        [
+          2,
+          97
+        ],
+        [
+          3,
+          69
+        ],
+        [
+          9,
+          66
+        ],
+        [
+          27,
+          73
+        ],
+        [
+          16,
+          117
+        ],
+        [
+          2,
+          118
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16968,
+      "kit": "native_cap_wall",
+      "size": [
+        96,
+        176
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12596,
+      "source_rgba_sha256": "50025a9a0d210c623988b6d5538bb2f0243ede244576d3c9e76a85fe54f12959",
+      "visible": [
+        0,
+        0,
+        94,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16969": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          4,
+          19
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          30,
+          0
+        ],
+        [
+          32,
+          0
+        ],
+        [
+          34,
+          1
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          30,
+          47
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          12,
+          35
+        ],
+        [
+          4,
+          29
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16969,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12597,
+      "source_rgba_sha256": "d08c9f22ad48158111f84cf0ea7c30773768a41f483fd43db36e8c194c0fa771",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16970": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16970,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12598,
+      "source_rgba_sha256": "100e8a9f9f42835090aeb582be82b863b836eefcbeebc9348be3004e0ac93589",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16971": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          95,
+          0
+        ],
+        [
+          95,
+          37
+        ],
+        [
+          31,
+          37
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        63,
+        63,
+        96,
+        121
+      ],
+      "window_native_points": [
+        [
+          66,
+          70
+        ],
+        [
+          83,
+          66
+        ],
+        [
+          92,
+          66
+        ],
+        [
+          92,
+          117
+        ],
+        [
+          79,
+          117
+        ],
+        [
+          78,
+          116
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16971,
+      "kit": "native_cap_wall",
+      "size": [
+        96,
+        176
+      ],
+      "origin": [
+        -63,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12599,
+      "source_rgba_sha256": "ae19f8072fb9f370d11c867cf3ce6b41fc3dd0c6689a6654f35a1a2e6f790e8a",
+      "visible": [
+        0,
+        0,
+        95,
+        176
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16972": {
+      "cap_pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          96,
+          0
+        ],
+        [
+          96,
+          1
+        ],
+        [
+          64,
+          37
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        0,
+        63,
+        32,
+        122
+      ],
+      "window_native_points": [
+        [
+          3,
+          97
+        ],
+        [
+          4,
+          69
+        ],
+        [
+          10,
+          66
+        ],
+        [
+          28,
+          73
+        ],
+        [
+          17,
+          117
+        ],
+        [
+          3,
+          118
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16972,
+      "kit": "native_cap_wall",
+      "size": [
+        96,
+        177
+      ],
+      "origin": [
+        -33,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12600,
+      "source_rgba_sha256": "f03bfab91ddcf2445984fb55c8ac436a2e674967c382dabcb876c2f3a3a5ff94",
+      "visible": [
+        0,
+        0,
+        96,
+        177
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16973": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          32,
+          0
+        ],
+        [
+          34,
+          0
+        ],
+        [
+          36,
+          1
+        ],
+        [
+          64,
+          22
+        ],
+        [
+          65,
+          23
+        ],
+        [
+          65,
+          24
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          32,
+          47
+        ],
+        [
+          30,
+          46
+        ],
+        [
+          14,
+          35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16973,
+      "kit": "native_cap_wall",
+      "size": [
+        68,
+        185
+      ],
+      "origin": [
+        -33,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12601,
+      "source_rgba_sha256": "252c8c9e6ed0aed3d40c28853d3c517679ab270818974cb9e537a89433ac2ccf",
+      "visible": [
+        0,
+        0,
+        65,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16986": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          47,
+          38
+        ],
+        [
+          44,
+          40
+        ],
+        [
+          20,
+          40
+        ],
+        [
+          17,
+          38
+        ],
+        [
+          13,
+          35
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16986,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        186
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12614,
+      "source_rgba_sha256": "3771a3ba73049717d684201238b52822d9d68526075bcfe9f264749a705475e6",
+      "visible": [
+        0,
+        0,
+        64,
+        186
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "16987": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          29,
+          47
+        ],
+        [
+          1,
+          26
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": false,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 16987,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 12615,
+      "source_rgba_sha256": "a7caba0073304f116e2985297072a676d66cd5ca6d7193b7734b4d8c73f1f455",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    },
+    "17599": {
+      "cap_pixels": [
+        [
+          0,
+          23
+        ],
+        [
+          1,
+          22
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          31,
+          0
+        ],
+        [
+          33,
+          0
+        ],
+        [
+          35,
+          1
+        ],
+        [
+          63,
+          22
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          64,
+          24
+        ],
+        [
+          63,
+          25
+        ],
+        [
+          35,
+          46
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          31,
+          47
+        ],
+        [
+          29,
+          46
+        ],
+        [
+          1,
+          25
+        ],
+        [
+          0,
+          24
+        ]
+      ],
+      "wall_height": 6.21,
+      "cap_only": false,
+      "wood_trim": true,
+      "observed_face_available": true,
+      "cap_method": "First continuous native black cap run per column, clipped to the mirrored48px tile-cap band; dark body mortar is excluded. Height uses original sourceY and24px midpoint; no bbox grounding.",
+      "window_pixels": [
+        0,
+        54,
+        64,
+        164
+      ],
+      "window_native_points": [
+        [
+          0,
+          160
+        ],
+        [
+          40,
+          71
+        ],
+        [
+          51,
+          61
+        ],
+        [
+          56,
+          58
+        ],
+        [
+          58,
+          57
+        ],
+        [
+          63,
+          157
+        ],
+        [
+          57,
+          160
+        ]
+      ],
+      "rectified_material": {
+        "native_face_pixels": [
+          [
+            4.0,
+            68.23999999999998
+          ],
+          [
+            4.0,
+            118.24
+          ],
+          [
+            28.0,
+            136.24
+          ],
+          [
+            28.0,
+            86.23999999999998
+          ]
+        ],
+        "native_trim_pixels": [
+          [
+            4.0,
+            155.66666666666666
+          ],
+          [
+            4.0,
+            161.0
+          ],
+          [
+            28.0,
+            179.0
+          ],
+          [
+            28.0,
+            173.66666666666666
+          ]
+        ],
+        "world_pitch": 2.25,
+        "rectified_from_whole_face": true,
+        "compatible_face_world_endpoints": [
+          [
+            -1.5,
+            -1.5
+          ],
+          [
+            -1.5,
+            1.5
+          ]
+        ]
+      },
+      "serial": 17599,
+      "kit": "native_cap_wall",
+      "size": [
+        64,
+        185
+      ],
+      "origin": [
+        -32,
+        -162
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "pack": "original",
+      "row": 13079,
+      "source_rgba_sha256": "44e79fc5e112902fd66b5d60175ae6643e9d5173c4531ff2667d457a0549ad44",
+      "visible": [
+        0,
+        0,
+        64,
+        185
+      ],
+      "removed_ground_shadow_pixels": 0,
+      "material_sample_graphic": 16958
+    }
+  },
+  "status": "Candidate source/reverse review; no runtime dispatch yet.",
+  "inferred": [
+    "Native cap mask, source anchor and footprint are observed. Its horizontal reconstruction uses the existing48px tile-cap band and24px midpoint.",
+    "Unseen wall faces, cap undersides and top material continue independent native material samples; fully masked faces name a compatible native material peer.",
+    "Window frames reuse closed timber parts at the native glass bounds. Thickness and unseen joints are inferred. No window/door becomes a route.",
+    "Cap-only15819/15867 retain source height and a thin closed underside; no full wall is invented below them."
+  ],
+  "scope": "Exact50 structural source forms only; original source flags, placement, collision, walk bits and routes unchanged."
+}

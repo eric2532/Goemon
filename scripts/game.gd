@@ -68,7 +68,7 @@ const ATTACK_SOUNDS=["orb_ice","orb_fire","swing","heavy_swing","throw","fire_ca
 const IMPACT_SOUNDS=["goemon_coin_charged_burst","hit","heavy_hit","enemy_reaction","environment_hit","coin_hit","coin_heavy_hit","fire_impact","chain_hit","chain_explosion","edo_meteor_impact","edo_dodge_impact","goemon_dash_hit","qigong_launch","qigong_hit","cg_dagger_hit","cg_moon_hit"]
 const ViewPreferences=preload("res://scripts/forest/forest_view_preferences.gd")
 const KazSkins=preload("res://scripts/kaz_skins.gd")
-const DEFAULT_SETTINGS={"sword_upgrades":{},"chest_swords":[],"explorer_quests":{},"explorer_hour":9.0,"disable_character_cooldowns":false,"jump_styles":{},"spell_loadouts":{},"skin_equipment":{},"gear_loadouts":{},"weapon_slot_unlocks":{},"skill_item_loadouts":{},"cosmetic_loadouts":{},"skill_balance":{},"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"kaz_skin":KazSkins.DEFAULT,"shin_skin":Hero.RogueRoster.ShinSkins.DEFAULT,"shin_special_skin":Hero.RogueRoster.ShinSkins.SPECIAL_DEFAULT,"saizo_skin":Hero.RogueRoster.SaizoSkins.DEFAULT,"bog_skin":Hero.RogueRoster.BOG.skin_default,"emilia_skin":Hero.RogueRoster.EMILIA.skin_default,"lancelot_skin":Hero.RogueRoster.LANCELOT.skin_default,"pete_skin":Hero.RogueRoster.PETE.skin_default,"grace_skin":Hero.RogueRoster.GRACE.skin_default,"rei_skin":Hero.RogueRoster.REI.skin_default,"ruby_skin":0,"cedi_skin":Hero.RogueRoster.CEDI.skin_default,"bei_skin":Hero.RogueRoster.BEI.skin_default,"moe_skin":Hero.RogueRoster.MOE.skin_default,"ami_skin":Hero.RogueRoster.AMI.skin_default,"kumago_skin":Hero.RogueRoster.KUMAGO.skin_default,"maze_primary_kunai":false,"saizo_primary_kunai":false,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_camera_angle":ViewPreferences.CAMERA_ANGLE_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true,"forest_level_up_cards":true,"forest_pet_loadout":preload("res://scripts/forest/pet_catalog.gd").DEFAULT,"forest_pet_skills":{},"forest_pet_names":{}}
+const DEFAULT_SETTINGS={"accessory_drops":{},"chest_nutrition":{},"sword_upgrades":{},"chest_swords":[],"explorer_quests":{},"explorer_hour":9.0,"disable_character_cooldowns":false,"jump_styles":{},"spell_loadouts":{},"skin_equipment":{},"gear_loadouts":{},"weapon_slot_unlocks":{},"skill_item_loadouts":{},"cosmetic_loadouts":{},"skill_balance":{},"volume":0.65,"music_enabled":false,"sensitivity":1.0,"fullscreen":false,"quality":1,"goemon_skin":HeroSkins.DEFAULT_ID,"kaz_skin":KazSkins.DEFAULT,"shin_skin":Hero.RogueRoster.ShinSkins.DEFAULT,"shin_special_skin":Hero.RogueRoster.ShinSkins.SPECIAL_DEFAULT,"saizo_skin":Hero.RogueRoster.SaizoSkins.DEFAULT,"bog_skin":Hero.RogueRoster.BOG.skin_default,"emilia_skin":Hero.RogueRoster.EMILIA.skin_default,"lancelot_skin":Hero.RogueRoster.LANCELOT.skin_default,"pete_skin":Hero.RogueRoster.PETE.skin_default,"grace_skin":Hero.RogueRoster.GRACE.skin_default,"rei_skin":Hero.RogueRoster.REI.skin_default,"ruby_skin":0,"cedi_skin":Hero.RogueRoster.CEDI.skin_default,"bei_skin":Hero.RogueRoster.BEI.skin_default,"moe_skin":Hero.RogueRoster.MOE.skin_default,"ami_skin":Hero.RogueRoster.AMI.skin_default,"kumago_skin":Hero.RogueRoster.KUMAGO.skin_default,"bau_skin":Hero.RogueRoster.BAU.skin_default,"el_skin":Hero.RogueRoster.EL.skin_default,"gen_skin":Hero.RogueRoster.GEN.skin_default,"sarah_skin":Hero.RogueRoster.SARAH.skin_default,"maze_primary_kunai":false,"saizo_primary_kunai":false,"forest_camera_distance":ViewPreferences.CAMERA_DEFAULT,"forest_camera_angle":ViewPreferences.CAMERA_ANGLE_DEFAULT,"forest_hud_scale":ViewPreferences.HUD_DEFAULT,"forest_character_screen_offset":ViewPreferences.CHARACTER_OFFSET_DEFAULT,"forest_show_crosshair":true,"forest_level_up_cards":true,"forest_pet_loadout":preload("res://scripts/forest/pet_catalog.gd").DEFAULT,"forest_pet_skills":{},"forest_pet_names":{}}
 var settings=DEFAULT_SETTINGS.duplicate()
 var settings_path="user://settings.cfg"
 const SkillBalance=preload("res://scripts/spells/skill_balance.gd")
@@ -967,7 +967,7 @@ func apply_skin_loadout(character:int):
 func skin_weapon_choices(character:int)->Array:
 	if not Hero.RogueRoster.is_crossgate_fighter(character):return []
 	player.ensure_character(character)
-	if Hero.RogueRoster.has_crossgate_throws(character):return ["Katana","Dagger","Fist"]
+	if Hero.RogueRoster.has_crossgate_throws(character):return ["Katana","Dagger","Boxing Gloves"]
 	var visual=player.character_models[character]
 	var names=[str(visual.appearance.get("weapon",visual.fighter.get("strike","Original weapon"))).capitalize()]
 	for weapon in visual.appearance.get("weapons",[]):names.append(str(weapon.weapon).capitalize())
@@ -1481,7 +1481,9 @@ func load_settings():
 	# Debug freeze belongs to this session, never the next playable launch.
 	tuning.freeze_ai=false
 	settings.skill_balance=SkillBalance.sanitized(settings.skill_balance)
+	settings.chest_nutrition=preload("res://scripts/forest/chest_food.gd").sanitized(settings.chest_nutrition)
 	settings.chest_swords=preload("res://scripts/forest/equipment.gd").sanitized_swords(settings.chest_swords)
+	settings.accessory_drops=preload("res://scripts/forest/equipment.gd").sanitized_accessory_drops(settings.accessory_drops)
 	settings.sword_upgrades=preload("res://scripts/forest/equipment.gd").sanitized_sword_upgrades(settings.sword_upgrades,settings.chest_swords)
 	settings.cosmetic_loadouts=preload("res://scripts/forest/equipment.gd").migrated_cosmetics(settings.cosmetic_loadouts,settings.gear_loadouts)
 	settings.weapon_slot_unlocks=preload("res://scripts/forest/equipment.gd").sanitized_unlocks(settings.weapon_slot_unlocks)
@@ -1490,6 +1492,15 @@ func load_settings():
 	settings.goemon_skin=HeroSkins.valid_id(settings.goemon_skin)
 	settings.kaz_skin=KazSkins.valid_id(settings.kaz_skin)
 	var roster=Hero.RogueRoster
+	# Keep the two reassigned Gen skins' saved choices without replacing newer edits.
+	for setting in ["skin_equipment","spell_loadouts"]:
+		if not settings[setting] is Dictionary:continue
+		var entries:Dictionary=settings[setting].duplicate(true)
+		for skin in roster.FourCastSkins.BAU_HIDDEN:
+			var old_key="52:%d"%skin;var new_key="54:%d"%skin
+			if not entries.has(new_key) and entries.get(old_key) is Dictionary:
+				entries[new_key]=entries[old_key].duplicate(true)
+		settings[setting]=entries
 	var equipment={}
 	if settings.skin_equipment is Dictionary:
 		for key in settings.skin_equipment:

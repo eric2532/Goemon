@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "generated_file": "/Users/eric/.codex/generated_images/01a21678-b1d1-7b03-a8a6-4bdca4efd6f1/exec-12653659-5dc0-42d7-a830-9f61130bf9ad.png",
+  "saved_file": "assets/maps/falan/east_region/carved_pier_study/inferred-1230054-front-v1.png",
+  "sha256": "34d5c150c8c8c76123c4960bc5f5f14e8c6445624115e668f85f8ca17ad5ef6a",
+  "reference": "Exact original1230054RGBA crop",
+  "scope": "Private inferred front-paint proposal, no runtime use or map change",
+  "status": "Private texture-on-mesh review only; not canonical",
+  "size": [
+    758,
+    2073
+  ],
+  "alpha_bbox": [
+    0,
+    0,
+    757,
+    2055
+  ],
+  "opaque_red_yellow_fringes": 0,
+  "runtime_crop_rect": [
+    0,
+    0,
+    757,
+    2055
+  ],
+  "reference_shape_and_map_assets_changed": false,
+  "detail_scope": "Inferred higher-resolution surface paint; source-style motif and color interpretation, not recovered original pixels or verified writing"
+}

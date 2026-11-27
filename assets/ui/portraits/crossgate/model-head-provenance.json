@@ -9009,6 +9009,2481 @@
     "sha256": "67a9aa9a8752e059bb49681d22eb67d734f26385075a9c7b11d7819452cec57e"
   },
   {
+    "key": "52:100000",
+    "name": "Bau",
+    "label": "Classic \u00b7 100000",
+    "manifest": "assets/characters/crossgate/fighters/bau/100000/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100000/atlas-1.png",
+    "source_frame": [
+      1,
+      1900,
+      236,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "03280b33babb5118cda4c6663a10912b3cc98bfe145e7b52cdcdc94e6c2c2273"
+  },
+  {
+    "key": "52:100006",
+    "name": "Bau",
+    "label": "Classic \u00b7 100006",
+    "manifest": "assets/characters/crossgate/fighters/bau/100006/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100006/atlas-1.png",
+    "source_frame": [
+      1,
+      1026,
+      314,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      40,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "44cd14e1b73abd15ee783a0d540f7a554d5c47f8efda37396ff15fdf0fd5722b"
+  },
+  {
+    "key": "52:100012",
+    "name": "Bau",
+    "label": "Classic \u00b7 100012",
+    "manifest": "assets/characters/crossgate/fighters/bau/100012/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100012/atlas-1.png",
+    "source_frame": [
+      1,
+      1025,
+      314,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      40,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "c7285afa55b1ead8804d6bd1e80d25be5902064a1c2306bdeb0804c5ec362d67"
+  },
+  {
+    "key": "52:100018",
+    "name": "Bau",
+    "label": "Classic \u00b7 100018",
+    "manifest": "assets/characters/crossgate/fighters/bau/100018/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100018/atlas-1.png",
+    "source_frame": [
+      1,
+      873,
+      314,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "86335f156ee71d121adaa2f0d2ce50eb89d5619ea4e826f8b194518907d2339c"
+  },
+  {
+    "key": "52:100425",
+    "name": "Bau",
+    "label": "Alternative \u00b7 100425",
+    "manifest": "assets/characters/crossgate/fighters/bau/100425/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100425/atlas-1.png",
+    "source_frame": [
+      1,
+      150,
+      474,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "8d1083e23520cfa9552face9fac9e4a0369a562a4c25b74b066f0490ccc79ab4"
+  },
+  {
+    "key": "52:100756",
+    "name": "Bau",
+    "label": "Alternative \u00b7 100756",
+    "manifest": "assets/characters/crossgate/fighters/bau/100756/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100756/atlas-1.png",
+    "source_frame": [
+      1,
+      2012,
+      827,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2d5f68e627fd06cc24e3bbe7b8beb181248c476cc33f6444dd055faedbc9df97"
+  },
+  {
+    "key": "52:100972",
+    "name": "Bau",
+    "label": "Alternative \u00b7 100972",
+    "manifest": "assets/characters/crossgate/fighters/bau/100972/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/100972/atlas-1.png",
+    "source_frame": [
+      1,
+      150,
+      474,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "d61d7225b5463b947bf1ebdd93823294d6fa463e23420a4d50fa4e7b419897b5"
+  },
+  {
+    "key": "52:105000",
+    "name": "Bau",
+    "label": "Original \u00b7 105000",
+    "manifest": "assets/characters/crossgate/fighters/bau/105000/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105000/atlas-1.png",
+    "source_frame": [
+      1,
+      2012,
+      827,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "69f04d3d9c768ee2f2e135ec5d1cfd00cbe13afea6025601f564962ba097531c"
+  },
+  {
+    "key": "52:105006",
+    "name": "Bau",
+    "label": "Alternative \u00b7 105006",
+    "manifest": "assets/characters/crossgate/fighters/bau/105006/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105006/atlas-1.png",
+    "source_frame": [
+      1,
+      2012,
+      827,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "d0a5d0fa14f03b531e0828aa18febd1a7dab59f03aff8b06e56aba704183164a"
+  },
+  {
+    "key": "52:105012",
+    "name": "Bau",
+    "label": "Alternative \u00b7 105012",
+    "manifest": "assets/characters/crossgate/fighters/bau/105012/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105012/atlas-1.png",
+    "source_frame": [
+      1,
+      2012,
+      827,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "5f2dccc215040c57c0ec44a4bc61912913eaab27772a92be60930fd58779c5b7"
+  },
+  {
+    "key": "52:105018",
+    "name": "Bau",
+    "label": "Alternative \u00b7 105018",
+    "manifest": "assets/characters/crossgate/fighters/bau/105018/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105018/atlas-1.png",
+    "source_frame": [
+      1,
+      109,
+      988,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2f3cd66ffd4e9418bdb1dd98238a8dcf23c44bb76601b52d49b4742e0f57222c"
+  },
+  {
+    "key": "52:105549",
+    "name": "Bau",
+    "label": "Alternative \u00b7 105549",
+    "manifest": "assets/characters/crossgate/fighters/bau/105549/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105549/atlas-1.png",
+    "source_frame": [
+      1,
+      1900,
+      236,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2b25121cc25b01f7bbe411532cffa411b19b245691e44a07abdd474b36d8481a"
+  },
+  {
+    "key": "52:105606",
+    "name": "Bau",
+    "label": "Alternative \u00b7 105606",
+    "manifest": "assets/characters/crossgate/fighters/bau/105606/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/105606/atlas-1.png",
+    "source_frame": [
+      1,
+      1900,
+      236,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "8a9299b2cc7c3abce1a0e0373b7c87a8b63b14afe5b74a6ec5ff6d7da07be766"
+  },
+  {
+    "key": "54:115257",
+    "name": "Gen",
+    "label": "Special \u00b7 Gold Dragon Fist",
+    "manifest": "assets/characters/crossgate/fighters/gen/115257/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/115257/atlas-4.png",
+    "source_frame": [
+      4,
+      491,
+      396,
+      42,
+      87,
+      -25,
+      -72
+    ],
+    "crop": [
+      -27,
+      -72,
+      27,
+      -35
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "30e9d618547d6995a98a18914aa2663905169961db41502e115871d04d2e4d38"
+  },
+  {
+    "key": "52:120160",
+    "name": "Bau",
+    "label": "Alternative \u00b7 120160",
+    "manifest": "assets/characters/crossgate/fighters/bau/120160/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/120160/atlas-1.png",
+    "source_frame": [
+      1,
+      2012,
+      827,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "0d3836733bda7b434dda9718d3d77c7aa62453cd12857e48510e09ed3f7e8cf3"
+  },
+  {
+    "key": "52:120168",
+    "name": "Bau",
+    "label": "Alternative \u00b7 120168",
+    "manifest": "assets/characters/crossgate/fighters/bau/120168/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/120168/atlas-1.png",
+    "source_frame": [
+      1,
+      1637,
+      991,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "48566f0c0468b4513de3a85edb5772ebf8806cf42096b819c88ce87968566318"
+  },
+  {
+    "key": "52:120384",
+    "name": "Bau",
+    "label": "Alternative \u00b7 120384",
+    "manifest": "assets/characters/crossgate/fighters/bau/120384/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/120384/atlas-0.png",
+    "source_frame": [
+      0,
+      1323,
+      279,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "05aeb4f4f1203d1e5710f6c6a5da652459a89c688b430c244161c8710225d1fb"
+  },
+  {
+    "key": "52:120385",
+    "name": "Bau",
+    "label": "Alternative \u00b7 120385",
+    "manifest": "assets/characters/crossgate/fighters/bau/120385/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/120385/atlas-0.png",
+    "source_frame": [
+      0,
+      1246,
+      279,
+      34,
+      77,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      38,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2ff0c810ea354e6bd6c0688141e7b21ceab1d83cd46797b4ff386fc24c05326e"
+  },
+  {
+    "key": "54:124999",
+    "name": "Gen",
+    "label": "Special \u00b7 Silver Martial Sword",
+    "manifest": "assets/characters/crossgate/fighters/gen/124999/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/124999/atlas-0.png",
+    "source_frame": [
+      0,
+      1505,
+      306,
+      43,
+      87,
+      -26,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "708492182374c9a4467ef15f3c9a26a459511c1bb79f3c630f184e742b1b6dbe"
+  },
+  {
+    "key": "53:100400",
+    "name": "El",
+    "label": "Classic \u00b7 100400",
+    "manifest": "assets/characters/crossgate/fighters/el/100400/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100400/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "e9b9fa0ab5eedf2273d51bee6456a406445d09a52ac620afb7d4ea64c3fa9ef1"
+  },
+  {
+    "key": "53:100406",
+    "name": "El",
+    "label": "Classic \u00b7 100406",
+    "manifest": "assets/characters/crossgate/fighters/el/100406/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100406/atlas-0.png",
+    "source_frame": [
+      0,
+      1176,
+      1921,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b3b4a4f3e717944c17137bd7bab9054c5668b10aed37789970dec8ec56690c29"
+  },
+  {
+    "key": "53:100412",
+    "name": "El",
+    "label": "Classic \u00b7 100412",
+    "manifest": "assets/characters/crossgate/fighters/el/100412/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100412/atlas-0.png",
+    "source_frame": [
+      0,
+      1117,
+      1921,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "9dbf5f79acd1f9558a3d53b56b4682e1d439cbb8877607b17ebb54b51b3119f4"
+  },
+  {
+    "key": "53:100418",
+    "name": "El",
+    "label": "Classic \u00b7 100418",
+    "manifest": "assets/characters/crossgate/fighters/el/100418/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100418/atlas-0.png",
+    "source_frame": [
+      0,
+      1176,
+      1921,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "ddf1242e9da092c2d90c0b794928ecb88f132186175e35a19d51a11cd1a8d049"
+  },
+  {
+    "key": "53:100487",
+    "name": "El",
+    "label": "Alternative \u00b7 100487",
+    "manifest": "assets/characters/crossgate/fighters/el/100487/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100487/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "500bbbd643c503c41793d36607be129ef7bc0860d1d9e66e7ce0cc5786a5370c"
+  },
+  {
+    "key": "53:100612",
+    "name": "El",
+    "label": "Alternative \u00b7 100612",
+    "manifest": "assets/characters/crossgate/fighters/el/100612/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100612/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "779f89f1f8db1d09296c367be53b5c7a696e7d8d1a6eda964876a01dfbacd79e"
+  },
+  {
+    "key": "53:100618",
+    "name": "El",
+    "label": "Alternative \u00b7 100618",
+    "manifest": "assets/characters/crossgate/fighters/el/100618/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100618/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "0e7c6cd6b7a27cbc0080d5035f4bb683d075da8e10be14f420b31977f07e8a1f"
+  },
+  {
+    "key": "53:100631",
+    "name": "El",
+    "label": "Alternative \u00b7 100631",
+    "manifest": "assets/characters/crossgate/fighters/el/100631/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100631/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "17a8e7c65fb39024e6e53b975398c2f83eead29cad186298045edd4bf97260ca"
+  },
+  {
+    "key": "53:100637",
+    "name": "El",
+    "label": "Alternative \u00b7 100637",
+    "manifest": "assets/characters/crossgate/fighters/el/100637/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100637/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1920,
+      36,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      47,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "cc862b8af024035b6ec1c28dd2b1663728fff02daca03318fc0bd7b364edc2e5"
+  },
+  {
+    "key": "53:100750",
+    "name": "El",
+    "label": "Alternative \u00b7 100750",
+    "manifest": "assets/characters/crossgate/fighters/el/100750/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/100750/atlas-0.png",
+    "source_frame": [
+      0,
+      1119,
+      1921,
+      35,
+      95,
+      -16,
+      -89
+    ],
+    "crop": [
+      -27,
+      -89,
+      27,
+      -46
+    ],
+    "bounds": [
+      11,
+      0,
+      46,
+      43
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "13a90109750a1ac16c7446ffd7033bf689eb36f8d7b320671ae38ffd3a98d223"
+  },
+  {
+    "key": "53:105400",
+    "name": "El",
+    "label": "Original \u00b7 105400",
+    "manifest": "assets/characters/crossgate/fighters/el/105400/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105400/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "93ce67f6f913b4816b78400480085a201f9915157c00b0632e8861463e39e227"
+  },
+  {
+    "key": "53:105406",
+    "name": "El",
+    "label": "Alternative \u00b7 105406",
+    "manifest": "assets/characters/crossgate/fighters/el/105406/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105406/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "461420f725eea1902cc055bf95252807b6de0f7c4110b17c1f6ae9e09854f91c"
+  },
+  {
+    "key": "53:105412",
+    "name": "El",
+    "label": "Alternative \u00b7 105412",
+    "manifest": "assets/characters/crossgate/fighters/el/105412/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105412/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "6e257a60f6863dba269bcc780f2cd3fe14a26436fca7eca5b7d418207b884cb6"
+  },
+  {
+    "key": "53:105418",
+    "name": "El",
+    "label": "Alternative \u00b7 105418",
+    "manifest": "assets/characters/crossgate/fighters/el/105418/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105418/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "0c7ac8ebceb8ea08f9c17637b6ea88c220301f1ebfbe43589dd14b9180955ced"
+  },
+  {
+    "key": "53:105454",
+    "name": "El",
+    "label": "Alternative \u00b7 105454",
+    "manifest": "assets/characters/crossgate/fighters/el/105454/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105454/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "1fd24a66c891b73dbefc8d7cddbe65b7c0996f10e54bc3157b394162887adc6a"
+  },
+  {
+    "key": "53:105884",
+    "name": "El",
+    "label": "Alternative \u00b7 105884",
+    "manifest": "assets/characters/crossgate/fighters/el/105884/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/105884/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "e31b42233e425c385d62a237956c0a923baaa7e331804b28f1854fc050ee8caa"
+  },
+  {
+    "key": "53:106775",
+    "name": "El",
+    "label": "Alternative \u00b7 106775",
+    "manifest": "assets/characters/crossgate/fighters/el/106775/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/el/106775/atlas-1.png",
+    "source_frame": [
+      1,
+      1,
+      979,
+      38,
+      93,
+      -19,
+      -85
+    ],
+    "crop": [
+      -27,
+      -85,
+      27,
+      -36
+    ],
+    "bounds": [
+      8,
+      0,
+      46,
+      49
+    ],
+    "scale": 4,
+    "top_y": 8,
+    "sha256": "50e83ac63abe1ac3416cebc76879b634fd72aa0a8e24b370794cd436f4b5d472"
+  },
+  {
+    "key": "54:100100",
+    "name": "Gen",
+    "label": "Classic \u00b7 100100",
+    "manifest": "assets/characters/crossgate/fighters/gen/100100/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100100/atlas-1.png",
+    "source_frame": [
+      1,
+      1955,
+      171,
+      33,
+      82,
+      -17,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -33
+    ],
+    "bounds": [
+      10,
+      0,
+      34,
+      35
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "4bcc5ac30c5bb96e0f04e637142bb40d99a4262faf251d3ab9a9ec44092028bd"
+  },
+  {
+    "key": "54:100106",
+    "name": "Gen",
+    "label": "Classic \u00b7 100106",
+    "manifest": "assets/characters/crossgate/fighters/gen/100106/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100106/atlas-1.png",
+    "source_frame": [
+      1,
+      1624,
+      257,
+      33,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "6f47eca1b3760858c88d45f10095d9f2b3bd0aeaf2cf44c0c9c997fee45341cf"
+  },
+  {
+    "key": "54:100112",
+    "name": "Gen",
+    "label": "Classic \u00b7 100112",
+    "manifest": "assets/characters/crossgate/fighters/gen/100112/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100112/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "5f0850b0ff31880886642409ad6ede155a1b27ae6c53801a6cc542cb8e3627dc"
+  },
+  {
+    "key": "54:100118",
+    "name": "Gen",
+    "label": "Classic \u00b7 100118",
+    "manifest": "assets/characters/crossgate/fighters/gen/100118/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100118/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1ce712c647c448dfa627edaa776cfa3fca0960480912fd42d8c0eab16c9780a8"
+  },
+  {
+    "key": "54:100230",
+    "name": "Gen",
+    "label": "Classic \u00b7 100230",
+    "manifest": "assets/characters/crossgate/fighters/gen/100230/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100230/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8064ec96bf5c35d1a3d3eaf371328b0a499e3f74c471b335f62105e6d421e20e"
+  },
+  {
+    "key": "54:100236",
+    "name": "Gen",
+    "label": "Classic \u00b7 100236",
+    "manifest": "assets/characters/crossgate/fighters/gen/100236/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100236/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "fc5d1454afeba7453fd344f0ad81953600298d1d5d47f0aa105708091e112930"
+  },
+  {
+    "key": "54:100242",
+    "name": "Gen",
+    "label": "Classic \u00b7 100242",
+    "manifest": "assets/characters/crossgate/fighters/gen/100242/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100242/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "8fd0858388c2c6ccd69c5798e503a549d395a8e75243fd8a6874dfb87f86fa43"
+  },
+  {
+    "key": "54:100493",
+    "name": "Gen",
+    "label": "Alternative \u00b7 100493",
+    "manifest": "assets/characters/crossgate/fighters/gen/100493/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100493/atlas-1.png",
+    "source_frame": [
+      1,
+      2010,
+      257,
+      34,
+      82,
+      -18,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -32
+    ],
+    "bounds": [
+      9,
+      0,
+      35,
+      36
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "21bdab338230c3872dfaee6e3a0f12dbc54d91d9e8eb4e43328a883dc3d66d55"
+  },
+  {
+    "key": "54:100575",
+    "name": "Gen",
+    "label": "Alternative \u00b7 100575",
+    "manifest": "assets/characters/crossgate/fighters/gen/100575/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100575/atlas-1.png",
+    "source_frame": [
+      1,
+      1489,
+      171,
+      33,
+      82,
+      -17,
+      -68
+    ],
+    "crop": [
+      -27,
+      -68,
+      27,
+      -33
+    ],
+    "bounds": [
+      10,
+      0,
+      34,
+      35
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "5a6b0e6b9013a58b046f1ec3acbe19a9ef3509d0d0d32d44463336e2a6833b3f"
+  },
+  {
+    "key": "54:100780",
+    "name": "Gen",
+    "label": "Alternative \u00b7 100780",
+    "manifest": "assets/characters/crossgate/fighters/gen/100780/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100780/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "16b86840049d9bc5bb4a5c27745ba0370c474059ce832399b7235f6a9d737b80"
+  },
+  {
+    "key": "54:100786",
+    "name": "Gen",
+    "label": "Alternative \u00b7 100786",
+    "manifest": "assets/characters/crossgate/fighters/gen/100786/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/100786/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "db2caed4a37621840b267e18919366bc1644c48898c7027b4090bb1a42f13151"
+  },
+  {
+    "key": "54:105100",
+    "name": "Gen",
+    "label": "Original \u00b7 105100",
+    "manifest": "assets/characters/crossgate/fighters/gen/105100/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/105100/atlas-1.png",
+    "source_frame": [
+      1,
+      148,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "49d0c89ab503a6160099027c67b3de2e930787818362377cb3a3d0c7cc350aa9"
+  },
+  {
+    "key": "54:105106",
+    "name": "Gen",
+    "label": "Alternative \u00b7 105106",
+    "manifest": "assets/characters/crossgate/fighters/gen/105106/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/105106/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "dd679166350417ec8103ba201198cef01fb99d3b3683a562414da1fe666c949a"
+  },
+  {
+    "key": "54:105118",
+    "name": "Gen",
+    "label": "Alternative \u00b7 105118",
+    "manifest": "assets/characters/crossgate/fighters/gen/105118/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/105118/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "0b8e26bc2b29271090711d55db1b6db8692b401e5ffa33240c30e8c38016f979"
+  },
+  {
+    "key": "54:105436",
+    "name": "Gen",
+    "label": "Alternative \u00b7 105436",
+    "manifest": "assets/characters/crossgate/fighters/gen/105436/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/105436/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "197a1500102ff44ed73c4f18fa116790a7f07bdbf351bf0d0713e25efe09a3aa"
+  },
+  {
+    "key": "55:100909",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 100909",
+    "manifest": "assets/characters/crossgate/fighters/sarah/100909/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/100909/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "04732db5bb406d427f048a019ed8a44a858be04333c1d0ab7b46b55e55caa6b3"
+  },
+  {
+    "key": "55:105466",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105466",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105466/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105466/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "26009a8655baffcfcda3d4d6dfa27fa8b917ccd14da7b57c0aafc2b9b0b59dcf"
+  },
+  {
+    "key": "55:105472",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105472",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105472/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105472/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "ea6144feb43288cb00171739fcd135efde735976aff1f1e1e4fced74c80e8300"
+  },
+  {
+    "key": "55:105478",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105478",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105478/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105478/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "0fa5fb7633486ceaf47912432708b4f59c892aa0bcc91fcc690dd4a5e555800c"
+  },
+  {
+    "key": "55:105670",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105670",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105670/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105670/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1336,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "53f0d2e697ca88d12c021225ec637ba4c56576281b85681b3586b86d5e97cf2e"
+  },
+  {
+    "key": "55:105676",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105676",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105676/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105676/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b8c9b156ee8adfde0febaf44129c86901027008d22d4a23c9b2f7c19a212fb58"
+  },
+  {
+    "key": "55:105682",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 105682",
+    "manifest": "assets/characters/crossgate/fighters/sarah/105682/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/105682/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b22f7036f61cb1894282dda852832d29e1dc8f591a9d9ec8107fa8279854d880"
+  },
+  {
+    "key": "55:106250",
+    "name": "Sarah",
+    "label": "Original \u00b7 106250",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106250/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106250/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "526e7a9ea7feef6b80d93b81f80b59d4b56d2367943dca411d702653b160ccdd"
+  },
+  {
+    "key": "55:106256",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 106256",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106256/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106256/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "beac32e30417c284b2f84ff2356cd76aa887e142076647dc8ae4f19443340400"
+  },
+  {
+    "key": "55:106262",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 106262",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106262/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106262/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f4b18c6f7e209fa644c1b770fe4e552e51a20a71070dd09241218568c3d23173"
+  },
+  {
+    "key": "55:106268",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 106268",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106268/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106268/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b1270d1ce19980b3a22f3c3011d7f72346c7273a4009f3c17dce0b3623cb2a09"
+  },
+  {
+    "key": "55:106600",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 106600",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106600/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106600/atlas-1.png",
+    "source_frame": [
+      1,
+      1351,
+      1180,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "d2bdb8055d41e18495a26fe92fdecc96cc6e7090d04e68fa7b4882bb4deafc62"
+  },
+  {
+    "key": "55:106768",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 106768",
+    "manifest": "assets/characters/crossgate/fighters/sarah/106768/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/106768/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "521fcb8c4477f70e5f631798cbc03acf7274b9e23362db93aca19ee4918e5c70"
+  },
+  {
+    "key": "55:111676",
+    "name": "Sarah",
+    "label": "Special \u00b7 Pink Lightning",
+    "manifest": "assets/characters/crossgate/fighters/sarah/111676/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/111676/atlas-1.png",
+    "source_frame": [
+      1,
+      711,
+      1413,
+      120,
+      106,
+      -55,
+      -69
+    ],
+    "crop": [
+      -24,
+      -67,
+      25,
+      -34
+    ],
+    "bounds": [
+      2,
+      0,
+      44,
+      33
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "f0c4fc0fc9bfd4ccf3744d882ce4e4a0a5d64ad4c19b5ab0b952e1d06fd0f070"
+  },
+  {
+    "key": "55:120358",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 120358",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120358/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120358/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "78b90732d5cd9201f7e471bcd87fd175fea99e7f1b59ae4639724a8902220792"
+  },
+  {
+    "key": "55:120364",
+    "name": "Sarah",
+    "label": "Alternative \u00b7 120364",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120364/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120364/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "06a75ec090fa668b8f8775a49d6acd5242b4b7e3d21c8c00a7084dcba092689d"
+  },
+  {
+    "key": "55:120447",
+    "name": "Sarah",
+    "label": "Special \u00b7 White / Gold Companion",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120447/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120447/atlas-1.png",
+    "source_frame": [
+      1,
+      278,
+      1,
+      65,
+      73,
+      -24,
+      -65
+    ],
+    "crop": [
+      -24,
+      -65,
+      24,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      44,
+      29
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "07436f5e71b9d3a73944191facb337d8b820714eca4a8c0e5159b9021c3053d6"
+  },
+  {
+    "key": "52:900060",
+    "name": "Bau",
+    "label": "Secret \u00b7 Red Martial Artist",
+    "manifest": "assets/characters/crossgate/fighters/bau/900060/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/900060/atlas-1.png",
+    "source_frame": [
+      1,
+      1900,
+      236,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "2ca805fea2fa2466c78b69cc86315e747b4c6989fc07d5b8550d4bf62c501468"
+  },
+  {
+    "key": "52:900061",
+    "name": "Bau",
+    "label": "Secret \u00b7 Black Martial Artist",
+    "manifest": "assets/characters/crossgate/fighters/bau/900061/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/bau/900061/atlas-1.png",
+    "source_frame": [
+      1,
+      1900,
+      236,
+      31,
+      74,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -32
+    ],
+    "bounds": [
+      13,
+      0,
+      39,
+      33
+    ],
+    "scale": 7,
+    "top_y": 8,
+    "sha256": "4124aeb5de64ad0de851c00af4a596665266a5ead38f9d879d2ce79b35f7f974"
+  },
+  {
+    "key": "54:105112",
+    "name": "Gen",
+    "label": "Alternative \u00b7 Blue Hair / White",
+    "manifest": "assets/characters/crossgate/fighters/gen/105112/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/gen/105112/atlas-1.png",
+    "source_frame": [
+      1,
+      98,
+      825,
+      42,
+      87,
+      -25,
+      -73
+    ],
+    "crop": [
+      -27,
+      -73,
+      27,
+      -36
+    ],
+    "bounds": [
+      6,
+      0,
+      36,
+      37
+    ],
+    "scale": 6,
+    "top_y": 8,
+    "sha256": "1b7bab2a0276c2531887702a3fa9647c53eb9f19e36154262ab1f0b7da9d3ea9"
+  },
+  {
+    "key": "55:120433",
+    "name": "Sarah",
+    "label": "Special \u00b7 Black / Red Weapons",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120433/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120433/atlas-1.png",
+    "source_frame": [
+      1,
+      69,
+      1023,
+      65,
+      73,
+      -24,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -36
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      29
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "dc5134b8e74543cb2751b065a03b49da9492dc3c72bb6ba19221788409e22868"
+  },
+  {
+    "key": "55:120400",
+    "name": "Sarah",
+    "label": "Event archive \u00b7 120400",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120400/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120400/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1336,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "53f0d2e697ca88d12c021225ec637ba4c56576281b85681b3586b86d5e97cf2e"
+  },
+  {
+    "key": "55:120406",
+    "name": "Sarah",
+    "label": "Event archive \u00b7 120406",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120406/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120406/atlas-1.png",
+    "source_frame": [
+      1,
+      158,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b8c9b156ee8adfde0febaf44129c86901027008d22d4a23c9b2f7c19a212fb58"
+  },
+  {
+    "key": "55:120412",
+    "name": "Sarah",
+    "label": "Event archive \u00b7 120412",
+    "manifest": "assets/characters/crossgate/fighters/sarah/120412/motions.json",
+    "pose": "0:5",
+    "frame": 0,
+    "atlas": "assets/characters/crossgate/fighters/sarah/120412/atlas-1.png",
+    "source_frame": [
+      1,
+      157,
+      1257,
+      38,
+      73,
+      -18,
+      -65
+    ],
+    "crop": [
+      -27,
+      -65,
+      27,
+      -33
+    ],
+    "bounds": [
+      9,
+      0,
+      47,
+      32
+    ],
+    "scale": 5,
+    "top_y": 8,
+    "sha256": "b22f7036f61cb1894282dda852832d29e1dc8f591a9d9ec8107fa8279854d880"
+  },
+  {
     "key": "38:100053",
     "name": "Shin Special",
     "label": "Hidden classic",

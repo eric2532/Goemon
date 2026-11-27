@@ -33,14 +33,28 @@ func run():
 	check(is_instance_valid(game.equipment_hub) and not game.playing and game.equipment_hub.enter_button.text=="Enter Map","Arena selection opens equipment before the map starts")
 	check(game.player.position.is_equal_approx(game.model.point(game.PLAYER_SPAWN_CELL)+Vector3.UP*.15),"Arena starts at its own spawn rather than the city plaza")
 	game.equipment_hub.enter_map()
-	for i in 240:
-		game._physics_process(1.0/60)
-		if game.model.enemies.size()==Roles.SLIME_COLORS:break
-	check(game.model.phase=="wave" and game.model.enemies.size()==Roles.SLIME_COLORS,"Start releases the first 29 slimes")
+	var frame=1.0/60
+	for i in 60:
+		game._physics_process(frame)
+		if not game.model.enemies.is_empty():break
+	check(game.model.phase=="wave" and game.model.enemies.size()==1,"Start releases one slime from the first wave")
+	for i in 179:game._physics_process(frame)
+	check(game.model.enemies.size()==1,"A second slime waits three seconds")
+	game._physics_process(frame)
+	check(game.model.enemies.size()==2,"The next slime spawns at the three-second mark")
 	print("ARENA_MENU_STATE phase=",game.model.phase," playing=",game.playing," paused=",game.paused," ordinary_pause=",game.ordinary_pause," enemies=",game.model.enemies.size()," wave=",game.model.wave," released=",game.model.waves.released_waves," detail=",game.model.terrain_detail)
+	if game.model.enemies.is_empty():quit(1);return
 	check(game.model.enemies.values().all(func(enemy):return enemy.variant==Roles.SLIME),"The arena test uses slimes")
-	game.model.waves.tick(30.0,game.player.position)
-	check(game.model.wave==2 and game.model.waves.released_waves==2,"The arena continues to the next timed wave")
+	var waves=game.model.waves
+	var first:Dictionary=game.model.enemies.values()[0]
+	var army=game.army_runtime
+	army.apply_hit(army.handles.get(first.id,0),{"amount":1000000.0,"accuracy":100.0})
+	check(waves.slime_rebirth_pending==1,"A defeated slime queues its return")
+	waves.tick(30.0,game.player.position)
+	check(game.model.wave==2 and waves.slime_scheduled_total()==2*Roles.SLIME_COLORS,"The next timed wave adds its full roster to the queue")
+	check(waves.slime_returned==1 and waves.spawned==2,"One due return spawns despite the fresh backlog")
+	waves.tick(3.0,game.player.position)
+	check(waves.slime_returned==1 and waves.spawned==3,"The next interval releases one fresh slime")
 	if DisplayServer.get_name()!="headless":
 		game.world.sync(0);game.army_runtime.flush_presentation();game.forest_ui.sync()
 		for i in 5:await process_frame

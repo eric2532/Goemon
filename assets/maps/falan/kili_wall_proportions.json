@@ -1,0 +1,257 @@
+{
+  "graphics": {
+    "11230": {
+      "pack": "original",
+      "row": 8051,
+      "rgba_sha256": "552185a45ae3ec258c5b7f1c4b83375d3c9a187f39dfaece5d7461b6d47e5696",
+      "rect": [
+        -26,
+        -113,
+        52,
+        130
+      ],
+      "ground_shadow_pixels": 0
+    },
+    "11231": {
+      "pack": "original",
+      "row": 8052,
+      "rgba_sha256": "66d726ae6c174ff54a14b4ed85a023b33568a722276460c212cc45f23bcbf302",
+      "rect": [
+        -26,
+        -113,
+        52,
+        131
+      ],
+      "ground_shadow_pixels": 103
+    },
+    "11232": {
+      "pack": "original",
+      "row": 8053,
+      "rgba_sha256": "be58dd4bba51712c4ba22ca701bde593277acf24442db727c0b00542ba1b8ab1",
+      "rect": [
+        -25,
+        -113,
+        51,
+        130
+      ],
+      "ground_shadow_pixels": 24
+    },
+    "11233": {
+      "pack": "original",
+      "row": 8054,
+      "rgba_sha256": "7a6321555c9b3dac7cae476088b34dbf8dbe059f7d1ad92e4f1b698b382ad2c2",
+      "rect": [
+        -26,
+        -113,
+        51,
+        130
+      ],
+      "ground_shadow_pixels": 25
+    },
+    "11234": {
+      "pack": "original",
+      "row": 8055,
+      "rgba_sha256": "b5fd0a37d98ffd08cabccaca291e490907c87998ab19184867984348ca12ac54",
+      "rect": [
+        -25,
+        -107,
+        50,
+        124
+      ],
+      "ground_shadow_pixels": 25
+    },
+    "11235": {
+      "pack": "original",
+      "row": 8056,
+      "rgba_sha256": "d03fc191085054e7685cd14b96ef507284cc33f5e18ac16c832c6224b5dfe30d",
+      "rect": [
+        -28,
+        -152,
+        58,
+        169
+      ],
+      "ground_shadow_pixels": 114
+    },
+    "11236": {
+      "pack": "original",
+      "row": 8057,
+      "rgba_sha256": "b5f670693d495215b6ef55cb0b136d2d0ffe03d2f8ad5f7fa0e82ef2e07c3329",
+      "rect": [
+        -26,
+        -113,
+        44,
+        130
+      ],
+      "ground_shadow_pixels": 80
+    },
+    "11237": {
+      "pack": "original",
+      "row": 8058,
+      "rgba_sha256": "6aa4483554224e1e0201c8e4dea074af454fd938c886da3568e104c548fc6b26",
+      "rect": [
+        -33,
+        -148,
+        60,
+        169
+      ],
+      "ground_shadow_pixels": 114
+    },
+    "11238": {
+      "pack": "original",
+      "row": 8059,
+      "rgba_sha256": "dad998276afa9ca5a60d1989f32dcb1af19b4dba54cb6f361e0cc725ee4adb2f",
+      "rect": [
+        -28,
+        -154,
+        57,
+        177
+      ],
+      "ground_shadow_pixels": 127
+    },
+    "11239": {
+      "pack": "original",
+      "row": 8060,
+      "rgba_sha256": "d9ab809459089426bb5a48472fbd32e3cd820f1de01a8e1023a5430544e8b66e",
+      "rect": [
+        -25,
+        -113,
+        52,
+        133
+      ],
+      "ground_shadow_pixels": 97
+    },
+    "11240": {
+      "pack": "original",
+      "row": 8061,
+      "rgba_sha256": "a50d739df09c8b1578042383a2a2ec328af9a5ebac31860f697766334257ade0",
+      "rect": [
+        -25,
+        -116,
+        53,
+        139
+      ],
+      "ground_shadow_pixels": 109
+    },
+    "11241": {
+      "pack": "original",
+      "row": 8062,
+      "rgba_sha256": "3a74ccb45efc4d3ccc54a378485b16e0c4290ff87d0d9c121825d8ff0bb8de4b",
+      "rect": [
+        -25,
+        -113,
+        51,
+        134
+      ],
+      "ground_shadow_pixels": 100
+    },
+    "11242": {
+      "pack": "original",
+      "row": 8063,
+      "rgba_sha256": "2a67a3c20f034b3fe3b943c32dd90b353a90d0c4bd197a0559e04e6c0d8d7c3b",
+      "rect": [
+        -25,
+        -116,
+        53,
+        133
+      ],
+      "ground_shadow_pixels": 65
+    },
+    "11243": {
+      "pack": "original",
+      "row": 8064,
+      "rgba_sha256": "b25425bfd9fad9f1192e0c20a3e8bb2879d0f9bbce4d3ab77fcacb16f32caae0",
+      "rect": [
+        -26,
+        -113,
+        56,
+        124
+      ],
+      "ground_shadow_pixels": 60
+    },
+    "11244": {
+      "pack": "original",
+      "row": 8065,
+      "rgba_sha256": "87b6b8a5d595a20819bab9a44bedeb88cd5a0f17caab7afe8c99e93c65ec929f",
+      "rect": [
+        -26,
+        -116,
+        51,
+        135
+      ],
+      "ground_shadow_pixels": 36
+    },
+    "11245": {
+      "pack": "original",
+      "row": 8066,
+      "rgba_sha256": "0cd0497de4fea9813b37b680d1dcb074026d203d98eab5a2f3bed5cd94d6126d",
+      "rect": [
+        -26,
+        -113,
+        51,
+        130
+      ],
+      "ground_shadow_pixels": 59
+    },
+    "11246": {
+      "pack": "original",
+      "row": 8067,
+      "rgba_sha256": "4b7767be5ae66f043fd6043da9876338fe29caca8b087e57b5cbbfd6a3fc0bb4",
+      "rect": [
+        -26,
+        -116,
+        51,
+        134
+      ],
+      "ground_shadow_pixels": 43
+    },
+    "11247": {
+      "pack": "original",
+      "row": 8068,
+      "rgba_sha256": "303c7c97727864683d0ecca1c19fef7e7a2d7c1b459f95281b3a536a5a7ef2de",
+      "rect": [
+        -26,
+        -113,
+        51,
+        130
+      ],
+      "ground_shadow_pixels": 51
+    },
+    "11248": {
+      "pack": "original",
+      "row": 8069,
+      "rgba_sha256": "dcc09a8e38ba86d24c0e85f6b8d8445ba143802dbfcc17e1dfa3131bf5be3199",
+      "rect": [
+        -33,
+        -157,
+        58,
+        174
+      ],
+      "ground_shadow_pixels": 50
+    },
+    "11249": {
+      "pack": "original",
+      "row": 8070,
+      "rgba_sha256": "7759c17f12bae8d607aebc88614bdd255c8cc668defdf24c6069e6ecfb01cb9d",
+      "rect": [
+        -26,
+        -148,
+        62,
+        171
+      ],
+      "ground_shadow_pixels": 76
+    },
+    "11250": {
+      "pack": "original",
+      "row": 8071,
+      "rgba_sha256": "6f4a4e095407c55f8770e582a91cecd101c4787d740be88c7fbab800231b5a2f",
+      "rect": [
+        -18,
+        -113,
+        44,
+        130
+      ],
+      "ground_shadow_pixels": 30
+    }
+  },
+  "method": "Native projected silhouette bounds excluding ground shadow. Fit the existing solid kit at setup only; hidden shape and fine cap profiles remain inferred. Collision data is not generated."
+}

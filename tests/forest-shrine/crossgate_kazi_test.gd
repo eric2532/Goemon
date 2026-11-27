@@ -249,12 +249,12 @@ func run():
  model.animate(.3,10.2,true,0,0,false,0,false)
  check(is_equal_approx(model.phase,blocked_phase) and model.current_clip.begins_with("0:"),"A blocked character holds stride phase and returns to idle after landing recovery")
  model.phase=0;model.locomotion_velocity=right*8
- model.animate(float(original.clips["3:0"].duration)*.5,8,true,0,0,false,0,false)
- check(is_equal_approx(model.phase,.5),"Running uses the original source clip duration")
+ model.animate(model.RUN_STRIDE*.5/8,8,true,0,0,false,0,false)
+ check(is_equal_approx(model.phase,.5),"Running advances half a stride over half its ground distance")
  Input.action_release("sprint")
  model.phase=0;model.locomotion_velocity=right*2
- model.animate(float(original.clips["1:0"].duration)*.5,2,true,0,0,false,0,false)
- check(is_equal_approx(model.phase,.5),"Walking uses the original source clip duration")
+ model.animate(model.WALK_STRIDE*.5/2,2,true,0,0,false,0,false)
+ check(is_equal_approx(model.phase,.5),"Walking advances half a stride over half its ground distance")
  model.phase=saved_phase
  model.locomotion_velocity=Vector3.ZERO
  var spell=BusySpell.new();game.add_child(spell)

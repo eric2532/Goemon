@@ -1,0 +1,42 @@
+[
+  {
+    "file": "13500_n_doukutu",
+    "path": "gmsv/data/map/13500_n_doukutu",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha": "b47b82f97e48929f04e1362af0141139e8c8e02b",
+    "bytes": 10044,
+    "sha256": "3961b0c6107afa08d1ee635c081654009a41122139ea213da50efabad2548111",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13500_n_doukutu",
+    "authority": "Exact pinned CGMSV map; recorded client overlap is preserved."
+  },
+  {
+    "file": "13501_n_doukutu",
+    "path": "gmsv/data/map/13501_n_doukutu",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha": "7056322adf7187b496f0bc7d4c2988f61dd641ac",
+    "bytes": 10044,
+    "sha256": "f28f7c777d4d9d5ea1b15a664b2b648172ed73594b9ddc54a78d3b3f742f7129",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13501_n_doukutu",
+    "authority": "Exact pinned CGMSV map; recorded client overlap is preserved."
+  },
+  {
+    "file": "13502_n_doukutu",
+    "path": "gmsv/data/map/13502_n_doukutu",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha": "3e6324041ad177063c1c65b8d3c2e0d1724065c3",
+    "bytes": 10044,
+    "sha256": "3462255fb1aca8962c8170c8181440925237f8d2bf2c36303cef7fbe8d85ffee",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13502_n_doukutu",
+    "authority": "Exact pinned CGMSV map; recorded client overlap is preserved."
+  },
+  {
+    "file": "13515_daicyo",
+    "path": "gmsv/data/map/13515_daicyo",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha": "15f3f04c964e65fefa9a1fd3b75de783f4ee5eb9",
+    "bytes": 19644,
+    "sha256": "08eca88860fcddfa765eafa805aa558594472ae86a8694bdae4c2093158d64d0",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13515_daicyo",
+    "authority": "Exact pinned CGMSV map; recorded client overlap is preserved."
+  }
+]

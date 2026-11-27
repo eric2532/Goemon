@@ -36,6 +36,8 @@ static func anchor(item:Dictionary):
 	return Vector2i(item.x,item.z) if is_zero_approx(height) else Vector3i(item.x,item.z,roundi(height*10000))
 static func cell(anchor_)->Vector2i:return Vector2i(anchor_.x,anchor_.y)
 static func is_tree(kind:String)->bool:return kind in ["tree","cedar","pine","sakura","bamboo"]
+static func player_passable(kind:String)->bool:
+	return is_tree(kind) or kind in ["shrub","rock","river_rock","moss_rock","boulder_pair","river_cluster","kili_palm","stone_block","wall_ruins","fence","fence_corner","ghana_well"]
 static func asset(kind:String)->String:return CATALOG[kind].asset if CATALOG.has(kind) else MEADOW+("broadleaf_tree" if kind=="tree" else "mossy_boulder")+".glb"
 static func visual_scale(kind:String)->float:return CATALOG[kind].size if CATALOG.has(kind) else (2.0 if kind=="tree" else 1.0)
 static func material(kind:String)->String:return CATALOG[kind].material if CATALOG.has(kind) else ("wood" if kind=="tree" else "stone")

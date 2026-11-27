@@ -101,7 +101,7 @@ func run():
  xp.award_kills(48);p.refresh_max_health();ui.sync()
  var saved=FileAccess.get_sha256(cfg);var settings=game.settings.duplicate(true)
  game.show_status_panel();await frames();var panel=game.status_panel
- check(panel.buttons.size()==9 and panel.stat_icons.size()==9 and panel.values.size()==11,"All allocations and derived values include Magic defense")
+ check(panel.buttons.size()==10 and panel.stat_icons.size()==10 and panel.values.size()==12,"All allocations and derived values include Magic defense and Accuracy")
  check(panel.stat_icons.all(func(view):return view.texture!=null and not view.tooltip_text.is_empty()),"Every stat uses an icon with an explanatory tooltip")
  check(panel.stat_icons.all(func(view):return view.size==Vector2(32,32)),"Stat symbols fit their cards instead of keeping source texture dimensions")
  check(panel.buttons.values().all(func(button_):return not button_.accessibility_name.is_empty()),"Icon-based upgrades retain readable accessibility names")

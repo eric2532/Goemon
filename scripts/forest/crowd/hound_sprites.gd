@@ -50,7 +50,7 @@ static func make_mesh(root:String=ROOT,data:Dictionary={},size:float=Roles.HOUND
  if meshes.has(root):return meshes[root]
  if data.is_empty():data=motions()
  var images:Array[Image]=[]
- if data.has("skin_pages"):images.append(Image.create(2048,2048,false,Image.FORMAT_R8))
+ if data.has("skin_pages"):images.append(Image.create(int(data.get("page_size",2048)),int(data.get("page_size",2048)),false,Image.FORMAT_R8))
  else:
   for page in int(data.pages):
    var image:Image=load(data.atlas_paths[page] if data.has("atlas_paths") else root+"atlas-%d.png"%page).get_image()
@@ -91,7 +91,7 @@ static func prepare_pages(root:String,data:Dictionary,pages:Array)->void:
  var mesh:QuadMesh=meshes[root]
  pages.sort()
  if mesh.has_meta("prepared_pages") and mesh.get_meta("prepared_pages")==pages:return
- var images:Array[Image]=[Image.create(2048,2048,false,Image.FORMAT_R8)]
+ var images:Array[Image]=[Image.create(int(data.get("page_size",2048)),int(data.get("page_size",2048)),false,Image.FORMAT_R8)]
  var mapping=PackedInt32Array();mapping.resize(data.pages)
  for page in pages:
   var image:Image=load(data.atlas_paths[page]).get_image();image.convert(Image.FORMAT_R8)

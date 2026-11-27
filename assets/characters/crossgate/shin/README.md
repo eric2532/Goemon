@@ -1,5 +1,29 @@
 # Shin · Blue Cross Gate
 
+## 水龍 boomerang wave at contact — 2026-11-25
+
+The custom 水龍 Boomerang's blue wave now plays at confirmed enemy contact,
+including ordinary throws, counters and native copies. It no longer appears
+beside Shin during release. The weapon's item/projectile images, body pixels,
+grips and all attack/release clocks are unchanged. The ordinary original
+boomerang and the other 水龍 weapons retain their separate presentation.
+
+`boomerang/contact-wave.png` reuses the exact three source wave samples already
+seen in each throw (13/17/20 from `blue_waves()`), across all eight facings.
+The effect is centred at the actual contact point and uses the existing bounded
+ArmyPresentation pool. Misses and empty flight emit nothing; cosmetic capacity
+does not affect damage. The custom wave replaces its generic hit spark and keeps
+the existing ice impact audio. No effect is attached to the flying weapon image.
+
+Prepare only this weapon with `prepare_shin_water_weapons.py '../Magic Power'
+--weapon boomerang`, then regenerate player audio and run
+`prepare_shin_water_weapon_anchors.py` before the asset check. The preparer keeps
+the separate original/default and custom item routes. Evidence and preserved
+pre-change artwork are under `build/Other Files/Asset Toolkit/Water Boomerang Contact/`.
+`water_boomerang_contact_test.gd` covers actual native contacts, misses, counters,
+four simultaneous copies, repeated leases and a full cosmetic pool; the existing
+water weapon fixture covers the other routes and Shift controls.
+
 ## 水龍shin · purple hair — 2026-11-18
 
 The user requested light lavender hair and slightly darker blue clothing for

@@ -1,5 +1,6 @@
 shader_type spatial;
 #include "res://scripts/forest/forest_archive_palette.gdshaderinc"
+#include "res://scripts/forest/forest_route_finish.gdshaderinc"
 render_mode cull_disabled, shadows_disabled;
 
 uniform sampler2D rock : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
@@ -10,6 +11,8 @@ uniform bool is_roof = true;
 uniform bool has_wall_faces = false;
 uniform bool original_palette = false;
 uniform bool crag_surface = false;
+// Opt-in visual cutaway reuses the arena roof rule; the physical slab is untouched.
+uniform float roof_camera_cutaway_margin = -1.0;
 varying vec3 rock_point;
 varying vec3 rock_normal;
 varying float surface_height;
@@ -33,6 +36,7 @@ vec3 rock_pattern(vec2 point) {
 }
 
 void fragment() {
+ if(is_roof && roof_camera_cutaway_margin>=0.0 && CAMERA_POSITION_WORLD.y>rock_point.y-roof_camera_cutaway_margin && INV_VIEW_MATRIX[2].y>.05) discard;
  if(rock_family<0) {
   vec3 fine=texture(rock,rock_point.xz*.29).rgb;
   vec3 coarse=texture(rock,rock_point.xz*.071).rgb;
@@ -68,6 +72,13 @@ void fragment() {
    ALBEDO=vec3(0.0);
    EMISSION=archive_color(source);
   }
+ }
+ float finish=route_weight(rock_point);
+ if(finish>0.0){
+  float mass=.92+.08*sin(rock_point.x*.11+rock_point.z*.13+sin(rock_point.y*.17));
+  vec3 paint=archive_color(route_tint*mass*(is_roof ? .24 : .88+.12*max(0.0,rock_normal.y)));
+  if(original_palette)EMISSION=mix(EMISSION,paint,finish);
+  else ALBEDO=mix(ALBEDO,paint,finish);
  }
  ROUGHNESS=1.0;
  SPECULAR=original_palette ? 0.0 : .5;

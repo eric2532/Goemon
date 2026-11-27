@@ -150,6 +150,8 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	falan_area=str(layout.get("falan_area",""))
 	falan_floor=int(layout.get("falan_floor",0))
 	falan_areas=layout.get("falan_areas",{})
+	if FreyjaTerrain.Sokia.owns(falan_area):map_expansion=maxf(map_expansion,FreyjaTerrain.Sokia.expansion(falan_area))
+	if falan_area=="south_lakes":map_expansion=maxf(map_expansion,FreyjaTerrain.VenoaField.EXPANSION)
 	falan_scale=FALAN_SCALE if not falan_area.is_empty() or terrain_detail==FreyjaTerrain.ID else 1.0
 	navigation_region=region_for(terrain_source,terrain_scale*map_expansion)
 	if falan_area=="interior" and preload("res://scripts/forest/forest_original_maps.gd").owns(falan_floor):
@@ -161,6 +163,7 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	terrain=create_terrain(terrain_source,terrain_scale,map_expansion,raised_castle,terrain_detail,falan_area)
 	falan_road=terrain.variant if terrain is FreyjaTerrain and FalanFrontier.FRAMES.has(terrain.variant) else ""
 	terrain.configure(ramparts)
+	if FreyjaTerrain.Regions.private_source_context!=null:FreyjaTerrain.Regions.private_source_context.configure_model(self)
 	if terrain is FreyjaTerrain and terrain.variant=="east_gate":
 		var bounds:Rect2=terrain.mask_bounds()
 		var low=Vector2i((bounds.position/6.0).floor())
@@ -324,6 +327,7 @@ static func building_region_for(source:String,scale_:float=1.0)->Rect2i:
 static func create_terrain(source:String,scale_:float=1.0,expansion:float=1.0,raised:bool=false,detail:String="",area:String="")->RefCounted:
 	match source:
 		"wind_meadow":
+			if FreyjaTerrain.Sokia.owns(area):expansion=maxf(expansion,FreyjaTerrain.Sokia.expansion(area))
 			var meadow=Arena.new() if detail==Arena.ID else FreyjaTerrain.new() if detail==FreyjaTerrain.ID or not area.is_empty() else WindMeadowTerrain.new()
 			if not area.is_empty():meadow.variant=area
 			meadow.horizontal_scale=scale_;meadow.expansion=expansion;meadow.raised_castle=raised;return meadow
@@ -339,6 +343,8 @@ func navigation_bounds()->Rect2:
 func has_elevation()->bool:return terrain_source in ["kai_highway","blood_gulch","wind_meadow"] or not ramparts.is_empty()
 func surface_height(x: float,z: float)->float:
 	if falan_area=="interior":
+		if falan_floor==43700:return maxf(terrain.height(x,z),preload("res://scripts/forest/forest_east_lektal_annexes.gd").surface_height(x,z))
+		if preload("res://scripts/forest/forest_elsa_hall_steps.gd").owns(falan_floor):return preload("res://scripts/forest/forest_elsa_hall_steps.gd").height(x,z,falan_floor)
 		if falan_floor==FalkenArt.Route.ROOM:return FalkenArt.Dais.height(x,z)
 		if falan_floor==1511:return PalaceArt.surface_height(falan_floor,x,z)
 		if falan_floor in CellarArt.RAISED_FLOORS:return CellarArt.surface_height(falan_floor,x,z)

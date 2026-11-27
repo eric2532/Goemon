@@ -11,6 +11,19 @@ const ORIGIN=Vector2(-96,-96)
 const SLAIN=&"black_prayer_slain"
 const PATROL_COUNT=96
 const DIRECTIONS=Imur.DIRECTIONS
+static var encounter_source:Dictionary={}
+static func source()->Dictionary:
+ if encounter_source.is_empty():encounter_source=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/falan/black_prayer/encounters.json"))
+ return encounter_source
+static func source_floor(id:int)->Dictionary:
+ var index=FLOORS.find(id)
+ return source().floors[index].duplicate(true) if index>=0 else {}
+static func encounter_zone(id:int)->Dictionary:
+ if id not in FLOORS:return {}
+ var result:Dictionary=source().zone.duplicate(true)
+ var floor_:Dictionary=source_floor(id)
+ result.id=id;result.map=id;result.levels=[int(floor_.reference_generator_level),int(floor_.reference_generator_level)]
+ return result
 
 static func owns(id:int)->bool:return id==ENTRY or id in FLOORS
 static func floor_info(id:int)->Array:
@@ -63,6 +76,7 @@ static func walk_mask(id:int,run_seed:int)->PackedByteArray:
  return bits
 
 static func patrols(id:int,run_seed:int)->Array:
+ # Retained station/death-slot compatibility data; live ordinary fights use the source movement owner.
  var rows=[]
  var rng=rng_for(id,run_seed+641)
  for z in 4:
@@ -91,3 +105,19 @@ static func links(id:int,run_seed:int)->Array:
 
 static func door(at:Vector2,target:int,arrival:Vector2,caption:String)->Dictionary:
  return {"at":at,"to":"freyja_door","floor":target,"arrival":arrival,"caption":caption,"door":true}
+
+static func box_count(id:int,run_seed:int)->int:
+ if id not in FLOORS:return 0
+ var shared=load("res://scripts/forest/forest_original_dungeons.gd")
+ shared.prepare_east_seed(run_seed)
+ var token=Vector2i(FLOORS[0],run_seed)
+ if not shared.box_allocations.has(token):
+  var candidates=[]
+  for floor_:int in FLOORS:
+   var bits=walk_mask(floor_,run_seed);var doors=stairs(floor_,run_seed)
+   for y in SIZE.y:
+    for x in SIZE.x:
+     var cell=Vector2i(x,y);var index=y*SIZE.x+x
+     if bits[index>>3]&(1<<(index&7)) and doors.all(func(at):return cell.distance_squared_to(at)>=4):candidates.append(floor_)
+  shared.allocate_boxes(token,candidates,int(source().source_config.box_amount),rng_for(FLOORS[0]+54,run_seed))
+ return int(shared.box_allocations[token].get(id,0))

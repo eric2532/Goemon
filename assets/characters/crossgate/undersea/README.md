@@ -1,4 +1,4 @@
-The two undersea floors share the native cave encounter renderer, movement,
+The undersea floors share the native cave encounter renderer, movement,
 hit queries, and sprite attack cue playback. The three original actors are
 100802 (熱砂的歐茲尼克), 101721 (水龍蜥), and 101700 (蜥蜴戰士). Their
 graphic IDs come from the archived enemybase records 1017, 722, and 701.
@@ -18,9 +18,14 @@ Kaz's original `qigong/orbs.png`, shared orb shader, native projectile collision
 and the army's immutable mesh/MultiMesh presentation. The source melee swing
 remains the normal attack; no weapon model or sword effect is attached.
 
-Sokia has 40 source-grid patrols (20 of each lizard) and Venoa Undersea has 48
-(24 of each). These visible patrols adapt the original random encounters;
-they are not a claim of fixed spawn coordinates in Blue CG. The historical boss
+The old Sokia 40-post and Venoa 48-post arrays remain compatibility/reference
+data. Current 15003–15005 and 15592–15594 ambient fights use the shared source
+encounter adapter instead. Venoa floors15592/15593/15594 retain source zones
+5044/5045/5046 and group5040: water lizards and warriors, levels26–27, equal
+member weights, maximum five. The old fixed scheduler is suppressed there;
+named bosses retain their existing native owner. Original probability-ramp and
+group-size algorithms remain unverified; source bounds/weights plus the existing
+shuffle bags do not establish exact original frequency. The historical boss
 has 2,000 HP (https://guide.bluecg.net/blue-cg/453468); Goemon now preserves his
 level 40 with 48,000 HP and 320 base damage for real-time combat. Balance data
 lives in `scripts/forest/cave_progression.gd`; provenance is documented in

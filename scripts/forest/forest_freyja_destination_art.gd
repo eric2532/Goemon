@@ -16,11 +16,11 @@ const HABARU_MOUTHS={Vector2i(672,223):"HabaruIlMouth",Vector2i(691,188):"Habaru
 const HABARU_MOUTH_SCALE=Vector3(3.2,2.35,1.5)
 const UNDERSEA_MOUTHS=preload("res://assets/maps/falan/undersea_entrances.gd")
 const Villages=preload("res://scripts/forest/forest_kili_art.gd")
+const RubyRegionArt=preload("res://scripts/forest/forest_ruby_region_art.gd")
 
 static func build(parent:Node3D,model,area:String):
  if area=="il_village":
   il_gate(parent,model,Regions.IL_GATE)
-  il_shore(parent,model)
  if area=="laruka":laruka_gate(parent,model,Regions.LARUKA_GATE)
  if area=="alyut":
   alyut_gate(parent,model,Regions.ALYUT_SOUTH_GATE)
@@ -30,7 +30,7 @@ static func build(parent:Node3D,model,area:String):
   tomato_storehouse(parent,model)
  if area in ["east_gate","east_coast"]:il_canal_crossing(parent,model,area)
  var sites=Regions.site_links(area).filter(func(site):return site.site not in [2000,2400])
- if sites.is_empty() and not Villages.SOURCE.SCENERY.has(area):return
+ if sites.is_empty() and not Villages.SOURCE.SCENERY.has(area) and area!="ghana":return
  var root=Node3D.new()
  root.name="FreyjaDestinationEntrances"
  parent.add_child(root)
@@ -54,13 +54,16 @@ static func build(parent:Node3D,model,area:String):
  var lintel=Fort.material(Color("b0a489"))
  for site in sites:
   if site.kind not in ["house","village"]:continue
+  if site.kind=="house"and load("res://scripts/forest/forest_west_route_scenery.gd").source_house_owned(model,int(site.site)):continue
   if site.site in [2100,3200]:continue
+  if Sokia.owns(area) and site.site==3350:continue # The native 11289 house supplies this facade.
   if site.site==2300:
    laruka_gate(root,model,Regions.LARUKA_GATE+Regions.LARUKA_TO_ROAD)
    continue
   var at:Vector2=site.at
   var point=Vector3(at.x,model.surface_height(at.x,at.y),at.y)
   var mouth=Node3D.new()
+  mouth.set_meta("source_site",int(site.site))
   mouth.position=point
   mouth.rotation.y=atan2(site.direction.x,site.direction.y)
   root.add_child(mouth)
@@ -322,12 +325,12 @@ static func habaru_opening_bounds(model)->AABB:
  return AABB()
 
 static func build_archive(root:Node3D,model,area:String):
- if area=="sokia_desert":preload("res://scripts/forest/forest_falken_art.gd").desert_guide(root,model,Regions.frame(area))
- var village=Villages.SOURCE.SCENERY.has(area)
+ var route=load("res://scripts/forest/forest_west_route_scenery.gd")
+ var village=Villages.SOURCE.SCENERY.has(area) or area=="ghana"
  if not Archive.SCENERY.has(area) and not village and not Sokia.owns(area):return
  var frame=Transform2D(0.0,Regions.Sites.VILLAGES[area][2]) if village else Regions.frame(area).inverse()
  if model.terrain.variant=="east_gate":frame=Regions.frame("east_gate").inverse()
- var coastal=area=="kili" or area.begins_with("sokia_") or area.begins_with("ghana_")
+ var coastal=area in ["kili","ghana"] or area.begins_with("sokia_") or area.begins_with("ghana_")
  var source_crags=area in ["south_lakes","kili","sokia_coast"] or Sokia.owns(area)
  var rock=SurfaceTool.new()
  rock.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -339,12 +342,15 @@ static func build_archive(root:Node3D,model,area:String):
  var scenery:Dictionary={}
  if Sokia.owns(area):
   for row in Sokia.Data.SCENERY[area]:scenery[row[0]]=row
-  Sokia.build(root,model,frame,Sokia.Data.SCENERY[area])
+  var native_rows=Sokia.Data.SCENERY[area].filter(func(row):return not (row[1] in range(11363,11373) and RubyRegionArt.contains(model,frame*(Vector2(row[0])*3.))))
+  Sokia.build(root,model,frame,native_rows)
   root.set_meta("sokia_source_placements",Sokia.Data.SCENERY[area].size())
  elif area=="kili":
   var rows:Array=Villages.SOURCE.SCENERY.kili.filter(func(row):return Sokia.kili_prop(row[1]))
   Sokia.build(root,model,frame,rows)
   root.set_meta("kili_native_props",rows.size())
+ if area=="ghana":
+  for row in Sokia.ghana_rows():scenery[row[0]]=row
  for row in UNDERSEA_MOUTHS.SCENERY.get(area,[]):scenery[row[0]]=row
  for row in Villages.SOURCE.SCENERY.get(area,[]):scenery[row[0]]=row
  # Preserve existing mouth collision and the previously traced approach clearance.
@@ -357,6 +363,7 @@ static func build_archive(root:Node3D,model,area:String):
  var banks=SurfaceTool.new()
  banks.begin(Mesh.PRIMITIVE_TRIANGLES)
  var bank_count=0
+ var mask_bounds:Rect2=model.terrain.mask_bounds()
  for row in scenery.values():
   var anchor:Vector2=Vector2(row[0])
   var serial:int=row[1]
@@ -364,8 +371,10 @@ static func build_archive(root:Node3D,model,area:String):
   var span:Vector2=Vector2(row[2])
   var center=frame*((anchor+Vector2((span.x-1)*.5,-(span.y-1)*.5))*3.0)
   if Regions.village_contains(model.falan_area,center):continue
-  if not model.terrain.mask_bounds().has_point(center):continue
+  if not mask_bounds.has_point(center):continue
   var point=Vector3(center.x,model.surface_height(center.x,center.y),center.y)
+  var recovered_west=area in ["freyja","west_lakes"] and route.contains(area,anchor)
+  var recovered_cliff=recovered_west or area in ["freyja","west_lakes"] and route.contains_cliff(area,anchor) or route.source_cliff_owned(model,serial,Vector2i(anchor))
   if serial in range(11230,11266):continue
   if serial==11297:
    Villages.Buildings.build(root,point,serial)
@@ -379,20 +388,27 @@ static func build_archive(root:Node3D,model,area:String):
    if not tall:point.y=maxf(point.y,model.terrain.WATER_HEIGHT-.35)
    var extent=(frame.basis_xform(Vector2(span.x,0)).abs()+frame.basis_xform(Vector2(0,span.y)).abs())*3.0
    var height=clampf((row[3]-46)*.039,9.4,14.0) if tall else clampf(row[3]*.020,.42,1.75)
-   if tall and Sokia.owns(area):
-    crag_cluster(rock,point,extent,height,serial,Sokia.Details.Data.CLIFFS[serial],Sokia.Details.Data.CLIFF_CROWNS[serial])
+   if area=="ghana" and tall:point.y=model.terrain.BANK_HEIGHT
+   var ruby_cliff=tall and area!="ghana" and not Sokia.owns(area) and RubyRegionArt.contains(model,center)
+   if ruby_cliff or (recovered_cliff and tall) or (recovered_west and not tall):pass
+   elif tall and (Sokia.owns(area) or area=="ghana"):
+    if Sokia.owns(area):point=Sokia.cliff_origin(model,frame,anchor,point)
+    var foundation=Sokia.cliff_foundation(model,frame,point) if Sokia.owns(area) else NAN
+    crag_cluster(rock,point,extent,height,serial,Sokia.Details.Data.CLIFFS[serial],Sokia.Details.Data.CLIFF_CROWNS[serial],foundation)
    elif tall and source_crags:crag_cluster(rock,point,extent,height,serial)
    else:ridge(rock,point,extent,height,serial,tall)
    rock_count+=1
    if row[4]:
     Art.solid(root,point+Vector3.UP*(height*.39),Vector3(extent.x-.25,height*.85,extent.y-.25),1,"stone").name="ArchivedCliffCollision"
-   if tall and not coastal and area!="south_lakes" and not Sokia.owns(area):
+   if tall and not ruby_cliff and not recovered_cliff and not coastal and area!="south_lakes" and not Sokia.owns(area):
     for level in 2:
      var ledge:Vector2=RIDGE[posmod(serial+level*3,RIDGE.size())]*extent*(.44-level*.07)
      add_plant(plants,"shrub",point+Vector3(ledge.x,height*(.26+level*.36),ledge.y),serial,.66)
    continue
+  if recovered_west and ((serial in range(10058,10095)) or route.catalog().maps[area].details.any(func(item):return int(item[0])==int(anchor.x) and int(item[1])==int(anchor.y) and int(item[2])==serial)):continue
   if existing_trees.has(row[0]) and (serial in range(10058,10075) or serial in range(10085,10095)):continue
   if serial in range(11363,11373):
+   if RubyRegionArt.contains(model,center):continue
    var yaw=frame.get_rotation()+ (PI*.5 if serial in [11363,11368,11370] else 0.0)
    var fence:String=Scenery.asset("fence")
    if not plants.has(fence):plants[fence]=[]
@@ -407,20 +423,22 @@ static func build_archive(root:Node3D,model,area:String):
     if serial in [11191,11194,11197,11201,11204,11207,11208]:
      add_plant(plants,Villages.PALM,point+Vector3(.55,0,-.35),serial+1,.48*height_scale)
   elif serial in range(10058,10075) or serial in range(10085,10095):
+   if RubyRegionArt.contains(model,center):continue
    var kind=Assets.crossgate_tree(serial) if area in ["south_lakes","kili","sokia_coast"] or Sokia.owns(area) else "tree"
    add_plant(plants,kind,point,serial,1.1)
   elif serial in range(11625,11711) or serial in range(12160,12181):
    add_plant(plants,"flowers_ivory",point,serial,.8)
   else:
    add_plant(plants,"shrub",point,serial,.46)
- var mouths:Dictionary=Archive.MOUTHS.get(area,{})
- var cuts=PackedVector4Array([Vector4.ZERO,Vector4.ZERO,Vector4.ZERO])
- var cut_back=PackedVector2Array([Vector2.ZERO,Vector2.ZERO,Vector2.ZERO])
+ var mouths:Dictionary=Sokia.mouths(area,frame) if Sokia.owns(area) else Archive.MOUTHS.get(area,{})
+ var capacity=8 if Sokia.owns(area) and mouths.size()>3 else 3
+ var cuts=PackedVector4Array();cuts.resize(capacity)
+ var cut_back=PackedVector2Array();cut_back.resize(capacity)
  var cut_profile=PackedVector4Array()
- cut_profile.resize(24)
+ cut_profile.resize(capacity*8)
  var cut_count=0
  for cell in mouths:
-  var at=frame*(Vector2(cell)*3.0)
+  var at=frame*((Vector2(cell)+(Sokia.mouth_offset(cell) if Sokia.owns(area) else Vector2.ZERO))*3.0)
   var back=frame.basis_xform(mouths[cell]).normalized()
   var pose=Transform3D(Basis(Vector3.UP,atan2(back.x,back.y)),Vector3(at.x,model.surface_height(at.x,at.y),at.y))
   # Both Venoa-side entrances sit immediately in front of a broad cliff base.
@@ -434,9 +452,10 @@ static func build_archive(root:Node3D,model,area:String):
    root.add_child(entrance)
    habaru_mouth(entrance,darkness,pose)
    continue
-  if UNDERSEA_MOUTHS.MOUTHS.has(cell):
-   var height:float=UNDERSEA_MOUTHS.MOUTHS[cell].map(func(p):return p.y).max()
-   var profile:Array=UNDERSEA_MOUTHS.MOUTHS[cell]
+  var native_profile:Array=Sokia.source_mouth_profile(cell) if Sokia.owns(area) else []
+  if UNDERSEA_MOUTHS.MOUTHS.has(cell) or not native_profile.is_empty():
+   var profile:Array=UNDERSEA_MOUTHS.MOUTHS[cell] if native_profile.is_empty() else native_profile
+   var height:float=profile.map(func(p):return p.y).max()
    for row in 8:cut_profile[cut_count*8+row]=Vector4(profile[row].x,profile[15-row].x,profile[row].y,0)
    cuts[cut_count]=Vector4(pose.origin.x,pose.origin.y,pose.origin.z,height)
    cut_back[cut_count]=back
@@ -445,8 +464,9 @@ static func build_archive(root:Node3D,model,area:String):
    entrance.name="UnderseaMouth_%d_%d"%[cell.x,cell.y]
    entrance.transform=pose
    entrance.set_meta("archive_cell",cell)
+   if not native_profile.is_empty():entrance.set_meta("sokia_native_aperture",true)
    root.add_child(entrance)
-   undersea_mouth(entrance,darkness,pose,UNDERSEA_MOUTHS.MOUTHS[cell],coastal,source_crags)
+   undersea_mouth(entrance,darkness,pose,profile,coastal,source_crags and native_profile.is_empty())
    continue
   if Sokia.owns(area):
    cuts[cut_count]=Vector4(pose.origin.x,pose.origin.y,pose.origin.z,3.78)
@@ -457,12 +477,19 @@ static func build_archive(root:Node3D,model,area:String):
    cut_count+=1
   cave_opening(rock,darkness,pose)
   rock_count+=1
+ if area in ["kili","ghana"] or Sokia.owns(area):
+  for serial in native_palms:
+   if not RubyRegionArt.catalog().graphics.has(str(serial)):continue
+   for i in native_palms[serial].size():native_palms[serial][i]*=RubyRegionArt.palm_fit(serial)
  Sokia.Details.build_palms(root,native_palms)
+ RubyRegionArt.build(root,model)
+ if area=="south_lakes":load("res://scripts/forest/forest_venoa_southwest_scenery.gd").build(root,model)
  for key in plants:
   Assets.batch(root,key,plants[key],key.begins_with(Assets.DIR+"crossgate_flora/") or key.ends_with("broadleaf_tree.glb") or key.ends_with("cedar_tree.glb") or key.ends_with("pine_tree.glb") or key.ends_with("leafy_shrub.glb"))
  if bank_count>0:
   var material=preload("res://scripts/forest/forest_falan_room_art.gd").painted_atlas(preload("res://assets/maps/falan/undersea_coast_banks.png"))
   material.set_shader_parameter("alpha_cutout",true)
+  if Sokia.owns(area):material=Sokia.bank_material(material)
   var bank=Geo.mesh(root,banks.commit(),Vector3.ZERO,material)
   bank.name="ArchivedUnderseaCoastBanks"
   bank.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -471,13 +498,18 @@ static func build_archive(root:Node3D,model,area:String):
  rock.generate_normals()
  if source_crags:rock.index()
  var cliff=cliff_material(coastal,source_crags and not Sokia.owns(area))
+ if Sokia.owns(area):
+  if capacity>3:Sokia.mouth_material(cliff)
+  cliff.set_shader_parameter("entrance_scale",Vector2(2,1))
  cliff.set_shader_parameter("entrance_cut_count",cut_count)
  cliff.set_shader_parameter("entrance_cuts",cuts)
  cliff.set_shader_parameter("entrance_back",cut_back)
  cliff.set_shader_parameter("entrance_profile",cut_profile)
+ if Sokia.owns(area):Sokia.northeast_clip_material(cliff,model.terrain)
  cut_habaru_mouth(cliff,model,area)
  if rock_count>0:Geo.mesh(root,rock.commit(),Vector3.ZERO,cliff).name="ArchivedCliffForms"
  root.set_meta("coastal_village_scenery",Villages.SOURCE.SCENERY.get(area,[]).size())
+ if area in ["kili","ghana"]:load("res://scripts/forest/forest_kili_ghana_props.gd").build(root,model)
  if not mouths.is_empty():
   darkness.generate_normals()
   Geo.mesh(root,darkness.commit(),Vector3.ZERO,Geo.mat("171a17")).name="RecessedCaveMouths"
@@ -490,23 +522,33 @@ static func undersea_surroundings(area:String,cell:Vector2i)->bool:
 static func coast_bank(mesh:SurfaceTool,model,frame:Transform2D,anchor:Vector2,serial:int):
  var slot=serial-12500
  var texture_origin=Vector2(slot%12,slot/12)*36.0+Vector2.ONE*2.5
- # Subdivide the original tile over the existing walkable terrain instead of adding rock mounds.
+ # Adjacent triangles share the same 25 height samples on the subdivided tile.
+ var points=PackedVector3Array()
+ var uvs=PackedVector2Array()
+ for z in 5:
+  for x in 5:
+   var uv=Vector2(x,z)*.25
+   var point=frame*((anchor+uv-Vector2.ONE*.5)*3.0)
+   points.append(Vector3(point.x,model.surface_height(point.x,point.y)+.035,point.y))
+   uvs.append((texture_origin+Vector2(uv.y,1.0-uv.x)*31.0)/Vector2(432,108))
+ mesh.set_normal(Vector3.UP)
  for z in 4:
   for x in 4:
-   for corner:Vector2 in [Vector2.ZERO,Vector2.RIGHT,Vector2.DOWN,Vector2.RIGHT,Vector2.ONE,Vector2.DOWN]:
-    var uv=(Vector2(x,z)+corner)*.25
-    var point=frame*((anchor+uv-Vector2.ONE*.5)*3.0)
-    var height=model.surface_height(point.x,point.y)+.035
-    mesh.set_normal(Vector3.UP)
-    mesh.set_uv((texture_origin+Vector2(uv.y,1.0-uv.x)*31.0)/Vector2(432,108))
-    mesh.add_vertex(Vector3(point.x,height,point.y))
+   var vertex=z*5+x
+   for triangle in [[0,1,5],[1,6,5]]:
+    if Sokia.owns(model.falan_area):
+     var a:Vector3=points[vertex+triangle[0]];var b:Vector3=points[vertex+triangle[1]];var c:Vector3=points[vertex+triangle[2]]
+     mesh.set_normal((c-a).cross(b-a).normalized())
+    for offset in triangle:
+     mesh.set_uv(uvs[vertex+offset])
+     mesh.add_vertex(points[vertex+offset])
 
 static func add_plant(plants:Dictionary,kind:String,point:Vector3,serial:int,scale_:float):
  var asset=Scenery.asset(kind) if kind=="tree" or Scenery.CATALOG.has(kind) else kind
  if not plants.has(asset):plants[asset]=[]
  plants[asset].append(Transform3D(Basis(Vector3.UP,serial*2.4).scaled(Vector3.ONE*scale_),point))
 
-static func crag_cluster(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,serial:int,contours:Array=[],crowns:Array=[]):
+static func crag_cluster(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,serial:int,contours:Array=[],crowns:Array=[],foundation_y:float=NAN):
  var seam=-1.0;var strongest=-1.0
  for i in range(1,contours.size()-1):
   var change=absf(contours[i+1][1]-contours[i-1][1])
@@ -523,7 +565,7 @@ static func crag_cluster(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:fl
    var rise=height*(.68+.22*(1.0-(absf(x-1)+absf(z-1))*.5)+sin(serial+x*7+z*13)*.07)
    if not contours.is_empty():rise*=.94+contours[(x+z*3)%contours.size()][1]*.10
    if not crowns.is_empty() and crowns[x+z*3]>0.0:rise=height*crowns[x+z*3]
-   ridge(mesh,point+Vector3(offset.x,0,offset.y),extent*.43,rise,serial+x*17+z*31,true,seam,second_seam)
+   ridge(mesh,point+Vector3(offset.x,0,offset.y),extent*.43,rise,serial+x*17+z*31,true,seam,second_seam,foundation_y)
 
 static func cave_crags(mesh:SurfaceTool,at:Vector2,along_x:bool,open_before:bool,serial:int):
  var tangent=Vector2.RIGHT if along_x else Vector2.DOWN
@@ -533,7 +575,7 @@ static func cave_crags(mesh:SurfaceTool,at:Vector2,along_x:bool,open_before:bool
   var extent=Vector2(.90,1.45) if along_x else Vector2(1.45,.90)
   ridge(mesh,Vector3(center.x,-.12,center.y),extent,5.1+sin(serial+i*7+at.x*.3+at.y*.7)*1.25,serial+i*19,true)
 
-static func ridge(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,serial:int,tall:bool,seam:float=-1.0,second_seam:float=-1.0):
+static func ridge(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,serial:int,tall:bool,seam:float=-1.0,second_seam:float=-1.0,foundation_y:float=NAN):
  mesh.set_smooth_group(0)
  var rings=[]
  var layers=CLIFF_LAYERS if tall else [Vector2(1.0,-.14),Vector2(.94,.28),Vector2(.72,.66),Vector2(.33,1.0)]
@@ -552,14 +594,18 @@ static func ridge(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,ser
  for layer in layers.size():
   var ring:Array[Vector3]=[]
   var profile:Vector2=layers[layer]
+  var profile_step=-1
+  var blend=0.0
+  if seam>=0.0:
+   for j in CLIFF_LAYERS.size()-1:
+    if profile.y<CLIFF_LAYERS[j].y or profile.y>CLIFF_LAYERS[j+1].y:continue
+    profile_step=j
+    blend=(profile.y-CLIFF_LAYERS[j].y)/(CLIFF_LAYERS[j+1].y-CLIFF_LAYERS[j].y)
+    break
   for i in sides:
    var variation=sin(float(serial+i*23+layer*11))
-   if seam>=0.0:
-    for j in CLIFF_LAYERS.size()-1:
-     if profile.y<CLIFF_LAYERS[j].y or profile.y>CLIFF_LAYERS[j+1].y:continue
-     var t=(profile.y-CLIFF_LAYERS[j].y)/(CLIFF_LAYERS[j+1].y-CLIFF_LAYERS[j].y)
-     variation=lerpf(sin(float(serial+i*23+j*11)),sin(float(serial+i*23+(j+1)*11)),t)
-     break
+   if profile_step>=0:
+    variation=lerpf(sin(float(serial+i*23+profile_step*11)),sin(float(serial+i*23+(profile_step+1)*11)),blend)
    var edge:Vector2=RIDGE[i/2].lerp(RIDGE[(i/2+1)%RIDGE.size()],float(i%2)*.5)
    var at=edge*extent*.5*(profile.x+variation*.09)
    ring.append(point+Vector3(at.x,height*(profile.y+variation*.065),at.y))
@@ -569,8 +615,17 @@ static func ridge(mesh:SurfaceTool,point:Vector3,extent:Vector2,height:float,ser
    var j=(i+1)%sides
    face(mesh,rings[layer][i],rings[layer][j],rings[layer+1][j],rings[layer+1][i])
  var peak=point+Vector3(sin(serial)*extent.x*.10,height*1.08,cos(serial)*extent.y*.10)
+ var top:Array[Vector3]=rings.back()
  for i in sides:
-  for p:Vector3 in [rings.back()[i],rings.back()[(i+1)%sides],peak]:mesh.add_vertex(p)
+  mesh.add_vertex(top[i])
+  mesh.add_vertex(top[(i+1)%sides])
+  mesh.add_vertex(peak)
+ if not is_nan(foundation_y):
+  mesh.set_smooth_group(-1)
+  var bottom:Array[Vector3]=rings.front()
+  for i in sides:
+   var j=(i+1)%sides
+   face(mesh,Vector3(bottom[i].x,minf(foundation_y,bottom[i].y),bottom[i].z),Vector3(bottom[j].x,minf(foundation_y,bottom[j].y),bottom[j].z),bottom[j],bottom[i])
 
 static func cave_opening(mesh:SurfaceTool,darkness:SurfaceTool,pose:Transform3D):
  var opening=[Vector2(-1.16,-.22),Vector2(-1.14,1.85),Vector2(-.86,3.02),Vector2(-.25,3.64),
@@ -643,4 +698,5 @@ static func undersea_mouth(entrance:Node3D,darkness:SurfaceTool,pose:Transform3D
  entrance.set_meta("source_profile",profile)
 
 static func face(mesh:SurfaceTool,a:Vector3,b:Vector3,c:Vector3,d:Vector3):
- for p:Vector3 in [a,b,c,a,c,d]:mesh.add_vertex(p)
+ mesh.add_vertex(a);mesh.add_vertex(b);mesh.add_vertex(c)
+ mesh.add_vertex(a);mesh.add_vertex(c);mesh.add_vertex(d)

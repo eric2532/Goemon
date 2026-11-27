@@ -35,6 +35,17 @@ class ImportSnapshotTest(unittest.TestCase):
             cached = snapshot(root, engine)
             engine.write_text('new engine')
             self.assertNotEqual(cached, snapshot(root, engine))
+            for name in ('global_script_class_cache.cfg', 'extension_list.cfg'):
+                generated = root / '.godot' / name
+                generated.write_text('first')
+                cached = snapshot(root, engine)
+                generated.write_text('first')
+                self.assertEqual(cached, snapshot(root, engine))
+                generated.write_text('other')
+                self.assertNotEqual(cached, snapshot(root, engine))
+                cached = snapshot(root, engine)
+                generated.unlink()
+                self.assertNotEqual(cached, snapshot(root, engine))
             imported = root / '.godot/imported/model.scn'
             imported.touch()
             cached = snapshot(root, engine)

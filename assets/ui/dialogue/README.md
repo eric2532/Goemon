@@ -8,8 +8,13 @@ native text, the responsive layout, gradual reveal at 18 characters/second and
 Space to reveal/continue. Resume gameplay on the closing Space release so it
 cannot also trigger a jump.
 
-Use each speaker's own approved portrait, name and dialogue while keeping this
-shared presentation consistent. Preserve approved portrait masters and reuse them
+User direction (2026-11-25): regular NPC conversations show the speaker name and
+dialogue without an enlarged duplicate of the NPC's world sprite. The shared
+Explorer NPC owner passes a null portrait for residents and signs in every area.
+Special encounters keep their separately approved painted portraits.
+
+Use each speaker's own name and dialogue while keeping this shared presentation
+consistent. Preserve approved portrait masters and reuse them
 as references for expressions. Reuse the existing dialogue component rather than
 creating a separate UI per character. Conversation triggers and outcomes remain
 encounter-specific; the shared style does not make every conversation start a fight.

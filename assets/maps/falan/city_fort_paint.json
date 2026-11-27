@@ -2915,6 +2915,15 @@
         16
       ]
     },
+    "course_join": {
+      "paint": [
+        474,
+        138,
+        64,
+        48
+      ],
+      "source": "interpolated native left/right course edge columns"
+    },
     "feet": [
       {
         "paint": [

@@ -1,0 +1,33 @@
+"""Reproduce human native-contact decisions; no blocked bits create structures."""
+import hashlib,json
+from collections import Counter
+from review_east_backgrounds import OUT,ROOT
+
+FAMILIES=[
+ dict(key='known_beast_castle',bounds=[1623,1692],role='Source castle exterior pieces',status='known exact compound owner',owner='forest_east_castle_compound.gd; only31954, source71piece proof',reference='native-bg-04.png'),
+ dict(key='ancient_tree_root',bounds=[4100,4232],role='Gnarled giant-tree trunk/root body with associated grass pieces',status='confirmed in11031; other exact contexts require compound extraction',owner='RuntimeAudit assigned source-root compound; Nature11699canopy alone incomplete',reference='11031-native-root-arena-layers.jpg'),
+ dict(key='interior_borders',bounds=[6440,6575],role='Ordinary wood/stone floor, carpet and ornate border/threshold motifs',status='Native33102paired context confirms floor decoration; no new platform height inferred',owner='Vertical room walls/stairs/furniture remain their PG1owners',reference='33102-native-border-context-layers.jpg'),
+ dict(key='kanabella_houses',bounds=[1220276,1220587],role='Complete white horned-roof house bodies, roofs, doors and steps with associated grass',status='confirmed flattened BG structures',owner='VillageBuildings exact15groups/map ledger;33000/33298 variants retained separately',reference='33500-native-house-33501-layers.jpg'),
+ dict(key='earth_mouse_statue',bounds=[1220589,1220780],role='Large statue body plus associated dark floor/background; not every family tile is sculpture',status='confirmed statue at33608(224,55), actor306355at221,60',owner='Root assigned sculpture; exact constituent isolation pending',reference='33608-native-earth-mouse-statue-layers.jpg'),
+ dict(key='distant_tree_sky',bounds=[1220781,1221075],role='Distant tree/crown/branch, sky and cloud background panorama',status='source backdrop candidate; needs map-level presentation check, not a new traversable structure',owner='Native title34006远景 and32273大树之顶; floor-projection owner only currently',reference='native-bg-overview-12.jpg'),
+ dict(key='minokia_houses',bounds=[1225510,1225792],role='Round petal-roof house bodies, colored roofs, planks and water pieces',status='confirmed43500split/whole BG cottages; exact per-placement PG1overlap required',owner='VillageBuildings owns43500constituent/roof pairing;43000uses some family members',reference='native-bg-55.png'),
+ dict(key='distant_mountain_sky',bounds=[1225793,1226174],role='Sky/cloud, distant snowy volcanic rock panorama and a few water transitions',status='source backdrop/terrain candidate; no house body in inspected bank',owner='Do not extrude blocked cells or turn sky into new routes',reference='native-bg-overview-15.jpg'),
+]
+ORDINARY_REUSE={4101,4140,4148,4172,4198,4231,1220600,1220759}
+
+def run():
+    source=OUT/'census.json';census=json.loads(source.read_text());contacts=json.loads((OUT/'native-bg-contact-index.json').read_text());index={r['graphic']:r for r in contacts};graphics=[]
+    for row in census['bg_graphics']:
+        serial=row['graphic'];family=next((f for f in FAMILIES if f['bounds'][0]<=serial<=f['bounds'][1]),None) if serial not in ORDINARY_REUSE else None
+        graphics.append(dict(row,classification=family['key'] if family else 'ordinary_source_ground',native_contact=dict(sheet=index[serial]['sheet'],slot=index[serial]['slot']),decision=family['role'] if family else 'Inspected native pixels show floor/road/paving/carpet/rune/water/soil/terrain transitions, not a large house or landmark body. Low painted steps/borders remain source floor until tied to a specific height-bearing owner.'))
+    roles={g['graphic']:g['classification'] for g in graphics};maps=[]
+    body_keys={'ancient_tree_root','kanabella_houses','earth_mouse_statue','minokia_houses'}
+    for row in census['maps']:
+        keys=sorted({roles[g['graphic']] for g in row['layer0_graphics']});active=[k for k in keys if k!='ordinary_source_ground']
+        findings=[dict(family=f['key'],native_graphics=[g for g in row['layer0_graphics'] if roles[g['graphic']]==f['key']],role=f['role'],status=f['status'],owner=f['owner'],reference=f['reference']) for f in FAMILIES if f['key'] in active]
+        positive=bool(body_keys.intersection(active));negative=not positive
+        maps.append(dict(map=row['map'],title=row['title'],size=row['size'],source_raw_sha256=row['source_raw_sha256'],legacy_owner_retained=row['legacy_owner_retained'],native_graphic_classification_coverage='All PG0graphics mapped to the inspected7117native-contact bank; both active native layers decoded/rendered.',native_contact_bank_complete=True,large_BG_body_negative=negative,decision='Specific source-backed BG compound/body family present; per-placement reconstruction/owner checklist remains.' if positive else 'No new large BGhouse/landmark body found in this map\'s inspected native bank; known castle/backdrop/border families are separately recorded.',findings=findings,overview_contact=f'overview-contact-{census["maps"].index(row)//12+1:02d}.jpg',gameplay_visual_acceptance=False))
+    result=dict(scope='READ-ONLY source-layer classification; no rawmap/art/runtime writes. Negative covers large body/compound discovery, not terrain-height or rendered gameplay acceptance.',source_census_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),catalog_sha256=census['source_catalog_sha256'],map_count=len(maps),graphic_count=len(graphics),review=dict(native_sheets=list(range(1,61)),native_overviews=list(range(1,16)),method='Every native BGtile contact was visually inspected; exact local BG-v-PG1crops confirm bodies. Standard64x47tiles can contain architecture. Blocked bits only nominate context; they never establish a structure.'),families=FAMILIES,counts=dict(graphics_by_role=Counter(g['classification'] for g in graphics),maps_negative=sum(r['large_BG_body_negative'] for r in maps),maps_with_body_family=sum(not r['large_BG_body_negative'] for r in maps)),maps=maps,graphics=graphics,limits=['No blanket geometry extrusion or new route inference from these families.','Some family members include ordinary floor/background pixels; exact constituent/alpha partition is required before implementation.','A negative large-body result does not certify all minor elevation or current3Dart.','Fixed maps only; generated dungeon ground/decorations have a separate68configuration audit.'])
+    assert len(maps)==717 and len(graphics)==7117 and len(roles)==7117
+    (OUT/'classification.json').write_text(json.dumps(result,indent=2));print(result['counts'])
+if __name__=='__main__':run()

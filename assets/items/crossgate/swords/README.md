@@ -15,8 +15,9 @@ SW codes identify catalog selections, not recovered official item names.
 | SW101 | 10 | 300 | — | One click performs two normal swings |
 
 Levels are informational, with no player-level requirement. All three chest
-colors award one sword instead of food. Each shuffle bag contains all six
-swords equally, draws without replacement and refills after six draws. A save
+colors award a collectible weapon instead of food. The shared shuffle bag now
+contains all six swords and the three axes in `../axes/README.md` equally, draws
+without replacement and refills after nine draws. A save
 failure retains the unopened chest and the same selected sword for retry.
 Acquisition unlocks that sword in the existing shared Equipment collection.
 Each duplicate permanently adds one upgrade rank: +1, +2 and so on. Each rank

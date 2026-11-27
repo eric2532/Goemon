@@ -26,7 +26,7 @@ func run():
  set_meta(Winter.SLAIN,{})
  var reviewed=[]
  for number in range(1,61):
-  var id=Decree.floor_id(number);var previous=Original.SHALENA_NORTH if number==1 else Decree.floor_id(number-1)
+  var id=Decree.floor_id(number);var previous=24008 if number==1 else 24068+(number-1)/10 if number%10==1 else Decree.floor_id(number-1)
   var entry=Original.links(previous).filter(func(l):return l.get("floor")==id)[0]
   Tour.travel(game,Original.layout(id),{"arrival":entry.arrival,"yaw":0.0,"velocity":Vector3.ZERO})
   for i in 6:await physics_frame
@@ -53,7 +53,7 @@ func run():
    if enemy.get("boss",false):bosses.append(enemy)
   check(seen.size()==expected.size(),"No duplicate or missing encounter slots")
   var guardian=number%10==0
-  var next=51011 if number==60 else Decree.floor_id(number+1)
+  var next=24068+number/10 if guardian else Decree.floor_id(number+1)
   var exits=Original.links(id).filter(func(l):return l.get("floor")==next)
   check(not exits.is_empty(),"Source path continues from floor "+str(number))
   check(bosses.size()==(2 if number==60 else 1 if guardian else 0),"Correct guardian count on floor "+str(number))
@@ -97,7 +97,17 @@ func data_checks():
 
 func region_at(id:int,point:Vector2)->int:
  var row=Original.state(id)
- return Decree.maze(id,0).regions.get(Vector2i(((point-row.origin)/3.0).round()),-1)
+ var cell=Vector2i(((point-row.origin)/3.0).round())
+ if Decree.floor_number(id)>0:return Decree.maze(id,0).regions.get(cell,-1)
+ if not Original.open(row.bits,row.size,cell):return -1
+ # Post-fight rooms have no patrol owner; identify their component from its least cell index.
+ var queue=[cell];var seen={cell:true};var least=cell.y*row.size.x+cell.x
+ for at:Vector2i in queue:
+  least=mini(least,at.y*row.size.x+at.x)
+  for direction in [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]:
+   var next=at+direction
+   if not seen.has(next) and Original.open(row.bits,row.size,next):seen[next]=true;queue.append(next)
+ return least
 
 func walk_gate(link:Dictionary):
  var before=game.model
@@ -110,7 +120,7 @@ func walk_gate(link:Dictionary):
 
 func traverse_original_maze():
  var first=Decree.floor_id(1);var last=Decree.floor_id(60)
- var entry=Original.links(Original.SHALENA_NORTH).filter(func(l):return l.get("floor")==first)[0]
+ var entry=Original.links(24008).filter(func(l):return l.get("floor")==first)[0]
  var seal=Original.links(last).filter(func(l):return l.get("decree_guardians",false))[0]
  var start=Vector2i(first,region_at(first,entry.arrival));var goal=Vector2i(last,region_at(last,seal.at))
  var queue=[start];var parents={start:start};var stairs={}
@@ -118,7 +128,7 @@ func traverse_original_maze():
   if current==goal:break
   for link in Original.links(current.x):
    var target:int=link.get("floor",0)
-   if Decree.floor_number(target)==0 or region_at(current.x,link.at)!=current.y:continue
+   if Decree.floor_number(target)==0 and target not in range(24069,24075) or region_at(current.x,link.at)!=current.y:continue
    var next=Vector2i(target,region_at(target,link.arrival))
    check(next.y>=0,"Original destination is on recorded open ground")
    if next.y<0 or parents.has(next):continue
@@ -135,8 +145,12 @@ func traverse_original_maze():
   await walk_gate(link);visited[game.model.falan_floor]=true
   var pos=Vector2(game.player.position.x,game.player.position.z)/game.model.falan_scale
   check(region_at(game.model.falan_floor,pos)==region_at(link.floor,link.arrival),"Original stair arrives in the correct separate chamber")
- check(visited.size()==60,"On-foot route visits every original floor")
+ check(visited.keys().filter(func(id):return Decree.floor_number(id)>0).size()==60,"On-foot route visits every original floor")
  await walk_gate(seal)
+ check(game.model.falan_floor==24074,"The final seal enters the original post-Twin-Kings chamber")
+ Tour.university_quest(game,"decree_return")
+ for i in 6:await physics_frame
+ check(game.model.falan_floor==Original.SHALENA_NORTH,"The post-fight priest returns to the original outside stone")
  var file=FileAccess.open(REVIEW+"original-route.json",FileAccess.WRITE);file.store_string(JSON.stringify(actual,"  "));file.close()
  print("CURSED_ORIGINAL_ROUTE stairs=",route.size()+1," floors=",visited.size())
 

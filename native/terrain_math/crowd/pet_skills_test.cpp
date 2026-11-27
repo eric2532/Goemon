@@ -120,10 +120,11 @@ int main(){
  for(int hz:{20,30,60}){
   Crowd c;auto h=setup(c);assert(c.set_pet_skills(h,{2,0,0}));++checks;
   for(int i=2;i<=9;++i)c.spawn(i,0,12,{float((i-2)%3)*6-6,0,-8-float((i-2)/3)*6},1,.5);
-  c.unit(c.query({-1,-1,-3},{1,3,-1},0)[0])->hp=1;
+  auto victim=c.query({-1,-1,-3},{1,3,-1},0)[0];
   std::set<int64_t> hit;int contacts=0;bool started=false;
   for(int frame=0;frame<hz*15;++frame){
    c.step(1.0/hz);
+   for(const auto& e:c.combat.events())if(e.kind==PET_SKILL_STARTED&&e.action_index==2&&c.unit(victim))c.unit(victim)->hp=1;
    for(const auto& e:std::vector<Event>(c.combat.events()))if(e.kind==PET_SKILL_CONTACT){
     ++contacts;started=true;
     for(auto target:c.query(e.position-Vec3{32,8,32},e.position+Vec3{32,8,32},0))if(c.unit(target)->logical_id==e.target_id){Hit strike;strike.amount=100;strike.source_id=-1;c.combat.hit(c,target,strike);hit.insert(e.target_id);break;}

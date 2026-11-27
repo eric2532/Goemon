@@ -33,7 +33,7 @@ var native_profiles:Dictionary={}
 func configure(owner_:Node):
  game=owner_
  for kind in preload("res://scripts/forest/forest_enemy_roles.gd").RIGID_TYPES:meshes[kind]=Soldier.make_mesh(kind)
- meshes[Roles.GATEKEEPER_HOUND]=Pets.make_mesh(Pets.sanitized(game.settings.forest_pet_loadout))
+ meshes[Roles.GATEKEEPER_HOUND]=Pets.make_mesh(Pets.sanitized(game.settings.forest_pet_loadout)+game.model.get_meta("east_enemy_pet_keys",[]))
  meshes[Roles.CAVE_BEAR]=preload("res://scripts/forest/crowd/habaru_sprites.gd").make_mesh()
  if game.model.waves.crossgate_pet_test:meshes[Roles.SLIME]=Slime.make_mesh()
  for kind in [11,5,7,8,10,31]:
@@ -63,7 +63,7 @@ func configure(owner_:Node):
  presentation=load("res://scripts/forest/crowd/army_presentation.gd").new();add_child(presentation);presentation.configure(game,meshes)
  use_native_buffers(game.army_runtime.native if game!=null and is_instance_valid(game.get("army_runtime")) else ClassDB.instantiate("GoemonCrowdRuntime"))
 func configure_profiles(data:Dictionary):
- Pets.prepare(Pets.sanitized(game.settings.forest_pet_loadout)+Winter.creature_keys(game.model.falan_floor),presentation.corpses)
+ Pets.prepare(Pets.sanitized(game.settings.forest_pet_loadout)+Winter.creature_keys(game.model.falan_floor)+game.model.get_meta("east_enemy_pet_keys",[]),presentation.corpses)
  var cave_sprites:Script=data.get("cave_sprites")
  if data.has("slime_attacks"):
   var selected_mesh=(cave_sprites if cave_sprites!=null else Slime).make_mesh()

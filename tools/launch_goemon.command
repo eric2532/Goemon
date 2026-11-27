@@ -32,8 +32,16 @@ done
 # Keep each session single-instance while allowing studies alongside the game.
 zmodload zsh/system
 GOEMON_LOCK="$GOEMON_LOGS/$GOEMON_SESSION.lock"
-: >> "$GOEMON_LOCK"
-if ! zsystem flock -t 0 -e -f GOEMON_LOCK_FD "$GOEMON_LOCK"; then
+[[ -f "$GOEMON_LOCK" ]] || : >> "$GOEMON_LOCK"
+if [[ "$GOEMON_SESSION" == script && "${GOEMON_WAIT_FOR_SCRIPT_SLOT:-0}" == 1 && ! ( "${GOEMON_SCRIPT_LOCK_FD:-}" == <-> && "/dev/fd/$GOEMON_SCRIPT_LOCK_FD" -ef "$GOEMON_LOCK" ) ]]; then
+  print "Waiting for the shared Godot script slot."
+  exec python3 "$GOEMON_PROJECT/tools/goemon_script_lock.py" "$GOEMON_LOCK" "$0" "$@"
+fi
+GOEMON_LOCK_OPTIONS=(-t 0)
+if [[ "$GOEMON_SESSION" == script && "${GOEMON_SCRIPT_LOCK_FD:-}" == <-> && "/dev/fd/$GOEMON_SCRIPT_LOCK_FD" -ef "$GOEMON_LOCK" ]]; then
+  GOEMON_LOCK_FD=$GOEMON_SCRIPT_LOCK_FD
+  unset GOEMON_SCRIPT_LOCK_FD
+elif ! zsystem flock "${GOEMON_LOCK_OPTIONS[@]}" -e -f GOEMON_LOCK_FD "$GOEMON_LOCK"; then
   if [[ "$GOEMON_SESSION" == script ]]; then
     print "A Goemon script is already starting or running."
     exit 0
@@ -67,7 +75,7 @@ GOEMON_USER_ARGS=(--painterly-preview)
 if [[ "$GOEMON_SESSION" == play ]]; then
   print "Playing the latest Goemon source with painterly scenery."
   print -r -- "$$" > "$GOEMON_LOGS/game.pid"
-  GOEMON_USER_ARGS+=(--crossgate-pet-test)
+  GOEMON_USER_ARGS+=(--crossgate-pet-test --all-weapons)
 else
   print "Running a Goemon script with painterly scenery."
 fi

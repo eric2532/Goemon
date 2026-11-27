@@ -1,0 +1,1204 @@
+{
+  "map": 59520,
+  "rect": [
+    7104,
+    -3312,
+    12032,
+    -1872
+  ],
+  "parts": [
+    {
+      "name": "west-entrance",
+      "kind": "pylon",
+      "clip_scale": 0.78,
+      "front": [
+        [
+          7250,
+          -2750
+        ],
+        [
+          7390,
+          -2715
+        ],
+        [
+          7580,
+          -2710
+        ],
+        [
+          7770,
+          -2680
+        ],
+        [
+          7925,
+          -2690
+        ]
+      ],
+      "clip": -3312,
+      "rear": [
+        [
+          7925,
+          -3312
+        ],
+        [
+          7872,
+          -3336
+        ],
+        [
+          7808,
+          -3312
+        ],
+        [
+          7744,
+          -3360
+        ],
+        [
+          7680,
+          -3312
+        ],
+        [
+          7616,
+          -3360
+        ],
+        [
+          7552,
+          -3384
+        ],
+        [
+          7488,
+          -3360
+        ],
+        [
+          7424,
+          -3384
+        ],
+        [
+          7360,
+          -3360
+        ],
+        [
+          7296,
+          -3288
+        ],
+        [
+          7250,
+          -3024
+        ]
+      ],
+      "footprint": [
+        [
+          511.71875,
+          167.96875
+        ],
+        [
+          516.09375,
+          176.71875
+        ],
+        [
+          524.6875,
+          185.9375
+        ],
+        [
+          531.71875,
+          196.71875
+        ],
+        [
+          539.609375,
+          203.359375
+        ],
+        [
+          578.484375,
+          164.484375
+        ],
+        [
+          577.5,
+          160.5
+        ],
+        [
+          573.0,
+          159.0
+        ],
+        [
+          573.0,
+          153.0
+        ],
+        [
+          567.0,
+          153.0
+        ],
+        [
+          567.0,
+          147.0
+        ],
+        [
+          565.5,
+          142.5
+        ],
+        [
+          561.0,
+          141.0
+        ],
+        [
+          559.5,
+          136.5
+        ],
+        [
+          555.0,
+          135.0
+        ],
+        [
+          547.5,
+          136.5
+        ],
+        [
+          528.84375,
+          150.84375
+        ]
+      ],
+      "center": [
+        7583.0,
+        -2709.0
+      ],
+      "source_height": 60.434448327446965,
+      "inference": "Visible paint and facade contacts guide the fit; covered contacts, rear walls and upper architecture are inferred. Rear extent stops before the source blocked-band edge. The unowned padding beyond it is not a walking route.",
+      "upper": {
+        "extension": 8.0,
+        "roof_rise": 18.0,
+        "roof_segments": 8,
+        "wall_scale": 0.96,
+        "cap_scale": 0.1,
+        "inference": "No mapped roof art is recovered above the temple crop in the available client cache or corroborating LS2 layers; most of the client upper search region is uncached. This short continuation keeps the source-fitted cross-section, with a gold cornice and rounded blue cap using existing temple materials. Height, hidden enclosure and roof form are inferred, not verified original roof geometry."
+      }
+    },
+    {
+      "name": "west-wing",
+      "kind": "wing",
+      "front": [
+        [
+          7885,
+          -2580
+        ],
+        [
+          9085,
+          -2450
+        ]
+      ],
+      "height": 0.0,
+      "roof": [
+        [
+          7885,
+          -3140
+        ],
+        [
+          9085,
+          -3015
+        ]
+      ],
+      "crest": 9.0,
+      "rear": [
+        [
+          9085,
+          -3408
+        ],
+        [
+          9024,
+          -3432
+        ],
+        [
+          8960,
+          -3384
+        ],
+        [
+          8896,
+          -3360
+        ],
+        [
+          8832,
+          -3408
+        ],
+        [
+          8768,
+          -3432
+        ],
+        [
+          8704,
+          -3408
+        ],
+        [
+          8640,
+          -3432
+        ],
+        [
+          8576,
+          -3408
+        ],
+        [
+          8512,
+          -3432
+        ],
+        [
+          8448,
+          -3408
+        ],
+        [
+          8384,
+          -3432
+        ],
+        [
+          8320,
+          -3408
+        ],
+        [
+          8256,
+          -3432
+        ],
+        [
+          8192,
+          -3384
+        ],
+        [
+          8128,
+          -3336
+        ],
+        [
+          8064,
+          -3312
+        ],
+        [
+          8000,
+          -3336
+        ],
+        [
+          7936,
+          -3312
+        ],
+        [
+          7885,
+          -3336
+        ]
+      ],
+      "footprint": [
+        [
+          530.859375,
+          208.359375
+        ],
+        [
+          578.984375,
+          272.734375
+        ],
+        [
+          638.859375,
+          212.859375
+        ],
+        [
+          637.5,
+          208.5
+        ],
+        [
+          631.5,
+          208.5
+        ],
+        [
+          627.0,
+          207.0
+        ],
+        [
+          627.0,
+          201.0
+        ],
+        [
+          625.5,
+          196.5
+        ],
+        [
+          621.0,
+          195.0
+        ],
+        [
+          619.5,
+          190.5
+        ],
+        [
+          615.0,
+          189.0
+        ],
+        [
+          613.5,
+          184.5
+        ],
+        [
+          609.0,
+          183.0
+        ],
+        [
+          607.5,
+          178.5
+        ],
+        [
+          603.0,
+          177.0
+        ],
+        [
+          601.5,
+          172.5
+        ],
+        [
+          595.5,
+          172.5
+        ],
+        [
+          589.5,
+          172.5
+        ],
+        [
+          585.0,
+          171.0
+        ],
+        [
+          583.5,
+          166.5
+        ],
+        [
+          579.0,
+          165.0
+        ],
+        [
+          578.109375,
+          161.109375
+        ]
+      ],
+      "center": [
+        8485.0,
+        -2515.0
+      ],
+      "inference": "Visible paint and facade contacts guide the fit; covered contacts, rear walls and upper architecture are inferred. Rear extent stops before the source blocked-band edge. The unowned padding beyond it is not a walking route."
+    },
+    {
+      "name": "central-entrance",
+      "kind": "pylon",
+      "clip_scale": 0.96,
+      "front": [
+        [
+          9070,
+          -2610
+        ],
+        [
+          9200,
+          -2600
+        ],
+        [
+          9270,
+          -2510
+        ],
+        [
+          9470,
+          -2510
+        ],
+        [
+          9710,
+          -2500
+        ],
+        [
+          9840,
+          -2550
+        ],
+        [
+          9910,
+          -2560
+        ]
+      ],
+      "clip": -3312,
+      "rear": [
+        [
+          9910,
+          -3432
+        ],
+        [
+          9856,
+          -3384
+        ],
+        [
+          9792,
+          -3336
+        ],
+        [
+          9728,
+          -3384
+        ],
+        [
+          9664,
+          -3432
+        ],
+        [
+          9600,
+          -3408
+        ],
+        [
+          9536,
+          -3360
+        ],
+        [
+          9472,
+          -3312
+        ],
+        [
+          9408,
+          -3360
+        ],
+        [
+          9344,
+          -3408
+        ],
+        [
+          9280,
+          -3432
+        ],
+        [
+          9216,
+          -3384
+        ],
+        [
+          9152,
+          -3360
+        ],
+        [
+          9088,
+          -3408
+        ],
+        [
+          9070,
+          -3432
+        ]
+      ],
+      "footprint": [
+        [
+          588.28125,
+          262.03125
+        ],
+        [
+          593.75,
+          268.75
+        ],
+        [
+          591.40625,
+          277.65625
+        ],
+        [
+          600.78125,
+          287.03125
+        ],
+        [
+          611.40625,
+          298.90625
+        ],
+        [
+          620.625,
+          301.875
+        ],
+        [
+          624.53125,
+          304.53125
+        ],
+        [
+          679.03125,
+          250.03125
+        ],
+        [
+          673.5,
+          250.5
+        ],
+        [
+          667.5,
+          250.5
+        ],
+        [
+          667.5,
+          244.5
+        ],
+        [
+          667.5,
+          238.5
+        ],
+        [
+          663.0,
+          237.0
+        ],
+        [
+          657.0,
+          237.0
+        ],
+        [
+          651.0,
+          237.0
+        ],
+        [
+          651.0,
+          231.0
+        ],
+        [
+          651.0,
+          225.0
+        ],
+        [
+          649.5,
+          220.5
+        ],
+        [
+          643.5,
+          220.5
+        ],
+        [
+          639.0,
+          219.0
+        ],
+        [
+          639.0,
+          213.0
+        ],
+        [
+          639.65625,
+          210.65625
+        ]
+      ],
+      "center": [
+        9495.714285714286,
+        -2548.5714285714284
+      ],
+      "source_height": 76.51307554178551,
+      "inference": "Visible paint and facade contacts guide the fit; covered contacts, rear walls and upper architecture are inferred. Rear extent stops before the source blocked-band edge. The unowned padding beyond it is not a walking route.",
+      "bays": {
+        "spans": [
+          [
+            9085,
+            9440
+          ],
+          [
+            9470,
+            9930
+          ]
+        ],
+        "depth": 6.0,
+        "full_before": -3090.0,
+        "fade_until": -2790.0,
+        "across_pixels": 24.0,
+        "vertical_segments": 16,
+        "inference": "The paired rounded white facade lobes guide these source spans. Six metres of hidden depth and its lower transition are inferred along the original view direction; source projection and original ground contacts are unchanged."
+      },
+      "upper": {
+        "extension": 8.0,
+        "roof_rise": 18.0,
+        "roof_segments": 8,
+        "wall_scale": 0.96,
+        "cap_scale": 0.1,
+        "inference": "No mapped roof art is recovered above the temple crop in the available client cache or corroborating LS2 layers; most of the client upper search region is uncached. This short continuation keeps the source-fitted cross-section, with a gold cornice and rounded blue cap using existing temple materials. Height, hidden enclosure and roof form are inferred, not verified original roof geometry."
+      }
+    },
+    {
+      "name": "east-wing",
+      "kind": "wing",
+      "front": [
+        [
+          9850,
+          -2330
+        ],
+        [
+          11100,
+          -2220
+        ]
+      ],
+      "height": 0.0,
+      "roof": [
+        [
+          9850,
+          -2990
+        ],
+        [
+          11100,
+          -2870
+        ]
+      ],
+      "crest": 9.0,
+      "rear": [
+        [
+          11100,
+          -3336
+        ],
+        [
+          11072,
+          -3360
+        ],
+        [
+          11008,
+          -3384
+        ],
+        [
+          10944,
+          -3336
+        ],
+        [
+          10880,
+          -3288
+        ],
+        [
+          10816,
+          -3240
+        ],
+        [
+          10752,
+          -3192
+        ],
+        [
+          10688,
+          -3168
+        ],
+        [
+          10624,
+          -3192
+        ],
+        [
+          10560,
+          -3168
+        ],
+        [
+          10496,
+          -3192
+        ],
+        [
+          10432,
+          -3168
+        ],
+        [
+          10368,
+          -3216
+        ],
+        [
+          10304,
+          -3264
+        ],
+        [
+          10240,
+          -3312
+        ],
+        [
+          10176,
+          -3360
+        ],
+        [
+          10112,
+          -3408
+        ],
+        [
+          10048,
+          -3456
+        ],
+        [
+          9984,
+          -3480
+        ],
+        [
+          9920,
+          -3432
+        ],
+        [
+          9856,
+          -3384
+        ],
+        [
+          9850,
+          -3384
+        ]
+      ],
+      "footprint": [
+        [
+          607.34375,
+          316.09375
+        ],
+        [
+          659.0625,
+          381.5625
+        ],
+        [
+          728.8125,
+          311.8125
+        ],
+        [
+          729.0,
+          309.0
+        ],
+        [
+          727.5,
+          304.5
+        ],
+        [
+          721.5,
+          304.5
+        ],
+        [
+          715.5,
+          304.5
+        ],
+        [
+          709.5,
+          304.5
+        ],
+        [
+          703.5,
+          304.5
+        ],
+        [
+          699.0,
+          303.0
+        ],
+        [
+          697.5,
+          298.5
+        ],
+        [
+          693.0,
+          297.0
+        ],
+        [
+          691.5,
+          292.5
+        ],
+        [
+          687.0,
+          291.0
+        ],
+        [
+          687.0,
+          285.0
+        ],
+        [
+          687.0,
+          279.0
+        ],
+        [
+          687.0,
+          273.0
+        ],
+        [
+          687.0,
+          267.0
+        ],
+        [
+          687.0,
+          261.0
+        ],
+        [
+          687.0,
+          255.0
+        ],
+        [
+          685.5,
+          250.5
+        ],
+        [
+          679.5,
+          250.5
+        ],
+        [
+          673.5,
+          250.5
+        ],
+        [
+          673.21875,
+          250.21875
+        ]
+      ],
+      "center": [
+        10475.0,
+        -2275.0
+      ],
+      "inference": "Visible paint and facade contacts guide the fit; covered contacts, rear walls and upper architecture are inferred. Rear extent stops before the source blocked-band edge. The unowned padding beyond it is not a walking route."
+    },
+    {
+      "name": "east-entrance",
+      "kind": "pylon",
+      "clip_scale": 0.72,
+      "front": [
+        [
+          11020,
+          -2420
+        ],
+        [
+          11210,
+          -2380
+        ],
+        [
+          11390,
+          -2380
+        ],
+        [
+          11575,
+          -2350
+        ],
+        [
+          11780,
+          -2390
+        ]
+      ],
+      "clip": -3312,
+      "rear": [
+        [
+          11780,
+          -3312
+        ],
+        [
+          11776,
+          -3312
+        ],
+        [
+          11712,
+          -3336
+        ],
+        [
+          11648,
+          -3312
+        ],
+        [
+          11584,
+          -3360
+        ],
+        [
+          11520,
+          -3384
+        ],
+        [
+          11456,
+          -3360
+        ],
+        [
+          11392,
+          -3384
+        ],
+        [
+          11328,
+          -3360
+        ],
+        [
+          11264,
+          -3384
+        ],
+        [
+          11200,
+          -3336
+        ],
+        [
+          11136,
+          -3312
+        ],
+        [
+          11072,
+          -3360
+        ],
+        [
+          11020,
+          -3384
+        ]
+      ],
+      "footprint": [
+        [
+          667.8125,
+          365.3125
+        ],
+        [
+          674.21875,
+          376.71875
+        ],
+        [
+          682.65625,
+          385.15625
+        ],
+        [
+          689.453125,
+          395.703125
+        ],
+        [
+          701.5625,
+          402.8125
+        ],
+        [
+          759.1875,
+          345.1875
+        ],
+        [
+          759.0,
+          345.0
+        ],
+        [
+          757.5,
+          340.5
+        ],
+        [
+          753.0,
+          339.0
+        ],
+        [
+          753.0,
+          333.0
+        ],
+        [
+          751.5,
+          328.5
+        ],
+        [
+          747.0,
+          327.0
+        ],
+        [
+          745.5,
+          322.5
+        ],
+        [
+          741.0,
+          321.0
+        ],
+        [
+          739.5,
+          316.5
+        ],
+        [
+          733.5,
+          316.5
+        ],
+        [
+          729.0,
+          315.0
+        ],
+        [
+          729.0,
+          309.0
+        ],
+        [
+          728.0625,
+          305.0625
+        ]
+      ],
+      "center": [
+        11395.0,
+        -2384.0
+      ],
+      "source_height": 93.00691218552369,
+      "inference": "Visible paint and facade contacts guide the fit; covered contacts, rear walls and upper architecture are inferred. Rear extent stops before the source blocked-band edge. The unowned padding beyond it is not a walking route.",
+      "upper": {
+        "extension": 8.0,
+        "roof_rise": 18.0,
+        "roof_segments": 8,
+        "wall_scale": 0.96,
+        "cap_scale": 0.1,
+        "inference": "No mapped roof art is recovered above the temple crop in the available client cache or corroborating LS2 layers; most of the client upper search region is uncached. This short continuation keeps the source-fitted cross-section, with a gold cornice and rounded blue cap using existing temple materials. Height, hidden enclosure and roof form are inferred, not verified original roof geometry."
+      }
+    }
+  ],
+  "materials": {
+    "white": {
+      "rect": [
+        9204,
+        -3268,
+        16,
+        16
+      ],
+      "rgba_sha256": "087c044b3abb29c33adbe2b1052167216dcfac265e539f5f76809b2ad4ef2acd"
+    },
+    "stone": {
+      "rect": [
+        8000,
+        -3110,
+        64,
+        48
+      ],
+      "rgba_sha256": "4e58eb8e1282cc424793fd7471b7c0e5d089c6b956b61bf5671b883166130294"
+    },
+    "blue": {
+      "rect": [
+        8310,
+        -3220,
+        64,
+        48
+      ],
+      "rgba_sha256": "5908d18da87f177ba172294434e8989489e1a8c98ae9fa467653ebf02b9621f9"
+    },
+    "gold": {
+      "rect": [
+        9402,
+        -3011,
+        24,
+        8
+      ],
+      "rgba_sha256": "a54ac9349d8ea92fca98af20b927da3e71c2656da0b20586b40fce62aac3af5a"
+    }
+  },
+  "grass_rect": [
+    1128,
+    900,
+    64,
+    48
+  ],
+  "infilled_floor_pixels": 37862,
+  "stair_infill_regions": [
+    [
+      7200,
+      -2715,
+      8030,
+      -2320
+    ],
+    [
+      9120,
+      -2530,
+      9870,
+      -1990
+    ],
+    [
+      11000,
+      -2410,
+      11900,
+      -1900
+    ]
+  ],
+  "doors": [
+    {
+      "source": 59520,
+      "cell": [
+        202,
+        98
+      ],
+      "target": 59530,
+      "landing": [
+        60,
+        97
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4165",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        198,
+        93
+      ],
+      "target": 59530,
+      "landing": [
+        60,
+        91
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4166",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        200,
+        95
+      ],
+      "target": 59530,
+      "landing": [
+        59,
+        93
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4167",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        201,
+        95
+      ],
+      "target": 59530,
+      "landing": [
+        59,
+        94
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4168",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        201,
+        96
+      ],
+      "target": 59530,
+      "landing": [
+        59,
+        95
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4169",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        202,
+        98
+      ],
+      "target": 59530,
+      "landing": [
+        60,
+        97
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4170",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        175,
+        62
+      ],
+      "target": 59530,
+      "landing": [
+        79,
+        55
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4171",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    },
+    {
+      "source": 59520,
+      "cell": [
+        228,
+        128
+      ],
+      "target": 59530,
+      "landing": [
+        81,
+        133
+      ],
+      "kind": "door",
+      "proof": "reference-warp.txt:record 4192",
+      "command": "",
+      "source_component": 1,
+      "status": "island room"
+    }
+  ],
+  "hashes": {
+    "background": "76134dc15fd08402e7c0734254ec852731493a120d0a1fce87618ba65cba154a",
+    "floor": "9a773f97083ee239f2828f39de59807e89aabe3ae501db59858a29ca8857009a",
+    "mask": "23d01f490942b9e50d7b4bb6bb8ab85c56adacd831ae632fe7712b5ef057b4f1"
+  },
+  "limits": [
+    "Original archive layers, walkability and door records are unchanged. Static source art has no original meshes. Hidden depth, rear materials and upper roof continuation are inferred. Entrance terraces are retained for the following stair-height fit. Palette-key pinholes and original stair-rail occlusion use inferred nearest native RGB; opaque source pixels stay exact. Larger keyed doorway openings retain a black matte, never nearest-gold streaks."
+  ]
+}

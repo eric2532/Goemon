@@ -9,9 +9,10 @@ Standard and Large remain the only bundled presets, at the existing
 `assets/maps/forest_wind_meadow.json` and `forest_wind_meadow_large.json` paths.
 They retain `terrain_source: wind_meadow` for terrain/native compatibility and
 use `terrain_detail: arena`. The old names are resource aliases. No shrine or
-enemy castle objectives are created. Play Goemon retains its existing slime
-mode: 29 appearances per side, 116 arrivals every ten seconds, and the same
-928-unit cap and queued arrivals. No combat balance or army owner was changed.
+enemy castle objectives are created. The first slime spawns as soon as an
+entrance is ready. The arena then releases one slime every three seconds across
+all active entrances. Each 30-second wave queues 29 appearances per active side,
+up to four sides. The queue carries forward and the active cap is 928 slimes.
 
 `scripts/forest/forest_arena.gd` is the editable composition/terrain source.
 It selects rows 90–149 of the archived 70×150 room, centers the main platform,
@@ -97,15 +98,13 @@ Inspect
 `large-open-sky.png` under `build/Other Files/Arena/`; the earlier
 `*-ceiling.png` captures are historical. No app export was requested.
 
-Arena slimes now approach at up to **3× their configured base speed** beyond
-120 m from their current target. A smooth distance curve returns them to
-**1× base speed inside 40 m** (9→3 m/s at the original defaults). The existing
-native combat owner reads the already selected target; no extra army search,
-per-slime controller or resource load is added. Slows and freezes still apply,
-and locomotion follows actual distance. The internal kit flag is enabled only
-for slime waves on this arena. Other enemies, allied pets and the recovered
-city/cave encounters retain their original movement. Damage, contact timing,
-counts, ten-second wave cadence and active cap are unchanged.
+Arena slimes pursuing the player move at **4× base speed beyond 120 m**, easing
+to **1.5× inside 40 m** for a lone pursuer (12 to 4.5 m/s at default balance).
+The native combat owner uses the selected target and existing crowding count.
+Slows and freezes still apply, and locomotion follows actual distance. A slime
+pursuing another target retains the original 3× to 1× curve. Due rebirths share
+the same three-second arrival interval and alternate with fresh slimes when
+both are waiting at an entrance.
 
 Existing user saves are never rewritten. The previous valley JSON layouts now
 live only in `tests/forest-shrine/reference/maps/*_valley.json`; their castle

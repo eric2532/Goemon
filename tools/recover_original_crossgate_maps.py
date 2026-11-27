@@ -212,6 +212,56 @@ def prepare(source):
             **(dict(unavailable_graphics=sorted(missing),artwork_approximation=True) if missing else {}),
         )
 
+    pages, graphics, images = pack_graphics(used, lookup, furniture, lib)
+    catalog = dict(schema=1, basis="Original client snapshots; Jenova/Beast uncached cells completed from the pinned matching reference. No recovered BlueCG server AI.",
+                   maps=maps, graphics=graphics, pages=[f"atlas-{i}.png" for i in range(len(pages))])
+    # The pinned recovery reference supplies fixed warp endpoints, never NPC scripts.
+    warp_file = REPORT / "reference-warp.txt"
+    warps = []
+    if warp_file.exists():
+        for line in warp_file.read_text(errors="replace").splitlines():
+            fields = line.split()
+            if len(fields)>=7 and all(v.isdecimal() for v in fields[:7]):
+                warps.append(list(map(int,fields[1:7])))
+    assert warps, "Missing pinned fixed-warp recovery reference"
+    catalog["warps"] = warps
+    catalog["warp_reference_sha256"] = digest(warp_file.read_bytes())
+    templates = []
+    for path, row in maps.items():
+        if row["group"] != "beast_cache":
+            continue
+        width, height, _, objects, _ = lib.parse_map(zlib.decompress(base64.b64decode(row["raw"])))
+        up = [i for i, s in enumerate(objects) if s == 12000]
+        down = [i for i, s in enumerate(objects) if s == 12002]
+        if len(up) != 1 or len(down) != 1:
+            continue
+        bits = zlib.decompress(base64.b64decode(row["walk"]))
+        opened = lambda i: bool(bits[i >> 3] & (1 << (i & 7)))
+        if not opened(up[0]) or not opened(down[0]):
+            continue
+        seen = {up[0]}; queue = deque(seen)
+        while queue:
+            i = queue.popleft()
+            for j in (i-1 if i%width else -1, i+1 if i%width<width-1 else -1, i-width, i+width):
+                if 0 <= j < width*height and j not in seen and opened(j):
+                    seen.add(j); queue.append(j)
+        if down[0] in seen:
+            templates.append(dict(path=path, up=[up[0]%width,up[0]//width], down=[down[0]%width,down[0]//width]))
+    assert len(templates) >= 12, "Beast route needs twelve distinct connected original layouts"
+    catalog["beast_templates"] = templates
+    catalog["beast_encounters"] = beast_encounters(source)
+    # Self-check every source byte and every original RGBA rectangle before publishing.
+    for path, row in maps.items():
+        raw = zlib.decompress(base64.b64decode(row["raw"]))
+        assert len(raw) == row["bytes"] and digest(raw) == row["sha256"], path
+        assert len(zlib.decompress(base64.b64decode(row["walk"]))) == (row["cells"] + 7) // 8, path
+    for key, row in graphics.items():
+        x, y, w, h = row["rect"]
+        assert pages[row["page"]].crop((x, y, x + w, y + h)).tobytes() == images[int(key)].tobytes(), key
+    return catalog, pages, lib
+
+
+def pack_graphics(used, lookup, furniture, lib):
     pages, graphics, images = [], {}, {}
     page = Image.new("RGBA", (PAGE, PAGE))
     x = y = row_height = 0
@@ -270,52 +320,7 @@ def prepare(source):
         x += art.width + 4
         row_height = max(row_height, art.height + 4)
     pages.append(page)
-    catalog = dict(schema=1, basis="Original client snapshots; Jenova/Beast uncached cells completed from the pinned matching reference. No recovered BlueCG server AI.",
-                   maps=maps, graphics=graphics, pages=[f"atlas-{i}.png" for i in range(len(pages))])
-    # The pinned recovery reference supplies fixed warp endpoints, never NPC scripts.
-    warp_file = REPORT / "reference-warp.txt"
-    warps = []
-    if warp_file.exists():
-        for line in warp_file.read_text(errors="replace").splitlines():
-            fields = line.split()
-            if len(fields)>=7 and all(v.isdecimal() for v in fields[:7]):
-                warps.append(list(map(int,fields[1:7])))
-    assert warps, "Missing pinned fixed-warp recovery reference"
-    catalog["warps"] = warps
-    catalog["warp_reference_sha256"] = digest(warp_file.read_bytes())
-    templates = []
-    for path, row in maps.items():
-        if row["group"] != "beast_cache":
-            continue
-        width, height, _, objects, _ = lib.parse_map(zlib.decompress(base64.b64decode(row["raw"])))
-        up = [i for i, s in enumerate(objects) if s == 12000]
-        down = [i for i, s in enumerate(objects) if s == 12002]
-        if len(up) != 1 or len(down) != 1:
-            continue
-        bits = zlib.decompress(base64.b64decode(row["walk"]))
-        opened = lambda i: bool(bits[i >> 3] & (1 << (i & 7)))
-        if not opened(up[0]) or not opened(down[0]):
-            continue
-        seen = {up[0]}; queue = deque(seen)
-        while queue:
-            i = queue.popleft()
-            for j in (i-1 if i%width else -1, i+1 if i%width<width-1 else -1, i-width, i+width):
-                if 0 <= j < width*height and j not in seen and opened(j):
-                    seen.add(j); queue.append(j)
-        if down[0] in seen:
-            templates.append(dict(path=path, up=[up[0]%width,up[0]//width], down=[down[0]%width,down[0]//width]))
-    assert len(templates) >= 12, "Beast route needs twelve distinct connected original layouts"
-    catalog["beast_templates"] = templates
-    catalog["beast_encounters"] = beast_encounters(source)
-    # Self-check every source byte and every original RGBA rectangle before publishing.
-    for path, row in maps.items():
-        raw = zlib.decompress(base64.b64decode(row["raw"]))
-        assert len(raw) == row["bytes"] and digest(raw) == row["sha256"], path
-        assert len(zlib.decompress(base64.b64decode(row["walk"]))) == (row["cells"] + 7) // 8, path
-    for key, row in graphics.items():
-        x, y, w, h = row["rect"]
-        assert pages[row["page"]].crop((x, y, x + w, y + h)).tobytes() == images[int(key)].tobytes(), key
-    return catalog, pages, lib
+    return pages, graphics, images
 
 
 def solid_pages(catalog, pages):
@@ -339,6 +344,8 @@ def solid_pages(catalog, pages):
                     cursor += 1
                 pixels[col,row] = source[marks[cursor],row][:3]
         if not occupied:
+            if graphic.get('family') == 'room_wall':
+                output[graphic['page']].paste(art.convert('RGB'), (x, y), art.getchannel('A').point(lambda value: 255 if value else 0))
             continue
         cursor = 0
         for row in range(h):
@@ -346,6 +353,9 @@ def solid_pages(catalog, pages):
                 cursor += 1
             if row not in occupied:
                 filled.paste(filled.crop((0,occupied[cursor],w,occupied[cursor]+1)),(0,row))
+        if graphic.get('family') == 'room_wall':
+            # Dark mortar and baked wall faces are original paint, not cast-shadow gaps.
+            filled.paste(art.convert('RGB'), (0, 0), art.getchannel('A').point(lambda value: 255 if value else 0))
         output[graphic["page"]].paste(filled,(x,y))
     return output
 

@@ -1,0 +1,5612 @@
+{
+  "schema": 1,
+  "item_data_sha256": "de94430aa5f77645e89c9ed7e11e5ca916a4a04aca76cb19604a486d8e474c88",
+  "art": {
+    "20004": {
+      "pack": "original",
+      "row": 13876,
+      "rgba_sha256": "ab29519476373b9f799af7d2f296b7a1227bbb88e07cffe8ad4f7a34537c7426",
+      "rect": [
+        1,
+        1,
+        35,
+        35
+      ]
+    },
+    "20010": {
+      "pack": "original",
+      "row": 13882,
+      "rgba_sha256": "3cd0a201e3a538687bfd9e0df1bb90378545a14f39303be1e902b9ec61f0cfe6",
+      "rect": [
+        38,
+        1,
+        36,
+        36
+      ]
+    },
+    "20017": {
+      "pack": "original",
+      "row": 13889,
+      "rgba_sha256": "2f54c7e71a9430bc70acb5653a4d1ff3c0c5c15a0cee013a0fd6b864b27f425d",
+      "rect": [
+        76,
+        1,
+        32,
+        32
+      ]
+    },
+    "20030": {
+      "pack": "original",
+      "row": 13902,
+      "rgba_sha256": "e089db4418586e86ac7dcc32511d7c84e97ad1e399f3d39281bacf210a165d36",
+      "rect": [
+        110,
+        1,
+        37,
+        40
+      ]
+    },
+    "20050": {
+      "pack": "original",
+      "row": 13922,
+      "rgba_sha256": "cbc6d4b965ff29d909ca964c2e714cb59ba20c47f94969c11d79082917427c19",
+      "rect": [
+        149,
+        1,
+        39,
+        41
+      ]
+    },
+    "20081": {
+      "pack": "original",
+      "row": 13953,
+      "rgba_sha256": "05dcdeaa90ddd4aa5cc3d0eae48f5d8f40461e815d496fced73ab74efc3d17da",
+      "rect": [
+        190,
+        1,
+        41,
+        43
+      ]
+    },
+    "20082": {
+      "pack": "original",
+      "row": 13954,
+      "rgba_sha256": "a94322ffaad041f92b7d521cc738e40c99f9690818045e26cfe51a9b7978d947",
+      "rect": [
+        233,
+        1,
+        40,
+        41
+      ]
+    },
+    "20200": {
+      "pack": "original",
+      "row": 13372,
+      "rgba_sha256": "96881e78148584f18e588c6970a869630487b9c36e8e3411fc256281e47bfdd8",
+      "rect": [
+        275,
+        1,
+        35,
+        32
+      ]
+    },
+    "20204": {
+      "pack": "original",
+      "row": 13376,
+      "rgba_sha256": "66853699066907081965f636e9e1b2dde4fe2f403451f69b8190f45cfd3ec909",
+      "rect": [
+        312,
+        1,
+        33,
+        35
+      ]
+    },
+    "20206": {
+      "pack": "original",
+      "row": 13378,
+      "rgba_sha256": "3f4d24134169bf4ee44226b26ee27b8eeebbdad162cc3077bec5560b11ec0d51",
+      "rect": [
+        347,
+        1,
+        35,
+        32
+      ]
+    },
+    "20280": {
+      "pack": "original",
+      "row": 13452,
+      "rgba_sha256": "f462a8a02260fd70f183d10c98600abbfc7c33a44fbc4d8cabe13dab5a6f90b4",
+      "rect": [
+        384,
+        1,
+        35,
+        32
+      ]
+    },
+    "20404": {
+      "pack": "original",
+      "row": 13676,
+      "rgba_sha256": "b33a1a26f8e09cc4e522024bbcbc890f881ac196c0a69e37cd50660714884624",
+      "rect": [
+        421,
+        1,
+        40,
+        41
+      ]
+    },
+    "20421": {
+      "pack": "original",
+      "row": 13693,
+      "rgba_sha256": "a84799b60bc2ed19bd27a168e852a503591b95e4d13a92e0be3c5327e12ab1d3",
+      "rect": [
+        463,
+        1,
+        45,
+        37
+      ]
+    },
+    "20431": {
+      "pack": "original",
+      "row": 13703,
+      "rgba_sha256": "9b366d180f9ae2857210b782418ca1b709de9ebf04750604cf28b559649665ac",
+      "rect": [
+        510,
+        1,
+        33,
+        34
+      ]
+    },
+    "20451": {
+      "pack": "original",
+      "row": 13723,
+      "rgba_sha256": "f48e5c395ba9d24300fc45ebc215246b9ef4d35525d2dbe5f6991d06ba44dd0a",
+      "rect": [
+        545,
+        1,
+        33,
+        42
+      ]
+    },
+    "20496": {
+      "pack": "original",
+      "row": 13768,
+      "rgba_sha256": "b543ecee9e7fc275669812077e190f3b9fbac63c1e06dd86694acb739e575fbd",
+      "rect": [
+        580,
+        1,
+        33,
+        34
+      ]
+    },
+    "20497": {
+      "pack": "original",
+      "row": 13769,
+      "rgba_sha256": "c2950f7d1687749c514b29a5b31c4a45bdf05d528cdd70f0b74a2d8a6ae5c5b7",
+      "rect": [
+        615,
+        1,
+        33,
+        33
+      ]
+    },
+    "20601": {
+      "pack": "original",
+      "row": 13773,
+      "rgba_sha256": "80ad5aab6deebad3932e779916b5d0784c6a700451c13d3de3f0ff86197cf344",
+      "rect": [
+        650,
+        1,
+        38,
+        38
+      ]
+    },
+    "20606": {
+      "pack": "original",
+      "row": 13778,
+      "rgba_sha256": "08193caf25369a54c5436795b069660c834970bc8e59db7da917bc5c0b798c65",
+      "rect": [
+        690,
+        1,
+        36,
+        36
+      ]
+    },
+    "20650": {
+      "pack": "original",
+      "row": 13822,
+      "rgba_sha256": "6bcba60b39d9e183cc6df343aa7457fa28f7a300b43672f515e8556a74e99fc1",
+      "rect": [
+        728,
+        1,
+        33,
+        31
+      ]
+    },
+    "20660": {
+      "pack": "original",
+      "row": 13832,
+      "rgba_sha256": "771b90882f842f59e690e4d64a47321e48312b589c807327c3e9bd5bc01b4f30",
+      "rect": [
+        763,
+        1,
+        33,
+        31
+      ]
+    },
+    "20696": {
+      "pack": "original",
+      "row": 13868,
+      "rgba_sha256": "3b7ae779b28b0120db880a0323f8b0e0ccd6c596fe1a0f4407a78a69f3276324",
+      "rect": [
+        798,
+        1,
+        40,
+        41
+      ]
+    },
+    "20802": {
+      "pack": "original",
+      "row": 13474,
+      "rgba_sha256": "23a168cdedf2f5a44b56ee2d531fb87f0b09d0f5e91d65978a5d22b6aaf5f46b",
+      "rect": [
+        840,
+        1,
+        32,
+        33
+      ]
+    },
+    "20807": {
+      "pack": "original",
+      "row": 13479,
+      "rgba_sha256": "58ba5323d52e372a1c1c33747b393bb64b9e84de60fcece8ec0c1c0f55b12cd8",
+      "rect": [
+        874,
+        1,
+        33,
+        35
+      ]
+    },
+    "20809": {
+      "pack": "original",
+      "row": 13481,
+      "rgba_sha256": "8b0845203c3955cfa388df5c7ed66c3253e9431c65341c9f2785b00f3f507b49",
+      "rect": [
+        909,
+        1,
+        31,
+        31
+      ]
+    },
+    "20812": {
+      "pack": "original",
+      "row": 13484,
+      "rgba_sha256": "de67cf051902115c60df611b816fa5402edca3ca15d55aa6673fcc28c0b22daa",
+      "rect": [
+        942,
+        1,
+        38,
+        38
+      ]
+    },
+    "20819": {
+      "pack": "original",
+      "row": 13491,
+      "rgba_sha256": "364c8dc04d60ff1952ebc709bebe2df24a42ab4be44a07de940f20811458bdd8",
+      "rect": [
+        982,
+        1,
+        31,
+        32
+      ]
+    },
+    "20892": {
+      "pack": "original",
+      "row": 13564,
+      "rgba_sha256": "99a42b32ee5e86e33545e09ef7a7b387229cd5e771cd3ba0c2081bbbbc2f35cb",
+      "rect": [
+        1,
+        46,
+        41,
+        40
+      ]
+    },
+    "21000": {
+      "pack": "original",
+      "row": 13572,
+      "rgba_sha256": "ff858ec2f88a939513a6d55f81b861267328a7a074344d09650345d8fd4058f5",
+      "rect": [
+        44,
+        46,
+        18,
+        30
+      ]
+    },
+    "21034": {
+      "pack": "original",
+      "row": 13606,
+      "rgba_sha256": "256dde0f1872f19d6677d20a4acaeda6a760aea518b9b2c51c41d46272ff0d1c",
+      "rect": [
+        64,
+        46,
+        21,
+        23
+      ]
+    },
+    "21042": {
+      "pack": "original",
+      "row": 13614,
+      "rgba_sha256": "05e2fb3f71e39db6c4735e399cb745fa025eb0ab463c7dd4ca1474d29b958b2a",
+      "rect": [
+        87,
+        46,
+        15,
+        17
+      ]
+    },
+    "21065": {
+      "pack": "original",
+      "row": 13637,
+      "rgba_sha256": "e7c213acf48d7f18bebc39b8339b2ffc9ab7595a7408179d8b9a77eb0c1807a9",
+      "rect": [
+        104,
+        46,
+        20,
+        25
+      ]
+    },
+    "21077": {
+      "pack": "original",
+      "row": 13649,
+      "rgba_sha256": "a5620722214c96f621e5d12b61d8e9dd462f1f301ba53e496e2e50596315482a",
+      "rect": [
+        126,
+        46,
+        24,
+        23
+      ]
+    },
+    "21086": {
+      "pack": "original",
+      "row": 13658,
+      "rgba_sha256": "d5967ff7344a422a02119942aa0a23ca000038e26afea2f81993ff0e69654b2a",
+      "rect": [
+        152,
+        46,
+        19,
+        20
+      ]
+    },
+    "21200": {
+      "pack": "original",
+      "row": 13972,
+      "rgba_sha256": "da82d34b8f8ffc89eab89d055850d7c2de961f28592f0667c422c7b1d10d80ed",
+      "rect": [
+        173,
+        46,
+        24,
+        27
+      ]
+    },
+    "21234": {
+      "pack": "original",
+      "row": 14006,
+      "rgba_sha256": "e4c3326e2c53cf16839724d9a53f118476555b005cc1b2fb6c2401b4385f1d70",
+      "rect": [
+        199,
+        46,
+        27,
+        31
+      ]
+    },
+    "21238": {
+      "pack": "original",
+      "row": 14010,
+      "rgba_sha256": "1f12a0b91ba69af7cea212d48799ca16b05c5653544405a8d96fe8ca287728fe",
+      "rect": [
+        228,
+        46,
+        28,
+        23
+      ]
+    },
+    "21239": {
+      "pack": "original",
+      "row": 14011,
+      "rgba_sha256": "32cde81b072dfd4ea08a2d9d952c51128b5b60c3eae36a68405a7872b2c9e6ed",
+      "rect": [
+        258,
+        46,
+        27,
+        28
+      ]
+    },
+    "21248": {
+      "pack": "original",
+      "row": 14020,
+      "rgba_sha256": "77825d9253bea76002ea6ac4840893fbcc8db556211f46cfb7aa9498f485b319",
+      "rect": [
+        287,
+        46,
+        28,
+        23
+      ]
+    },
+    "21401": {
+      "pack": "original",
+      "row": 14253,
+      "rgba_sha256": "88e8bf56b4b5c2b477f45cab3390adb03d96ed6571d39b14faee5509715e9498",
+      "rect": [
+        317,
+        46,
+        29,
+        36
+      ]
+    },
+    "21429": {
+      "pack": "original",
+      "row": 14281,
+      "rgba_sha256": "802587170c2ecb14661fcffea9c52e4480e6a4f5dd4e36f947dddd542b69c8af",
+      "rect": [
+        348,
+        46,
+        32,
+        33
+      ]
+    },
+    "21440": {
+      "pack": "original",
+      "row": 14292,
+      "rgba_sha256": "1705737ecd98eb462c4e6b4d33e154bf8f36a5d71b99eb23db4855a73f8bc1a6",
+      "rect": [
+        382,
+        46,
+        34,
+        30
+      ]
+    },
+    "21447": {
+      "pack": "original",
+      "row": 14299,
+      "rgba_sha256": "2438fe35b612fc418a5e50bde0ca2a4c92f4676e829fe84fd8c3f238a4872f86",
+      "rect": [
+        418,
+        46,
+        29,
+        33
+      ]
+    },
+    "21480": {
+      "pack": "original",
+      "row": 14332,
+      "rgba_sha256": "436a0832bd468e62992e2e08c795578e2eb7dbc9dcabfc5c1f56bc3086abc165",
+      "rect": [
+        449,
+        46,
+        34,
+        41
+      ]
+    },
+    "21500": {
+      "pack": "original",
+      "row": 14352,
+      "rgba_sha256": "fa5a68c762936c771fb02344f9feea8d8bab68eaaac3a6a9f6f21ec9abc7f189",
+      "rect": [
+        485,
+        46,
+        38,
+        40
+      ]
+    },
+    "21501": {
+      "pack": "original",
+      "row": 14353,
+      "rgba_sha256": "79f2adcefc829bb4a787793e391a7b0e8b4d0d18de57c376b7e5850ec904e376",
+      "rect": [
+        525,
+        46,
+        31,
+        44
+      ]
+    },
+    "21503": {
+      "pack": "original",
+      "row": 14355,
+      "rgba_sha256": "a35a182667dd0a02681f654b2723cacbbb66032e9287f8eb29beffa3e81a5cb8",
+      "rect": [
+        558,
+        46,
+        31,
+        31
+      ]
+    },
+    "21600": {
+      "pack": "original",
+      "row": 14022,
+      "rgba_sha256": "c9af1ea635759b2415ba5619d187c06ac3a9a242514df0ef1d3eacfb2ded14c3",
+      "rect": [
+        591,
+        46,
+        40,
+        52
+      ]
+    },
+    "21651": {
+      "pack": "original",
+      "row": 14073,
+      "rgba_sha256": "729102b076796f1ca7aebe8855cb0d310f12e0c875c90d674a2d85024356ca9a",
+      "rect": [
+        633,
+        46,
+        28,
+        34
+      ]
+    },
+    "21659": {
+      "pack": "original",
+      "row": 14081,
+      "rgba_sha256": "a87ef6f8e660389db45a214ec7e629764d261a8ee62ffa36b7d537fda6c4c8c1",
+      "rect": [
+        663,
+        46,
+        23,
+        34
+      ]
+    },
+    "21668": {
+      "pack": "original",
+      "row": 14090,
+      "rgba_sha256": "8b1413424371e85564af2bb0466f5514dac02b7c1d1aeb408decd7b982bd30e4",
+      "rect": [
+        688,
+        46,
+        23,
+        34
+      ]
+    },
+    "21700": {
+      "pack": "original",
+      "row": 14122,
+      "rgba_sha256": "ad7bff39dd399d8cd6de545cc7fbf7ea54e1099c7c665e88ec8422d33ce62df7",
+      "rect": [
+        713,
+        46,
+        46,
+        49
+      ]
+    },
+    "21713": {
+      "pack": "original",
+      "row": 14135,
+      "rgba_sha256": "e46933dd6be686a015ef1cd2117dfe04f8878fd403c8a73a0dc5464d2c9de14e",
+      "rect": [
+        761,
+        46,
+        46,
+        49
+      ]
+    },
+    "21813": {
+      "pack": "original",
+      "row": 14165,
+      "rgba_sha256": "80ea887a2a755a4dc9b3e376aff673e07c82d83613da6fabe4a56e479508f837",
+      "rect": [
+        809,
+        46,
+        26,
+        24
+      ]
+    },
+    "21843": {
+      "pack": "original",
+      "row": 14195,
+      "rgba_sha256": "ea75967a7cdb77c76922d2747e404efc9ca2838bc5e7e12736fbcd4731f44593",
+      "rect": [
+        837,
+        46,
+        34,
+        28
+      ]
+    },
+    "21878": {
+      "pack": "original",
+      "row": 14230,
+      "rgba_sha256": "075127dd74d3041a6fecf4b05dae8957b9f8562b30be56aca07e48bb38023368",
+      "rect": [
+        873,
+        46,
+        32,
+        49
+      ]
+    },
+    "21900": {
+      "pack": "v3",
+      "row": 4506,
+      "rgba_sha256": "f43640107d267dd86d10572d64deca1bab81d8825a69aa891a403874b0b67c13",
+      "rect": [
+        907,
+        46,
+        31,
+        38
+      ]
+    },
+    "25054": {
+      "pack": "original",
+      "row": 14410,
+      "rgba_sha256": "b4766826718db622afae114eb627028a8cc2d00833ace54400f9d781c8e85482",
+      "rect": [
+        940,
+        46,
+        31,
+        30
+      ]
+    },
+    "25061": {
+      "pack": "original",
+      "row": 14417,
+      "rgba_sha256": "7590464c137758b0034300fa1832bfe33e00824d951013b6c61edeb9360b44b0",
+      "rect": [
+        973,
+        46,
+        35,
+        32
+      ]
+    },
+    "25086": {
+      "pack": "original",
+      "row": 14442,
+      "rgba_sha256": "6882a23c02a60d23ccd1eacd911b624832bf965dc3bb64206b757e4e33c40a53",
+      "rect": [
+        1,
+        100,
+        34,
+        32
+      ]
+    },
+    "25087": {
+      "pack": "original",
+      "row": 14443,
+      "rgba_sha256": "be0547827dacc97a8a320bab48a81d7f48e4a011c18d1ceea619d96724f75b1d",
+      "rect": [
+        37,
+        100,
+        34,
+        33
+      ]
+    },
+    "25099": {
+      "pack": "original",
+      "row": 14455,
+      "rgba_sha256": "c77834ca3af141426f0ae32420a06df900b16a7896a87fdd2a2779609f8e2f87",
+      "rect": [
+        73,
+        100,
+        27,
+        26
+      ]
+    },
+    "25207": {
+      "pack": "original",
+      "row": 14858,
+      "rgba_sha256": "427c79505355ee5a9ba71c22247c31e3ac70946124f86b382aa0ef3bce605594",
+      "rect": [
+        102,
+        100,
+        21,
+        17
+      ]
+    },
+    "25208": {
+      "pack": "original",
+      "row": 14859,
+      "rgba_sha256": "eb4eccc6f3e21a554ba053bdcac114df93d5ef3158e74a9d75600573ae6b9217",
+      "rect": [
+        125,
+        100,
+        21,
+        15
+      ]
+    },
+    "25211": {
+      "pack": "original",
+      "row": 14862,
+      "rgba_sha256": "215d3bc73e704c528568d64a36dc8646267e02968c0b45abf50da6e8a3a725b8",
+      "rect": [
+        148,
+        100,
+        21,
+        14
+      ]
+    },
+    "25212": {
+      "pack": "original",
+      "row": 14863,
+      "rgba_sha256": "132134c75a08a5162f1fb02c1887e8a96d3817dfa1a69725f18a2db861d84e8c",
+      "rect": [
+        171,
+        100,
+        21,
+        17
+      ]
+    },
+    "25220": {
+      "pack": "original",
+      "row": 14871,
+      "rgba_sha256": "ec265e756e32e4be6880c3bae3d57fdedf1c9f7995cdf2a0646f37ffd7b3a615",
+      "rect": [
+        194,
+        100,
+        21,
+        18
+      ]
+    },
+    "25229": {
+      "pack": "original",
+      "row": 14880,
+      "rgba_sha256": "c02fd16fdc53d71fc865eb739d108916ee115ae3ed7e78733a08ffec50e9e576",
+      "rect": [
+        217,
+        100,
+        23,
+        21
+      ]
+    },
+    "25231": {
+      "pack": "original",
+      "row": 14882,
+      "rgba_sha256": "809047c349918f49760eaade05f2802576df654733843ad4686b8d80f32a95cc",
+      "rect": [
+        242,
+        100,
+        21,
+        14
+      ]
+    },
+    "25234": {
+      "pack": "original",
+      "row": 14885,
+      "rgba_sha256": "0f6f33f49f6322ec619dc02bc06325359759031373bcf58e52b1812d4a6d94b9",
+      "rect": [
+        265,
+        100,
+        21,
+        18
+      ]
+    },
+    "25244": {
+      "pack": "original",
+      "row": 14895,
+      "rgba_sha256": "7b618f9b311e2db250320d90a3443dcc2153546ce9b69878813959caa2656c06",
+      "rect": [
+        288,
+        100,
+        21,
+        18
+      ]
+    },
+    "25255": {
+      "pack": "original",
+      "row": 14906,
+      "rgba_sha256": "21f78fc62add22bc0bea994008b9631596d7e933d6a9221bb58434207d797bc8",
+      "rect": [
+        311,
+        100,
+        23,
+        20
+      ]
+    },
+    "25401": {
+      "pack": "original",
+      "row": 14557,
+      "rgba_sha256": "d388b6b7d40a6ee37655ff71a2e9fa903fd9282e652c5762a016ac26c0fddc3c",
+      "rect": [
+        336,
+        100,
+        27,
+        30
+      ]
+    },
+    "25403": {
+      "pack": "original",
+      "row": 14559,
+      "rgba_sha256": "668b8e148079c6e8dd7d003f733a00b05d03cb214f6bcccef8db7b0a68ff409c",
+      "rect": [
+        365,
+        100,
+        22,
+        21
+      ]
+    },
+    "25407": {
+      "pack": "original",
+      "row": 14563,
+      "rgba_sha256": "60a0ecf5d6dc686c63508e346c72c5b51862e37882b86c196074d65be3882343",
+      "rect": [
+        389,
+        100,
+        32,
+        23
+      ]
+    },
+    "25408": {
+      "pack": "original",
+      "row": 14564,
+      "rgba_sha256": "a3ac3ba1828aa7854f02d1c01be1789ff6ad4910bddc27d7c1eb1c307221962d",
+      "rect": [
+        423,
+        100,
+        30,
+        30
+      ]
+    },
+    "25410": {
+      "pack": "original",
+      "row": 14566,
+      "rgba_sha256": "50b7f340bcbe423bf0ce68ad9bf1287b9257b3346c34382f5ee2bde9fa9c606e",
+      "rect": [
+        455,
+        100,
+        24,
+        25
+      ]
+    },
+    "25414": {
+      "pack": "original",
+      "row": 14570,
+      "rgba_sha256": "db9740097fd243a06153e39cd572ccca8d88421a8ea3a2059379d0968262767d",
+      "rect": [
+        481,
+        100,
+        28,
+        29
+      ]
+    },
+    "25420": {
+      "pack": "original",
+      "row": 14576,
+      "rgba_sha256": "ae87f3f38d412658a69e901c41c0079f266f5b3705e2af2938bd102b3147cab9",
+      "rect": [
+        511,
+        100,
+        30,
+        30
+      ]
+    },
+    "25422": {
+      "pack": "original",
+      "row": 14578,
+      "rgba_sha256": "94ef1ee0fc316864248d93f656c859b3c370f2b98495ba5619e9593c1cb600ea",
+      "rect": [
+        543,
+        100,
+        18,
+        17
+      ]
+    },
+    "25430": {
+      "pack": "original",
+      "row": 14586,
+      "rgba_sha256": "035c09bb55df7c8b96af60dd85b34c03a3989c937cd068e01d3fd813440c0762",
+      "rect": [
+        563,
+        100,
+        24,
+        25
+      ]
+    },
+    "25437": {
+      "pack": "original",
+      "row": 14593,
+      "rgba_sha256": "20c92e5416e56b1badcc563190d4435720037564fd206f54464f71be6f5ac758",
+      "rect": [
+        589,
+        100,
+        26,
+        29
+      ]
+    },
+    "25440": {
+      "pack": "original",
+      "row": 14596,
+      "rgba_sha256": "77315e8cd30499252220f4dd53f15bbc1506c94d68af84a077bf23d69d22ed2a",
+      "rect": [
+        617,
+        100,
+        25,
+        25
+      ]
+    },
+    "25441": {
+      "pack": "original",
+      "row": 14597,
+      "rgba_sha256": "38bb50e4a6644a485083ceec3f93604d36fa68123fb69715b815d262f7c23bc7",
+      "rect": [
+        644,
+        100,
+        25,
+        25
+      ]
+    },
+    "25442": {
+      "pack": "original",
+      "row": 14598,
+      "rgba_sha256": "9bac49ed6eb86cb806e6101a54a69f95b22a7b3cdb78da9f5da8ef54d09d0dfa",
+      "rect": [
+        671,
+        100,
+        25,
+        25
+      ]
+    },
+    "25443": {
+      "pack": "original",
+      "row": 14599,
+      "rgba_sha256": "16c2e11eec335b9248a500d0094f94e73889288916151940106840b883949e2b",
+      "rect": [
+        698,
+        100,
+        25,
+        25
+      ]
+    },
+    "25447": {
+      "pack": "original",
+      "row": 14603,
+      "rgba_sha256": "b732c1d2b1deb709fc97c00988b44af3d79349378901611c76c537fe3a9992e4",
+      "rect": [
+        725,
+        100,
+        31,
+        25
+      ]
+    },
+    "25451": {
+      "pack": "original",
+      "row": 14607,
+      "rgba_sha256": "01c02f8004ca3244b41f6e08692b185b2f260d3ab66631ff2540aaa6cb53a4ca",
+      "rect": [
+        758,
+        100,
+        25,
+        23
+      ]
+    },
+    "25452": {
+      "pack": "original",
+      "row": 14608,
+      "rgba_sha256": "f46708ed16be215f2fa380540448055675963dc048e61430e97e0b1d002a04eb",
+      "rect": [
+        785,
+        100,
+        25,
+        23
+      ]
+    },
+    "25453": {
+      "pack": "original",
+      "row": 14609,
+      "rgba_sha256": "7a4f8ab42c27405d39ee04f293b7bda1d50b777a74fa5ba9fa99d3b1a7498434",
+      "rect": [
+        812,
+        100,
+        27,
+        35
+      ]
+    },
+    "25458": {
+      "pack": "original",
+      "row": 14614,
+      "rgba_sha256": "35494d8ed91aece9645d6cd17d4a4d97a3f3936ef304ee43ffdf0adb41aece3e",
+      "rect": [
+        841,
+        100,
+        26,
+        29
+      ]
+    },
+    "25463": {
+      "pack": "original",
+      "row": 14619,
+      "rgba_sha256": "4bc3c78a02dceaaa5518fa3931cae2c783c279d56be2cf40fc5fe60b294ec556",
+      "rect": [
+        869,
+        100,
+        26,
+        26
+      ]
+    },
+    "25464": {
+      "pack": "original",
+      "row": 14620,
+      "rgba_sha256": "4711f96c0655bb218da6b128586ffbf93a519777cb78a803791eaf3fd21aa423",
+      "rect": [
+        897,
+        100,
+        27,
+        29
+      ]
+    },
+    "25475": {
+      "pack": "original",
+      "row": 14631,
+      "rgba_sha256": "2d42c52b001244f1ff28161a6df34d0b3aa769d7aa4c6cc692fad877757f43e0",
+      "rect": [
+        926,
+        100,
+        27,
+        27
+      ]
+    },
+    "25481": {
+      "pack": "original",
+      "row": 14637,
+      "rgba_sha256": "d93d074aff20d4094e66721ca3b05e02d799451723c3f840ebc524b01a95cf1a",
+      "rect": [
+        955,
+        100,
+        28,
+        27
+      ]
+    },
+    "25484": {
+      "pack": "original",
+      "row": 14640,
+      "rgba_sha256": "aa3784dfbe156ec5eb9219bf7ee108fa374eb31c2b5f6718d2e182feea60b1bf",
+      "rect": [
+        985,
+        100,
+        28,
+        28
+      ]
+    },
+    "25485": {
+      "pack": "original",
+      "row": 14641,
+      "rgba_sha256": "4586628fd901a99b806062e32e679d87a46df75f2747f91329f098948051515b",
+      "rect": [
+        1,
+        137,
+        28,
+        28
+      ]
+    },
+    "25486": {
+      "pack": "original",
+      "row": 14642,
+      "rgba_sha256": "40baa94636c390ad593d2c3171410efe2e56822b4e51fc4a25c387806256e483",
+      "rect": [
+        31,
+        137,
+        28,
+        28
+      ]
+    },
+    "25489": {
+      "pack": "original",
+      "row": 14645,
+      "rgba_sha256": "73fab9c377e4faac8461d7133e1448beb4fa006a80fab546eac011cc618fd7cc",
+      "rect": [
+        61,
+        137,
+        28,
+        28
+      ]
+    },
+    "25492": {
+      "pack": "original",
+      "row": 14648,
+      "rgba_sha256": "19ab0e2ab5e623ad089ea311394365b5f63b050a854a6052edc8fd293eba336e",
+      "rect": [
+        91,
+        137,
+        30,
+        30
+      ]
+    },
+    "25603": {
+      "pack": "original",
+      "row": 14754,
+      "rgba_sha256": "3cc82caa9e09ba3c7c00da577b84a59b113c618f3191bc5a41c92137acf5cf4b",
+      "rect": [
+        123,
+        137,
+        27,
+        33
+      ]
+    },
+    "25606": {
+      "pack": "original",
+      "row": 14757,
+      "rgba_sha256": "491535cc642ace323c04f1b5633ce2efa9e691ce5a4217c631ab76f2af002f3e",
+      "rect": [
+        152,
+        137,
+        35,
+        26
+      ]
+    },
+    "25611": {
+      "pack": "original",
+      "row": 14762,
+      "rgba_sha256": "d85fe2ddd60f53d9c76cef6d7a9424dbfe2b1d443f8bd34421c1bc9b6049a3ab",
+      "rect": [
+        189,
+        137,
+        30,
+        31
+      ]
+    },
+    "25614": {
+      "pack": "original",
+      "row": 14765,
+      "rgba_sha256": "13e3979faf9ddb6e6a16109cfb1d449dd8fc0f5c35743f8170d052d05cd6ebda",
+      "rect": [
+        221,
+        137,
+        30,
+        36
+      ]
+    },
+    "25621": {
+      "pack": "original",
+      "row": 14772,
+      "rgba_sha256": "e57c67b9416543af5d34f20b95a13b36a61d9bca794882f9beabaa274e797def",
+      "rect": [
+        253,
+        137,
+        30,
+        31
+      ]
+    },
+    "25630": {
+      "pack": "original",
+      "row": 14781,
+      "rgba_sha256": "c81fa416e8e6886a613f853c6e5ba6750d44dcd84b75ab13f0fbc150f7733806",
+      "rect": [
+        285,
+        137,
+        30,
+        27
+      ]
+    },
+    "25634": {
+      "pack": "original",
+      "row": 14785,
+      "rgba_sha256": "7e13997f87dd5723581483b389e712401d35cd964b085fb00ab28519ed0d9ddf",
+      "rect": [
+        317,
+        137,
+        35,
+        26
+      ]
+    },
+    "25645": {
+      "pack": "original",
+      "row": 14796,
+      "rgba_sha256": "2e836ad4ec750759232e735f8b0e570276e595673e071c79a70f8f5714587c60",
+      "rect": [
+        354,
+        137,
+        32,
+        32
+      ]
+    },
+    "25650": {
+      "pack": "original",
+      "row": 14801,
+      "rgba_sha256": "99779b88d577048136bddb33ccb1c2e3fabd630f6526efaa26730d6abd455f35",
+      "rect": [
+        388,
+        137,
+        29,
+        28
+      ]
+    },
+    "25651": {
+      "pack": "original",
+      "row": 14802,
+      "rgba_sha256": "382327f7eabf786c158a45a0db585311fd588bf593bd37cbe65f61787986bd0a",
+      "rect": [
+        419,
+        137,
+        29,
+        28
+      ]
+    },
+    "25658": {
+      "pack": "original",
+      "row": 14809,
+      "rgba_sha256": "c76356b92571962a1e6e1e0a4f30058e13327bc56dbc6247649214a33e3ae949",
+      "rect": [
+        450,
+        137,
+        31,
+        29
+      ]
+    },
+    "25659": {
+      "pack": "original",
+      "row": 14810,
+      "rgba_sha256": "065f5e3a1abb855fc89ffa1f6d83b00b53e7e373c811e886451579b191eac56f",
+      "rect": [
+        483,
+        137,
+        31,
+        36
+      ]
+    },
+    "25661": {
+      "pack": "original",
+      "row": 14812,
+      "rgba_sha256": "a92aa352681e8e37ee9979ea1464de1595837530b0366b5fe92114a6c06a5849",
+      "rect": [
+        516,
+        137,
+        31,
+        38
+      ]
+    },
+    "25663": {
+      "pack": "original",
+      "row": 14814,
+      "rgba_sha256": "8dd82207a2c4e1f65d548ff78e0ff32678fa47d542fb311844d594867fc0652c",
+      "rect": [
+        549,
+        137,
+        42,
+        35
+      ]
+    },
+    "25664": {
+      "pack": "original",
+      "row": 14815,
+      "rgba_sha256": "3784ad91d119f80ed98475bb013c6b98e270c4d377f6e7e91b206cfce3758f12",
+      "rect": [
+        593,
+        137,
+        42,
+        35
+      ]
+    },
+    "25673": {
+      "pack": "original",
+      "row": 14824,
+      "rgba_sha256": "c2beb80bf5fbbff0ca111adee74f130730d0d9256f082cdb3509fa65ec89fdf7",
+      "rect": [
+        637,
+        137,
+        34,
+        33
+      ]
+    },
+    "25674": {
+      "pack": "original",
+      "row": 14825,
+      "rgba_sha256": "88461010d0d8933336cbec63c1e00e3eb275b901ef4b4a2389d508754efe0ce7",
+      "rect": [
+        673,
+        137,
+        34,
+        33
+      ]
+    },
+    "25676": {
+      "pack": "original",
+      "row": 14827,
+      "rgba_sha256": "c05efd3c9da7f55cc247ae423c8a301926ab9632d6f89c188d902be329ff350c",
+      "rect": [
+        709,
+        137,
+        27,
+        29
+      ]
+    },
+    "25688": {
+      "pack": "original",
+      "row": 14839,
+      "rgba_sha256": "8d2155a22afa3122f67190ffff582b0b15415d69db448c915bbc2fe5c6486b78",
+      "rect": [
+        738,
+        137,
+        30,
+        31
+      ]
+    },
+    "25698": {
+      "pack": "original",
+      "row": 14849,
+      "rgba_sha256": "30a96c37d33ea02c575c56df7bf04fbf23e20866ad3cf03c800bc99537be0cbd",
+      "rect": [
+        770,
+        137,
+        28,
+        29
+      ]
+    },
+    "25699": {
+      "pack": "original",
+      "row": 14850,
+      "rgba_sha256": "6cb281008ffa78a89d18aab56e1c3666e718b1d9c19831573a522172c9fe2899",
+      "rect": [
+        800,
+        137,
+        30,
+        31
+      ]
+    },
+    "25811": {
+      "pack": "original",
+      "row": 14467,
+      "rgba_sha256": "41c41f4f50253f2fb7d261d85c261dfd488f182c2c0a31a81229b44ef420dc51",
+      "rect": [
+        832,
+        137,
+        22,
+        24
+      ]
+    },
+    "25813": {
+      "pack": "original",
+      "row": 14469,
+      "rgba_sha256": "baad78a73e93148b3142e13356c40e74b79df490d34e35b276bcab0e39026d73",
+      "rect": [
+        856,
+        137,
+        22,
+        20
+      ]
+    },
+    "25814": {
+      "pack": "original",
+      "row": 14470,
+      "rgba_sha256": "d2e80de7421c690d589f5b7209a69396f8107bfcb5e279d1393ffc76d770b732",
+      "rect": [
+        880,
+        137,
+        22,
+        21
+      ]
+    },
+    "25827": {
+      "pack": "original",
+      "row": 14483,
+      "rgba_sha256": "9dc9e1f0a1345e404b1cac08c397a46d8be864422c6c257686e6610afe01b329",
+      "rect": [
+        904,
+        137,
+        28,
+        24
+      ]
+    },
+    "25839": {
+      "pack": "original",
+      "row": 14495,
+      "rgba_sha256": "b57a2881d083aebb08452333fac1dafafad2de9f8fe3c617ab1e4001c589c5cb",
+      "rect": [
+        934,
+        137,
+        26,
+        27
+      ]
+    },
+    "25876": {
+      "pack": "original",
+      "row": 14532,
+      "rgba_sha256": "04ba351c17884449903fcdaa4521204141686c712658aa7624bb86aab0ea6394",
+      "rect": [
+        962,
+        137,
+        21,
+        26
+      ]
+    },
+    "25878": {
+      "pack": "original",
+      "row": 14534,
+      "rgba_sha256": "88b112465ddbe0c39dec4bf522f060f7121f687a361bfc0f714073f2473594d3",
+      "rect": [
+        985,
+        137,
+        22,
+        24
+      ]
+    },
+    "25896": {
+      "pack": "original",
+      "row": 14552,
+      "rgba_sha256": "2d184108197527ce4f8d3e5e166cc67afa20a4d997f2b74cdfc115faba0392c0",
+      "rect": [
+        1,
+        177,
+        22,
+        24
+      ]
+    },
+    "25897": {
+      "pack": "original",
+      "row": 14553,
+      "rgba_sha256": "fde8693370de5ed86501a0e1caf537f0ee3d4893b810f89b1ad8fd8f358c3658",
+      "rect": [
+        25,
+        177,
+        27,
+        25
+      ]
+    },
+    "25899": {
+      "pack": "original",
+      "row": 14555,
+      "rgba_sha256": "a2bc74689725581e51f13752c2d527f307c199599bd03309553569bf7f97635c",
+      "rect": [
+        54,
+        177,
+        27,
+        25
+      ]
+    },
+    "26012": {
+      "pack": "original",
+      "row": 14668,
+      "rgba_sha256": "95b1a0bc0235af8f4b5bf134eae30e6c935115f8c47db67335438619d72dbf0a",
+      "rect": [
+        83,
+        177,
+        27,
+        24
+      ]
+    },
+    "26013": {
+      "pack": "original",
+      "row": 14669,
+      "rgba_sha256": "9e2eb134ea36f8b5ae0177e4ca5df9713ad52e859dd3f7014d8aed82e4041746",
+      "rect": [
+        112,
+        177,
+        27,
+        24
+      ]
+    },
+    "26014": {
+      "pack": "original",
+      "row": 14670,
+      "rgba_sha256": "e6809cbd2b3ba0fcad878e04a5f886f4d066e001e80b8a3b7861d463d2f1363b",
+      "rect": [
+        141,
+        177,
+        27,
+        24
+      ]
+    },
+    "26021": {
+      "pack": "original",
+      "row": 14677,
+      "rgba_sha256": "2f307abf9fe931afcba5717357c11036a65e7da198a502912e87a0617b3dc346",
+      "rect": [
+        170,
+        177,
+        42,
+        30
+      ]
+    },
+    "26026": {
+      "pack": "original",
+      "row": 14682,
+      "rgba_sha256": "538e53e28934c9720e6d2e359a6a1305b52beaf276a56a0e1e8398eb6188110a",
+      "rect": [
+        214,
+        177,
+        41,
+        37
+      ]
+    },
+    "26036": {
+      "pack": "original",
+      "row": 14692,
+      "rgba_sha256": "db8c858197ba70e93105b10fd2c0369c8953c43213e73e87e5a5171fc6f8804f",
+      "rect": [
+        257,
+        177,
+        26,
+        23
+      ]
+    },
+    "26041": {
+      "pack": "original",
+      "row": 14697,
+      "rgba_sha256": "6d13cc6dbc26b3bf890b16ebc5f87f408e355a022e5c6fd04f9130be38b85ad4",
+      "rect": [
+        285,
+        177,
+        23,
+        26
+      ]
+    },
+    "26050": {
+      "pack": "original",
+      "row": 14706,
+      "rgba_sha256": "9726bf177bc5726994ee1aca7965fdb6b5c021df6ebba6af802ef6d8fa22e3fb",
+      "rect": [
+        310,
+        177,
+        24,
+        26
+      ]
+    },
+    "26054": {
+      "pack": "original",
+      "row": 14710,
+      "rgba_sha256": "623c7b4a0cc1698b6ddcf73f38277a42bc3691c0905d11c56394e23455ce4a00",
+      "rect": [
+        336,
+        177,
+        27,
+        24
+      ]
+    },
+    "26059": {
+      "pack": "original",
+      "row": 14715,
+      "rgba_sha256": "024e856a1d341d7725ab1d5bc18dbe2d1d0286286080f7c1e9d51c07d078c72c",
+      "rect": [
+        365,
+        177,
+        28,
+        30
+      ]
+    },
+    "26064": {
+      "pack": "original",
+      "row": 14720,
+      "rgba_sha256": "5d4e25702c3d9bca6bfdd9453cb2ba327f971a96e86626ae0aebfd350a9b3731",
+      "rect": [
+        395,
+        177,
+        41,
+        37
+      ]
+    },
+    "26074": {
+      "pack": "original",
+      "row": 14730,
+      "rgba_sha256": "036939db5a378a2cfa751de917819f8196ed09b20e632e2615edb1eba693fcbc",
+      "rect": [
+        438,
+        177,
+        41,
+        43
+      ]
+    },
+    "26076": {
+      "pack": "original",
+      "row": 14732,
+      "rgba_sha256": "07374556f8c95a98f575f68e3926e09161defe4356af9d99ede75c019e1dc1ff",
+      "rect": [
+        481,
+        177,
+        41,
+        43
+      ]
+    },
+    "26083": {
+      "pack": "original",
+      "row": 14739,
+      "rgba_sha256": "15c03f7ff6cb21ece75ed76004d790c2b4bad5b1b8b94e8fa781740f307770f0",
+      "rect": [
+        524,
+        177,
+        36,
+        39
+      ]
+    },
+    "26089": {
+      "pack": "original",
+      "row": 14745,
+      "rgba_sha256": "5dec3d0e4ff280159f38741bed4b88a6f36f7cd4e626a8a9cffb999bb6c4afd2",
+      "rect": [
+        562,
+        177,
+        49,
+        43
+      ]
+    },
+    "26090": {
+      "pack": "original",
+      "row": 14746,
+      "rgba_sha256": "6c9850e30696dde51381d7ee9c44d2440a653add2ede6f56275d1d591654aa83",
+      "rect": [
+        613,
+        177,
+        37,
+        39
+      ]
+    },
+    "26204": {
+      "pack": "original",
+      "row": 14911,
+      "rgba_sha256": "c7472a539aa90c49220c27e4596c851d21fdff0d307162990457630efb2bebc6",
+      "rect": [
+        652,
+        177,
+        37,
+        23
+      ]
+    },
+    "26205": {
+      "pack": "original",
+      "row": 14912,
+      "rgba_sha256": "2ea50c2cf0e1ecc75cd8a1332c546906bcd10403b4be902f1263d4a35b6d84ca",
+      "rect": [
+        691,
+        177,
+        41,
+        29
+      ]
+    },
+    "26206": {
+      "pack": "original",
+      "row": 14913,
+      "rgba_sha256": "0910a95ead418b8d78eecb3e809efc4269da6e26b3ef2b3d21033758794de506",
+      "rect": [
+        734,
+        177,
+        18,
+        35
+      ]
+    },
+    "26207": {
+      "pack": "original",
+      "row": 14914,
+      "rgba_sha256": "de4b69375ac8db1f2b740cdec0f2c3de34f7ecf3926dbcf3b9344eb12a24327a",
+      "rect": [
+        754,
+        177,
+        13,
+        29
+      ]
+    },
+    "26208": {
+      "pack": "original",
+      "row": 14915,
+      "rgba_sha256": "e3632122f7d4a5c0dab497ab454eabd0c13e99cad98d8480def8c4eb5c640b87",
+      "rect": [
+        769,
+        177,
+        13,
+        29
+      ]
+    },
+    "26211": {
+      "pack": "original",
+      "row": 14918,
+      "rgba_sha256": "ea8ac93e4a1d29bfd3d2e66d5823214b0f121d218dba9b400ea28429fc0f2dc2",
+      "rect": [
+        784,
+        177,
+        18,
+        36
+      ]
+    },
+    "26216": {
+      "pack": "original",
+      "row": 14923,
+      "rgba_sha256": "921e438aff8e7eff8117594355ec2cdf90323473119533ee58d25d5df51fcc00",
+      "rect": [
+        804,
+        177,
+        18,
+        36
+      ]
+    },
+    "26218": {
+      "pack": "original",
+      "row": 14925,
+      "rgba_sha256": "53573d211e6eec72ea65af8c9bbc61272c2b3816d3d670b09a3147bade203ae0",
+      "rect": [
+        824,
+        177,
+        17,
+        24
+      ]
+    },
+    "26223": {
+      "pack": "original",
+      "row": 14930,
+      "rgba_sha256": "dd5f0e7bf12cfc91b53e27137ed6b66c3fbdf307fe2a7fb9ba02cf0fdac60215",
+      "rect": [
+        843,
+        177,
+        17,
+        24
+      ]
+    },
+    "26224": {
+      "pack": "original",
+      "row": 14931,
+      "rgba_sha256": "197940114ca3c50e90b7d89a189e248ed650adb3a60a9177923778ca03d433b9",
+      "rect": [
+        862,
+        177,
+        19,
+        27
+      ]
+    },
+    "26228": {
+      "pack": "original",
+      "row": 14935,
+      "rgba_sha256": "c250b0c5c6c5e744665546b5f2182dd39875581b0f515f3c256d40934227967a",
+      "rect": [
+        883,
+        177,
+        19,
+        27
+      ]
+    },
+    "26229": {
+      "pack": "original",
+      "row": 14936,
+      "rgba_sha256": "750b06ec017642764437035b0d72cef64793a921d660863a3e609a93a03972a1",
+      "rect": [
+        904,
+        177,
+        19,
+        27
+      ]
+    },
+    "26233": {
+      "pack": "original",
+      "row": 14940,
+      "rgba_sha256": "da2d9e0594c49efe837dc1f5af32175254b53fb4c383f8ef93b95910efde6c48",
+      "rect": [
+        925,
+        177,
+        24,
+        31
+      ]
+    },
+    "26236": {
+      "pack": "original",
+      "row": 14943,
+      "rgba_sha256": "3094e0abdf5ec12953aea537f11349aa2d8cb75e0187711762c97b977c89bc20",
+      "rect": [
+        951,
+        177,
+        24,
+        31
+      ]
+    },
+    "26240": {
+      "pack": "original",
+      "row": 14947,
+      "rgba_sha256": "23888a8db8f70d6d3c9b7c57b4ed047576774a8b74375e0f51f52167916a662d",
+      "rect": [
+        977,
+        177,
+        27,
+        48
+      ]
+    },
+    "26241": {
+      "pack": "original",
+      "row": 14948,
+      "rgba_sha256": "3fa6b878f8eb1854a72119940b45f71b3d7bad8734ad5bf82d1194dfff849bbd",
+      "rect": [
+        1,
+        227,
+        31,
+        37
+      ]
+    },
+    "26242": {
+      "pack": "original",
+      "row": 14949,
+      "rgba_sha256": "bc81d4191c7d4ef698872fc58e1ce987ab04565e00e885b87ac4129e40ee364a",
+      "rect": [
+        34,
+        227,
+        31,
+        30
+      ]
+    },
+    "26244": {
+      "pack": "original",
+      "row": 14951,
+      "rgba_sha256": "abcda16f2f4a502514dee2105e4466f5088fbe09b5aac8f52d0cff2e9ec86def",
+      "rect": [
+        67,
+        227,
+        32,
+        28
+      ]
+    },
+    "26301": {
+      "pack": "original",
+      "row": 251583,
+      "rgba_sha256": "f4fa67f16bca0f2e868458744c8e8a31faeb330ed30d96823e74ec0f713ab117",
+      "rect": [
+        101,
+        227,
+        35,
+        42
+      ]
+    },
+    "26305": {
+      "pack": "original",
+      "row": 251587,
+      "rgba_sha256": "c1131ff2c25f9380f9e9a55ed61e3437622c95d62821d79c37d8513aaaa92c66",
+      "rect": [
+        138,
+        227,
+        56,
+        44
+      ]
+    },
+    "26309": {
+      "pack": "original",
+      "row": 251591,
+      "rgba_sha256": "9964122b24ad23fbdd107f2781439927b008dec9f1fe73870492cf330ba476f4",
+      "rect": [
+        196,
+        227,
+        44,
+        45
+      ]
+    },
+    "26317": {
+      "pack": "original",
+      "row": 251599,
+      "rgba_sha256": "6cfd5b2a2325b97322e580e4d3eee0cb13a7532266cc5eb777de5507b2cca488",
+      "rect": [
+        242,
+        227,
+        51,
+        41
+      ]
+    },
+    "26318": {
+      "pack": "original",
+      "row": 251600,
+      "rgba_sha256": "e0cd8097c70b09cb1d57a7eae08eb9b4c9d57a52aa157dc51dbb41527d60ebf8",
+      "rect": [
+        295,
+        227,
+        43,
+        42
+      ]
+    },
+    "26319": {
+      "pack": "original",
+      "row": 251601,
+      "rgba_sha256": "90b1eb4c2d78ab2f3b87e37c9c4b90b421eb975db0bd400057e3c4d249b8311c",
+      "rect": [
+        340,
+        227,
+        48,
+        46
+      ]
+    },
+    "26343": {
+      "pack": "original",
+      "row": 251625,
+      "rgba_sha256": "3391192e4e945ed68ac93ae28b5c038739496d9e013d0315309284bbc38118d2",
+      "rect": [
+        390,
+        227,
+        45,
+        39
+      ]
+    },
+    "26344": {
+      "pack": "original",
+      "row": 251626,
+      "rgba_sha256": "0e7ed41dd5c023a1a49a126a48cec0477ded28131344e95135cde2e31086010e",
+      "rect": [
+        437,
+        227,
+        41,
+        41
+      ]
+    },
+    "26345": {
+      "pack": "original",
+      "row": 251627,
+      "rgba_sha256": "1a416ae3b2523186bc8f9b24999418446862763efa83708ae3eabacfc0571639",
+      "rect": [
+        480,
+        227,
+        27,
+        46
+      ]
+    },
+    "26389": {
+      "pack": "original",
+      "row": 251662,
+      "rgba_sha256": "75aa5605f66327969cb979dbbbdc8e786edd01c35b93dd9a345a05dd4c123d2d",
+      "rect": [
+        509,
+        227,
+        43,
+        42
+      ]
+    },
+    "26400": {
+      "pack": "original",
+      "row": 14957,
+      "rgba_sha256": "480b83bacb5be0be8c17f2eda62b3678e5bf738c661f4b718ce9787308fb0f37",
+      "rect": [
+        554,
+        227,
+        33,
+        32
+      ]
+    },
+    "26401": {
+      "pack": "original",
+      "row": 14958,
+      "rgba_sha256": "ce4d9038b4db49fcd30d77aefb71d44a73f8bdc82844f830c4d2db51b728a9d1",
+      "rect": [
+        589,
+        227,
+        33,
+        32
+      ]
+    },
+    "26404": {
+      "pack": "original",
+      "row": 14961,
+      "rgba_sha256": "d65d842e60f8e0bf34648e29313a59843dc7b2bb78d4fff69ca40efb286a1fb5",
+      "rect": [
+        624,
+        227,
+        32,
+        30
+      ]
+    },
+    "26411": {
+      "pack": "original",
+      "row": 14968,
+      "rgba_sha256": "7d3219f0b204783858cd38bfd7a0467267ba8e0b0a29f749a4921eaad7eefe78",
+      "rect": [
+        658,
+        227,
+        33,
+        32
+      ]
+    },
+    "26412": {
+      "pack": "original",
+      "row": 14969,
+      "rgba_sha256": "e454f2efa9c788400b95e52858fbbdc3df4ada2f1211499564705150e7e2cde5",
+      "rect": [
+        693,
+        227,
+        33,
+        32
+      ]
+    },
+    "26413": {
+      "pack": "original",
+      "row": 14970,
+      "rgba_sha256": "8d05250ea7eca016fbd17991ad8161f16aaa6a6847beecc208056d438b93094c",
+      "rect": [
+        728,
+        227,
+        33,
+        32
+      ]
+    },
+    "26414": {
+      "pack": "original",
+      "row": 14971,
+      "rgba_sha256": "b2cf5b248b382ca8b15ae8d75b0361e730956d9c7d0c939cec47812cf4022722",
+      "rect": [
+        763,
+        227,
+        33,
+        32
+      ]
+    },
+    "26415": {
+      "pack": "original",
+      "row": 14972,
+      "rgba_sha256": "f4729fcf2e1f8ca07f4a92a058c53e518c26a7f230772dd702adb9e13f8b9750",
+      "rect": [
+        798,
+        227,
+        33,
+        32
+      ]
+    },
+    "26416": {
+      "pack": "original",
+      "row": 14973,
+      "rgba_sha256": "16f9966cbbced28ff9741248b1e620b3204506e0407ffb14abab9cea45a3868b",
+      "rect": [
+        833,
+        227,
+        33,
+        32
+      ]
+    },
+    "26417": {
+      "pack": "original",
+      "row": 14974,
+      "rgba_sha256": "bc1d2a54eb96c458d1b31101d61218cf088104b3041c77455e5c1d55c87f7d3f",
+      "rect": [
+        868,
+        227,
+        33,
+        32
+      ]
+    },
+    "26418": {
+      "pack": "original",
+      "row": 14975,
+      "rgba_sha256": "645c3c2281cad86cde34fa32603c1063f92e1f29fcd327f9f131c89df5ac34de",
+      "rect": [
+        903,
+        227,
+        33,
+        32
+      ]
+    },
+    "26419": {
+      "pack": "original",
+      "row": 14976,
+      "rgba_sha256": "719e4f77edca6aa1b62d786afd1c5ea5b36ae0e9df3d4a18606dcbac18ae84a2",
+      "rect": [
+        938,
+        227,
+        30,
+        28
+      ]
+    },
+    "26420": {
+      "pack": "original",
+      "row": 14977,
+      "rgba_sha256": "8b19a3894a324e079c23d235c0b444827077bfe3ab5c75f5f7e588193e971c5a",
+      "rect": [
+        970,
+        227,
+        30,
+        28
+      ]
+    },
+    "26500": {
+      "pack": "original",
+      "row": 250990,
+      "rgba_sha256": "4e9b19802edf82f98313df63faa13249e0d8283146d68066670638469b27ed87",
+      "rect": [
+        1,
+        275,
+        28,
+        31
+      ]
+    },
+    "26501": {
+      "pack": "original",
+      "row": 250991,
+      "rgba_sha256": "6911b345a56dd42ffe0dd25d9e6e2a2e72a215a7898b45966f2566a4bde6b661",
+      "rect": [
+        31,
+        275,
+        17,
+        17
+      ]
+    },
+    "26502": {
+      "pack": "original",
+      "row": 250992,
+      "rgba_sha256": "948a8660ee3c93c0fa51e5b11bc353d6a1e82fb7389ed4c1ea1c439cb29a5f1d",
+      "rect": [
+        50,
+        275,
+        17,
+        17
+      ]
+    },
+    "26503": {
+      "pack": "original",
+      "row": 250993,
+      "rgba_sha256": "099e83e65142a9b7653e5defe60c9716cda70ddbba4d19c35b0e6feca670471d",
+      "rect": [
+        69,
+        275,
+        21,
+        30
+      ]
+    },
+    "26504": {
+      "pack": "original",
+      "row": 250994,
+      "rgba_sha256": "ef66340953cfa68fadccac541c0580110b296bf8c48c75cb5404cc2bb5bc05a0",
+      "rect": [
+        92,
+        275,
+        54,
+        36
+      ]
+    },
+    "26505": {
+      "pack": "original",
+      "row": 250995,
+      "rgba_sha256": "0f2a276ac0a69f49beda2a3be4d16fb85ba06666486ef2c945d6326bdbb8fbb2",
+      "rect": [
+        148,
+        275,
+        53,
+        38
+      ]
+    },
+    "26507": {
+      "pack": "original",
+      "row": 250997,
+      "rgba_sha256": "5343739aeeb2f3205704d43ebd7879d2d33f57ab8687733e75c553ab9482dfd7",
+      "rect": [
+        203,
+        275,
+        20,
+        28
+      ]
+    },
+    "26508": {
+      "pack": "original",
+      "row": 251081,
+      "rgba_sha256": "3270b895d547cec5136ccb459614321c6ed7fdecdd45db00b6de8344d7837265",
+      "rect": [
+        225,
+        275,
+        20,
+        32
+      ]
+    },
+    "26510": {
+      "pack": "original",
+      "row": 251083,
+      "rgba_sha256": "50e06bcdb4df8dc30d7f4f0974c8d50a0236a482c4f12fbb5c889f3f770e2af8",
+      "rect": [
+        247,
+        275,
+        42,
+        41
+      ]
+    },
+    "26523": {
+      "pack": "original",
+      "row": 251096,
+      "rgba_sha256": "9c8a17b1646bb191d4921fe9f7a5de0be01dc5f3d35ddc3e798128556e9b2023",
+      "rect": [
+        291,
+        275,
+        22,
+        47
+      ]
+    },
+    "26524": {
+      "pack": "original",
+      "row": 251097,
+      "rgba_sha256": "560e834823d41a867d0196dd1168239f0f571fc153e18919d9ea5c4dc382ebe1",
+      "rect": [
+        315,
+        275,
+        22,
+        42
+      ]
+    },
+    "26531": {
+      "pack": "original",
+      "row": 251104,
+      "rgba_sha256": "1653bd1bf6af7c1e2d9997415c7420ddbdea6cb114eb2759587cda528b26f545",
+      "rect": [
+        339,
+        275,
+        46,
+        35
+      ]
+    },
+    "26534": {
+      "pack": "original",
+      "row": 251107,
+      "rgba_sha256": "a8fc77147f97f8f5853d840a3cb5ce97d912bd67b881494c7ebaa7c704497101",
+      "rect": [
+        387,
+        275,
+        31,
+        27
+      ]
+    },
+    "26536": {
+      "pack": "original",
+      "row": 251109,
+      "rgba_sha256": "672103aad05ba90bf4d371be1a8f37f9dcffe067eff6426e61321429d7aa329a",
+      "rect": [
+        420,
+        275,
+        38,
+        38
+      ]
+    },
+    "26537": {
+      "pack": "original",
+      "row": 251110,
+      "rgba_sha256": "4e9e2bd0aba289583b781e0d01a9d9c1a2664a8efd0f49922c2c29ee0e09216d",
+      "rect": [
+        460,
+        275,
+        26,
+        20
+      ]
+    },
+    "26544": {
+      "pack": "original",
+      "row": 251162,
+      "rgba_sha256": "d36528b010cc3dc73b01b3cedc59544ab4e3c6abb94193c8b4933f42dfca38fd",
+      "rect": [
+        488,
+        275,
+        31,
+        31
+      ]
+    },
+    "26545": {
+      "pack": "original",
+      "row": 251163,
+      "rgba_sha256": "f82c4cfd08f7df589d423129e2c72754ed6050a300d344257683e008fd2be913",
+      "rect": [
+        521,
+        275,
+        57,
+        47
+      ]
+    },
+    "26569": {
+      "pack": "original",
+      "row": 251570,
+      "rgba_sha256": "6bf8ba391065ce49d9c74f7c36519b8a2ed88ae5885e4418a945ce9e9b509d7f",
+      "rect": [
+        580,
+        275,
+        48,
+        45
+      ]
+    },
+    "26570": {
+      "pack": "original",
+      "row": 251571,
+      "rgba_sha256": "fb0a3743e4fed2672ac789f35bfc0593664a5ddd5ec72ebbac207f9bb930f930",
+      "rect": [
+        630,
+        275,
+        58,
+        45
+      ]
+    },
+    "26571": {
+      "pack": "original",
+      "row": 251572,
+      "rgba_sha256": "5290fb8e6d2213a952e35077810f1af1bfa392959802a4d37bfca3bb198c65a7",
+      "rect": [
+        690,
+        275,
+        31,
+        31
+      ]
+    },
+    "26572": {
+      "pack": "original",
+      "row": 251573,
+      "rgba_sha256": "0994c3f524014de8718f49b22c424b985f9e6b7800bb8371d2003e70cbd1e1ab",
+      "rect": [
+        723,
+        275,
+        31,
+        31
+      ]
+    },
+    "26573": {
+      "pack": "original",
+      "row": 251574,
+      "rgba_sha256": "f532e8fc4c75467bb92160677ce450c1f7c08b527d09f93cb0bd651fb5ed9ed2",
+      "rect": [
+        756,
+        275,
+        31,
+        31
+      ]
+    },
+    "26574": {
+      "pack": "original",
+      "row": 251575,
+      "rgba_sha256": "db22ceac5199ef910fcb771a7a1faad8297d62e8fe0fd85bb7998e248ab30e74",
+      "rect": [
+        789,
+        275,
+        31,
+        31
+      ]
+    },
+    "26575": {
+      "pack": "original",
+      "row": 251576,
+      "rgba_sha256": "ef14bdf4f48261d30ea77a9d6983ac37d9c5d9eb3a3671ee58fb44ad318a5b26",
+      "rect": [
+        822,
+        275,
+        54,
+        48
+      ]
+    },
+    "26576": {
+      "pack": "original",
+      "row": 251577,
+      "rgba_sha256": "a1d74b7ae76d6c75baf67f1c88437dcdd085e3c978fa8b4c105acca3a961f1e7",
+      "rect": [
+        878,
+        275,
+        31,
+        25
+      ]
+    },
+    "26577": {
+      "pack": "original",
+      "row": 251578,
+      "rgba_sha256": "18413176e14c139fe8a92604f8b079a289cf8d209e171f69d1e1c1c8b64a49c4",
+      "rect": [
+        911,
+        275,
+        27,
+        44
+      ]
+    },
+    "26578": {
+      "pack": "original",
+      "row": 251579,
+      "rgba_sha256": "27ac9ef1a337914e18e02103bac6d68a814847fd929c0e9675da92ed2cfc34f7",
+      "rect": [
+        940,
+        275,
+        28,
+        33
+      ]
+    },
+    "26590": {
+      "pack": "original",
+      "row": 252218,
+      "rgba_sha256": "558c52606e71b4a4995515b5708f2bc19eefa43875f835e54094d66c4fbcd385",
+      "rect": [
+        970,
+        275,
+        35,
+        41
+      ]
+    },
+    "26591": {
+      "pack": "original",
+      "row": 252219,
+      "rgba_sha256": "59ebf8f67211fbd2caa4d7289d8e7d9fb676ad5707cf2ec89ee68c1b466b2afb",
+      "rect": [
+        1,
+        325,
+        35,
+        42
+      ]
+    },
+    "26600": {
+      "pack": "original",
+      "row": 14978,
+      "rgba_sha256": "e42382a6bdf7eeda66c83dfcee2847a669dfbf95e461690f6b6db51b2e2ad9c5",
+      "rect": [
+        38,
+        325,
+        31,
+        30
+      ]
+    },
+    "26602": {
+      "pack": "original",
+      "row": 14980,
+      "rgba_sha256": "9dcc7795233ee4d2100c42ffe61b43059847bb84b03680d68cf31e334849e86c",
+      "rect": [
+        71,
+        325,
+        54,
+        37
+      ]
+    },
+    "26603": {
+      "pack": "original",
+      "row": 14981,
+      "rgba_sha256": "085f5c5f82f98928cfffed98c79a772b84779b7759a8084098fdce67137224e1",
+      "rect": [
+        127,
+        325,
+        30,
+        39
+      ]
+    },
+    "26604": {
+      "pack": "original",
+      "row": 14982,
+      "rgba_sha256": "ededdb452208087058956974f5a378fb1bc013ad7da0489e8c139b1f5623f562",
+      "rect": [
+        159,
+        325,
+        45,
+        39
+      ]
+    },
+    "26607": {
+      "pack": "original",
+      "row": 14985,
+      "rgba_sha256": "523f8ab10704c75fc5b8fa6d3ef6633e9858767228be58d3d880f957f88887cf",
+      "rect": [
+        206,
+        325,
+        46,
+        36
+      ]
+    },
+    "26609": {
+      "pack": "original",
+      "row": 14987,
+      "rgba_sha256": "c1bd40d3891adfd51536a254c6f8e176e80512ced290a94966812917662172fe",
+      "rect": [
+        254,
+        325,
+        49,
+        40
+      ]
+    },
+    "26610": {
+      "pack": "original",
+      "row": 14988,
+      "rgba_sha256": "4203ccb15d867a3b5df1c4c87c90734f54e8df58773a8f187dc5fadcafa0988f",
+      "rect": [
+        305,
+        325,
+        49,
+        40
+      ]
+    },
+    "26611": {
+      "pack": "original",
+      "row": 14989,
+      "rgba_sha256": "6198d600a2ba237dd88e563eb1d3aef875fb12711cbf80f62f7327099fcb7641",
+      "rect": [
+        356,
+        325,
+        49,
+        40
+      ]
+    },
+    "26612": {
+      "pack": "original",
+      "row": 14990,
+      "rgba_sha256": "5cc3d9a6d725756a60835809403a004df5ecb9052191b8d2f87fd871890c1017",
+      "rect": [
+        407,
+        325,
+        49,
+        34
+      ]
+    },
+    "26634": {
+      "pack": "joy-ex",
+      "row": 8794,
+      "rgba_sha256": "4b4f20e90a1fc93dc5ebdb7c2f52fa39f4ec4bbf6c0d3df2cce563d514ee3cc2",
+      "rect": [
+        458,
+        325,
+        52,
+        46
+      ]
+    },
+    "26639": {
+      "pack": "original",
+      "row": 15017,
+      "rgba_sha256": "8e6bbcc1dd4bbc69fc96afbf7eef608d65dcd1bad04c0417e445b51c17c85d4c",
+      "rect": [
+        512,
+        325,
+        50,
+        44
+      ]
+    },
+    "26640": {
+      "pack": "original",
+      "row": 15018,
+      "rgba_sha256": "bfae63c95664a0594a063a509057a3913dad0414b790477d84f36b46d37e0abe",
+      "rect": [
+        564,
+        325,
+        48,
+        42
+      ]
+    },
+    "26650": {
+      "pack": "original",
+      "row": 15028,
+      "rgba_sha256": "ac36f248edc66227a3c3292128ce9de033b431c57d1d393640d8f0043242b874",
+      "rect": [
+        614,
+        325,
+        46,
+        36
+      ]
+    },
+    "26659": {
+      "pack": "original",
+      "row": 15037,
+      "rgba_sha256": "ebd5bda78312eacd324f93d7339931c742c10f46e6df293e975aafe654cbeefe",
+      "rect": [
+        662,
+        325,
+        59,
+        42
+      ]
+    },
+    "26670": {
+      "pack": "original",
+      "row": 15048,
+      "rgba_sha256": "9988b521262f1725560e2c3cd1acf2c5fafc3a15254248b3a9fc7e612f56915c",
+      "rect": [
+        723,
+        325,
+        52,
+        39
+      ]
+    },
+    "26704": {
+      "pack": "original",
+      "row": 15082,
+      "rgba_sha256": "ce9bdd54a55858d46e07d00968bd920698172887ce8eea4f6a7d2290ef3fffd0",
+      "rect": [
+        777,
+        325,
+        61,
+        41
+      ]
+    },
+    "26712": {
+      "pack": "original",
+      "row": 15090,
+      "rgba_sha256": "3a8e6e5877aa6430ab91d15948482be213811adcb49b427257af375f28f76a7e",
+      "rect": [
+        840,
+        325,
+        49,
+        44
+      ]
+    },
+    "26718": {
+      "pack": "original",
+      "row": 15096,
+      "rgba_sha256": "567572ef205a8cd5ab7fcee63434847dd21455fd45de3d098830c11c3dd2cb96",
+      "rect": [
+        891,
+        325,
+        50,
+        44
+      ]
+    },
+    "26727": {
+      "pack": "original",
+      "row": 15105,
+      "rgba_sha256": "653e4e28523fd3261c3cc0077f5b3d60164de5c2df7f6354f2a16330def384f9",
+      "rect": [
+        943,
+        325,
+        46,
+        40
+      ]
+    },
+    "26730": {
+      "pack": "original",
+      "row": 15108,
+      "rgba_sha256": "a0c984d5338a0389b464aa583dfb7a3e4c985faba3df051cae146ad7e9c310f1",
+      "rect": [
+        1,
+        373,
+        52,
+        45
+      ]
+    },
+    "26738": {
+      "pack": "original",
+      "row": 15116,
+      "rgba_sha256": "58794f2dbadd83d67fde098441ab51721099b3f9a40ace1cffd6a5c202b65e73",
+      "rect": [
+        55,
+        373,
+        31,
+        31
+      ]
+    },
+    "26755": {
+      "pack": "original",
+      "row": 15133,
+      "rgba_sha256": "67f7c748376e71feaa8001de495640e523629d8ac928eda3a52d4e36e9828640",
+      "rect": [
+        88,
+        373,
+        61,
+        41
+      ]
+    },
+    "26801": {
+      "pack": "original",
+      "row": 15394,
+      "rgba_sha256": "c3a16ae9cb4b398b5aebe31b864ebe5c61458f81077e85eef4167bec5ab385ac",
+      "rect": [
+        151,
+        373,
+        21,
+        22
+      ]
+    },
+    "26804": {
+      "pack": "original",
+      "row": 15397,
+      "rgba_sha256": "98f63f40181d5350cff1866ee0d20538793eba304edd55042ed937a3466c81a1",
+      "rect": [
+        174,
+        373,
+        17,
+        17
+      ]
+    },
+    "26806": {
+      "pack": "original",
+      "row": 15399,
+      "rgba_sha256": "7ed2985e32ef03eb957c6bf77bdc995f0ef97b6f3fc4a6167143b0b9377b2da5",
+      "rect": [
+        193,
+        373,
+        17,
+        17
+      ]
+    },
+    "26807": {
+      "pack": "original",
+      "row": 15400,
+      "rgba_sha256": "9489caefd7213b035b561e475743acef34138c3408beb4dcf0cdc6f473bac395",
+      "rect": [
+        212,
+        373,
+        17,
+        17
+      ]
+    },
+    "26808": {
+      "pack": "original",
+      "row": 15401,
+      "rgba_sha256": "cd24356ac48cc10029453393c0dad74467ebbf9b169f9e17208a37871a85c468",
+      "rect": [
+        231,
+        373,
+        17,
+        17
+      ]
+    },
+    "26809": {
+      "pack": "original",
+      "row": 15402,
+      "rgba_sha256": "dd8897e1f6a6d89251f752cc5b056ed319fa9876e8af57f80416b6d7e22fe52c",
+      "rect": [
+        250,
+        373,
+        17,
+        17
+      ]
+    },
+    "26819": {
+      "pack": "original",
+      "row": 15412,
+      "rgba_sha256": "a146b708fab0b4a1c0e5323f2ca5f81ab6fe3286d9857cdbc94e45b12337bd90",
+      "rect": [
+        269,
+        373,
+        28,
+        31
+      ]
+    },
+    "26823": {
+      "pack": "original",
+      "row": 15416,
+      "rgba_sha256": "41fa190e6c6f1e62195341ed4e7267315f988e75799b715f9876b365549a3388",
+      "rect": [
+        299,
+        373,
+        21,
+        22
+      ]
+    },
+    "26833": {
+      "pack": "original",
+      "row": 15426,
+      "rgba_sha256": "3005fbc678fcecfe911e5a3da316f6e4c1c3e718d2f2687199203a22cafffb36",
+      "rect": [
+        322,
+        373,
+        22,
+        19
+      ]
+    },
+    "26838": {
+      "pack": "original",
+      "row": 15431,
+      "rgba_sha256": "a3a1746ab5c680c9c25a7eb22d534464f0f26d91f759f9e707c96ac45995aba3",
+      "rect": [
+        346,
+        373,
+        21,
+        22
+      ]
+    },
+    "26839": {
+      "pack": "original",
+      "row": 15432,
+      "rgba_sha256": "668e186b21d1da2852cecbd25b484eaca634d296d0a29c3b6b90c5e60d36c568",
+      "rect": [
+        369,
+        373,
+        21,
+        22
+      ]
+    },
+    "26841": {
+      "pack": "original",
+      "row": 15434,
+      "rgba_sha256": "c26baacfd24071e96690d285e91c7ad84ec207d3823b194894fe4826ca3a91f6",
+      "rect": [
+        392,
+        373,
+        17,
+        17
+      ]
+    },
+    "26852": {
+      "pack": "original",
+      "row": 15445,
+      "rgba_sha256": "7f5f49d3540f5025bc912e5caa2d4136c409e91abac0029d0e8e493a66c9491d",
+      "rect": [
+        411,
+        373,
+        44,
+        40
+      ]
+    },
+    "26853": {
+      "pack": "original",
+      "row": 15446,
+      "rgba_sha256": "71c999c69a5576d740fdf20e5f6f77b4dcc3295341984b83e33c355080398650",
+      "rect": [
+        457,
+        373,
+        44,
+        40
+      ]
+    },
+    "26854": {
+      "pack": "original",
+      "row": 15447,
+      "rgba_sha256": "8a0787760deec012d89d9b99c4343c3eec9e55fe21e4021ee41268156c581ab7",
+      "rect": [
+        503,
+        373,
+        44,
+        40
+      ]
+    },
+    "26855": {
+      "pack": "original",
+      "row": 15448,
+      "rgba_sha256": "f11731eed29a55686ed68d3305044f22dbf6b8c1d3392a528bcf5c853fe2c399",
+      "rect": [
+        549,
+        373,
+        44,
+        40
+      ]
+    },
+    "26856": {
+      "pack": "original",
+      "row": 15449,
+      "rgba_sha256": "d3990a683bc5a25913aa8c56be364d49b4c029be87b73befde6575bfa2873f94",
+      "rect": [
+        595,
+        373,
+        44,
+        40
+      ]
+    },
+    "26864": {
+      "pack": "original",
+      "row": 250515,
+      "rgba_sha256": "71d1504f815648c5f3200133339d54a88ef6d04846fe29aa9610114bdad9158d",
+      "rect": [
+        641,
+        373,
+        34,
+        34
+      ]
+    },
+    "26912": {
+      "pack": "original",
+      "row": 15147,
+      "rgba_sha256": "c204c7d7bb782af4dd1f6c26965ca913b4aa1df317b1542e4775406075423995",
+      "rect": [
+        677,
+        373,
+        54,
+        35
+      ]
+    },
+    "26919": {
+      "pack": "original",
+      "row": 15154,
+      "rgba_sha256": "ae670998a8d0b4198463a008406267ba32833b31a155911193cd826ab081323b",
+      "rect": [
+        733,
+        373,
+        63,
+        46
+      ]
+    },
+    "26928": {
+      "pack": "original",
+      "row": 15163,
+      "rgba_sha256": "b440798cd9e8cc3862db86d14a3925a76a37c767fb5027e4814306d0d147f29e",
+      "rect": [
+        798,
+        373,
+        38,
+        41
+      ]
+    },
+    "26937": {
+      "pack": "original",
+      "row": 15172,
+      "rgba_sha256": "7d901a2699d3f4061e6774942f4e707a65729bdedabe32fd92484735d67d46e9",
+      "rect": [
+        838,
+        373,
+        46,
+        40
+      ]
+    },
+    "27004": {
+      "pack": "original",
+      "row": 15229,
+      "rgba_sha256": "e79092f36f1f3c39f6b0df9b0e020bdc5780610f6094ba57b7d7156adfb69031",
+      "rect": [
+        886,
+        373,
+        45,
+        30
+      ]
+    },
+    "27006": {
+      "pack": "original",
+      "row": 15231,
+      "rgba_sha256": "f5e740841366a48d9cb8a2f97a692128a4c6019d3e1ab67a99e0738ad1dbcca4",
+      "rect": [
+        933,
+        373,
+        31,
+        24
+      ]
+    },
+    "27009": {
+      "pack": "original",
+      "row": 15234,
+      "rgba_sha256": "2c787a12dc58b024d46ae0f04e93708d80920b7724641b63138023fcbc29c717",
+      "rect": [
+        966,
+        373,
+        31,
+        28
+      ]
+    },
+    "27010": {
+      "pack": "original",
+      "row": 15235,
+      "rgba_sha256": "23630a849b2bc0f0a4bee0207dc8e439c887bf5935cd7158863f5a72e285c767",
+      "rect": [
+        1,
+        421,
+        35,
+        29
+      ]
+    },
+    "27019": {
+      "pack": "original",
+      "row": 15244,
+      "rgba_sha256": "b0a53b2dac8a894fa859e967085b5c47c1f42f61d2c8b8c3eb620680a4c14258",
+      "rect": [
+        38,
+        421,
+        32,
+        32
+      ]
+    },
+    "27020": {
+      "pack": "original",
+      "row": 15245,
+      "rgba_sha256": "7d635fa569dbc4061a9c14d1706e926155b39e3e27c2e2b55d9cf6784438fb88",
+      "rect": [
+        72,
+        421,
+        17,
+        19
+      ]
+    },
+    "27022": {
+      "pack": "original",
+      "row": 15247,
+      "rgba_sha256": "48a670e75559e21414e68695ec39ad8fb83838b4ad01d5cbe9bdd0420695e5ee",
+      "rect": [
+        91,
+        421,
+        22,
+        24
+      ]
+    },
+    "27023": {
+      "pack": "original",
+      "row": 15248,
+      "rgba_sha256": "8691ba893b8cae2223036662e41eb96b56edd59e739006aca014824f51974103",
+      "rect": [
+        115,
+        421,
+        34,
+        31
+      ]
+    },
+    "27024": {
+      "pack": "original",
+      "row": 15249,
+      "rgba_sha256": "40f4110c1263c2fb0c157d1a3b4e1b4c88b75708c4689d315f3a6aca423054cc",
+      "rect": [
+        151,
+        421,
+        22,
+        24
+      ]
+    },
+    "27027": {
+      "pack": "original",
+      "row": 15252,
+      "rgba_sha256": "d40879e58db04b9a8f2110d647cc04acb4f2dbf0b5b82beb1195d85b9e292409",
+      "rect": [
+        175,
+        421,
+        17,
+        26
+      ]
+    },
+    "27030": {
+      "pack": "original",
+      "row": 15255,
+      "rgba_sha256": "e3c73d8aeefd086a6ac3fba28b4019eded8b0dc6b3867f1827d9e24ff624dc78",
+      "rect": [
+        194,
+        421,
+        18,
+        22
+      ]
+    },
+    "27036": {
+      "pack": "original",
+      "row": 15261,
+      "rgba_sha256": "28355cdf8c12433346e10079bc5cac507363727935d032c50aa97d845887fa4f",
+      "rect": [
+        214,
+        421,
+        24,
+        22
+      ]
+    },
+    "27038": {
+      "pack": "original",
+      "row": 15263,
+      "rgba_sha256": "c658ef5ceccb44d1d796112b9e2a0e76d0d2ac321d97159cc769371146af8623",
+      "rect": [
+        240,
+        421,
+        17,
+        20
+      ]
+    },
+    "27043": {
+      "pack": "original",
+      "row": 15268,
+      "rgba_sha256": "eaa430a4f595876a0e31edb0db77e96033e2dc4141a7a340217de6fd202cd746",
+      "rect": [
+        259,
+        421,
+        20,
+        32
+      ]
+    },
+    "27045": {
+      "pack": "original",
+      "row": 15270,
+      "rgba_sha256": "ac5071f0ca20d2410faffe1adf74852782a1042952c2cf3679269f5dd166e660",
+      "rect": [
+        281,
+        421,
+        36,
+        24
+      ]
+    },
+    "27051": {
+      "pack": "original",
+      "row": 15276,
+      "rgba_sha256": "0a0668b498a8ba7bc258d5c96043cfda041eb518424c4b130b1e6139b9ccfa63",
+      "rect": [
+        319,
+        421,
+        18,
+        18
+      ]
+    },
+    "27056": {
+      "pack": "original",
+      "row": 15281,
+      "rgba_sha256": "00dd5bc9ff06792c9f10c27ac44766f4fadf047a12d74af3ae2557e75104e494",
+      "rect": [
+        339,
+        421,
+        36,
+        28
+      ]
+    },
+    "27057": {
+      "pack": "original",
+      "row": 15282,
+      "rgba_sha256": "623228332951b5514509e09388a944d7d08a94af4d2cf2a3a9c421d7cbf99569",
+      "rect": [
+        377,
+        421,
+        29,
+        30
+      ]
+    },
+    "27065": {
+      "pack": "original",
+      "row": 15290,
+      "rgba_sha256": "4203c0cdd6154750427bb767ef95a0eec22e86ed696e2c416cf194a75401fbe4",
+      "rect": [
+        408,
+        421,
+        25,
+        42
+      ]
+    },
+    "27069": {
+      "pack": "original",
+      "row": 15294,
+      "rgba_sha256": "881c552a299a421ccb1d08ff4fde1d0ea7217367f032f39369a83c4b67719097",
+      "rect": [
+        435,
+        421,
+        25,
+        43
+      ]
+    },
+    "27075": {
+      "pack": "original",
+      "row": 15300,
+      "rgba_sha256": "4a413b34b7759d33cbc8e0d8251e705cd8365bf91f1723f83b01d9b2edfade46",
+      "rect": [
+        462,
+        421,
+        42,
+        42
+      ]
+    },
+    "27076": {
+      "pack": "original",
+      "row": 15301,
+      "rgba_sha256": "db2af852226bbb002d7fdcbd7797873f99a84041281060f95762b7bed6b2ec02",
+      "rect": [
+        506,
+        421,
+        42,
+        42
+      ]
+    },
+    "27077": {
+      "pack": "original",
+      "row": 15302,
+      "rgba_sha256": "ed61f89c5cf0e93b5bf262f37a9b924d6f7d6a5a6d751ba4437b12dc9bcb7bb5",
+      "rect": [
+        550,
+        421,
+        42,
+        42
+      ]
+    },
+    "27078": {
+      "pack": "original",
+      "row": 15303,
+      "rgba_sha256": "9d2297f336d17b2537d65235d01cc634db0cbf81e3f5a9204b5cf509438e6c46",
+      "rect": [
+        594,
+        421,
+        42,
+        42
+      ]
+    },
+    "27084": {
+      "pack": "original",
+      "row": 15309,
+      "rgba_sha256": "c827bf7dcb90ad5b62594bb625701f6df7b87be13099029a4d4576113334e07a",
+      "rect": [
+        638,
+        421,
+        18,
+        41
+      ]
+    },
+    "27110": {
+      "pack": "original",
+      "row": 15331,
+      "rgba_sha256": "e02a36995f86b389f3ad5476ccbd57a5ad72303f342ca489e40b5c13b7ebf139",
+      "rect": [
+        658,
+        421,
+        36,
+        39
+      ]
+    },
+    "27111": {
+      "pack": "original",
+      "row": 15332,
+      "rgba_sha256": "1d7a3f92a80ffd6455bd1d980b24f9731b5520a3ae2eb3f5b07a828b6a6a625f",
+      "rect": [
+        696,
+        421,
+        36,
+        34
+      ]
+    },
+    "27121": {
+      "pack": "original",
+      "row": 15342,
+      "rgba_sha256": "e594b11a374c72517c96126aa8b92f97c511bbd79d2e52527ce0fa50897db590",
+      "rect": [
+        734,
+        421,
+        18,
+        44
+      ]
+    },
+    "27127": {
+      "pack": "original",
+      "row": 15348,
+      "rgba_sha256": "5af0d5144841cdc32f371d84e662a014332b752197cce7ba68529793dc86038a",
+      "rect": [
+        754,
+        421,
+        16,
+        32
+      ]
+    },
+    "27129": {
+      "pack": "original",
+      "row": 15350,
+      "rgba_sha256": "f6987239684a497610120236257c8e2e67228ca9d9fee77dac74708d2e4c2399",
+      "rect": [
+        772,
+        421,
+        24,
+        32
+      ]
+    },
+    "27137": {
+      "pack": "original",
+      "row": 15358,
+      "rgba_sha256": "5e12fad1fe668e8ef08fd54d0d4d25f48c0bb897f4570d20c7d6def17bc698a7",
+      "rect": [
+        798,
+        421,
+        26,
+        40
+      ]
+    },
+    "27139": {
+      "pack": "original",
+      "row": 15360,
+      "rgba_sha256": "49b17fea042a41d4637c42240959834c04a92e4c63a95f41775b0b7c710e91b4",
+      "rect": [
+        826,
+        421,
+        24,
+        24
+      ]
+    },
+    "27142": {
+      "pack": "original",
+      "row": 15363,
+      "rgba_sha256": "774b5e5e75cd9f06378e7201fe7ea6da281470de8e3f2a53e61c8a332f9b48b2",
+      "rect": [
+        852,
+        421,
+        31,
+        29
+      ]
+    },
+    "27146": {
+      "pack": "original",
+      "row": 15367,
+      "rgba_sha256": "e2944262004d782b048a7b5d956c6b7f1989a3e4f26deb212e4f5b50215c9463",
+      "rect": [
+        885,
+        421,
+        39,
+        34
+      ]
+    },
+    "27149": {
+      "pack": "original",
+      "row": 15370,
+      "rgba_sha256": "f75de115c5ef85b0fbef33cb6fe02dea818926bc864271eeb5e15fd3e921e62b",
+      "rect": [
+        926,
+        421,
+        59,
+        37
+      ]
+    },
+    "27153": {
+      "pack": "original",
+      "row": 15374,
+      "rgba_sha256": "60b141bbf0c10f2bc7ec490a08710355633db58ce3c04437a57722d2bdebf5a5",
+      "rect": [
+        987,
+        421,
+        34,
+        41
+      ]
+    },
+    "27155": {
+      "pack": "original",
+      "row": 15376,
+      "rgba_sha256": "14e51e2ca391007b1d5aa60eed646b63f76c65f6fe47f8ed6451e7386fed9b2a",
+      "rect": [
+        1,
+        467,
+        38,
+        39
+      ]
+    },
+    "27158": {
+      "pack": "original",
+      "row": 15379,
+      "rgba_sha256": "0622b924cbeb5bb8d1909f94e310984b222ace69592fd65a34bb2cdcf12d3c4f",
+      "rect": [
+        41,
+        467,
+        29,
+        31
+      ]
+    },
+    "27162": {
+      "pack": "original",
+      "row": 15383,
+      "rgba_sha256": "8ae3123b964131515b0840aea65a7f1af36d2f0524346e1b9000e592ce72fda9",
+      "rect": [
+        72,
+        467,
+        31,
+        30
+      ]
+    },
+    "27169": {
+      "pack": "original",
+      "row": 15390,
+      "rgba_sha256": "bc0dc0fb07db14d1abf8c26e8ddedbe8327782672b6695d56a72c3306598f195",
+      "rect": [
+        105,
+        467,
+        36,
+        27
+      ]
+    },
+    "27201": {
+      "pack": "original",
+      "row": 15176,
+      "rgba_sha256": "130258ea335d82943e4935c357fc4e5d269526e0a0786ebd588f06e387606298",
+      "rect": [
+        143,
+        467,
+        32,
+        26
+      ]
+    },
+    "27205": {
+      "pack": "original",
+      "row": 15180,
+      "rgba_sha256": "b0b306315e0f7293eae3603f87177b32d51e9ec4f638cd5594f9823ac5983ab2",
+      "rect": [
+        177,
+        467,
+        32,
+        23
+      ]
+    },
+    "27206": {
+      "pack": "original",
+      "row": 15181,
+      "rgba_sha256": "267b7d28d7f2f997041484ceb5ba6b2560b6be4b8719d98d5033bd62428eb89b",
+      "rect": [
+        211,
+        467,
+        32,
+        23
+      ]
+    },
+    "27207": {
+      "pack": "original",
+      "row": 15182,
+      "rgba_sha256": "6530657784b9b45a8ae171e152eecfb1821d49879e84adab179a8ef00846403b",
+      "rect": [
+        245,
+        467,
+        32,
+        23
+      ]
+    },
+    "27208": {
+      "pack": "original",
+      "row": 15183,
+      "rgba_sha256": "1add68f1afbb719ea74f58d44dfe8a60a8279c21d2b527702e7f70f29a5ec3c4",
+      "rect": [
+        279,
+        467,
+        32,
+        23
+      ]
+    },
+    "27209": {
+      "pack": "original",
+      "row": 15184,
+      "rgba_sha256": "1f8f10bdc068d06b3ec27d065368a4390d1dc5a111ce56784592440f4a7485b1",
+      "rect": [
+        313,
+        467,
+        32,
+        23
+      ]
+    },
+    "27210": {
+      "pack": "original",
+      "row": 15185,
+      "rgba_sha256": "b4fccbd8243ef495050706e27592613f1b1cef30808ce5fc529a2afd362d1a3d",
+      "rect": [
+        347,
+        467,
+        63,
+        42
+      ]
+    },
+    "27226": {
+      "pack": "original",
+      "row": 15201,
+      "rgba_sha256": "744b7801f75679176d18acdc717540c3c92436d92d2166affcb2522f0d74e4e7",
+      "rect": [
+        412,
+        467,
+        32,
+        27
+      ]
+    },
+    "27235": {
+      "pack": "original",
+      "row": 15210,
+      "rgba_sha256": "164f670fd8711b8f7ea9d5a8195af4ae3d038473f85289e361bbb729016f2974",
+      "rect": [
+        446,
+        467,
+        24,
+        33
+      ]
+    },
+    "27244": {
+      "pack": "original",
+      "row": 15219,
+      "rgba_sha256": "d34afcad0c40432e2652699fe2bff5f83843c2b53129a007fc0109c3e72d9365",
+      "rect": [
+        472,
+        467,
+        33,
+        40
+      ]
+    },
+    "27248": {
+      "pack": "original",
+      "row": 15223,
+      "rgba_sha256": "43657097fedaad279065b8d33785153a7f7d6b384a81c7d363e64fc1209fc285",
+      "rect": [
+        507,
+        467,
+        32,
+        29
+      ]
+    },
+    "27249": {
+      "pack": "original",
+      "row": 15224,
+      "rgba_sha256": "8f476fc09be613b0f2e71fc8351a2274bb2d3cb2c197489513cdd2438e8276c1",
+      "rect": [
+        541,
+        467,
+        32,
+        29
+      ]
+    },
+    "27253": {
+      "pack": "original",
+      "row": 250508,
+      "rgba_sha256": "421165c4a27e0b346f8427da1dbe587da54eed75e6e9c2c9ab034313a5e257e4",
+      "rect": [
+        575,
+        467,
+        30,
+        44
+      ]
+    },
+    "27307": {
+      "pack": "v3",
+      "row": 79,
+      "rgba_sha256": "2504cd2f515d27356e0765f663687858f42248e89704d9ed7ad5e0c6d4c65a76",
+      "rect": [
+        607,
+        467,
+        51,
+        48
+      ]
+    },
+    "27362": {
+      "pack": "v3",
+      "row": 148,
+      "rgba_sha256": "ea07da65d0fe28da8e72a56a641fba1cdf21b1812b259f0993da91769b2fe5d9",
+      "rect": [
+        660,
+        467,
+        57,
+        53
+      ]
+    },
+    "27371": {
+      "pack": "v3",
+      "row": 157,
+      "rgba_sha256": "5d2ed9a892864cae4e67ea06c1ac8285935a4f4822c870a0754c395776f292f7",
+      "rect": [
+        719,
+        467,
+        41,
+        37
+      ]
+    },
+    "27403": {
+      "pack": "original",
+      "row": 15717,
+      "rgba_sha256": "19dd4b5d0787d2451bca9b87b5ed470e44cff92ec1b867309326dfa849c6b7da",
+      "rect": [
+        762,
+        467,
+        27,
+        23
+      ]
+    },
+    "27407": {
+      "pack": "original",
+      "row": 15721,
+      "rgba_sha256": "57280057726d52ee58b059e7369df247ad63adff8888f2d37c1ed1fea80a04c2",
+      "rect": [
+        791,
+        467,
+        47,
+        59
+      ]
+    },
+    "27411": {
+      "pack": "v3",
+      "row": 56,
+      "rgba_sha256": "3e0af66af39fe3c99bbc392ca71cfc826d69c979c83fdc280e4259ff1f498994",
+      "rect": [
+        840,
+        467,
+        23,
+        24
+      ]
+    },
+    "27419": {
+      "pack": "v3",
+      "row": 69,
+      "rgba_sha256": "99d78298567d4632f5f3d763788418168139739ea4810d3d4d59693d011da369",
+      "rect": [
+        865,
+        467,
+        33,
+        38
+      ]
+    },
+    "27422": {
+      "pack": "v3",
+      "row": 60,
+      "rgba_sha256": "fd425eb8b8fb4de9d1cb43d5ffdcbac0d573abf12c7c02ff850b9c3e74dd5ad3",
+      "rect": [
+        900,
+        467,
+        46,
+        29
+      ]
+    },
+    "27424": {
+      "pack": "v3",
+      "row": 62,
+      "rgba_sha256": "b4a59a4a10d379905a0a1c9077facab4a2b911b248e8b64253af7f83ec8dc8fd",
+      "rect": [
+        948,
+        467,
+        40,
+        34
+      ]
+    },
+    "27425": {
+      "pack": "v3",
+      "row": 63,
+      "rgba_sha256": "a6734a7403c582d73d1e24ac44eddee1c663bf440bacc36fda3946178a2a212b",
+      "rect": [
+        1,
+        528,
+        41,
+        42
+      ]
+    },
+    "27426": {
+      "pack": "v3",
+      "row": 64,
+      "rgba_sha256": "ed4fca70b0703546a615a4f0e264bc4c718f62b5a5fa1b80fd870f318ff2e3eb",
+      "rect": [
+        44,
+        528,
+        40,
+        36
+      ]
+    },
+    "27432": {
+      "pack": "v3",
+      "row": 174,
+      "rgba_sha256": "fde0cbb7f93c20524f9929a4dd845d2de30706aa9c1695809aad7a3df77194f8",
+      "rect": [
+        86,
+        528,
+        32,
+        35
+      ]
+    },
+    "27454": {
+      "pack": "original",
+      "row": 15468,
+      "rgba_sha256": "0f6b94c94c6767e468d2385bf7d04f69174b251185c25d1a5699202491ad77a1",
+      "rect": [
+        120,
+        528,
+        28,
+        24
+      ]
+    },
+    "27456": {
+      "pack": "original",
+      "row": 15470,
+      "rgba_sha256": "7e865076ed79489f778b89227f9d9b28b03c0816d5b19ecf8f74b6ee98a38cfe",
+      "rect": [
+        150,
+        528,
+        21,
+        30
+      ]
+    },
+    "27458": {
+      "pack": "original",
+      "row": 252639,
+      "rgba_sha256": "e4aeef52a43cb58e34cf59d7cd48651c64558cf01d7e5930ce45a2eabd0f98ff",
+      "rect": [
+        173,
+        528,
+        22,
+        30
+      ]
+    },
+    "27459": {
+      "pack": "original",
+      "row": 15473,
+      "rgba_sha256": "805224362878bf3dbc851c708fcbd062a77be0fa5f115c27f66cbd1a58c5a35b",
+      "rect": [
+        197,
+        528,
+        12,
+        37
+      ]
+    },
+    "27460": {
+      "pack": "original",
+      "row": 15474,
+      "rgba_sha256": "5d45169c81ba27e0cde3b93d3b3883b6cc21317add83b9db089cb5bd667a8e30",
+      "rect": [
+        211,
+        528,
+        12,
+        39
+      ]
+    },
+    "27461": {
+      "pack": "original",
+      "row": 250505,
+      "rgba_sha256": "a346878aad90f7ac226517c4c59f3f6c77d77c30c69f85bd8ae9d05a7c6f57c1",
+      "rect": [
+        225,
+        528,
+        19,
+        45
+      ]
+    },
+    "27476": {
+      "pack": "v3",
+      "row": 43,
+      "rgba_sha256": "86c4fed7e87306c7577ac20e96bc70aaa5815ec3ee760eeea76621bb3f70179f",
+      "rect": [
+        246,
+        528,
+        34,
+        34
+      ]
+    },
+    "27477": {
+      "pack": "v3",
+      "row": 44,
+      "rgba_sha256": "8fdd7a8f6c2f3e8e7195483ec6f7fa9639a27740f62afe6a33399bc3484c3add",
+      "rect": [
+        282,
+        528,
+        34,
+        34
+      ]
+    },
+    "27478": {
+      "pack": "v3",
+      "row": 45,
+      "rgba_sha256": "258efcc10508e0cffbdfbcf72873faf5d5e30e740bb30c05b65bb576ed2f185d",
+      "rect": [
+        318,
+        528,
+        34,
+        34
+      ]
+    },
+    "27479": {
+      "pack": "v3",
+      "row": 46,
+      "rgba_sha256": "ab0e0fe557c8f891cfe020601513480855434805bd16f58e4f8845d9eec6cf65",
+      "rect": [
+        354,
+        528,
+        34,
+        34
+      ]
+    },
+    "27495": {
+      "pack": "puk2",
+      "row": 10477,
+      "rgba_sha256": "337d012077cc7ba2e5ca5ddc328455558b861f350c9276e1a2b1ba375c3ecae1",
+      "rect": [
+        390,
+        528,
+        35,
+        43
+      ]
+    },
+    "27500": {
+      "pack": "original",
+      "row": 15475,
+      "rgba_sha256": "771b61aec8a7b2724005d3793458e64f0234a0c54cd711578da0ef4b49745813",
+      "rect": [
+        427,
+        528,
+        17,
+        17
+      ]
+    },
+    "27501": {
+      "pack": "original",
+      "row": 15476,
+      "rgba_sha256": "fba6e2be51958a64c01aca9d6db6471afa721e9fff82c798414c2069f68dd9dd",
+      "rect": [
+        446,
+        528,
+        17,
+        17
+      ]
+    },
+    "27508": {
+      "pack": "original",
+      "row": 15483,
+      "rgba_sha256": "546c3427a28b2b553fab20cb89ebe7da35309c7d63804cce4c1a6ced8186efcf",
+      "rect": [
+        465,
+        528,
+        31,
+        31
+      ]
+    },
+    "27509": {
+      "pack": "original",
+      "row": 15484,
+      "rgba_sha256": "3988625deed09e89c7f42e0b1320c41b8d34293a3a11096db2f536c80193b8c8",
+      "rect": [
+        498,
+        528,
+        31,
+        31
+      ]
+    },
+    "27511": {
+      "pack": "original",
+      "row": 15486,
+      "rgba_sha256": "ad59b2df90eb1f9160c645b37fcfb374d243fd95a4b76f102bc384e6ec58c084",
+      "rect": [
+        531,
+        528,
+        31,
+        31
+      ]
+    },
+    "27512": {
+      "pack": "original",
+      "row": 15487,
+      "rgba_sha256": "8b1eed740cc379ba9baedaf7c682b413733f6f682ac087b84dc0914920eff0f0",
+      "rect": [
+        564,
+        528,
+        17,
+        17
+      ]
+    },
+    "27513": {
+      "pack": "original",
+      "row": 15488,
+      "rgba_sha256": "ab551e44c026c6e2e20feaa1502458e5f18a167b658af7a80c84af7ece0c4116",
+      "rect": [
+        583,
+        528,
+        31,
+        31
+      ]
+    },
+    "27514": {
+      "pack": "original",
+      "row": 15489,
+      "rgba_sha256": "6232bbcf504f4c55b55e31aab0169d74b63f7676557daff9225164ea54467068",
+      "rect": [
+        616,
+        528,
+        31,
+        31
+      ]
+    },
+    "27515": {
+      "pack": "original",
+      "row": 15490,
+      "rgba_sha256": "5c30d2611a5e4fe6ac8f7b5d26ac8c8c8a2b42475915a503684688a0f3c0d975",
+      "rect": [
+        649,
+        528,
+        31,
+        31
+      ]
+    },
+    "27516": {
+      "pack": "original",
+      "row": 15491,
+      "rgba_sha256": "1bc98fcc61d1df9ec553669e198d33d8a8f96377d7f64bd82d23fcbdd4d85bff",
+      "rect": [
+        682,
+        528,
+        31,
+        31
+      ]
+    },
+    "27519": {
+      "pack": "original",
+      "row": 15494,
+      "rgba_sha256": "541b2ebc553e5dc8d2d984aab932cc66bf0df62eb4c67230e1d84785345428f9",
+      "rect": [
+        715,
+        528,
+        15,
+        15
+      ]
+    },
+    "27520": {
+      "pack": "original",
+      "row": 15495,
+      "rgba_sha256": "8a8bf1e259cd343d8ec674ddcc6a4a0e9d040994fc90c54f666adb6c172be04b",
+      "rect": [
+        732,
+        528,
+        15,
+        15
+      ]
+    },
+    "27521": {
+      "pack": "original",
+      "row": 15496,
+      "rgba_sha256": "49df0e196af51c97b2858c19e212688f47636b56b35fa771d1c36e48bda8bcc6",
+      "rect": [
+        749,
+        528,
+        23,
+        23
+      ]
+    },
+    "27522": {
+      "pack": "original",
+      "row": 15497,
+      "rgba_sha256": "03104fcf81e216767e4531bbc69e995a3f4d60b2e41466ee23ace5945885018f",
+      "rect": [
+        774,
+        528,
+        23,
+        23
+      ]
+    },
+    "27523": {
+      "pack": "original",
+      "row": 15498,
+      "rgba_sha256": "ea7e50b765b19590b9a4a0d6205edf068484193b446258d36b6891d663bffac2",
+      "rect": [
+        799,
+        528,
+        17,
+        17
+      ]
+    },
+    "27531": {
+      "pack": "original",
+      "row": 15506,
+      "rgba_sha256": "c3e9d380cfb92c3e9bd2bd01073a20bc15bc5d6a898eb636803ad9bec2cee8e8",
+      "rect": [
+        818,
+        528,
+        17,
+        17
+      ]
+    },
+    "27602": {
+      "pack": "original",
+      "row": 15735,
+      "rgba_sha256": "eb4bc861097b9a3d56939b27e163b4aa7c1a89b7fddb60b5e70c33fdb77ce80a",
+      "rect": [
+        837,
+        528,
+        21,
+        21
+      ]
+    },
+    "27605": {
+      "pack": "original",
+      "row": 15738,
+      "rgba_sha256": "af85ea4e173dfc4172b04f06a3dfb74f71ea6ac0a320b5cfcd2417e90727cc40",
+      "rect": [
+        860,
+        528,
+        21,
+        15
+      ]
+    },
+    "27606": {
+      "pack": "original",
+      "row": 15739,
+      "rgba_sha256": "dcfa5002615c3d02e7b58bccc59f744b19c41052ff9f97cb0fa8cf01be9a27a9",
+      "rect": [
+        883,
+        528,
+        21,
+        15
+      ]
+    },
+    "27609": {
+      "pack": "original",
+      "row": 15742,
+      "rgba_sha256": "4f276f09f68bc8e506c34e5fe5e46894f4233a3393b2a2e37cda0e2fa53fdb11",
+      "rect": [
+        906,
+        528,
+        21,
+        15
+      ]
+    },
+    "27614": {
+      "pack": "original",
+      "row": 15747,
+      "rgba_sha256": "f9afbd5df95ac07d4b9823134bf2c69b49e240f0fc0e98fc59312988a48f9eb0",
+      "rect": [
+        929,
+        528,
+        21,
+        17
+      ]
+    },
+    "27618": {
+      "pack": "original",
+      "row": 15751,
+      "rgba_sha256": "d765f9cf7163ff8ac73b2c77dc857a4630530b900ec6217e27e6008c58d8c11d",
+      "rect": [
+        952,
+        528,
+        29,
+        25
+      ]
+    },
+    "27619": {
+      "pack": "original",
+      "row": 15752,
+      "rgba_sha256": "0632972f094f650d76a63b9595e72983d2fb55e860bf44098a997c7e0f34f133",
+      "rect": [
+        983,
+        528,
+        29,
+        25
+      ]
+    },
+    "27626": {
+      "pack": "original",
+      "row": 15759,
+      "rgba_sha256": "7a3a4019a6160cdcdd6d645b2e8feb105e914ec6c7ed8b17a8907e0913503c88",
+      "rect": [
+        1,
+        575,
+        21,
+        17
+      ]
+    },
+    "27651": {
+      "pack": "original",
+      "row": 15457,
+      "rgba_sha256": "2e2cac14c8e4830cfd126bd7478a6de4b71eb27e918403e61b6bb67a507b01ca",
+      "rect": [
+        24,
+        575,
+        22,
+        24
+      ]
+    },
+    "27652": {
+      "pack": "original",
+      "row": 15458,
+      "rgba_sha256": "3ec8de34eb354a8875c0faeb19327d9fb6670806e90933fd21c822e23fd20082",
+      "rect": [
+        48,
+        575,
+        22,
+        24
+      ]
+    },
+    "27654": {
+      "pack": "original",
+      "row": 15460,
+      "rgba_sha256": "4ae8e5716a7c6d7f20fe362a6b66c2085d87bba4c5037d90f188c632d3129dc7",
+      "rect": [
+        72,
+        575,
+        22,
+        24
+      ]
+    },
+    "27655": {
+      "pack": "original",
+      "row": 15461,
+      "rgba_sha256": "15d12cd77244a57ec6532dadb612a34f0df2bdc8d87e17a63ec6fddc483dcd34",
+      "rect": [
+        96,
+        575,
+        22,
+        24
+      ]
+    },
+    "27703": {
+      "pack": "original",
+      "row": 15518,
+      "rgba_sha256": "87dfd4610128c8488b7fca152adb309966d672d3a3b3dd553203efb5ce75d936",
+      "rect": [
+        120,
+        575,
+        19,
+        27
+      ]
+    },
+    "27757": {
+      "pack": "original",
+      "row": 15731,
+      "rgba_sha256": "b3d0a2c1fe73fcb077467d31304c5aaec5226abb34d9a8144722a26106bcb6aa",
+      "rect": [
+        141,
+        575,
+        24,
+        20
+      ]
+    },
+    "27758": {
+      "pack": "original",
+      "row": 15732,
+      "rgba_sha256": "cb573191cef7771b691c90d07c0718d2f8a13b5a75d402d943676a1231bdc8c8",
+      "rect": [
+        167,
+        575,
+        34,
+        26
+      ]
+    },
+    "27800": {
+      "pack": "original",
+      "row": 15521,
+      "rgba_sha256": "7288aa60a05810c05f3a5bb40bf5284490cababfd2aab230a218089d67136926",
+      "rect": [
+        203,
+        575,
+        20,
+        22
+      ]
+    },
+    "27801": {
+      "pack": "original",
+      "row": 15522,
+      "rgba_sha256": "4e23287b79daf733cc3d296022238853496d06c1adf7da68d09da01be7234737",
+      "rect": [
+        225,
+        575,
+        20,
+        22
+      ]
+    },
+    "27802": {
+      "pack": "original",
+      "row": 15523,
+      "rgba_sha256": "e165dcd4f81b29d854a74ccadf6ead879b224f9a4d82e1d8ed2a567f3d2a4a0c",
+      "rect": [
+        247,
+        575,
+        27,
+        26
+      ]
+    },
+    "27804": {
+      "pack": "original",
+      "row": 15525,
+      "rgba_sha256": "68890ef13f1e59cb4e341007e5e6233e443bdb5eebe255c64fdae1d0f9b7bb28",
+      "rect": [
+        276,
+        575,
+        27,
+        26
+      ]
+    },
+    "27805": {
+      "pack": "original",
+      "row": 15526,
+      "rgba_sha256": "5ef4fe9f82dee7b9829b6dce1ebd980f79477397f55285c3b3fcf725eaa4fce7",
+      "rect": [
+        305,
+        575,
+        27,
+        26
+      ]
+    },
+    "27806": {
+      "pack": "original",
+      "row": 15527,
+      "rgba_sha256": "c1730a7a85a635bff4e55b1ae5e35cc1762b3c95088af703c343114ae8666d49",
+      "rect": [
+        334,
+        575,
+        27,
+        26
+      ]
+    },
+    "27807": {
+      "pack": "original",
+      "row": 15528,
+      "rgba_sha256": "669931c9c80632dd6486693be93934e6fac42425fc8384e2122987ee2f51e1f8",
+      "rect": [
+        363,
+        575,
+        27,
+        26
+      ]
+    },
+    "27808": {
+      "pack": "original",
+      "row": 15529,
+      "rgba_sha256": "618f9b065c7a97637ee3f3b5ec306464bb0291ec4b2b40a8388481214ac69fd7",
+      "rect": [
+        392,
+        575,
+        42,
+        36
+      ]
+    },
+    "27809": {
+      "pack": "original",
+      "row": 15530,
+      "rgba_sha256": "930ca2a60dc1be65d47bba18b3572262261f59ab993f89873837edbb6f60935d",
+      "rect": [
+        436,
+        575,
+        42,
+        36
+      ]
+    },
+    "27810": {
+      "pack": "original",
+      "row": 15531,
+      "rgba_sha256": "1c3ee0e3f6c17b4a1ef3e4647b9874f816f3a74784029393dcfcee920f18fb11",
+      "rect": [
+        480,
+        575,
+        42,
+        36
+      ]
+    },
+    "27811": {
+      "pack": "original",
+      "row": 15532,
+      "rgba_sha256": "f2d4ddd7870df1f030bca046d2998bda8158889aaf2cc163567267e1b1722ae7",
+      "rect": [
+        524,
+        575,
+        42,
+        36
+      ]
+    },
+    "27812": {
+      "pack": "original",
+      "row": 15533,
+      "rgba_sha256": "e3590d04d80291afeabbcd641d4b0d2df1a6fe7b66c1c3e8d31cca0e86b14f79",
+      "rect": [
+        568,
+        575,
+        20,
+        22
+      ]
+    },
+    "27813": {
+      "pack": "original",
+      "row": 15534,
+      "rgba_sha256": "4a9984055776a084e721d1bfc25a5a528b2d02e979d6006580c71ef58325f037",
+      "rect": [
+        590,
+        575,
+        42,
+        36
+      ]
+    },
+    "27814": {
+      "pack": "original",
+      "row": 15535,
+      "rgba_sha256": "2020759d57fbb2d4b7bbbc4e74924bc3967d490cc698f824edfa7c158f9cf1a9",
+      "rect": [
+        634,
+        575,
+        42,
+        36
+      ]
+    },
+    "27816": {
+      "pack": "original",
+      "row": 15537,
+      "rgba_sha256": "c11c3427d8cefc8a20269030167873c6048e2595e33d6f0401cdf329297fa261",
+      "rect": [
+        678,
+        575,
+        42,
+        36
+      ]
+    },
+    "27817": {
+      "pack": "original",
+      "row": 15538,
+      "rgba_sha256": "26c1191e494433e14fe4cc2526e1eebd933ccd3213fd128b3c2eb2d6023c1fb4",
+      "rect": [
+        722,
+        575,
+        34,
+        26
+      ]
+    },
+    "27818": {
+      "pack": "original",
+      "row": 15539,
+      "rgba_sha256": "8233d4f10f87e4cc8f98c9efa665206d0b32aa1f8fbacffdcbe60d4a0a83c56a",
+      "rect": [
+        758,
+        575,
+        34,
+        26
+      ]
+    },
+    "27819": {
+      "pack": "original",
+      "row": 15540,
+      "rgba_sha256": "eb3c8fad9c810f13770ad32c7bbe5c89078e41b3ac39c9cfd76f21afcf6452a3",
+      "rect": [
+        794,
+        575,
+        34,
+        26
+      ]
+    },
+    "27820": {
+      "pack": "original",
+      "row": 15541,
+      "rgba_sha256": "3f51c6e6065d411af581835528a1c547f20c9f4c41dc989fb9586b45f8aadbf2",
+      "rect": [
+        830,
+        575,
+        34,
+        26
+      ]
+    },
+    "27823": {
+      "pack": "original",
+      "row": 15544,
+      "rgba_sha256": "e28067e442117bde57a7afea557ab35c25d1ca84708f94a9003c3c35b265a8e7",
+      "rect": [
+        866,
+        575,
+        20,
+        22
+      ]
+    },
+    "27824": {
+      "pack": "original",
+      "row": 15545,
+      "rgba_sha256": "434b2b603d79e673034ad938cb19793d2beba192c6a012926ce66c952b820464",
+      "rect": [
+        888,
+        575,
+        39,
+        29
+      ]
+    },
+    "27825": {
+      "pack": "original",
+      "row": 15546,
+      "rgba_sha256": "3c7cb285628993584159ca0e4074f2b7a8560dd066ab514788d4c21da4180440",
+      "rect": [
+        929,
+        575,
+        39,
+        29
+      ]
+    },
+    "27826": {
+      "pack": "original",
+      "row": 15547,
+      "rgba_sha256": "c5e06e9bce1b8c7b0f7fb64f9140baf9421cc1c3e5c6102f2383608e891682a5",
+      "rect": [
+        970,
+        575,
+        39,
+        29
+      ]
+    },
+    "27827": {
+      "pack": "original",
+      "row": 15548,
+      "rgba_sha256": "b45113a0f1270fb4ba2714c8d6d7101b5375ce3dc11396bfa698774e72f69d99",
+      "rect": [
+        1,
+        613,
+        39,
+        29
+      ]
+    },
+    "27828": {
+      "pack": "original",
+      "row": 15549,
+      "rgba_sha256": "7c6dc016cfac8acd2084781363b13689a9c96e7321cd161c5038a467c5074cd3",
+      "rect": [
+        42,
+        613,
+        28,
+        25
+      ]
+    },
+    "27830": {
+      "pack": "original",
+      "row": 15551,
+      "rgba_sha256": "45a2299f770af8f113260a8e9708e4d54dcf37238c29a2a1d2a4628ac2e33d94",
+      "rect": [
+        72,
+        613,
+        29,
+        26
+      ]
+    },
+    "27831": {
+      "pack": "original",
+      "row": 15552,
+      "rgba_sha256": "0d14404d5f3ae985d6427caab72c52841ea013052a1b55ccbd09448e7257bd40",
+      "rect": [
+        103,
+        613,
+        23,
+        20
+      ]
+    },
+    "27833": {
+      "pack": "original",
+      "row": 15554,
+      "rgba_sha256": "8d1ce995b2139068b43050bf4a3945bfc692aa746803673b3314771840ca39a9",
+      "rect": [
+        128,
+        613,
+        26,
+        22
+      ]
+    },
+    "27834": {
+      "pack": "original",
+      "row": 15555,
+      "rgba_sha256": "7053647af5a573274abb3b644439bef8176f2e9901561e6877ad2f973e1ec7e7",
+      "rect": [
+        156,
+        613,
+        20,
+        22
+      ]
+    },
+    "27835": {
+      "pack": "original",
+      "row": 15556,
+      "rgba_sha256": "a2f8c28c63dea20018cbd45ca0025c7f61e87a037880cd63fadf59db5cb6a8c7",
+      "rect": [
+        178,
+        613,
+        26,
+        22
+      ]
+    },
+    "27836": {
+      "pack": "original",
+      "row": 15557,
+      "rgba_sha256": "8ec2b23fd2de55672eff308b9789dc84b61d1270f0f46fa0082a926734bd213f",
+      "rect": [
+        206,
+        613,
+        26,
+        22
+      ]
+    },
+    "27839": {
+      "pack": "original",
+      "row": 15560,
+      "rgba_sha256": "467c9cc4feeffd6ba92cc997e14536095dc16a6b3ed69eda63201901c6625239",
+      "rect": [
+        234,
+        613,
+        23,
+        26
+      ]
+    },
+    "27841": {
+      "pack": "original",
+      "row": 15562,
+      "rgba_sha256": "e6af593e44c72df0e77de30ff0cb241f72699424df23e8611f4610c78513b05e",
+      "rect": [
+        259,
+        613,
+        23,
+        26
+      ]
+    },
+    "27844": {
+      "pack": "original",
+      "row": 15565,
+      "rgba_sha256": "02ce9cde7fce57021755a4c3c65cf5e72568cc29692e03652110e3c9ccdabb99",
+      "rect": [
+        284,
+        613,
+        24,
+        30
+      ]
+    },
+    "27845": {
+      "pack": "original",
+      "row": 15566,
+      "rgba_sha256": "0f928bc72330293c1f7094998e84a7830b0e89a1aa50502460ac4996a0092f0f",
+      "rect": [
+        310,
+        613,
+        20,
+        22
+      ]
+    },
+    "27846": {
+      "pack": "original",
+      "row": 15567,
+      "rgba_sha256": "25ec367028474c4aa80eda85ab7f0b06b5cf5e43043d4d7a038904f46e9583e4",
+      "rect": [
+        332,
+        613,
+        24,
+        30
+      ]
+    },
+    "27847": {
+      "pack": "original",
+      "row": 15568,
+      "rgba_sha256": "527f02a2b6286c0cc2d36a69ca6e7202daf3398d0a07f92ff6c8f1bfd77eb53f",
+      "rect": [
+        358,
+        613,
+        24,
+        30
+      ]
+    },
+    "27850": {
+      "pack": "original",
+      "row": 15571,
+      "rgba_sha256": "6ad50b58c34525c5d30423e408a8d99209d64cbb71e113b2afd70072acdd9976",
+      "rect": [
+        384,
+        613,
+        41,
+        33
+      ]
+    },
+    "27853": {
+      "pack": "original",
+      "row": 15574,
+      "rgba_sha256": "b0c98e50419bd7b0dc1c96a87ccfe2b71ee6925ab68cf6a029ab5d5585837bb9",
+      "rect": [
+        427,
+        613,
+        35,
+        17
+      ]
+    },
+    "27856": {
+      "pack": "original",
+      "row": 15577,
+      "rgba_sha256": "d5c658c44054d370c5cce08ad43ee670e78cc7bd670f770ca02ce9633fadefb9",
+      "rect": [
+        464,
+        613,
+        20,
+        22
+      ]
+    },
+    "27861": {
+      "pack": "original",
+      "row": 15582,
+      "rgba_sha256": "ed17ce9777b5bb8d6e37c45dfe6c94c862e4f448bb0613264a4caf6f50e7ac4f",
+      "rect": [
+        486,
+        613,
+        19,
+        18
+      ]
+    },
+    "27862": {
+      "pack": "original",
+      "row": 15583,
+      "rgba_sha256": "7c969b424f2ffbd20b7a8c684b31d3fcda65576d7fc917bf81bb43880a0e0c54",
+      "rect": [
+        507,
+        613,
+        17,
+        17
+      ]
+    },
+    "27867": {
+      "pack": "original",
+      "row": 15588,
+      "rgba_sha256": "0e3e70e33f2b04b75529552003b6fb201d3994f950c94d0767e94df899c7727e",
+      "rect": [
+        526,
+        613,
+        20,
+        22
+      ]
+    },
+    "27873": {
+      "pack": "original",
+      "row": 15594,
+      "rgba_sha256": "78d7964c382b27254d271ea285d41c1039366161a9ac5d24c4599ba6b5946b8c",
+      "rect": [
+        548,
+        613,
+        19,
+        19
+      ]
+    },
+    "27874": {
+      "pack": "original",
+      "row": 15595,
+      "rgba_sha256": "4f38b1981246a7ca2293c983f2585c6c27d9c282347cfb5f73f3699c55a85e8d",
+      "rect": [
+        569,
+        613,
+        19,
+        19
+      ]
+    },
+    "27875": {
+      "pack": "original",
+      "row": 15596,
+      "rgba_sha256": "6718658b0e235cc0da70d4a4bfc5e83d37c097735e4e093523d1151a4a4902d9",
+      "rect": [
+        590,
+        613,
+        19,
+        19
+      ]
+    },
+    "27876": {
+      "pack": "original",
+      "row": 15597,
+      "rgba_sha256": "2257974c84ad44eb6e65a9603efb49864b3b3849048f631254077f0a8af895a7",
+      "rect": [
+        611,
+        613,
+        19,
+        19
+      ]
+    },
+    "27877": {
+      "pack": "original",
+      "row": 15598,
+      "rgba_sha256": "fd837aad4ccc886f3c0bec921a25867fd2ad5139641111497d8ec78f4d1747d7",
+      "rect": [
+        632,
+        613,
+        19,
+        19
+      ]
+    },
+    "27879": {
+      "pack": "original",
+      "row": 15600,
+      "rgba_sha256": "939a4e30b2d1b3bcc37bd09be23d654d6bdd75d5a23ce46bef2d5b3133d6d817",
+      "rect": [
+        653,
+        613,
+        34,
+        33
+      ]
+    },
+    "27880": {
+      "pack": "original",
+      "row": 15601,
+      "rgba_sha256": "b57c653d98a6da1ba250332f8c9a13b306bbc51d0cfe86275effa3f1559451d8",
+      "rect": [
+        689,
+        613,
+        31,
+        27
+      ]
+    },
+    "27881": {
+      "pack": "original",
+      "row": 15602,
+      "rgba_sha256": "258a49af57d9626bfefa1fa753eaf0b324d1bc1a1003462ce018cd91c15bd245",
+      "rect": [
+        722,
+        613,
+        43,
+        36
+      ]
+    },
+    "27882": {
+      "pack": "original",
+      "row": 15603,
+      "rgba_sha256": "d597741f751352adbba31a5ec95e3e8c370bc2aac22d2956371b84e7a1e247b0",
+      "rect": [
+        767,
+        613,
+        36,
+        31
+      ]
+    },
+    "27885": {
+      "pack": "original",
+      "row": 15606,
+      "rgba_sha256": "7d69b93526bc07f5ef3910c3331409b31eddacee91c8bf4cac5d874684482dff",
+      "rect": [
+        805,
+        613,
+        24,
+        23
+      ]
+    },
+    "27886": {
+      "pack": "original",
+      "row": 15607,
+      "rgba_sha256": "094e7421c410486d65da99243eab8876e920efab0ef01a63e8ec977f57695b5c",
+      "rect": [
+        831,
+        613,
+        24,
+        23
+      ]
+    },
+    "27887": {
+      "pack": "original",
+      "row": 15608,
+      "rgba_sha256": "3e8b7d7c7f343746f13a8a66642a68ba2340fbe9e4429d5c84345946329ae133",
+      "rect": [
+        857,
+        613,
+        24,
+        23
+      ]
+    },
+    "27888": {
+      "pack": "original",
+      "row": 15609,
+      "rgba_sha256": "36e629b350b1e5539aa35472c16e777b660041279e7e2b29f7fa149ac1affb8f",
+      "rect": [
+        883,
+        613,
+        24,
+        23
+      ]
+    },
+    "27903": {
+      "pack": "original",
+      "row": 15624,
+      "rgba_sha256": "50aa549f37937f282476674b16a70d78833210d5216dee61416a3f01d991f1b6",
+      "rect": [
+        909,
+        613,
+        64,
+        47
+      ]
+    },
+    "27905": {
+      "pack": "original",
+      "row": 15626,
+      "rgba_sha256": "09eae8544c129408da83ec0e7c2f1e8409c097c1727306118f22ebe1434befb2",
+      "rect": [
+        1,
+        662,
+        64,
+        47
+      ]
+    },
+    "27906": {
+      "pack": "original",
+      "row": 15627,
+      "rgba_sha256": "7f46275a59ca7a687ffd517850c74342e966b9b91a6fb03f62e80b68ef848a1b",
+      "rect": [
+        67,
+        662,
+        51,
+        37
+      ]
+    },
+    "27912": {
+      "pack": "original",
+      "row": 15633,
+      "rgba_sha256": "e8ff95dae0e58a30d6d305a3a450adeccb5ad7a88acec91515965922a1700ce6",
+      "rect": [
+        120,
+        662,
+        34,
+        31
+      ]
+    },
+    "27915": {
+      "pack": "original",
+      "row": 15636,
+      "rgba_sha256": "ac58ff9a34ace5f2c5d32b4f66a7720084cdb47708f20dcc83c0f8d92c1ea65d",
+      "rect": [
+        156,
+        662,
+        34,
+        31
+      ]
+    },
+    "27916": {
+      "pack": "original",
+      "row": 15637,
+      "rgba_sha256": "5912d99d75bb09e13cd1fed7676c03886dc109afab83e95b6cf4d566626cf206",
+      "rect": [
+        192,
+        662,
+        34,
+        31
+      ]
+    },
+    "27927": {
+      "pack": "original",
+      "row": 15648,
+      "rgba_sha256": "4c1c5b55097796b4481d957fb2f58d10da1352b3ddf28665974b8a90e048e706",
+      "rect": [
+        228,
+        662,
+        61,
+        35
+      ]
+    },
+    "27929": {
+      "pack": "original",
+      "row": 15650,
+      "rgba_sha256": "a7063a03e80466bdaf16fc6f59fd6683e09cafeac75ab65a7c4a269d57245085",
+      "rect": [
+        291,
+        662,
+        62,
+        35
+      ]
+    },
+    "27937": {
+      "pack": "original",
+      "row": 15658,
+      "rgba_sha256": "e3d98a7b7af52e5acd7cd448de8f74f297ebe2ad35311c85c8a828109b4294e7",
+      "rect": [
+        355,
+        662,
+        48,
+        41
+      ]
+    },
+    "27938": {
+      "pack": "original",
+      "row": 15659,
+      "rgba_sha256": "05c7b2fb5b99621b06699c5ad473c2efd724baf1b6ee82ed2d07fef20da19631",
+      "rect": [
+        405,
+        662,
+        50,
+        32
+      ]
+    },
+    "27940": {
+      "pack": "original",
+      "row": 15661,
+      "rgba_sha256": "cc5ce25c98fa99c96fd2989b2dbf8424ac4ac4245aafd9363ef2577ba79b1eba",
+      "rect": [
+        457,
+        662,
+        53,
+        35
+      ]
+    },
+    "27950": {
+      "pack": "original",
+      "row": 15671,
+      "rgba_sha256": "c05ab8c52fe6b6ead7e26d5c1258d65cea31c11639b6c70d009605a43f32703d",
+      "rect": [
+        512,
+        662,
+        32,
+        41
+      ]
+    },
+    "27951": {
+      "pack": "original",
+      "row": 15672,
+      "rgba_sha256": "ff9427c0a29c756d376122488d47f67096b7b70f2c059075ba792504468d8209",
+      "rect": [
+        546,
+        662,
+        32,
+        40
+      ]
+    },
+    "27958": {
+      "pack": "original",
+      "row": 15679,
+      "rgba_sha256": "beac08b82565c39dd821d78313b44a932a7501ea425c5c7c50942565fb7062ab",
+      "rect": [
+        580,
+        662,
+        16,
+        15
+      ]
+    },
+    "27959": {
+      "pack": "original",
+      "row": 15680,
+      "rgba_sha256": "baf5a23cb396ceb9bb58c328e3c56490d167ca28b6bf0e24bcf0963e24cafbd6",
+      "rect": [
+        598,
+        662,
+        16,
+        15
+      ]
+    },
+    "27960": {
+      "pack": "original",
+      "row": 15681,
+      "rgba_sha256": "66dd849b3382baecddbca0a97ec9447a4e782341bee259f713cdbe3c88f2444a",
+      "rect": [
+        616,
+        662,
+        16,
+        15
+      ]
+    },
+    "27961": {
+      "pack": "original",
+      "row": 15682,
+      "rgba_sha256": "b5aff00e71d4b29aa7a48c5767c53a44d950d339510a2da4f45318c46228ef88",
+      "rect": [
+        634,
+        662,
+        16,
+        15
+      ]
+    },
+    "27962": {
+      "pack": "original",
+      "row": 15683,
+      "rgba_sha256": "e20c4d2f09bcaa8ba1a17ca64f19df4992cd76561a6d1558802f3ebb472dd8c4",
+      "rect": [
+        652,
+        662,
+        30,
+        29
+      ]
+    },
+    "27963": {
+      "pack": "original",
+      "row": 15684,
+      "rgba_sha256": "6fbb8461065d658a7c52b86478410cd2afc605dde931b22416e725597d2c78c1",
+      "rect": [
+        684,
+        662,
+        30,
+        29
+      ]
+    },
+    "27964": {
+      "pack": "original",
+      "row": 15685,
+      "rgba_sha256": "561c1073fa6c30cb21b6a958ab01c9f76bf920eadd9ff18a7d3c9b7512d90672",
+      "rect": [
+        716,
+        662,
+        30,
+        29
+      ]
+    },
+    "27965": {
+      "pack": "original",
+      "row": 15686,
+      "rgba_sha256": "eb917d7af04a493e2d8d6408d376fac124f52a8d71d50f71d78e9bc162910c82",
+      "rect": [
+        748,
+        662,
+        30,
+        29
+      ]
+    },
+    "27966": {
+      "pack": "original",
+      "row": 15687,
+      "rgba_sha256": "921b8649b1251977b494c994b574ae25da12a71db580bfda8fe82b666945b084",
+      "rect": [
+        780,
+        662,
+        36,
+        35
+      ]
+    },
+    "27967": {
+      "pack": "original",
+      "row": 15688,
+      "rgba_sha256": "448e5ab83bec100c8598639874ec8038f221156419a4e57a878936aa0e45983b",
+      "rect": [
+        818,
+        662,
+        36,
+        35
+      ]
+    },
+    "27968": {
+      "pack": "original",
+      "row": 15689,
+      "rgba_sha256": "700783e29600b52bacfc8d3bbc0b8ce4e4ec114f1254625f034444f4e96e1d58",
+      "rect": [
+        856,
+        662,
+        36,
+        35
+      ]
+    },
+    "27969": {
+      "pack": "original",
+      "row": 15690,
+      "rgba_sha256": "1d70f9562f67992e6b17e495ac78e08bea6a7673161badcd78ff20390e014f3a",
+      "rect": [
+        894,
+        662,
+        36,
+        35
+      ]
+    },
+    "27970": {
+      "pack": "original",
+      "row": 15691,
+      "rgba_sha256": "e250d588668ecbc364c66fc5449dfd8bc4f31337d27247f5b630640843280a13",
+      "rect": [
+        932,
+        662,
+        46,
+        45
+      ]
+    },
+    "27971": {
+      "pack": "original",
+      "row": 15692,
+      "rgba_sha256": "05c39fd8cce4bb31d85e870db724fcf49f280a07d0ea79f3d06f827352e6c658",
+      "rect": [
+        1,
+        711,
+        46,
+        45
+      ]
+    },
+    "27972": {
+      "pack": "original",
+      "row": 15693,
+      "rgba_sha256": "31f1dfc416947e5a480d5fa166965511628bef3409db80d426af59e9a2efc065",
+      "rect": [
+        49,
+        711,
+        46,
+        45
+      ]
+    },
+    "27973": {
+      "pack": "original",
+      "row": 15694,
+      "rgba_sha256": "0a34ab114fb0d814c172f6b82ee19a7fe48cfd2ec2768a7492b849598e8c4526",
+      "rect": [
+        97,
+        711,
+        46,
+        45
+      ]
+    },
+    "27978": {
+      "pack": "original",
+      "row": 15699,
+      "rgba_sha256": "ea76fb9b0054395d99bf05ed4824e49fc980eb3e27456a35583835d87067b6c5",
+      "rect": [
+        145,
+        711,
+        21,
+        22
+      ]
+    },
+    "27979": {
+      "pack": "original",
+      "row": 15700,
+      "rgba_sha256": "2e4558d33c7f28fce9f37bcf7dda5f552c7750d0dc8a6ca0e66ff6e22c9fdd7f",
+      "rect": [
+        168,
+        711,
+        21,
+        22
+      ]
+    },
+    "27980": {
+      "pack": "original",
+      "row": 15701,
+      "rgba_sha256": "5113bb6dd65a56e2ea398c53af9ab487bfa47d7db38dc9359ffe6b6ec3d0ea1e",
+      "rect": [
+        191,
+        711,
+        21,
+        22
+      ]
+    },
+    "27981": {
+      "pack": "original",
+      "row": 15702,
+      "rgba_sha256": "37bc81d3fd0d036ecfef10bc71233a08dc70add7866e8d84cf6206ef2c3fdc8c",
+      "rect": [
+        214,
+        711,
+        21,
+        22
+      ]
+    },
+    "27989": {
+      "pack": "original",
+      "row": 15710,
+      "rgba_sha256": "e71dd32d4daab3124d569a57dc1964f0d2e153a5f55b8cc52a08de7ceefe7974",
+      "rect": [
+        237,
+        711,
+        43,
+        44
+      ]
+    },
+    "27990": {
+      "pack": "original",
+      "row": 15711,
+      "rgba_sha256": "04b9f5b80633d115413d7f15b3ccd0c46137b0ee6ae8ed90a4b935a02a29a13b",
+      "rect": [
+        282,
+        711,
+        49,
+        48
+      ]
+    },
+    "27991": {
+      "pack": "original",
+      "row": 15712,
+      "rgba_sha256": "82796f313628e9f791b1b757bc980e7430b592933bd7ea6a54cc38f1d3848dc9",
+      "rect": [
+        333,
+        711,
+        28,
+        42
+      ]
+    },
+    "27994": {
+      "pack": "original",
+      "row": 250510,
+      "rgba_sha256": "634863997dbfd539dfa13bcbf0498f2a2e431733c590524cae33b3576c93dfb6",
+      "rect": [
+        363,
+        711,
+        33,
+        46
+      ]
+    },
+    "27995": {
+      "pack": "original",
+      "row": 250511,
+      "rgba_sha256": "f94b67c145199f92813b8bb524832c980bc594b745e2f59344387237925dca29",
+      "rect": [
+        398,
+        711,
+        48,
+        44
+      ]
+    },
+    "27997": {
+      "pack": "original",
+      "row": 250513,
+      "rgba_sha256": "a49a6ffef270a3da9d46bc64b1b79c5bb56fb15c2943ddeab76906c46c3fa1ab",
+      "rect": [
+        448,
+        711,
+        57,
+        62
+      ]
+    },
+    "27998": {
+      "pack": "original",
+      "row": 250989,
+      "rgba_sha256": "ca72db4c7016f68f4a6956458692f74fcc10b3022776ebd644917707f0e7ff7d",
+      "rect": [
+        507,
+        711,
+        27,
+        27
+      ]
+    },
+    "98004": {
+      "pack": "joy",
+      "row": 31990,
+      "rgba_sha256": "4107f45891e09b4b2c968ff964fcaf71cfcf4f708e61f76ce7a8463ae19239d0",
+      "rect": [
+        536,
+        711,
+        23,
+        21
+      ]
+    },
+    "98005": {
+      "pack": "joy",
+      "row": 31991,
+      "rgba_sha256": "28fad1360838e499ebc01c1e9f720accc58090fcac3ef13352e105aae48d3b2f",
+      "rect": [
+        561,
+        711,
+        20,
+        23
+      ]
+    },
+    "98006": {
+      "pack": "joy",
+      "row": 31992,
+      "rgba_sha256": "16d6dfa782bad2c6d54585f55026758f628c6b3d40b939809ad2a2bc45a641b5",
+      "rect": [
+        583,
+        711,
+        39,
+        37
+      ]
+    },
+    "98018": {
+      "pack": "joy",
+      "row": 32014,
+      "rgba_sha256": "a32eee4d3e5326d239272845879aea2ffa60fbacf5cd4dc0503bc6421915db6f",
+      "rect": [
+        624,
+        711,
+        28,
+        32
+      ]
+    },
+    "98019": {
+      "pack": "joy",
+      "row": 32015,
+      "rgba_sha256": "6f259c24238b192c64d97c05b4ac2fb58201307911f662489e7e5664733a54b6",
+      "rect": [
+        654,
+        711,
+        28,
+        41
+      ]
+    },
+    "98020": {
+      "pack": "joy",
+      "row": 32016,
+      "rgba_sha256": "b860ccc824ea222067470825e8341f45c0dd929bf54c6feed438337a9c193fb1",
+      "rect": [
+        684,
+        711,
+        28,
+        41
+      ]
+    },
+    "98021": {
+      "pack": "joy",
+      "row": 32017,
+      "rgba_sha256": "eb874f222b2897a5a35d774519a2dab3dbccb6731f88d5a8b236c4d0c1df2545",
+      "rect": [
+        714,
+        711,
+        28,
+        41
+      ]
+    },
+    "98022": {
+      "pack": "joy",
+      "row": 32018,
+      "rgba_sha256": "0d30bc4753d3c92002c1f5b8ac5ba6594f2a55dbed90c183b653ad8f2368d4e8",
+      "rect": [
+        744,
+        711,
+        28,
+        38
+      ]
+    },
+    "98023": {
+      "pack": "joy",
+      "row": 32019,
+      "rgba_sha256": "3b7fe3832ce4c4026c7fc8c40e39f671bd385eec343a994f972fc7be4f74011b",
+      "rect": [
+        774,
+        711,
+        21,
+        42
+      ]
+    },
+    "98024": {
+      "pack": "joy",
+      "row": 32020,
+      "rgba_sha256": "fe2217d9dcb976015148adc93d95d8a8313a0b9b7d05ae942e5a6fe176b2a0b2",
+      "rect": [
+        797,
+        711,
+        25,
+        32
+      ]
+    },
+    "98501": {
+      "pack": "original",
+      "row": 252429,
+      "rgba_sha256": "d5c1c3eb02a436ab195dc8b8bbcca95b89bd3f1186af6dd5246023142fee3cb5",
+      "rect": [
+        824,
+        711,
+        35,
+        31
+      ]
+    },
+    "98510": {
+      "pack": "original",
+      "row": 252453,
+      "rgba_sha256": "ab605c41295e521d91563391d866d628dd086216403ce762e2b0d012eed6a5e2",
+      "rect": [
+        861,
+        711,
+        33,
+        36
+      ]
+    },
+    "98912": {
+      "pack": "joy",
+      "row": 33820,
+      "rgba_sha256": "6f9cdc0ca5d83911882836cd687e103a94717dd46082c2b2cf6e02ee2f41265d",
+      "rect": [
+        896,
+        711,
+        38,
+        50
+      ]
+    },
+    "98913": {
+      "pack": "joy",
+      "row": 33821,
+      "rgba_sha256": "cca95f59f51d751350d67b9faa03977f70dbbc7e5e8fcad51a8f7130a23fcf2b",
+      "rect": [
+        936,
+        711,
+        35,
+        38
+      ]
+    },
+    "99002": {
+      "pack": "original",
+      "row": 251526,
+      "rgba_sha256": "6fb6b738814775856e35207d02ce9bbc1a31200aa611c2284e2c22795579ccef",
+      "rect": [
+        973,
+        711,
+        23,
+        24
+      ]
+    },
+    "99082": {
+      "pack": "original",
+      "row": 252278,
+      "rgba_sha256": "1bd479f16a217c8d8e5cbda0d1fd4f12fe7b371fba5b2d6a14f579ca6fa86552",
+      "rect": [
+        1,
+        775,
+        30,
+        43
+      ]
+    },
+    "99164": {
+      "pack": "original",
+      "row": 252327,
+      "rgba_sha256": "be9f80bb725f5e59d7ac47d62548ac022b3de4ed74edec58b8679608e8d07002",
+      "rect": [
+        33,
+        775,
+        36,
+        39
+      ]
+    },
+    "99165": {
+      "pack": "original",
+      "row": 252328,
+      "rgba_sha256": "891308ec846b8237172bc0e7ef301bc7363946eb47310f04ec5a5a0f28809e31",
+      "rect": [
+        71,
+        775,
+        21,
+        31
+      ]
+    },
+    "99274": {
+      "pack": "original",
+      "row": 252496,
+      "rgba_sha256": "6238f0bc8ffa067be86d6bee43bd505e5d499c9d472509c8ed65a8b1cb1e9fc0",
+      "rect": [
+        94,
+        775,
+        35,
+        36
+      ]
+    },
+    "99277": {
+      "pack": "original",
+      "row": 252499,
+      "rgba_sha256": "1f62af06c89cd5ec7a1e690a9692a63f74488e01c3aadf23e2ee3d03cca4169d",
+      "rect": [
+        131,
+        775,
+        35,
+        36
+      ]
+    },
+    "99298": {
+      "pack": "original",
+      "row": 252688,
+      "rgba_sha256": "96a630ccbf453bd310e0d9baabf09143ccc480d0f705fa854fd2ce62f6471d48",
+      "rect": [
+        168,
+        775,
+        44,
+        39
+      ]
+    },
+    "99302": {
+      "pack": "original",
+      "row": 252637,
+      "rgba_sha256": "0af6ca9ebdbce67fcbbc367b06e9436554483e91a1e036bd241e67089bdcca00",
+      "rect": [
+        214,
+        775,
+        36,
+        39
+      ]
+    },
+    "99343": {
+      "pack": "original",
+      "row": 252717,
+      "rgba_sha256": "9a8136220bdcc0c9fecd34b68a34faa264a5290d2d5d4436cd4895e18f877b9f",
+      "rect": [
+        252,
+        775,
+        40,
+        30
+      ]
+    },
+    "99418": {
+      "pack": "original",
+      "row": 252788,
+      "rgba_sha256": "56ddd4d61aa7d503a2c27725c417102bf6d419d6494278d93114b8a87ffb01d1",
+      "rect": [
+        294,
+        775,
+        46,
+        44
+      ]
+    },
+    "99419": {
+      "pack": "original",
+      "row": 252789,
+      "rgba_sha256": "a75660ca94eee1531daf80a07fbd329891e8ef05cc78b72693a933406805a1e6",
+      "rect": [
+        342,
+        775,
+        50,
+        29
+      ]
+    },
+    "99420": {
+      "pack": "original",
+      "row": 252790,
+      "rgba_sha256": "7000750992565a01ba15fa11de81612dae68e0e9b44a6ec763b577071a10d21c",
+      "rect": [
+        394,
+        775,
+        45,
+        39
+      ]
+    },
+    "99421": {
+      "pack": "original",
+      "row": 252791,
+      "rgba_sha256": "97a0e7651c58fe36989041fb8605778bfe3b2cbd4aee048c759d6b1c5863078b",
+      "rect": [
+        441,
+        775,
+        53,
+        28
+      ]
+    },
+    "99451": {
+      "pack": "original",
+      "row": 252816,
+      "rgba_sha256": "513ae709bbd0be02df0691e93a07a3908a377ac468d16fe18e54dbcd68b90127",
+      "rect": [
+        496,
+        775,
+        35,
+        42
+      ]
+    },
+    "99492": {
+      "pack": "joy",
+      "row": 32009,
+      "rgba_sha256": "9be1a3d86d5724bd5b743540e7fe8e85646d034275ce2148d87c5f26be60cdfb",
+      "rect": [
+        533,
+        775,
+        41,
+        39
+      ]
+    },
+    "99494": {
+      "pack": "joy",
+      "row": 32011,
+      "rgba_sha256": "67b5a87e8f854cdcb7541f5f83a745cc5ce697eaf0e3ab4d62b220aacd198707",
+      "rect": [
+        576,
+        775,
+        37,
+        35
+      ]
+    },
+    "99495": {
+      "pack": "joy",
+      "row": 32012,
+      "rgba_sha256": "9be1a3d86d5724bd5b743540e7fe8e85646d034275ce2148d87c5f26be60cdfb",
+      "rect": [
+        615,
+        775,
+        41,
+        39
+      ]
+    },
+    "99496": {
+      "pack": "joy",
+      "row": 32013,
+      "rgba_sha256": "eb6a5fd69920c5f41337d754ec257dcd3753036c9e637ec7e5c14c33a6badd1c",
+      "rect": [
+        658,
+        775,
+        37,
+        35
+      ]
+    },
+    "99501": {
+      "pack": "joy",
+      "row": 28070,
+      "rgba_sha256": "496941c2a80eb412a9202663fd75f1d04dfa6451fabda943b614aac62e77b188",
+      "rect": [
+        697,
+        775,
+        28,
+        38
+      ]
+    },
+    "99502": {
+      "pack": "joy",
+      "row": 28071,
+      "rgba_sha256": "402060cc2660b0e2394a0eb3c226b6865837df165a817e8229d7da68efab47f7",
+      "rect": [
+        727,
+        775,
+        34,
+        38
+      ]
+    },
+    "99503": {
+      "pack": "joy",
+      "row": 28072,
+      "rgba_sha256": "b9823248161cf1bc0d677326ca96618f63eb1d61fa96d713a4237775154c4bea",
+      "rect": [
+        763,
+        775,
+        38,
+        39
+      ]
+    },
+    "99504": {
+      "pack": "joy",
+      "row": 28073,
+      "rgba_sha256": "1395db7555af9cb9722be1d7ca10eb09cbc10f8e66f6ee8efbed85c7ad6cf1bc",
+      "rect": [
+        803,
+        775,
+        34,
+        37
+      ]
+    },
+    "99505": {
+      "pack": "joy",
+      "row": 28074,
+      "rgba_sha256": "a83dca9d82644a94eb4142bb9fee71c660ba6be689e46503bda18a720a7308bb",
+      "rect": [
+        839,
+        775,
+        34,
+        37
+      ]
+    },
+    "99506": {
+      "pack": "joy",
+      "row": 28075,
+      "rgba_sha256": "cdbb0b094726e044a9ac6554d2a329c82a9a47e4ea06456cd1bd114433e37d2a",
+      "rect": [
+        875,
+        775,
+        34,
+        37
+      ]
+    },
+    "99507": {
+      "pack": "joy",
+      "row": 28076,
+      "rgba_sha256": "d3bed0c335517cc1ab12e2f5afb2dafde52e62da04d9453816240fcc19a6bd97",
+      "rect": [
+        911,
+        775,
+        34,
+        37
+      ]
+    },
+    "99508": {
+      "pack": "joy",
+      "row": 28077,
+      "rgba_sha256": "ea185dfa0784cce97a52bcdc3c7b7c3eef32a7e10824bb7385f0f8e42d7c6f61",
+      "rect": [
+        947,
+        775,
+        40,
+        42
+      ]
+    },
+    "99509": {
+      "pack": "joy",
+      "row": 28078,
+      "rgba_sha256": "41520f9220d64178c9e12543adc3013899d9e706d970e66cc8ac3b6a8f84fa25",
+      "rect": [
+        1,
+        821,
+        45,
+        48
+      ]
+    },
+    "252036": {
+      "pack": "v3",
+      "row": 19161,
+      "rgba_sha256": "122c8b8d1c10a0144af783a111631fb998753e41500f2ae5a575be10e1274d8f",
+      "rect": [
+        48,
+        821,
+        28,
+        20
+      ]
+    },
+    "252048": {
+      "pack": "v3",
+      "row": 19538,
+      "rgba_sha256": "fc01461681b3eb5a4a3cfdda4171fb25c2c82becaeb555ac1f3924f0692ca91c",
+      "rect": [
+        78,
+        821,
+        33,
+        26
+      ]
+    },
+    "252059": {
+      "pack": "v3",
+      "row": 19120,
+      "rgba_sha256": "cde215c3219dba42b3dfa4b28c1220881a54b08c270114f46681a277b60fd00d",
+      "rect": [
+        113,
+        821,
+        24,
+        24
+      ]
+    },
+    "252060": {
+      "pack": "v3",
+      "row": 19121,
+      "rgba_sha256": "cc2859580b61d5515a79259e26898c8e69119fa5c578682f579fcd054f972522",
+      "rect": [
+        139,
+        821,
+        29,
+        28
+      ]
+    }
+  },
+  "missing": [
+    98892,
+    98893
+  ],
+  "limits": [
+    "Only exact original graphic IDs are used. Missing pictures remain absent; item names and behavior are retained."
+  ]
+}

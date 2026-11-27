@@ -1,0 +1,22 @@
+{
+  "atlas-1.png": {
+    "resource": "sokia_server/cpu-pages/atlas-1.res",
+    "resource_sha256": "4ca5fdd24ae479ba50b833a08ec63271f9ec6b43aaceafdec7bd8851f8b031f1",
+    "rgba_sha256": "b2e0a449d6156231cc3b8d15db3c0993783c4b4cadd02c21a9a6056f3bcde03f",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "52c44cec37b1f31815ba559d985521ccd54427a8a7e496892532c15fef61c400"
+  },
+  "university/atlas-0.png": {
+    "resource": "sokia_server/cpu-pages/university-atlas-0.res",
+    "resource_sha256": "0480ece29ef2cb00763d0eda9779baecb64dacedc58b76a563f530e5f3b3722a",
+    "rgba_sha256": "3f1e79555a4b1a8315700335a6e8fa36ca104d84fba9da120eea03455dbbb8e9",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "acf08ce3a8d9dc491ca9a7a2c49a732a8dcc68248a239e59f3d77ca488ca7f44"
+  }
+}

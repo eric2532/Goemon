@@ -1,0 +1,26 @@
+[
+  {
+    "file": "01522_castle3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/01522_castle3",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "fdac663094ff9bc863451f178ffbe1377f85f236",
+    "sha256": "51402bbc0e0553c426292976b98533e40d40b715e88a8ae41957120d38079031",
+    "bytes": 10044
+  },
+  {
+    "file": "01530_birthplace-01",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/01530_birthplace-01",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "e3a72ca061001b2bfac6c632b9609f7d32d1ff67",
+    "sha256": "523d25da1cb410001f1e9664c3853af1c778a4d734547d6ebe84ce920d7ee9a8",
+    "bytes": 3644
+  },
+  {
+    "file": "01541_robi",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/01541_robi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob_sha1": "cbc441942ccefd434f026959060e28000c5895c3",
+    "sha256": "f12860241219aa27dbced039ca364417c90b54c23841ad41410dbd8dc5799a10",
+    "bytes": 3644
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "path": "src/cg/data/gmsvReader/CEnemyGroupReader.java",
+    "encoding": "base64",
+    "sha": "4805609f8fa15bf50570ba500e6448af27180218",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CEnemyGroupReader.java",
+    "display_title": "CEnemyGroupReader.java",
+    "sha256": "31ebc4f9822d8cee716edc444a10280fa3d710222d762a813887c94beb5aa440",
+    "bytes": 3227,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CDungeonReader.java",
+    "encoding": "base64",
+    "sha": "0fed73f02c86a19ec32cfb2e2b4ff4d35f1450d0",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CDungeonReader.java",
+    "display_title": "CDungeonReader.java",
+    "sha256": "a3b32e058f55cc4c99ef0cde4ddfe901223bb04d3ec44d7cce5c05891077c428",
+    "bytes": 14423,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CEnemyReader.java",
+    "encoding": "base64",
+    "sha": "1827725d6995dafe496a92924a66911b10ab2c95",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CEnemyReader.java",
+    "display_title": "CEnemyReader.java",
+    "sha256": "fe85d1993b2840701528c8e3364727f64b3928d32e1b7818910223bf79f129cc",
+    "bytes": 4563,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CEncountInfoReader.java",
+    "encoding": "base64",
+    "sha": "b641f9d2a77fa0d4b70150e4be28990ec11741f9",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CEncountInfoReader.java",
+    "display_title": "CEncountInfoReader.java",
+    "sha256": "e973b6dc9f39072d7e84d5846afc0bdd8515442d5da6b013223022556fcd7a8a",
+    "bytes": 2671,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/sprite/EnemyGroup.java",
+    "encoding": "base64",
+    "sha": "ebdb24549da6f97f1910a41d39b8ffb04da31f73",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/sprite/EnemyGroup.java",
+    "display_title": "EnemyGroup.java",
+    "sha256": "c5759022021a0bcab27934c0b6161a1b2f385582f391f8ec6df7e20e94129a80",
+    "bytes": 432,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/sprite/EnemyGroupEx.java",
+    "encoding": "base64",
+    "sha": "fb751586c6c95e30eebd3689330e75577cf97111",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/sprite/EnemyGroupEx.java",
+    "display_title": "EnemyGroupEx.java",
+    "sha256": "5ee83d02438f53571ee4c58f0be4c3d4fc3ad8bdd31e04abae327dba2807beae",
+    "bytes": 167,
+    "authority": "Muscipular/CrossGateData reference reader; not authenticated original BlueCG server execution",
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2"
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CMapReader.java",
+    "encoding": "base64",
+    "sha": "0807f0e84af786dc381a2480365ae259cb700e4e",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CMapReader.java",
+    "display_title": "CMapReader.java",
+    "sha256": "819f2f7ca29c3a21f7723e435fa717391361ff21cdea2dd7cdcd7ad3881d6ee0",
+    "bytes": 7127,
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "authority": "Primary reference reader; exact Git blob verified."
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CFileMapReader.java",
+    "encoding": "base64",
+    "sha": "b9d05508cbcea86a0dcc19fe640b0ca0ba699f6c",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CFileMapReader.java",
+    "display_title": "CFileMapReader.java",
+    "sha256": "53eb2d7a3eb6bdee2bdde16c60300a6f59bf0e4f0e9a4d8d16ed6fbea2dbcf23",
+    "bytes": 6952,
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "authority": "Primary reference reader; exact Git blob verified."
+  },
+  {
+    "path": "src/cg/data/gmsvReader/CEnemyAiReader.java",
+    "encoding": "base64",
+    "sha": "8141240969f99cf14955ae10c040f5bcc7a6ff6a",
+    "sha256": "4010d83c76ee1ff48b3bb70c1d25815a443486742bec94272e15dcbdc7cb8668",
+    "bytes": 2123,
+    "commit": "4074d43e2fc96c953e40b21e2af4801ddc57caf2",
+    "display_url": "https://github.com/Muscipular/CrossGateData/blob/4074d43e2fc96c953e40b21e2af4801ddc57caf2/src/cg/data/gmsvReader/CEnemyAiReader.java",
+    "display_title": "CEnemyAiReader.java",
+    "authority": "Primary reference reader; exact Git blob verified, not original server execution."
+  }
+]

@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "graphics": {
+    "17196": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13280,
+      "source_rgba_sha256": "43532b3a84712b7052eac468e8db24ef4bfd3d8c9ec70840f997e4b2f6704f32"
+    },
+    "17197": {
+      "origin": [
+        -8,
+        -67
+      ],
+      "size": [
+        52,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13281,
+      "source_rgba_sha256": "2ca7a54edc4de7ae09cd31e56e54186fe2a38edaa47f0e293821f52cd8500e6a"
+    },
+    "17198": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13282,
+      "source_rgba_sha256": "ac031c129c933485ac18ee4812b2a9c603b7083b2b1ce4cff728237e8815f19e"
+    },
+    "17199": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13283,
+      "source_rgba_sha256": "f3de2b52c844de5c77d6e0eb1a877eaf6c49cbda1a50862ae64db9c49f236eb7"
+    },
+    "17200": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13284,
+      "source_rgba_sha256": "119d3d6e22100efe56f0aa284e167f104db7c6ec0d9a9e6775e88cf51d5b5b3a"
+    },
+    "17201": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13285,
+      "source_rgba_sha256": "719d5c20a946fbea2d1cdcc7ee3f43473c96645048402d6e5b3bb672e0efc5d5"
+    },
+    "17202": {
+      "origin": [
+        -32,
+        -77
+      ],
+      "size": [
+        64,
+        85
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13286,
+      "source_rgba_sha256": "a34bc8a599111f3324da38a486ffc880ccc8cf647ec4c0b2a60fb48ac04672e5"
+    },
+    "17203": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13287,
+      "source_rgba_sha256": "a575e55c3c645e5a27c37e068fad099fc9d6b58e3a70262c21abe7b7b9652914"
+    },
+    "17204": {
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_pack": "original",
+      "source_row": 13288,
+      "source_rgba_sha256": "139c617a6c04ce07f14f36c1b278f942886efbabdb135088474da93bbb748dd2"
+    }
+  },
+  "source_context": "33514 native PG0+PG1:17199 repeats along the continuous blue counter,17197 forms its end/junction;17196..17204 form the same modular family.",
+  "scope": "Private connected-counter study. No runtime routing change yet. The two formerly called blue_chest and the17196/98lectern route need compound-context validation.",
+  "inferred": [
+    "A3m source cell determines shared counter joints; hidden timber backs, base trim, corner depth and thickness follow the neighboring source counter pieces. Native visible cloth/items stay on the original faces. No service, inventory container or new route is added."
+  ]
+}

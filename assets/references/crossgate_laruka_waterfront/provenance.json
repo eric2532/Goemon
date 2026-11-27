@@ -1,0 +1,47 @@
+{
+  "normalization_reference": "https://github.com/josh-hsu/crossgate-editor/blob/cdc75f20d58155a25c018cd81f653c685859c9d1/doc/renderer-notes.md",
+  "source_archive": "BlueCrossgate/bin/GraphicInfoEX_5.bin and GraphicEX_5.bin",
+  "records": [
+    {
+      "map_id": 25290,
+      "source_serial": 225290,
+      "pack": "ex",
+      "row": 646,
+      "image_rgba_sha256": "8e862c5be8a6de2f0b365c74244e20872a612e6348003d9d21e07beb26467fa8",
+      "index_record_sha256": "3cefd23bffa15560008c69010ab25a76c89b741b580c2b96f2665471c4650de7"
+    },
+    {
+      "map_id": 38043,
+      "source_serial": 238043,
+      "pack": "ex",
+      "row": 3676,
+      "image_rgba_sha256": "65b6f4b9f84d5ffa1fc3144c06e0bad3120ac6f1ba9a09c36f9cf13690c56e40",
+      "index_record_sha256": "8e717e79182248fe4a2ae6d30a60de8534cf43a8f7e03023f3a68d52785c0005"
+    },
+    {
+      "map_id": 38044,
+      "source_serial": 238044,
+      "pack": "ex",
+      "row": 3677,
+      "image_rgba_sha256": "4f3a5028afa9a07b5e6fda52e82dda63ff241d2bc7618e2fed817fbc2f3b6f5b",
+      "index_record_sha256": "f2263a3c328b725df714e061e7876a6907854f7e24a62d5556103c97ba1bac38"
+    },
+    {
+      "map_id": 38046,
+      "source_serial": 238046,
+      "pack": "ex",
+      "row": 3679,
+      "image_rgba_sha256": "d7972edd2c1513b8c806a55df54fe903a851fc2c77a71841414a6bae08e4d16c",
+      "index_record_sha256": "a458d531e3dc4323230b664b0ec09733c5e6a08bb5e797db20ec669c9b1aa3e6"
+    },
+    {
+      "map_id": 38051,
+      "source_serial": 238051,
+      "pack": "ex",
+      "row": 3684,
+      "image_rgba_sha256": "634fe5d5b654f7e0daaa513e4756be76abe4ec07ace92e78db8064485946fd8c",
+      "index_record_sha256": "c532701040aadf637c7edd827d7bf01ca03466f70e8d943fcc3939f87d2a22b8"
+    }
+  ],
+  "status": "Recovered original images; no invented replacement decoration."
+}

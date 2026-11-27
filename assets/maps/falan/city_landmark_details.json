@@ -1,5 +1,219 @@
 {
   "graphics": {
+    "inn_side": {
+      "pack": "original",
+      "row": 7744,
+      "rgba_sha256": "2c61ef73fd97d33a518c37ca6edb39c4b46e8227e68d36962ffea5793b27a914",
+      "source_graphic": 10004,
+      "source_mask": [
+        [
+          285,
+          251
+        ],
+        [
+          288,
+          245
+        ],
+        [
+          297,
+          237
+        ],
+        [
+          315,
+          224
+        ],
+        [
+          334,
+          213
+        ],
+        [
+          344,
+          209
+        ],
+        [
+          348,
+          210
+        ],
+        [
+          349,
+          215
+        ],
+        [
+          349,
+          242
+        ],
+        [
+          286,
+          281
+        ]
+      ]
+    },
+    "10602": {
+      "pack": "original",
+      "row": 7518,
+      "rgba_sha256": "4338f9d3b89b0bf3aa8cfcdd52f05beebbb5f3a6384a212d588f3c1bc9ce4372"
+    },
+    "inn_front": {
+      "pack": "original",
+      "row": 7744,
+      "rgba_sha256": "2c61ef73fd97d33a518c37ca6edb39c4b46e8227e68d36962ffea5793b27a914",
+      "source_graphic": 10004,
+      "source_mask": [
+        [
+          106,
+          121
+        ],
+        [
+          112,
+          121
+        ],
+        [
+          180,
+          165
+        ],
+        [
+          183,
+          170
+        ],
+        [
+          183,
+          224
+        ],
+        [
+          176,
+          227
+        ],
+        [
+          104,
+          178
+        ],
+        [
+          104,
+          124
+        ]
+      ]
+    },
+    "10604": {
+      "pack": "original",
+      "row": 7520,
+      "rgba_sha256": "559e671a1776fe7f9a95ea6131425d399cedeecf4b3f7e68b601974fa700fef6"
+    },
+    "cathedral": {
+      "source": "Original 10001 plus its recovered ground-layer facade pieces",
+      "parts": {
+        "10001": "b555fe46047b9b699896b3f43fa181caff6502d204b9c02a0f4cc6d79e32c6d0",
+        "1422": "425d5274ed00ddd424476bb10e3048045157a1de877a9cef08cf44cf34e20c12",
+        "1423": "d1852abb28387dfadfd121cf278fdafdeb4d86e0c56a7fe1a5cf06ced45f2be4",
+        "1424": "587bb6e2ec519dff92c828195de23e9eaf022e1aba7fbaf2b0b2107b9398c8fb",
+        "1425": "8441c915db25fa769971f1e74f675e2d436a9cd32381323f8a0eef1d2389ab32",
+        "1426": "34f88a9070440c155e5601c660c8d33a3902a96f12138ca4769873617fc1b594",
+        "1427": "394a4ce562fd770d6035ef9cb34abad2c15e3cabedf757b00ea02697dd5e09ac",
+        "1428": "f70a97afe9968c9d86f2c38aa612a10685b9c3ec80fb13a644596a5df646cf9b",
+        "1429": "25d173b6fae7cf3f0fa64c392586c521a085a281febb563ecb8abb018cb172e0",
+        "1430": "b0e811e884f546f3bf13deb18b3dc9e81b842ce9be29c99536dcea89f8d6c245",
+        "1431": "db621a0b7bae3d65288da876adf235d2d3d7bbd88da77265e0137032a7356e8f",
+        "1432": "5bef7376b9764afedad551d62d4f858e0a3a75d5084621ecf9313e9f34517bd5",
+        "1433": "34031bc4b97851acf801e6621f8530593768c2a50bcad488a662c5ad6955b055",
+        "1434": "5db6075e0c20f7009fecaf887e9862aa16de972d3ed7958363754369f7071992",
+        "1435": "6daf37425959e1f5dc6e3913ec3e1d3c9322a35cf38105e876ca7ff2886a036b",
+        "1436": "c7988d1674d97c818b9e42aee6bf18907dd56cd5e8d710bbd66e538a1258ff71",
+        "1437": "b6589d978c676286899b73175c73d6acb0f97ddd6b8ac3860a5bb381c61edbb4",
+        "1438": "7abc69149234c587410646bca3e913b01a480cbf254e74b8140b9d2e56186e1a",
+        "1439": "802300b5078521fe4cec40b7204273a8db26e61cea6f5741aaebca8a10019228",
+        "1440": "5e0ed257d983275427bd06f30622d853829bd20dcaf05572e1d49de85b095e18",
+        "1441": "8723c5518a5e0eb5beb895daa577423e38d3aab5f74ef4b08928c40904ba8513",
+        "1442": "24a8332a5a31a572a3dfe9e0079fe1d0d6efe5f49f8a52250b2f212ef9ef238c",
+        "1443": "7b8ee3d80df8bb5554d52d683355b0ad4ba4fba33f14d0e9c3d58ee636cf3e5d",
+        "1444": "8758922f6867e2bdc9c899bbd9fdf9b0f74680587c7b7d66be3f460dbe26d56a",
+        "1445": "4834e900caa609303362cbee6c1bd6187c7314abbe43f2a11ac1b6798229935f",
+        "1446": "54633228deabffa7fec02e70197954b2b46929833970026d2f386aa7b7e8e0ea",
+        "1447": "9912dfd15b7be06461ce22bfe32e659eeb464ab61e363274b5312e566ae3d09e",
+        "1448": "849349e5422537e32aee54078926e57fd6209a3ed631a9c7b30c6fa84f96d9ee",
+        "1449": "a023532bf148f40a39077577d1b446546136248a7dc494546907a103e0ce05ba",
+        "1450": "4c2fe7fcdedb91a654812fe616c12e695b2c74e663144c3decb4c0ab312dcc40",
+        "1451": "adc1b993a631f4611bf440cd78679ab4522eae785793a755e13e0ea6560cb535",
+        "1452": "43ed7578e4c61aa4e9478d97a4bb2c784bb3347621744f046cb584552dd283db",
+        "1453": "2ecd2058f6b372bb0a4a67bf36077bcb8fd3b2e3e550b17420a5e6b081c90db5",
+        "1454": "8553a1e87515eeb1845268da12155c47ae110bd0cdc5e0eca246734d9806316d",
+        "1455": "493a0e587d71befbd7c33f067660525664df26ee19a7974629a68d2ad901f675",
+        "1456": "f15a34783118e1e357d2acde2c124e29c94e1d7241774417a73c408688d567eb",
+        "1457": "469d8f16005eec7f359a9d1f723fee6a8e1d8a39a4f5d0fd7c45885b4629cf27",
+        "1458": "081cefba87618c7ede8bf79825bb0566be71f88c3c596d07234b89862645385d",
+        "1459": "301840bf5a5e8aa523d7e06dfea421ab40feb1f0aa9495541e8b3e5f43e52b5e",
+        "1460": "c54a984afcaaa54ba2e99fd3392e6adcbb9c8d247f82fdab3a6869856eee1323",
+        "1461": "07eb016b9ea3ecf5866bbcdc4d9dd794ea2ea47c5c1c3e7feeab16b42f3ff79b",
+        "1462": "79dd839a921c7e9c68ab0a12e8f55dc5f060f30f508e9c0cfd0ba862744aa783",
+        "1463": "12dafd2c5fee7ab65febf059f7151bda82ec96aa34ac5ac5a9207ac1cbe7364e",
+        "1464": "f61307f0a7ec5546631478ed71599f880440e9390dd6771df26f3fb8b603c2e0",
+        "1465": "951cea4173ef42d0492952097f7bfd2b9d9a4704be13e9c793915af92c5a4c0f",
+        "1466": "3f2376048828cc982896cc2630dcbe0a60ce9478f3fbdc037383a900539450d9",
+        "1467": "c1c200c13edd80ba6d3c5f2bd76dc775e2b5731bd9537f06737bba294b279b32",
+        "1468": "7d9d2d0f169b636f2e92a50c7ff71fa62611926c12630259074f2efd711a1730",
+        "1469": "f2c9055ad7f15572177ef05f8b07e5631b553521d44fa713e62cc21bca2b3e95",
+        "1470": "13af839ce322c346d3f6582778f58b305fe0bdd4bcc7d7801a05cf52af5d1850",
+        "1471": "0e63edea152bd3530dedd79ce2e58807c9e1cb586522a3c05e3d3ec575a42a28",
+        "1472": "6d913b619f30387b73c8e28a5a37241ac5bf0d8ebebb86df466e9afa931234ec",
+        "1473": "e840eca908e2d2bebcdc1ec1ffd0caa1530bc4d9b4156eef1482a23f8fd07759",
+        "1474": "8c0a222ff5d40e93e00b593d5e23e48538f1759db37f59231c0e12f5991af7d6",
+        "1475": "1436fe742b79941535d224b7b49576d8ddf6e3d506bcf93c61a4d99ec0cc4942",
+        "1476": "80df81579b4538f4bafc22fcb59a83c44b86a5f9630131860886c9744bafdfcc",
+        "1477": "1196556ae80cd70ee6b86596d7c446c79218144b8cd6f53745af1d9c01c92d0f",
+        "1478": "7d0706d65110c50dc0ca745576afb4dce9b697fdf7602493f45825fe94875122",
+        "1479": "55f764f9b4f8fe430856330a26e084993510246ddf5cf7d4a054bebf80b1d374",
+        "1480": "eace601167ab6b82faaf0b4cd1331d52ee994f6055366d9b5064b5efcfb16c27",
+        "1481": "ca800ad9dedec9128b45020da3f85dfc63034ff3d5db7f15e1ef5fa22e4fe7aa",
+        "1482": "3fc76bcc7913ba032aeb87fe0a49c61945e61a8933024b2c52630f516d33a7f9",
+        "1483": "800e744252fc888e40f8207b1a640cb677c297605a86f433b637d79084a524cf",
+        "1484": "0ec0c7f651f5524ebbb1704395794215ae67163821d246cf9faaef9f02502b26",
+        "1485": "170c93ed11d4c8bb9a023b928d2c2391ea267dc72f36d1326f7160078d473aad",
+        "1486": "e460b4f164c784593cc3c71c1b1add9598decfd856bec7e7114842b7e7fe7cf7",
+        "1487": "8d9e41c11df96148187514075ecff8bdf7bf73ecd4de94f3243c40a5a793c252",
+        "1488": "b6f6338ba536469d426bdcd843df883efb165e3e55e911d15ab2f1b21b1e0aac",
+        "1489": "824b5239847028a045e044e2f9b568417938a01afe4334887a58e1a7abe24a65",
+        "1490": "14702bdfa2bc04e33b203e8660b18943eb5cfd7e1c7ec00890dbfdb4532dd5f9",
+        "1491": "ec40d5b4c167d7739d7a848f2fa318b20c985a04fb6a0515c2b34056658b5640",
+        "1492": "14c38f3476f73652f718d6dd64401f8850945585ed418cb496cc3656ab848b6c",
+        "1493": "022eb9eb315e3f3f27d84bb5d0f3e957799f6fd1b0a05e2f64ae4ef122f382dc",
+        "1494": "1c47476d54167542dc57c82a2fbff16cc643aa14d058e1a8be8013eaaf9fde75",
+        "1495": "d96d9b29ff52b836e82b35963988f6d77a282e0b298babb145dc6d28535bb12e",
+        "1496": "0a1431ae8f07df85d9aac0aadf2601cee1a1a95cbb06723b588a6e7323d4740c",
+        "1497": "04c228c44b21b7c354ea770fb086afc8b7c713406254bedc614d6d93202a6f55",
+        "1498": "be3b467d2da4a5717df690628f1fba88ac3c4156e55cb62933d1b883cca85dc9",
+        "1499": "dbe70d3e61f4362b9a27a9cd97fef972a2ca0a22a75fb531481c26afa8e4a6db",
+        "1500": "139cad8f4b58af0f5a0fb6c6ef95a1908ee9d466ff97b1240e4961028e9db1c4",
+        "1501": "4677545670624c84738611bf6d1958ae0c77187be623d3c0ed6d72aad569804c",
+        "1502": "0f42c234802851f712263575372d9c410f04971a070fdff3459a1a49cfeac35d",
+        "1503": "1cec5f2590f3412fb7cf7e0496cebd0c1c33eac4d280c85a660a2afabd98c8b8",
+        "1504": "acc991d52b84d672a6298d007f63c451f5c087d4c198af3fbfafde15ac25f756",
+        "1505": "ae3b7a8a402a234dbd95df670f69477f79f4eb70678060ee6ad269a8be957526",
+        "1506": "7d08360ecc67a53f2233048cce17dc29131c413a3c3544f6dfc84744f6e3503b",
+        "1507": "35e7f8367567b61621e520eff8a8c9b98b25e14acd0cdf418afe1b9269ef79b8",
+        "1508": "da24dfd0a6d937a27f0fd3bdaaa3f47214e6e30e20b6e160a96e3c8ede9e8581",
+        "1509": "965fc97b1ed8514ad44e6ebdab6dc37b986bebff55506c538b85d88107477035",
+        "1510": "92210567f26aa335210862d030701586182c5f8f2ad03fded6835e4b69b751b4",
+        "1511": "c323575a4412495250c257c43e3922242cd53576f98581957a753afd30ab70dd",
+        "1512": "5a76c78ff6f399416231656b6b5f3c6f9c5afa6345e2fef8a512a58781794ca9",
+        "1513": "ca643fb60c200b9dc192672e04b076907bada91311f247770adc0f1d6451a374",
+        "1514": "ba9c6bb58e8a927d387018da0c5b7f7ca04d7c5114f7cb2f92b9b384a490caac",
+        "1515": "865c3149db1f44d9bb7785719c31b69e8327dfa81e5cd7dd65a4378df566963f",
+        "1516": "f18504320d152e5fbd1236fb324f2873c5152381afd1887775a08319c1ea9acf",
+        "1517": "f5e4405e19824936ea1bca3b941fa2d8e5f1bd3c7f1d898fa82fbb01c4e4e858",
+        "1518": "33b563e89d37a1cc68c9a6084f3928bb43c6416a409596f47d21e20272bfab84",
+        "1519": "5658baf28023d0a23a85d4ae2fd25e06151519c6760396a59001f11b23f1b83b",
+        "1520": "4833be465f55ee16266708cbc0d1db6f6ba610c71ffb2cc9b0d4e2755c7902a5",
+        "1521": "27afb48c2d139110b1200bc53f1e85097b39f0adb987b922b831020320a521e2",
+        "1522": "b83e04a2830d23379cec7f67b3ac81a7d1b74d0eda1a4263e058b0c1806137f0",
+        "1523": "f27bb8d6d49a4878b1953cbb6f769bd06a1b0a908e9b317be5bb56138661ca00",
+        "1524": "586b6e1e23b885741581797a9cacbfda02195b5b5886542643a0d12746c252bc",
+        "1525": "54474cefb9d79fadfd8f2867684283519fbd2d71c68435c40efb42f4348af3c3"
+      },
+      "rgba_sha256": "13c7e836e823ea0e2bb682400ba4267f2b2845703148889e6e0b7d1ad3a1d602"
+    },
+    "10607": {
+      "pack": "original",
+      "row": 7523,
+      "rgba_sha256": "02a16b156027d55b61ad7df4dc71bbb925c93d99bb577d57550114ac50c06710"
+    },
     "10004": {
       "pack": "original",
       "row": 7744,
@@ -10,20 +224,10 @@
       "row": 7749,
       "rgba_sha256": "397b1f4aa7aebaa5b2fedf7a53954cb61a47a4f4026858b2f85086f2cd1f5506"
     },
-    "10604": {
+    "10012": {
       "pack": "original",
-      "row": 7520,
-      "rgba_sha256": "559e671a1776fe7f9a95ea6131425d399cedeecf4b3f7e68b601974fa700fef6"
-    },
-    "10602": {
-      "pack": "original",
-      "row": 7518,
-      "rgba_sha256": "4338f9d3b89b0bf3aa8cfcdd52f05beebbb5f3a6384a212d588f3c1bc9ce4372"
-    },
-    "10607": {
-      "pack": "original",
-      "row": 7523,
-      "rgba_sha256": "02a16b156027d55b61ad7df4dc71bbb925c93d99bb577d57550114ac50c06710"
+      "row": 7751,
+      "rgba_sha256": "215f5a2a3773311f3fe48257d58cdb689a64b9d5efaee2f6c9759640d89955d8"
     }
   },
   "patches": {
@@ -54,7 +258,7 @@
       ]
     ],
     "inn_sign": [
-      10004,
+      "inn_front",
       [
         [
           105,
@@ -234,6 +438,292 @@
         36,
         100
       ]
+    ],
+    "office_pennant": [
+      10607,
+      [
+        [
+          138,
+          249
+        ],
+        [
+          144,
+          243
+        ],
+        [
+          144,
+          276
+        ],
+        [
+          138,
+          282
+        ]
+      ],
+      true,
+      [
+        24,
+        112
+      ]
+    ],
+    "office_porch_face": [
+      10607,
+      [
+        [
+          60,
+          211
+        ],
+        [
+          120,
+          254
+        ],
+        [
+          120,
+          278
+        ],
+        [
+          60,
+          235
+        ]
+      ],
+      true,
+      [
+        112,
+        35
+      ]
+    ],
+    "office_right_window": [
+      10607,
+      [
+        [
+          160,
+          282
+        ],
+        [
+          183,
+          298
+        ],
+        [
+          183,
+          370
+        ],
+        [
+          160,
+          354
+        ]
+      ],
+      true,
+      [
+        40,
+        112
+      ]
+    ],
+    "office_lower_front": [
+      10607,
+      [
+        [
+          147,
+          361
+        ],
+        [
+          155,
+          366
+        ],
+        [
+          155,
+          400
+        ],
+        [
+          147,
+          395
+        ]
+      ],
+      true,
+      [
+        24,
+        102
+      ]
+    ],
+    "office_lower_side": [
+      10607,
+      [
+        [
+          240,
+          381
+        ],
+        [
+          247,
+          376
+        ],
+        [
+          247,
+          410
+        ],
+        [
+          240,
+          415
+        ]
+      ],
+      true,
+      [
+        24,
+        102
+      ]
+    ],
+    "office_side_near": [
+      10607,
+      [
+        [
+          229,
+          251
+        ],
+        [
+          239,
+          245
+        ],
+        [
+          239,
+          291
+        ],
+        [
+          229,
+          297
+        ]
+      ],
+      true,
+      [
+        24,
+        110
+      ]
+    ],
+    "office_side_far": [
+      10607,
+      [
+        [
+          311,
+          194
+        ],
+        [
+          321,
+          188
+        ],
+        [
+          321,
+          234
+        ],
+        [
+          311,
+          240
+        ]
+      ],
+      true,
+      [
+        24,
+        110
+      ]
+    ],
+    "castle_clock": [
+      10012,
+      [
+        [
+          180,
+          226
+        ],
+        [
+          212,
+          251
+        ],
+        [
+          212,
+          278
+        ],
+        [
+          180,
+          253
+        ]
+      ],
+      true,
+      [
+        96,
+        96
+      ]
+    ],
+    "cathedral_window": [
+      "cathedral",
+      [
+        [
+          330,
+          503
+        ],
+        [
+          345,
+          514
+        ],
+        [
+          345,
+          592
+        ],
+        [
+          330,
+          581
+        ]
+      ],
+      true,
+      [
+        32,
+        112
+      ]
+    ],
+    "cathedral_bell": [
+      "cathedral",
+      [
+        [
+          57,
+          238
+        ],
+        [
+          74,
+          247
+        ],
+        [
+          74,
+          272
+        ],
+        [
+          57,
+          263
+        ]
+      ],
+      true,
+      [
+        40,
+        72
+      ]
+    ],
+    "inn_side_sign": [
+      "inn_side",
+      [
+        [
+          283,
+          239
+        ],
+        [
+          350,
+          197
+        ],
+        [
+          350,
+          245
+        ],
+        [
+          283,
+          287
+        ]
+      ],
+      true,
+      [
+        112,
+        80
+      ]
     ]
   },
   "reused_village_features": {
@@ -241,6 +731,10 @@
     "office_rosette": "medallion"
   },
   "facades": {
+    "1201": [
+      10001,
+      "cathedral_window"
+    ],
     "1091": [
       10607,
       "office_window"

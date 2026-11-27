@@ -1,0 +1,1481 @@
+{
+  "skins": [
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100000,
+      "label": "Classic · 100000",
+      "weapons": {
+        "axe": "original:2375",
+        "bow": "original:2376",
+        "unarmed": "original:2377",
+        "sword": "original:2378",
+        "staff": "original:2379",
+        "polearm": "original:2380"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100006,
+      "label": "Classic · 100006",
+      "weapons": {
+        "axe": "original:2381",
+        "bow": "original:2382",
+        "unarmed": "original:2383",
+        "sword": "original:2384",
+        "staff": "original:2385",
+        "polearm": "original:2386"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100012,
+      "label": "Classic · 100012",
+      "weapons": {
+        "axe": "original:2387",
+        "bow": "original:2388",
+        "unarmed": "original:2389",
+        "sword": "original:2390",
+        "staff": "original:2391",
+        "polearm": "original:2392"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100018,
+      "label": "Classic · 100018",
+      "weapons": {
+        "axe": "original:2393",
+        "bow": "original:2394",
+        "unarmed": "original:2395",
+        "sword": "original:2396",
+        "staff": "original:2397",
+        "polearm": "original:2398"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100425,
+      "label": "Alternative · 100425",
+      "weapons": {
+        "axe": "joy:746",
+        "bow": "joy:747",
+        "unarmed": "joy:748",
+        "sword": "joy:749",
+        "staff": "joy:750",
+        "polearm": "joy:751"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100756,
+      "label": "Alternative · 100756",
+      "weapons": {
+        "axe": "joy-ex:777",
+        "bow": "joy-ex:778",
+        "unarmed": "joy-ex:779",
+        "sword": "joy-ex:780",
+        "staff": "joy-ex:781",
+        "polearm": "joy-ex:782"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 100972,
+      "label": "Alternative · 100972",
+      "weapons": {
+        "axe": "v3:516",
+        "bow": "v3:435",
+        "unarmed": "v3:597",
+        "sword": "v3:506",
+        "staff": "v3:374",
+        "polearm": "v3:614"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105000,
+      "label": "Original · 105000",
+      "weapons": {
+        "axe": "ex:0",
+        "bow": "ex:1",
+        "unarmed": "ex:2",
+        "sword": "ex:3",
+        "staff": "ex:4",
+        "polearm": "ex:5"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105006,
+      "label": "Alternative · 105006",
+      "weapons": {
+        "axe": "ex:6",
+        "bow": "ex:7",
+        "unarmed": "ex:8",
+        "sword": "ex:9",
+        "staff": "ex:10",
+        "polearm": "ex:11"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105012,
+      "label": "Alternative · 105012",
+      "weapons": {
+        "axe": "ex:12",
+        "bow": "ex:13",
+        "unarmed": "ex:14",
+        "sword": "ex:15",
+        "staff": "ex:16",
+        "polearm": "ex:17"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105018,
+      "label": "Alternative · 105018",
+      "weapons": {
+        "axe": "ex:18",
+        "bow": "ex:19",
+        "unarmed": "ex:20",
+        "sword": "ex:21",
+        "staff": "ex:22",
+        "polearm": "ex:23"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105549,
+      "label": "Alternative · 105549",
+      "weapons": {
+        "axe": "joy-ex:412",
+        "bow": "joy-ex:413",
+        "unarmed": "joy-ex:414",
+        "sword": "joy-ex:415",
+        "staff": "joy-ex:416",
+        "polearm": "joy-ex:417"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 105606,
+      "label": "Alternative · 105606",
+      "weapons": {
+        "axe": "joy-ex:660",
+        "bow": "joy-ex:661",
+        "unarmed": "joy-ex:662",
+        "sword": "joy-ex:663",
+        "staff": "joy-ex:664",
+        "polearm": "joy-ex:665"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 115257,
+      "label": "Special · Gold Dragon Fist",
+      "weapons": {
+        "unarmed": "update-ex:1912"
+      },
+      "head_crop": [
+        -27,
+        -72,
+        27,
+        -35
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 120160,
+      "label": "Alternative · 120160",
+      "weapons": {
+        "axe": "v3:1013",
+        "bow": "v3:1014",
+        "unarmed": "v3:1015",
+        "sword": "v3:1017",
+        "staff": "v3:1018",
+        "polearm": "v3:1019"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 120168,
+      "label": "Alternative · 120168",
+      "weapons": {
+        "axe": "v3:1020",
+        "bow": "v3:1021",
+        "unarmed": "v3:1022",
+        "sword": "v3:1023",
+        "staff": "v3:1024",
+        "polearm": "v3:1025"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 120384,
+      "label": "Alternative · 120384",
+      "weapons": {
+        "unarmed": "ex:1755"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 120385,
+      "label": "Alternative · 120385",
+      "weapons": {
+        "unarmed": "ex:1756"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 124999,
+      "label": "Special · Silver Martial Sword",
+      "weapons": {
+        "sword": "ga10:0"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100400,
+      "label": "Classic · 100400",
+      "weapons": {
+        "axe": "original:2687",
+        "bow": "original:2688",
+        "unarmed": "original:2689",
+        "sword": "original:2690",
+        "staff": "original:2691",
+        "polearm": "original:2692"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100406,
+      "label": "Classic · 100406",
+      "weapons": {
+        "axe": "original:2693",
+        "bow": "original:2694",
+        "unarmed": "original:2695",
+        "sword": "original:2696",
+        "staff": "original:2697",
+        "polearm": "original:2698"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100412,
+      "label": "Classic · 100412",
+      "weapons": {
+        "axe": "original:2699",
+        "bow": "original:2700",
+        "unarmed": "original:2701",
+        "sword": "original:2702",
+        "staff": "original:2703",
+        "polearm": "original:2704"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100418,
+      "label": "Classic · 100418",
+      "weapons": {
+        "axe": "original:2705",
+        "bow": "original:2706",
+        "unarmed": "original:2707",
+        "sword": "original:2708",
+        "staff": "original:2709",
+        "polearm": "original:2710"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100487,
+      "label": "Alternative · 100487",
+      "weapons": {
+        "axe": "joy-ex:532",
+        "bow": "joy-ex:533",
+        "unarmed": "joy-ex:534",
+        "sword": "joy-ex:535",
+        "staff": "joy-ex:536",
+        "polearm": "joy-ex:537"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100612,
+      "label": "Alternative · 100612",
+      "weapons": {
+        "axe": "joy-ex:738",
+        "bow": "joy-ex:739",
+        "unarmed": "joy-ex:740",
+        "sword": "joy-ex:741",
+        "staff": "joy-ex:742",
+        "polearm": "joy-ex:743"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100618,
+      "label": "Alternative · 100618",
+      "weapons": {
+        "axe": "joy-ex:744",
+        "bow": "joy-ex:745",
+        "unarmed": "joy-ex:746",
+        "sword": "joy-ex:747",
+        "staff": "joy-ex:748",
+        "polearm": "joy-ex:749"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100631,
+      "label": "Alternative · 100631",
+      "weapons": {
+        "axe": "joy-ex:750",
+        "bow": "joy-ex:751",
+        "unarmed": "joy-ex:752",
+        "sword": "joy-ex:753",
+        "staff": "joy-ex:754",
+        "polearm": "joy-ex:755"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100637,
+      "label": "Alternative · 100637",
+      "weapons": {
+        "axe": "joy-ex:756",
+        "bow": "joy-ex:757",
+        "unarmed": "joy-ex:758",
+        "sword": "joy-ex:759",
+        "staff": "joy-ex:760",
+        "polearm": "joy-ex:761"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 100750,
+      "label": "Alternative · 100750",
+      "weapons": {
+        "axe": "joy:650",
+        "bow": "joy:651",
+        "unarmed": "joy:652",
+        "sword": "joy:653",
+        "staff": "joy:654",
+        "polearm": "joy:655"
+      },
+      "head_crop": [
+        -27,
+        -89,
+        27,
+        -46
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105400,
+      "label": "Original · 105400",
+      "weapons": {
+        "axe": "ex:312",
+        "bow": "ex:313",
+        "unarmed": "ex:314",
+        "sword": "ex:315",
+        "staff": "ex:316",
+        "polearm": "ex:317"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105406,
+      "label": "Alternative · 105406",
+      "weapons": {
+        "axe": "ex:318",
+        "bow": "ex:319",
+        "unarmed": "ex:320",
+        "sword": "ex:321",
+        "staff": "ex:322",
+        "polearm": "ex:323"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105412,
+      "label": "Alternative · 105412",
+      "weapons": {
+        "axe": "ex:324",
+        "bow": "ex:325",
+        "unarmed": "ex:326",
+        "sword": "ex:327",
+        "staff": "ex:328",
+        "polearm": "ex:329"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105418,
+      "label": "Alternative · 105418",
+      "weapons": {
+        "axe": "ex:330",
+        "bow": "ex:331",
+        "unarmed": "ex:332",
+        "sword": "ex:333",
+        "staff": "ex:334",
+        "polearm": "ex:335"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105454,
+      "label": "Alternative · 105454",
+      "weapons": {
+        "axe": "joy-ex:259",
+        "bow": "joy-ex:260",
+        "unarmed": "joy-ex:261",
+        "sword": "joy-ex:262",
+        "staff": "joy-ex:263",
+        "polearm": "joy-ex:264"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 105884,
+      "label": "Alternative · 105884",
+      "weapons": {
+        "axe": "joy-ex:864",
+        "bow": "joy-ex:865",
+        "unarmed": "joy-ex:866",
+        "sword": "joy-ex:867",
+        "staff": "joy-ex:868",
+        "polearm": "joy-ex:869"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 53,
+      "name": "el",
+      "skin": 106775,
+      "label": "Alternative · 106775",
+      "weapons": {
+        "axe": "v3:370",
+        "bow": "v3:460",
+        "unarmed": "v3:419",
+        "sword": "v3:481",
+        "staff": "v3:602",
+        "polearm": "v3:430"
+      },
+      "head_crop": [
+        -27,
+        -85,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100100,
+      "label": "Classic · 100100",
+      "weapons": {
+        "axe": "original:2471",
+        "bow": "original:2472",
+        "unarmed": "original:2473",
+        "sword": "original:2474",
+        "staff": "original:2475",
+        "polearm": "original:2476"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100106,
+      "label": "Classic · 100106",
+      "weapons": {
+        "axe": "original:2477",
+        "bow": "original:2478",
+        "unarmed": "original:2479",
+        "sword": "original:2480",
+        "staff": "original:2481",
+        "polearm": "original:2482"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100112,
+      "label": "Classic · 100112",
+      "weapons": {
+        "axe": "original:2483",
+        "bow": "original:2484",
+        "unarmed": "original:2485",
+        "sword": "original:2486",
+        "staff": "original:2487",
+        "polearm": "original:2488"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100118,
+      "label": "Classic · 100118",
+      "weapons": {
+        "axe": "original:2489",
+        "bow": "original:2490",
+        "unarmed": "original:2491",
+        "sword": "original:2492",
+        "staff": "original:2493",
+        "polearm": "original:2494"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100230,
+      "label": "Classic · 100230",
+      "weapons": {
+        "axe": "joy-ex:678",
+        "bow": "joy-ex:679",
+        "unarmed": "joy-ex:680",
+        "sword": "joy-ex:681",
+        "staff": "joy-ex:682",
+        "polearm": "joy-ex:683"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100236,
+      "label": "Classic · 100236",
+      "weapons": {
+        "axe": "joy-ex:684",
+        "bow": "joy-ex:685",
+        "unarmed": "joy-ex:686",
+        "sword": "joy-ex:687",
+        "staff": "joy-ex:688",
+        "polearm": "joy-ex:689"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100242,
+      "label": "Classic · 100242",
+      "weapons": {
+        "axe": "joy-ex:690",
+        "bow": "joy-ex:691",
+        "unarmed": "joy-ex:692",
+        "sword": "joy-ex:693",
+        "staff": "joy-ex:694",
+        "polearm": "joy-ex:695"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100493,
+      "label": "Alternative · 100493",
+      "weapons": {
+        "axe": "joy-ex:448",
+        "bow": "joy-ex:449",
+        "unarmed": "joy-ex:450",
+        "sword": "joy-ex:451",
+        "staff": "joy-ex:452",
+        "polearm": "joy-ex:453"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100575,
+      "label": "Alternative · 100575",
+      "weapons": {
+        "axe": "joy:608",
+        "bow": "joy:609",
+        "unarmed": "joy:610",
+        "sword": "joy:611",
+        "staff": "joy:612",
+        "polearm": "joy:613"
+      },
+      "head_crop": [
+        -27,
+        -68,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100780,
+      "label": "Alternative · 100780",
+      "weapons": {
+        "axe": "joy-ex:801",
+        "bow": "joy-ex:802",
+        "unarmed": "joy-ex:803",
+        "sword": "joy-ex:804",
+        "staff": "joy-ex:805",
+        "polearm": "joy-ex:806"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 100786,
+      "label": "Alternative · 100786",
+      "weapons": {
+        "axe": "joy-ex:807",
+        "bow": "joy-ex:808",
+        "unarmed": "joy-ex:809",
+        "sword": "joy-ex:810",
+        "staff": "joy-ex:811",
+        "polearm": "joy-ex:812"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 105100,
+      "label": "Original · 105100",
+      "weapons": {
+        "axe": "ex:96",
+        "bow": "ex:97",
+        "unarmed": "ex:98",
+        "sword": "ex:99",
+        "staff": "ex:100",
+        "polearm": "ex:101"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 105106,
+      "label": "Alternative · 105106",
+      "weapons": {
+        "axe": "ex:102",
+        "bow": "ex:103",
+        "unarmed": "ex:104",
+        "sword": "ex:105",
+        "staff": "ex:106",
+        "polearm": "ex:107"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 105118,
+      "label": "Alternative · 105118",
+      "weapons": {
+        "axe": "ex:114",
+        "bow": "ex:115",
+        "unarmed": "ex:116",
+        "sword": "ex:117",
+        "staff": "ex:118",
+        "polearm": "ex:119"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 105436,
+      "label": "Alternative · 105436",
+      "weapons": {
+        "axe": "joy-ex:241",
+        "bow": "joy-ex:242",
+        "unarmed": "joy-ex:243",
+        "sword": "joy-ex:244",
+        "staff": "joy-ex:245",
+        "polearm": "joy-ex:246"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 100909,
+      "label": "Alternative · 100909",
+      "weapons": {
+        "axe": "v3:619",
+        "bow": "v3:492",
+        "unarmed": "v3:372",
+        "sword": "v3:637",
+        "staff": "v3:587",
+        "polearm": "v3:571"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105466,
+      "label": "Alternative · 105466",
+      "weapons": {
+        "axe": "joy-ex:271",
+        "bow": "joy-ex:272",
+        "unarmed": "joy-ex:273",
+        "sword": "joy-ex:274",
+        "staff": "joy-ex:275",
+        "polearm": "joy-ex:276"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105472,
+      "label": "Alternative · 105472",
+      "weapons": {
+        "axe": "joy-ex:277",
+        "bow": "joy-ex:278",
+        "unarmed": "joy-ex:279",
+        "sword": "joy-ex:280",
+        "staff": "joy-ex:281",
+        "polearm": "joy-ex:282"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105478,
+      "label": "Alternative · 105478",
+      "weapons": {
+        "axe": "joy-ex:283",
+        "bow": "joy-ex:284",
+        "unarmed": "joy-ex:285",
+        "sword": "joy-ex:286",
+        "staff": "joy-ex:287",
+        "polearm": "joy-ex:288"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105670,
+      "label": "Alternative · 105670",
+      "weapons": {
+        "axe": "puk3:559",
+        "bow": "puk3:560",
+        "unarmed": "puk3:561",
+        "sword": "puk3:562",
+        "staff": "puk3:563",
+        "polearm": "puk3:564"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105676,
+      "label": "Alternative · 105676",
+      "weapons": {
+        "axe": "puk3:565",
+        "bow": "puk3:566",
+        "unarmed": "puk3:567",
+        "sword": "puk3:568",
+        "staff": "puk3:569",
+        "polearm": "puk3:570"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 105682,
+      "label": "Alternative · 105682",
+      "weapons": {
+        "axe": "puk3:571",
+        "bow": "puk3:572",
+        "unarmed": "puk3:573",
+        "sword": "puk3:574",
+        "staff": "puk3:575",
+        "polearm": "puk3:576"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106250,
+      "label": "Original · 106250",
+      "weapons": {
+        "axe": "ex:504",
+        "bow": "ex:505",
+        "unarmed": "ex:506",
+        "sword": "ex:507",
+        "staff": "ex:508",
+        "polearm": "ex:509"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106256,
+      "label": "Alternative · 106256",
+      "weapons": {
+        "axe": "ex:510",
+        "bow": "ex:511",
+        "unarmed": "ex:512",
+        "sword": "ex:513",
+        "staff": "ex:514",
+        "polearm": "ex:515"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106262,
+      "label": "Alternative · 106262",
+      "weapons": {
+        "axe": "ex:516",
+        "bow": "ex:517",
+        "unarmed": "ex:518",
+        "sword": "ex:519",
+        "staff": "ex:520",
+        "polearm": "ex:521"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106268,
+      "label": "Alternative · 106268",
+      "weapons": {
+        "axe": "ex:522",
+        "bow": "ex:523",
+        "unarmed": "ex:524",
+        "sword": "ex:525",
+        "staff": "ex:526",
+        "polearm": "ex:527"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106600,
+      "label": "Alternative · 106600",
+      "weapons": {
+        "axe": "joy:704",
+        "bow": "joy:705",
+        "unarmed": "joy:706",
+        "sword": "joy:707",
+        "staff": "joy:708",
+        "polearm": "joy:709"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 106768,
+      "label": "Alternative · 106768",
+      "weapons": {
+        "axe": "v3:596",
+        "bow": "v3:490",
+        "unarmed": "v3:523",
+        "sword": "v3:462",
+        "staff": "v3:455",
+        "polearm": "v3:633"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 111676,
+      "label": "Special · Pink Lightning",
+      "weapons": {
+        "unarmed": "puk2:1159"
+      },
+      "head_crop": [
+        -24,
+        -67,
+        25,
+        -34
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120358,
+      "label": "Alternative · 120358",
+      "weapons": {
+        "axe": "v3:989",
+        "bow": "v3:990",
+        "unarmed": "v3:991",
+        "sword": "v3:992",
+        "staff": "v3:993",
+        "polearm": "v3:994"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120364,
+      "label": "Alternative · 120364",
+      "weapons": {
+        "axe": "v3:995",
+        "bow": "v3:996",
+        "unarmed": "v3:997",
+        "sword": "v3:998",
+        "staff": "v3:999",
+        "polearm": "v3:1000"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120447,
+      "label": "Special · White / Gold Companion",
+      "weapons": {
+        "staff": "puk3:912"
+      },
+      "head_crop": [
+        -24,
+        -65,
+        24,
+        -36
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 900060,
+      "label": "Secret · Red Martial Artist",
+      "weapons": {
+        "axe": "joy-ex:648",
+        "bow": "joy-ex:649",
+        "unarmed": "joy-ex:650",
+        "sword": "joy-ex:651",
+        "staff": "joy-ex:652",
+        "polearm": "joy-ex:653"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 52,
+      "name": "bau",
+      "skin": 900061,
+      "label": "Secret · Black Martial Artist",
+      "weapons": {
+        "axe": "joy-ex:654",
+        "bow": "joy-ex:655",
+        "unarmed": "joy-ex:656",
+        "sword": "joy-ex:657",
+        "staff": "joy-ex:658",
+        "polearm": "joy-ex:659"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -32
+      ]
+    },
+    {
+      "character": 54,
+      "name": "gen",
+      "skin": 105112,
+      "label": "Alternative · Blue Hair / White",
+      "weapons": {
+        "axe": "ex:108",
+        "bow": "ex:109",
+        "unarmed": "ex:110",
+        "sword": "ex:111",
+        "staff": "ex:112",
+        "polearm": "ex:113"
+      },
+      "head_crop": [
+        -27,
+        -73,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120433,
+      "label": "Special · Black / Red Weapons",
+      "weapons": {
+        "axe": "ch1:668",
+        "bow": "ch1:669",
+        "sword": "ch1:670",
+        "staff": "ch1:671",
+        "polearm": "ch1:672"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -36
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120400,
+      "label": "Event archive · 120400",
+      "weapons": {
+        "axe": "puk3:559",
+        "bow": "puk3:560",
+        "unarmed": "puk3:561",
+        "sword": "puk3:562",
+        "staff": "puk3:563",
+        "polearm": "puk3:564"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120406,
+      "label": "Event archive · 120406",
+      "weapons": {
+        "axe": "puk3:565",
+        "bow": "puk3:566",
+        "unarmed": "puk3:567",
+        "sword": "puk3:568",
+        "staff": "puk3:569",
+        "polearm": "puk3:570"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    },
+    {
+      "character": 55,
+      "name": "sarah",
+      "skin": 120412,
+      "label": "Event archive · 120412",
+      "weapons": {
+        "axe": "puk3:571",
+        "bow": "puk3:572",
+        "unarmed": "puk3:573",
+        "sword": "puk3:574",
+        "staff": "puk3:575",
+        "polearm": "puk3:576"
+      },
+      "head_crop": [
+        -27,
+        -65,
+        27,
+        -33
+      ]
+    }
+  ],
+  "hidden_bau_skins": [
+    115257,
+    124999
+  ],
+  "aliases": {
+    "125001": 124999
+  },
+  "notes": "Explicit source keys; Gen/Pippin and Emilia ID collisions remain isolated. Gold dragon fist 115257 and silver martial sword 124999 belong to Gen; hidden_bau_skins retains their former saved Bau keys for compatibility. Secret/event labels describe archive variants, not verified server unlock rules."
+}

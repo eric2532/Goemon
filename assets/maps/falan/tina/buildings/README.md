@@ -478,3 +478,159 @@ future edits), and tina_explorer_review.gd -- --remaining-street-review.
 The eight live destinations cover day/night Tina, its southern approach, the
 northern pub and Magic University. Evidence goes in Tina Recovery/Remaining
 Street Polish/ under Asset Toolkit; monsters use tina_night_encounters_test.gd.
+
+Fresh checks: 111 focused headless and 111 focused Metal checks, 4,119 pub
+building checks, 17,169 snowy-building checks, 130 previous-polish checks,
+197 day/night checks, 1,976 rendered encounter checks and eight rendered
+Explorer placements pass. Four source tests and the native surface atlas
+reproduce; 14 original catalog/atlas files are unchanged. Asset preservation
+passes; audit reads 319 assets with zero read errors. Final runs have no script
+errors or Metal fence timeouts. Existing exit cleanup warnings remain. These
+are focused correctness/visual checks, not a long-session performance claim.
+
+## Round hospitals and original grave markers — 2026-11-23
+
+Round hospitals 11413/11414 now use `Tina.circular_profile` and
+`calibrated_circular`, deriving wall height, roof, cupola and garden rings from
+their original image coordinates. The former independently stretched shell
+made them tall towers and displaced the front window. The native projector now
+fits those rings together; the foundation and garden share one closed inner
+edge. Door frames/steps reuse `round_door`, with grounded thresholds and an
+unscaled structural ring. The existing solid finial replaces the transparent
+pinched cupola tip. Jenova 11402 and the bay-house profiles retain their own fits.
+
+`Street.TOMBS` covers all eleven native markers: 11048/11050/11051/11053/11056/
+11058/11062 and 11470/11471/11473/11474. `Street.tomb_mesh` reuses the existing
+profile extrusion and source atlas, retaining original outlines, inscriptions,
+bouquets, ribbons and snow instead of generic slabs, grooves and pebble flowers.
+11050 lies on the ground. 11062 separates the upright stone and low slab at the
+measured native join line y = 0.75x + 21.25, through source pixel (29,43).
+Other markers stand upright. Closed added depth is 0.10, or 0.14 for the larger
+flower markers; the source art already includes its painted three-quarter edge.
+
+`tools/prepare_tina_wall_outlines.gd` prepares all eleven markers alongside the
+existing 32 wall contours. It preserves separate visible components, excludes
+the grey checkerboard shadow and pins each original RGBA hash. The shared
+`wall-outlines.json` stores original contours, upright/flat parts and an opaque
+native stone pixel for the unseen edges/back. Runtime uses cached geometry and
+one owned lit backing material per source page, without GPU image readback or
+changes to the shared source material. This remains a reconstruction from 2D:
+rear paint, depth, hidden surfaces and rear hospital rings are inferred.
+
+Review `tina_area_polish_review.gd -- --round-stone` (add `--baseline` before
+future edits), `tina_explorer_review.gd -- --round-stone-review` and
+`prepare_tina_wall_outlines.gd -- --check`. Evidence is in Asset Toolkit's
+`Tina Recovery/Round and Stone Polish/`, including source/before/after images,
+per-graphic triangle/surface statistics and eight live Explorer destinations.
+The two hospitals use 1,540 triangles each; markers use 100–572 each, two
+surfaces per graphic. They reuse the existing spatial batches and original
+placements; collision/navigation, the clock and native encounter ownership are
+unchanged. Tina NPC gameplay remains removed.
+
+Fresh scenery verification passes 161 focused headless and 161 focused Metal
+checks, 22,791 round-building checks, 111 previous street-prop checks, 130 earlier
+polish checks, 197 day/night checks and eight live Explorer placements. Five
+source tests pass, the 32 wall plus 11 grave contours reproduce, and all 14
+original catalog/atlas files are unchanged. Asset preservation passes; the
+audit reads 319 assets with zero read errors. Existing teardown RID/resource
+warnings remain. These checks do not establish a long-session performance gain.
+
+The final rendered encounter regression passes 1,976 checks: 64 night-village,
+192 southern-road and 85 northern-road enemies populate through the native
+owner. A live night attack reduces player HP, dusk/dawn cleanup and bounded
+repopulation pass, and repeated settled ticks add no nodes/resources. Final
+listed logs have no script errors or Metal fence timeouts. The launcher script
+lock was busy during the final Explorer and monster reviews, so both used the
+same Godot and complete source directly after attempting Play Goemon. See
+`verification.json` for results and scope. No app export was requested or made.
+
+
+## Village-only appearance pass — 2026-11-23
+
+`forest_tina_scenery.gd` supplies isolated scenery variants only when the source
+map is 4200/4201 (the day/night village) or one of its fourteen existing Tina
+room maps (4206/4208/4209/4210/4211/4212/4213/4214/4220/4221/4222/4230/4232/4299).
+It intercepts those
+graphics before the generic flower/tree paths, then uses the existing source
+anchors, immutable meshes/materials and 48 m spatial batches. Other villages,
+roads and Arena retain their previous builders. Original room walls, floors
+and stairs remain on their existing rendering path. No shared GLB, Blender
+master, source PNG, map plane, collision, NPC, dialogue, entrance, transition,
+clock, combat or save-data owner was edited.
+
+Applied corrections:
+
+- Three original tree crowns (10089/10092/10093) replace the single generic
+  silverleaf crown. They redistribute the existing complete leaf quads using
+  the same source-sampling method as `prepare_crossgate_trees.py`, with each
+  graphic's own pale-leaf painting, outline and proportions. Existing trunk
+  topology is retained; shared tree masters and materials remain unchanged.
+- Native 11626 flowers, fourteen cream-tipped reed variants 11660–11673 and
+  four rose bushes 11692–11695 retain their individual source-facing contours
+  and paint instead of all becoming `flowers_ivory`. Original 12471–12485
+  fronds retain their green/ochre/red variants and low spreading silhouettes
+  instead of repeating nine procedural leaves. Small plants use the existing
+  contour extrusion helper with shallow depth; fronds lie near the ground.
+- Storage shelter 11015 has its long sloping roof, original timber roof paint,
+  exposed supports, stacked logs and yellow hanging hides. It replaces the
+  generic peaked roof and four-row log pyramid. It reuses existing roof-face,
+  rod and rounded-log primitives and the existing native timber atlas.
+
+- Existing village rooms recover their own original furniture paint where
+  generic materials had replaced it: wood grain, upholstery, crockery, produce,
+  baskets, stoves, shelves, piano, clock and decorative objects. Already
+  source-painted surfaces retain their existing paint. Unseen rear/underside
+  faces keep their prior materials and UVs; only source-facing surfaces receive
+  newly recovered paint. Plain table/counter
+  segments no longer inherit a rounded book-covered desk, extra books, quills
+  or shelf dividers. Segment support legs follow the opaque native leg strips.
+  The long plain bench 16500 has a plank and two trestles instead of a padded
+  bench. Six potted-plant variants use their actual conifer/leaf/flower/vase
+  contours instead of an unrelated urn and repeated fern. All other furniture
+  keeps its complete existing geometry; only its source paint changes.
+
+There are 136 outdoor replacement placements in each village phase. All are on, or
+one source cell from, the existing connected walkable village component. No
+new reachability, remote map crop or prop placement was introduced. Look at
+the flowers beside the blue house (36,39), roses beside the pub (47–51,57),
+the boundary reeds/ferns, the distinct trees at (76,49)/(14,59), and the timber
+shelter near the northern bank (47,6). Coordinates are original source cells.
+Also look at the pub counter, hospital furniture/potted plants, the plain
+bench in the village homes, and the chief's room furnishings. These are review
+locations, not a scripted walkthrough.
+
+Source and uncertainty ledger:
+
+| Category | Disposition / specific limit |
+| --- | --- |
+| Main houses, hospital, pub and shed | Existing native facade, roof and landmark profiles retained; no additional clear mismatch established from the supplied faces. Their hidden/rear surfaces and green bay's obscured roof paint are not shown in the archive. Leave these reconstructions unchanged pending an original rear/obscured view. |
+| Shelter | Visible slope, timber painting and hides corrected. The source does not resolve the hidden roof underside or the full number of concealed logs; their depth/support volume remains a reconstruction. |
+| Trees | Source crowns/paint corrected. The archive does not provide rear branch topology; reuse the existing trunk rather than inventing branches. Crown depth uses the existing recovered-tree method and is not original 3D data. |
+| Reeds, flowers, roses and ferns | Original visible shapes/colors corrected. Unseen thickness/back-facing botanical detail is not recoverable; shallow backing reuses the visible paint. This needs in-game visual review, particularly from the rear. |
+| Streets, snow, ground colors/textures | Original floor serials, per-cell paint and source anchors already retained. Keep them. Existing missing ground beneath the bay house is an approximation; no original concealed floor tile is available to replace it confidently. |
+| Walls, rails, graveyard, signs, containers, boats | Existing recovered source-specific profiles/paint and all original placements retained; no new reference-supported relocation identified. Concealed backs remain uncertain. |
+| Shoreline | Preserve the current bank/water meshes. Native bank sprites combine painted rock and water; they do not give a reliable land/rock/water height split for a new 3D contour. Resolving that split is the blocker to further contour changes. |
+| Lighting | Preserve current outdoor day/night lighting. The references contain baked 2D shading, not a matched 3D lighting/exposure or time-of-day reference; a village-specific lighting adjustment cannot be justified from them. |
+| Existing village rooms | Original floors/walls/stairs, source placements and entrances retained. Clear desk/table/bench/plant substitutions and generic paint are corrected. Small painted tabletop objects, pot/cabinet backs, concealed support joints and upholstery depth have no separate original depth views; do not invent these details. The food shop (4206) and night gate room (4232) remain explicitly reference-only layouts, not verified BlueCG captures. |
+| Roads / other regions | No changes. Only the two village phases and their already-accessible village rooms are in scope. Linked mines, quest regions, roads and other villages retain their current art. |
+
+Preparation: run `Play Goemon.command --headless --script
+res://tools/prepare_tina_scenery.gd`; add `-- --check` to reproduce the prepared
+`assets/maps/falan/tina/scenery_profiles.gd`. It pins every original RGBA hash
+and uses CPU images offline; there is no runtime image readback.
+
+Nonvisual checks: `tina_appearance_test.gd` checks both village builds, unchanged
+map/collision planes and door records, exact per-graphic placement counts,
+finite/grounded geometry, source UV bounds, cache reuse, reused tree topology
+rejection of non-Tina maps and unchanged room-furniture vertex geometry. The
+1,692 focused checks pass, as do the five existing
+Python Tina source tests, profile reproduction, and global asset/audio/cosmetic
+preservation. The GLB audit reads 319 assets without read errors. The launcher
+script lock was occupied, so the same Godot binary and complete source ran the
+headless checks directly after attempting the launcher. Dummy-renderer resource
+and RID warnings remain at test teardown; this is not a resource-soak result.
+
+No walkthrough, rendered verification, verification screenshots, performance
+benchmark or app export was performed. The source contact sheet in Asset
+Toolkit's `Tina Recovery/Appearance Pass/` contains only archived reference art.
+Status: ready for the user's in-game review; **not verified 1:1**.

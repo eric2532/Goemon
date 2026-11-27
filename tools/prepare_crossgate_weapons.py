@@ -41,7 +41,11 @@ def prepare(source,check=False,kaz_only=False):
   48:sorted((ART/'fighters/bei').glob('*/motions.json')),
   49:sorted((ART/'fighters/moe').glob('*/motions.json')),
   50:sorted((ART/'fighters/ami').glob('*/motions.json')),
-  51:sorted((ART/'fighters/kumago').glob('*/motions.json'))}
+  51:sorted((ART/'fighters/kumago').glob('*/motions.json')),
+  52:sorted((ART/'fighters/bau').glob('*/motions.json')),
+  53:sorted((ART/'fighters/el').glob('*/motions.json')),
+  54:sorted((ART/'fighters/gen').glob('*/motions.json')),
+  55:sorted((ART/'fighters/sarah').glob('*/motions.json'))}
  if kaz_only:roster={34:roster[34]}
  catalog={};needed={};audio={}
  for character,paths in roster.items():
@@ -81,6 +85,10 @@ def prepare(source,check=False,kaz_only=False):
    skin=0 if character==36 or (character==35 and 'source_weapons' not in data) else int(data['id'])
    catalog[str(character)][str(skin)]=routes
  assert len(catalog)==len(roster) and catalog['34']['102488']=={'sword':{'native':0}}
+ if kaz_only:
+  previous=json.loads((OUT/'catalog.json').read_text()).get('34',{})
+  for skin,routes in catalog['34'].items():
+   if 'boomerang' in previous.get(skin,{}):routes['boomerang']=previous[skin]['boomerang']
  OUT.mkdir(exist_ok=True)
  existing={}
  for path in (ROOT/'assets/audio/crossgate').rglob('*.wav'):existing.setdefault(path.name.lower(),[]).append(path)
@@ -137,6 +145,9 @@ def prepare(source,check=False,kaz_only=False):
   data={'key':key,'source_id':ident,'weapon':weapon,'pages':pages,'clips':clips,'audio':sounds}
   (folder/'motions.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
   print(f'{number}/{len(needed)} {key} {weapon}: {len(clips)} clips, {pages} pages',flush=True)
+ if not kaz_only:
+  from prepare_crossgate_boomerangs import prepare as prepare_boomerangs
+  catalog=prepare_boomerangs(source,check,catalog)
  if not check:
   if kaz_only:
    catalog_path=OUT/'catalog.json'
@@ -158,6 +169,7 @@ def prepare(source,check=False,kaz_only=False):
  if not check:
   images=(image for key in needed for image in (OUT/key.replace(':','-')).glob('*.png')) if kaz_only else list(OUT.rglob('*.png'))+[ROOT/'assets/ui/crossgate/weapons/staff.png']
   for image in images:
+   if OUT/'boomerang' in image.parents:continue
    settings=image.with_suffix('.png.import')
    if settings.exists():settings.write_text(settings.read_text().replace('process/fix_alpha_border=false','process/fix_alpha_border=true'))
    else:settings.write_text('[remap]\nimporter="texture"\ntype="CompressedTexture2D"\n[deps]\nsource_file="res://'+str(image.relative_to(ROOT))+'"\n[params]\ncompress/mode=0\nprocess/fix_alpha_border=true\nmipmaps/generate=false\n')

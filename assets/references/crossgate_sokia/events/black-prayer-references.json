@@ -1,0 +1,26 @@
+[
+  {
+    "file": "EV_mag_6303.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6303.txt",
+    "sha256": "ad90410ef00e8564b7fe1443cf9290e58f814442b7a5caa361bc03085201cfff",
+    "bytes": 1441,
+    "acquired": "primary_pinned_raw_source",
+    "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+    "git_blob": "e2ce570f7434989b635433904917648f665ff792",
+    "path": "gmsv/data/npc/EV_mag_6303.txt",
+    "durable_path": "assets/references/crossgate_sokia/events/EV_mag_6303.txt"
+  },
+  {
+    "file": "EV_mag_6304.txt",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6304.txt",
+    "sha256": "43bbe8094c1162f3a61e6d3c7b0d713ba33285677ec53428cc2de0acb6d2a2aa",
+    "bytes": 2201,
+    "acquired": "primary_pinned_raw_source",
+    "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+    "git_blob": "555e026e6599c7a1dea4a49d76aac40affcad9c0",
+    "path": "gmsv/data/npc/EV_mag_6304.txt",
+    "durable_path": "assets/references/crossgate_sokia/events/EV_mag_6304.txt"
+  }
+]

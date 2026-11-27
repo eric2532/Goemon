@@ -1,0 +1,95 @@
+{
+  "group": "406",
+  "master": 301044,
+  "origin": [
+    -192,
+    48
+  ],
+  "size": [
+    128,
+    192
+  ],
+  "rgba_sha256": "6543e9d1c2bb2bef30ebe1036abc3483b621be95492c54cb9b47d46bdf35e7e9",
+  "body": {
+    "foot": [
+      64.5,
+      146.5
+    ],
+    "profile": [
+      [
+        64.5,
+        146.5,
+        90.92094482456109
+      ],
+      [
+        64.5,
+        114.5,
+        90.92094482456109
+      ],
+      [
+        64.5,
+        112.5,
+        102.82725902777743
+      ],
+      [
+        64.5,
+        108.5,
+        102.82725902777743
+      ],
+      [
+        64.5,
+        110.5,
+        90.92094482456109
+      ],
+      [
+        64.5,
+        76,
+        90.92094482456109
+      ],
+      [
+        64.5,
+        38,
+        90.92094482456109
+      ]
+    ],
+    "paint_rows": false,
+    "native_faces": true,
+    "molding": {
+      "min_row": 108.4,
+      "max_row": 114.6,
+      "paint_row": 144.5
+    }
+  },
+  "orb": {
+    "centre": [
+      64.0,
+      28.5
+    ],
+    "radius": 1.6572814816361612,
+    "cap_native_row": 38.0,
+    "source_null_lift": 0.7051633073231492
+  },
+  "source_sections": {
+    "body_width": 84,
+    "front_depth": 31.5,
+    "front_base": 178,
+    "front_gold_bottom": 107.5,
+    "front_molding_top": 144.125,
+    "front_molding_bottom": 148.125,
+    "molding_paint_row": 144.5
+  },
+  "paints": {
+    "body": "res://assets/maps/falan/elsa/props/pedestal-406/body.png",
+    "globe": "res://assets/maps/falan/elsa/props/pedestal-406/globe.png"
+  },
+  "candidate_only": false,
+  "inferred": [
+    "The octagonal cross-sections, four-pixel molding and146.5 native foot center reconstruct the visible front edges; hidden depth and contact remain inferred.",
+    "The source body cap under the original blue component uses native18,18,18 paint. Other visible source body colors are retained.",
+    "The round globe moves only along the source projection null direction until its bottom touches the cap. Its native image center stays fixed.",
+    "Horizontal molding faces continue the confirmed gray front at source row144.5; native projection alone incorrectly samples the gold band above them.",
+    "The globe uses the original source-camera projection across its whole round surface; planar-wall X/Z reflection is inappropriate for a sphere. Unseen blue paint is inferred from the same original material.",
+    "Only pixels outside the original blue globe mask use a six-pixel softened material continuation. Every original blue source pixel is restored exactly; this avoids long nearest-fill stripes on unseen surfaces.",
+    "Confirmed native faces continue around hidden sides. Original navigation, source graphics and placement are unchanged."
+  ]
+}

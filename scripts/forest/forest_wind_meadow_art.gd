@@ -59,7 +59,7 @@ static func trees(world,parent:Node3D):
      if cell==Vector2i(-38,26):Workshop.build(chunk,world.model)
     elif item[6]:MagicShop.build(chunk,world.model)
     elif not civic.is_empty():
-     world.model.CivicExterior.build(chunk,transform_.origin,civic)
+     world.model.CivicExterior.build(chunk,transform_.origin,civic,true)
      var bodies=world.model.CivicExterior.collision_parts(cell,civic)
      for i in range(1,bodies.size()):
       var body:AABB=bodies[i];body.position+=world.model.scenery_point(cell)
@@ -79,7 +79,7 @@ static func trees(world,parent:Node3D):
      painted[roof].append(transform_)
     else:poses.append(transform_)
     var box:AABB=item[3]
-    preload("res://scripts/forest/forest_art.gd").solid(chunk,box.get_center(),box.size,1,Scenery.material(kind)).set_meta("map_scenery_cell",cell)
+    preload("res://scripts/forest/forest_art.gd").solid(chunk,box.get_center(),box.size,1,Scenery.material(kind),Scenery.player_passable(kind)).set_meta("map_scenery_cell",cell)
    if freyja_crossing and kind=="wall_piece":
     for transform_:Transform3D in poses:
      preload("res://scripts/forest/forest_stone_fort.gd").freyja_wall_segment(chunk,transform_)
@@ -115,7 +115,7 @@ static func build(world,parent:Node3D):
  mat.set_shader_parameter("castle_stairs",Vector2(Layout.STAIR_HALF_WIDTH+absf(Layout.CASTLE_GATES[0].x)+3.0,Layout.STAIR_BOTTOM+3.0))
  if world.model.falan_area in ["sokia_coast","sokia_desert","ghana_road","kili"]:mat.set_shader_parameter("use_coastal_sand",true)
  if world.model.falan_area in ["ghana","ghana_north_road"]:mat.set_shader_parameter("use_ghana_palette",true)
- if world.model.map_expansion!=1.0 and world.model.terrain_detail!=world.model.Arena.ID:
+ if world.model.map_expansion!=1.0 and world.model.terrain_detail!=world.model.Arena.ID and not Frontier.Sokia.owns(world.model.falan_area):
   var apron=MeshInstance3D.new();var source=load(field.asset_path("terrain.res",scale_));var edge=ArrayMesh.new()
   edge.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,source.surface_get_arrays(1));apron.mesh=edge;apron.scale=Vector3(world.model.map_expansion,1,world.model.map_expansion);apron.material_override=mat;root.add_child(apron)
  var body=StaticBody3D.new();body.name="ValleyTerrainCollision";body.collision_layer=1;body.collision_mask=0;root.add_child(body)
@@ -131,11 +131,12 @@ static func build(world,parent:Node3D):
   var bounds:Rect2=world.model.terrain.mask_bounds()
   mat.set_shader_parameter("clip_village",true)
   mat.set_shader_parameter("village_bounds",Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
-  preload("res://scripts/forest/forest_village_vista.gd").build(root,world.model,mat)
+  if Falan.Regions.private_source_context==null or not Falan.Regions.private_source_context.owns(world.model):
+   preload("res://scripts/forest/forest_village_vista.gd").build(root,world.model,mat)
  if Frontier.FRAMES.has(Falan.area(world.model)):
   var venture:Dictionary=world.get_tree().get_meta("falan_venture",{})
   var areas:Dictionary=venture.get("falan_areas",world.model.falan_areas)
-  Frontier.city_vista(root,world.model,areas.get("city",{}),mat)
+  Frontier.city_vista(root,world,areas.get("city",{}),mat)
  if not world.model.falan_frontier_plan.is_empty():
   Frontier.outer_art(root,world.model)
  Frontier.build_village(root,world.model)
@@ -146,6 +147,7 @@ static func build(world,parent:Node3D):
   for box in courtyard.obstacles():
    preload("res://scripts/forest/forest_art.gd").solid(root,box.get_center(),box.size,1,"stone")
  Falan.build_markers(root,world.model)
+ if Falan.Regions.private_source_context!=null and Falan.Regions.private_source_context.owns(world.model):return
  if world.model.falan_area=="castle":return
  if world.model.falan_area=="city":
   preload("res://scripts/forest/forest_falan_streets.gd").build(root,world.model,Falan.NPCS.AREAS.city)
@@ -158,7 +160,7 @@ static func build(world,parent:Node3D):
   mat.set_shader_parameter("clip_village",true)
   mat.set_shader_parameter("village_bounds",Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
   return
- if world.model.falan_area in ["south_lakes","kili"] or Frontier.Sokia.owns(world.model.falan_area):
+ if world.model.falan_area in ["south_lakes","kili","ghana"] or Frontier.Sokia.owns(world.model.falan_area):
   var bounds:Rect2=world.model.terrain.mask_bounds()
   mat.set_shader_parameter("clip_village",true)
   mat.set_shader_parameter("village_bounds",Vector4(bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y))
@@ -202,7 +204,7 @@ static func build(world,parent:Node3D):
  var horizon=MeshInstance3D.new();var plane=PlaneMesh.new();plane.size=Vector2.ONE*maxf(2400,1200*scale_);horizon.mesh=plane;horizon.position.y=-22;horizon.material_override=mat;root.add_child(horizon)
 
 static func refresh_foliage(world,previous:Dictionary,regions:Array=[]):
- if world.model.falan_area=="kili" or Frontier.Sokia.owns(world.model.falan_area):return
+ if world.model.falan_area in ["kili","ghana"] or Frontier.Sokia.owns(world.model.falan_area):return
  var root=world.map_features.get_node_or_null("WindMeadowValley")
  if root==null:return
  var archived=root.get_node_or_null("FreyjaFoliage")
@@ -269,6 +271,7 @@ static func foliage_chunk(world,root:Node3D,cx:int,cz:int,rng:RandomNumberGenera
   # Keep the surrounding placements stable by taking all scatter draws before clipping the forecourt.
   if frostpass_apron.has_point(p):continue
   if has_crops and crop_plot.has_point(p):continue
+  if area=="laruka" and Frontier.IlLaruka.paved(p):continue
   if east_mask!=null and (area in ["east_coast","north_coast","south_lakes"] or p.y>=153.0) and not Frontier.east_scatter_clear(east_mask,world.model.terrain.mask_origin(),p):continue
   var transform_=Transform3D(Basis(Vector3.UP,yaw).scaled(Vector3.ONE*plant_scale),Vector3(p.x,h,p.y));transform_.origin-=chunk.position;groups[asset].append(transform_)
  for asset in groups:Assets.batch(chunk,asset,groups[asset],asset!="mossy_boulder",48 if asset=="grass_short" or asset.begins_with("flowers") else 0)

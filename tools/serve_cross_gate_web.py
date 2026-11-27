@@ -6,6 +6,7 @@ from asyncio import sleep
 from dataclasses import dataclass, field
 from math import isfinite
 from pathlib import Path
+from re import fullmatch
 from secrets import randbelow, token_hex
 from time import monotonic
 from urllib.parse import urlsplit
@@ -17,6 +18,11 @@ from aiohttp import WSMsgType, web
 ROOMS = web.AppKey("rooms", dict)
 ROUND_HITS = 20
 MAX_PLAYERS = 4
+EXPORT_FILES = {
+    "build-info.json", "index.html", "index.js", "index.js.map", "index.pck", "index.pack.js",
+    "index.png", "index.icon.png", "index.apple-touch-icon.png", "index.audio.worklet.js",
+    "index.audio.position.worklet.js",
+}
 
 
 @dataclass
@@ -132,12 +138,25 @@ def make_app(export):
     app = web.Application(middlewares=[isolation_headers])
     app[ROOMS] = {}
     app.router.add_get("/room", room_socket)
+    export = export.resolve()
 
-    async def index(_request):
-        return web.FileResponse(export / "index.html")
+    async def asset(request):
+        name = request.match_info.get("name", "index.html")
+        wasm = fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*\.wasm", name)
+        chunk = fullmatch(r"index\.pck\.[0-9]{3}", name)
+        if name not in EXPORT_FILES and not wasm and not chunk:
+            raise web.HTTPNotFound()
+        path = export / name
+        compressed = (path.with_name(name + suffix) for suffix in (".gz", ".br"))
+        if path.is_symlink() or not path.is_file() or any(variant.is_symlink() for variant in compressed):
+            raise web.HTTPNotFound()
+        headers = {"Cache-Control": "no-cache"}
+        if wasm:
+            headers["Content-Type"] = "application/wasm"
+        return web.FileResponse(path, headers=headers)
 
-    app.router.add_get("/", index)
-    app.router.add_static("/", export)
+    app.router.add_get("/", asset)
+    app.router.add_get("/{name}", asset)
     return app
 
 
@@ -145,8 +164,11 @@ if __name__ == "__main__":
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8060)
     parser.add_argument("--bind", default="127.0.0.1")
+    parser.add_argument("--export-dir", type=Path, help="Directory containing a completed Cross Gate Web export")
     args = parser.parse_args()
-    export = Path(__file__).resolve().parents[1] / "build" / "Other Files" / "Cross Gate Web"
-    if not (export / "index.html").is_file():
-        parser.error("Export the Cross Gate Web preset before starting the preview.")
+    default_export = Path(__file__).resolve().parents[1] / "build" / "Other Files" / "Cross Gate Web"
+    export = args.export_dir.expanduser() if args.export_dir else default_export
+    index = export / "index.html"
+    if not index.is_file() or index.is_symlink():
+        parser.error(f"Export the Cross Gate Web preset before serving {export}.")
     web.run_app(make_app(export), host=args.bind, port=args.port)

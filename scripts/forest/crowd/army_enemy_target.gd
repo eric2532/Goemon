@@ -194,7 +194,7 @@ func take_hit(amount:float,direction:Vector3,heavy:bool,ticket:Dictionary={}):
  var breaker:bool=ticket.has("guard_break_target")
  if breaker and ticket.get("guard_break_ex",false):attribution.guard_break_ex=true
  var joint=not breaker and is_instance_valid(source) and source==game.player and source.RogueRoster.is_crossgate_fighter(source.character_id) and ticket.get("skill_id","")=="" and ticket.get("action","") in ["kazi_sword","shin_basic","uru_staff"] and not ticket.get("projectile",false)
- var result=runtime.hit_target(handle,{"amount":amount,"source_id":source_id,"direction":direction,"heavy":heavy,"critical":critical,"provoke":not ticket.get("tower",false),"projectile":ticket.get("projectile",false),"magical":ticket.get("magical",false),"responsive_recoil":responsive,"counter":ticket.get("action","") in ["stat_counter","shin_counter"],"joint_attack":joint,"guard_break":breaker},attribution)
+ var result=runtime.hit_target(handle,{"amount":amount,"accuracy":100.0 if ticket.get("tower",false) else float(ticket.get("accuracy",0.0)),"source_id":source_id,"direction":direction,"heavy":heavy,"critical":critical,"provoke":not ticket.get("tower",false),"projectile":ticket.get("projectile",false),"magical":ticket.get("magical",false),"responsive_recoil":responsive,"counter":ticket.get("action","") in ["stat_counter","shin_counter"],"joint_attack":joint,"guard_break":breaker},attribution)
  if result.accepted and is_instance_valid(source):
   if not ticket.get("tower",false):source.attack_chain.confirm(ticket)
   if source.get("spell_loadout")!=null:source.spell_loadout.hit_effects(self,amount,ticket)

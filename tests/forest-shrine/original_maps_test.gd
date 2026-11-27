@@ -53,9 +53,14 @@ func data_checks():
   for id in Winter.SNOW_FLOORS:
    var row=Original.state(id,seed_)
    check(row.raw==Original.state(id,seed_).raw,"Snow seed is reproducible")
-   check(connected(id,Original.point(id,Winter.DOORS[id][0]),Original.point(id,Winter.DOORS[id][1]),seed_),"Generated snow stairs connect")
+   check(connected(id,Original.point(id,Original.generated().doors(id,seed_)[0],seed_),Original.point(id,Original.generated().doors(id,seed_)[1],seed_),seed_),"Generated snow stairs connect")
    check(Winter.patrols(id,seed_).size()==Winter.SNOW_PATROLS,"Snow native population retained")
- check(Original.state(51009,1).raw!=Original.state(51009,2).raw,"Snow generates new layouts beyond the cached snapshots")
+ var snow_layouts={}
+ for seed_ in range(48):snow_layouts[hash(Original.state(51009,seed_).raw)]=true
+ check(snow_layouts.size()>1,"Snow seeds select multiple original layout snapshots")
+ var first_bag={}
+ for n in range(1,13):first_bag[hash(Original.state(Original.generated().floor_id("mountain",n),341).raw)]=true
+ check(first_bag.size()==12,"Snow shuffle bag uses every native template before refilling")
 
 func check_surface_projection():
  for serial in [12756,13000,15827]:
@@ -195,7 +200,7 @@ func cross(target:int)->bool:
  check(not choices.is_empty(),"Normal exploration exposes doorway to "+str(target))
  if choices.is_empty():return false
  var link:Dictionary=choices[0]
- if Original.source_id(game.model.falan_floor) in [15000,15001,15002,14000,14001,14002]:
+ if Original.source_id(game.model.falan_floor) in [15000,15001,15002,14000,14001,14002] or Original.generated().owns(game.model.falan_floor):
   check(game.army_runtime.native.can_reach(game.player.position,game.model.world_point(link.at,.15),.5),"Native navigation follows the recovered cave between its stairs "+str(game.model.falan_floor))
  game.falan_crossing_position=link.at+Vector2(4,0)
  game.player.position=game.model.world_point(link.at,.15)
@@ -207,24 +212,58 @@ func cross(target:int)->bool:
  print("SHALENA_CROSSED ",target)
  return reached
 
+func talk_source(source_id:String)->bool:
+ game.explorer_npcs.prepare()
+ var choices=game.explorer_npcs.actors.filter(func(actor):return actor.record.id=="source:"+source_id)
+ check(choices.size()==1,"One source interaction exists: "+source_id)
+ if choices.size()!=1:return false
+ var actor:Dictionary=choices[0];var record:Dictionary=actor.node.get_meta("npc_record")
+ var id:int=game.model.falan_floor;var state=Original.state(id,game.model.seed_value)
+ for z in range(-1,2):
+  for x in range(-1,2):
+   var cell=Vector2i(int(record.cell[0])+x,int(record.cell[1])+z)-Original.crop(id).position
+   if not Original.open(state.bits,state.size,cell):continue
+   var local=Original.point(id,cell,game.model.seed_value);var target=game.model.world_point(local,.15)
+   if not game.army_runtime.native.can_reach(game.player.position,target,.5):continue
+   await position_at(local)
+   game.explorer_npcs.update_left=0;game.explorer_npcs._process(.2)
+   if game.explorer_npcs.nearest.get("node")!=actor.node:continue
+   var event=InputEventKey.new();event.physical_keycode=KEY_F;event.pressed=true;game._input(event)
+   var talked=is_instance_valid(game.dialogue) and game.explorer_npcs.selected.get("id")=="source:"+source_id
+   check(talked,"F opens the source interaction: "+source_id)
+   if not talked:return false
+   game.explorer_npcs.finish()
+   for i in 6:await physics_frame
+   return true
+ check(false,"The source interaction is reachable and unobstructed: "+source_id)
+ return false
+
 func route_checks():
+ # The fixture represents an already-qualified character; it does not prove the external title/job chain.
+ set_meta("university_quest_items",{"opener":true,"job_rank":2})
  var edge:float=Tour.Frontier.OUTER_EDGE.freyja
  await position_at(Tour.Frontier.to_city("freyja",Vector2(3,edge-1)))
  await position_at(Tour.Frontier.to_city("freyja",Vector2(3,edge+1)))
  check(Tour.area(game.model)=="freyja","Existing Falan West Gate opens on foot")
  await position_at(Vector2(-39,419));await position_at(Vector2(-39,421))
  check(Tour.area(game.model)=="west_lakes","Western road remains connected to Falan")
- for id in [51001,51002,51003,Original.SHALENA_SOUTH,51004,Original.SHALENA_SOUTH,14000,14001,14002,Original.SHALENA_NORTH,51011,51021,51022,51023]:
+ for id in [51001,51002,51003,Original.SHALENA_SOUTH,51004,Original.SHALENA_SOUTH,14000,14001,14002,Original.SHALENA_NORTH,51011,51021]:
   if not await cross(id):return
- var blade=game.model.get_meta("falan_links",[]).filter(func(l):return l.to=="decree_blade")
- check(not blade.is_empty(),"Existing blade pickup remains in the recovered house")
- if not blade.is_empty():Tour.enter_link(game,"interior",blade[0],blade[0].at)
+ if not await talk_source("6392") or not await talk_source("6399"):return
+ check(game.model.falan_floor==51022,"Wild strawberry opens the original cellar")
+ if not await talk_source("6397") or not await talk_source("6394"):return
  check(get_meta(Winter.Decree.BLADE,false),"Existing quest inventory retained")
- for id in [51022,51021,51011,Original.SHALENA_NORTH,51012,51014,51012,Original.SHALENA_NORTH,51009,51010,15522,15523,15522,51010,51009,Original.SHALENA_NORTH,Winter.Decree.floor_id(1)]:
+ if not await cross(51023) or not await cross(4334) or not await talk_source("6407") or not await cross(51021):return
+ var mountain=[]
+ for n in range(1,Original.generated().count("mountain",game.model.seed_value)+1):mountain.append(Original.generated().floor_id("mountain",n))
+ var route=[51011,Original.SHALENA_NORTH,51012,51014,51012,Original.SHALENA_NORTH]
+ route.append_array(mountain);route.append_array([15522,15523,15522])
+ mountain.reverse();route.append_array(mountain);route.append(Original.SHALENA_NORTH)
+ for id in route:
+  if not await cross(id):return
+ for id in [14002,14001,14000,Original.SHALENA_SOUTH,51003,51002,51001,0,51001,51002,51003,Original.SHALENA_SOUTH,14000,14001,14002,Original.SHALENA_NORTH,24008,Winter.Decree.floor_id(1)]:
   if not await cross(id):return
  check(game.army_runtime.handles.size()==Winter.Decree.encounters(game.model.falan_floor).size(),"Recovered maze population uses the existing native army")
- for id in [Original.SHALENA_NORTH,14002,14001,14000,Original.SHALENA_SOUTH,51003,51002,51001,0]:
-  if not await cross(id):return
 
 
 func capture(id:int):

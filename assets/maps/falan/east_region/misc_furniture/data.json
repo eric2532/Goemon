@@ -1,0 +1,1281 @@
+{
+  "schema": 1,
+  "graphics": {
+    "10035": {
+      "role": "plant_table",
+      "origin": [
+        -19,
+        -69
+      ],
+      "size": [
+        84,
+        77
+      ],
+      "bounds": [
+        0,
+        0,
+        82,
+        77
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "07a6ac290a3e942458a95235a5f610f2ce48f13be9b6a18b4f618c02f212db77",
+      "source_pack": "original",
+      "source_row": 7786
+    },
+    "10043": {
+      "role": "wheelbarrow",
+      "origin": [
+        -55,
+        -63
+      ],
+      "size": [
+        76,
+        62
+      ],
+      "bounds": [
+        0,
+        0,
+        66,
+        62
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "3c3111867ce8d35228dcffba851f9795b97dc6dc7e7ca2d52cd8ebdc3b860de5",
+      "source_pack": "original",
+      "source_row": 7794
+    },
+    "10044": {
+      "role": "wheelbarrow",
+      "origin": [
+        -10,
+        -60
+      ],
+      "size": [
+        68,
+        63
+      ],
+      "bounds": [
+        0,
+        0,
+        65,
+        63
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "642ffcf4048b74d4048f491a4a5729051e1ce8b3b1958e964911dc9db8d2de0f",
+      "source_pack": "original",
+      "source_row": 7795
+    },
+    "10433": {
+      "role": "open_crate",
+      "origin": [
+        -45,
+        -65
+      ],
+      "size": [
+        64,
+        80
+      ],
+      "bounds": [
+        0,
+        0,
+        63,
+        80
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "86e75a67d14cff7ff0e08cf5235ac04987abce6dab0bab07b939963a3beed7c6",
+      "source_pack": "original",
+      "source_row": 7634
+    },
+    "10497": {
+      "role": "open_crate",
+      "origin": [
+        -27,
+        -40
+      ],
+      "size": [
+        40,
+        49
+      ],
+      "bounds": [
+        0,
+        0,
+        39,
+        49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "c145f5384e064fd06d5915e4be6c955717720d16c72ef20ee6223bb4c186560c",
+      "source_pack": "original",
+      "source_row": 7698
+    },
+    "10523": {
+      "role": "ritual_table",
+      "origin": [
+        -36,
+        -112
+      ],
+      "size": [
+        140,
+        133
+      ],
+      "bounds": [
+        0,
+        0,
+        137,
+        133
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "source_rgba_sha256": "456d9a0b90bbee83d6faec26eba4fbf7a9609da954702384361a9fae3e1d2468",
+      "source_pack": "original",
+      "source_row": 7717
+    },
+    "11003": {
+      "role": "laundry_line",
+      "origin": [
+        -20,
+        -96
+      ],
+      "size": [
+        104,
+        113
+      ],
+      "bounds": [
+        0,
+        0,
+        102,
+        113
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "f02b81ab34d260cc35b12d3e53a9e73fa7eb6d60527d7ec2bd2946935b04b8bd",
+      "source_pack": "original",
+      "source_row": 7921
+    },
+    "11004": {
+      "role": "laundry_line",
+      "origin": [
+        -83,
+        -133
+      ],
+      "size": [
+        128,
+        147
+      ],
+      "bounds": [
+        0,
+        0,
+        102,
+        147
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "source_rgba_sha256": "cdf68eb768ea1a7643fb6404b65f1ee4425c8526680abcc52e7f4744b66f50d2",
+      "source_pack": "original",
+      "source_row": 7922
+    },
+    "11005": {
+      "role": "laundry_line",
+      "origin": [
+        -17,
+        -131
+      ],
+      "size": [
+        120,
+        147
+      ],
+      "bounds": [
+        0,
+        0,
+        100,
+        147
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "source_rgba_sha256": "439e88532aa2ba9943b73539e8162daaaef9f2860614dcf2e3cc939d3c48daae",
+      "source_pack": "original",
+      "source_row": 7923
+    },
+    "11006": {
+      "role": "laundry_line",
+      "origin": [
+        -72,
+        -88
+      ],
+      "size": [
+        108,
+        115
+      ],
+      "bounds": [
+        0,
+        0,
+        82,
+        113
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "4980ecae6fa1544884236b4afe97d23c948ec2111215047d4aa07b43d077dcec",
+      "source_pack": "original",
+      "source_row": 7924
+    },
+    "11042": {
+      "role": "roofed_post_fixture",
+      "origin": [
+        -22,
+        -87
+      ],
+      "size": [
+        48,
+        104
+      ],
+      "bounds": [
+        0,
+        0,
+        46,
+        104
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "68953effd5cb8662dc5cebaf140f26a0efc9e401939fbf446508cd9ce92f706c",
+      "source_pack": "original",
+      "source_row": 7960
+    },
+    "11575": {
+      "role": "mailbox",
+      "origin": [
+        -22,
+        -74
+      ],
+      "size": [
+        40,
+        84
+      ],
+      "bounds": [
+        0,
+        0,
+        37,
+        82
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "040875ef1af4d08520d5eca41d8eafd78adcaf3f054448024137cc1150bb47a8",
+      "source_pack": "original",
+      "source_row": 8252
+    },
+    "11576": {
+      "role": "mailbox",
+      "origin": [
+        -17,
+        -77
+      ],
+      "size": [
+        40,
+        86
+      ],
+      "bounds": [
+        0,
+        0,
+        37,
+        80
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "d794ee9a93dc78ad8830c88757883fc6712cd8697df38c592e0bbb7f0c9a0fa1",
+      "source_pack": "original",
+      "source_row": 8253
+    },
+    "11580": {
+      "role": "mailbox",
+      "origin": [
+        -15,
+        -78
+      ],
+      "size": [
+        36,
+        87
+      ],
+      "bounds": [
+        0,
+        0,
+        34,
+        81
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "12f875814cddd9a509b0340a1a7ecc9b4570181c19238630a0c8540ca8146d89",
+      "source_pack": "original",
+      "source_row": 8257
+    },
+    "11730": {
+      "role": "spilled_barrel",
+      "origin": [
+        -21,
+        -21
+      ],
+      "size": [
+        48,
+        38
+      ],
+      "bounds": [
+        0,
+        0,
+        45,
+        38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "626676b95115da10c6b09ec1d1ee226fe31b266a15f58c1167848b42ba58f6dd",
+      "source_pack": "original",
+      "source_row": 8301
+    },
+    "11731": {
+      "role": "broken_crate",
+      "origin": [
+        -31,
+        -57
+      ],
+      "size": [
+        64,
+        73
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        73
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "ffa02b3c49cde00adf5e378b186840f26e833dc57b172d270fe6240e4c155246",
+      "source_pack": "original",
+      "source_row": 8302
+    },
+    "11732": {
+      "role": "broken_crate",
+      "origin": [
+        -39,
+        -42
+      ],
+      "size": [
+        80,
+        72
+      ],
+      "bounds": [
+        0,
+        0,
+        80,
+        72
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "e084db6aabf41ca8b1ecfa49943ed6a209b524960eae40552d6cee7c3f236100",
+      "source_pack": "original",
+      "source_row": 8303
+    },
+    "16010": {
+      "role": "upholstered_armchair",
+      "origin": [
+        -34,
+        -67
+      ],
+      "size": [
+        76,
+        92
+      ],
+      "bounds": [
+        1,
+        0,
+        71,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "9d32236a74c2921d751452418d927a0a12b44638093346e67a00ee806ff3288d",
+      "source_pack": "original",
+      "source_row": 12638
+    },
+    "16013": {
+      "role": "upholstered_armchair",
+      "origin": [
+        -32,
+        -54
+      ],
+      "size": [
+        68,
+        80
+      ],
+      "bounds": [
+        1,
+        0,
+        64,
+        77
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "184c7c1d5e4593551d095df2451593a1b6a5e088acdf88caaf0dcabfc39be1c1",
+      "source_pack": "original",
+      "source_row": 12641
+    },
+    "16032": {
+      "role": "metal_stove",
+      "origin": [
+        -30,
+        -49
+      ],
+      "size": [
+        60,
+        72
+      ],
+      "bounds": [
+        0,
+        0,
+        60,
+        72
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "8897f936af8ba3ef0b7e245dbd6e1e06f8f03c78130d59e914a31734b36cd7ab",
+      "source_pack": "original",
+      "source_row": 12660
+    },
+    "16223": {
+      "role": "standing_mirror",
+      "origin": [
+        -32,
+        -149
+      ],
+      "size": [
+        60,
+        156
+      ],
+      "bounds": [
+        0,
+        0,
+        57,
+        156
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "0664871a30ff058cccf3bfe7a0604ff76d98e11a042d373873a56f33b012797c",
+      "source_pack": "original",
+      "source_row": 12851
+    },
+    "16244": {
+      "role": "range_with_pans",
+      "origin": [
+        -33,
+        -137
+      ],
+      "size": [
+        96,
+        163
+      ],
+      "bounds": [
+        0,
+        0,
+        96,
+        163
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "26b09aec927e5178a82a052c6f55c673fd0517000bc611ad04762ddaff61966a",
+      "source_pack": "original",
+      "source_row": 12871
+    },
+    "16245": {
+      "role": "range_with_pans",
+      "origin": [
+        -64,
+        -138
+      ],
+      "size": [
+        96,
+        163
+      ],
+      "bounds": [
+        0,
+        0,
+        96,
+        163
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "f07739d44706de7aa8c66d2131aae2b65127018d488d0220eda38063d86e9f6d",
+      "source_pack": "original",
+      "source_row": 12872
+    },
+    "16538": {
+      "role": "range_with_pans",
+      "origin": [
+        -35,
+        -152
+      ],
+      "size": [
+        104,
+        169
+      ],
+      "bounds": [
+        0,
+        0,
+        103,
+        169
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "source_rgba_sha256": "c9870557814d5fc4b09b95083433c3cb04e2ee3d0066cb8af6bd4f42e22c0623",
+      "source_pack": "original",
+      "source_row": 12188
+    },
+    "16646": {
+      "role": "piano",
+      "origin": [
+        -33,
+        -122
+      ],
+      "size": [
+        92,
+        143
+      ],
+      "bounds": [
+        0,
+        0,
+        91,
+        143
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "8dcb17c1b21072ebd61c6ce9387796e4596b2dd1de59009c4f1c7ac06025a0a6",
+      "source_pack": "original",
+      "source_row": 12295
+    },
+    "16749": {
+      "role": "helmet_display",
+      "origin": [
+        -33,
+        -78
+      ],
+      "size": [
+        68,
+        104
+      ],
+      "bounds": [
+        0,
+        0,
+        67,
+        104
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "6760899fb276e2da8261a88f3d2a1d36a266c7abe12bd0d31bd3ec12c7da6d23",
+      "source_pack": "original",
+      "source_row": 12378
+    },
+    "16754": {
+      "role": "sword_display",
+      "origin": [
+        -50,
+        -103
+      ],
+      "size": [
+        92,
+        125
+      ],
+      "bounds": [
+        0,
+        0,
+        91,
+        125
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "102b2248cd072e64d530bb65cd8b59878b2c56ebfc0ee9980cce09eee1cc17a4",
+      "source_pack": "original",
+      "source_row": 12383
+    },
+    "16765": {
+      "role": "instrument_display",
+      "origin": [
+        -33,
+        -77
+      ],
+      "size": [
+        72,
+        102
+      ],
+      "bounds": [
+        0,
+        0,
+        71,
+        101
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "1107a304c68901e5833eaa70a352651563c7e32842f82c9edd4fe34cfc5efcdf",
+      "source_pack": "original",
+      "source_row": 12394
+    },
+    "16766": {
+      "role": "kettle_display",
+      "origin": [
+        -32,
+        -78
+      ],
+      "size": [
+        72,
+        108
+      ],
+      "bounds": [
+        0,
+        0,
+        71,
+        108
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "8fbda4290ff3d2e4d5e51147a48b5e6e22a9347dd12424ba559e41be56e3ec61",
+      "source_pack": "original",
+      "source_row": 12395
+    },
+    "16805": {
+      "role": "earring_board",
+      "origin": [
+        -31,
+        -56
+      ],
+      "size": [
+        48,
+        67
+      ],
+      "bounds": [
+        0,
+        0,
+        40,
+        64
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "9c556e16577c2c00881b3420ce783f1b552d40a0ebf1ce1759cad0c89ce01803",
+      "source_pack": "original",
+      "source_row": 12433
+    },
+    "16818": {
+      "role": "open_wicker_crate",
+      "origin": [
+        -23,
+        -51
+      ],
+      "size": [
+        52,
+        70
+      ],
+      "bounds": [
+        0,
+        0,
+        49,
+        70
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "2f4d0c3fb4f8fd1968ee8661c8e7971324cc93c28d7823cd085584c7114023e9",
+      "source_pack": "original",
+      "source_row": 12446
+    },
+    "16823": {
+      "role": "mat_and_scroll",
+      "origin": [
+        -78,
+        -85
+      ],
+      "size": [
+        116,
+        111
+      ],
+      "bounds": [
+        0,
+        0,
+        115,
+        111
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "e24b1efd936e505d8c33523303d8ac0267159c69294b47aba9208d00a748bcdc",
+      "source_pack": "original",
+      "source_row": 12451
+    },
+    "16824": {
+      "role": "pedestal_with_stamp",
+      "origin": [
+        -33,
+        -67
+      ],
+      "size": [
+        68,
+        90
+      ],
+      "bounds": [
+        0,
+        0,
+        67,
+        90
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "263d483e0c74fe78e0949b0b114505c201bcfe8dfff3a021fe7f31318685e924",
+      "source_pack": "original",
+      "source_row": 12452
+    },
+    "16825": {
+      "role": "pedestal_with_drawers",
+      "origin": [
+        -33,
+        -107
+      ],
+      "size": [
+        68,
+        130
+      ],
+      "bounds": [
+        0,
+        0,
+        67,
+        130
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "cf57002227fbbea862ada66b3e6170dfcad1e434147da29ee55d09ab96f6de74",
+      "source_pack": "original",
+      "source_row": 12453
+    },
+    "16828": {
+      "role": "pedestal_with_drawers",
+      "origin": [
+        -33,
+        -107
+      ],
+      "size": [
+        68,
+        130
+      ],
+      "bounds": [
+        0,
+        0,
+        66,
+        130
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "dee9004c91f08a789ca8111a2c390b5911c00db5224c51f91dc7c34bb39d8c00",
+      "source_pack": "original",
+      "source_row": 12456
+    },
+    "16852": {
+      "role": "display_plinth",
+      "origin": [
+        -24,
+        -58
+      ],
+      "size": [
+        56,
+        73
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        73
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "5da9bccaacaa2867909a25b6480706280192a90db7594f9f8460b12687f08a6d",
+      "source_pack": "original",
+      "source_row": 12480
+    },
+    "16853": {
+      "role": "display_plinth",
+      "origin": [
+        -24,
+        -58
+      ],
+      "size": [
+        56,
+        73
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        73
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "930a030dbfc332fca83bf6a492ed809e62072f951d7781b36f74b645c339d777",
+      "source_pack": "original",
+      "source_row": 12481
+    },
+    "16854": {
+      "role": "display_plinth",
+      "origin": [
+        -24,
+        -58
+      ],
+      "size": [
+        56,
+        75
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        75
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "5528ae872c187f9472f2ebb18c764187de9414d85c356011148843e7b12ba92c",
+      "source_pack": "original",
+      "source_row": 12482
+    },
+    "16855": {
+      "role": "display_plinth",
+      "origin": [
+        -56,
+        -89
+      ],
+      "size": [
+        88,
+        106
+      ],
+      "bounds": [
+        0,
+        0,
+        88,
+        106
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "source_rgba_sha256": "3e9347736ed5b3d7153ad0e8c1cc2650801506191594b49f74daf5001f89bda4",
+      "source_pack": "original",
+      "source_row": 12483
+    },
+    "16864": {
+      "role": "display_plinth",
+      "origin": [
+        -31,
+        -54
+      ],
+      "size": [
+        56,
+        70
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        70
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "04688e402f04516d690bbc7ffe35f4f1e35d6781706481c58cbb9e2cd503815c",
+      "source_pack": "original",
+      "source_row": 12492
+    },
+    "16865": {
+      "role": "display_plinth",
+      "origin": [
+        -31,
+        -54
+      ],
+      "size": [
+        56,
+        73
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        73
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "7753c8cf31d9e41fabbbd6b4f664bed85c3bb63de9f1cd66220ed2d97e1578cf",
+      "source_pack": "original",
+      "source_row": 12493
+    },
+    "16866": {
+      "role": "display_plinth",
+      "origin": [
+        -31,
+        -54
+      ],
+      "size": [
+        56,
+        70
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        70
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "9e71fd0ad83960c3c7fc7d1e016e1398863f024d3710a2ef1bee1c0a24586001",
+      "source_pack": "original",
+      "source_row": 12494
+    },
+    "17044": {
+      "role": "pipe_display",
+      "origin": [
+        -32,
+        -108
+      ],
+      "size": [
+        64,
+        131
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        131
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "8a687c9e5cecc511352b70865a33fc7a89f19ff63fee4c0e6d6298a8127cd08c",
+      "source_pack": "original",
+      "source_row": 13130
+    },
+    "17052": {
+      "role": "jewel_counter",
+      "origin": [
+        -32,
+        -97
+      ],
+      "size": [
+        64,
+        120
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        120
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "266188eed824ee828f6ed3dcade9f9ce18790b36e2add9ef33dde03c202feef5",
+      "source_pack": "original",
+      "source_row": 13138
+    },
+    "17063": {
+      "role": "weapon_rack",
+      "origin": [
+        -29,
+        -147
+      ],
+      "size": [
+        92,
+        169
+      ],
+      "bounds": [
+        0,
+        0,
+        91,
+        166
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "d1e5016d56b2d537dbc3dfc094f1684913ef81e76c07153ae226bb0ed43aed48",
+      "source_pack": "original",
+      "source_row": 13149
+    },
+    "17064": {
+      "role": "weapon_rack",
+      "origin": [
+        -31,
+        -128
+      ],
+      "size": [
+        92,
+        144
+      ],
+      "bounds": [
+        0,
+        0,
+        91,
+        144
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "ac5817bb3f67ac53bf05f2efef366a7611fd0aa3f192829742dedabace0f9993",
+      "source_pack": "original",
+      "source_row": 13150
+    },
+    "17165": {
+      "role": "shield_and_sword_table",
+      "origin": [
+        -35,
+        -82
+      ],
+      "size": [
+        104,
+        106
+      ],
+      "bounds": [
+        0,
+        0,
+        103,
+        106
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "bffa54d2b3ba9433592066b6770c5b6a777b99a562d9f50d9da0e578449b5ca9",
+      "source_pack": "original",
+      "source_row": 13251
+    },
+    "17182": {
+      "role": "jewel_counter",
+      "origin": [
+        -32,
+        -87
+      ],
+      "size": [
+        64,
+        110
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        110
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "a43f5a4ecb3f310d44a8b87b0c5e9c0dd320b21ad35842ab48063b86fb6218aa",
+      "source_pack": "original",
+      "source_row": 13268
+    },
+    "17183": {
+      "role": "plant_counter",
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "273e022e62c6965c73ea414aa39c120242b9b41423ac59db15916d9c3553b5fa",
+      "source_pack": "original",
+      "source_row": 13269
+    },
+    "17197": {
+      "role": "counter_segment",
+      "origin": [
+        -8,
+        -67
+      ],
+      "size": [
+        52,
+        90
+      ],
+      "bounds": [
+        0,
+        0,
+        51,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "2ca7a54edc4de7ae09cd31e56e54186fe2a38edaa47f0e293821f52cd8500e6a",
+      "source_pack": "original",
+      "source_row": 13281
+    },
+    "17199": {
+      "role": "counter_segment",
+      "origin": [
+        -32,
+        -67
+      ],
+      "size": [
+        64,
+        90
+      ],
+      "bounds": [
+        0,
+        0,
+        64,
+        90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "f3de2b52c844de5c77d6e0eb1a877eaf6c49cbda1a50862ae64db9c49f236eb7",
+      "source_pack": "original",
+      "source_row": 13283
+    },
+    "17230": {
+      "role": "shield_display",
+      "origin": [
+        -20,
+        -124
+      ],
+      "size": [
+        92,
+        143
+      ],
+      "bounds": [
+        0,
+        0,
+        85,
+        143
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "source_rgba_sha256": "c117a8ff11d86f04416cec60c349372e64545f9fabdca98d510eadca08a1c5cb",
+      "source_pack": "original",
+      "source_row": 13314
+    },
+    "17528": {
+      "role": "capped_wood_crate",
+      "origin": [
+        -16,
+        -55
+      ],
+      "size": [
+        56,
+        78
+      ],
+      "bounds": [
+        0,
+        0,
+        56,
+        78
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "source_rgba_sha256": "212eeae57865d1f02bd61b839ab7f11e87d91139398b1457d6c1b4109591928b",
+      "source_pack": "original",
+      "source_row": 12918
+    }
+  },
+  "scope": "53 exact native references. Private construction studies; source references alone do not activate or certify a map.",
+  "inferred": [
+    "Unseen backs, joints, thickness and hidden interiors must follow compatible existing furniture construction and be reviewed separately. No source route, service, container interaction or encounter is added by scenery."
+  ]
+}

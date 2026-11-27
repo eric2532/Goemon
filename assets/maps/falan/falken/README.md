@@ -1,7 +1,13 @@
 # 法爾肯 and the sixteen-floor 羅連斯研究塔
 
 Use **Play Goemon**. From 其利村's east gate, cross 轟恩大風穴 and follow
-法爾肯之路 to the ancient person at Sokia **(540,350)**. The full playable route is:
+法爾肯之路. The source-backed night entry actors are at Sokia **(579,275)**,
+**(514,337)** and **(593,332)**, arriving on3300 at **(20,28)**. The old540,350
+guide/entry is removed; that point remains only for compatibility with the
+existing reward/return owner. Original roaming/time selection and those legacy
+return anchors are not certified. See the Sokia regional ledger for provenance
+and the three night-entry/day-refusal movement checks. Beyond the entry, the
+existing playable quest route is:
 
 沒落的村莊 → (40,39) 連接時空的房間 → (12,10) 時空石盤 →
 勇者里雍 (21,18), receive 解咒之法 → 反抗軍 (35,21) →

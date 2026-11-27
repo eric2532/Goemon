@@ -2,9 +2,12 @@ extends RefCounted
 const FalkenArt=preload("res://scripts/forest/forest_falken_art.gd")
 const PrayerArt=preload("res://scripts/forest/forest_black_prayer_art.gd")
 const Prayer=preload("res://scripts/forest/forest_black_prayer.gd")
+const RubySource=preload("res://scripts/forest/forest_black_prayer_events.gd")
 ## Visual reconstruction only. The archived navigation grid still owns collision.
 const Data=preload("res://assets/maps/falan/room_art_data.gd")
 const Coastal=preload("res://scripts/forest/forest_coastal_rooms.gd")
+const CityFixtures=preload("res://scripts/forest/forest_falan_city_room_fixtures.gd")
+const IlLaruka=preload("res://scripts/forest/forest_il_laruka_art.gd")
 const ZombieMaze=preload("res://scripts/forest/forest_zombie_maze.gd")
 const Dungeons=preload("res://scripts/forest/forest_freyja_dungeons.gd")
 const Ladder=preload("res://scripts/forest/forest_habaru_ladder.gd")
@@ -30,10 +33,20 @@ const Inn=preload("res://scripts/forest/forest_falan_inn_art.gd")
 const Bank=preload("res://scripts/forest/forest_falan_bank_art.gd")
 const Meadow=preload("res://scripts/forest/forest_wind_meadow_assets.gd")
 const FLOOR_OVERLAY=&"floor_overlay"
+const PLAYER_SCENERY_FIXTURE=&"player_scenery_fixture"
+const SCENERY_FIXTURE_KINDS=["bed","counter","shelf","rack","table","bench","chair","plant","barrel",
+ "royal_stool","armor","brazier","state_bed","moon","lectern","finial","bust","crate","chest",
+ "civic_pew","civic_stall","civic_font","civic_globes","civic_basin","civic_statue","civic_stool",
+ "arena_counter","arena_tree","arena_statue","mansion_desk","mansion_piano",
+ "inn_counter","inn_table","inn_cupboard","inn_produce","inn_sign","inn_chest","inn_sack","inn_bucket","inn_display",
+ "guild_counter","guild_supply","bank_counter","bank_desk","bank_stand","bank_clock"]
 const POOL_LEVEL=-.16
 const TILE_TRIANGLES=[Vector2.ZERO,Vector2.RIGHT,Vector2.ONE,Vector2.ZERO,Vector2.ONE,Vector2.DOWN]
 
+static func palace(id:int)->bool:return id in [Prayer.BOSS,RubySource.POST]
 static func floor_tiles(id:int,size:Vector2i)->PackedByteArray:
+ if palace(id):return RubySource.palace_tiles(id,"floor_tiles")
+ if IlLaruka.Data.FLOORS.has(id):return Marshalls.base64_to_raw(IlLaruka.Data.FLOORS[id]).decompress(size.x*size.y*2,FileAccess.COMPRESSION_DEFLATE)
  if id in FalkenArt.Route.FLOORS:return FalkenArt.floor_tiles(id,size)
  if FalkenArt.Route.owns(id):return Marshalls.base64_to_raw(FalkenArt.Data.FLOORS[id]).decompress(size.x*size.y*2,FileAccess.COMPRESSION_DEFLATE)
  if Prayer.owns(id):return PrayerArt.floors(id,size)
@@ -42,6 +55,8 @@ static func floor_tiles(id:int,size:Vector2i)->PackedByteArray:
  return Marshalls.base64_to_raw(Data.FLOORS[id]).decompress(size.x*size.y*2,FileAccess.COMPRESSION_DEFLATE)
 
 static func wall_tiles(id:int,size:Vector2i)->PackedByteArray:
+ if palace(id):return RubySource.palace_tiles(id,"wall_tiles")
+ if IlLaruka.owns_room(id):return PackedByteArray()
  if id in FalkenArt.Route.FLOORS:return PackedByteArray()
  if FalkenArt.Route.owns(id):return Marshalls.base64_to_raw(FalkenArt.Data.WALLS[id]).decompress(size.x*size.y*2,FileAccess.COMPRESSION_DEFLATE)
  if not Data.WALLS.has(id):return PackedByteArray()
@@ -70,15 +85,17 @@ static func painted_atlas(atlas:Texture2D)->ShaderMaterial:
  return material
 
 static func build_floor(root:Node3D,id:int,tiles:PackedByteArray,size:Vector2i,origin:Vector2,walk:PackedByteArray,pools:PackedByteArray,furnished:Dictionary,run_seed:int=0):
+ if palace(id):PrayerArt.palace_void(root,size,origin)
  var chamber=id==FalkenArt.Route.ROOM
  var coping=FalkenArt.Chamber.Boxes.new() if chamber else null
  if chamber:pools=FalkenArt.Chamber.water_mask(tiles)
  var coastal=Coastal.Data.ROOMS.has(id)
- var floor_atlas=FalkenArt.Floor if FalkenArt.Route.owns(id) else PrayerArt.Floor if Prayer.owns(id) else CoastalFloor if coastal else UnderseaFloor if id in Dungeons.UNDERSEA_FLOORS else Atlas
+ var floor_atlas=IlLaruka.Data.LOWER_FLOOR_ATLAS if IlLaruka.Data.FLOORS.has(id) else FalkenArt.Floor if FalkenArt.Route.owns(id) else PrayerArt.Floor if Prayer.owns(id) else CoastalFloor if coastal else UnderseaFloor if id in Dungeons.UNDERSEA_FLOORS else Atlas
  var atlas_size=floor_atlas.get_size()
- var roofed=Dungeons.roofed(id) and id not in [2307,16508]
+ var roofed=Dungeons.roofed(id) and not palace(id)
  var habaru=id in Dungeons.HABARU_FLOORS+Dungeons.VENOA_FLOORS
  var open_stairs:Array=[Prayer.stairs(id,run_seed)[1]] if id in Prayer.FLOORS else HabaruStairs.DOWN_CELLS.get(id,[])
+ var village_stairs=IlLaruka.stair_openings(id)
  if id in FalkenArt.Route.FLOORS:open_stairs=[FalkenArt.Route.maze(id,run_seed).stairs[0]]
  var arena:Rect2i=BossProps.ARENAS.get(id,Rect2i())
  var floor_mesh=SurfaceTool.new()
@@ -93,7 +110,7 @@ static func build_floor(root:Node3D,id:int,tiles:PackedByteArray,size:Vector2i,o
    var index=z*size.x+x
    var cell=Vector2i(x,z)
    if id==Ladder.CHAMBER and cell==Ladder.HATCH_CELL:continue
-   if cell in open_stairs:continue
+   if cell in open_stairs or village_stairs.has(cell):continue
    var wet=is_pool(pools,size,cell)
    if roofed and not wet and (walk[index>>3] & (1<<(index&7)))==0 and not arena.has_point(cell) and not furnished.has(cell):continue
    var tile=tiles.decode_u16(index*2) if not tiles.is_empty() else int((walk[index>>3] & (1<<(index&7)))!=0)
@@ -132,14 +149,14 @@ static func build_floor(root:Node3D,id:int,tiles:PackedByteArray,size:Vector2i,o
    for corner:Vector2 in TILE_TRIANGLES:
     var point=center+(corner-Vector2.ONE*.5)*3.0
     surface.set_normal(Vector3.UP)
-    var uv=Vector2(corner.y,1.0-corner.x) if habaru or coastal else corner
+    var uv=Vector2(corner.y,1.0-corner.x) if habaru or coastal or palace(id) or Prayer.owns(id) or id in [15003,15004,15005] else corner
     surface.set_uv(corner if wet and chamber else (texture_origin+uv*31.0)/atlas_size)
     var height=Palace.surface_height(id,point.x,point.y)+Cellar.surface_height(id,point.x,point.y)+Arena.surface_height(id,point.x,point.y)
     if id in Mansion.STAGES:height+=Mansion.surface_height(id,point.x,point.y)
     var water_level=FalkenArt.Chamber.WATER_LEVEL if chamber else POOL_LEVEL
     surface.add_vertex(Vector3(point.x,water_level if wet else height+.025,point.y))
  var ground=painted_atlas(floor_atlas)
- ground.set_shader_parameter("original_palette",FalkenArt.Route.owns(id) or Prayer.owns(id) or id==Prayer.BOSS or coastal or id in Dungeons.UNDERSEA_FLOORS+Dungeons.VENOA_FLOORS)
+ ground.set_shader_parameter("original_palette",FalkenArt.Route.owns(id) or Prayer.owns(id) or palace(id) or coastal or id in Dungeons.UNDERSEA_FLOORS+Dungeons.VENOA_FLOORS)
  ground.set_shader_parameter("cave_floor",habaru or not pools.is_empty())
  var floor_node=Geo.mesh(root,floor_mesh.commit(),Vector3.ZERO,FalkenArt.Dais.material() if chamber else ground,id in Cellar.RAISED_FLOORS or id in Arena.RAISED or id in Mansion.STAGES or id==Ladder.BASEMENT)
  floor_node.name="ArchivedRoomFloor"
@@ -193,7 +210,8 @@ static func build_walls(root:Node3D,boxes,tiles:PackedByteArray,size:Vector2i,or
  var mesh=SurfaceTool.new()
  mesh.begin(Mesh.PRIMITIVE_TRIANGLES)
  var native_tower=face_atlas==FalkenArt.Walls
- var cap:Material=null if native_tower else Fort.material(Color("37342b"),false)
+ var native_palace=face_atlas==PrayerArt.PalaceWalls
+ var cap:Material=null if native_tower else Fort.material(Color("101010") if native_palace else Color("37342b"),false)
  var atlas_size=face_atlas.get_size()
  var corners=[Vector2.ZERO,Vector2.RIGHT,Vector2.ONE,Vector2.ZERO,Vector2.ONE,Vector2.DOWN]
  var divisions=FalkenArt.Data.WALL_RELIEF_SIZE if native_tower else Vector2i(3,4) if rock_relief else Vector2i.ONE
@@ -206,7 +224,7 @@ static func build_walls(root:Node3D,boxes,tiles:PackedByteArray,size:Vector2i,or
    var center=Vector3(origin.x+x*3,0,origin.y+z*3)
    boxes.add(center+Vector3.UP*(height-.055),Vector3(3,.11,3),FalkenArt.wall_cap(tile) if native_tower else cap)
    for axis in [Vector3.RIGHT,Vector3.BACK,Vector3.LEFT,Vector3.FORWARD]:
-    var face=(tile-1)*2+int(axis.x==0)
+    var face=(tile-1)*2+int(axis.x!=0 if native_palace else axis.x==0)
     var texture_origin=Vector2(face%16,face/16)*Vector2(36,100)+Vector2(2.5,2.5)
     var normal:Vector3=axis.cross(Vector3.UP)
     if native_tower:
@@ -216,7 +234,7 @@ static func build_walls(root:Node3D,boxes,tiles:PackedByteArray,size:Vector2i,or
      for h in divisions.x:
       for corner:Vector2 in corners:
        var uv=(Vector2(h,v)+corner)/Vector2(divisions)
-       var u=uv.x if axis==Vector3.RIGHT or axis==Vector3.FORWARD else 1.0-uv.x
+       var u=uv.x if axis in ([Vector3.RIGHT,Vector3.BACK] if native_palace else [Vector3.RIGHT,Vector3.FORWARD]) else 1.0-uv.x
        mesh.set_uv((texture_origin+Vector2(u*31,uv.y*95))/atlas_size)
        mesh.set_normal(normal)
        var relief=sin(uv.x*PI)*sin(uv.y*PI)*sin(x*.87+z*1.77+u*5.8+uv.y*8.0)*.23 if rock_relief else 0.0
@@ -227,11 +245,12 @@ static func build_walls(root:Node3D,boxes,tiles:PackedByteArray,size:Vector2i,or
  var surface=mesh.commit()
  if surface!=null and surface.get_surface_count()>0:
   var material=painted_atlas(face_atlas)
-  if face_atlas==FalkenArt.Walls:material.set_shader_parameter("original_palette",true)
+  if face_atlas==FalkenArt.Walls or native_palace:material.set_shader_parameter("original_palette",true)
   Geo.mesh(root,surface,Vector3.ZERO,material).name="ArchivedRoomWalls"
 
 static func build_freyja_stairs(root:Node3D,boxes,id:int,origin:Vector2,thresholds:Array=[]):
  for row in Data.FREYJA_STAIRS.get(id,[]):
+  if IlLaruka.owns_room(id) and row[1] in [16590,16592,16594,16595]:continue
   if id==Ladder.BASEMENT and row[0]==Ladder.BASEMENT_CELL:continue
   var at=origin+Vector2(row[0])*3.0
   if not thresholds.is_empty() and at not in thresholds:continue
@@ -267,7 +286,7 @@ static func build_freyja_stairs(root:Node3D,boxes,id:int,origin:Vector2,threshol
    boxes.add(point+Vector3.UP*(h*.5),Vector3(tread.x,.035,tread.z),edge)
 
 static func build_archived_props(root:Node3D,id:int,origin:Vector2,size:Vector2i,pools:PackedByteArray,walk:PackedByteArray=PackedByteArray())->Dictionary:
- var ruby=id==16508
+ var ruby=palace(id)
  var data=RubyProps if ruby else BossProps
  var atlas=preload("res://assets/maps/falan/ruby_room_props.png") if ruby else preload("res://assets/maps/falan/boss_room_props.png")
  if id in Dungeons.UNDERSEA_FLOORS:atlas=preload("res://assets/maps/falan/undersea_props.png")
@@ -290,7 +309,8 @@ static func build_archived_props(root:Node3D,id:int,origin:Vector2,size:Vector2i
  var cliffs=SurfaceTool.new()
  cliffs.begin(Mesh.PRIMITIVE_TRIANGLES)
  var cliff_count=0
- for row in data.PLACEMENTS[id]:
+ var placements=RubySource.palace_props(id) if ruby else data.PLACEMENTS[id]
+ for row in placements:
   var cell:Vector2i=row[0]
   var serial:int=row[1]
   # The stair builder (or hidden-room ladder) already owns these archived placements.
@@ -318,12 +338,10 @@ static func build_archived_props(root:Node3D,id:int,origin:Vector2,size:Vector2i
    PrayerArt.arch(group,center,cell,serial,ruby_stone)
    continue
   if ruby and serial==15819:
-   var beam=Geo.box(group,Vector3(center.x,7.3,center.y),Vector3(3,2.4,3),ruby_stone)
-   beam.name="RubyRaisedStoneCap"
-   beam.set_meta("blue_cg_serial",serial)
+   # This graphic is only black source occlusion; the solid wall builder already supplies its cap.
    continue
   if ruby and serial==17206:
-   PrayerArt.bars(group,center,serial)
+   PrayerArt.bars(group,center,serial,cell)
    continue
   if habaru and serial in [10456,10458,10494,10500,10533,10537,10541,11016,11017,11018,11044,16524,
    16503,16511,16512,16558,16754,10018,10032,10033,10034]:
@@ -349,7 +367,7 @@ static func build_archived_props(root:Node3D,id:int,origin:Vector2,size:Vector2i
      cliff_count+=1
    for uv:Vector2 in TILE_TRIANGLES:
     var at=center+(uv-Vector2.ONE*.5)*Vector2(span)*3.0
-    var tile_uv=Vector2(uv.y,1.0-uv.x) if id in [Ladder.CHAMBER,11005] else uv
+    var tile_uv=Vector2(uv.y,1.0-uv.x) if id in [Ladder.CHAMBER,11005,15003,15004,15005] else uv
     banks.set_normal(Vector3.UP)
     banks.set_uv((rect.position+Vector2(.5,.5)+tile_uv*(rect.size-Vector2.ONE))/atlas.get_size())
     banks.add_vertex(Vector3(at.x,level,at.y))
@@ -398,6 +416,7 @@ static func build_archived_props(root:Node3D,id:int,origin:Vector2,size:Vector2i
   geometry.set_meta("archived_placements",0)
   group.add_child(geometry)
   woodwork.build(geometry)
+ if ruby:PrayerArt.fit_palace_props(group,origin)
  return cells
 
 static func habaru_furniture(group:Node3D,boxes,p:Vector3,serial:int):
@@ -494,6 +513,8 @@ static func habaru_furniture(group:Node3D,boxes,p:Vector3,serial:int):
      Geo.cylinder(prop,center+Vector3.UP*y,.62,.09,iron)
 
 static func build_fixtures(root:Node3D,boxes,id:int,origin:Vector2,reserved:Rect2i)->Dictionary:
+ if IlLaruka.owns_room(id):return IlLaruka.build_room(root,id,origin)
+ if id in CityFixtures.ROOMS:return CityFixtures.build(root,id,origin)
  var cells={}
  var coastal_batches={}
  var plants=[]
@@ -517,8 +538,9 @@ static func build_fixtures(root:Node3D,boxes,id:int,origin:Vector2,reserved:Rect
   if id==ZombieMaze.ROOM and not ZombieMaze.LAB.has_point(anchor):continue
   var count:Vector2i=row[1]
   if reserved.has_area() and reserved.intersects(Rect2i(anchor,count)):continue
+  var fixture=PLAYER_SCENERY_FIXTURE if row[2] in SCENERY_FIXTURE_KINDS else true
   for z in count.y:
-   for x in count.x:cells[anchor+Vector2i(x,z)]=true
+   for x in count.x:cells[anchor+Vector2i(x,z)]=fixture
   var at=origin+(Vector2(anchor)+Vector2(count-Vector2i.ONE)*.5)*3.0
   var floor_y=Palace.surface_height(id,at.x,at.y)+Cellar.surface_height(id,at.x,at.y)+Arena.surface_height(id,at.x,at.y)
   if id in Mansion.STAGES:floor_y+=Mansion.surface_height(id,at.x,at.y)

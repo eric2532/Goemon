@@ -10,18 +10,40 @@ from build_freyja_destinations import load_map
 from build_freyja_outlying import is_water
 
 
-def build(magic, output, map_id=100):
+def build(magic, output, map_id=100, lookup=None):
     sys.path.insert(0, str(magic / "tools"))
     import cg_library as library
 
     width, height, ground, _, _ = load_map(library, map_id)
-    name = {100:"freyja",300:"sokia",3200:"kili",2100:"venoa",2000:"il_village",2400:"alyut"}[map_id]
-    lookup = library.serial_index()
+    name = {100:"freyja",300:"sokia",3200:"kili",2100:"venoa",2000:"il_village",2300:"laruka",2400:"alyut",3000:"ghana"}[map_id]
+    if lookup is None:lookup = library.serial_index()
     serials = sorted(serial for serial in set(ground) - {0, 100}
                      if serial in lookup and (lookup[serial]["w"], lookup[serial]["h"]) == (64, 47))
-    atlas = Image.new("RGB", (COLS * STRIDE, ((len(serials) + COLS - 1) // COLS) * STRIDE))
     indices = {}
-    for index, serial in enumerate(serials):
+    old_atlas=None
+    if map_id in (100,300):
+        base=Path(__file__).resolve().parents[1]/'assets/maps/falan'
+        if (base/f'{name}_ground_index.png').exists():
+            old_index=Image.open(base/f'{name}_ground_index.png').convert('RGBA')
+            old_atlas=Image.open(base/f'{name}_ground_atlas.png').convert('RGB')
+            assert old_index.size==(width,height)
+            for i,serial in enumerate(ground):
+                if serial not in serials:continue
+                r,g,_,a=old_index.getpixel((i%width,i//width))
+                if not a:continue
+                slot=r+g*COLS
+                assert serial not in indices or indices[serial]==slot
+                indices[serial]=slot
+            for serial,slot in indices.items():
+                entry=lookup[serial];tile=project_tile(library.image_from_record(entry['pack'],entry['row']))
+                x,y=slot%COLS*STRIDE,slot//COLS*STRIDE
+                assert old_atlas.crop((x,y,x+STRIDE,y+STRIDE)).tobytes()==tile.tobytes(),'Existing source tile pixels must remain exact'
+    next_slot=max(indices.values(),default=-1)+1
+    for serial in serials:
+        if serial not in indices:indices[serial]=next_slot;next_slot+=1
+    atlas = Image.new("RGB", (COLS * STRIDE, max(old_atlas.height if old_atlas else 0,((next_slot + COLS - 1) // COLS) * STRIDE)))
+    if old_atlas:atlas.paste(old_atlas,(0,0))
+    for serial,index in indices.items():
         entry = lookup[serial]
         tile = project_tile(library.image_from_record(entry["pack"], entry["row"]))
         atlas.paste(tile, (index % COLS * STRIDE, index // COLS * STRIDE))
@@ -44,5 +66,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("magic_power", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--map", dest="map_id", type=int, choices=[100,300], default=100)
     args = parser.parse_args()
-    build(args.magic_power.resolve(), args.output.resolve())
+    build(args.magic_power.resolve(), args.output.resolve(), args.map_id)

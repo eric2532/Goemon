@@ -1,0 +1,6608 @@
+[
+  {
+    "source": 59520,
+    "cell": [
+      227,
+      170
+    ],
+    "target": 59521,
+    "landing": [
+      91,
+      63
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3946",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      226,
+      171
+    ],
+    "target": 59521,
+    "landing": [
+      90,
+      64
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3947",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      225,
+      171
+    ],
+    "target": 59521,
+    "landing": [
+      89,
+      65
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3948",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      112,
+      101
+    ],
+    "target": 59501,
+    "landing": [
+      264,
+      108
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3949",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      112,
+      102
+    ],
+    "target": 59501,
+    "landing": [
+      264,
+      108
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3950",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      112,
+      103
+    ],
+    "target": 59501,
+    "landing": [
+      264,
+      108
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3952",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      131,
+      49
+    ],
+    "target": 59500,
+    "landing": [
+      185,
+      186
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3953",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      130,
+      50
+    ],
+    "target": 59500,
+    "landing": [
+      185,
+      186
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3954",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      129,
+      51
+    ],
+    "target": 59500,
+    "landing": [
+      185,
+      186
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3956",
+    "command": "",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      202,
+      98
+    ],
+    "target": 59530,
+    "landing": [
+      60,
+      97
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4165",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      198,
+      93
+    ],
+    "target": 59530,
+    "landing": [
+      60,
+      91
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4166",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      200,
+      95
+    ],
+    "target": 59530,
+    "landing": [
+      59,
+      93
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4167",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      201,
+      95
+    ],
+    "target": 59530,
+    "landing": [
+      59,
+      94
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4168",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      201,
+      96
+    ],
+    "target": 59530,
+    "landing": [
+      59,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4169",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      202,
+      98
+    ],
+    "target": 59530,
+    "landing": [
+      60,
+      97
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4170",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      175,
+      62
+    ],
+    "target": 59530,
+    "landing": [
+      79,
+      55
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4171",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      228,
+      128
+    ],
+    "target": 59530,
+    "landing": [
+      81,
+      133
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4192",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      165,
+      154
+    ],
+    "target": 59522,
+    "landing": [
+      93,
+      62
+    ],
+    "kind": "event",
+    "proof": "EV_tane_Gate_0012.txt:23",
+    "command": "Warp 0,59522,93,62",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      165,
+      154
+    ],
+    "target": 59502,
+    "landing": [
+      198,
+      48
+    ],
+    "kind": "event",
+    "proof": "EV_tane_Gate_0012.txt:27",
+    "command": "Warp 0,59502,198,48",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      165,
+      154
+    ],
+    "target": 59502,
+    "landing": [
+      198,
+      48
+    ],
+    "kind": "event",
+    "proof": "EV_tane_Gate_0012.txt:39",
+    "command": "Warp 0,59502,198,48",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      141,
+      104
+    ],
+    "target": 1500,
+    "landing": [
+      27,
+      82
+    ],
+    "kind": "event",
+    "proof": "EV_tane_Gate_003.txt:19",
+    "command": "Warp 0,1500,27,82",
+    "source_component": -1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59520,
+    "cell": [
+      158,
+      93
+    ],
+    "target": 59521,
+    "landing": [
+      84,
+      112
+    ],
+    "kind": "event",
+    "proof": "EV_tane_NPC_02.txt:6",
+    "command": "Warp 0,59521,84,112",
+    "source_component": 1,
+    "status": "off-island boundary"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      95,
+      80
+    ],
+    "target": 59534,
+    "landing": [
+      30,
+      38
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4155",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      95,
+      104
+    ],
+    "target": 59534,
+    "landing": [
+      30,
+      39
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4157",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      156,
+      96
+    ],
+    "target": 59741,
+    "landing": [
+      85,
+      124
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_mono1.txt:83",
+    "command": "warp 0,59741,85,124",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      79,
+      55
+    ],
+    "target": 59520,
+    "landing": [
+      175,
+      62
+    ],
+    "kind": "event",
+    "proof": "me_warp_family_1.txt:4",
+    "command": "Warp 0,59520,175,62",
+    "source_component": 1,
+    "status": "island room",
+    "temple_return": true,
+    "original_client_parity": "unverified",
+    "snapshot_condition": "Level > 49; LeaveGroup",
+    "explore_condition": "existing free area travel"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      59,
+      93
+    ],
+    "target": 59520,
+    "landing": [
+      200,
+      96
+    ],
+    "kind": "event",
+    "proof": "me_warp_family_2.txt:4",
+    "command": "Warp 0,59520,200,96",
+    "source_component": 1,
+    "status": "island room",
+    "temple_return": true,
+    "original_client_parity": "unverified",
+    "snapshot_condition": "Level > 49; LeaveGroup",
+    "explore_condition": "existing free area travel"
+  },
+  {
+    "source": 59530,
+    "cell": [
+      81,
+      133
+    ],
+    "target": 59520,
+    "landing": [
+      228,
+      128
+    ],
+    "kind": "event",
+    "proof": "me_warp_family_3.txt:4",
+    "command": "Warp 0,59520,228,128",
+    "source_component": 1,
+    "status": "island room",
+    "temple_return": true,
+    "original_client_parity": "unverified",
+    "snapshot_condition": "Level > 49; LeaveGroup",
+    "explore_condition": "existing free area travel"
+  },
+  {
+    "source": 59534,
+    "cell": [
+      30,
+      39
+    ],
+    "target": 59530,
+    "landing": [
+      95,
+      80
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4156",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59534,
+    "cell": [
+      44,
+      41
+    ],
+    "target": 59531,
+    "landing": [
+      26,
+      34
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4158",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59742,
+    "landing": [
+      257,
+      103
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5802",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59531,
+    "cell": [
+      26,
+      34
+    ],
+    "target": 59534,
+    "landing": [
+      44,
+      41
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4159",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59531,
+    "cell": [
+      34,
+      34
+    ],
+    "target": 59535,
+    "landing": [
+      39,
+      60
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4160",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59531,
+    "cell": [
+      17,
+      33
+    ],
+    "target": 59537,
+    "landing": [
+      105,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4162",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      258,
+      103
+    ],
+    "target": 59741,
+    "landing": [
+      258,
+      103
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5806",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      130,
+      156
+    ],
+    "target": 59743,
+    "landing": [
+      130,
+      156
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5810",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59535,
+    "cell": [
+      48,
+      61
+    ],
+    "target": 59536,
+    "landing": [
+      27,
+      28
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4048",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59535,
+    "cell": [
+      39,
+      60
+    ],
+    "target": 59531,
+    "landing": [
+      34,
+      34
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4161",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59535,
+    "cell": [
+      48,
+      60
+    ],
+    "target": 59536,
+    "landing": [
+      26,
+      27
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4163",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      81,
+      87
+    ],
+    "target": 59727,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_703.txt:10",
+    "command": "warp 0,59727,57,146",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      81,
+      87
+    ],
+    "target": 59621,
+    "landing": [
+      15,
+      77
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_703.txt:67",
+    "command": "Warp 0,59621,15,77",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      80,
+      64
+    ],
+    "target": 59727,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_701.txt:10",
+    "command": "warp 0,59727,57,146",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      80,
+      64
+    ],
+    "target": 59607,
+    "landing": [
+      15,
+      77
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_701.txt:63",
+    "command": "Warp 0,59607,15,77",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      103,
+      65
+    ],
+    "target": 59727,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_702.txt:10",
+    "command": "warp 0,59727,57,146",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      103,
+      65
+    ],
+    "target": 59614,
+    "landing": [
+      15,
+      77
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_702.txt:68",
+    "command": "Warp 0,59614,15,77",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      104,
+      88
+    ],
+    "target": 59727,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_700.txt:9",
+    "command": "warp 0,59727,57,146",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59537,
+    "cell": [
+      104,
+      88
+    ],
+    "target": 59600,
+    "landing": [
+      15,
+      77
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_700.txt:64",
+    "command": "Warp 0,59600,15,77",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      130,
+      155
+    ],
+    "target": 59742,
+    "landing": [
+      130,
+      155
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5812",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      204,
+      103
+    ],
+    "target": 59743,
+    "landing": [
+      167,
+      77
+    ],
+    "kind": "event",
+    "proof": "EV_nemoto_main6_001.txt:7",
+    "command": "warp 0,59743,167,77",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      120,
+      117
+    ],
+    "target": 59743,
+    "landing": [
+      213,
+      127
+    ],
+    "kind": "event",
+    "proof": "EV_nemoto_main6_002.txt:7",
+    "command": "warp 0,59743,213,127",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      190,
+      177
+    ],
+    "target": 59743,
+    "landing": [
+      169,
+      171
+    ],
+    "kind": "event",
+    "proof": "EV_nemoto_main6_003.txt:7",
+    "command": "warp 0,59743,169,171",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59536,
+    "cell": [
+      27,
+      28
+    ],
+    "target": 59535,
+    "landing": [
+      48,
+      61
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4049",
+    "command": "",
+    "source_component": 0,
+    "status": "island room"
+  },
+  {
+    "source": 59536,
+    "cell": [
+      26,
+      27
+    ],
+    "target": 59535,
+    "landing": [
+      48,
+      60
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4164",
+    "command": "",
+    "source_component": 0,
+    "status": "island room"
+  },
+  {
+    "source": 59727,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59728,
+    "landing": [
+      67,
+      74
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4233",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59621,
+    "cell": [
+      89,
+      45
+    ],
+    "target": 59622,
+    "landing": [
+      40,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4026",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59621,
+    "cell": [
+      90,
+      45
+    ],
+    "target": 59622,
+    "landing": [
+      41,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4027",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59621,
+    "cell": [
+      86,
+      78
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59607,
+    "cell": [
+      89,
+      45
+    ],
+    "target": 59608,
+    "landing": [
+      40,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3982",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59607,
+    "cell": [
+      90,
+      45
+    ],
+    "target": 59608,
+    "landing": [
+      41,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3983",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59607,
+    "cell": [
+      86,
+      78
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59614,
+    "cell": [
+      89,
+      45
+    ],
+    "target": 59615,
+    "landing": [
+      40,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4004",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59614,
+    "cell": [
+      90,
+      45
+    ],
+    "target": 59615,
+    "landing": [
+      41,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4005",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59614,
+    "cell": [
+      86,
+      78
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59600,
+    "cell": [
+      89,
+      45
+    ],
+    "target": 59601,
+    "landing": [
+      40,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3960",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59600,
+    "cell": [
+      90,
+      45
+    ],
+    "target": 59601,
+    "landing": [
+      41,
+      76
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3961",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59600,
+    "cell": [
+      86,
+      78
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      193,
+      49
+    ],
+    "target": 59743,
+    "landing": [
+      168,
+      154
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_203.txt:19",
+    "command": "Encount 2|0,59743,168,154||0|||||0|308000|||||||||",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59743,
+    "landing": [
+      142,
+      141
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_201.txt:30",
+    "command": "Encount 2|0,59743,142,141||0|||||0|308001|||||||||",
+    "source_component": 9,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59743,
+    "landing": [
+      142,
+      141
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_201.txt:43",
+    "command": "Encount 2|0,59743,142,141||0|||||0|308001|||||||||",
+    "source_component": 9,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59743,
+    "landing": [
+      142,
+      141
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_201.txt:79",
+    "command": "Encount 2|0,59743,142,141||0|||||0|308001|||||||||",
+    "source_component": 9,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59743,
+    "landing": [
+      142,
+      141
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_201.txt:97",
+    "command": "Encount 2|0,59743,142,141||0|||||0|308001|||||||||",
+    "source_component": 9,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      257,
+      103
+    ],
+    "target": 59520,
+    "landing": [
+      195,
+      99
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_201.txt:113",
+    "command": "warp 0,59520,195,99",
+    "source_component": 9,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      161,
+      184
+    ],
+    "target": 59743,
+    "landing": [
+      150,
+      171
+    ],
+    "kind": "event",
+    "proof": "EV_nemoto_main6_004.txt:7",
+    "command": "warp 0,59743,150,171",
+    "source_component": 21,
+    "status": "island room"
+  },
+  {
+    "source": 59728,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59727,
+    "landing": [
+      44,
+      96
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4234",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59728,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59734,
+    "landing": [
+      38,
+      83
+    ],
+    "kind": "victory",
+    "proof": "npc-index.txt:6006",
+    "command": "3|0,59734,38,83||0|||||5|305195|||||||||",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      40,
+      76
+    ],
+    "target": 59621,
+    "landing": [
+      89,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4028",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      41,
+      76
+    ],
+    "target": 59621,
+    "landing": [
+      90,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4029",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59624,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_101.txt:36",
+    "command": "Warp 0,59624,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59641,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_101.txt:70",
+    "command": "Warp 0,59641,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59657,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_101.txt:104",
+    "command": "Warp 0,59657,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59626,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_102.txt:37",
+    "command": "Warp 0,59626,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59643,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_102.txt:70",
+    "command": "Warp 0,59643,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59659,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_102.txt:103",
+    "command": "Warp 0,59659,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59622,
+    "cell": [
+      33,
+      54
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      40,
+      76
+    ],
+    "target": 59607,
+    "landing": [
+      89,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3984",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      41,
+      76
+    ],
+    "target": 59607,
+    "landing": [
+      90,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3985",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59610,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_101.txt:36",
+    "command": "Warp 0,59610,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59633,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_101.txt:70",
+    "command": "Warp 0,59633,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59649,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_101.txt:106",
+    "command": "Warp 0,59649,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59612,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_102.txt:39",
+    "command": "Warp 0,59612,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59635,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_102.txt:70",
+    "command": "Warp 0,59635,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59651,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_102.txt:102",
+    "command": "Warp 0,59651,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59608,
+    "cell": [
+      33,
+      54
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      40,
+      76
+    ],
+    "target": 59614,
+    "landing": [
+      89,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4006",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      41,
+      76
+    ],
+    "target": 59614,
+    "landing": [
+      90,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4007",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59617,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_101.txt:42",
+    "command": "Warp 0,59617,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59637,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_101.txt:74",
+    "command": "Warp 0,59637,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59653,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_101.txt:109",
+    "command": "Warp 0,59653,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59619,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_102.txt:36",
+    "command": "Warp 0,59619,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59639,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_102.txt:68",
+    "command": "Warp 0,59639,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59655,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_102.txt:100",
+    "command": "Warp 0,59655,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59615,
+    "cell": [
+      33,
+      54
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      40,
+      76
+    ],
+    "target": 59600,
+    "landing": [
+      89,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3962",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      41,
+      76
+    ],
+    "target": 59600,
+    "landing": [
+      90,
+      45
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3963",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59603,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_101.txt:33",
+    "command": "Warp 0,59603,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59629,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_101.txt:65",
+    "command": "Warp 0,59629,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      65,
+      53
+    ],
+    "target": 59645,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_101.txt:99",
+    "command": "Warp 0,59645,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59605,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_102.txt:40",
+    "command": "Warp 0,59605,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59631,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_102.txt:71",
+    "command": "Warp 0,59631,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      51,
+      32
+    ],
+    "target": 59647,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_102.txt:104",
+    "command": "Warp 0,59647,57,146",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59601,
+    "cell": [
+      33,
+      54
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      130,
+      126
+    ],
+    "target": 59744,
+    "landing": [
+      130,
+      126
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5814",
+    "command": "",
+    "source_component": 11,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      139,
+      193
+    ],
+    "target": 59744,
+    "landing": [
+      139,
+      193
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5816",
+    "command": "",
+    "source_component": 20,
+    "status": "island room"
+  },
+  {
+    "source": 59734,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59729,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_101.txt:30",
+    "command": "Warp 0,59729,57,146",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59734,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_101.txt:45",
+    "command": "warp 0,59537,92,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59624,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59623,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4030",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59641,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59640,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4036",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59657,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59656,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4042",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59626,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59625,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4033",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59643,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59642,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4039",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59659,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59658,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4045",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59610,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59609,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3986",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59633,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59632,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3992",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59649,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59648,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3998",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59612,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59611,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3989",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59635,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59634,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3995",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59651,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59650,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4001",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59617,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59616,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4008",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59637,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59636,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4014",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59653,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59652,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4020",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59619,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59618,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4011",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59639,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59638,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4017",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59655,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59654,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4023",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59603,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59602,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3964",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59629,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59628,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3970",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59645,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59644,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3976",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59605,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59604,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3967",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59631,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59630,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3973",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59647,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59646,
+    "landing": [
+      66,
+      75
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3979",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      130,
+      125
+    ],
+    "target": 59743,
+    "landing": [
+      130,
+      125
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5817",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      189,
+      47
+    ],
+    "target": 59744,
+    "landing": [
+      237,
+      64
+    ],
+    "kind": "event",
+    "proof": "EV_nemoto_main6_005.txt:7",
+    "command": "warp 0,59744,237,64",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      139,
+      192
+    ],
+    "target": 59743,
+    "landing": [
+      139,
+      192
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5819",
+    "command": "",
+    "source_component": 29,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      168,
+      168
+    ],
+    "target": 59743,
+    "landing": [
+      172,
+      96
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_204.txt:19",
+    "command": "Encount 2|0,59743,172,96||0|||||0|308002|||||||||",
+    "source_component": 29,
+    "status": "island room"
+  },
+  {
+    "source": 59729,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59730,
+    "landing": [
+      67,
+      74
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4235",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59623,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59624,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4031",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59623,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59656,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:22",
+    "command": "Warp 0,59656,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59623,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59640,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:45",
+    "command": "Warp 0,59640,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59623,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59623,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:65",
+    "command": "Warp 0,59623,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59640,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59641,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4037",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59640,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59656,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:22",
+    "command": "Warp 0,59656,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59640,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59640,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:45",
+    "command": "Warp 0,59640,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59640,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59623,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:65",
+    "command": "Warp 0,59623,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59656,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59657,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4043",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59656,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59656,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:22",
+    "command": "Warp 0,59656,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59656,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59640,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:45",
+    "command": "Warp 0,59640,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59656,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59623,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_207.txt:65",
+    "command": "Warp 0,59623,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59626,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4034",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:23",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:47",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:69",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:106",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:143",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:181",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59643,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4040",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:23",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:47",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:69",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:106",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:143",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:181",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59659,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4046",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:23",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:47",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:69",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59658,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:106",
+    "command": "Warp 0,59658,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59642,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:143",
+    "command": "Warp 0,59642,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59625,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_206.txt:181",
+    "command": "Warp 0,59625,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59609,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59610,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3987",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59609,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59648,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:22",
+    "command": "Warp 0,59648,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59609,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59632,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:43",
+    "command": "Warp 0,59632,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59609,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59609,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:64",
+    "command": "Warp 0,59609,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59632,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59633,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3993",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59632,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59648,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:22",
+    "command": "Warp 0,59648,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59632,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59632,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:43",
+    "command": "Warp 0,59632,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59632,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59609,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:64",
+    "command": "Warp 0,59609,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59648,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59649,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3999",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59648,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59648,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:22",
+    "command": "Warp 0,59648,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59648,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59632,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:43",
+    "command": "Warp 0,59632,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59648,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59609,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_207.txt:64",
+    "command": "Warp 0,59609,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59612,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3990",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:23",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:46",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:67",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:106",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:144",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:182",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59635,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3996",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:23",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:46",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:67",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:106",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:144",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:182",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59651,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4002",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:23",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:46",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:67",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59650,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:106",
+    "command": "Warp 0,59650,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59634,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:144",
+    "command": "Warp 0,59634,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59611,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_206.txt:182",
+    "command": "Warp 0,59611,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59616,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59617,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4009",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59616,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59652,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:23",
+    "command": "Warp 0,59652,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59616,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59636,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:45",
+    "command": "Warp 0,59636,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59616,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59616,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:64",
+    "command": "Warp 0,59616,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59636,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59637,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4015",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59636,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59652,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:23",
+    "command": "Warp 0,59652,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59636,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59636,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:45",
+    "command": "Warp 0,59636,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59636,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59616,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:64",
+    "command": "Warp 0,59616,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59652,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59653,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4021",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59652,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59652,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:23",
+    "command": "Warp 0,59652,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59652,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59636,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:45",
+    "command": "Warp 0,59636,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59652,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59616,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_207.txt:64",
+    "command": "Warp 0,59616,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59619,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4012",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:22",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:42",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:67",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:105",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:142",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:177",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59639,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4018",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:22",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:42",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:67",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:105",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:142",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:177",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59655,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4024",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:22",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:42",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:67",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59654,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:105",
+    "command": "Warp 0,59654,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59638,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:142",
+    "command": "Warp 0,59638,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59618,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_206.txt:177",
+    "command": "Warp 0,59618,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59602,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59603,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3965",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59602,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59644,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:23",
+    "command": "Warp 0,59644,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59602,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59628,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:46",
+    "command": "Warp 0,59628,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59602,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59602,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:67",
+    "command": "Warp 0,59602,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59628,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59629,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3971",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59628,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59644,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:23",
+    "command": "Warp 0,59644,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59628,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59628,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:46",
+    "command": "Warp 0,59628,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59628,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59602,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:67",
+    "command": "Warp 0,59602,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59644,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59645,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3977",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59644,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59644,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:23",
+    "command": "Warp 0,59644,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59644,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59628,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:46",
+    "command": "Warp 0,59628,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59644,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59602,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_207.txt:67",
+    "command": "Warp 0,59602,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59605,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3968",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:24",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:46",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:66",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:104",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:140",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:176",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59631,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3974",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:24",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:46",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:66",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:104",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:140",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:176",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59647,
+    "landing": [
+      45,
+      95
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3980",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:24",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:46",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:66",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59646,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:104",
+    "command": "Warp 0,59646,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59630,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:140",
+    "command": "Warp 0,59630,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      118,
+      127
+    ],
+    "target": 59604,
+    "landing": [
+      128,
+      118
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_206.txt:176",
+    "command": "Warp 0,59604,128,118",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      212,
+      110
+    ],
+    "target": 59745,
+    "landing": [
+      211,
+      109
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5820",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59730,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59729,
+    "landing": [
+      44,
+      96
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4236",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59730,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59735,
+    "landing": [
+      38,
+      83
+    ],
+    "kind": "victory",
+    "proof": "npc-index.txt:6007",
+    "command": "3|0,59735,38,83||0|||||5|305196|||||||||",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59656,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4044",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59640,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4038",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59623,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4032",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59658,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4047",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59642,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4041",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59625,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59627,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4035",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59648,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4000",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59632,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3994",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59609,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3988",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59650,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4003",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59634,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3997",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59611,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59613,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3991",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59652,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4022",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59636,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4016",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59616,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4010",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59654,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4025",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59638,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4019",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59618,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59620,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4013",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59644,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3978",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59628,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3972",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59602,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3966",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59646,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3981",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59630,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3975",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59604,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59606,
+    "landing": [
+      35,
+      85
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 3969",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59745,
+    "cell": [
+      168,
+      135
+    ],
+    "target": 59744,
+    "landing": [
+      169,
+      136
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5821",
+    "command": "",
+    "source_component": 7,
+    "status": "island room"
+  },
+  {
+    "source": 59745,
+    "cell": [
+      212,
+      109
+    ],
+    "target": 59744,
+    "landing": [
+      213,
+      110
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5823",
+    "command": "",
+    "source_component": 7,
+    "status": "island room"
+  },
+  {
+    "source": 59735,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59725,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_102.txt:31",
+    "command": "warp 0,59725,57,146",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59735,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_102.txt:48",
+    "command": "warp 0,59537,92,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_300.txt:51",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_300.txt:110",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_300.txt:168",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59713,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthW_300.txt:221",
+    "command": "Encount 3|0,59713,69,52||0|||3006042||0|27232|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59713,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthW_300.txt:276",
+    "command": "Encount 3|0,59713,69,52||0|||3006042||0|27231|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59627,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59713,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthW_300.txt:329",
+    "command": "Encount 3|0,59713,69,52||0|||3006042||0|27230|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_300.txt:54",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_300.txt:108",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_300.txt:163",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59712,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthS_300.txt:214",
+    "command": "Encount 3|0,59712,69,52||0|||3006028||0|27212|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59712,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthS_300.txt:269",
+    "command": "Encount 3|0,59712,69,52||0|||3006028||0|27211|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59613,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59712,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthS_300.txt:324",
+    "command": "Encount 3|0,59712,69,52||0|||3006028||0|27210|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_300.txt:55",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_300.txt:109",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_300.txt:164",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59711,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthE_300.txt:219",
+    "command": "Encount 3|0,59711,69,52||0|||3006035||0|27202|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_300.txt:228",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59711,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthE_300.txt:271",
+    "command": "Encount 3|0,59711,69,52||0|||3006035||0|27201|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59620,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59711,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthE_300.txt:324",
+    "command": "Encount 3|0,59711,69,52||0|||3006035||0|27200|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_300.txt:53",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_300.txt:108",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_300.txt:162",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59710,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthF_300.txt:216",
+    "command": "Encount 3|0,59710,69,52||0|||3006021||0|27222|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59710,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthF_300.txt:276",
+    "command": "Encount 3|0,59710,69,52||0|||3006021||0|27221|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59606,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59710,
+    "landing": [
+      69,
+      52
+    ],
+    "kind": "victory",
+    "proof": "EV_tane_rebthF_300.txt:332",
+    "command": "Encount 3|0,59710,69,52||0|||3006021||0|27220|||||||||",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      168,
+      115
+    ],
+    "target": 59743,
+    "landing": [
+      168,
+      115
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5818",
+    "command": "",
+    "source_component": 13,
+    "status": "island room"
+  },
+  {
+    "source": 59744,
+    "cell": [
+      168,
+      136
+    ],
+    "target": 59745,
+    "landing": [
+      167,
+      135
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5822",
+    "command": "",
+    "source_component": 13,
+    "status": "island room"
+  },
+  {
+    "source": 59725,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59726,
+    "landing": [
+      67,
+      74
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4231",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59713,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_301.txt:17",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59713,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_301.txt:39",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59713,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthW_301.txt:58",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59713,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59712,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_301.txt:17",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59712,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_301.txt:37",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59712,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthS_301.txt:57",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59712,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59711,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_301.txt:16",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59711,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_301.txt:32",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59711,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthE_301.txt:49",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59711,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59710,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_301.txt:18",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59710,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_301.txt:39",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59710,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      104,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebthF_301.txt:61",
+    "command": "Warp 0,59537,104,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59710,
+    "cell": [
+      68,
+      44
+    ],
+    "target": 59537,
+    "landing": [
+      103,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_rebth_800.txt:16",
+    "command": "Warp 0,59537,103,76",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      177,
+      116
+    ],
+    "target": 59742,
+    "landing": [
+      177,
+      116
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5813",
+    "command": "",
+    "source_component": 10,
+    "status": "island room"
+  },
+  {
+    "source": 59743,
+    "cell": [
+      168,
+      116
+    ],
+    "target": 59744,
+    "landing": [
+      167,
+      115
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5815",
+    "command": "",
+    "source_component": 10,
+    "status": "island room"
+  },
+  {
+    "source": 59726,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59725,
+    "landing": [
+      44,
+      96
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4232",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59726,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59733,
+    "landing": [
+      38,
+      83
+    ],
+    "kind": "victory",
+    "proof": "npc-index.txt:6008",
+    "command": "3|0,59733,38,83||0|||||5|305197|||||||||",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      162,
+      185
+    ],
+    "target": 59741,
+    "landing": [
+      163,
+      186
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5807",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      177,
+      117
+    ],
+    "target": 59743,
+    "landing": [
+      177,
+      117
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5811",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59733,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59731,
+    "landing": [
+      57,
+      146
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_103.txt:30",
+    "command": "warp 0,59731,57,146",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59733,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_103.txt:48",
+    "command": "warp 0,59537,92,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      162,
+      186
+    ],
+    "target": 59742,
+    "landing": [
+      161,
+      185
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5803",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      138,
+      194
+    ],
+    "target": 59742,
+    "landing": [
+      137,
+      193
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5804",
+    "command": "",
+    "source_component": 5,
+    "status": "island room"
+  },
+  {
+    "source": 59731,
+    "cell": [
+      45,
+      95
+    ],
+    "target": 59732,
+    "landing": [
+      67,
+      74
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4237",
+    "command": "",
+    "source_component": 2,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      138,
+      193
+    ],
+    "target": 59741,
+    "landing": [
+      139,
+      194
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5808",
+    "command": "",
+    "source_component": 6,
+    "status": "island room"
+  },
+  {
+    "source": 59742,
+    "cell": [
+      143,
+      124
+    ],
+    "target": 59741,
+    "landing": [
+      143,
+      126
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5809",
+    "command": "",
+    "source_component": 6,
+    "status": "island room"
+  },
+  {
+    "source": 59732,
+    "cell": [
+      66,
+      75
+    ],
+    "target": 59731,
+    "landing": [
+      44,
+      96
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 4238",
+    "command": "",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59732,
+    "cell": [
+      166,
+      79
+    ],
+    "target": 59736,
+    "landing": [
+      38,
+      83
+    ],
+    "kind": "victory",
+    "proof": "npc-index.txt:6009",
+    "command": "3|0,59736,38,83||0|||||5|305198|||||||||",
+    "source_component": 1,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      142,
+      126
+    ],
+    "target": 59742,
+    "landing": [
+      142,
+      124
+    ],
+    "kind": "door",
+    "proof": "reference-warp.txt:record 5805",
+    "command": "",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      175,
+      125
+    ],
+    "target": 59530,
+    "landing": [
+      135,
+      96
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_205.txt:19",
+    "command": "warp 0,59530,135,96",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      175,
+      125
+    ],
+    "target": 59752,
+    "landing": [
+      266,
+      208
+    ],
+    "kind": "victory",
+    "proof": "EV_suto_main6_205.txt:76",
+    "command": "Encount 2|0,59752,266,208||0|||||0|306318|||||||||",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59741,
+    "cell": [
+      175,
+      125
+    ],
+    "target": 59530,
+    "landing": [
+      135,
+      96
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_205.txt:91",
+    "command": "warp 0,59530,135,96",
+    "source_component": 4,
+    "status": "island room"
+  },
+  {
+    "source": 59736,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59716,
+    "landing": [
+      166,
+      173
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_104.txt:30",
+    "command": "warp 0,59716,166,173",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59736,
+    "cell": [
+      69,
+      51
+    ],
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "kind": "event",
+    "proof": "EV_tane_mein5_104.txt:46",
+    "command": "warp 0,59537,92,76",
+    "source_component": -1,
+    "status": "island room"
+  },
+  {
+    "source": 59752,
+    "cell": [
+      264,
+      206
+    ],
+    "target": 59520,
+    "landing": [
+      195,
+      99
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_300.txt:25",
+    "command": "warp 0,59520,195,99",
+    "source_component": 26,
+    "status": "island room"
+  },
+  {
+    "source": 59752,
+    "cell": [
+      264,
+      206
+    ],
+    "target": 59520,
+    "landing": [
+      195,
+      99
+    ],
+    "kind": "event",
+    "proof": "EV_suto_main6_300.txt:40",
+    "command": "warp 0,59520,195,99",
+    "source_component": 26,
+    "status": "island room"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      83,
+      36
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_001.txt:24",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      83,
+      36
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_001.txt:39",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      63,
+      87
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_002.txt:23",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      63,
+      87
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_002.txt:39",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      133,
+      74
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_003.txt:23",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      133,
+      74
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_003.txt:39",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      167,
+      86
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_004.txt:23",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59510,
+    "cell": [
+      167,
+      86
+    ],
+    "kind": "victory",
+    "target": null,
+    "landing": [],
+    "proof": "EV_tane_mein5_004.txt:39",
+    "command": "Encount 3|||0|||||0|305190|||||||||",
+    "status": "local battle"
+  },
+  {
+    "source": 59716,
+    "cell": [
+      67,
+      171
+    ],
+    "kind": "victory",
+    "target": 59737,
+    "landing": [
+      59,
+      62
+    ],
+    "proof": "EV_tane_mein5_201.txt:45",
+    "command": "Encount 3|0,59737,59,62||0|||||0|305200|||||||||",
+    "status": "blocked branch: original entrance unverified"
+  },
+  {
+    "source": 59716,
+    "cell": [
+      67,
+      171
+    ],
+    "kind": "event",
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "proof": "EV_tane_mein5_201.txt:66",
+    "command": "warp 0,59537,92,76",
+    "status": "blocked branch: original entrance unverified"
+  },
+  {
+    "source": 59737,
+    "cell": [
+      69,
+      51
+    ],
+    "kind": "victory",
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "proof": "EV_tane_mein5_202.txt:74",
+    "command": "Encount 3|0,59537,92,76||0|||||0|305201|||||||||",
+    "status": "blocked branch: original entrance unverified"
+  },
+  {
+    "source": 59737,
+    "cell": [
+      68,
+      49
+    ],
+    "kind": "victory",
+    "target": 59537,
+    "landing": [
+      92,
+      76
+    ],
+    "proof": "EV_tane_mein5_202.txt:74",
+    "command": "Encount 3|0,59537,92,76||0|||||0|305201|||||||||",
+    "status": "blocked branch: original entrance unverified"
+  }
+]

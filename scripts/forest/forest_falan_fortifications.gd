@@ -17,6 +17,13 @@ static var masonry_returns={}
 static func junctions()->Dictionary:
  if not masonry_returns.is_empty():return masonry_returns
  var stations={};var seen={};var bounds=[];var contacts=[]
+ var sections={}
+ var full_depth=Vector2(-INF,INF)
+ # Installed wall parts repeat the same slices in the local frame of each join.
+ var section=func(serial:int,pose:Transform3D,height:float,depth:Vector2)->Rect2:
+  var key=[serial,pose,height,depth]
+  if not sections.has(key):sections[key]=Parts.stone_section(serial,pose,height,depth)
+  return sections[key]
  for i in Data.FORTIFICATIONS.size():stations[Data.FORTIFICATIONS[i][0]]=i
  var surface=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
  var brick=SurfaceTool.new();brick.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -41,12 +48,13 @@ static func junctions()->Dictionary:
     if height>.01 and height<top-.01 and not heights.has(height):heights.append(height)
    heights.sort();var rings=[];var join_bounds=AABB();var first_point=true
    for height in heights:
-    var wall=Parts.stone_section(serial,wall_pose,height);var full=Parts.stone_section(other[1],other_pose,height)
+    var wall:Rect2=section.call(serial,wall_pose,height,full_depth)
+    var full:Rect2=section.call(other[1],other_pose,height,full_depth)
     assert(wall.has_area() and full.has_area(),"A masonry return requires solid stone on both ends")
     var z0=maxf(wall.position.y,full.position.y);var z1=minf(wall.end.y,full.end.y)
     if z1-z0<.1:
      var closest=clampf(wall.get_center().y,full.position.y+.15,full.end.y-.15);z0=closest-.1;z1=closest+.1
-    var contact=Parts.stone_section(other[1],other_pose,height,Vector2(z0,z1))
+    var contact:Rect2=section.call(other[1],other_pose,height,Vector2(z0,z1))
     assert(contact.has_area(),"A masonry return must enter the neighbour's actual section")
     var start=wall.end.x-.3 if side>0 else contact.end.x-.3
     var end=contact.position.x+.3 if side>0 else wall.position.x+.3

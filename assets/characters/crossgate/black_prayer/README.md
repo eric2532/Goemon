@@ -8,7 +8,19 @@ temporary toolkit folder and compares every prepared PNG, animation table and
 manifest with the live preparation.
 
 Native skin 0 is Ruby 100654 (`original:1184`), skin 1 is Bloody Blade 101600
-(`original:1328`), skin 2 is Ghost 101121 (`original:1248`). Ruby's runtime attack
+(`original:2913`), skin 2 is Ghost 101121 (`original:2833`). The older Blade rows
+538/1328/2118 mix a green humanoid into direction 0; 2913 supplies the coherent
+blue/white blade in every facing. Its original run 3 is nonblank and is retained.
+The 81-pixel south idle body fits the existing 3.5206185 standing height, with
+source-foot shift −6. Actor IDs/slots, six native actions, 28-column timelines
+and cue timing stay unchanged. Ruby/Ghost's 96 clip rows and 936 decoded
+RGBA/origin frame references are preserved exactly; the old bank is retained in
+canonical `Sokia Venoa Coverage/Black Prayer Blade/Before` as reference.
+The older ghost row
+1248 mixes blue and red facings; 2833 consistently draws the red source actor.
+Its original run 3 is transparent, so the native continuous locomotion slot
+reuses its original walk 1 offline, recorded in `native_action_sources`. Keep
+the six-action/28-column cue contract and standing fit. Ruby's runtime attack
 slot uses original spell action 7; do not replace it with guessed sword poses.
 The original sound samples are reused through the shared Cross Gate audio paths.
 

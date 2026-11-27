@@ -14,7 +14,10 @@ func settle():
 func run():
 	game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path=config_path;root.add_child(game);current_scene=game;await settle()
 	check(is_equal_approx(game.camera_rig.distance,12),"New Forest camera defaults to a modestly wider view")
+	check(game.world.map_features==null,"The opaque title does not build the arena backdrop")
+	check(game.player.character_models.size()==2 and game.player.character_models.has(1) and game.player.character_models.has(game.player.character_id),"Title prepares only the bootstrap and selected fighter")
 	game.show_settings(false);await settle()
+	check(is_instance_valid(game.world.map_features) and game.world.map_features.find_child("FalanSurvivalArena",true,false)!=null,"Title Settings builds the live arena backdrop on demand")
 	var entry=game.menu.find_child("CameraHUDSettingsButton",true,false)
 	check(entry is Button,"Settings exposes Camera & HUD")
 	if entry==null:await finish();return

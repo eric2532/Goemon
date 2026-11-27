@@ -11,6 +11,7 @@ const SHIN_DEFAULT_WEAPON_REACH=3.2
 const SHIN_SWORD_REACH=5.2
 const PRIMARY_RUSH_DISTANCE=5.0
 const PRIMARY_RUSH_SPEED=32.0
+const PRIMARY_DASH_SPEED=48.0
 const PRIMARY_SELECTION_DISTANCE=120.0
 const PRIMARY_COMBO_WINDOW=5.0
 const GUARD_REPLY_SPEED=1.5
@@ -90,10 +91,14 @@ var primary_combo_left=0.0
 var primary_combo_epoch=0
 var primary_tab_target:WeakRef
 var primary_hold_target:WeakRef
+var combined_queued=false
+var combined_queue_target:WeakRef
 
 func ranged_projectile()->String:
  var weapon=cast_model().current_weapon()
- return "crossgate_boomerang" if weapon=="boomerang" else "water_dragon_dagger" if weapon=="kunai" else "crossgate_arrow"
+ if weapon=="boomerang":return cast_model().gear_route.get("projectile","crossgate_boomerang")
+ if weapon=="kunai":return cast_model().gear_route.get("projectile","water_dragon_dagger")
+ return "crossgate_arrow"
 
 func prepare_projectiles():
  if cast_model().fighter.strike=="throw":
@@ -252,7 +257,7 @@ func input(event:InputEvent):
  super.input(event)
 
 func can_guard_reply()->bool:
- return spell_owner==null and hero.guard_reply_left>0 and not hero.defend_held and hero.is_on_floor()
+ return spell_owner==null and not cast_model().beast_master and hero.guard_reply_left>0 and not hero.defend_held and hero.is_on_floor()
 
 func apply_guard_reply():
  ticket.guard_reply=true
@@ -361,6 +366,7 @@ func start_selected_primary(direction:Vector3,enemy:Ninja,rush_left:float=PRIMAR
   primary_hold_target=null
  if cycle_motion:cast_model().advance_weapon_combo()
  if is_instance_valid(enemy):track_selected_primary(enemy,rush_left)
+ begin_combined_power(enemy)
 
 func track_selected_primary(enemy:Ninja,rush_left:float):
  state.primary_target=weakref(enemy)
@@ -456,7 +462,7 @@ func move_toward_primary_target(offset:Vector3,direction:Vector3,delta:float)->b
  var dashing=not primary_is_ranged() and float(hero.accessory_bonuses.get("attack_dash",0))>0
  var rushing=dashing or (state.rush_left>0.0 and offset.length()<=primary_reach()+PRIMARY_RUSH_DISTANCE)
  var speed=PRIMARY_RUSH_SPEED if rushing else hero.combat_tuning("sprint_speed")*hero.movement_multiplier()
- if dashing:speed*=hero.movement_multiplier()
+ if dashing:speed=PRIMARY_DASH_SPEED*hero.movement_multiplier()
  var distance=minf(speed*delta,offset.length())
  if rushing and not dashing:distance=minf(distance,state.rush_left)
  var from:Vector3=hero.global_position
@@ -473,6 +479,9 @@ func controls_primary_facing()->bool:
  return mode=="primary_approach" or (mode=="attack" and state.has("primary_target") and not state.get("primary_committed",false))
 
 func track_primary_windup(delta:float)->bool:
+ if hero.combined_power_busy():
+  state.erase("approach_velocity")
+  return true
  var enemy=selected_primary_enemy()
  var offset=primary_target_offset(enemy)
  var guard_break=ticket.has("guard_break_target")
@@ -514,6 +523,7 @@ func swap_weapon():
  if not hero.ai_controlled:game.toast(hero.RogueRoster.name_for(hero.character_id)+" · "+str(cast_model().motions.weapon).capitalize())
 
 func cancel(preserve_power:bool=false):
+ combined_queued=false;combined_queue_target=null
  if is_instance_valid(cast_model()) and cast_model().get("weapon_combo_step")!=null:
   cast_model().weapon_combo_step=-1
   if not preserve_power:cast_model().weapon_combo_next=0
@@ -662,9 +672,9 @@ func finish_shin_meditation():
  hero.play_sound("cg_shin_meditation_heal",1.0,ticket)
  cancel(true)
 
-func counter_after_hit(direction:Vector3,source:int,basic:bool=false,after_dodge:bool=false,counter_origin:Vector3=Vector3.INF)->bool:
+func counter_after_hit(direction:Vector3,source:int,basic:bool=false,after_dodge:bool=false,counter_origin:Vector3=Vector3.INF,guaranteed:bool=false)->bool:
  if basic:
-  if hero.ai_controlled or hero.hp<=0 or (not after_dodge and randf()*100>=hero.combat_tuning("counter_chance")):return false
+  if hero.ai_controlled or hero.hp<=0 or (not after_dodge and not guaranteed and randf()*100>=hero.combat_tuning("counter_chance")):return false
  elif not shin_counter_armed or not hero.can_pay_skill(Skills.Catalog.COUNTER):return false
  if not basic:
   shin_counter_chain=mini(SHIN_COUNTER_MAX_CHAIN,shin_counter_chain+1)
@@ -693,7 +703,7 @@ func begin_shin_counter(counter:Dictionary):
  counter.attack=attack
  counter.elapsed=0.0
  counter.marker=0
- counter.ticket=hero.attack_chain.make_ticket("stat_counter" if basic else "shin_counter")
+ counter.ticket=hero.attack_chain.make_ticket("stat_counter" if basic else "shin_counter",basic and cast_model().beast_master)
  if basic:
   counter.contact=float(pattern.contacts[0])
   counter.swing=float(pattern.sounds[0]) if not pattern.sounds.is_empty() else counter.contact*.5
@@ -740,7 +750,7 @@ func tick_shin_counter(delta:float):
      var direction:Vector3=counter.facing if toward.is_zero_approx() else toward.normalized()
      var config={"kind":counter.projectile,"position":origin,"velocity":direction*Shot.THROWN_SPEED,"lifetime":projectile_range()/Shot.THROWN_SPEED,"damage":counter.damage*hero.damage_multiplier(),"attack_ticket":counter.ticket}
      if cast_model().motions.get("water_dragon",false):config.impact_sound=counter.hit_sound
-     if counter.projectile=="crossgate_boomerang":config.boomerang_reach=clampf(toward.length(),2,projectile_range())
+     if counter.projectile in ["crossgate_boomerang","water_dragon_boomerang"]:config.boomerang_reach=clampf(toward.length(),2,projectile_range())
      Pool.service(game).launch(hero,Shot,counter.projectile,config)
     else:
      strike(Vector3.UP,Vector3(0,1,-counter.reach),CUT_RADIUS*cast_model().basis.get_scale().x,counter.damage/Roles.DATA[0].damage,-1.0,counter.origin,0,[],counter.hit_sound,counter)
@@ -1040,6 +1050,7 @@ func start_attack(_heavy:bool=false,allow_accessories:bool=true):
  if allow_accessories and spell_owner==null and not state.has("barrage_left") and hero.spell_loadout.accessory_attack():return
  if style=="bow" and not state.has("barrage_left") and bow_primary_cooldown>0:return
  start_basic_attack(hero.combat_attack_direction())
+ begin_combined_power(selected_primary_enemy() if selected_primary_enemy()!=null else locked_primary_enemy())
 
 func start_basic_attack(direction:Vector3,selected:Ninja=null):
  if mode=="primary_approach":cancel(true)
@@ -1062,7 +1073,8 @@ func start_basic_attack(direction:Vector3,selected:Ninja=null):
  if style=="timed":
   reset_shin_counter_chain()
   prepare_shin_strike(false)
- ticket=hero.attack_chain.begin("crossgate_throw" if style=="throw" else "crossgate_bow" if style=="bow" else "shin_basic" if style=="timed" else "uru_staff" if style=="staff" else "kazi_sword")
+ var action_:String="crossgate_throw" if style=="throw" else "crossgate_bow" if style=="bow" else "shin_basic" if style=="timed" else "uru_staff" if style=="staff" else "kazi_sword"
+ ticket=hero.attack_chain.begin(action_,"",cast_model().beast_master)
  ticket.normal_attack_damage=Skills.basic_damage(cast_model().normal_attack_pattern(),hero)
  if style in ["bow","throw"]:ticket.crossgate_sound_source=hero.character_id
  if style=="bow" and state.has("barrage_left"):
@@ -1070,8 +1082,17 @@ func start_basic_attack(direction:Vector3,selected:Ninja=null):
   ticket.merge(state.barrage_skill,true)
   if state.has("barrage_combo_credit"):ticket.primary_combo_credit=state.barrage_combo_credit
  else:prepare_primary_combo(ticket)
- if spell_owner==null and not state.has("barrage_left"):
+ if spell_owner==null and not cast_model().beast_master and not state.has("barrage_left"):
   ticket.sword_repeat=int(hero.accessory_bonuses.get("sword_repeat",0))
+  var sure_level=int(hero.accessory_bonuses.get("axe_sure_strike",0))
+  if sure_level>0:
+   var sure=ticket.duplicate()
+   sure.action="axe_sure_strike";sure.erase("primary_combo_credit");sure.erase("sword_repeat")
+   Skills.decorate(hero,sure,Skills.Catalog.SURE_STRIKE,sure_level)
+   sure.sure_strike_size=Skills.BASE_DIAMETER*skill_factor("size",sure)
+   sure.sure_strike_polearm=false
+   ticket.axe_sure_ticket=sure
+   ticket.axe_sure_damage=Skills.damage(hero,sure,SHIN_SURE_DAMAGE)*hero.damage_multiplier()
   var fire_level=int(hero.accessory_bonuses.get("sword_fire",0))
   if fire_level>0:
    var fire=ticket.duplicate()
@@ -1091,7 +1112,8 @@ func release_bow(shot_ticket:Dictionary,target_ref:WeakRef):
   var offset=AttackChain.aim_point(target,origin)-origin
   if not offset.is_zero_approx():direction=offset.normalized()
  var kind=ranged_projectile()
- var config={"kind":kind,"position":origin,"velocity":direction*Shot.THROWN_SPEED,"lifetime":projectile_range()/Shot.THROWN_SPEED,"damage":float(shot_ticket.get("normal_attack_damage",250.0))*hero.damage_multiplier(),"attack_ticket":shot_ticket.duplicate()}
+ var damage_scale=hero.base_character_attack_multiplier() if shot_ticket.get("base_damage_only",false) else hero.damage_multiplier()
+ var config={"kind":kind,"position":origin,"velocity":direction*Shot.THROWN_SPEED,"lifetime":projectile_range()/Shot.THROWN_SPEED,"damage":float(shot_ticket.get("normal_attack_damage",250.0))*damage_scale,"attack_ticket":shot_ticket.duplicate()}
  if shot_ticket.get("action","")=="shin_sure_strike":
   config.damage=Skills.damage(hero,shot_ticket,SHIN_SURE_DAMAGE)*hero.damage_multiplier()
   config.attack_ticket.sure_strike_size=preload("res://scripts/spells/skill_balance.gd").BASE_DIAMETER*skill_factor("size",shot_ticket)
@@ -1100,7 +1122,7 @@ func release_bow(shot_ticket:Dictionary,target_ref:WeakRef):
   config.attack_ticket.crossgate_sound_source=hero.character_id
  elif shot_ticket.get("action","")=="lancelot_random_shot":config.damage=Skills.damage(hero,shot_ticket,250.0)*hero.damage_multiplier()
  if cast_model().motions.get("water_dragon",false):config.impact_sound=shin_sound(true)
- if kind=="crossgate_boomerang":
+ if kind in ["crossgate_boomerang","water_dragon_boomerang"]:
   var reach=origin.distance_to(AttackChain.aim_point(target,origin)) if is_instance_valid(target) and not target.dead else projectile_range()
   config.boomerang_reach=clampf(reach,2,projectile_range())
  Pool.service(game).launch(hero,Shot,kind,config)
@@ -1160,6 +1182,7 @@ func prepare_attack_pose(direction:Vector3):
  elapsed=0;pose_tick=0;hits.clear();marker=0;mode="attack";reaction=0;cut_guard_left=0;wind_contact=0
 
 func tick(delta:float,after_pose:bool=false):
+ if mode=="combined_wait":return
  if after_pose:return
  if mode=="primary_approach":
   tick_primary_approach(delta)
@@ -1214,6 +1237,35 @@ func finish_primary_swing():
  var repeat=0 if ticket.has("guard_break_target") or ticket.get("guard_reply",false) else int(ticket.get("sword_repeat",0))
  var direction=hero.facing
  var target=selected_primary_enemy()
+ if hero.combined_power_busy():
+  var held:Ninja=primary_hold_target.get_ref() as Ninja if primary_hold_target!=null else null
+  var holding=primary_target_offset(held).is_finite()
+  if not holding:primary_hold_target=null
+  if game.model.phase!="wave":combined_queued=false;combined_queue_target=null;primary_hold_target=null;holding=false;repeat=0
+  if game.army_runtime.combined_contacted and hero.combined_move_requested():
+   game.army_runtime.finish_combined_power(true)
+  elif combined_queued or repeat>0 or holding:
+   var queued=combined_queued;var queued_target=combined_queue_target
+   var held_target=primary_hold_target
+   var candidate:Ninja=queued_target.get_ref() as Ninja if queued and queued_target!=null else held if holding else target
+   if not primary_target_offset(candidate).is_finite():candidate=locked_primary_enemy()
+   cancel(true)
+   if is_instance_valid(candidate):
+    var offset=primary_target_offset(candidate)
+    var toward=offset.normalized() if offset.is_finite() and not offset.is_zero_approx() else direction
+    if not primary_in_range(candidate,toward):
+     game.army_runtime.finish_combined_power(true)
+     start_targeted_primary(true,false,weakref(candidate))
+     primary_hold_target=held_target
+     return
+    start_selected_primary(toward,candidate)
+   else:
+    start_basic_attack(direction);begin_combined_power(null)
+   if repeat>0:
+    ticket.sword_repeat=repeat-1;combined_queued=queued;combined_queue_target=queued_target
+  else:
+   mode="combined_wait";elapsed=duration;pose_tick=maxf(0,duration*30-.001);hero.attack_left=0
+  return
  if ticket.has("guard_break_target") and not ticket.get("guard_break_connected",false):
   var target_ref:WeakRef=ticket.get("guard_break_notice_target",ticket.guard_break_target)
   var missed_target=target_ref.get_ref() if target_ref!=null else null
@@ -1227,6 +1279,41 @@ func finish_primary_swing():
   ticket.sword_repeat=repeat-1
  elif next!=null:start_targeted_primary(true,false,next)
 
+func combined_normal_swing()->bool:
+ return mode=="attack" and clip in ["5","7"] and not hero.ai_controlled and spell_owner==null and not cast_model().beast_master and ticket.get("skill_id","")=="" and not ticket.get("guard_reply",false) and not ticket.has("guard_break_target") and ticket.get("action","") in ["kazi_sword","shin_basic","uru_staff","crossgate_bow","crossgate_throw","maze_dagger"]
+
+func begin_combined_power(target:Ninja):
+ if combined_normal_swing() and game.has_method("issue_hound_order"):
+  game.army_runtime.begin_combined_power(target)
+
+func queue_combined_primary():
+ combined_queued=true
+ var selection=primary_click_target()
+ combined_queue_target=weakref(selection.enemy) if not selection.is_empty() else null
+ primary_hold_target=combined_queue_target
+ if mode=="combined_wait":finish_primary_swing()
+
+func combined_windup()->float:
+ var contact=CONTACT
+ if clip=="7":contact=float(get("throw_release"))
+ elif cast_model().fighter.strike in ["bow","throw"]:contact=float(cast_model().motions.clips["5:%d"%cast_model().direction()].release)
+ elif not cut_times.is_empty():contact=float(cut_times[0])
+ elif cast_model().fighter.strike=="timed":contact=shin_contact
+ elif cast_model().fighter.strike=="staff":
+  for cue in sound_cues:
+   if int(cue.id)==139:contact=float(cue.atMs)/1000;break
+ return contact/maxf(.001,primary_attack_tempo())
+
+func combined_contact():
+ if hero.combined_power_busy():game.army_runtime.strike_combined_power()
+
+func confirm_combined_hits(count:int):
+ if count<=0:return
+ primary_combo_hits+=count;primary_combo_left=PRIMARY_COMBO_WINDOW
+ for i in count:
+  var credit=ticket.duplicate();credit.erase("primary_combo_credit");credit.sequence=-1
+  hero.attack_chain.confirm(credit)
+
 func advance_attack(delta:float):
  if controls_primary_facing() and not track_primary_windup(delta):return
  elapsed+=delta*primary_attack_tempo();pose_tick=elapsed*30
@@ -1235,12 +1322,15 @@ func advance_attack(delta:float):
  if style in ["bow","throw"]:
   var shot:Dictionary=cast_model().motions.clips["5:%d"%cast_model().direction()]
   if marker==0 and elapsed>=float(shot.draw):
-   marker=1;hero.play_sound("swing",.8,ticket,shin_sound(false))
+   marker=1
+   if cast_model().gear_route.get("projectile","")=="maze_dagger":hero.play_sound("cg_dagger_throw",.8,ticket,preload("res://assets/audio/crossgate/ruby/cgply05a.wav"))
+   else:hero.play_sound("swing",.8,ticket,shin_sound(false))
   if marker==1 and elapsed>=float(shot.release):
    marker=2
    state.primary_committed=true
    if style=="bow":hero.play_sound("throw",.8,ticket,shin_sound(true))
    release_bow(ticket,fire_target)
+   combined_contact()
    if not bow_primary_ticket.is_empty():
     var target=bow_target()
     release_bow(bow_primary_ticket,weakref(target) if target!=null else null)
@@ -1263,6 +1353,7 @@ func advance_attack(delta:float):
    marker=2
    state.primary_committed=true
    shin_strike_contact()
+   combined_contact()
   if marker==2 and state.has("rear_at") and elapsed>=state.rear_at:
    marker=3
    shin_two_birds_rear(state.rear_origin)
@@ -1275,6 +1366,7 @@ func advance_attack(delta:float):
    state.primary_committed=true
    hits.clear()
    strike(Vector3(0,1,0),Vector3(0,1,-CUT_REACH),CUT_RADIUS*cast_model().basis.get_scale().x,DAMAGE_SCALE*.4,-1.0,Vector3.INF,0,CUT_SWEEP,shin_sound(true))
+   combined_contact()
   else:hero.play_sound("swing",.8 if style=="timed" else .5,ticket,shin_sound(false,marker-1))
  while style in ["cuts","timed"] and cut_index<cut_times.size() and elapsed>=float(cut_times[cut_index]):
   state.primary_committed=true
@@ -1284,6 +1376,7 @@ func advance_attack(delta:float):
    var sound=shin_sound(true,cut_index-1)
    strike(Vector3.UP,Vector3(0,1,-shin_reach()),CUT_RADIUS*cast_model().basis.get_scale().x,Skills.normal_damage(hero)/Roles.DATA[0].damage,-1.0,Vector3.INF,0,[],sound)
   else:strike_cut()
+  combined_contact()
  if elapsed>=duration:finish_primary_swing()
 
 func shin_strike_contact():

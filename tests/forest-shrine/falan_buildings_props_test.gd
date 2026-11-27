@@ -72,8 +72,8 @@ func check_details():
    count+=batch.multimesh.instance_count
    check(is_same(batch.multimesh.mesh,architecture.prepare(serial)),"Source houses share their cached solid mesh")
    var mesh:Mesh=batch.multimesh.mesh
-   check(mesh.get_surface_count()==2,"Prepared native facade parts and slate roofs use two shared surfaces")
-   check(mesh.surface_get_material(0).get_shader_parameter("base_texture")==architecture.Atlas,"Facades retain rectified native windows, doors and timber")
+   check(mesh.get_surface_count()==2,"Prepared native facade, slate and masonry details use shared surfaces")
+   check(mesh.surface_get_material(0).get_shader_parameter("base_texture")== architecture.Atlas,"Facades retain native windows, doors and timber")
    check(mesh.surface_get_material(1).get_shader_parameter("architecture_roof")==true,"Slate rows stay on the roof surface")
    var valid=true
    for surface in mesh.get_surface_count():
@@ -85,7 +85,7 @@ func check_details():
    check(bounds.size.x>5 and bounds.size.z>5 and bounds.size.y>5 and bounds.end.y<45,"Native buildings retain bounded solid volume")
   if batch.has_meta("falan_lamp_graphic"):
    lamps+=batch.multimesh.instance_count;styles[batch.get_meta("falan_lamp_graphic")]=true
- check(count==architecture.Data.BINDINGS.size()+architecture.Data.UNMARKED.size(),"All 72 native ordinary houses render exactly once")
+ check(count==architecture.Data.BINDINGS.size()+architecture.Data.UNMARKED.size(),"All native ordinary houses render exactly once")
  check(lamps>25 and styles.size()==7,"All seven original city lamp families remain")
  for anchor in Houses.Data.LEGACY:
   var original:Dictionary=game.model.props[anchor]

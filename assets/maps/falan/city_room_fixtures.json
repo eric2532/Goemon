@@ -1,0 +1,5838 @@
+{
+  "maps": {
+    "1810": {
+      "source": "BlueCrossgate/map/0/1810.dat",
+      "sha256": "7959069626b655db5279b1cb181da9f0ec4473850701948794dd66e60e136118",
+      "source_size": [
+        20,
+        20
+      ],
+      "placements": [
+        {
+          "graphic": 16534,
+          "source_cell": [
+            4,
+            3
+          ],
+          "cell": [
+            3,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16514,
+          "source_cell": [
+            8,
+            3
+          ],
+          "cell": [
+            3,
+            10
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 16625,
+          "source_cell": [
+            11,
+            3
+          ],
+          "cell": [
+            3,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            12,
+            3
+          ],
+          "cell": [
+            3,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10426,
+          "source_cell": [
+            13,
+            3
+          ],
+          "cell": [
+            3,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10426,
+          "source_cell": [
+            14,
+            3
+          ],
+          "cell": [
+            3,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10426,
+          "source_cell": [
+            15,
+            3
+          ],
+          "cell": [
+            3,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10426,
+          "source_cell": [
+            16,
+            3
+          ],
+          "cell": [
+            3,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            12,
+            4
+          ],
+          "cell": [
+            4,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16547,
+          "source_cell": [
+            14,
+            4
+          ],
+          "cell": [
+            4,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16636,
+          "source_cell": [
+            16,
+            4
+          ],
+          "cell": [
+            4,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            12,
+            5
+          ],
+          "cell": [
+            5,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            5,
+            6
+          ],
+          "cell": [
+            6,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            6,
+            6
+          ],
+          "cell": [
+            6,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            7,
+            6
+          ],
+          "cell": [
+            6,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            8,
+            6
+          ],
+          "cell": [
+            6,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16501,
+          "source_cell": [
+            11,
+            6
+          ],
+          "cell": [
+            4,
+            8
+          ],
+          "span": [
+            3,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            12,
+            6
+          ],
+          "cell": [
+            6,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17624,
+          "source_cell": [
+            16,
+            6
+          ],
+          "cell": [
+            6,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10459,
+          "source_cell": [
+            12,
+            7
+          ],
+          "cell": [
+            7,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            13,
+            7
+          ],
+          "cell": [
+            7,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10457,
+          "source_cell": [
+            15,
+            7
+          ],
+          "cell": [
+            7,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            16,
+            7
+          ],
+          "cell": [
+            7,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16520,
+          "source_cell": [
+            16,
+            8
+          ],
+          "cell": [
+            8,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            5,
+            10
+          ],
+          "cell": [
+            10,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            6,
+            10
+          ],
+          "cell": [
+            10,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            7,
+            10
+          ],
+          "cell": [
+            10,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17532,
+          "source_cell": [
+            8,
+            10
+          ],
+          "cell": [
+            10,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16179,
+          "source_cell": [
+            16,
+            11
+          ],
+          "cell": [
+            9,
+            3
+          ],
+          "span": [
+            3,
+            1
+          ]
+        },
+        {
+          "graphic": 16173,
+          "source_cell": [
+            16,
+            13
+          ],
+          "cell": [
+            13,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16597,
+          "source_cell": [
+            11,
+            16
+          ],
+          "cell": [
+            16,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "1811": {
+      "source": "BlueCrossgate/map/0/1811.dat",
+      "sha256": "319d05c527affaae0c148f67dfdfd0eff0bd86190939e49d5c8367578f233223",
+      "source_size": [
+        20,
+        20
+      ],
+      "placements": [
+        {
+          "graphic": 16541,
+          "source_cell": [
+            9,
+            4
+          ],
+          "cell": [
+            4,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16579,
+          "source_cell": [
+            14,
+            4
+          ],
+          "cell": [
+            4,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16577,
+          "source_cell": [
+            15,
+            4
+          ],
+          "cell": [
+            4,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16063,
+          "source_cell": [
+            4,
+            6
+          ],
+          "cell": [
+            4,
+            14
+          ],
+          "span": [
+            3,
+            2
+          ]
+        },
+        {
+          "graphic": 16578,
+          "source_cell": [
+            15,
+            6
+          ],
+          "cell": [
+            5,
+            4
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16815,
+          "source_cell": [
+            15,
+            7
+          ],
+          "cell": [
+            7,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10458,
+          "source_cell": [
+            8,
+            8
+          ],
+          "cell": [
+            8,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            9,
+            8
+          ],
+          "cell": [
+            8,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            12,
+            8
+          ],
+          "cell": [
+            8,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10461,
+          "source_cell": [
+            13,
+            8
+          ],
+          "cell": [
+            8,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            8,
+            9
+          ],
+          "cell": [
+            9,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            13,
+            9
+          ],
+          "cell": [
+            9,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            8,
+            10
+          ],
+          "cell": [
+            10,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            13,
+            10
+          ],
+          "cell": [
+            10,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16501,
+          "source_cell": [
+            15,
+            10
+          ],
+          "cell": [
+            8,
+            4
+          ],
+          "span": [
+            3,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            8,
+            11
+          ],
+          "cell": [
+            11,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            13,
+            11
+          ],
+          "cell": [
+            11,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            8,
+            12
+          ],
+          "cell": [
+            12,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10454,
+          "source_cell": [
+            13,
+            12
+          ],
+          "cell": [
+            12,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10459,
+          "source_cell": [
+            8,
+            13
+          ],
+          "cell": [
+            13,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            9,
+            13
+          ],
+          "cell": [
+            13,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            10,
+            13
+          ],
+          "cell": [
+            13,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            11,
+            13
+          ],
+          "cell": [
+            13,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10456,
+          "source_cell": [
+            12,
+            13
+          ],
+          "cell": [
+            13,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10460,
+          "source_cell": [
+            13,
+            13
+          ],
+          "cell": [
+            13,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16501,
+          "source_cell": [
+            15,
+            14
+          ],
+          "cell": [
+            12,
+            4
+          ],
+          "span": [
+            3,
+            1
+          ]
+        }
+      ]
+    },
+    "1156": {
+      "source": "BlueCrossgate/map/0/1156.dat",
+      "sha256": "cb33b30eb79e8a1f1ce805800bc8c973b50749a58fd8053d46cb15bcf6e0264d",
+      "source_size": [
+        30,
+        30
+      ],
+      "placements": [
+        {
+          "graphic": 11016,
+          "source_cell": [
+            6,
+            5
+          ],
+          "cell": [
+            4,
+            22
+          ],
+          "span": [
+            2,
+            2
+          ]
+        },
+        {
+          "graphic": 11020,
+          "source_cell": [
+            5,
+            6
+          ],
+          "cell": [
+            6,
+            24
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11019,
+          "source_cell": [
+            5,
+            7
+          ],
+          "cell": [
+            7,
+            24
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10452,
+          "source_cell": [
+            15,
+            7
+          ],
+          "cell": [
+            7,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            17,
+            7
+          ],
+          "cell": [
+            7,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            18,
+            7
+          ],
+          "cell": [
+            7,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11087,
+          "source_cell": [
+            19,
+            7
+          ],
+          "cell": [
+            7,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11087,
+          "source_cell": [
+            20,
+            7
+          ],
+          "cell": [
+            7,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            21,
+            7
+          ],
+          "cell": [
+            7,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            22,
+            7
+          ],
+          "cell": [
+            7,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11087,
+          "source_cell": [
+            23,
+            7
+          ],
+          "cell": [
+            7,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11087,
+          "source_cell": [
+            24,
+            7
+          ],
+          "cell": [
+            7,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11018,
+          "source_cell": [
+            5,
+            8
+          ],
+          "cell": [
+            8,
+            24
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10036,
+          "source_cell": [
+            9,
+            8
+          ],
+          "cell": [
+            7,
+            20
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 10038,
+          "source_cell": [
+            11,
+            8
+          ],
+          "cell": [
+            7,
+            18
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 10036,
+          "source_cell": [
+            13,
+            8
+          ],
+          "cell": [
+            7,
+            16
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 10043,
+          "source_cell": [
+            14,
+            8
+          ],
+          "cell": [
+            7,
+            15
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 10453,
+          "source_cell": [
+            15,
+            8
+          ],
+          "cell": [
+            8,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10541,
+          "source_cell": [
+            16,
+            8
+          ],
+          "cell": [
+            7,
+            13
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 11088,
+          "source_cell": [
+            18,
+            8
+          ],
+          "cell": [
+            8,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11088,
+          "source_cell": [
+            19,
+            8
+          ],
+          "cell": [
+            8,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11088,
+          "source_cell": [
+            20,
+            8
+          ],
+          "cell": [
+            8,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11088,
+          "source_cell": [
+            22,
+            8
+          ],
+          "cell": [
+            8,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11088,
+          "source_cell": [
+            23,
+            8
+          ],
+          "cell": [
+            8,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11019,
+          "source_cell": [
+            5,
+            9
+          ],
+          "cell": [
+            9,
+            24
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16543,
+          "source_cell": [
+            12,
+            9
+          ],
+          "cell": [
+            9,
+            17
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10452,
+          "source_cell": [
+            15,
+            9
+          ],
+          "cell": [
+            9,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11092,
+          "source_cell": [
+            17,
+            9
+          ],
+          "cell": [
+            9,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11089,
+          "source_cell": [
+            18,
+            9
+          ],
+          "cell": [
+            9,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            19,
+            9
+          ],
+          "cell": [
+            9,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11089,
+          "source_cell": [
+            20,
+            9
+          ],
+          "cell": [
+            9,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11089,
+          "source_cell": [
+            22,
+            9
+          ],
+          "cell": [
+            9,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11091,
+          "source_cell": [
+            23,
+            9
+          ],
+          "cell": [
+            9,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11089,
+          "source_cell": [
+            24,
+            9
+          ],
+          "cell": [
+            9,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            5,
+            10
+          ],
+          "cell": [
+            10,
+            24
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10036,
+          "source_cell": [
+            9,
+            10
+          ],
+          "cell": [
+            9,
+            20
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 10036,
+          "source_cell": [
+            11,
+            10
+          ],
+          "cell": [
+            9,
+            18
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 11090,
+          "source_cell": [
+            18,
+            10
+          ],
+          "cell": [
+            10,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11090,
+          "source_cell": [
+            19,
+            10
+          ],
+          "cell": [
+            10,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11090,
+          "source_cell": [
+            20,
+            10
+          ],
+          "cell": [
+            10,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11090,
+          "source_cell": [
+            22,
+            10
+          ],
+          "cell": [
+            10,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11090,
+          "source_cell": [
+            23,
+            10
+          ],
+          "cell": [
+            10,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11066,
+          "source_cell": [
+            24,
+            10
+          ],
+          "cell": [
+            10,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10453,
+          "source_cell": [
+            15,
+            11
+          ],
+          "cell": [
+            11,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11035,
+          "source_cell": [
+            14,
+            12
+          ],
+          "cell": [
+            12,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10452,
+          "source_cell": [
+            15,
+            12
+          ],
+          "cell": [
+            12,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16585,
+          "source_cell": [
+            13,
+            13
+          ],
+          "cell": [
+            13,
+            16
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16553,
+          "source_cell": [
+            14,
+            14
+          ],
+          "cell": [
+            14,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16007,
+          "source_cell": [
+            16,
+            14
+          ],
+          "cell": [
+            14,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16219,
+          "source_cell": [
+            17,
+            14
+          ],
+          "cell": [
+            14,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16875,
+          "source_cell": [
+            18,
+            14
+          ],
+          "cell": [
+            14,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16635,
+          "source_cell": [
+            21,
+            14
+          ],
+          "cell": [
+            14,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16785,
+          "source_cell": [
+            22,
+            14
+          ],
+          "cell": [
+            14,
+            7
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11001,
+          "source_cell": [
+            23,
+            14
+          ],
+          "cell": [
+            14,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16562,
+          "source_cell": [
+            15,
+            15
+          ],
+          "cell": [
+            15,
+            12
+          ],
+          "span": [
+            1,
+            3
+          ]
+        },
+        {
+          "graphic": 16009,
+          "source_cell": [
+            15,
+            16
+          ],
+          "cell": [
+            16,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16009,
+          "source_cell": [
+            16,
+            16
+          ],
+          "cell": [
+            16,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16190,
+          "source_cell": [
+            18,
+            16
+          ],
+          "cell": [
+            16,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16164,
+          "source_cell": [
+            24,
+            16
+          ],
+          "cell": [
+            14,
+            5
+          ],
+          "span": [
+            3,
+            1
+          ]
+        },
+        {
+          "graphic": 16602,
+          "source_cell": [
+            23,
+            17
+          ],
+          "cell": [
+            17,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16024,
+          "source_cell": [
+            18,
+            18
+          ],
+          "cell": [
+            17,
+            11
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16007,
+          "source_cell": [
+            23,
+            21
+          ],
+          "cell": [
+            21,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17011,
+          "source_cell": [
+            24,
+            21
+          ],
+          "cell": [
+            21,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16604,
+          "source_cell": [
+            10,
+            22
+          ],
+          "cell": [
+            22,
+            19
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16522,
+          "source_cell": [
+            18,
+            22
+          ],
+          "cell": [
+            22,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16503,
+          "source_cell": [
+            21,
+            23
+          ],
+          "cell": [
+            22,
+            6
+          ],
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "graphic": 16512,
+          "source_cell": [
+            24,
+            24
+          ],
+          "cell": [
+            23,
+            5
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16551,
+          "source_cell": [
+            15,
+            26
+          ],
+          "cell": [
+            26,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "1182": {
+      "source": "BlueCrossgate/map/0/1182.dat",
+      "sha256": "a45b77335d6fb98a0ea21fb71a5cc82a6fe1899645fddc6359f15f9c7a9d56fc",
+      "source_size": [
+        20,
+        20
+      ],
+      "placements": [
+        {
+          "graphic": 17563,
+          "source_cell": [
+            6,
+            2
+          ],
+          "cell": [
+            2,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16021,
+          "source_cell": [
+            9,
+            2
+          ],
+          "cell": [
+            2,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16008,
+          "source_cell": [
+            6,
+            3
+          ],
+          "cell": [
+            3,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16076,
+          "source_cell": [
+            7,
+            3
+          ],
+          "cell": [
+            2,
+            12
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16006,
+          "source_cell": [
+            8,
+            3
+          ],
+          "cell": [
+            3,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16014,
+          "source_cell": [
+            10,
+            3
+          ],
+          "cell": [
+            3,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10541,
+          "source_cell": [
+            11,
+            5
+          ],
+          "cell": [
+            4,
+            8
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16531,
+          "source_cell": [
+            8,
+            6
+          ],
+          "cell": [
+            6,
+            11
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16133,
+          "source_cell": [
+            5,
+            7
+          ],
+          "cell": [
+            7,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11002,
+          "source_cell": [
+            16,
+            7
+          ],
+          "cell": [
+            6,
+            2
+          ],
+          "span": [
+            2,
+            2
+          ]
+        },
+        {
+          "graphic": 16136,
+          "source_cell": [
+            5,
+            8
+          ],
+          "cell": [
+            8,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10436,
+          "source_cell": [
+            6,
+            9
+          ],
+          "cell": [
+            9,
+            12
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 16533,
+          "source_cell": [
+            10,
+            9
+          ],
+          "cell": [
+            9,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11005,
+          "source_cell": [
+            14,
+            9
+          ],
+          "cell": [
+            9,
+            3
+          ],
+          "span": [
+            1,
+            3
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            13,
+            11
+          ],
+          "cell": [
+            11,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            14,
+            11
+          ],
+          "cell": [
+            11,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11000,
+          "source_cell": [
+            17,
+            11
+          ],
+          "cell": [
+            11,
+            2
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            14,
+            12
+          ],
+          "cell": [
+            12,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            15,
+            12
+          ],
+          "cell": [
+            12,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11000,
+          "source_cell": [
+            17,
+            12
+          ],
+          "cell": [
+            12,
+            2
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            13,
+            13
+          ],
+          "cell": [
+            13,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16231,
+          "source_cell": [
+            7,
+            14
+          ],
+          "cell": [
+            14,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16133,
+          "source_cell": [
+            10,
+            14
+          ],
+          "cell": [
+            14,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16128,
+          "source_cell": [
+            7,
+            15
+          ],
+          "cell": [
+            15,
+            12
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16128,
+          "source_cell": [
+            10,
+            15
+          ],
+          "cell": [
+            15,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "1181": {
+      "source": "BlueCrossgate/map/0/1181.dat",
+      "sha256": "b2e1a72272dc41527f9f7a6355c997c88f5ec101160095ac07cfc51882f4e45f",
+      "source_size": [
+        20,
+        20
+      ],
+      "placements": [
+        {
+          "graphic": 10436,
+          "source_cell": [
+            2,
+            3
+          ],
+          "cell": [
+            3,
+            16
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 11018,
+          "source_cell": [
+            4,
+            3
+          ],
+          "cell": [
+            3,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17587,
+          "source_cell": [
+            9,
+            3
+          ],
+          "cell": [
+            3,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17563,
+          "source_cell": [
+            13,
+            3
+          ],
+          "cell": [
+            3,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16552,
+          "source_cell": [
+            16,
+            3
+          ],
+          "cell": [
+            3,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16548,
+          "source_cell": [
+            9,
+            4
+          ],
+          "cell": [
+            4,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16558,
+          "source_cell": [
+            11,
+            4
+          ],
+          "cell": [
+            4,
+            7
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 16557,
+          "source_cell": [
+            16,
+            4
+          ],
+          "cell": [
+            4,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11016,
+          "source_cell": [
+            3,
+            5
+          ],
+          "cell": [
+            4,
+            15
+          ],
+          "span": [
+            2,
+            2
+          ]
+        },
+        {
+          "graphic": 16551,
+          "source_cell": [
+            5,
+            5
+          ],
+          "cell": [
+            5,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16553,
+          "source_cell": [
+            16,
+            5
+          ],
+          "cell": [
+            5,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11018,
+          "source_cell": [
+            3,
+            6
+          ],
+          "cell": [
+            6,
+            16
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            4,
+            6
+          ],
+          "cell": [
+            6,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 10541,
+          "source_cell": [
+            10,
+            6
+          ],
+          "cell": [
+            5,
+            9
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16552,
+          "source_cell": [
+            16,
+            6
+          ],
+          "cell": [
+            6,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11018,
+          "source_cell": [
+            3,
+            7
+          ],
+          "cell": [
+            7,
+            16
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16560,
+          "source_cell": [
+            4,
+            7
+          ],
+          "cell": [
+            7,
+            13
+          ],
+          "span": [
+            1,
+            3
+          ]
+        },
+        {
+          "graphic": 17534,
+          "source_cell": [
+            3,
+            8
+          ],
+          "cell": [
+            8,
+            16
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17534,
+          "source_cell": [
+            4,
+            8
+          ],
+          "cell": [
+            8,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16553,
+          "source_cell": [
+            5,
+            8
+          ],
+          "cell": [
+            8,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16512,
+          "source_cell": [
+            16,
+            8
+          ],
+          "cell": [
+            7,
+            3
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16552,
+          "source_cell": [
+            3,
+            9
+          ],
+          "cell": [
+            9,
+            16
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16553,
+          "source_cell": [
+            4,
+            9
+          ],
+          "cell": [
+            9,
+            15
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16553,
+          "source_cell": [
+            5,
+            9
+          ],
+          "cell": [
+            9,
+            14
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16503,
+          "source_cell": [
+            12,
+            9
+          ],
+          "cell": [
+            8,
+            5
+          ],
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "graphic": 10031,
+          "source_cell": [
+            9,
+            11
+          ],
+          "cell": [
+            11,
+            10
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17195,
+          "source_cell": [
+            13,
+            12
+          ],
+          "cell": [
+            12,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11018,
+          "source_cell": [
+            14,
+            12
+          ],
+          "cell": [
+            12,
+            5
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            15,
+            12
+          ],
+          "cell": [
+            12,
+            4
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 11017,
+          "source_cell": [
+            16,
+            12
+          ],
+          "cell": [
+            12,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17194,
+          "source_cell": [
+            14,
+            13
+          ],
+          "cell": [
+            13,
+            4
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 16231,
+          "source_cell": [
+            6,
+            16
+          ],
+          "cell": [
+            16,
+            13
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16231,
+          "source_cell": [
+            10,
+            16
+          ],
+          "cell": [
+            16,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "1172": {
+      "source": "BlueCrossgate/map/0/1172.dat",
+      "sha256": "09c60ddfd76aadc09ab1e48e884d0c243bb3f56e0bc1cd18a075ad9e86c5639b",
+      "source_size": [
+        15,
+        15
+      ],
+      "placements": [
+        {
+          "graphic": 16511,
+          "source_cell": [
+            3,
+            2
+          ],
+          "cell": [
+            2,
+            10
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 17023,
+          "source_cell": [
+            5,
+            2
+          ],
+          "cell": [
+            2,
+            9
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16521,
+          "source_cell": [
+            6,
+            2
+          ],
+          "cell": [
+            2,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 17520,
+          "source_cell": [
+            8,
+            2
+          ],
+          "cell": [
+            2,
+            5
+          ],
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "graphic": 16060,
+          "source_cell": [
+            9,
+            3
+          ],
+          "cell": [
+            2,
+            3
+          ],
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "graphic": 10567,
+          "source_cell": [
+            11,
+            5
+          ],
+          "cell": [
+            5,
+            3
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16203,
+          "source_cell": [
+            8,
+            6
+          ],
+          "cell": [
+            6,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16024,
+          "source_cell": [
+            11,
+            8
+          ],
+          "cell": [
+            7,
+            3
+          ],
+          "span": [
+            2,
+            1
+          ]
+        },
+        {
+          "graphic": 16230,
+          "source_cell": [
+            6,
+            11
+          ],
+          "cell": [
+            11,
+            8
+          ],
+          "span": [
+            1,
+            1
+          ]
+        },
+        {
+          "graphic": 16230,
+          "source_cell": [
+            8,
+            11
+          ],
+          "cell": [
+            11,
+            6
+          ],
+          "span": [
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "graphics": {
+    "10031": {
+      "rect": [
+        2,
+        2,
+        56,
+        106
+      ],
+      "origin": [
+        -26,
+        -90
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_conifer",
+      "pack": "original",
+      "row": 7782,
+      "rgba_sha256": "42057647fce61e7713880e719acaa01de97dd26da391268f8af5cf72ffdf255b",
+      "visible_rect": [
+        0,
+        0,
+        55,
+        106
+      ]
+    },
+    "10036": {
+      "rect": [
+        62,
+        2,
+        80,
+        81
+      ],
+      "origin": [
+        -50,
+        -68
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "city_plant_table",
+      "pack": "original",
+      "row": 7787,
+      "rgba_sha256": "adec6a0c8ce50f7ecff360f2b6910701d36bf203989f5bb5b187beaf9becf66e",
+      "visible_rect": [
+        0,
+        0,
+        80,
+        81
+      ]
+    },
+    "10038": {
+      "rect": [
+        146,
+        2,
+        80,
+        77
+      ],
+      "origin": [
+        -51,
+        -71
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "city_bench",
+      "pack": "original",
+      "row": 7789,
+      "rgba_sha256": "ea98601b9e57da8165bd325de72854fe8667b180ebdbb8a66aa90e84d12eddc9",
+      "visible_rect": [
+        0,
+        0,
+        79,
+        77
+      ]
+    },
+    "10043": {
+      "rect": [
+        230,
+        2,
+        76,
+        62
+      ],
+      "origin": [
+        -55,
+        -63
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "city_flower_cart",
+      "pack": "original",
+      "row": 7794,
+      "rgba_sha256": "3c3111867ce8d35228dcffba851f9795b97dc6dc7e7ca2d52cd8ebdc3b860de5",
+      "visible_rect": [
+        0,
+        0,
+        74,
+        62
+      ]
+    },
+    "10426": {
+      "rect": [
+        310,
+        2,
+        64,
+        77
+      ],
+      "origin": [
+        -26,
+        -54
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_planter",
+      "pack": "original",
+      "row": 7629,
+      "rgba_sha256": "27e8e3f59186d0c3ab2a2025df6ea9f19dbcbc185e9707687ea21baf43bec41e",
+      "visible_rect": [
+        0,
+        0,
+        63,
+        77
+      ]
+    },
+    "10436": {
+      "rect": [
+        378,
+        2,
+        60,
+        156
+      ],
+      "origin": [
+        -17,
+        -150
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "city_clock",
+      "pack": "original",
+      "row": 7637,
+      "rgba_sha256": "9deea20ca91e2fd10b8d8062eb70ae3417dbf845ed8186c4190557c1a42fe2cf",
+      "visible_rect": [
+        0,
+        0,
+        59,
+        156
+      ]
+    },
+    "10452": {
+      "rect": [
+        442,
+        2,
+        64,
+        77
+      ],
+      "origin": [
+        -33,
+        -57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_planter",
+      "pack": "original",
+      "row": 7653,
+      "rgba_sha256": "7e16e96fcf5f435e120b4b0750fd0c3c4887616f2d1c94527839c77ce746cbbd",
+      "visible_rect": [
+        0,
+        0,
+        63,
+        77
+      ]
+    },
+    "10453": {
+      "rect": [
+        510,
+        2,
+        64,
+        64
+      ],
+      "origin": [
+        -33,
+        -45
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_planter",
+      "pack": "original",
+      "row": 7654,
+      "rgba_sha256": "4d52d0de58057824f6cb898e9ea866eb526fc2f8ab1c706d9d414ce6ed9fe6b9",
+      "visible_rect": [
+        0,
+        0,
+        61,
+        64
+      ]
+    },
+    "10454": {
+      "rect": [
+        578,
+        2,
+        40,
+        61
+      ],
+      "origin": [
+        -17,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7655,
+      "rgba_sha256": "2d9c1730f8e4394ce86fd1c366f9b365a08e881162cb4ae575ece73b426a7da4",
+      "visible_rect": [
+        0,
+        0,
+        40,
+        61
+      ]
+    },
+    "10456": {
+      "rect": [
+        622,
+        2,
+        40,
+        67
+      ],
+      "origin": [
+        -14,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7657,
+      "rgba_sha256": "113ec5b1d9590f4e19473efebb1de6b75cde427524f41a73c8b3bf46ea7642bf",
+      "visible_rect": [
+        0,
+        0,
+        38,
+        67
+      ]
+    },
+    "10457": {
+      "rect": [
+        666,
+        2,
+        36,
+        62
+      ],
+      "origin": [
+        -9,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7658,
+      "rgba_sha256": "fee2fe1a201ee76718f6b592d4094d3693d6d6627fc4c16e58fa48e8b838c0e3",
+      "visible_rect": [
+        0,
+        0,
+        34,
+        62
+      ]
+    },
+    "10458": {
+      "rect": [
+        706,
+        2,
+        28,
+        63
+      ],
+      "origin": [
+        -1,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7659,
+      "rgba_sha256": "08fe3e727ab5aebbf33b6893d5141ccee35f490e3e2a3eec2642f9be85f1cc24",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        63
+      ]
+    },
+    "10459": {
+      "rect": [
+        738,
+        2,
+        40,
+        56
+      ],
+      "origin": [
+        -17,
+        -49
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7660,
+      "rgba_sha256": "770372a891adda530ead8639116fdeb0d1d668e047527df5f2c67f47ef12d088",
+      "visible_rect": [
+        0,
+        0,
+        40,
+        56
+      ]
+    },
+    "10460": {
+      "rect": [
+        782,
+        2,
+        28,
+        66
+      ],
+      "origin": [
+        -17,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7661,
+      "rgba_sha256": "698a6c7ba8599f1cb877557c9bf949de268703ec3aa423649e0cd7cc0ca56e9f",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        66
+      ]
+    },
+    "10461": {
+      "rect": [
+        814,
+        2,
+        36,
+        51
+      ],
+      "origin": [
+        -14,
+        -33
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_fence",
+      "pack": "original",
+      "row": 7662,
+      "rgba_sha256": "85d007f197ff09ee423bd1ea926041f8a201bc96a42b60200f987e7d12dc7b85",
+      "visible_rect": [
+        0,
+        0,
+        33,
+        51
+      ]
+    },
+    "10541": {
+      "rect": [
+        854,
+        2,
+        76,
+        86
+      ],
+      "origin": [
+        -56,
+        -70
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "coast_shelf",
+      "pack": "original",
+      "row": 7730,
+      "rgba_sha256": "7b57a7f28745b845862287910a5a69df2176f79b4d3b6137f7ced4c04dd22285",
+      "visible_rect": [
+        0,
+        0,
+        74,
+        86
+      ]
+    },
+    "10567": {
+      "rect": [
+        934,
+        2,
+        28,
+        69
+      ],
+      "origin": [
+        3,
+        -144
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 7599,
+      "rgba_sha256": "7ae6ef3342beb44fda8e92a83c87e3035293853e6d207fb828db24e217232801",
+      "visible_rect": [
+        0,
+        0,
+        26,
+        69
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            27,
+            20
+          ],
+          [
+            27,
+            68
+          ],
+          [
+            0,
+            48
+          ]
+        ]
+      ],
+      "panel_depth": 0.24
+    },
+    "11000": {
+      "rect": [
+        966,
+        2,
+        44,
+        34
+      ],
+      "origin": [
+        -18,
+        -19
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_logs",
+      "pack": "original",
+      "row": 7918,
+      "rgba_sha256": "9ef4a18a3b1657eed3bf4b039785c352c36c39ff16972bf09f8d35e70e07ae28",
+      "visible_rect": [
+        0,
+        0,
+        44,
+        34
+      ]
+    },
+    "11001": {
+      "rect": [
+        1014,
+        2,
+        44,
+        34
+      ],
+      "origin": [
+        -19,
+        -18
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_logs",
+      "pack": "original",
+      "row": 7919,
+      "rgba_sha256": "4c7038a163904689713a169bbc57b8538879cf4c9ebd3be8fe9a31410092c565",
+      "visible_rect": [
+        0,
+        0,
+        43,
+        34
+      ]
+    },
+    "11002": {
+      "rect": [
+        1062,
+        2,
+        76,
+        78
+      ],
+      "origin": [
+        -35,
+        -73
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "ground": false,
+      "family": "coast_basin",
+      "pack": "original",
+      "row": 7920,
+      "rgba_sha256": "790b014c7b25a5ac67b1d575fb3eecad832bd0f8f067b5e222d11d35ab5e41da",
+      "visible_rect": [
+        0,
+        0,
+        73,
+        78
+      ]
+    },
+    "11005": {
+      "rect": [
+        1142,
+        2,
+        120,
+        147
+      ],
+      "origin": [
+        -17,
+        -131
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "ground": false,
+      "family": "detail_drying",
+      "pack": "original",
+      "row": 7923,
+      "rgba_sha256": "439e88532aa2ba9943b73539e8162daaaef9f2860614dcf2e3cc939d3c48daae",
+      "visible_rect": [
+        0,
+        0,
+        118,
+        147
+      ]
+    },
+    "11016": {
+      "rect": [
+        1266,
+        2,
+        104,
+        119
+      ],
+      "origin": [
+        -43,
+        -106
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "ground": false,
+      "family": "crate",
+      "pack": "original",
+      "row": 7934,
+      "rgba_sha256": "78d0701e118cd14b104e2307a211b38bbd9953c03be59d16defdaeb9191da800",
+      "visible_rect": [
+        0,
+        0,
+        104,
+        119
+      ]
+    },
+    "11017": {
+      "rect": [
+        1374,
+        2,
+        72,
+        74
+      ],
+      "origin": [
+        -29,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 7935,
+      "rgba_sha256": "9187077e9eb8c40a7b08efbee99f26e7f8196eb5ad49f2700ffc2bfe24411d96",
+      "visible_rect": [
+        0,
+        0,
+        70,
+        74
+      ]
+    },
+    "11018": {
+      "rect": [
+        1450,
+        2,
+        76,
+        75
+      ],
+      "origin": [
+        -29,
+        -52
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 7936,
+      "rgba_sha256": "2fac0db079af2fb4841eaae9851ad6cb079977654b907881c2698dca42ee72a2",
+      "visible_rect": [
+        0,
+        0,
+        73,
+        75
+      ]
+    },
+    "11019": {
+      "rect": [
+        1530,
+        2,
+        64,
+        56
+      ],
+      "origin": [
+        -30,
+        -34
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 7937,
+      "rgba_sha256": "a9f72551d721ed824d3ece02a4e99b44626b1be07e0c4008300820df8caa280d",
+      "visible_rect": [
+        0,
+        0,
+        63,
+        56
+      ]
+    },
+    "11020": {
+      "rect": [
+        1598,
+        2,
+        56,
+        58
+      ],
+      "origin": [
+        -25,
+        -38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "detail_hay",
+      "pack": "original",
+      "row": 7938,
+      "rgba_sha256": "54af4d96765562a519aaebdd28b574568ee1046f2cc93366f865dc33d143fc2a",
+      "visible_rect": [
+        0,
+        0,
+        55,
+        58
+      ]
+    },
+    "11035": {
+      "rect": [
+        1658,
+        2,
+        60,
+        50
+      ],
+      "origin": [
+        -28,
+        -28
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "detail_hay",
+      "pack": "original",
+      "row": 7953,
+      "rgba_sha256": "3296e1c1aa71efe74e42cd39eaf396f3c6629821be49e0a075fa43751f851fb0",
+      "visible_rect": [
+        0,
+        0,
+        59,
+        50
+      ]
+    },
+    "11066": {
+      "rect": [
+        1722,
+        2,
+        40,
+        100
+      ],
+      "origin": [
+        -16,
+        -86
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 7984,
+      "rgba_sha256": "48d68aef2dfbf72c82995a697bad5b788948864081514fbd4d9b9179ad365454",
+      "visible_rect": [
+        0,
+        0,
+        37,
+        100
+      ]
+    },
+    "11087": {
+      "rect": [
+        1766,
+        2,
+        36,
+        39
+      ],
+      "origin": [
+        -22,
+        -26
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8368,
+      "rgba_sha256": "492926a02265681ad2505ca603a4e487c986e5b6ffe36172c1c059bafa7c3366",
+      "visible_rect": [
+        0,
+        0,
+        34,
+        39
+      ]
+    },
+    "11088": {
+      "rect": [
+        1806,
+        2,
+        36,
+        40
+      ],
+      "origin": [
+        -21,
+        -27
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8369,
+      "rgba_sha256": "97cbfcd91f3f984772e98a39fca51282c07dd2208e8e9bc459fa164fff7ea3c2",
+      "visible_rect": [
+        0,
+        0,
+        34,
+        40
+      ]
+    },
+    "11089": {
+      "rect": [
+        1846,
+        2,
+        28,
+        39
+      ],
+      "origin": [
+        -17,
+        -31
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8370,
+      "rgba_sha256": "4ee87121b485d13828a14561b965a3289d5a79897c126cc1ece5c4c7df336361",
+      "visible_rect": [
+        0,
+        0,
+        27,
+        39
+      ]
+    },
+    "11090": {
+      "rect": [
+        1878,
+        2,
+        28,
+        37
+      ],
+      "origin": [
+        -18,
+        -29
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8371,
+      "rgba_sha256": "ee3b529447bb7269e001d3ade319e2d11d39a2ef708a35a0f109c6435b456de1",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        37
+      ]
+    },
+    "11091": {
+      "rect": [
+        1910,
+        2,
+        28,
+        21
+      ],
+      "origin": [
+        -17,
+        -15
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8372,
+      "rgba_sha256": "4b2d41945810ce6d9d5113cfea0d11a36ec2bd66fd71bb5e84e33973067e9e6c",
+      "visible_rect": [
+        0,
+        0,
+        25,
+        21
+      ]
+    },
+    "11092": {
+      "rect": [
+        1942,
+        2,
+        32,
+        34
+      ],
+      "origin": [
+        -18,
+        -23
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crop",
+      "pack": "original",
+      "row": 8373,
+      "rgba_sha256": "7389462667bfa88a50749e8a802959fa8be578bbd8d10db465b4442281b7501c",
+      "visible_rect": [
+        0,
+        0,
+        32,
+        34
+      ]
+    },
+    "16006": {
+      "rect": [
+        1978,
+        2,
+        44,
+        70
+      ],
+      "origin": [
+        -20,
+        -54
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 12634,
+      "rgba_sha256": "083bb0367b98a8230eb2de004caa59b0184e7e39061e30b859a32e49d8a31988",
+      "visible_rect": [
+        0,
+        0,
+        42,
+        70
+      ]
+    },
+    "16007": {
+      "rect": [
+        2,
+        162,
+        44,
+        72
+      ],
+      "origin": [
+        -21,
+        -56
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 12635,
+      "rgba_sha256": "586c8e0ae17a26213d1a06870861b182889e974f6a367f5b0cd716a7610cbf57",
+      "visible_rect": [
+        0,
+        0,
+        44,
+        72
+      ]
+    },
+    "16008": {
+      "rect": [
+        50,
+        162,
+        44,
+        60
+      ],
+      "origin": [
+        -21,
+        -44
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 12636,
+      "rgba_sha256": "35e41c9a2039a43b15227693d55525810127da8390f6f8b0156bc192d1c4e67e",
+      "visible_rect": [
+        0,
+        0,
+        43,
+        60
+      ]
+    },
+    "16009": {
+      "rect": [
+        98,
+        162,
+        44,
+        59
+      ],
+      "origin": [
+        -18,
+        -43
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 12637,
+      "rgba_sha256": "87d0caaa758119a6d9d96917d01ce6ad2119ec54ebe27d1c584ab1f5b68e6b36",
+      "visible_rect": [
+        0,
+        0,
+        41,
+        59
+      ]
+    },
+    "16014": {
+      "rect": [
+        146,
+        162,
+        28,
+        59
+      ],
+      "origin": [
+        -7,
+        -63
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_wardrobe",
+      "pack": "original",
+      "row": 12642,
+      "rgba_sha256": "a95727899575ca51e37023e5041f466653700fa667c788652e465f6a186f65d8",
+      "visible_rect": [
+        0,
+        0,
+        27,
+        59
+      ]
+    },
+    "16021": {
+      "rect": [
+        178,
+        162,
+        68,
+        98
+      ],
+      "origin": [
+        -34,
+        -86
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_wardrobe",
+      "pack": "original",
+      "row": 12649,
+      "rgba_sha256": "4875e360c4d5b5b0cad1dc07e6fa4e8877bd706aa9536691365461854538d45f",
+      "visible_rect": [
+        0,
+        0,
+        65,
+        98
+      ]
+    },
+    "16024": {
+      "rect": [
+        250,
+        162,
+        72,
+        148
+      ],
+      "origin": [
+        -38,
+        -136
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "city_drawers",
+      "pack": "original",
+      "row": 12652,
+      "rgba_sha256": "ad0d3a0a9ed08203f9f89d4e0e16150c03741e43b1a42a55b85c0fa6fc604c89",
+      "visible_rect": [
+        0,
+        0,
+        69,
+        148
+      ]
+    },
+    "16060": {
+      "rect": [
+        326,
+        162,
+        144,
+        158
+      ],
+      "origin": [
+        -52,
+        -130
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "ground": false,
+      "family": "city_bed",
+      "pack": "original",
+      "row": 12688,
+      "rgba_sha256": "d653f15424e927f70df883518ef4a807d2ec11fa70ad8c8d516ea772e2d16773",
+      "visible_rect": [
+        0,
+        0,
+        141,
+        158
+      ]
+    },
+    "16063": {
+      "rect": [
+        474,
+        162,
+        140,
+        167
+      ],
+      "origin": [
+        -80,
+        -143
+      ],
+      "footprint": [
+        2,
+        3
+      ],
+      "ground": false,
+      "family": "city_bed",
+      "pack": "original",
+      "row": 12691,
+      "rgba_sha256": "1e7e77f363bd420d76f22d7bfc92e874017fd81d732e4ee4e69f101183542723",
+      "visible_rect": [
+        0,
+        0,
+        139,
+        167
+      ]
+    },
+    "16076": {
+      "rect": [
+        618,
+        162,
+        84,
+        96
+      ],
+      "origin": [
+        -48,
+        -70
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "table",
+      "pack": "original",
+      "row": 12704,
+      "rgba_sha256": "28cf28a93cf889148e5c5a874b3f147de6deafb2a83f6ff9f0bd183803af800a",
+      "visible_rect": [
+        0,
+        0,
+        83,
+        96
+      ]
+    },
+    "16128": {
+      "rect": [
+        706,
+        162,
+        32,
+        72
+      ],
+      "origin": [
+        -12,
+        -59
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "regional_royal_fixture",
+      "pack": "original",
+      "row": 12756,
+      "rgba_sha256": "ee91ea4698d051ef6ab393f38a736480d5744ebb7ac17dbd19ed3a24645a71ac",
+      "visible_rect": [
+        0,
+        0,
+        29,
+        72
+      ]
+    },
+    "16133": {
+      "rect": [
+        742,
+        162,
+        16,
+        38
+      ],
+      "origin": [
+        6,
+        -118
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 12761,
+      "rgba_sha256": "9aa476ba5cce230302065561a827216c6e740c34f0f0e2863604d92f9bd4f259",
+      "visible_rect": [
+        0,
+        0,
+        14,
+        38
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            15,
+            11
+          ],
+          [
+            15,
+            37
+          ],
+          [
+            0,
+            26
+          ]
+        ]
+      ]
+    },
+    "16136": {
+      "rect": [
+        762,
+        162,
+        36,
+        85
+      ],
+      "origin": [
+        -4,
+        -136
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 12764,
+      "rgba_sha256": "e51304158bf7977110973ccec645cf3dc2e623ed65b91784c1166fdc2756ce41",
+      "visible_rect": [
+        0,
+        0,
+        34,
+        85
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            35,
+            26
+          ],
+          [
+            35,
+            84
+          ],
+          [
+            0,
+            58
+          ]
+        ]
+      ]
+    },
+    "16164": {
+      "rect": [
+        802,
+        162,
+        132,
+        133
+      ],
+      "origin": [
+        -96,
+        -109
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "ground": false,
+      "family": "city_kitchen_counter",
+      "pack": "original",
+      "row": 12792,
+      "rgba_sha256": "48fee2b7f2d5f9c17940ec28d44830a8e62a085d73c75c901c1266ddb141ef69",
+      "visible_rect": [
+        0,
+        0,
+        131,
+        133
+      ]
+    },
+    "16173": {
+      "rect": [
+        938,
+        162,
+        52,
+        46
+      ],
+      "origin": [
+        -24,
+        -28
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "inn_sack",
+      "pack": "original",
+      "row": 12801,
+      "rgba_sha256": "97eaa6acaca3e4bdfac274a6c309504c8ff04a025803c4fc563c8683a17c05d3",
+      "visible_rect": [
+        0,
+        0,
+        49,
+        46
+      ]
+    },
+    "16179": {
+      "rect": [
+        994,
+        162,
+        136,
+        131
+      ],
+      "origin": [
+        -94,
+        -107
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "ground": false,
+      "family": "table",
+      "pack": "original",
+      "row": 12807,
+      "rgba_sha256": "18f023854eeca72103afa96ed52ce49abd8192709f6e97a0e48b0654b10a57eb",
+      "visible_rect": [
+        0,
+        0,
+        136,
+        131
+      ]
+    },
+    "16190": {
+      "rect": [
+        1134,
+        162,
+        64,
+        65
+      ],
+      "origin": [
+        -32,
+        -47
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_basket",
+      "pack": "original",
+      "row": 12818,
+      "rgba_sha256": "029d70afd269594f348b997403514fa3ff462e7fb0d83e4ade5d88f775f16bd0",
+      "visible_rect": [
+        0,
+        0,
+        61,
+        65
+      ]
+    },
+    "16203": {
+      "rect": [
+        1202,
+        162,
+        56,
+        67
+      ],
+      "origin": [
+        -27,
+        -48
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_red_stool",
+      "pack": "original",
+      "row": 12831,
+      "rgba_sha256": "fe9dddd6169de2834b06247f7e554c0c7ea912cbdeebdc513e437b1e3d39175d",
+      "visible_rect": [
+        0,
+        0,
+        54,
+        67
+      ]
+    },
+    "16219": {
+      "rect": [
+        1262,
+        162,
+        68,
+        65
+      ],
+      "origin": [
+        -5,
+        -110
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_flowers",
+      "pack": "original",
+      "row": 12847,
+      "rgba_sha256": "c2cc8dfb13739edc4a4696421619c54f26d784b5dba15b0f7be7a0ce8ccd3254",
+      "visible_rect": [
+        0,
+        0,
+        66,
+        65
+      ],
+      "raised_base_pixels": 45
+    },
+    "16230": {
+      "rect": [
+        1334,
+        162,
+        40,
+        50
+      ],
+      "origin": [
+        -18,
+        -38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "plant",
+      "pack": "original",
+      "row": 12858,
+      "rgba_sha256": "1d66bf4a04300ba0e280e1402b2e062a8e3306be7531b595e2e19221b4918744",
+      "visible_rect": [
+        0,
+        0,
+        37,
+        50
+      ]
+    },
+    "16231": {
+      "rect": [
+        1378,
+        162,
+        36,
+        63
+      ],
+      "origin": [
+        -18,
+        -51
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "plant",
+      "pack": "original",
+      "row": 12859,
+      "rgba_sha256": "e59d4b7159acff4f8daf66dc4614d3396b91b77007176fb41ac660d3246de7d7",
+      "visible_rect": [
+        0,
+        0,
+        35,
+        63
+      ]
+    },
+    "16501": {
+      "rect": [
+        1418,
+        162,
+        120,
+        106
+      ],
+      "origin": [
+        -84,
+        -89
+      ],
+      "footprint": [
+        1,
+        3
+      ],
+      "ground": false,
+      "family": "city_bench",
+      "pack": "original",
+      "row": 12151,
+      "rgba_sha256": "f0961fa8221201030888cf285c23c379f177c4e843a97ecc0aedcff089486a80",
+      "visible_rect": [
+        0,
+        0,
+        120,
+        106
+      ]
+    },
+    "16503": {
+      "rect": [
+        1542,
+        162,
+        156,
+        167
+      ],
+      "origin": [
+        -60,
+        -140
+      ],
+      "footprint": [
+        3,
+        2
+      ],
+      "ground": false,
+      "family": "city_bed",
+      "pack": "original",
+      "row": 12153,
+      "rgba_sha256": "3571b2d44b4533c31f15942f8e2def17167f57d3d2783cf2e90c78d54655c998",
+      "visible_rect": [
+        0,
+        0,
+        155,
+        167
+      ]
+    },
+    "16511": {
+      "rect": [
+        1702,
+        162,
+        92,
+        155
+      ],
+      "origin": [
+        -23,
+        -135
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12161,
+      "rgba_sha256": "f47d99fc4005f90b076b6468ab1d8b8b8776c6485688e17f85a672e5d55f60b3",
+      "visible_rect": [
+        0,
+        0,
+        91,
+        155
+      ]
+    },
+    "16512": {
+      "rect": [
+        1798,
+        162,
+        92,
+        154
+      ],
+      "origin": [
+        -53,
+        -135
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12162,
+      "rgba_sha256": "075b0eb63c0f36bce1d8337b2725eb953d42f135189b34ae15b0ff5348ada44a",
+      "visible_rect": [
+        0,
+        0,
+        89,
+        154
+      ]
+    },
+    "16514": {
+      "rect": [
+        1894,
+        162,
+        68,
+        128
+      ],
+      "origin": [
+        -20,
+        -115
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12164,
+      "rgba_sha256": "7dc96604551146ae6105b53fb9c6d1556ec50f833212b9bb100f611b8c8665c6",
+      "visible_rect": [
+        0,
+        0,
+        68,
+        128
+      ]
+    },
+    "16520": {
+      "rect": [
+        1966,
+        162,
+        48,
+        64
+      ],
+      "origin": [
+        -23,
+        -46
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_pot",
+      "pack": "original",
+      "row": 12170,
+      "rgba_sha256": "4be25dc4753d04130a8bc134e1c7f23abbde01b909173c62a71129c5ea8a8287",
+      "visible_rect": [
+        0,
+        0,
+        48,
+        64
+      ]
+    },
+    "16521": {
+      "rect": [
+        2,
+        333,
+        36,
+        95
+      ],
+      "origin": [
+        -19,
+        -75
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_tool",
+      "pack": "original",
+      "row": 12171,
+      "rgba_sha256": "5cc74e30ad96dd6619ba01033185c4facdb1b666eb6072a55e20ad331ed3d447",
+      "visible_rect": [
+        0,
+        0,
+        35,
+        95
+      ]
+    },
+    "16522": {
+      "rect": [
+        42,
+        333,
+        40,
+        90
+      ],
+      "origin": [
+        -19,
+        -70
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_tool",
+      "pack": "original",
+      "row": 12172,
+      "rgba_sha256": "379ffee6dd4ebeebb1af8114f867d458207a42c0424e1abdb55407c94831467a",
+      "visible_rect": [
+        0,
+        0,
+        40,
+        90
+      ]
+    },
+    "16531": {
+      "rect": [
+        86,
+        333,
+        52,
+        77
+      ],
+      "origin": [
+        -23,
+        -57
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 12181,
+      "rgba_sha256": "180f659373bf3d6db929ec02553d1b0e371c31c6e4d2dfee09ebab3a43cae0f8",
+      "visible_rect": [
+        0,
+        0,
+        49,
+        77
+      ]
+    },
+    "16533": {
+      "rect": [
+        142,
+        333,
+        80,
+        203
+      ],
+      "origin": [
+        -34,
+        -147
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_cabinet",
+      "pack": "original",
+      "row": 12183,
+      "rgba_sha256": "deb9e72ddafdce53072913c264efe70111c599ed6279bce563e1fe9791f40e9a",
+      "visible_rect": [
+        0,
+        0,
+        59,
+        91
+      ],
+      "raised_base_pixels": 56
+    },
+    "16534": {
+      "rect": [
+        226,
+        333,
+        60,
+        89
+      ],
+      "origin": [
+        -35,
+        -134
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "shelf",
+      "pack": "original",
+      "row": 12184,
+      "rgba_sha256": "d43d63bf1cbb6e8fa6cf95f642fe203b17a198df42423d5189cc45b7a70035e6",
+      "visible_rect": [
+        0,
+        0,
+        58,
+        89
+      ],
+      "raised_base_pixels": 45
+    },
+    "16541": {
+      "rect": [
+        290,
+        333,
+        36,
+        64
+      ],
+      "origin": [
+        -26,
+        -133
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 12191,
+      "rgba_sha256": "7d5306499fb1ff436bb5ecdda019fe808e73554408cdcb9831acbb42b6a4b9ef",
+      "visible_rect": [
+        0,
+        0,
+        33,
+        64
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            35,
+            24
+          ],
+          [
+            35,
+            63
+          ],
+          [
+            0,
+            39
+          ]
+        ]
+      ],
+      "panel_depth": 0.24
+    },
+    "16543": {
+      "rect": [
+        330,
+        333,
+        48,
+        64
+      ],
+      "origin": [
+        -27,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "plant",
+      "pack": "original",
+      "row": 12193,
+      "rgba_sha256": "7de18d3aa71ca4e2a6f605935265e8590bb9fb5a5123d2fd979a5afab1c75233",
+      "visible_rect": [
+        0,
+        0,
+        47,
+        64
+      ]
+    },
+    "16547": {
+      "rect": [
+        382,
+        333,
+        28,
+        40
+      ],
+      "origin": [
+        -12,
+        -18
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_fruit",
+      "pack": "original",
+      "row": 12196,
+      "rgba_sha256": "d0964032ed7087c7b1353b24069595cacab781a665a1b923df9a8dea10ca6367",
+      "visible_rect": [
+        0,
+        0,
+        26,
+        40
+      ]
+    },
+    "16548": {
+      "rect": [
+        414,
+        333,
+        28,
+        86
+      ],
+      "origin": [
+        -9,
+        -72
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_tool",
+      "pack": "original",
+      "row": 12197,
+      "rgba_sha256": "223a1d5e809f33d8ec0d0af2c2d5a75f9b26ff2e8597b71d10e07d8924ee9edb",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        86
+      ]
+    },
+    "16551": {
+      "rect": [
+        446,
+        333,
+        40,
+        53
+      ],
+      "origin": [
+        -17,
+        -38
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "inn_bucket",
+      "pack": "original",
+      "row": 12200,
+      "rgba_sha256": "f4d6d436297b3d94de9fdfae0459609354269839c2a9b611a34cd8c550b618e0",
+      "visible_rect": [
+        0,
+        0,
+        38,
+        53
+      ]
+    },
+    "16552": {
+      "rect": [
+        490,
+        333,
+        64,
+        79
+      ],
+      "origin": [
+        -28,
+        -59
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 12201,
+      "rgba_sha256": "3baf19565e1bf75a1e090bbe16f03d5dfce35dd9d75c7b68a24abf78d23397d7",
+      "visible_rect": [
+        0,
+        0,
+        62,
+        79
+      ]
+    },
+    "16553": {
+      "rect": [
+        558,
+        333,
+        60,
+        79
+      ],
+      "origin": [
+        -23,
+        -59
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_crate",
+      "pack": "original",
+      "row": 12202,
+      "rgba_sha256": "79b1d7fab293feb54d2dbfdcd7322a5835fa467cce476e50e316b059eb9a79df",
+      "visible_rect": [
+        0,
+        0,
+        60,
+        79
+      ]
+    },
+    "16557": {
+      "rect": [
+        622,
+        333,
+        56,
+        109
+      ],
+      "origin": [
+        -31,
+        -163
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 12206,
+      "rgba_sha256": "8d5740ccb1df461616d9fdc21cb7c58c266acb5742d2ec8affa228280a6fec09",
+      "visible_rect": [
+        0,
+        0,
+        54,
+        109
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            55,
+            40
+          ],
+          [
+            55,
+            108
+          ],
+          [
+            0,
+            68
+          ]
+        ]
+      ]
+    },
+    "16558": {
+      "rect": [
+        682,
+        333,
+        100,
+        131
+      ],
+      "origin": [
+        -32,
+        -111
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "coast_desk",
+      "pack": "original",
+      "row": 12207,
+      "rgba_sha256": "486de4dab187c648ceed3165615098df80c8a53977febf18a8cc97620c38ee25",
+      "visible_rect": [
+        0,
+        0,
+        98,
+        131
+      ]
+    },
+    "16560": {
+      "rect": [
+        786,
+        333,
+        140,
+        129
+      ],
+      "origin": [
+        -40,
+        -107
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "ground": false,
+      "family": "coast_desk",
+      "pack": "original",
+      "row": 12209,
+      "rgba_sha256": "4b5ae35149f2328fa2879f9b56266c6bb873148a497b021ab46b58dc3c195a85",
+      "visible_rect": [
+        1,
+        0,
+        137,
+        129
+      ]
+    },
+    "16562": {
+      "rect": [
+        930,
+        333,
+        148,
+        128
+      ],
+      "origin": [
+        -36,
+        -107
+      ],
+      "footprint": [
+        3,
+        1
+      ],
+      "ground": false,
+      "family": "table",
+      "pack": "original",
+      "row": 12211,
+      "rgba_sha256": "f916a00656b7df0730c10e64e184ed48b240777a198064763ab892309051e3f2",
+      "visible_rect": [
+        0,
+        0,
+        145,
+        128
+      ]
+    },
+    "16577": {
+      "rect": [
+        1082,
+        333,
+        68,
+        79
+      ],
+      "origin": [
+        -32,
+        -56
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "table",
+      "pack": "original",
+      "row": 12226,
+      "rgba_sha256": "18ecba2071a72864660ecb20781d595a74cf99ec847b01b51015e2967b5831f8",
+      "visible_rect": [
+        0,
+        0,
+        65,
+        79
+      ]
+    },
+    "16578": {
+      "rect": [
+        1154,
+        333,
+        100,
+        143
+      ],
+      "origin": [
+        -66,
+        -119
+      ],
+      "footprint": [
+        1,
+        2
+      ],
+      "ground": false,
+      "family": "coast_apothecary",
+      "pack": "original",
+      "row": 12227,
+      "rgba_sha256": "d9b27c9d62c07462aafe48bde5801a58e8ba7125a68a48458d3e016add298555",
+      "visible_rect": [
+        0,
+        0,
+        97,
+        143
+      ]
+    },
+    "16579": {
+      "rect": [
+        1258,
+        333,
+        40,
+        41
+      ],
+      "origin": [
+        13,
+        -76
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chest",
+      "pack": "original",
+      "row": 12228,
+      "rgba_sha256": "9ea99f35aff71a53411070493970e42e1c0c8d58df837b99f179b1971af2f36c",
+      "visible_rect": [
+        0,
+        0,
+        38,
+        41
+      ],
+      "raised_base_pixels": 35
+    },
+    "16585": {
+      "rect": [
+        1302,
+        333,
+        32,
+        76
+      ],
+      "origin": [
+        1,
+        -126
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 12234,
+      "rgba_sha256": "127b5cfdd532893a68cf5605b375ebf11a49cf453737ca0edf196638c187fe0c",
+      "visible_rect": [
+        0,
+        0,
+        30,
+        76
+      ],
+      "panel": [
+        false,
+        [
+          [
+            0,
+            0
+          ],
+          [
+            31,
+            23
+          ],
+          [
+            31,
+            75
+          ],
+          [
+            0,
+            52
+          ]
+        ]
+      ]
+    },
+    "16597": {
+      "rect": [
+        1338,
+        333,
+        36,
+        51
+      ],
+      "origin": [
+        -2,
+        -136
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_wreath",
+      "pack": "original",
+      "row": 12246,
+      "rgba_sha256": "12c17a4afe50995044b6988df8184ff6d62a516227ef3efd7f987d21f27f44de",
+      "visible_rect": [
+        0,
+        0,
+        33,
+        51
+      ]
+    },
+    "16602": {
+      "rect": [
+        1378,
+        333,
+        52,
+        62
+      ],
+      "origin": [
+        -26,
+        -46
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "detail_food",
+      "pack": "original",
+      "row": 12251,
+      "rgba_sha256": "27facbf5361ab66b9c4ffb582ffd6e0cd6c60d2a918e396f66de73de671147fe",
+      "visible_rect": [
+        0,
+        0,
+        52,
+        62
+      ]
+    },
+    "16604": {
+      "rect": [
+        1434,
+        333,
+        92,
+        106
+      ],
+      "origin": [
+        -47,
+        -99
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "detail_spinning",
+      "pack": "original",
+      "row": 12253,
+      "rgba_sha256": "87435d3ed22e340d41e22afe1b5f010da6fa2f2ccc6bcb87f6310c1e107d8949",
+      "visible_rect": [
+        0,
+        0,
+        92,
+        106
+      ]
+    },
+    "16625": {
+      "rect": [
+        1530,
+        333,
+        52,
+        78
+      ],
+      "origin": [
+        -23,
+        -61
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "inn_sack",
+      "pack": "original",
+      "row": 12274,
+      "rgba_sha256": "238d27f6ca13e5c8da60a8e99539183f1277c39229bdbd5b36ebf6640af5ec5a",
+      "visible_rect": [
+        0,
+        0,
+        52,
+        78
+      ]
+    },
+    "16635": {
+      "rect": [
+        1586,
+        333,
+        76,
+        82
+      ],
+      "origin": [
+        -30,
+        -154
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_hanging",
+      "pack": "original",
+      "row": 12284,
+      "rgba_sha256": "da6c430a17d5556edd4ee6445433c44608ae1a68bd5b1497483a83ca921d0551",
+      "visible_rect": [
+        0,
+        0,
+        73,
+        82
+      ]
+    },
+    "16636": {
+      "rect": [
+        1666,
+        333,
+        84,
+        176
+      ],
+      "origin": [
+        -68,
+        -139
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_hanging",
+      "pack": "original",
+      "row": 12285,
+      "rgba_sha256": "1ca1352aef57c947291dee2f6e5a793cf52f546a49795041f7f7510915145cec",
+      "visible_rect": [
+        0,
+        0,
+        81,
+        176
+      ]
+    },
+    "16785": {
+      "rect": [
+        1754,
+        333,
+        48,
+        67
+      ],
+      "origin": [
+        -22,
+        -50
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "barrel",
+      "pack": "original",
+      "row": 12414,
+      "rgba_sha256": "d0f86ab5d9c5ea020734678ce1dde6ee1879c0d0da80a4d366e31176aa8e38b0",
+      "visible_rect": [
+        0,
+        0,
+        47,
+        67
+      ]
+    },
+    "16815": {
+      "rect": [
+        1806,
+        333,
+        44,
+        92
+      ],
+      "origin": [
+        -28,
+        -85
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_weapons",
+      "pack": "original",
+      "row": 12443,
+      "rgba_sha256": "97972b63907ec751a2280041393c3a5beeac3e5c62ab788999c9af46579e0b3d",
+      "visible_rect": [
+        0,
+        0,
+        42,
+        92
+      ]
+    },
+    "16875": {
+      "rect": [
+        1854,
+        333,
+        64,
+        90
+      ],
+      "origin": [
+        -32,
+        -67
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_counter_tile",
+      "pack": "original",
+      "row": 12503,
+      "rgba_sha256": "472ca700e60280b6ea9978e172e6a5a753874bbab579964dfe6c6f674cfcae3f",
+      "visible_rect": [
+        0,
+        0,
+        64,
+        90
+      ]
+    },
+    "17011": {
+      "rect": [
+        1922,
+        333,
+        60,
+        117
+      ],
+      "origin": [
+        -20,
+        -104
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_vanity",
+      "pack": "original",
+      "row": 13097,
+      "rgba_sha256": "0ef2b981cae801586bc5dba46c989b6f74b002e20ba7a85c342f82dd0264da1a",
+      "visible_rect": [
+        0,
+        0,
+        58,
+        117
+      ]
+    },
+    "17023": {
+      "rect": [
+        1986,
+        333,
+        24,
+        38
+      ],
+      "origin": [
+        -11,
+        -37
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "chair",
+      "pack": "original",
+      "row": 13109,
+      "rgba_sha256": "3a61f22de4bfb21f4afa8d0954d2d371e96330a0c2df1f19e41f41b9573974e4",
+      "visible_rect": [
+        0,
+        0,
+        24,
+        38
+      ]
+    },
+    "17194": {
+      "rect": [
+        2,
+        540,
+        120,
+        101
+      ],
+      "origin": [
+        -36,
+        -87
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "detail_books",
+      "pack": "original",
+      "row": 13278,
+      "rgba_sha256": "2a1b40cf438f7577a8e0c5d351124b06140febfecdf5556d7dbc373ef8d6ac86",
+      "visible_rect": [
+        0,
+        0,
+        117,
+        101
+      ]
+    },
+    "17195": {
+      "rect": [
+        126,
+        540,
+        28,
+        50
+      ],
+      "origin": [
+        22,
+        -109
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_candles",
+      "pack": "original",
+      "row": 13279,
+      "rgba_sha256": "a2b3ea3b8492e05baaab08c68eda942489aae4ca7b2918fd0a8086f35c715471",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        50
+      ],
+      "raised_base_pixels": 59
+    },
+    "17520": {
+      "rect": [
+        158,
+        540,
+        76,
+        113
+      ],
+      "origin": [
+        -32,
+        -157
+      ],
+      "footprint": [
+        2,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 13008,
+      "rgba_sha256": "9c18124cceaf7f344f018524acc1bd5b087d0daf68007921a924ee1f45aad0ec",
+      "visible_rect": [
+        0,
+        0,
+        75,
+        113
+      ],
+      "panel": [
+        true,
+        [
+          [
+            0,
+            53
+          ],
+          [
+            75,
+            0
+          ],
+          [
+            75,
+            59
+          ],
+          [
+            0,
+            112
+          ]
+        ]
+      ]
+    },
+    "17532": {
+      "rect": [
+        238,
+        540,
+        48,
+        50
+      ],
+      "origin": [
+        -24,
+        -33
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_bench_segment",
+      "pack": "original",
+      "row": 13014,
+      "rgba_sha256": "f5cd37a70219fa8cb9680326a919b684fb8ee3f9cfa82bf19dede036c7164a55",
+      "visible_rect": [
+        0,
+        0,
+        48,
+        50
+      ]
+    },
+    "17534": {
+      "rect": [
+        290,
+        540,
+        28,
+        41
+      ],
+      "origin": [
+        -12,
+        -30
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_stool",
+      "pack": "original",
+      "row": 13016,
+      "rgba_sha256": "633fd506aa216f871d384847b2e05b0bf22b4050fa0b058431c82dac05413575",
+      "visible_rect": [
+        0,
+        0,
+        28,
+        41
+      ]
+    },
+    "17563": {
+      "rect": [
+        322,
+        540,
+        24,
+        70
+      ],
+      "origin": [
+        -25,
+        -128
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "city_panel",
+      "pack": "original",
+      "row": 13020,
+      "rgba_sha256": "588098d96c53603190423d039142032a98872354e62fe62dbaa21ae22d5158cd",
+      "visible_rect": [
+        0,
+        0,
+        23,
+        70
+      ],
+      "panel": [
+        true,
+        [
+          [
+            0,
+            18
+          ],
+          [
+            23,
+            0
+          ],
+          [
+            23,
+            50
+          ],
+          [
+            0,
+            68
+          ]
+        ]
+      ]
+    },
+    "17587": {
+      "rect": [
+        350,
+        540,
+        56,
+        140
+      ],
+      "origin": [
+        -32,
+        -124
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "coast_apothecary",
+      "pack": "original",
+      "row": 12985,
+      "rgba_sha256": "a7c0a584f572b03342ec3507778d21a718e338f09fd7c24bb6686d17d9bab3a5",
+      "visible_rect": [
+        0,
+        0,
+        53,
+        140
+      ]
+    },
+    "17624": {
+      "rect": [
+        410,
+        540,
+        48,
+        44
+      ],
+      "origin": [
+        -23,
+        -28
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "ground": false,
+      "family": "inn_bucket",
+      "pack": "original",
+      "row": 13058,
+      "rgba_sha256": "f69a3ffbfb4e27810af3d829ce23f31c9dcba2fa941d007e54eea2d16a5da4d0",
+      "visible_rect": [
+        0,
+        0,
+        46,
+        44
+      ]
+    }
+  },
+  "confirmed": "Original cells, footprint, sprite pixels, floor/wall/navigation and warp owners.",
+  "inferred": "Solid depth, furniture backs and prepared reusable model continuation."
+}

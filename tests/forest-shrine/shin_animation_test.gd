@@ -116,7 +116,7 @@ func run():
     for stage in ([0,1,2] if focused else [1]):
      var boosting=stage==1
      var shift=InputEventKey.new();shift.physical_keycode=KEY_SHIFT;shift.pressed=boosting;shift.shift_pressed=boosting
-     Input.parse_input_event(shift)
+     Input.parse_input_event(shift);Input.flush_buffered_events()
      await physics_frame
      check(Input.is_action_pressed("sprint")==boosting,"Real Shift event sets sprint input")
      p.position=home;p.velocity=Vector3.DOWN;p.move_and_slide();model.reset_jump_pose()

@@ -2,6 +2,7 @@
 #include <algorithm>
 namespace army {
 bool valid_kit_data(const KitData& d){
+    if(!d.enemy_evasion.empty()&&(d.enemy_evasion.size()!=ENEMY_KIND_COUNT||std::any_of(d.enemy_evasion.begin(),d.enemy_evasion.end(),[](double v){return !std::isfinite(v)||v<0||v>100;})))return false;
     if(d.cursed_guardian<0||d.cursed_guardian>6)return false;
     if(!d.snow_patrol_skins.empty()&&(d.snow_patrol_skins.size()!=2||d.snow_patrol_skins[0]==d.snow_patrol_skins[1]||
         std::any_of(d.snow_patrol_skins.begin(),d.snow_patrol_skins.end(),[](int skin){return skin<0||skin>=HOUND_SKINS;})||
@@ -49,6 +50,7 @@ bool valid_kit_data(const KitData& d){
             int code=int(cue),sound=code%10000;
             bool tagged=(code/10000==1||code/10000==2)&&
                 (sound==0||sound==162||sound==173||sound==282||sound==288||sound==290||sound==301||sound==316||sound==318||sound==319||sound==321||sound==332||sound==114||sound==116||sound==159||sound==164||sound==165||sound==171||sound==175||sound==182||sound==190||sound==214||sound==254||sound==255||sound==296||sound==314||sound==429||sound==101||sound==102||sound==103||sound==104||sound==105||sound==106||sound==107||sound==108||sound==109||sound==110||sound==112||sound==115||sound==117||sound==131||sound==132||sound==133||sound==134||sound==135||sound==136||sound==137||sound==138||sound==139||sound==140||sound==152||sound==153||sound==157||sound==166||sound==168||sound==172||sound==174||sound==176||sound==180||sound==181||sound==183||sound==184||sound==185||sound==186||sound==187||sound==191||sound==192||sound==262||sound==263||sound==264||sound==265||sound==266||sound==267||sound==268||sound==269||sound==303||sound==304||sound==463||sound==207);
+            tagged=tagged||((code/10000==1||code/10000==2)&&(sound==158||sound==111||sound==141||sound==302));
             bool known=tagged||(kind!=HOUND_KIND?(cue==106||cue==112||cue==131||cue==135||cue==138||cue==157||cue==164||cue==165):
                 (cue==117||cue==143||cue==161||cue==103||cue==105||cue==107||cue==110||cue==138||cue==191||cue==133||cue==135||cue==137||cue==101||cue==131||cue==132||cue==176||cue==264||cue==267||cue==288||cue==289||cue==290));
             if(!std::isfinite(tick)||tick<0||tick>=attack[0]||tick<=previous||!std::isfinite(cue)||cue!=code||!known)return false;

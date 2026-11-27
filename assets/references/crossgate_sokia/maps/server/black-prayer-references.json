@@ -1,0 +1,24 @@
+[
+  {
+    "file": "16508_rubi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/16508_rubi",
+    "path": "gmsv/data/map/16508_rubi",
+    "sha256": "2e66594657fbf08331784bc63d81eb4007265745cfb6bd41b17abf2ae6f95475",
+    "git_blob": "cdb594f175c454aad538d97ba0af0e6a36fea27e",
+    "bytes": 10044,
+    "authority": "Pinned CGMSV original map planes; target client recorded variants preserved",
+    "durable_path": "assets/references/crossgate_sokia/maps/server/16508_rubi"
+  },
+  {
+    "file": "16509_rubi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/16509_rubi",
+    "path": "gmsv/data/map/16509_rubi",
+    "sha256": "965508bb43725ba356b5e1677e26b06515758b1bdfa2bd55e7a98bef9007e974",
+    "git_blob": "e2caf61c4b175b04eaeec421e83269b939add2c2",
+    "bytes": 10044,
+    "authority": "Pinned CGMSV original map planes; target client recorded variants preserved",
+    "durable_path": "assets/references/crossgate_sokia/maps/server/16509_rubi"
+  }
+]

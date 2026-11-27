@@ -25,13 +25,10 @@ family qualify, including XL and effect variants. Party bonuses stack while
 selected, following Bee Mirage's existing party rule, even before summoning.
 Total critical chance remains capped at 100%.
 
-In **Q → Equipment**, select the pet and press **+** beside its passive.
-One of that pet's level-up stat points buys one passive level: another +5
-HP/sec or +15 critical points. This shares its existing pet stat point budget;
-character points and active skill levels are unchanged. The mantis passive
-stops at level 7 (100% after clamping); further points cannot be spent on it.
-Dragon regeneration is bounded by the pet's earned points and level 99 cap.
-Bee Mirage remains a fixed +10 dodge points and cannot be upgraded here.
+Family passives are read-only in **Q → Equipment**. Pet level-ups no longer
+supply spendable points or passive upgrades. Existing family bonuses and any
+previously allocated run ranks remain effective; character points and active
+skill levels stay separate. Bee Mirage remains a fixed +10 dodge points.
 
 Ranks belong to the stable pet appearance for the current run. Removing or
 replacing a party member removes its bonus immediately, while retaining its
@@ -41,16 +38,41 @@ Cross Gate fighter; ordinary allied fighters and native pet stats stay separate.
 The player Stats display includes both effective bonuses. Existing attack
 tickets keep their committed critical-chance snapshot.
 
-## Pet participation and stat points — 2026-11-22
+## Automatic pet stat growth — 2026-11-23
 
-Every selectable pet keeps its own level, XP and allocated stats by stable
-appearance key for the current run. Each level earns one **pet stat point**;
-character points and learned skill levels stay separate. In **Q → Equipment**,
-select a pet and use the + beside HP, MP, attack damage, attack speed, move
-speed, dodge or counter. Each point adds 30 maximum HP, 10 maximum MP, 10% of
-base normal/skill damage, 10% attack speed, 5% move speed, or one percentage
-point of dodge/counter respectively. Source contact counts and animation
-durations remain read-only; attack speed advances the existing native clock.
+Every selectable pet keeps its own level and XP by stable appearance key for
+the current run. Each level automatically raises maximum HP, maximum MP and
+normal/skill attack damage. Pets earn no spendable stat points, and Equipment
+has no pet stat or passive purchase buttons. Character stat points remain
+unchanged. Movement, attack speed, dodge/counter and skill levels retain their
+existing values.
+
+For `n = level - 1`, the existing tapered curve supplies `n / (1 + n / 20)`
+effective growth steps. Each step adds 8% of base HP, 10% of base attack/skill
+damage and 3 MP. 螳螂 (Mantises) and bees instead gain 20% of base damage
+per effective step; 水龍 (Dragon lizards) instead gain 16% of base HP. These
+double the specialized growth bonus, keeping the same level-one stats. Every
+appearance in those families qualifies, including XL, aura and archive variants.
+Other growth, MP, skill levels and family passives retain their existing values.
+
+With the current 150 HP / 50 attack / 50 MP baseline, before family bonuses:
+
+| Level | Max HP | Attack per contact | Max MP |
+| --- | --- | --- | --- |
+| 1 | 150 | 50 | 50 |
+| 2 | 161.43 | 54.76 | 52.86 |
+| 10 | 224.48 | 81.03 | 68.62 |
+| 99 | 349.32 | 133.05 | 99.83 |
+
+At level 10, 螳螂 and bees deal 112.07 damage per contact instead of 81.03;
+水龍 have 298.97 maximum HP instead of 224.48. At level 99 these specialized
+values are 216.10 damage and 548.64 HP respectively. Normal attacks and equipped
+skill damage share the same multiplier; Equipment and the native body use the
+same growth values, including after recall or travel.
+
+Team card bonuses and any previously allocated run bonuses still apply through
+the existing native stat owner and prepared skill caster. Source contact counts
+and animation timing are unchanged.
 
 A pet participates by dealing positive damage to an enemy or receiving
 positive damage from it. When that enemy dies, each participating appearance
@@ -61,10 +83,9 @@ area/run is cleared. Native skill/projectile hits use the same damage events.
 
 The existing 16 × current level XP curve, level 99 cap and tapered natural
 HP/damage growth continue. A level-up completely heals a living summoned pet
-to its new maximum. It does not revive a defeated pet. Allocating HP increases
-current and maximum HP by the same amount; ordinary stat/profile refreshes
-keep existing wounds. Recall, replacement and retained-run travel keep pet
-XP and allocations; a fresh run clears them. Saved loadouts and user data are
+to its new maximum. It does not revive a defeated pet. Ordinary stat/profile
+refreshes keep existing wounds. Recall, replacement and retained-run travel keep
+pet XP and growth; a fresh run clears them. Saved loadouts and user data are
 unchanged. These rules supersede the killing-blow-only and wound-preserving
 level-up behavior described below.
 
@@ -594,3 +615,22 @@ Play Goemon. Current evidence is under
 `build/Other Files/Team Leveling/Free Draft/`; this is separate from the historical
 acceptance results above. No saved-map or character-balance schema changes are
 needed because card ranks and offers are run-only.
+
+## Run-only chest nutrition — 2026-11-25
+
+Chest meals add run-owned stat ranks to the existing character formulas and
+HP/attack/MP ranks to existing individual pet growth. Character food covers all
+ten `TeamProgression.STAT_NAMES`; level meals grant +1 or +3 through the ordinary
+XP/level reward path, capped at 99, while preserving partial XP. Pet meals feed
+each selected stable pet identity, including recalled pets; pet level meals grant
++1 without creating pet points. Pet family specialization remains unchanged.
+
+User direction (2026-11-25): for now, restart/new runs reset food stats and
+character/pet levels. Food levels/ranks live only in team progression alongside
+ordinary kill XP, allocated points and skill upgrades. A new run starts at level
+one with no food bonuses. Existing `settings.chest_nutrition` data is preserved
+for compatibility but is neither applied nor updated by meals. Travel retains
+the same run object. Settings reload cannot restore old food or duplicate
+levels. Receipts say “Rest of run”. The item table and caps are
+in `assets/items/crossgate/README.md`; focused coverage is
+`tests/forest-shrine/chest_nutrition_test.gd`.

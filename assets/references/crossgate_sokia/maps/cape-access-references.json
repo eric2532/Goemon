@@ -1,0 +1,52 @@
+[
+  {
+    "file": "server/15517_plant",
+    "path": "gmsv/data/map/15517_plant",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15517_plant",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "b8411df0b35f0c46462233f2b66ee0bcad6373ed",
+    "bytes": 10044,
+    "sha256": "98fbbb1cc77517c01b62e51acc831c307669be993336840868b670bac611d358",
+    "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "server/15520_devi4",
+    "path": "gmsv/data/map/15520_devi4",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15520_devi4",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "d8fa85f966a348b65ed50388c4462f741878bebb",
+    "bytes": 40044,
+    "sha256": "9acdaddb94368536d0391c0a6ec1d3f5472902390fa49c60d768e9b212dbf424",
+    "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "server/15524_usi",
+    "path": "gmsv/data/map/15524_usi",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15524_usi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "4f08bd08ffddbe72707962b7e7c53dc3b1744a3f",
+    "bytes": 3644,
+    "sha256": "a593fea21f56fc8092eba67d13ca82d6f68a9df1ad14390b2aa11a88815e3d67",
+    "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "server/15528_usi",
+    "path": "gmsv/data/map/15528_usi",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15528_usi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "5030ba2a496082fd3fdb42b2c78b9db4702bfc76",
+    "bytes": 3644,
+    "sha256": "15f94ac4207f41b6f8118dbca95ee097a6dd5e0d7274404149dccf1ccab33d7c",
+    "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+  },
+  {
+    "file": "server/15529_usi",
+    "path": "gmsv/data/map/15529_usi",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/15529_usi",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "git_blob": "e9d872ec0f6944eeda7a419814af85778310e9d6",
+    "bytes": 3644,
+    "sha256": "f7fb1926aa035ce71cfe3f64373769783c05ca73418f4559439d2336357413ca",
+    "qualification": "Pinned server release LS2MAP layout; not authenticated original production-server execution or client-release parity."
+  }
+]

@@ -10,7 +10,8 @@ func water_capture(stem:String):
 
 func equip_water(weapon:String):
  game.player.active_ability.cancel(true);game.player.active_ability.clear_shin_counter()
- check(game.save_equipment_loadouts({Gear.character_key(37):{"1":"weapon:"+weapon}},{},{}),"Equip Water Dragon "+weapon)
+ var item="weapon:water-dragon-boomerang" if weapon=="boomerang" else "weapon:"+weapon
+ check(game.save_equipment_loadouts({Gear.character_key(37):{"1":item}},{},{}),"Equip Water Dragon "+weapon)
 
 func run():
  create_timer(240).timeout.connect(func():printerr("WATER_WEAPONS_TIMEOUT");quit(1))
@@ -26,6 +27,8 @@ func run():
  if is_instance_valid(game.training_dummy):game.training_dummy.position=home+Vector3.DOWN*1000
  game.camera_rig.camera.global_position=home+Vector3(4,15,24);game.camera_rig.camera.look_at(home+Vector3(0,1,-8));game.camera_rig.camera.make_current()
  var p=game.player;var model=p.model;var kit=p.active_ability;var pool=Pool.service(game)
+ game.update_character_tuning(37,"critical_chance",0)
+ game.update_character_tuning(37,"accuracy",100)
  pool.launched.connect(func(shot):shot.set_physics_process(false);shots.append(shot))
  check(WEAPONS.all(func(weapon):return Gear.allowed(37,game.settings).has(weapon)) and Gear.allowed(37,game.settings).has("three-weapon"),"All seven Water Dragon routes and the separate combo item are available")
  for weapon in WEAPONS:
@@ -49,7 +52,7 @@ func run():
  kit.tick((float(pattern.contacts[0])-.001)/rate)
  check(shots.is_empty(),"Boomerang waits for native release")
  kit.tick(.002/rate)
- check(shots.size()==1 and shots[0].kind=="crossgate_boomerang","Release launches one curved boomerang")
+ check(shots.size()==1 and shots[0].kind=="water_dragon_boomerang","Release launches one curved boomerang")
  if shots.is_empty():quit(1);return
  var shot=shots[0];var start:Vector3=shot.global_position;var duration:float=shot.boomerang_duration
  check(shot.boomerang_point(0,start).is_equal_approx(start),"Curve starts at the throw hand")
@@ -75,7 +78,7 @@ func run():
  var before_combo:int=kit.primary_combo_hits
  var sweep_ticket=p.attack_chain.begin("crossgate_throw");sweep_ticket.damage_multiplier=1.0
  kit.prepare_primary_combo(sweep_ticket)
- var sweep=pool.launch(p,kit.Shot,"crossgate_boomerang",{"kind":"crossgate_boomerang","position":start,"velocity":Vector3.FORWARD*72,"boomerang_reach":18.0,"attack_ticket":sweep_ticket.duplicate(),"damage":10.0})
+ var sweep=pool.launch(p,kit.Shot,"water_dragon_boomerang",{"kind":"water_dragon_boomerang","position":start,"velocity":Vector3.FORWARD*72,"boomerang_reach":18.0,"attack_ticket":sweep_ticket.duplicate(),"damage":10.0})
  var old_hits={};var sweep_times=[]
  for tick in ceili(sweep.boomerang_duration/DT)+2:
   if not sweep.pool_live:break
@@ -87,7 +90,7 @@ func run():
  var new_hits=0
  for i in crowd.size():
   if crowd[i].hp<crowd_hp[i]:new_hits+=1
-  check(is_equal_approx(crowd_hp[i]-crowd[i].hp,10.0) or crowd_hp[i]==crowd[i].hp,"Crowd enemies take at most one normal hit across both legs")
+  check(is_equal_approx(crowd_hp[i]-crowd[i].hp,10.0) or crowd_hp[i]==crowd[i].hp,"Crowd enemy %d takes at most one normal hit (damage %.1f)"%[i,crowd_hp[i]-crowd[i].hp])
  check(new_hits>old_hits.size(),"Broad sweep catches more enemies than the previous narrow contact area")
  check(new_hits>1 and kit.primary_combo_hits==before_combo+1,"One throw through a crowd earns exactly one combo step")
  sweep_times.sort();print("BOOMERANG_CROWD old_hits=",old_hits.size()," new_hits=",new_hits," projectile_step_p95_us=",sweep_times[int(sweep_times.size()*.95)])
@@ -95,7 +98,7 @@ func run():
  var created=pool.created;var cached_texture=shot.dagger_sprite.texture;var nodes=get_node_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
  for repeat in 8:
   var lease_origin:Vector3=p.auto_aim_origin()+Vector3.RIGHT*repeat*.25
-  var again=pool.launch(p,kit.Shot,"crossgate_boomerang",{"kind":"crossgate_boomerang","position":lease_origin,"velocity":Vector3.FORWARD*72,"boomerang_reach":18.0,"attack_ticket":{},"damage":1.0})
+  var again=pool.launch(p,kit.Shot,"water_dragon_boomerang",{"kind":"water_dragon_boomerang","position":lease_origin,"velocity":Vector3.FORWARD*72,"boomerang_reach":18.0,"attack_ticket":{},"damage":1.0})
   again.set_physics_process(false)
   check(again.age==0 and again.hit_targets.is_empty() and again.dagger_sprite.texture==cached_texture and again.boomerang_origin.is_equal_approx(lease_origin),"Pool clears flight/hits and shares artwork")
   again.retire()
@@ -105,7 +108,7 @@ func run():
  check(not kit.shin_counter.is_empty(),"Boomerang can counter")
  if not kit.shin_counter.is_empty():
   kit.tick_shin_counter(float(kit.shin_counter.contact)/rate+.001)
-  check(shots.size()==1 and shots[0].kind=="crossgate_boomerang","Counter launches the same curved projectile")
+  check(shots.size()==1 and shots[0].kind=="water_dragon_boomerang","Counter launches the same curved projectile")
   if not shots.is_empty():
    var counter_shot=shots[0]
    check(counter_shot.impact_sound==model.single_strike_sound(kit.shin_counter.attack),"Counter projectile carries the same prepared ice impact")
@@ -124,7 +127,7 @@ func run():
   check(body.model.current_weapon()=="boomerang" and body.model.atlases[0]==model.atlases[0],"Native copy shares selected weapon textures")
   check(body.perform(0,victim.target.global_position),"Native copy starts the equipped throw")
   body.active_ability.tick(float(body.model.normal_attack_pattern().contacts[0])/body.attack_speed_multiplier()+.002)
- check(shots.size()==4 and shots.all(func(item):return item.kind=="crossgate_boomerang" and item.dagger_sprite.texture==cached_texture),"Four simultaneous copies share curved projectile artwork")
+ check(shots.size()==4 and shots.all(func(item):return item.kind=="water_dragon_boomerang" and item.dagger_sprite.texture==cached_texture),"Four simultaneous copies share curved projectile artwork")
  check(pool.created==prepared_count,"Simultaneous copy throws use warmed leases")
  await water_capture("four-native-boomerangs");mirrors.dispose();await frames(2)
  equip_water("axe");planted();p.set_physics_process(true);p.set_auto_attack(false)

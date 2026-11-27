@@ -1,5 +1,36 @@
 # Cross Gate weapon HUD sprites
 
+## Beast Master
+
+`beast-master.png` arranges four original standing pet sprites on a transparent
+64×64 tile. Equipment, the weapon HUD and the all-pets hotbar slot share it.
+The source family atlases and frame tables remain intact. Use action 0, frame 0
+from each family, crop the transparent bounds, and resize proportionally with
+nearest-neighbor sampling. For the bee, crop just above the separate ground
+shadow before resizing.
+
+| Sprite | Family skin and facing | Width | Placement |
+| --- | --- | ---: | --- |
+| 螳螂 | `mantises` 0, facing 4 | 29 | (2, 1) |
+| 水龍 | `dragon_lizards` 1, facing 4 | 36 | (0, 34) |
+| 蜜蜂 | `bees` 3, facing 5 | 29 | (34, 1) |
+| 地獄犬 | `hounds` 0, facing 6 | 31 | (33, 26) |
+
+## Approved red boxing gloves — 2026-11-25
+
+The user selected classic red gloves (option A) to replace the Fist icon.
+`defaults/boxing-gloves-red.png` is the shared Equipment/HUD icon; the display
+name is Boxing Gloves. The stable `weapon:unarmed` item ID, unarmed attack
+route, stats and equip restrictions stay unchanged. Equipment no longer applies
+the earlier white fist tint. Both catalog-backed icons and the HUD's direct
+stance preloads use the same new texture.
+
+`source/boxing-gloves-red-master.png` and `source/boxing-gloves-red-prompt.md`
+preserve the approved built-in image_gen artwork and preparation recipe. The
+48×48 runtime derivative contains 35×38 visible pixels. Existing fist art and
+all earlier masters remain intact; `defaults/provenance.json` records the new
+art separately from the historical fist entry.
+
 ## Three-Weapon Combo icon — 2026-11-20
 
 `three-weapon.png` puts Sword SW023 upright in front of crossed Spear SP015

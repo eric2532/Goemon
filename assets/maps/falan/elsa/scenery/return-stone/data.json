@@ -1,0 +1,66 @@
+{
+  "actor": 110500,
+  "key": "puk2:66",
+  "clip": 0,
+  "duration": 500,
+  "frames": 4,
+  "size": [
+    192,
+    277
+  ],
+  "origin": [
+    -117,
+    -261
+  ],
+  "rgba_sha256": "4e5d6734f5b68ab9e5a660c0104e949112200ee92d1fdb433c33c94abd785b6d",
+  "source_frames": [
+    {
+      "graphic": 1105,
+      "origin": [
+        -117,
+        -261
+      ],
+      "size": [
+        192,
+        277
+      ],
+      "rgba_sha256": "c211687cd31da9f231042e1ba37c946333830c9eca7f7f4dfe7f584a5a4ce0f8"
+    },
+    {
+      "graphic": 1106,
+      "origin": [
+        -117,
+        -261
+      ],
+      "size": [
+        192,
+        277
+      ],
+      "rgba_sha256": "460a078ff4ee644b9524dc214fc8fb54bdf08c270e64d2d8ca9dfdaf47de1cac"
+    },
+    {
+      "graphic": 1107,
+      "origin": [
+        -117,
+        -261
+      ],
+      "size": [
+        192,
+        277
+      ],
+      "rgba_sha256": "c066c12a8b2871f8d50ade6f754157ece4be84b414746fb51c038e1007139a2e"
+    },
+    {
+      "graphic": 1108,
+      "origin": [
+        -117,
+        -261
+      ],
+      "size": [
+        192,
+        277
+      ],
+      "rgba_sha256": "fc7d333394d9f4b57df50b2a57134dfa5c1c0846cb1254cb9a69a185e8de0f4a"
+    }
+  ]
+}

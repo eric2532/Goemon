@@ -1,0 +1,34 @@
+{
+  "ghana_north_road": {
+    "resource_sha256": "8da408b333b07ae94313161cd47a4d5171ebf54540c3b924117f5c3e79d7fae4",
+    "rgba_sha256": "a31ab775f357797fa520590e3462f6a4e4a55081e4e7289a4329f28b3cd95d6f",
+    "size": [
+      165,
+      165
+    ]
+  },
+  "ghana_road": {
+    "resource_sha256": "eccd3d01d938712fc377b3660636038f9280a5cb8940b881b9b3ccb75fa74724",
+    "rgba_sha256": "5c6fc7c0d0497b1a45127d9697e4cc819558c88fb2e38b73146817186a510cb1",
+    "size": [
+      401,
+      401
+    ]
+  },
+  "sokia_coast": {
+    "resource_sha256": "be695c8b4a05c2bedea58e4dfd95e565db37b3c168b60745d1e9cac4f1153e8d",
+    "rgba_sha256": "1ff58a5fdb2df5fdb2665c46bdea2010a9515b72cc1c65a07c4d1a6fa7fdb446",
+    "size": [
+      421,
+      421
+    ]
+  },
+  "sokia_desert": {
+    "resource_sha256": "8a543b5a7b94fa11fe884f44abfeaa589c5d69a9a0bfeb154fc412139975fc41",
+    "rgba_sha256": "fabd4cda2eda142717f04400aaa91351d38fbe733420da41b9c44ebfde8cb6b0",
+    "size": [
+      411,
+      411
+    ]
+  }
+}

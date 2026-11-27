@@ -1,0 +1,42 @@
+{
+  "elsa/atlas-40.png": {
+    "resource": "elsa/cpu-pages/elsa-atlas-40.res",
+    "resource_sha256": "e819cefe8b29f63d676d4f1383664c5491b85ca3b5bd1938d721e5812594d32c",
+    "rgba_sha256": "04488b8e3b62f86a79d6ae032e18adda441891c1467aeb43e3b5f71855b26ad2",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "4044a543a37f14e5794d907135cc6d596c25088492cecee67d6ee4e6cfa0ddd8"
+  },
+  "elsa/atlas-41.png": {
+    "resource": "elsa/cpu-pages/elsa-atlas-41.res",
+    "resource_sha256": "c73d22c8ddc43a15c413f2d2a6dbe8a2423fc8761c9985ba68ac3582570a240b",
+    "rgba_sha256": "ace4bd4ccc65c8be8333fe1dfb1517066abb4736d0565e58720a7c33e232f19f",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "98b0203bc8926e2976a3d00882c6a973a50656b79ae0269866c8fe321e010a97"
+  },
+  "elsa/atlas-42.png": {
+    "resource": "elsa/cpu-pages/elsa-atlas-42.res",
+    "resource_sha256": "7204033329b75b173d5b3cb282fa1e328838cbb258d8ed3a940ba8079a7be5e4",
+    "rgba_sha256": "d64bbee686815d291f05873d6e379e95fd1ea57b5331a74c0731a2f877477a14",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "00b2a47d5f28e8bedd8923b7c59ebbc1503f57ca12ba0c682724af70824910c0"
+  },
+  "elsa/atlas-43.png": {
+    "resource": "elsa/cpu-pages/elsa-atlas-43.res",
+    "resource_sha256": "ea012799b2beb72a0d4fa2692a8d03beee84df38a1cd31e62252758f473e64cd",
+    "rgba_sha256": "7d830eba9c0ba1c644cf8b6fa7b845b4444fa922a9583ddc5ffeaa8462d9c085",
+    "size": [
+      2048,
+      2048
+    ],
+    "source_sha256": "396bcd48d52cd9ec55f137e0cc92e2cab78ac5c6a07f7dee554ba3e027966cb9"
+  }
+}

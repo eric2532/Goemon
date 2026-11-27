@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "source_hybrid_sha256": "cf7a1c752705450ffd3aec92c657300f57b4a29635f9d3b6451da04a5ee59be7",
+  "map_data_sha256": "c6bd9716e301c9b6ca6b05e2fdddad48cd3b8fde5b76f9347accb9dd34edb69b",
+  "field_source": {
+    "client_path": "BlueCrossgate/map/0/100.dat",
+    "client_sha256": "bc286a9dfcad277a4f1dbdad6e35277e5ed62d02165aa79862bec33db1df9905",
+    "pinned": {
+      "path": "gmsv/data/map/00100_field1",
+      "file": "map__00100_field1",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/00100_field1",
+      "sha256": "0f62a26d29226cd5de42bd4ed5275136fa6316b3cbe47c4a93026ad34b90c94a",
+      "git_blob": "58febf80da040c14c564e15cc1ff50d74c735732",
+      "boundary_reference_only": true
+    }
+  },
+  "existing_join_source_offset": [
+    529,
+    20
+  ],
+  "source100_overlap_cells": [
+    {
+      "village_cell": [
+        32,
+        3
+      ],
+      "village_bg": 5004,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        561,
+        23
+      ],
+      "source_map": 100,
+      "field_bg": 5358,
+      "field_pg1": 0,
+      "field_native_open": true,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": false,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    },
+    {
+      "village_cell": [
+        33,
+        3
+      ],
+      "village_bg": 5007,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        562,
+        23
+      ],
+      "source_map": 100,
+      "field_bg": 5035,
+      "field_pg1": 0,
+      "field_native_open": true,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": false,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    },
+    {
+      "village_cell": [
+        34,
+        3
+      ],
+      "village_bg": 5005,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        563,
+        23
+      ],
+      "source_map": 100,
+      "field_bg": 5349,
+      "field_pg1": 0,
+      "field_native_open": true,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": false,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    },
+    {
+      "village_cell": [
+        35,
+        3
+      ],
+      "village_bg": 5004,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        564,
+        23
+      ],
+      "source_map": 100,
+      "field_bg": 5047,
+      "field_pg1": 12172,
+      "field_native_open": false,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": true,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    },
+    {
+      "village_cell": [
+        33,
+        4
+      ],
+      "village_bg": 5006,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        562,
+        24
+      ],
+      "source_map": 100,
+      "field_bg": 5372,
+      "field_pg1": 0,
+      "field_native_open": true,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": false,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    },
+    {
+      "village_cell": [
+        34,
+        4
+      ],
+      "village_bg": 5003,
+      "village_pg1": 0,
+      "village_native_open": false,
+      "field_cell": [
+        563,
+        24
+      ],
+      "source_map": 100,
+      "field_bg": 5377,
+      "field_pg1": 0,
+      "field_native_open": true,
+      "recorded_in_client": true,
+      "both100variants_agree": true,
+      "restore_graphic": false,
+      "source_footprint": [
+        1,
+        1
+      ],
+      "joined_land_height": 6.0
+    }
+  ],
+  "source100_open_land_cells": 5,
+  "source100_blocked_flower_cells": 1,
+  "source2400_raw_layers_unchanged": true,
+  "separate_from_gate_handoffs": true,
+  "source_component_proof": "Alyut Canonical Stage/water-overlap-source-ownership.json: both100variants share the original portal-stopped component with100(550,19), Alyut north/south returns and neighboringfieldroad cells. Scripted returns from16504/16505remain separate-region connections; they are not rebuilt here.",
+  "inferred": "The existing seamless join retains these exact source100land/flower cells where the distinct2400map has closed water. Their logical source remains100, and they are excluded from2400water visibility cuts. Only the original12172flower/1×1nativeclosure is restored; rawmaps,12gatebuffers,otherland/routes/NPCs/quests are unchanged."
+}

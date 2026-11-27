@@ -13,10 +13,11 @@ constexpr int BODYGUARD_START=6010,BODYGUARD_PUSH=6011;
 inline constexpr bool pet_ranged_skill(int skill){return skill>=3&&skill<PET_BEE_FLURRY;}
 constexpr double BEE_FLURRY_RATE=1.5;
 inline constexpr Vec3 PARTY_FORMATION_POSTS[]={{-7,0,3.5f},{7,0,3.5f},{0,0,-7},{-7,0,-3.5f},{7,0,-3.5f}};
+inline constexpr Vec3 COMBINED_FORMATION_POSTS[]={{-2.4f,0,1.2f},{2.4f,0,1.2f},{0,0,-2.4f},{-2.4f,0,-1.2f},{2.4f,0,-1.2f}};
 struct KitProfile {bool active=false;float hp=0,speed=0,damage=0,range=0,turn_speed=0,stride=1;std::array<int,16> poses{};std::array<float,26> kit{};float contact_end=0;};
 struct PrimaryProfile{double duration=0,contact=0,damage=0,reach=0,arc=0,stop=0,side=1;};
 struct AllyProfile{bool active=false;double hp=0,speed=0,damage=1,rate=1,critical=0;std::array<PrimaryProfile,6> primary;std::array<double,161> cadence{};};
-constexpr int SLIME_SKINS=29;
+constexpr int SLIME_SKINS=192;
 constexpr int ZOMBIE_DRAIN=700,ZOMBIE_CHARGE=701,ZOMBIE_HEAL=702,ZOMBIE_BLAST=703;
 constexpr int GRAVE_EARTH_WARNING=704,GRAVE_EARTH_IMPACT=705,GRAVE_MAGIC_SEAL=706;
 constexpr int RUBY_MEND=707,RUBY_FROST=708,RUBY_FROST_IMPACT=709;
@@ -45,6 +46,7 @@ struct KitData {
     std::vector<Vec3> ranger_muzzles,ranger_motion_muzzles;
     std::vector<float> soldier_profiles,phase_ticks,contact_ticks,enemy_kits,enemy_contact_ends,finale_frames,dark_lumina_spin,hound_attacks,slime_attacks,bear_attacks;
     Vec3 melee_from,melee_to,muzzle;
+    std::vector<double> enemy_evasion; // Per native kind, in percentage points.
     std::vector<float> pet_geometry; // Per skin: fitted min/max and visual/melee scale; empty preserves ordinary mode.
     std::vector<float> pet_skill_costs;
     float enemy_size=1,hound_move_scale=1,map_enemy_scale=1;

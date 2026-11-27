@@ -1,3 +1,4 @@
+from gzip import compress
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -13,6 +14,44 @@ class CoOpRoomTest(AioHTTPTestCase):
         self.export = TemporaryDirectory()
         self.addCleanup(self.export.cleanup)
         return make_app(Path(self.export.name))
+
+    async def test_export_files_and_ranges(self):
+        export = Path(self.export.name)
+        outside = TemporaryDirectory()
+        self.addCleanup(outside.cleanup)
+        private_file = Path(outside.name) / "private.json"
+        private_file.write_text("local data")
+        (export / "index.html").write_text("Cross Gate")
+        (export / "build-info.json").write_text('{"build_id":"test"}')
+        (export / "index.pck.000").write_bytes(b"123456")
+        (export / "engine.wasm").write_bytes(b"WASM")
+        (export / "engine.wasm.gz").write_bytes(compress(b"WASM"))
+        (export / "private.json").write_text("local data")
+        (export / "hidden.wasm").symlink_to(private_file)
+        (export / "other.wasm").write_bytes(b"WASM")
+        (export / "other.wasm.gz").symlink_to(private_file)
+
+        async with self.client.get("/") as response:
+            self.assertEqual(await response.text(), "Cross Gate")
+            self.assertEqual(response.headers["Cross-Origin-Opener-Policy"], "same-origin")
+            self.assertEqual(response.headers["Cross-Origin-Embedder-Policy"], "require-corp")
+            self.assertEqual(response.headers["Cache-Control"], "no-cache")
+        async with self.client.get("/build-info.json") as response:
+            self.assertEqual(await response.json(), {"build_id": "test"})
+        async with self.client.get("/index.pck.000", headers={"Range": "bytes=2-3"}) as response:
+            self.assertEqual(response.status, 206)
+            self.assertEqual(response.headers["Content-Range"], "bytes 2-3/6")
+            self.assertEqual(await response.read(), b"34")
+        async with self.client.get("/engine.wasm", headers={"Accept-Encoding": "gzip"}) as response:
+            self.assertEqual(response.content_type, "application/wasm")
+            self.assertEqual(response.headers["Content-Encoding"], "gzip")
+            self.assertEqual(await response.read(), b"WASM")
+        async with self.client.get("/engine.wasm", headers={"Accept-Encoding": "identity"}) as response:
+            self.assertNotIn("Content-Encoding", response.headers)
+            self.assertEqual(await response.read(), b"WASM")
+        for path in ("/private.json", "/hidden.wasm", "/other.wasm", "/engine.wasm.gz", "/tools/serve_cross_gate_web.py"):
+            async with self.client.get(path) as response:
+                self.assertEqual(response.status, 404)
 
     async def test_room_updates_avatars_and_shares_target_hits(self):
         origin = str(self.server.make_url("/")).rstrip("/")

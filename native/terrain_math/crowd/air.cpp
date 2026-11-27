@@ -90,7 +90,7 @@ void Terrain::build_air(bool reuse_base,size_t input_start){
     if(data_.width==0)quad({minimum_.x,0,minimum_.z},{minimum_.x,0,maximum_.z},{maximum_.x,0,maximum_.z},{maximum_.x,0,minimum_.z});
     else for(int z=0;z<data_.width-1;++z)for(int x=0;x<data_.width-1;++x){
         int i=z*data_.width+x;if(!data_.covered[i]||!data_.covered[i+1]||!data_.covered[i+data_.width]||!data_.covered[i+data_.width+1])continue;
-        Vec3 a{data_.origin.x+x*data_.spacing,data_.heights[i],data_.origin.z+z*data_.spacing},b{a.x+data_.spacing,data_.heights[i+1],a.z},c{a.x,data_.heights[i+data_.width],a.z+data_.spacing},d{b.x,data_.heights[i+data_.width+1],c.z};tri(a,c,b);tri(b,c,d);
+        Vec3 a{data_.origin.x+x*data_.spacing,data_.heights[i],data_.origin.z+z*data_.spacing},b{a.x+data_.spacing,data_.heights[i+1],a.z},c{a.x,data_.heights[i+data_.width],a.z+data_.spacing},d{b.x,data_.heights[i+data_.width+1],c.z};if(!data_.diagonal_flips.empty()&&data_.diagonal_flips[i]){tri(a,d,b);tri(a,c,d);}else{tri(a,c,b);tri(b,c,d);}
     }
     for(size_t i=0;i<data_.layer_min.size();++i){auto a=data_.layer_min[i],b=data_.layer_max[i];quad(a,{a.x,a.y,b.z},{b.x,a.y,b.z},{b.x,a.y,a.z});}
     // Saved ramparts use these same eight physical prism vertices in Godot.

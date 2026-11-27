@@ -10,6 +10,8 @@ const COSMETIC_SLOTS=["1","2","3","4","5"]
 const SLOTS=WEAPON_SLOTS+ACCESSORY_SLOTS
 const LEGACY_SLOTS=["1","2","3","4","5","6","7","8","9","10"]
 const CHEST_SWORDS=["weapon:SW016","weapon:SW020","weapon:SW042","weapon:SW052","weapon:SW082","weapon:SW101"]
+const CHEST_AXES=["weapon:AX018","weapon:AX013","weapon:AX024"]
+const CHEST_WEAPONS=CHEST_SWORDS+CHEST_AXES
 static var ITEMS={
  "weapon:sword":{"name":"Sword","weapon":"sword","icon":preload("res://assets/ui/crossgate/weapons/defaults/sword.png")},
  "weapon:SW016":{"name":"SW016 · Lv3 Sword","weapon":"sword","level":3,"description":"ATK +55 · Dodge chance +10 percentage points.","effects":{"attack":55.0,"dodge_chance":10.0},"icon":preload("res://assets/items/crossgate/swords/sw016.png")},
@@ -19,13 +21,18 @@ static var ITEMS={
  "weapon:SW082":{"name":"SW082 · Lv10 Sword","weapon":"sword","level":10,"description":"ATK +400 · Connected normal attacks add level 7 Fire, without a casting motion.","effects":{"attack":400.0,"sword_fire":7.0},"icon":preload("res://assets/items/crossgate/swords/sw082.png")},
  "weapon:SW101":{"name":"SW101 · Lv10 Sword","weapon":"sword","level":10,"description":"ATK +300 · One click performs two normal attacks.","effects":{"attack":300.0,"sword_repeat":1.0},"icon":preload("res://assets/items/crossgate/swords/sw101.png")},
  "weapon:three-weapon":{"name":"Three-Weapon Combo","weapon":"three-weapon","description":"Cycles sword → spear → axe with matching sounds. Uses this character's sword attack stats.","icon":preload("res://assets/ui/crossgate/weapons/three-weapon.png")},
- "weapon:axe":{"name":"Axe","weapon":"axe","icon":preload("res://assets/ui/crossgate/weapons/defaults/axe.png")},
+ "weapon:axe":{"name":"Axe","weapon":"axe","description":"Accuracy −10.","icon":preload("res://assets/ui/crossgate/weapons/defaults/axe.png")},
+ "weapon:AX018":{"name":"AX018 · Lv3 Axe","weapon":"axe","level":3,"description":"ATK +150 · Critical chance +30 percentage points · Accuracy −10.","effects":{"attack":150.0,"critical_chance":30.0},"icon":preload("res://assets/items/crossgate/axes/ax018.png")},
+ "weapon:AX013":{"name":"AX013 · Lv4 Axe","weapon":"axe","level":4,"description":"ATK +300 · Critical chance +30 percentage points · Accuracy −10.","effects":{"attack":300.0,"critical_chance":30.0},"icon":preload("res://assets/items/crossgate/axes/ax013.png")},
+ "weapon:AX024":{"name":"AX024 · Lv8 Axe","weapon":"axe","level":8,"description":"ATK +500 · Accuracy −10 · A connected normal hit triggers an extra level 4 乾坤 strike.","effects":{"attack":500.0,"axe_sure_strike":4.0},"icon":preload("res://assets/items/crossgate/axes/ax024.png")},
  "weapon:polearm":{"name":"Spear","weapon":"polearm","icon":preload("res://assets/ui/crossgate/weapons/defaults/polearm.png")},
  "weapon:bow":{"name":"Bow","weapon":"bow","icon":preload("res://assets/ui/crossgate/weapons/defaults/bow.png")},
  "weapon:staff":{"name":"Staff","weapon":"staff","icon":preload("res://assets/ui/crossgate/weapons/defaults/staff.png")},
- "weapon:unarmed":{"name":"Fist","weapon":"unarmed","icon":preload("res://assets/ui/crossgate/weapons/defaults/fist.png")},
- "weapon:boomerang":{"name":"Boomerang","weapon":"boomerang","description":"Curves out and returns to you. Hits each enemy once per throw.","icon":preload("res://assets/characters/crossgate/shin/900050/boomerang/item.png")},
+ "weapon:unarmed":{"name":"Boxing Gloves","weapon":"unarmed","icon":preload("res://assets/ui/crossgate/weapons/defaults/boxing-gloves-red.png")},
+ "weapon:boomerang":{"name":"Boomerang","weapon":"boomerang","description":"Curves out and returns to you. Hits each enemy once per throw.","icon":preload("res://assets/ui/crossgate/weapons/defaults/boomerang.png")},
+ "weapon:water-dragon-boomerang":{"name":"水龍 Boomerang","weapon":"water-dragon-boomerang","description":"Custom 水龍 boomerang with ice impacts and the blue shockwave.","icon":preload("res://assets/characters/crossgate/shin/900050/boomerang/item.png")},
  "weapon:kunai":{"name":"Dagger","weapon":"kunai","icon":preload("res://assets/ui/crossgate/weapons/defaults/dagger.tres")},
+ "weapon:beast-master":{"name":"Beast Master","weapon":"beast-master","description":"Left click throws a dagger for base damage. Press 1–5 to summon pets at enemies within 60 m and queue attacks. Press 6 to command the whole group.","icon":preload("res://assets/ui/crossgate/weapons/beast-master.png")},
  "accessory:22":{"name":"#22 · Red Range Bangle","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/22.png"),"description":"Attack range ×2. Multiplies with #23 for ×6.","effects":{"range":2.0}},
  "accessory:23":{"name":"#23 · Violet Range Bangle","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/23.png"),"description":"Attack range ×3. Multiplies with #22 for ×6.","effects":{"range":3.0}},
  "accessory:72":{"name":"#72 · Counter Charm","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/72.png"),"description":"Counterattack chance +35 percentage points, capped at 100%.","effects":{"counter_chance":35.0}},
@@ -36,10 +43,14 @@ static var ITEMS={
  "accessory:241":{"name":"#241 · 亂射 Earrings","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/241.png"),"description":"Bow required: basic attacks become level 1 亂射 (3 arrows). Replaces #217.","primary":"random-shot"},
  "accessory:262":{"name":"#262 · Ice Earrings","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/262.png"),"description":"Each Ice effect hits ten times, repeating its original animation.","effects":{"ice_hits":10.0}},
  "accessory:263":{"name":"#263 · Wind Earrings","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/263.png"),"description":"Wind releases 10 extra projectiles that share selected targets and deal their own hits.","effects":{"wind_extra":10.0}},
+ "accessory:21669":{"name":"#21669 · Shadow Vest","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21669.png"),"description":"Manual Space dodges always leave a shadow that counterattacks automatically from where you dodged. Automatic dodges keep their normal counter chance.","effects":{"manual_dodge_shadow":1.0}},
+ "accessory:21678":{"name":"#21678 · Evasion Vest","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21678.png"),"description":"Dodge chance +100 percentage points (maximum 100%). Physical defense +100.","effects":{"dodge_chance":100.0,"defense":100.0}},
  "accessory:21817":{"name":"#21817 · Speed Shoes","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21817.png"),"description":"Movement speed ×3 while equipped.","effects":{"movement_speed":3.0}},
  "accessory:21884":{"name":"#21884 · Backstep Boots","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21884.png"),"description":"Tap Space to dodge backward, even without an enemy warning. Shift + Space still jumps.","effects":{"backstep":1.0}},
- "accessory:dash-boots":{"name":"Dash Boots","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21818.png"),"description":"Left-click a melee target to dash into attack range. Ranged attacks keep their normal firing range.","effects":{"attack_dash":1.0}}
+ "accessory:dash-boots":{"name":"#21903 · Dash Boots","category":"accessories","icon":preload("res://assets/ui/crossgate/accessories/21903.png"),"description":"Left-click a melee target to dash 50% faster using the run animation. Ranged attacks keep their normal firing range.","effects":{"attack_dash":1.0}}
 }
+# Launcher-only testing access; do not add these items to the saved collection.
+static var test_all_weapons=OS.has_feature("all_weapons") or OS.get_cmdline_user_args().has("--all-weapons")
 static var weapon_sets:Dictionary={}
 const COLORS={
  "qi-red":{"name":"Red","color":Color("ff625e")},
@@ -102,20 +113,32 @@ static func sanitized_unlocks(value:Variant)->Dictionary:
    if valid_wearer(owner) and owner.begins_with("character:") and value[owner] is int and value[owner]>=1 and value[owner]<=WEAPON_SLOTS.size():result[owner]=value[owner]
  return result
 
+# Historical sword save keys also hold collected axes; keep existing saves compatible.
 static func sanitized_swords(value:Variant)->Array:
- return CHEST_SWORDS.filter(func(id):return id in value) if value is Array else []
+ return CHEST_WEAPONS.filter(func(id):return id in value) if value is Array else []
+
+static func sanitized_accessory_drops(value:Variant)->Dictionary:
+ var result={}
+ if value is Dictionary:
+  for id in ITEMS:
+   if ITEMS[id].get("category","")!="accessories":continue
+   var count_:Variant=value.get(id,0)
+   if count_ is int and count_>0:result[id]=mini(count_,1000000)
+ return result
 
 static func sanitized_sword_upgrades(value:Variant,owned:Array)->Dictionary:
  var result={}
  if value is Dictionary:
-  for id in CHEST_SWORDS:
+  for id in CHEST_WEAPONS:
    var rank=value.get(id,0)
    if id in owned and rank is int and rank>0:result[id]=rank
  return result
 
 static func item_data(id:String,settings:Dictionary)->Dictionary:
  var item:Dictionary=ITEMS.get(id,{}).duplicate()
- var rank=int(settings.get("sword_upgrades",{}).get(id,0)) if id in CHEST_SWORDS else 0
+ var collected:int= sanitized_accessory_drops(settings.get("accessory_drops",{})).get(id,0)
+ if collected>0:item.description=str(item.get("description",""))+"\nCollected ×%d"%collected
+ var rank=int(settings.get("sword_upgrades",{}).get(id,0)) if id in CHEST_WEAPONS else 0
  if rank<=0:return item
  item.effects=item.effects.duplicate()
  var base=float(item.effects.attack)
@@ -198,11 +221,20 @@ static func qi_chrome(hero:Node)->bool:
 static func catalog()->Dictionary:
  if weapon_sets.is_empty():
   weapon_sets=JSON.parse_string(FileAccess.get_file_as_string("res://assets/characters/crossgate/weapons/catalog.json"))
-  for skins in weapon_sets.values():
-   for routes in skins.values():
-    if OS.has_feature("web"):
-     for weapon in routes.keys():
-      if routes[weapon].has("root") and not ResourceLoader.exists(routes[weapon].root+"atlas-0.png"):routes.erase(weapon)
+  for character in weapon_sets:
+   var skins:Dictionary=weapon_sets[character]
+   for skin in skins:
+    var routes:Dictionary=skins[skin]
+    # Standard boomerang sets use the original bare-body throw at its source release frame.
+    var throw_route:Dictionary=routes.get("kunai",routes.get("boomerang",{}))
+    if throw_route.is_empty():
+     var root="res://assets/characters/crossgate/weapons/beast_master/%s-%s/"%[character,skin]
+     if FileAccess.file_exists(root+"motions.json"):throw_route={"root":root}
+    if not throw_route.is_empty():
+     var beast_master=throw_route.duplicate()
+     beast_master.base_weapon="kunai"
+     if not routes.has("kunai"):beast_master.projectile="maze_dagger"
+     routes["beast-master"]=beast_master
     if not ["sword","polearm","axe"].all(func(weapon):return routes.has(weapon)):continue
     routes["three-weapon"]=routes.sword.duplicate()
     routes["three-weapon"].base_weapon="sword"
@@ -213,7 +245,7 @@ static func allowed(character:int,settings:Dictionary)->Dictionary:
 
 static func can_equip(owner:String,id:String,settings:Dictionary)->bool:
  if not ITEMS.has(id):return false
- if id in CHEST_SWORDS and id not in settings.get("chest_swords",[]):return false
+ if id in CHEST_WEAPONS and not test_all_weapons and id not in settings.get("chest_swords",[]):return false
  if ITEMS[id].get("category","")=="cosmetics":return owner.begins_with("character:") and valid_wearer(owner)
  if ITEMS[id].get("category","")=="accessories":return owner.begins_with("character:") and valid_wearer(owner)
  if not ITEMS[id].has("weapon"):return true
@@ -254,6 +286,7 @@ static func carried_weapons(loadouts:Dictionary,character:int,settings:Dictionar
 
 static func skill_weapon_error(loadouts:Dictionary,spells:Dictionary,character:int,settings:Dictionary)->String:
  if not Roster.is_crossgate_fighter(character):return ""
+ if equipped(loadouts,character)=="weapon:beast-master" and can_equip(character_key(character),"weapon:beast-master",settings):return ""
  var weapons=carried_weapons(loadouts,character,settings)
  var slots:Dictionary=spells.get(Roster.loadout_key(character,settings),spells.get(str(character),{}))
  for id in slots.values():
@@ -287,7 +320,7 @@ static func bonuses(loadouts:Dictionary,owner:String,settings:Dictionary={})->Di
   var item:Dictionary=item_data(id,settings)
   for key in item.get("effects",{}):
    result[key]=float(result.get(key,1.0))*float(item.effects[key]) if key in ["range","movement_speed"] else float(result.get(key,0.0))+float(item.effects[key])
-  if item.has("primary"):result.primary=item.primary
+  if item.has("primary") and active!="weapon:beast-master":result.primary=item.primary
  return result
 
 static func apply(hero:Node):
@@ -298,6 +331,8 @@ static func apply(hero:Node):
  var changed=apply_model(hero.model)
  if not changed and previous==hero.accessory_bonuses:return
  if previous!=hero.accessory_bonuses:
+  if previous.get("manual_dodge_shadow",0)>0 and hero.accessory_bonuses.get("manual_dodge_shadow",0)<=0:
+   hero.timed_dodge.reset();hero.active_ability.clear_shin_counter()
   hero.active_ability.cancel(true);hero.spell_loadout.interrupt()
  if changed:
   hero.active_ability.stop_primary_approach()

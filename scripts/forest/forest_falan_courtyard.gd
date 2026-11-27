@@ -53,27 +53,15 @@ static func build(root:Node3D):
  var timber=Fort.material(Color("987044"),false)
  var dark_stone=Keep.masonry(Color("848973"))
  var hedge=Fort.material(Color("47643c"),false)
- for row in Data.WALLS:
-  curtain_wall(boxes,point(row[0]),row[1]==10641,stone,dark_stone,coping,slit)
- for row in Data.SQUARE_TOWERS:
-  if row[1] in [10644,10645]:
-   buttress(courtyard,boxes,point(row[0]),stone,coping,dark_stone)
-  else:
-   var p=point(row[0])
-   castle_tower(courtyard,boxes,p,8.0,17.5,stone,coping,quoin,slit,dark_stone)
-   if row[1]==10647:Keep.banner(boxes,p+Vector3(4.15,12.0,0),PI*.5,brass)
- for row in Data.ROUND_TOWERS:
-  Keep.open_turret(courtyard,point(row[0]),4.0,20.5,stone,coping,dark_stone)
- for row in Data.GATE_BEAMS:
-  var p=point(row[0]-Vector2(3,0) if row[1]==10662 else row[0]-Vector2(3,3))
-  var rotated=row[1]==10646
-  part(boxes,p,rotated,Vector3(0,12.3,0),Vector3(9.4,2.6,4.25),stone)
-  part(boxes,p,rotated,Vector3(0,13.58,0),Vector3(9.42,.25,4.3),dark_stone)
-  for side in [-1,1]:
-   for i in 6:
-    part(boxes,p,rotated,Vector3((i-2.5)*1.46,13.96,side*1.87),Vector3(.82,.77,.72),coping)
-   for i in 9:
-    part(boxes,p,rotated,Vector3((i-4)*.91,11.12,side*1.88),Vector3(.13,1.66,.16),slit)
+ # Castle and city use the same native graphics; reuse their fitted painted parts.
+ var fort_parts=load("res://scripts/forest/forest_falan_fort_parts.gd")
+ var fort_groups={}
+ for rows in [Data.WALLS,Data.SQUARE_TOWERS,Data.ROUND_TOWERS,Data.GATE_BEAMS]:
+  for row in rows:
+   var serial:int=row[1]
+   if not fort_groups.has(serial):fort_groups[serial]=[]
+   fort_groups[serial].append(Transform3D(Basis.IDENTITY,point(row[0])))
+ for serial in fort_groups:fort_parts.batch(courtyard,serial,fort_groups[serial])
  for row in Data.ANNEXES:
   Keep.annex(courtyard,boxes,point(row[0]),stone,coping,dark_stone,brass)
  Keep.build(courtyard,boxes,Data.KEEP_BASE,Ground)

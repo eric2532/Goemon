@@ -33,7 +33,7 @@ func battle(model,runtime,pack:Array,level_:int,ranks_:int,count_:int,old:bool=f
   if level_>1:
    var key=Pets.key(pack[i])
    progression.award_pet_enemy(key,80*level_*(level_-1))
-   runtime.native.set_pet_growth(h,Pets.BASE_HEALTH*progression.pet_growth(key,.08),Pets.BASE_DAMAGE*progression.pet_growth(key,.10))
+   runtime.native.set_pet_growth(h,progression.pet_health_bonus(key),progression.pet_damage_bonus(key))
  for i in count_:
   var at=Vector3.ZERO if i==0 else Vector3(sin(i*2.4),0,cos(i*2.4))*(12+floori(i/12.0)*6)
   var h=runtime.spawn(100+i,0,20,at,1000,Roles.SLIME_RADIUS);foes.append(h);runtime.native.set_pet_skin(h,i%29)

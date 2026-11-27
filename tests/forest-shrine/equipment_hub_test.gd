@@ -48,7 +48,7 @@ func run():
  check(hub.inventory.size()==48 and hub.gear_buttons.size()==5 and hub.accessory_buttons.size()==5 and hub.cosmetic_buttons.size()==5 and hub.skill_buttons.size()==6 and hub.owners.size()==6,"Four equipment rows and a 48-cell collection share the six existing wearers")
  check(not hub.gear_buttons["1"].disabled and hub.gear_buttons.values().slice(1).all(func(slot):return slot.disabled and slot.get_node("Lock").visible),"Only the first weapon slot starts open")
  check(hub.gear_buttons.values().all(func(slot):return slot.get_node("Lock") is TextureRect and slot.get_node("Lock").texture.resource_path.ends_with("equipment/lock.svg") and slot.get_node("Lock").get_rect().get_center()==slot.size*.5),"Weapon locks use a centered icon matching the inventory palette")
- check(hub.available_items()==["weapon:sword"] and hub.allowed_icons.filter(func(icon):return icon.visible).size()==1,"Kaz retains his skin's sword-only equipment contract")
+ check(hub.available_items()==["weapon:sword","weapon:beast-master"] and hub.allowed_icons.filter(func(icon):return icon.visible).size()==2,"Original Kaz offers Sword and Beast Master")
  check(hub.panel.get_node("MainCharacterHeading").text=="MAIN CHARACTER" and hub.panel.get_node("PetsHeading").text=="PETS" and hub.party[1].position.x-hub.party[0].get_rect().end.x>hub.party[2].position.x-hub.party[1].get_rect().end.x,"One main character is labeled and separated from the five pet slots")
  var hover_draft=hub.draft.duplicate(true)
  hub.inventory[0].mouse_entered.emit()
@@ -154,7 +154,7 @@ func run():
  hub.appearance_draft.kaz_skin=preload("res://scripts/kaz_skins.gd").MAZE
  game.player.select_character(36);hub.refresh_party();hub.select_owner(0)
  hub.selected_item="weapon:unarmed";hub.equip_selected()
- check(hub.preview.texture==Gear.ITEMS["weapon:unarmed"].icon and hub.preview.get_node_or_null("FistBadge")==null,"The approved fist art stays unframed and uses shared scaling")
+ check(hub.preview.texture==Gear.ITEMS["weapon:unarmed"].icon and hub.preview.get_node_or_null("FistBadge")==null,"The approved boxing gloves stay unframed and use shared scaling")
  await picture("fist-layout")
  hub.draft.clear();hub.appearance_draft.kaz_skin=preload("res://scripts/kaz_skins.gd").DEFAULT
  game.player.select_character(34);hub.refresh_party();hub.apply_changes();hub.select_owner(1)

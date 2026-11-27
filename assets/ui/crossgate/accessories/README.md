@@ -1,7 +1,8 @@
 # Numbered Cross Gate accessories
 
 These include ten original icons selected from the 543-choice accessory gallery
-and the selected footwear graphics 21817, 21884 and 21818. PNG filenames retain the gallery
+and the selected footwear graphics 21817, 21884, 21818 and 21903, plus clothing
+graphics 21669 and 21678. PNG filenames retain the gallery
 numbers or footwear graphic serial. `provenance.json` records their
 original pack, row, serial, palette, dimensions and encoded/pixel/PNG hashes.
 Keep these pixels unchanged; names and bonuses are local Goemon rules, not
@@ -20,17 +21,19 @@ item names. The game loads only these local PNGs, never the research library.
 | 241 | Basic attacks become level 1 亂射 with three arrows while a bow is equipped |
 | 262 | Each Ice effect makes ten contacts by repeating its original animation |
 | 263 | Ten additional Wind projectiles per native volley, with their own four damage pulses |
+| 21669 | Shadow Vest: every accepted manual Space dodge leaves an anchored shadow that automatically performs one normal counterattack, regardless of Counter Chance |
+| 21678 | Evasion Vest: +100 percentage points Dodge (capped at 100%) and +100 physical defense |
 | 21817 | Speed Shoes: movement speed ×3 while equipped, multiplying existing movement bonuses |
 | 21884 | Backstep Boots: tap Space to dodge backward without a warning; ordinary timed dodges and Shift+Space jumps remain available |
-| dash-boots | Dash Boots: left-click a melee target to dash into normal attack range; ranged weapons keep their firing range |
+| dash-boots | Dash Boots: left-click a melee target to dash 50% faster with the run animation into normal attack range; ranged weapons keep their firing range |
 
-Dash Boots are a local equipment item, not a recovered server item or graphic
-serial. At the user's request, their icon is a random pick among existing black
-footwear: original graphic **21818**, row 14170, palette 0. `21818.png` is copied
-byte-for-byte from the preserved footwear library; Speed Shoes (21817) and
-Backstep Boots (21884) keep their own icons. Their separate save ID and `attack_dash` flag enable the existing
-player approach mover; they do not enable the Backstep Boots' free Space dodge.
-The full dash uses 32 units/second times current movement bonuses. Without this
+Dash Boots retain the local save ID `accessory:dash-boots` and now use the
+user-selected original graphic **21903**, v3 row 4509, palette 0. `21903.png`
+is copied byte-for-byte from the preserved footwear library. The previous
+21818 icon is preserved. Speed Shoes (21817) and Backstep Boots (21884) keep
+their own icons. The existing `attack_dash` flag enables the shared approach
+mover and native run animation; it does not enable free Space dodge.
+The full dash uses 48 units/second (50% faster than the previous 32) times current movement bonuses. Without this
 item, the existing approach and short final rush remain. There is no added
 damage, reach or protection. Reproduce the focused checks with
 `tests/forest-shrine/dash_boots_test.gd` through Play Goemon; captures are under
@@ -50,6 +53,29 @@ health and counter owners consume them. Shared skill tickets snapshot the
 per-cast effects; current pools, original sprites, contact checks, cover rules,
 audio and native lifecycle remain in use. No extra simulation or targeting owner
 is introduced.
+
+21669 starts the existing normal shadow counter directly from manual dodge input.
+It preserves Space's warning requirement; with Backstep Boots, warning-free
+manual steps also leave a shadow. A timed step remembers its original attacker;
+a free step uses the existing bounded visible-target query at the shadow's
+origin once when dodging. With nobody nearby there is no valid counter target,
+just as for a regular counter. No attack click is required. An
+already-running counter finishes its swing before the existing pending slot
+starts the new automatic counter. Pause, key repeat,
+Shift+Space jumps and automatic stat/skill dodges cannot earn this guaranteed
+counter. Automatic reactions retain their ordinary Counter Chance. Removing
+the vest, changing fighter or dying clears its counters and prepared shadow.
+The accessory only bypasses the ordinary Counter Chance roll for manual dodge
+input. Damage, reach, timing, attack frames and the pending-counter slot are the
+existing regular counter's; hit and automatic-dodge counter behavior is unchanged.
+21678 uses the shared chance cap and adds physical defense through the player's
+existing damage reduction calculation and Stats panel; food/level defense still
+stacks, and magic defense is unchanged. Neither garment changes the body sprites.
+
+Run `tests/forest-shrine/clothing_accessories_test.gd` through Play Goemon for
+the Cross Gate roster, real dodge/counter damage, manual/automatic separation,
+free backsteps, save/reload, imported pixels, UI and repeated resource reuse.
+Evidence belongs under `Accessories/Clothing/` in the Asset Toolkit folder.
 
 Fire uses a separate prepared instance and projectile lease profile, so its
 basic casts cannot consume or cancel the hotbar Fire cooldown/projectiles. Both

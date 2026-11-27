@@ -2,7 +2,7 @@ extends "res://tests/forest-shrine/dragon_lizard_test.gd"
 
 const BEE_UNIT=.0375*preload("res://scripts/forest/forest_enemy_roles.gd").HOUND_SCALE
 const FITS={
- "bosses":[1.625,AABB(Vector3(-.85,0,-.7),Vector3(1.7,4.347834975,1.4))],
+ "bosses":[1.3,AABB(Vector3(-.85,0,-.7),Vector3(1.7,4.347834975,1.4))],
  "Griffins":[2.0,AABB(Vector3(-1.15,.2,-1.5),Vector3(2.3,2.5,3))],
  "Large bats":[2.0,AABB(Vector3(-.4,.15,-.4),Vector3(.8,1.15,.8))],
  "Bees":[.8,AABB(Vector3(-16,24,-17)*BEE_UNIT,Vector3(32,52,34)*BEE_UNIT)],

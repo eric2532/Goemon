@@ -204,6 +204,11 @@ independent gameplay designs.
 
 ## Runtime and preservation
 
+猶大 adjustment (2026-11-23): all 36 saved boss identities, including hidden
+archive aliases, are another 20% smaller (80% of the preceding size, or 1.3×
+the initial import baseline). Authored render scales and fitted contact bodies
+are reduced together; source art, animation timing and saved keys are unchanged.
+
 猶大 adjustment (2026-11-14 follow-up): all 36 saved boss identities are 35%
 smaller than their preceding size, including the hidden aliases. The picker
 retains 24 distinct choices; the twelve `motion_key` archive aliases have

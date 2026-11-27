@@ -78,7 +78,7 @@ static func build(parent:Node3D,model,links:Array,npcs:Array):
      if serial==10034:barrel(prop,p+Vector3(0,1.16,.26),.54,cask,cut,iron)
     if serial==10540:fruit(prop,p+Vector3.UP*1.28,4,0,.62)
    var height=.80 if serial in CARTS else (2.4 if serial in BOARDS else 1.22)
-   Art.solid(prop,p+Vector3.UP*height*.5,Vector3(size_.x,height,size_.y),1,"wood")
+   Art.solid(prop,p+Vector3.UP*height*.5,Vector3(size_.x,height,size_.y),1,"wood",true)
  Assets.batch(root,"flowers_coral",flowers)
  pickets(root,boxes,model,protected,occupied,wood,cut)
  boxes.build(root)
@@ -167,7 +167,7 @@ static func pickets(root:Node3D,boxes,model,protected:Array[Vector2],occupied:Ar
     var post=p+axis*step
     boxes.add(post+Vector3.UP*.61,Vector3(.20,1.22,.20),wood)
     boxes.add(post+Vector3.UP*1.23,Vector3(.21,.14,.21),trim)
-   Art.solid(root,at+Vector3.UP*.61,Vector3(bounds.x,1.22,bounds.y),1,"wood")
+   Art.solid(root,at+Vector3.UP*.61,Vector3(bounds.x,1.22,bounds.y),1,"wood",true)
 
 static func flower_cart(root:Node3D,boxes,p:Vector3,turned:bool,wood:Material,cut:Material,iron:Material,flowers:Array):
  var axis=Vector3.RIGHT if turned else Vector3.BACK

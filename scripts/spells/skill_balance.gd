@@ -168,7 +168,8 @@ static func qi_color(hero:Hero)->Color:
  return Color.WHITE
 
 static func basic_damage(_pattern:Dictionary,hero:Hero=null)->float:
- return BASIC_ATTACK_DAMAGE+(float(hero.accessory_bonuses.get("attack",0.0)) if hero!=null else 0.0)
+ if hero==null or (is_instance_valid(hero.model) and hero.model.get("gear_weapon")=="beast-master"):return BASIC_ATTACK_DAMAGE
+ return BASIC_ATTACK_DAMAGE+float(hero.accessory_bonuses.get("attack",0.0))
 
 static func normal_damage(hero:Hero)->float:
  if Catalog.Roster.is_crossgate_fighter(hero.character_id) and hero.model.get("gear_weapon") is String:

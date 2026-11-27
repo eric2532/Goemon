@@ -16,11 +16,13 @@ cave floors retain their complete client map planes; the walking corridor
 through both road sections is covered by recorded client cells. The obsolete
 southern-map town transfer stays excluded.
 
-Native cliff graphics 12839 and 12834 now use open 3D entrance forms instead
+Native cliff graphics 12838, 12839 and 12834 now use open 3D entrance forms instead
 of closed generic ridges. Their rim faces retain the original stone/snow paint;
 separate tunnel walls, a floor and a recessed dark end leave the mouth visibly
 open. `forest_original_cave_entrance.gd` reuses the shared coastal mesh and
 painted-face builders, cached and instanced by the existing scenery owner.
+The undersea return uses native 12838 at source 400 (195,442), beside the
+original warp at (196,443), with its own rim and forward-facing tunnel.
 Tunnel depth and hidden rock are reconstructed, not original 3D data.
 `abanis_road_recovery_test.gd` follows the normal on-foot connections in both
 directions and checks native navigation and normal-camera captures;
@@ -28,28 +30,35 @@ directions and checks native navigation and normal-camera captures;
 recorded corridor cells and pinned original warp coordinates. Evidence lives
 under `build/Other Files/Asset Toolkit/Abanis Road Recovery/`.
 
-The cliff refinement replaces 120 generic ridge types used along that road
-and inside the western cave with source-measured rounded lofts. The preparer
-reads each native upper contour and silhouette, keeps the original footprint
-and shared height units, and prepares shallow rock relief once. Repeated
-placements still share cached meshes in the existing spatial MultiMeshes.
-Each closed cliff mesh stays at or below 224 triangles. Native moss stairs
-13270/13271 now use the existing ascending/descending stair geometry; the
-descending stair retains its floor opening.
+The cliff recovery now measures 186 native cliff graphics: the earlier 120,
+36 undersea sections and 30 Freyja sections. On road maps 400/402
+and western cave floors 14000/14001/14002, tall sections now join into continuous
+3D masses using their original compound footprints. The builder excludes every
+original walkable cell and reserves the complete native entrance footprints.
+Shared corners and cap centres follow the native upper image contours; rounded
+wall relief remains inside the blocked footprints. Internal walls are omitted.
+The masses are built once in 48-metre spatial chunks with one shared material.
+Low rocks and scenery retain the existing cached meshes and MultiMeshes.
+Native moss stairs 13270/13271 use the established ascending/descending geometry;
+the descending stair retains its floor opening.
 
 `tools/prepare_abanis_cliffs.py` owns `cliff-profiles.json` and `cliff-paint.png`.
 Run it after changing source art, or use `--check` to verify the derivatives.
-Whole native paintings replace small repeated stone samples on the visible
-faces. Native image columns are rectified around the loft, so turning the normal
-camera does not project a curved side onto one stretched pixel column.
-Border-only flat shadow/transparent areas reuse compatible native
-rock and snow texture patches, with mirrored edges and the existing stone
-tone preparation; enclosed dark crevices and painted source RGB are retained.
-The original RGBA atlases stay untouched. The entrance rims are rounded solid
-bands with original rim paint and original dark interior paint, rather than
-bright repeated stone inside the opening. Hidden rock, tunnel depth and the
-conversion of one isometric view into volume remain inferred. Normal-camera
-and source checks for this pass are under `Abanis Road Recovery/Cliff Refinement/`.
+Each compound cliff keeps its original image anchor across all of its cells.
+Native UV projection uses each prepared profile's calibrated height per pixel,
+so the artwork and recovered volume share the same vertical scale. Sparse unseen sections reuse the most completely painted compatible
+section from their own twelve-piece native family. Border-only flat shadows and
+transparent areas reuse native rock/snow patches; enclosed dark crevices and the
+painted source RGB are retained. Original RGBA atlases stay untouched.
+
+The undersea road exit and both western cave mouths retain separately measured
+native outlines, widths and
+heights. Their upper rims recede by the offset recorded in their source artwork;
+rounded stone/snow bands frame an open tunnel with original dark interior paint.
+Hidden volume, depth and the conversion of one isometric view into 3D remain
+inferred. Data checks establish route fidelity; they do not establish an exact
+visual match. Current normal-camera, source and route evidence is under
+`Abanis Road Recovery/Contour Recovery/`.
 
 The catalog preserves the available client snapshots; current per-region counts
 and verified source image comparisons are in the recovery report under
@@ -693,3 +702,55 @@ The new material is isolated from shared archive paint. Original art and map
 planes/anchors, collision, NPCs, quests, enemies and the world clock are preserved.
 The western atlas recipe now reproduces 75 crops. See Tina's building guide and
 `Tina Recovery/Winter Details/` for reproduction and source/before/after evidence.
+
+## West Gate to the snowy summit — 2026-11-23
+
+The reviewed route is West Gate/outer approach → western Freyja → all three
+undersea floors → southern Shalena’s southwest bend and inland road → all
+three western cave floors → the Abanis snowfield → the existing two generated
+snow-mountain floors → the fixed summit. Optional town visits, university,
+side dungeons and building interiors are excluded. The north summit transfer
+to unavailable 15536 remains inactive; no exit destination changed.
+
+`tools/review_west_snow_route.py` plans every connecting stretch and independently
+composites the original client art. `tools/prepare_west_route_scenery.py` owns
+`assets/maps/falan/west_route_scenery.json` and `west_route_details.png`: source
+anchors, native foliage palettes, 895 terrain-conforming bank tiles, western
+bridge parapets/supports, bounds and recorded blocked cliff interiors within 24 tiles of the route. It preserves every open source cell. The existing
+cliff preparer owns all 186 profiles and their paint. Do not edit derivatives.
+
+The runtime reuses the existing flora masters, native painted mesh builders,
+spatial batches and army/navigation owner. Cliff masses follow the source
+footprints and the current terrain surface; appearance corrections never add
+physics shapes. Source 400’s earlier pale tiles 8181/8628 are grass/dirt. The
+first clear ground-snow edge on the selected road is 8299 at (212,349), then
+8317 at (212,348) and full-snow 8174 at (212,347). White cliff-tip artwork is
+separate from that ground transition.
+
+```sh
+python3 tools/prepare_abanis_cliffs.py --check
+python3 tools/prepare_west_route_scenery.py --check
+python3 tests/forest-shrine/test_abanis_road_source.py
+python3 tools/review_west_snow_route.py
+/Users/eric/Desktop/Play\ Goemon.command --script res://tests/forest-shrine/west_snow_route_review.gd -- --stage=Before
+# Make the intended appearance edit before capturing After. Never overwrite a historical baseline to pretend it was the old build.
+/Users/eric/Desktop/Play\ Goemon.command --script res://tests/forest-shrine/west_snow_route_review.gd -- --stage=After
+python3 tools/review_west_snow_route.py --compare --after
+```
+
+Evidence, all 96 section rows, camera poses, labelled comparisons and explicit
+reference gaps are in `build/Other Files/Asset Toolkit/West Gate Snow Route/`.
+`index.html` is the visual index and `ROUTE_REVIEW.md` is the ordered checklist.
+The original mountain climb is not recovered as an exact layout/order; the
+current two generated floors remain. Native artwork has one view, so hidden
+cliff caps/sides and depth remain fitted. Existing collision heights are
+preserved because the caches provide no authoritative walkable height fields.
+No 1:1, FPS/stress-test or leak-free long-session claim is made.
+
+## Full University regional pass — 2026-11-26
+
+The earlier route-only two-floor limit above is historical. The bounded pass covers219 fixed maps/event states and139 maximum generated floors. It includes all60 cursed floors and six guardian/post-fight rooms, Shanti5014, campus and Abanis interiors, the20–24-floor snow climb and cabin,36-floor permafrost and abyss,12 Beast floors,10 lizard floors, five scientist-prison floors, all sealed-altar/ice-prison states, the curse hideout15006–15012, seven Sando floors14010–14016, conditional auditorium32269 and memory gateway32183. Astia4100 is limited to its arrival/return gateway. The memory gateway's exit and Tina child return stop at existing independent hubs.
+
+The append-only `university/` supplement has149 rows:137 fixed layouts and12 complete native snow templates, plus735 original graphic crops. Every recorded client cell/flag and native atlas pixel is preserved. Snow selects original snapshots through a seeded shuffle bag; the unavailable original generator for the other cave families remains an explicit adaptation. Regional population uses287 additive NPC records with190 art crops, preserving the existing42 snow-region residents.71 commented/inactive records are excluded;14 active-art and15 campus-ground gaps are explicit blockers.442 pinned source files and255 active scripted actors have been audited. The shared native encounter adapter has17 prepared sprite variants,49 species,74 fixed zones and six generated pools.
+
+`assets/maps/falan/university_region/README.md` explains ownership and regeneration. `build/Other Files/Asset Toolkit/University Region/CHECKLIST.md` is the authoritative per-map/floor handoff:196 fixed rows finished to the available source,23 with named blockers, and218 available fixed states with inspected views. Source planes and selected fixed views do not establish unseen3D geometry or1:1 fidelity. Campus4400's incompatible fuller reference, missing Azure reward-room32154, Sylph's missing mounted final-form binding/contact/death data, missing active actor art,32183's five existing wall substitutes and unresolved source entrances remain explicit; no free portals or partial boss victories replace them.

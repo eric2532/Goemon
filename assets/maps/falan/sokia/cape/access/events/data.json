@@ -1,0 +1,2774 @@
+{
+  "schema": 1,
+  "actors": {
+    "5225": {
+      "id": "5225",
+      "name": "牛鬼公主",
+      "type": "Event",
+      "source": 15524,
+      "floor": 15524,
+      "area": "interior",
+      "cell": [
+        16,
+        8
+      ],
+      "direction": 4,
+      "graphic": 101923,
+      "token": "101923:4",
+      "script": "EV_rk_ushi02.txt",
+      "raw": [
+        "Event",
+        "牛鬼公主",
+        "0",
+        "5225",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15524",
+        "16",
+        "8",
+        "16",
+        "8",
+        "16",
+        "8",
+        "16",
+        "8",
+        "1",
+        "60000",
+        "4",
+        "101923",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi02.txt"
+      ],
+      "source_line": 322,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n\n人类？\n\n想来破坏阿夏芙和耶卡的坟墓的人．．．没想到还是这么多．．．"
+      ],
+      "quest_action": "sokia_cape:5225",
+      "battle_owner": "sokia_cape"
+    },
+    "5226": {
+      "id": "5226",
+      "name": "红叶公主",
+      "type": "Event",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        14,
+        5
+      ],
+      "direction": 4,
+      "graphic": 14206,
+      "token": "14206:4",
+      "script": "EV_rk_ushi03.txt",
+      "raw": [
+        "Event",
+        "红叶公主",
+        "0",
+        "5226",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "14",
+        "5",
+        "14",
+        "5",
+        "14",
+        "5",
+        "14",
+        "5",
+        "1",
+        "60000",
+        "4",
+        "14206",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi03.txt"
+      ],
+      "source_line": 323,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n修登：\n\n一国之君为什么要跑来讨伐没犯任何罪的人民呢？\n这到底是怎么回事？"
+      ],
+      "quest_action": "sokia_cape:5226"
+    },
+    "5227": {
+      "id": "5227",
+      "name": "修登",
+      "type": "Event",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        15,
+        6
+      ],
+      "direction": 4,
+      "graphic": 14077,
+      "token": "14077:4",
+      "script": "EV_rk_ushi03.txt",
+      "raw": [
+        "Event",
+        "修登",
+        "0",
+        "5227",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "15",
+        "6",
+        "15",
+        "6",
+        "15",
+        "6",
+        "15",
+        "6",
+        "1",
+        "60000",
+        "4",
+        "14077",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi03.txt"
+      ],
+      "source_line": 324,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n修登：\n\n一国之君为什么要跑来讨伐没犯任何罪的人民呢？\n这到底是怎么回事？"
+      ],
+      "quest_action": "sokia_cape:5227"
+    },
+    "5228": {
+      "id": "5228",
+      "name": "罗连斯",
+      "type": "Event",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        15,
+        8
+      ],
+      "direction": 0,
+      "graphic": 14524,
+      "token": "14524:0",
+      "script": "EV_rk_ushi03.txt",
+      "raw": [
+        "Event",
+        "罗连斯",
+        "0",
+        "5228",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "15",
+        "8",
+        "15",
+        "8",
+        "15",
+        "8",
+        "15",
+        "8",
+        "1",
+        "60000",
+        "0",
+        "14524",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi03.txt"
+      ],
+      "source_line": 325,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n修登：\n\n一国之君为什么要跑来讨伐没犯任何罪的人民呢？\n这到底是怎么回事？"
+      ],
+      "quest_action": "sokia_cape:5228"
+    },
+    "5229": {
+      "id": "5229",
+      "name": "金雄",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        17,
+        18
+      ],
+      "direction": 4,
+      "graphic": 14104,
+      "token": "14104:4",
+      "script": "21058",
+      "raw": [
+        "TownPeople",
+        "金雄",
+        "0",
+        "5229",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "17",
+        "18",
+        "17",
+        "18",
+        "17",
+        "18",
+        "17",
+        "18",
+        "1",
+        "60000",
+        "4",
+        "14104",
+        "0",
+        "1",
+        "0",
+        "21058"
+      ],
+      "source_line": 326,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "呜．．．修、修登大人．．．"
+      ]
+    },
+    "5230": {
+      "id": "5230",
+      "name": "星雄",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        19,
+        11
+      ],
+      "direction": 0,
+      "graphic": 14102,
+      "token": "14102:0",
+      "script": "21059",
+      "raw": [
+        "TownPeople",
+        "星雄",
+        "0",
+        "5230",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "19",
+        "11",
+        "19",
+        "11",
+        "19",
+        "11",
+        "19",
+        "11",
+        "1",
+        "60000",
+        "0",
+        "14102",
+        "0",
+        "1",
+        "0",
+        "21059"
+      ],
+      "source_line": 327,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "嫉妒．．．吗．．．人的心都是丑陋的．．．"
+      ]
+    },
+    "5231": {
+      "id": "5231",
+      "name": "石雄",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        14,
+        13
+      ],
+      "direction": 2,
+      "graphic": 14103,
+      "token": "14103:2",
+      "script": "21060",
+      "raw": [
+        "TownPeople",
+        "石雄",
+        "0",
+        "5231",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "14",
+        "13",
+        "14",
+        "13",
+        "14",
+        "13",
+        "14",
+        "13",
+        "1",
+        "60000",
+        "2",
+        "14103",
+        "0",
+        "1",
+        "0",
+        "21060"
+      ],
+      "source_line": 328,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "我．．．就算会死也要保护公主．．．"
+      ]
+    },
+    "5232": {
+      "id": "5232",
+      "name": "帝国兵",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        19,
+        10
+      ],
+      "direction": 0,
+      "graphic": 14521,
+      "token": "14521:0",
+      "script": "6052",
+      "raw": [
+        "TownPeople",
+        "帝国兵",
+        "0",
+        "5232",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "19",
+        "10",
+        "19",
+        "10",
+        "19",
+        "10",
+        "19",
+        "10",
+        "1",
+        "60000",
+        "0",
+        "14521",
+        "0",
+        "1",
+        "0",
+        "6052"
+      ],
+      "source_line": 329,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "．．．．．．"
+      ]
+    },
+    "5233": {
+      "id": "5233",
+      "name": "帝国兵",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        15,
+        13
+      ],
+      "direction": 4,
+      "graphic": 14520,
+      "token": "14520:4",
+      "script": "6052",
+      "raw": [
+        "TownPeople",
+        "帝国兵",
+        "0",
+        "5233",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "15",
+        "13",
+        "15",
+        "13",
+        "15",
+        "13",
+        "15",
+        "13",
+        "1",
+        "60000",
+        "4",
+        "14520",
+        "0",
+        "1",
+        "0",
+        "6052"
+      ],
+      "source_line": 330,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "．．．．．．"
+      ]
+    },
+    "5234": {
+      "id": "5234",
+      "name": "帝国兵",
+      "type": "TownPeople",
+      "source": 15528,
+      "floor": 15528,
+      "area": "interior",
+      "cell": [
+        17,
+        17
+      ],
+      "direction": 4,
+      "graphic": 14521,
+      "token": "14521:4",
+      "script": "6052",
+      "raw": [
+        "TownPeople",
+        "帝国兵",
+        "0",
+        "5234",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15528",
+        "17",
+        "17",
+        "17",
+        "17",
+        "17",
+        "17",
+        "17",
+        "17",
+        "1",
+        "60000",
+        "4",
+        "14521",
+        "0",
+        "1",
+        "0",
+        "6052"
+      ],
+      "source_line": 331,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "．．．．．．"
+      ]
+    },
+    "5235": {
+      "id": "5235",
+      "name": "蜜儿",
+      "type": "Event",
+      "source": 100,
+      "floor": 0,
+      "area": "source_outdoor",
+      "cell": [
+        175,
+        171
+      ],
+      "direction": 6,
+      "graphic": 14042,
+      "token": "14042:6",
+      "script": "EV_rk_ushi04.txt",
+      "raw": [
+        "Event",
+        "蜜儿",
+        "0",
+        "5235",
+        "0",
+        "1",
+        "1",
+        "0",
+        "100",
+        "175",
+        "171",
+        "175",
+        "171",
+        "175",
+        "171",
+        "175",
+        "171",
+        "1",
+        "60000",
+        "6",
+        "14042",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi04.txt"
+      ],
+      "source_line": 332,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n\n真厉害！\n你是打败牛鬼的人吧？\n既然你那么强，就算到对面去也应该没问题的吧！\n\n我可以告诉你怎么溜过去唷！要去看看吗？"
+      ],
+      "quest_action": "sokia_cape:5235"
+    },
+    "5236": {
+      "id": "5236",
+      "name": "蜜儿",
+      "type": "Event",
+      "source": 100,
+      "floor": 0,
+      "area": "source_outdoor",
+      "cell": [
+        173,
+        144
+      ],
+      "direction": 6,
+      "graphic": 14042,
+      "token": "14042:6",
+      "script": "EV_rk_ushi05.txt",
+      "raw": [
+        "Event",
+        "蜜儿",
+        "0",
+        "5236",
+        "0",
+        "1",
+        "1",
+        "0",
+        "100",
+        "173",
+        "144",
+        "173",
+        "144",
+        "173",
+        "144",
+        "173",
+        "144",
+        "1",
+        "60000",
+        "6",
+        "14042",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi05.txt"
+      ],
+      "source_line": 333,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n\n要回去那边吗？"
+      ],
+      "quest_action": "sokia_cape:5236"
+    },
+    "5237": {
+      "id": "5237",
+      "name": "回来报仇的牛鬼",
+      "type": "Event",
+      "source": 100,
+      "floor": 0,
+      "area": "source_outdoor",
+      "cell": [
+        182,
+        101
+      ],
+      "direction": 5,
+      "graphic": 101920,
+      "token": "101920:5",
+      "script": "EV_rk_ushi06.txt",
+      "raw": [
+        "Event",
+        "回来报仇的牛鬼",
+        "0",
+        "5237",
+        "0",
+        "1",
+        "1",
+        "0",
+        "100",
+        "182",
+        "101",
+        "182",
+        "101",
+        "182",
+        "101",
+        "182",
+        "101",
+        "1",
+        "60000",
+        "5",
+        "101920",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi06.txt"
+      ],
+      "source_line": 334,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n哦．．．\n没想到你还能打败霸熊们啊．．．\n\n．．．这个给你吧！我要回去了。\n如果还想跟我玩玩的话欢迎你随时再来．．．如果你有自信打的赢的话．．．哈哈哈哈！"
+      ],
+      "quest_action": "sokia_cape:5237",
+      "battle_owner": "sokia_cape"
+    },
+    "5239": {
+      "id": "5239",
+      "name": "看守的星雄",
+      "type": "Event",
+      "source": 300,
+      "floor": 0,
+      "area": "source_outdoor",
+      "cell": [
+        707,
+        58
+      ],
+      "direction": 4,
+      "graphic": 101822,
+      "token": "101822:4",
+      "script": "EV_rk_ushi07.txt",
+      "raw": [
+        "Event",
+        "看守的星雄",
+        "0",
+        "5239",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "707",
+        "58",
+        "707",
+        "58",
+        "707",
+        "58",
+        "707",
+        "58",
+        "1",
+        "60000",
+        "4",
+        "101822",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi07.txt"
+      ],
+      "source_line": 336,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n\n嗯？\n\n那不是．．．公主的耳环吗？．．．是吗．．．\n就让你过吧！不过千万别弄丢那个耳环喔！"
+      ],
+      "quest_action": "sokia_cape:5239"
+    },
+    "5240": {
+      "id": "5240",
+      "name": "牛鬼修登",
+      "type": "Event",
+      "source": 15529,
+      "floor": 15529,
+      "area": "interior",
+      "cell": [
+        15,
+        4
+      ],
+      "direction": 4,
+      "graphic": 101922,
+      "token": "101922:4",
+      "script": "EV_rk_ushi08.txt",
+      "raw": [
+        "Event",
+        "牛鬼修登",
+        "0",
+        "5240",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15529",
+        "15",
+        "4",
+        "15",
+        "4",
+        "15",
+        "4",
+        "15",
+        "4",
+        "1",
+        "60000",
+        "4",
+        "101922",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi08.txt"
+      ],
+      "source_line": 337,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n牛鬼修登：\n\n嘎嘎嘎！\n红叶．．．红叶~~！"
+      ],
+      "quest_action": "sokia_cape:5240"
+    },
+    "5241": {
+      "id": "5241",
+      "name": "牛鬼公主红叶",
+      "type": "Event",
+      "source": 15529,
+      "floor": 15529,
+      "area": "interior",
+      "cell": [
+        15,
+        6
+      ],
+      "direction": 4,
+      "graphic": 101923,
+      "token": "101923:4",
+      "script": "EV_rk_ushi08.txt",
+      "raw": [
+        "Event",
+        "牛鬼公主红叶",
+        "0",
+        "5241",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15529",
+        "15",
+        "6",
+        "15",
+        "6",
+        "15",
+        "6",
+        "15",
+        "6",
+        "1",
+        "60000",
+        "4",
+        "101923",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi08.txt"
+      ],
+      "source_line": 338,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n牛鬼修登：\n\n嘎嘎嘎！\n红叶．．．红叶~~！"
+      ],
+      "quest_action": "sokia_cape:5241"
+    },
+    "5242": {
+      "id": "5242",
+      "name": "罗连斯",
+      "type": "Event",
+      "source": 15529,
+      "floor": 15529,
+      "area": "interior",
+      "cell": [
+        15,
+        8
+      ],
+      "direction": 0,
+      "graphic": 14524,
+      "token": "14524:0",
+      "script": "EV_rk_ushi08.txt",
+      "raw": [
+        "Event",
+        "罗连斯",
+        "0",
+        "5242",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15529",
+        "15",
+        "8",
+        "15",
+        "8",
+        "15",
+        "8",
+        "15",
+        "8",
+        "1",
+        "60000",
+        "0",
+        "14524",
+        "0",
+        "1",
+        "0",
+        "EV_rk_ushi08.txt"
+      ],
+      "source_line": 339,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n牛鬼修登：\n\n嘎嘎嘎！\n红叶．．．红叶~~！"
+      ],
+      "quest_action": "sokia_cape:5242"
+    },
+    "6114": {
+      "id": "6114",
+      "name": "朋特",
+      "type": "Event",
+      "source": 15520,
+      "floor": 15520,
+      "area": "interior",
+      "cell": [
+        49,
+        38
+      ],
+      "direction": 6,
+      "graphic": 14001,
+      "token": "14001:6",
+      "script": "EV_ijk_6114.txt",
+      "raw": [
+        "Event",
+        "朋特",
+        "0",
+        "6114",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15520",
+        "49",
+        "38",
+        "49",
+        "38",
+        "49",
+        "38",
+        "49",
+        "38",
+        "1",
+        "60000",
+        "6",
+        "14001",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6114.txt"
+      ],
+      "source_line": 927,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [],
+      "quest_action": "sokia_cape:6114"
+    },
+    "6115": {
+      "id": "6115",
+      "name": "士兵山巴尔克",
+      "type": "Event",
+      "source": 15520,
+      "floor": 15520,
+      "area": "interior",
+      "cell": [
+        48,
+        38
+      ],
+      "direction": 4,
+      "graphic": 14108,
+      "token": "14108:4",
+      "script": "EV_ijk_6115.txt",
+      "raw": [
+        "Event",
+        "士兵山巴尔克",
+        "0",
+        "6115",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15520",
+        "48",
+        "38",
+        "48",
+        "38",
+        "48",
+        "38",
+        "48",
+        "38",
+        "1",
+        "60000",
+        "4",
+        "14108",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6115.txt"
+      ],
+      "source_line": 928,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": true,
+      "messages": [],
+      "quest_action": "sokia_cape:6115"
+    },
+    "6116": {
+      "id": "6116",
+      "name": "莉娜",
+      "type": "Event",
+      "source": 15520,
+      "floor": 15520,
+      "area": "interior",
+      "cell": [
+        49,
+        39
+      ],
+      "direction": 6,
+      "graphic": 14006,
+      "token": "14006:6",
+      "script": "EV_ijk_6116.txt",
+      "raw": [
+        "Event",
+        "莉娜",
+        "0",
+        "6116",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15520",
+        "49",
+        "39",
+        "49",
+        "39",
+        "49",
+        "39",
+        "49",
+        "39",
+        "1",
+        "60000",
+        "6",
+        "14006",
+        "0",
+        "1",
+        "0",
+        "EV_ijk_6116.txt"
+      ],
+      "source_line": 929,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [],
+      "quest_action": "sokia_cape:6116"
+    },
+    "6117": {
+      "id": "6117",
+      "name": "守门的腐尸",
+      "type": "Event",
+      "source": 300,
+      "floor": 0,
+      "area": "source_outdoor",
+      "cell": [
+        216,
+        222
+      ],
+      "direction": 2,
+      "graphic": 101103,
+      "token": "101103:2",
+      "script": "EV_ijk_6117.txt",
+      "raw": [
+        "Event",
+        "守门的腐尸",
+        "0",
+        "6117",
+        "0",
+        "1",
+        "1",
+        "0",
+        "300",
+        "216",
+        "222",
+        "216",
+        "222",
+        "216",
+        "222",
+        "216",
+        "222",
+        "1",
+        "60000",
+        "2",
+        "101103",
+        "0",
+        "1",
+        "9",
+        "EV_ijk_6117.txt"
+      ],
+      "source_line": 930,
+      "scenery": false,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [
+        "\n\n我认得你哦！阿鲁巴斯大人有吩咐我，只要看到你来就让你通过。快去受死吧！嘿嘿嘿！"
+      ],
+      "quest_action": "sokia_cape:6117"
+    },
+    "6925": {
+      "id": "6925",
+      "name": "香蒂的房间",
+      "type": "Event",
+      "source": 15520,
+      "floor": 15520,
+      "area": "interior",
+      "cell": [
+        54,
+        40
+      ],
+      "direction": 4,
+      "graphic": 11025,
+      "token": "11025:4",
+      "script": "EV_mag_6925.txt",
+      "raw": [
+        "Event",
+        "香蒂的房间",
+        "0",
+        "6925",
+        "0",
+        "1",
+        "1",
+        "0",
+        "15520",
+        "54",
+        "40",
+        "54",
+        "40",
+        "54",
+        "40",
+        "54",
+        "40",
+        "1",
+        "60000",
+        "4",
+        "11025",
+        "0",
+        "1",
+        "0",
+        "EV_mag_6925.txt"
+      ],
+      "source_line": 1448,
+      "scenery": true,
+      "rendered_elsewhere": false,
+      "dialogue_owner": "sokia_cape_access",
+      "target_release": "Pinned original-candidate reference; BlueCG release execution not authenticated.",
+      "source_cell_blocked": false,
+      "messages": [],
+      "quest_action": "sokia_cape:6925"
+    }
+  },
+  "excluded": [],
+  "art": {
+    "101923:4": {
+      "key": "original:2975",
+      "origin": [
+        -120,
+        -141
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "a44ecb71049eb42ecbee6ea716b1ddd7196b5782f72f922785c6a90bf6b34c3a",
+      "rgba_sha256": "ce6c8f454551a2314c43826566e36b55b0458b7708a8282b01aa0b2668bc49a3",
+      "body_top": 1,
+      "body_foot": 184,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        1,
+        1,
+        194,
+        190
+      ]
+    },
+    "14206:4": {
+      "key": "graphic:14206",
+      "origin": [
+        -13,
+        -73
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "6c942ae4111ec33f78b628386e9b03956814592ab67eafc4986a32019521f9fe",
+      "rgba_sha256": "b5edc554294d60a1fb00aa062e7469441ddcdc8d6239feb92963c7f40fe8c43f",
+      "body_top": 1,
+      "body_foot": 80,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        197,
+        1,
+        29,
+        80
+      ]
+    },
+    "14077:4": {
+      "key": "graphic:14077",
+      "origin": [
+        -25,
+        -79
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "d92c214511b07e559ebcbe6587e96473d937a712b192e6c2e819affc08529390",
+      "rgba_sha256": "bd45fa41f37377196f36a276289649f7218d2d7f83ff2c3a975d201e7610bbc3",
+      "body_top": 0,
+      "body_foot": 95,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        228,
+        1,
+        47,
+        95
+      ]
+    },
+    "14524:0": {
+      "key": "graphic:14524",
+      "origin": [
+        -73,
+        -191
+      ],
+      "source_direction": 0,
+      "source_rgba_sha256": "26afd50b30d76e2d306755fa2ba8f1a661de10c59ab2461ddff87a39d0fece84",
+      "rgba_sha256": "78c36d10f9cf52cbb2dcec2d5a9d7880de36c92e37e569849cd5e95ab65238a4",
+      "body_top": 0,
+      "body_foot": 203,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        277,
+        1,
+        87,
+        203
+      ]
+    },
+    "14104:4": {
+      "key": "graphic:14104",
+      "origin": [
+        -35,
+        -33
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "6317a2ff9b59f3a784eb96e605ccbd173475dea008376500568cdf76d8d78360",
+      "rgba_sha256": "bdce10798ac8638c6c965e536a43a3ffde306213bd5637cb3588f1c0dc5c6980",
+      "body_top": 0,
+      "body_foot": 46,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        366,
+        1,
+        75,
+        46
+      ]
+    },
+    "14102:0": {
+      "key": "graphic:14102",
+      "origin": [
+        -35,
+        -33
+      ],
+      "source_direction": 0,
+      "source_rgba_sha256": "85889693a99f050d84f81dcc02992c639ccd59371da6616ab85273b1cb910013",
+      "rgba_sha256": "85889693a99f050d84f81dcc02992c639ccd59371da6616ab85273b1cb910013",
+      "body_top": 0,
+      "body_foot": 46,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        443,
+        1,
+        72,
+        49
+      ]
+    },
+    "14103:2": {
+      "key": "graphic:14103",
+      "origin": [
+        -32,
+        -32
+      ],
+      "source_direction": 2,
+      "source_rgba_sha256": "abb36095e6aa48395c93dddf0d8054058a08802bc5fa7c0e974392bc0802384f",
+      "rgba_sha256": "a95f19f0a2ad0908e32c5e364567e39aadefac0b24baf464e63db849184be7e7",
+      "body_top": 0,
+      "body_foot": 51,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        517,
+        1,
+        69,
+        52
+      ]
+    },
+    "14521:0": {
+      "key": "graphic:14521",
+      "origin": [
+        -29,
+        -123
+      ],
+      "source_direction": 0,
+      "source_rgba_sha256": "e201f77981edbb45c05a411bf0eb13e3cc6c4257093c0329d3ac014367fc428d",
+      "rgba_sha256": "e201f77981edbb45c05a411bf0eb13e3cc6c4257093c0329d3ac014367fc428d",
+      "body_top": 0,
+      "body_foot": 147,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        588,
+        1,
+        72,
+        147
+      ]
+    },
+    "14520:4": {
+      "key": "graphic:14520",
+      "origin": [
+        -41,
+        -123
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "4ce1799596739112632967afaec68d1205451512a2f3274f5f1bdb1ca2243f9c",
+      "rgba_sha256": "a2a7f6d4850503fc15753ff1fde29299f0aa818a50c7b4f58729206e7b57294b",
+      "body_top": 0,
+      "body_foot": 147,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        662,
+        1,
+        71,
+        147
+      ]
+    },
+    "14521:4": {
+      "key": "graphic:14521",
+      "origin": [
+        -29,
+        -123
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "e201f77981edbb45c05a411bf0eb13e3cc6c4257093c0329d3ac014367fc428d",
+      "rgba_sha256": "e201f77981edbb45c05a411bf0eb13e3cc6c4257093c0329d3ac014367fc428d",
+      "body_top": 0,
+      "body_foot": 147,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        735,
+        1,
+        72,
+        147
+      ]
+    },
+    "14042:6": {
+      "key": "graphic:14042",
+      "origin": [
+        -12,
+        -57
+      ],
+      "source_direction": 6,
+      "source_rgba_sha256": "316cd05b9fcbd709ff7779900c2321fdd14f210d2e27dc7d09da4172bd96d6b1",
+      "rgba_sha256": "8dd4318d7d55655cbfb845eb02f0c6b7f3b91c7de6a3455412bdb5bff18b72c2",
+      "body_top": 0,
+      "body_foot": 66,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        809,
+        1,
+        23,
+        66
+      ]
+    },
+    "101920:5": {
+      "key": "original:2972",
+      "origin": [
+        -92,
+        -102
+      ],
+      "source_direction": 5,
+      "source_rgba_sha256": "a18a12d69c8dbe4a884f7759adc8a7c61f7b59ceb28d8582450c36e4fb2ac774",
+      "rgba_sha256": "a18a12d69c8dbe4a884f7759adc8a7c61f7b59ceb28d8582450c36e4fb2ac774",
+      "body_top": 1,
+      "body_foot": 120,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        834,
+        1,
+        136,
+        134
+      ]
+    },
+    "101822:4": {
+      "key": "original:2954",
+      "origin": [
+        -34,
+        -62
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "43d654e6c0c9324e4f9295dc5d7bd17cbb8e2252d579d66bb311b04fa38cc20d",
+      "rgba_sha256": "298e2a796e7b90c034798966428a9b7fbafb3e2670dac4d12cecd439de6bcf9f",
+      "body_top": 1,
+      "body_foot": 75,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        1,
+        206,
+        62,
+        76
+      ]
+    },
+    "101922:4": {
+      "key": "original:2974",
+      "origin": [
+        -144,
+        -129
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "0e34c8dfb60c350775ca28339ec26f5aacf24968df9cb4a6e400c3d2fea7a50a",
+      "rgba_sha256": "4aba3e6ec971a60f915ced1f2f3b587a116659eee526bd124118c162f36040ba",
+      "body_top": 0,
+      "body_foot": 140,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        65,
+        206,
+        210,
+        168
+      ]
+    },
+    "14001:6": {
+      "key": "graphic:14001",
+      "origin": [
+        -13,
+        -74
+      ],
+      "source_direction": 6,
+      "source_rgba_sha256": "f8e6e49a4b2e931540fce4052172bc7f21dae523f8b5950a7af54044562168ee",
+      "rgba_sha256": "03182706af8909961be30b52970f8d79a8617af8ed108696edbd1957d714ea1c",
+      "body_top": 0,
+      "body_foot": 82,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        277,
+        206,
+        26,
+        82
+      ]
+    },
+    "14108:4": {
+      "key": "graphic:14108",
+      "origin": [
+        -39,
+        -60
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "5d939e2c128626c439219cda6d301f0dec4212ba2c36785968c9cdbd37f37899",
+      "rgba_sha256": "7fa4a1bc8f0f497c722a34b337ebbd5a32edac19c31ef54090e6c577d9ff98ed",
+      "body_top": 0,
+      "body_foot": 77,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        305,
+        206,
+        57,
+        77
+      ]
+    },
+    "14006:6": {
+      "key": "graphic:14006",
+      "origin": [
+        -12,
+        -72
+      ],
+      "source_direction": 6,
+      "source_rgba_sha256": "d4a8af19e3dac849c8296d9465ec1b585f63520023a1347f387df83b07208473",
+      "rgba_sha256": "d4a8af19e3dac849c8296d9465ec1b585f63520023a1347f387df83b07208473",
+      "body_top": 0,
+      "body_foot": 80,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        364,
+        206,
+        24,
+        80
+      ]
+    },
+    "101103:2": {
+      "key": "original:2825",
+      "origin": [
+        -15,
+        -60
+      ],
+      "source_direction": 2,
+      "source_rgba_sha256": "4e6b0c5c386d93eb32d676994c4a1add92a1ad790c86d533bdfbe410c36246ea",
+      "rgba_sha256": "03dadf0622d5bd4236fbabbc1501e512e76cd14145830c54cc1c0033fbdd4819",
+      "body_top": 1,
+      "body_foot": 67,
+      "foot_contract": "Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.",
+      "rect": [
+        390,
+        206,
+        41,
+        69
+      ]
+    },
+    "11025:4": {
+      "key": "graphic:11025",
+      "origin": [
+        -17,
+        -59
+      ],
+      "source_direction": 4,
+      "source_rgba_sha256": "3054adfa49aad13d81c79bdbd57ec7a8d97cef9c85d97175becb924c592d7749",
+      "rgba_sha256": "6385c01d4dd37d54d789d7bf2c9a74e8658867c5d0c438aad7b5a2c0c0c834e7",
+      "rect": [
+        433,
+        206,
+        51,
+        76
+      ]
+    }
+  },
+  "scripts": {
+    "EV_rk_ushi02.txt": {
+      "sha256": "bec7fc90b4b548b24d2426f4abba7c5481cc681e6b9e8a97bd0fd73e4a2ed319",
+      "lines": [
+        [
+          7,
+          "block Item 18599 == 0"
+        ],
+        [
+          8,
+          " encount 2|0,300,715,35||0|||||0|12019|||||||||"
+        ],
+        [
+          10,
+          "block"
+        ],
+        [
+          12,
+          "window 21057,next"
+        ],
+        [
+          13,
+          "window 21061,next"
+        ],
+        [
+          14,
+          "window 21078,next"
+        ],
+        [
+          15,
+          "window 21077,ok"
+        ],
+        [
+          16,
+          " window_ok"
+        ],
+        [
+          17,
+          "  warp 0,15528,16,23"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "Item 18599 == 0",
+          "lines": [
+            [
+              8,
+              " encount 2|0,300,715,35||0|||||0|12019|||||||||"
+            ]
+          ]
+        },
+        {
+          "line": 10,
+          "condition": "",
+          "lines": [
+            [
+              12,
+              "window 21057,next"
+            ],
+            [
+              13,
+              "window 21061,next"
+            ],
+            [
+              14,
+              "window 21078,next"
+            ],
+            [
+              15,
+              "window 21077,ok"
+            ],
+            [
+              16,
+              " window_ok"
+            ],
+            [
+              17,
+              "  warp 0,15528,16,23"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi03.txt": {
+      "sha256": "264b9f461e1c9bf188211702bc79af5ca4a94d62fa245ea032017760e186c5d3",
+      "lines": [
+        [
+          7,
+          "block"
+        ],
+        [
+          8,
+          "window 21079,next"
+        ],
+        [
+          9,
+          "window 21080,next"
+        ],
+        [
+          10,
+          "window 21081,next"
+        ],
+        [
+          11,
+          "window 21082,next"
+        ],
+        [
+          12,
+          "window 21084,next"
+        ],
+        [
+          13,
+          "window 21083,next"
+        ],
+        [
+          14,
+          "window 21085,next"
+        ],
+        [
+          15,
+          "window 21086,next"
+        ],
+        [
+          16,
+          "window 21087,next"
+        ],
+        [
+          17,
+          "window 21088,next"
+        ],
+        [
+          18,
+          "window 21089,ok"
+        ],
+        [
+          19,
+          "window_ok"
+        ],
+        [
+          20,
+          "warp 0,15529,15,16"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              8,
+              "window 21079,next"
+            ],
+            [
+              9,
+              "window 21080,next"
+            ],
+            [
+              10,
+              "window 21081,next"
+            ],
+            [
+              11,
+              "window 21082,next"
+            ],
+            [
+              12,
+              "window 21084,next"
+            ],
+            [
+              13,
+              "window 21083,next"
+            ],
+            [
+              14,
+              "window 21085,next"
+            ],
+            [
+              15,
+              "window 21086,next"
+            ],
+            [
+              16,
+              "window 21087,next"
+            ],
+            [
+              17,
+              "window 21088,next"
+            ],
+            [
+              18,
+              "window 21089,ok"
+            ],
+            [
+              19,
+              "window_ok"
+            ],
+            [
+              20,
+              "warp 0,15529,15,16"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi04.txt": {
+      "sha256": "2c57cf42c4b351e019786e340ce07e9abecb3b1184b7c1552ec35dd4206e5349",
+      "lines": [
+        [
+          10,
+          "block PEquipItem 18231,0 >= 1"
+        ],
+        [
+          12,
+          "window 21062,yes,no"
+        ],
+        [
+          14,
+          " window_yes"
+        ],
+        [
+          15,
+          "  warp 0,100,172,145"
+        ],
+        [
+          16,
+          " window_no"
+        ],
+        [
+          17,
+          "  endwindow 21064"
+        ],
+        [
+          19,
+          "block"
+        ],
+        [
+          21,
+          "endwindow 21063"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 10,
+          "condition": "PEquipItem 18231,0 >= 1",
+          "lines": [
+            [
+              12,
+              "window 21062,yes,no"
+            ],
+            [
+              14,
+              " window_yes"
+            ],
+            [
+              15,
+              "  warp 0,100,172,145"
+            ],
+            [
+              16,
+              " window_no"
+            ],
+            [
+              17,
+              "  endwindow 21064"
+            ]
+          ]
+        },
+        {
+          "line": 19,
+          "condition": "",
+          "lines": [
+            [
+              21,
+              "endwindow 21063"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi05.txt": {
+      "sha256": "58cfc18efe078f9846b045f920caa335b469f3a938e1579be39bae0f3545d367",
+      "lines": [
+        [
+          7,
+          "block "
+        ],
+        [
+          9,
+          "window 21066,yes,no"
+        ],
+        [
+          11,
+          " window_yes"
+        ],
+        [
+          12,
+          "  warp 0,100,174,171"
+        ],
+        [
+          13,
+          " window_no"
+        ],
+        [
+          14,
+          "  endwindow 21065"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              9,
+              "window 21066,yes,no"
+            ],
+            [
+              11,
+              " window_yes"
+            ],
+            [
+              12,
+              "  warp 0,100,174,171"
+            ],
+            [
+              13,
+              " window_no"
+            ],
+            [
+              14,
+              "  endwindow 21065"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi06.txt": {
+      "sha256": "372eeb8461d5c7eaaaf07a1079497c8c905af9e17b984b1b3c9c3f2598f19bde",
+      "lines": [
+        [
+          7,
+          "block Item 18599 >= 1"
+        ],
+        [
+          8,
+          "endwindow 21074"
+        ],
+        [
+          10,
+          "block Item 18598 >= 1"
+        ],
+        [
+          12,
+          "window 21070,ok"
+        ],
+        [
+          13,
+          " window_ok Item 18598 >= 1"
+        ],
+        [
+          14,
+          "  killitemall 18598"
+        ],
+        [
+          15,
+          "  giveitem 18599"
+        ],
+        [
+          17,
+          "block"
+        ],
+        [
+          18,
+          " window 21068,next"
+        ],
+        [
+          19,
+          " window_21069,yes,no"
+        ],
+        [
+          20,
+          "  window_yes"
+        ],
+        [
+          21,
+          "   encount 2|||0|||||0|12021|||||||||"
+        ],
+        [
+          22,
+          "  window_no"
+        ],
+        [
+          23,
+          "   endwindow 21072"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "Item 18599 >= 1",
+          "lines": [
+            [
+              8,
+              "endwindow 21074"
+            ]
+          ]
+        },
+        {
+          "line": 10,
+          "condition": "Item 18598 >= 1",
+          "lines": [
+            [
+              12,
+              "window 21070,ok"
+            ],
+            [
+              13,
+              " window_ok Item 18598 >= 1"
+            ],
+            [
+              14,
+              "  killitemall 18598"
+            ],
+            [
+              15,
+              "  giveitem 18599"
+            ]
+          ]
+        },
+        {
+          "line": 17,
+          "condition": "",
+          "lines": [
+            [
+              18,
+              " window 21068,next"
+            ],
+            [
+              19,
+              " window_21069,yes,no"
+            ],
+            [
+              20,
+              "  window_yes"
+            ],
+            [
+              21,
+              "   encount 2|||0|||||0|12021|||||||||"
+            ],
+            [
+              22,
+              "  window_no"
+            ],
+            [
+              23,
+              "   endwindow 21072"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi07.txt": {
+      "sha256": "509a20e6038d627463e32edd9555b94aeb17539a8cad1fa309a39240da0a1c46",
+      "lines": [
+        [
+          7,
+          "block Item 18599 >= 1"
+        ],
+        [
+          9,
+          "window 21075,ok"
+        ],
+        [
+          10,
+          " window_ok"
+        ],
+        [
+          11,
+          "  warp 0,15524,16,19"
+        ],
+        [
+          14,
+          "block"
+        ],
+        [
+          15,
+          "   endwindow 21076"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "Item 18599 >= 1",
+          "lines": [
+            [
+              9,
+              "window 21075,ok"
+            ],
+            [
+              10,
+              " window_ok"
+            ],
+            [
+              11,
+              "  warp 0,15524,16,19"
+            ]
+          ]
+        },
+        {
+          "line": 14,
+          "condition": "",
+          "lines": [
+            [
+              15,
+              "   endwindow 21076"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_rk_ushi08.txt": {
+      "sha256": "3786538c02cc6e40d5e3fb8a8d96bc06b8d2354113524aa31ff7d81d7ba0cc3c",
+      "lines": [
+        [
+          7,
+          "block"
+        ],
+        [
+          8,
+          "window 21090,next"
+        ],
+        [
+          9,
+          "window 21091,next"
+        ],
+        [
+          10,
+          "window 21092,ok"
+        ],
+        [
+          11,
+          " window_ok"
+        ],
+        [
+          12,
+          " changepal 6,180"
+        ],
+        [
+          13,
+          " warp 0,15525,16,11"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              8,
+              "window 21090,next"
+            ],
+            [
+              9,
+              "window 21091,next"
+            ],
+            [
+              10,
+              "window 21092,ok"
+            ],
+            [
+              11,
+              " window_ok"
+            ],
+            [
+              12,
+              " changepal 6,180"
+            ],
+            [
+              13,
+              " warp 0,15525,16,11"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_ijk_6114.txt": {
+      "sha256": "6ef3d8d872ada28b7673e9d4f70dc7fc34e17b4eb185018d5b02e66aaef997ce",
+      "lines": [
+        [
+          7,
+          "block"
+        ],
+        [
+          9,
+          "\tEndWindow 11648"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              9,
+              "\tEndWindow 11648"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_ijk_6115.txt": {
+      "sha256": "5d542eaa37a016dbfd50485d0617e98bda3b92d356a20390e6314010a90dcd37",
+      "lines": [
+        [
+          7,
+          "block"
+        ],
+        [
+          10,
+          "\tEndWindow 11649"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              10,
+              "\tEndWindow 11649"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_ijk_6116.txt": {
+      "sha256": "751b580df0b40d4a005ee3b4e6398ba9b5507750804e09d9516dd2181b8c4fb4",
+      "lines": [
+        [
+          7,
+          "block"
+        ],
+        [
+          9,
+          "\tEndWindow 11650"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "",
+          "lines": [
+            [
+              9,
+              "\tEndWindow 11650"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_ijk_6117.txt": {
+      "sha256": "0a77fe6880202ce295be05887af1ffa1a6d3c2974cc70bc3557d95881126435c",
+      "lines": [
+        [
+          7,
+          "block Item 18340 >= 1"
+        ],
+        [
+          9,
+          "\tWindow 11605,OK"
+        ],
+        [
+          11,
+          "\tWindow_OK Item 18340 >= 1"
+        ],
+        [
+          12,
+          "\tWarp 0,15517,39,15"
+        ],
+        [
+          15,
+          "block Item 18344 >= 1"
+        ],
+        [
+          17,
+          "\tEndWindow 11606"
+        ],
+        [
+          20,
+          "block"
+        ],
+        [
+          22,
+          "\tEndWindow 11607"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 7,
+          "condition": "Item 18340 >= 1",
+          "lines": [
+            [
+              9,
+              "\tWindow 11605,OK"
+            ],
+            [
+              11,
+              "\tWindow_OK Item 18340 >= 1"
+            ],
+            [
+              12,
+              "\tWarp 0,15517,39,15"
+            ]
+          ]
+        },
+        {
+          "line": 15,
+          "condition": "Item 18344 >= 1",
+          "lines": [
+            [
+              17,
+              "\tEndWindow 11606"
+            ]
+          ]
+        },
+        {
+          "line": 20,
+          "condition": "",
+          "lines": [
+            [
+              22,
+              "\tEndWindow 11607"
+            ]
+          ]
+        }
+      ]
+    },
+    "EV_mag_6925.txt": {
+      "sha256": "abd49ca7a9601e8a4e74cf641c7992bb1f8987c402e45ba7f443173f1c2c9797",
+      "lines": [
+        [
+          5,
+          "block"
+        ],
+        [
+          6,
+          "\tLeaveGroup"
+        ],
+        [
+          7,
+          "\tWarp 0,5010,8,6"
+        ]
+      ],
+      "blocks": [
+        {
+          "line": 5,
+          "condition": "",
+          "lines": [
+            [
+              6,
+              "\tLeaveGroup"
+            ],
+            [
+              7,
+              "\tWarp 0,5010,8,6"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "messages": {
+    "11605": "\n\n我认得你哦！阿鲁巴斯大人有吩咐我，只要看到你来就让你通过。快去受死吧！嘿嘿嘿！",
+    "11606": "\n\n哎呀！",
+    "11607": "\n\n你是什么人？快滚吧！嘿嘿嘿！",
+    "11648": "\n\n得救了！\n我还以为我会死呢！\n好不容易逃到这里。从那边的楼梯下去就能逃出去了吧！",
+    "11649": "\n\n呜！我的腿若是没受伤，就可以助你一臂之力了。\n保护人民安全的士兵被诱拐，真是会令人笑掉大牙！唉．．．\n谢谢你救了我！我会带着其他人逃出这里的。请你放心吧！",
+    "11650": "\n\n好、好可怕喔．．．\n我看我暂时不敢出去了．．．\n对了！记得当@n你打倒阿鲁巴斯的时候，我看到有一个僧侣打扮的男人从后面跑掉了。",
+    "21057": "\n\n人类？\n\n想来破坏阿夏芙和耶卡的坟墓的人．．．没想到还是这么多．．．",
+    "21061": "\n\n．．．．．．\n\n啊啊！那是！\n那不是修登大人的耳环吗？\n你是在哪里得到它的？",
+    "21062": "\n\n真厉害！\n你是打败牛鬼的人吧？\n既然你那么强，就算到对面去也应该没问题的吧！\n\n我可以告诉你怎么溜过去唷！要去看看吗？",
+    "21063": "\n呜．．．好可怕喔！\n\n只不过想去采点花蜜的说，居然来了一只可怕的熊。\n虽然因为慌张逃跑而没看清楚，但是好像有个比熊更大的生物．．．\n你要小心唷！",
+    "21064": "\n\n这样啊！\n\n嗯嗯，那就不要去吧！",
+    "21065": "\n\n你要小心一点唷！",
+    "21066": "\n\n要回去那边吗？",
+    "21068": "\n什么事？\n不要打扰我啦！\n\n我什么事都没做啊？\n\n还是你想跟我打打看？",
+    "21070": "\n哦．．．\n没想到你还能打败霸熊们啊．．．\n\n．．．这个给你吧！我要回去了。\n如果还想跟我玩玩的话欢迎你随时再来．．．如果你有自信打的赢的话．．．哈哈哈哈！",
+    "21072": "\n\n对了，如果你对自己没信心的话就不要来吧！\n\n和欧兹那克玩玩就好了。",
+    "21074": "\n\n想知道我住哪？自己去找吧！\n只要有那个耳环应该不难。\n",
+    "21075": "\n\n嗯？\n\n那不是．．．公主的耳环吗？．．．是吗．．．\n就让你过吧！不过千万别弄丢那个耳环喔！",
+    "21076": "\n\n这里不是你能进来的地方！\n\n快滚出去！",
+    "21077": "\n\n\n．．．在那天之前．．．",
+    "21078": "\n\n．．．原来如此。\n\n我叫红叶。\n从以前就一直是人人敬畏的牛鬼公主。\n．．．修登大人他．．．就是你们现在口中说的牛鬼．．．很久以前，我只是和他一起过着幸福和平的日子而已。",
+    "21079": "\n修登：\n\n一国之君为什么要跑来讨伐没犯任何罪的人民呢？\n这到底是怎么回事？",
+    "21080": "\n罗连斯：\n\n听说这附近出现了怪物偷袭人类的事件。\n不讨伐那种怪物怎么行呢？\n嗯？你说对不对啊？修登．．．\n不对，半人半怪的魔物．．．牛鬼才对！哈哈哈．．．",
+    "21081": "\n红叶：\n．．．！\n修登．．．大人？\n\n他说的话．．．是什么意思？",
+    "21082": "\n罗连斯：\n\n．．．红叶公主啊！相信我吧！\n这个男人的真实身份是个怪物。\n你应该不会想再待在这种怪物身边吧？",
+    "21083": "\n修登：\n\n哈哈哈．．．我知道了。\n我终于知道你的企图了。\n想制造莫须有的罪名将我消灭，然后可趁机夺去红叶？真可笑！\n周围的士兵们应该也看的出来我是个真正的人类！你做这种事一定会被人民唾弃的！",
+    "21084": "\n罗连斯：\n\n把你这么美的女人放在这种偏远的荒岛真是太浪费了。\n你应该是站在掌握全世界的我旁边当我的爱妃才对．．．\n\n来吧！快离开那个怪物到我身边来吧！",
+    "21085": "\n罗连斯：\n(嘿嘿．．．再怎么不可能的谎言也有可能变成真的。\n就让我用最新的研究成果：变身魔法让你变成一辈子都会被人追杀的丑陋魔物吧！)",
+    "21086": "\n罗连斯：\n\n士兵们！看好吧！\n\n接下来我将以魔法揭穿修登的真面目！",
+    "21087": "\n红叶：\n\n啊啊．．．不行！\n修登大人！快逃啊！",
+    "21088": "\n修登：\n\n．．．去死吧！！",
+    "21089": "\n罗连斯：\n\n．．．变身．．．之术！",
+    "21090": "\n牛鬼修登：\n\n嘎嘎嘎！\n红叶．．．红叶~~！",
+    "21091": "\n牛鬼公主红叶：\n\n修登大人．．．\n没关系的．．．\n怎么能让修登大人单独变成兽人呢？变成这个容貌跟失去修登大人的痛苦比起来根本不算什么的．．．",
+    "21092": "\n罗连斯：\n\n去！红叶公主这家伙．．．\n居然自己跳进施法的范围中．．．\n算了，就让兽人们去自生自灭吧！\n回去吧！"
+  },
+  "source_provenance": {
+    "EV_rk_ushi02.txt": {
+      "file": "EV_rk_ushi02.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi02.txt",
+      "sha256": "bec7fc90b4b548b24d2426f4abba7c5481cc681e6b9e8a97bd0fd73e4a2ed319",
+      "bytes": 394,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi02.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "cde6dd6fd13eac5754497037b4bfd28ad23d0514",
+      "path": "gmsv/data/npc/EV_rk_ushi02.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi02.txt"
+    },
+    "EV_rk_ushi03.txt": {
+      "file": "EV_rk_ushi03.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi03.txt",
+      "sha256": "264b9f461e1c9bf188211702bc79af5ca4a94d62fa245ea032017760e186c5d3",
+      "bytes": 394,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi03.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "a6ccf468cb229c797e3e6361bb376bbee7d16478",
+      "path": "gmsv/data/npc/EV_rk_ushi03.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi03.txt"
+    },
+    "EV_rk_ushi04.txt": {
+      "file": "EV_rk_ushi04.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi04.txt",
+      "sha256": "2c57cf42c4b351e019786e340ce07e9abecb3b1184b7c1552ec35dd4206e5349",
+      "bytes": 370,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi04.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "66feb244a341f7ca7088c52fbe6f1801a44da015",
+      "path": "gmsv/data/npc/EV_rk_ushi04.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi04.txt"
+    },
+    "EV_rk_ushi05.txt": {
+      "file": "EV_rk_ushi05.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi05.txt",
+      "sha256": "58cfc18efe078f9846b045f920caa335b469f3a938e1579be39bae0f3545d367",
+      "bytes": 240,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi05.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "274499a6385ca663d7a07d1bbb7067580cb872d8",
+      "path": "gmsv/data/npc/EV_rk_ushi05.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi05.txt"
+    },
+    "EV_rk_ushi06.txt": {
+      "file": "EV_rk_ushi06.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi06.txt",
+      "sha256": "372eeb8461d5c7eaaaf07a1079497c8c905af9e17b984b1b3c9c3f2598f19bde",
+      "bytes": 441,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi06.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "473cd479ba6d182be8838410628768b7a2349179",
+      "path": "gmsv/data/npc/EV_rk_ushi06.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi06.txt"
+    },
+    "EV_rk_ushi07.txt": {
+      "file": "EV_rk_ushi07.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi07.txt",
+      "sha256": "509a20e6038d627463e32edd9555b94aeb17539a8cad1fa309a39240da0a1c46",
+      "bytes": 254,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi07.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "46847102316f8fb29b03c9a7c3390f8d8afd92ad",
+      "path": "gmsv/data/npc/EV_rk_ushi07.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi07.txt"
+    },
+    "EV_rk_ushi08.txt": {
+      "file": "EV_rk_ushi08.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_rk_ushi08.txt",
+      "sha256": "3786538c02cc6e40d5e3fb8a8d96bc06b8d2354113524aa31ff7d81d7ba0cc3c",
+      "bytes": 262,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_rk_ushi08.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "9fbe661f466164b400d273160b8fabb73f5f14df",
+      "path": "gmsv/data/npc/EV_rk_ushi08.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_rk_ushi08.txt"
+    },
+    "EV_ijk_6114.txt": {
+      "file": "EV_ijk_6114.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_ijk_6114.txt",
+      "sha256": "6ef3d8d872ada28b7673e9d4f70dc7fc34e17b4eb185018d5b02e66aaef997ce",
+      "bytes": 221,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_ijk_6114.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "70a4a18f64cf3075f341c26e0b7b1274ef8f9bf6",
+      "path": "gmsv/data/npc/EV_ijk_6114.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_ijk_6114.txt"
+    },
+    "EV_ijk_6115.txt": {
+      "file": "EV_ijk_6115.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_ijk_6115.txt",
+      "sha256": "5d542eaa37a016dbfd50485d0617e98bda3b92d356a20390e6314010a90dcd37",
+      "bytes": 429,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_ijk_6115.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "0fd360524cdeec9d5534257526627f5052fc62dc",
+      "path": "gmsv/data/npc/EV_ijk_6115.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_ijk_6115.txt"
+    },
+    "EV_ijk_6116.txt": {
+      "file": "EV_ijk_6116.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_ijk_6116.txt",
+      "sha256": "751b580df0b40d4a005ee3b4e6398ba9b5507750804e09d9516dd2181b8c4fb4",
+      "bytes": 213,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_ijk_6116.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "ea687f8531422a33380a71427cdeac2e48c9fd08",
+      "path": "gmsv/data/npc/EV_ijk_6116.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_ijk_6116.txt"
+    },
+    "EV_ijk_6117.txt": {
+      "file": "EV_ijk_6117.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_ijk_6117.txt",
+      "sha256": "0a77fe6880202ce295be05887af1ffa1a6d3c2974cc70bc3557d95881126435c",
+      "bytes": 692,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "assets/references/crossgate_sokia/events/EV_ijk_6117.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "476cb1d1845886fce51ac25c6ff2ac38ea2c92a9",
+      "path": "gmsv/data/npc/EV_ijk_6117.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_ijk_6117.txt",
+      "raw_byte_repair_evidence": "assets/references/crossgate_sokia/events/raw-byte-repair.json"
+    },
+    "EV_mag_6925.txt": {
+      "file": "EV_mag_6925.txt",
+      "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+      "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/npc/EV_mag_6925.txt",
+      "sha256": "abd49ca7a9601e8a4e74cf641c7992bb1f8987c402e45ba7f443173f1c2c9797",
+      "bytes": 102,
+      "acquired": "existing_sha_pinned_copy",
+      "local_origin": "build/Other Files/Asset Toolkit/Environment Audit 2026-11-26/frozen-source/assets/references/crossgate_sokia/events/EV_mag_6925.txt",
+      "authority": "CGMSV pinned reference; target BlueCG execution unverified",
+      "git_blob": "864dd0a6dc134ccab3b3c706778a81f75793496e",
+      "path": "gmsv/data/npc/EV_mag_6925.txt",
+      "durable_path": "assets/references/crossgate_sokia/events/EV_mag_6925.txt"
+    }
+  },
+  "source_hashes": {
+    "npc.txt": "729e18e044d5383460b74ba76ed648b7a036464b7b768a38b73f556d4c2f2fa9",
+    "msg.txt": "937a108a9e0015466dba64be6e2b45e7e28e8ca2a62c10cc9b4585bba4a8ffde"
+  },
+  "source_map_sha256": {
+    "15517": "bf7636267b7bcb71f4955544dabd96b46965638cca43515ee03db27a6f799147",
+    "15520": "d3c26832579b29119b7cdcf66eefe55b45d7bfcbf8ea0c1311efad660c6d0501",
+    "15524": "e5cfdeab82e188eb71508c4ffc98414afccf6fac28eeeb9d2bec957ac52a0c63",
+    "15528": "26ddc2803490e8441e21a73e14ee12adb6c8be4dd63eeb45a941febec6a7374b",
+    "15529": "f2a788f38327309fb558937b25f877f6d077b867ec438f72d9c4252ae4d57476",
+    "100": "95becb397423f3a349207178b5e05c9432781e56b4395be84aafd032cdcafc75",
+    "300": "00a6a2eb36fcef9341a1e539183a7b598a25c5e71d78a6b8113f2a7c49215fea"
+  },
+  "limitations": [
+    "Unknown original skill, inventory capacity, item-age or group predicates remain guarded by the existing event interpreter.",
+    "Presence of NPC scripts is not proof that a map is safe or that a target map has a usable runtime owner.",
+    "Server maps contain no client warp/record flags. Exact source fixed-port candidates remain separately assessed.",
+    "Staged source data only; no live NPC, gate, native dispatch or item-drop hook is activated.",
+    "EV_rk_ushi06 line19 is the original malformed window_21069,yes,no; full raw program remains guarded rather than normalized without command evidence.",
+    "Item18598 to18599 exchange is source-confirmed, but natural18598 acquisition remains unverified; held-item test contexts must be labeled fixture-only.",
+    "EV_rk_ushi08 changepal6,180 remains a visual command adaptation; original palette-duration execution is unverified.",
+    "15517/15520 use the separate config300 route. No direct15517to15520 shortcut or unconditional guard is added."
+  ],
+  "battle_additions": {
+    "species_offset": 4,
+    "species": [
+      {
+        "id": 101010,
+        "name": "霸",
+        "key": "original:2807",
+        "bank": "companion",
+        "skin": 135
+      }
+    ],
+    "groups": {
+      "12099": {
+        "details": [
+          {
+            "species": 4,
+            "name": "霸",
+            "enemy": "12117",
+            "level": [
+              79,
+              79
+            ],
+            "count": [
+              1,
+              1
+            ],
+            "weight": 1,
+            "must_appear": true,
+            "raw_enemy": [
+              "罴",
+              "at:10;1;1|gu:1|es:1|wa:0;0;0;0;0;0;0;",
+              "12117",
+              "4030",
+              "79",
+              "79",
+              "1",
+              "1",
+              "12113",
+              "0",
+              "-1",
+              "0",
+              "0",
+              "18598",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "100",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "17814",
+              "",
+              "",
+              "",
+              "",
+              "1",
+              "",
+              "",
+              "",
+              "",
+              "0",
+              "1",
+              "0",
+              "0",
+              "90"
+            ],
+            "raw_base": [
+              "霸",
+              "4030",
+              "40",
+              "5",
+              "9",
+              "75",
+              "85",
+              "20",
+              "20",
+              "65",
+              "300",
+              "6",
+              "0",
+              "5",
+              "10",
+              "80",
+              "20",
+              "0",
+              "0",
+              "5",
+              "5",
+              "5",
+              "5",
+              "5",
+              "5",
+              "0",
+              "0",
+              "10",
+              "5",
+              "6",
+              "101010",
+              "100",
+              "0",
+              "",
+              "",
+              "0",
+              "7300",
+              "7400",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          }
+        ],
+        "raw": [
+          "罴",
+          "5",
+          "12099",
+          "-1",
+          "-1",
+          "12117",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "order": "5",
+        "required_item": -1,
+        "forbidden_item": -1
+      }
+    },
+    "bosses": {
+      "12021": {
+        "id": 12021,
+        "groups": [
+          [
+            "12099",
+            1
+          ]
+        ],
+        "next_encounter": 0,
+        "next_probability": 0,
+        "raw": [
+          "12021",
+          "",
+          "0",
+          "777",
+          "23",
+          "4",
+          "23",
+          "4",
+          "1",
+          "3",
+          "10",
+          "1",
+          "",
+          "",
+          "12099",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "1",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    }
+  },
+  "bear_bank_provenance": {
+    "path": "assets/characters/crossgate/guard_pets/motions.json",
+    "sha256": "7ddce16f20d757b082904e56bcf113e494fc0aba0d8ba84d3648d1fa671ff78e",
+    "skin": 135,
+    "key": "original:2807",
+    "appearance": 101010
+  },
+  "source_item_drop": {
+    "enemy": 12117,
+    "item": 18598,
+    "raw_rate": 100,
+    "raw_items": [
+      "18598",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "raw_rates": [
+      "100",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "execution_verified": false,
+    "production_grant_enabled": false,
+    "qualification": "No authenticated original denominator/selection rule recovered; raw100 is not interpreted as100percent and no prerequisite grant is invented."
+  },
+  "existing_coast_actor_ids": [
+    "5239",
+    "6117"
+  ]
+}

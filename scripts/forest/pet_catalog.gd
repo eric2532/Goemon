@@ -130,12 +130,11 @@ static func passive_hint(index:int,level_:int=1)->String:
  var value=passive_value(index,level_)
  if row.stat=="regeneration":return "This pet in your party grants the player +%d HP per second."%value
  return "This pet in your party grants the player +%d percentage points of %s chance, up to 100%%."%[value,"critical" if row.stat=="critical_chance" else "dodge"]
-static func available(index:int)->bool:return not OS.has_feature("web") or index<82
+static func available(index:int)->bool:return index>=0 and index<COUNT
 static func listed(index:int)->bool:return available(index) and (category(index)!="bosses" or not motions().variants[index].has("motion_key"))
 static func categories()->Array:
  var result=["All","Hounds","Mantises","Dragon lizards","Bees"]
  for index in range(82,COUNT):
-  if not available(index):continue
   var family=category(index)
   if family not in result:result.append(family)
  result.append("Aura & effects")

@@ -1,0 +1,92 @@
+[
+  {
+    "file": "13503_chiteiko",
+    "path": "gmsv/data/map/13503_chiteiko",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13503_chiteiko",
+    "git_blob_sha": "3b342bf4e711212c6e563a695cf346b4fcf29765",
+    "sha256": "3e2c43bfe6ef08bde47d83192ebfe7c4d4406151b90ff57f7c3a5dfbc3449cda",
+    "bytes": 19644,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13505_namazu",
+    "path": "gmsv/data/map/13505_namazu",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13505_namazu",
+    "git_blob_sha": "472ed4fb0f8a188e3c2dba200d971549d17f6c26",
+    "sha256": "8b2de4af4c90271fb3245eea6a80673ae11968715b75221c78b85a436b8c5278",
+    "bytes": 6444,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13506_syokudou",
+    "path": "gmsv/data/map/13506_syokudou",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13506_syokudou",
+    "git_blob_sha": "8d6534529aa57377e637b276946ed00cb58a5610",
+    "sha256": "8f3728e504b675860a586617fa08924cd90cfb2809df96ac9335b53ef27a5e35",
+    "bytes": 4844,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13507_ibukuro00",
+    "path": "gmsv/data/map/13507_ibukuro00",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13507_ibukuro00",
+    "git_blob_sha": "5a16896780803525d5b8347109d51b994d9b9c2f",
+    "sha256": "0d1dbbf796547e6d47a34ec8264e54fc0f0cb2db9fb3158dbb1a5eceba1123ad",
+    "bytes": 40044,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13508_ibukuro01",
+    "path": "gmsv/data/map/13508_ibukuro01",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13508_ibukuro01",
+    "git_blob_sha": "704fe926fc950626b7891e28c45968e12bfbd611",
+    "sha256": "b9d1e132995910059cdf275267bebf72e0de3860103286e7a5eb2fe071290ae7",
+    "bytes": 40044,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13510_tuuro",
+    "path": "gmsv/data/map/13510_tuuro",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13510_tuuro",
+    "git_blob_sha": "f2fc98336107713be90a94e1245ffae5ecc08349",
+    "sha256": "327b78abd8e269489e21e0415f8d3cf1d3afce112923aaff2955bc25e47b8a84",
+    "bytes": 3644,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13511_syocyo00",
+    "path": "gmsv/data/map/13511_syocyo00",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13511_syocyo00",
+    "git_blob_sha": "62102b592e8294bb2bb9383baf36772b98ebaa92",
+    "sha256": "6490166627f6bf0d610ec142cee7840919b977257e994b0651c4ab50a98fc80d",
+    "bytes": 16044,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13513_syocyo02",
+    "path": "gmsv/data/map/13513_syocyo02",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13513_syocyo02",
+    "git_blob_sha": "89dec3d1cc4fc8ec468c025743cdbaed33a62f3b",
+    "sha256": "6fe63398321591fd71a698cac2cc10844f7c3175f51ee913e8fa7d402899e2c2",
+    "bytes": 16044,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  },
+  {
+    "file": "13514_tuuro",
+    "path": "gmsv/data/map/13514_tuuro",
+    "commit": "dd8690ed3df11e4eb5a038a54079a8f40d8e93b3",
+    "url": "https://raw.githubusercontent.com/linv2/Crossgate_Docker/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/map/13514_tuuro",
+    "git_blob_sha": "9dbe7b9b9731227c789c8e85d45208a8ed43d6a1",
+    "sha256": "6f73c660a39ccfb057840676f5fdcb8d50e2042c30d470085d026c287a7e9100",
+    "bytes": 3644,
+    "authority": "Exact pinned CGMSV server-map source; recorded client overlap must be reconciled before activation."
+  }
+]

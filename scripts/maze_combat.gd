@@ -42,7 +42,7 @@ func prepare_projectiles():
  Pool.service(game).warm(hero,Shot,"maze_dagger",{"kind":"maze_dagger"},in_flight)
 
 func input(event:InputEvent):
- if not hero.model.gear_external and event.is_action_pressed("equip") and not event.is_echo():
+ if not hero.model.beast_master and not hero.model.gear_external and event.is_action_pressed("equip") and not event.is_echo():
   if hero.model.daggers:start_blade_dance()
   elif hero.model.maze_weapon==Weapon.KATANA and active and not hero.ai_controlled and not is_attacking() and hero.dodge_time<=0:
    start_assassination()
@@ -250,6 +250,7 @@ func start_attack(heavy:bool=false,allow_accessories:bool=true):
   return
  if allow_accessories and spell_owner==null and hero.spell_loadout.accessory_attack():return
  start_basic_attack(hero.facing)
+ begin_combined_power(locked_primary_enemy())
 
 func start_basic_attack(direction:Vector3,selected:Ninja=null):
  if not hero.model.daggers:
@@ -257,7 +258,7 @@ func start_basic_attack(direction:Vector3,selected:Ninja=null):
   return
  if mode=="primary_approach":cancel(true)
  face_dagger(direction)
- ticket=hero.attack_chain.begin("maze_dagger")
+ ticket=hero.attack_chain.begin("maze_dagger","",hero.model.beast_master)
  prepare_primary_combo(ticket)
  start_dagger_throw(selected)
 
@@ -306,7 +307,10 @@ func advance_attack(delta:float):
   state.primary_committed=true
   if ticket.action==BladeDance.BLADE_DANCE:throw_blade_dance()
   else:throw_dagger()
- if elapsed>=duration:cancel(true)
+  combined_contact()
+ if elapsed>=duration:
+  if hero.combined_power_busy():finish_primary_swing()
+  else:cancel(true)
 
 func face_dagger(direction:Vector3):
  var flat=Vector3(direction.x,0,direction.z)
@@ -325,7 +329,7 @@ func throw_dagger():
   if offset.length_squared()>.0001:direction=offset.normalized()
  face_dagger(direction)
  hero.play_sound("cg_dagger_throw",.8,ticket)
- var count:int=hero.model.fighter.get("kunai_count",1)
+ var count:int=1 if hero.model.beast_master else hero.model.fighter.get("kunai_count",1)
  var second_target=target
  if count>1:
   var closest=dagger_range()*dagger_range()
@@ -377,7 +381,8 @@ func throw_blade_dance():
   if count==skill_count(BLADE_DANCE_SHOTS,ticket):break
 
 func launch_dagger(origin:Vector3,direction:Vector3,attack_ticket:Dictionary,target:WeakRef=null):
- Pool.service(game).launch(hero,Shot,"maze_dagger",{"position":origin,"velocity":direction*DAGGER_SPEED,"lifetime":dagger_range()/DAGGER_SPEED,"damage":float(attack_ticket.get("sure_strike_damage",attack_ticket.get("normal_attack_damage",250.0)))*hero.damage_multiplier(),"attack_ticket":attack_ticket,"target":target})
+ var damage_scale=hero.base_character_attack_multiplier() if attack_ticket.get("base_damage_only",false) else hero.damage_multiplier()
+ Pool.service(game).launch(hero,Shot,"maze_dagger",{"position":origin,"velocity":direction*DAGGER_SPEED,"lifetime":dagger_range()/DAGGER_SPEED,"damage":float(attack_ticket.get("sure_strike_damage",attack_ticket.get("normal_attack_damage",250.0)))*damage_scale,"attack_ticket":attack_ticket,"target":target})
 
 func strike_cut():
  if hero.model.maze_weapon!=Weapon.FIST:
