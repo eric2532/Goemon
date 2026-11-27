@@ -124,7 +124,7 @@ func run():
       trigger_trace.append(trigger_state("select"))
      if is_instance_valid(game.dialogue) and game.dialogue.speaker=="Cross Gate":
       var challenges=game.dialogue.pages[0].options.filter(func(o):return str(o[0]).begins_with("challenge:"))
-      var nearby=game.explore_access.boss_spots.filter(func(s):return s.has("fights")and s.at.distance_squared_to(station)<5.*5. and game.explore_access.gates.any(func(g):return str(g.get("actor",""))==str(s.actor) and g.at.distance_squared_to(station)<5.*5.))
+      var nearby=game.explore_access.boss_spots.filter(func(s):return s.has("fights")and s.at.distance_squared_to(station)<5.*5. and game.explore_access.gates.any(func(g):return g.at.distance_squared_to(s.at)<4.5*4.5 and g.at.distance_squared_to(station)<5.*5.))
       var selected=nearby.find(spot)
       if selected>=0 and selected<challenges.size():game.dialogue.chosen.emit(challenges[selected][0])
       elif not challenges.is_empty():game.dialogue.chosen.emit(challenges[0][0])
@@ -164,6 +164,7 @@ func run():
   var portals=returns.map(func(r):return {"at":r.portal})
   if portals.is_empty():await access_capture("boss-"+str(route[2])+"-unresolved")
   record.living_arena=survivors("")
+  record.owner_state={"floor":game.model.falan_floor,"area":game.model.falan_area,"scope":game.explore_access.scope(),"encounter_scopes":game.explore_access.encounters.values().map(func(r):return [r.scope,r.group,r.cleared,r.pending]),"phase":game.model.phase,"spawned":game.model.waves.spawned,"grave_slain":get_meta("grave_slain",{}),"spawn_blocker":game.model.get_meta("explore_boss_spawn_blocker",{}),"patrol_posts":game.model.waves.patrol_posts.size()}
   record.encounters=game.explore_access.encounters.values().filter(func(r):return r.scope==game.explore_access.scope()).map(func(r):return {"group":r.group,"cleared":r.cleared,"pending":r.pending,"portal":r.get("portal",null),"portal_pending":r.get("portal_pending",false),"superseded":r.get("superseded",false)})
   check(portals.size()==1,"Complete encounter produces one optional return portal "+str(route[2]))
   if not returns.is_empty():

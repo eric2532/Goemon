@@ -431,6 +431,8 @@ static func cross_on_foot(game)->bool:
  var closest=INF
  for link in game.model.get_meta("falan_links",[]):
   if not link.get("walk_in",false) or link.get("crossing",false):continue
+  # This generated entrance overlaps the original grave formation; Explore uses its explicit Cross Gate.
+  if link.get("explore_gate_only",false)and is_instance_valid(game.get("explore_access"))and game.explore_access.enabled():continue
   # Use the midpoint where the original entrance has two warp tiles.
   var center:Vector2=link.at
   if link.get("site")==2100:center.y-=1.5

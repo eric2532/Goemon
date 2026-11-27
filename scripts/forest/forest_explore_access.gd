@@ -429,7 +429,7 @@ func interact()->bool:
   return false
  var npc:Dictionary=game.explorer_npcs.nearest
  var talk=not npc.is_empty() and nearby.any(func(g):return str(g.get("actor",""))==str(npc.record.id).trim_prefix("source:"))
- var challenges=boss_spots.filter(func(s):return s.has("fights") and at.distance_squared_to(s.at)<5.*5. and nearby.any(func(g):return str(g.get("actor",""))==str(s.actor)))
+ var challenges=boss_spots.filter(func(s):return s.has("fights") and at.distance_squared_to(s.at)<5.*5. and nearby.any(func(g):return g.at.distance_squared_to(s.at)<4.5*4.5) and game._ryo_clear_path(game.player.position+Vector3.UP*2.5*game.model.falan_scale,game.model.world_point(s.at,2.5)))
  if nearby.size()==1 and not talk and challenges.is_empty():enter_gate(nearby[0]);return true
  var choices=[]
  for i in nearby.size():choices.append([str(i),nearby[i].caption])

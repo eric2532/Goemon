@@ -793,12 +793,28 @@ func tick_captain(hero:Vector3):
 
 func spawn_grave(slot:int,skin:int,hero:Vector3):
 	var at:Vector2=m.FalanFrontier.Regions.Sites.GRAVE_FORMATION[slot]
-	var enemy=spawn_enemy(Roles.SLIME,m.world_point(at),-1,skin)
+	var point=reachable_encounter_point(at,1.05 if skin==2 else .78)
+	if not point.is_finite():
+		m.set_meta("explore_boss_spawn_blocker",{"map":m.falan_floor,"slot":slot,"reason":"No reachable native body station beside the original grave formation."});return
+	var enemy=spawn_enemy(Roles.SLIME,point,-1,skin)
 	enemy.grave_slot=3 if skin==2 else slot if skin!=3 else -1
 	if skin in [0,2]:mark_dungeon_boss(enemy)
 	enemy.footprint=1.05 if skin==2 else .78
 	CaveProgression.apply(enemy,CaveProgression.GRAVE[skin],Grave.STATS)
 	enemy.facing=atan2(at.x-hero.x,at.y-hero.z)
+
+func reachable_encounter_point(preferred:Vector2,radius:float)->Vector3:
+	var candidates=[preferred]
+	for ring in range(1,9):
+		for direction in 16:candidates.append(preferred+Vector2.from_angle(direction*TAU/16.)*ring*.75)
+	for point:Vector2 in candidates:
+		var world=m.world_point(point)
+		if not navigation.move_clear(world/m.falan_scale,radius):continue
+		if not m.army_runtime.native.can_reach(world,world,radius*m.falan_scale):continue
+		if not m.army_runtime.native.can_reach_ally(m.hero_position,world,.55*m.falan_scale):continue
+		if not m.army_runtime.game.explore_access.body_clear(world+Vector3.UP*.15*m.falan_scale):continue
+		return world
+	return Vector3.INF
 
 func tick_grave(delta:float,hero:Vector3):
 	if not is_instance_valid(m.army_runtime):return

@@ -272,6 +272,7 @@ def main(frontier=False):
         for i, image in enumerate(images):
             image.save(OUT / f"{prefix}-{i}.png")
     npc_atlas.save(OUT / "events/npc-atlas.png")
+    (OUT / 'map_ids.gd').write_text('extends RefCounted\n## Prepared complete source destinations; graph and interaction verification remain separate.\nconst IDS=' + json.dumps(sorted(int(row['id']) for row in maps.values())) + '\n')
     for name, digest in protected.items():
         assert recovery.digest((ROOT / name).read_bytes()) == digest
     print("EXPLORE_MAP_RECOVERED", len(maps), sum(row["cells"] for row in maps.values()), "cells;", len(graphics), "novel graphics;", len(npcs["actors"]), "source actors")

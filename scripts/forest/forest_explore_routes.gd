@@ -159,7 +159,7 @@ static func candidates(game)->Array:
  return result
 
 static func restricted(link:Dictionary)->bool:
- for key in["region_battle","region_stamps","region_needs","decree_needs_blade","decree_guardians","beast_guardian","falken_route","elsa_blocked"]:
+ for key in["region_battle","region_stamps","region_needs","decree_needs_blade","decree_guardians","beast_guardian","falken_route","elsa_blocked","explore_gate_only"]:
   if not link.has(key):continue
   var value=link[key]
   if value is String and value.is_empty():continue

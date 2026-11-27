@@ -210,7 +210,7 @@ static func links_source(source:int,seed_:int,area:String="")->Array:
     var placement=load("res://scripts/forest/forest_explore_routes.gd").field_destination(source,cell)
     if placement.is_empty()or placement.area!=area:continue
    var first:int=generated.floor_id(key,1)
-   result.append(maps.door(source_point(source,cell,area),first,generated.landing(first,seed_,true),spec.title).merged({"walk_in":true,"east_original":true,"east_generator":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[0])==103012}))
+   result.append(maps.door(source_point(source,cell,area),first,generated.landing(first,seed_,true),spec.title).merged({"walk_in":true,"east_original":true,"east_generator":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[0])==103012,"explore_gate_only":source==47017}))
   if not spec.end.is_empty() and int(spec.end[0])==source:
    var last:int=generated.floor_id(key,generated.count(key,seed_))
    result.append(maps.door(source_point(source,Vector2i(spec.end[1],spec.end[2]),area),last,generated.landing(last,seed_,false),spec.title).merged({"walk_in":true,"east_original":true,"east_generator_return":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[1])==103012}))
