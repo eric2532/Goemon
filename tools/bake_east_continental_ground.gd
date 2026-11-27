@@ -4,9 +4,23 @@ const Maps=preload("res://scripts/forest/forest_original_maps.gd")
 const Cache=preload("res://scripts/forest/forest_east_ground_cache.gd")
 const REPORT="res://build/Other Files/Asset Toolkit/East Gate Region/Continental Ground/"
 var reports=[]
+var texture_proofs={}
 func _initialize():
  create_timer(1800,true,false,true).timeout.connect(func():printerr("EAST_GROUND_BAKE_TIMEOUT");quit(1))
  run.call_deferred()
+
+func texture_proof(texture:Texture2D)->Array:
+ var path=texture.resource_path
+ if not path.is_empty()and not path.contains("::"):return ["external",path]
+ var id=texture.get_instance_id()
+ if texture_proofs.has(id):return texture_proofs[id]
+ var image=texture.get_image()
+ assert(image!=null,"An embedded ground texture needs exact pixel evidence")
+ if image.is_compressed():assert(image.decompress()==OK)
+ var digest=HashingContext.new();digest.start(HashingContext.HASH_SHA256);digest.update(image.get_data())
+ var proof=["embedded",texture.get_class(),image.get_size(),image.get_format(),image.has_mipmaps(),digest.finish().hex_encode()]
+ texture_proofs[id]=proof
+ return proof
 
 func fingerprint(stage:Node3D)->String:
  var hash_=HashingContext.new();hash_.start(HashingContext.HASH_SHA256)
@@ -18,7 +32,7 @@ func fingerprint(stage:Node3D)->String:
    for index in [Mesh.ARRAY_VERTEX,Mesh.ARRAY_NORMAL,Mesh.ARRAY_TEX_UV]:hash_.update(arrays[index].to_byte_array())
    var material:ShaderMaterial=child.get_active_material(surface)
    var texture:Texture2D=material.get_shader_parameter("base_texture")
-   hash_.update(var_to_bytes([child.mesh.surface_get_primitive_type(surface),material.shader.resource_path,texture.resource_path]))
+   hash_.update(var_to_bytes([child.mesh.surface_get_primitive_type(surface),material.shader.resource_path,texture_proof(texture)]))
    for parameter in ["use_base_texture","use_vertex_color","base_color","surface_kind","alpha_cutout","original_palette","atlas_tile_pixels"]:
     hash_.update(var_to_bytes(material.get_shader_parameter(parameter)))
  return hash_.finish().hex_encode()
@@ -38,7 +52,9 @@ func differences(a:Node3D,b:Node3D)->Array:
    if before.mesh.surface_get_primitive_type(surface)!=after.mesh.surface_get_primitive_type(surface):result.append([i,"primitive"])
    for parameter in ["base_texture","use_base_texture","use_vertex_color","base_color","surface_kind","alpha_cutout","original_palette","atlas_tile_pixels"]:
     var left=m.get_shader_parameter(parameter);var right=n.get_shader_parameter(parameter)
-    if left is Resource and right is Resource:
+    if left is Texture2D and right is Texture2D:
+     if texture_proof(left)!=texture_proof(right):result.append([i,parameter,texture_proof(left),texture_proof(right)])
+    elif left is Resource and right is Resource:
      if left.resource_path!=right.resource_path:result.append([i,parameter,left.resource_path,right.resource_path])
     elif var_to_bytes(left)!=var_to_bytes(right):result.append([i,parameter,var_to_str(left),var_to_str(right),typeof(left),typeof(right)])
   if result.size()>=12:break
@@ -49,13 +65,18 @@ func descriptors(stage:Node3D)->Array:
  for child in stage.get_children():
   var material:ShaderMaterial=child.get_active_material(0)
   var texture:Texture2D=material.get_shader_parameter("base_texture")
-  var row={"transform":var_to_bytes(child.transform).hex_encode(),"shader":material.shader.resource_path,"texture":texture.resource_path}
+  var row={"transform":var_to_bytes(child.transform).hex_encode(),"shader":material.shader.resource_path,"texture":texture_proof(texture)}
   for parameter in ["use_base_texture","use_vertex_color","base_color","surface_kind","alpha_cutout","original_palette","atlas_tile_pixels"]:
    row[parameter]=var_to_bytes(material.get_shader_parameter(parameter)).hex_encode()
   result.append(row)
  return result
 
 func run():
+ var red=Image.create(2,2,false,Image.FORMAT_RGBA8);red.fill(Color.RED)
+ var first=ImageTexture.create_from_image(red);var identical=ImageTexture.create_from_image(red)
+ assert(texture_proof(first)==texture_proof(identical),"Identical embedded pixels must survive resource identity changes")
+ red.set_pixel(0,0,Color.BLUE);var changed=ImageTexture.create_from_image(red)
+ assert(texture_proof(first)!=texture_proof(changed),"A one-pixel texture change must fail preservation")
  Cache.baking=true
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(Cache.ROOT))
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(REPORT))

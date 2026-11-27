@@ -82,13 +82,13 @@ static func candidates(game)->Array:
  var rows:Array=data().get(str(source),[]).duplicate()
  if model.falan_area in ["east_gate","north_coast"]:rows.append_array(data().get("2000" if model.falan_area=="east_gate" else "2400",[]))
  var result=[]
- if source==300:
+ if source in[100,300]:
   var generated=maps.generated()
   for key in generated.SPECS:
    var spec:Dictionary=generated.SPECS[key]
-   if int(spec.entry[0])!=300:continue
-   var cell:Vector2i=generated.entry_cell(key,model.seed_value)
-   var at:Vector2=tour.Regions.frame(model.falan_area).inverse()*(Vector2(cell)*3.)
+   if int(spec.entry[0])!=source:continue
+   var cell:Vector2i=region.prepare_field_entry(key,model.seed_value)if source==100 and spec.get("east",false)else generated.entry_cell(key,model.seed_value)
+   var at:Vector2=region.source_point(source,cell,model.falan_area)
    if not model.terrain.mask_bounds().has_point(at):continue
    var first:int=generated.floor_id(key,1);var row:Dictionary=maps.state(first,model.seed_value)
    var landing=Vector2i(((generated.landing(first,model.seed_value,true)-row.origin)/3.).round())
@@ -128,6 +128,12 @@ static func candidates(game)->Array:
    if not can_travel(game,target,cell):continue
    var at=Vector2(entry.node.global_position.x,entry.node.global_position.z)/model.falan_scale
    result.append({"at":at,"target":target,"landing":cell,"actor":str(record.id).trim_prefix("source:"),"caption":destination_title(target)})
+ if model.falan_area=="interior"and maps.source_id(model.falan_floor)==4417:
+  for entry in tour.university_npcs(4431):
+   var record:Dictionary=entry[4]
+   if record.get("quest_action","")!="music_secret":continue
+   var destination:Array=ACTIONS.music_secret;var cell=Vector2i(destination[1],destination[2])
+   if can_travel(game,int(destination[0]),cell):result.append({"at":maps.source_point(model.falan_floor,Vector2i(record.cell[0],record.cell[1])),"target":int(destination[0]),"landing":cell,"actor":str(record.id),"caption":destination_title(int(destination[0]))})
  for link in model.get_meta("falan_links",[]):
   var falcon_seal=model.falan_floor==23000 and link.get("floor",-1)==23003 or model.falan_floor==tour.Falken.ROOM and link.get("floor",-1)==tour.Falken.ROOM and link.at==tour.Falken.point(tour.Falken.ROOM,Vector2i(25,27))
   if not restricted(link)and not falcon_seal:continue

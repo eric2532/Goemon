@@ -27,7 +27,11 @@ def main():
     route_history = list(read("routes-history.json").values())
     boss_history = list(read("bosses-history.json").values())
     blockers = list(inventory.get("blockers", []))
-    for entrance in read("manual-access-routes.json").get("routes", []):
+    entrances = read("manual-access-routes.json").get("routes", []) + read("generated-access-routes.json").get("routes", []) + read("generated-floor-routes.json").get("routes", [])
+    for entrance in entrances:
+        if entrance.get('type') == 'Generated floor stair':
+            source = int(entrance['source'])
+            maps.setdefault(source, dict(map=source, name=entrance['name'], catalog='assets/maps/falan/explore-dungeon-specs.gd', layout_complete=True, staged=False, generated_owner=True, entrances=[], bosses=[]))
         row = maps.get(int(entrance["source"]))
         if row is None:
             continue
@@ -36,7 +40,7 @@ def main():
     for row in maps.values():
         owner = owners.get(row["map"], {})
         row["runtime"] = owner.get("runtime", row["map"])
-        row["runtime_owner"] = owner.get("runtime_owner", False)
+        row["runtime_owner"] = owner.get("runtime_owner", row.get("generated_owner", False))
         if row["map"] in [100, 300, 1000, 2000, 2400]:
             row["published_region_owner"] = {100: "Freyja region variants", 300: "Sokia region variants", 1000: "Falan city", 2000: "Il village in East region", 2400: "Alyut village in North region"}[row["map"]]
         row["ordinary_doors"] = owner.get("doors", [])
@@ -44,9 +48,10 @@ def main():
         row["interaction_evidence"] = []
         for entrance in row["entrances"]:
             matches = [test for test in route_history if int(test["source"]) == row["map"]
-                       and cell(test.get("cell", "")) == cell(entrance["cell"])
                        and int(test["target"]) == int(entrance["target"])
-                       and cell(test.get("landing", "")) == cell(entrance["landing"])]
+                       and (entrance.get("type") == "Generated branch access" or
+                            cell(test.get("cell", "")) == cell(entrance["cell"]) and
+                            cell(test.get("landing", "")) == cell(entrance["landing"]))]
             verified = [test for test in matches if test.get("passed") and test.get("verified_transition")]
             entrance["verification"] = ("ORDINARY_WALK_ENTER_LEAVE_PASSED" if verified[-1].get("status", "").startswith("Original") else "WALK_F_ENTER_RETURN_PASSED") if verified else "PENDING"
             entrance["tests"] = matches

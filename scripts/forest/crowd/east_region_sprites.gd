@@ -83,6 +83,15 @@ static func data()->Dictionary:
    assert(not population.bosses.has(id),"Laboratory scripted pool retains one owner")
    population.bosses[id]=laboratory.bosses[id]
   population.scripted_battles.append_array(laboratory.scripted_battles)
+  for id in laboratory.repaired_groups:
+   assert(population.groups.has(id) and population.groups[id].raw==laboratory.repaired_groups[id].raw,"Mandatory member repair retains the pinned source group")
+   population.groups[id]=laboratory.repaired_groups[id]
+  for id in laboratory.repaired_bosses:
+   assert(population.bosses.has(id) and population.bosses[id].raw==laboratory.repaired_bosses[id].raw,"Mandatory member repair retains the pinned source encounter")
+   population.bosses[id]=laboratory.repaired_bosses[id]
+  var repaired_pools:Array=population.zones+population.generated.values().map(func(branch_):return branch_.get("pool",{}))
+  for zone in repaired_pools:
+   if zone.get("groups",[]).any(func(choice):return laboratory.repaired_groups.has(str(choice[0]))):zone.source_party_contract=true
   for source_index in freyja.east_member_indices:
    assert(int(population.species[int(freyja.east_member_indices[source_index])].id)==int(freyja.species[int(source_index)].id),"Freyja retains the existing East/companion presentation indices")
   for zone in population.zones:

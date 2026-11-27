@@ -1,15 +1,18 @@
 extends "res://tests/forest-shrine/explore_access_test.gd"
 var boss_report=[]
+var production_sources={}
 func _initialize():
  create_timer(7200 if "--matrix"in OS.get_cmdline_user_args() else 900).timeout.connect(func():printerr("EXPLORE_BOSSES_TIMEOUT");save_boss_report();quit(1));run.call_deferred()
 func run():
  root.size=Vector2i(1280,800)
  game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path="/tmp/crossgate-explore-bosses-%d.cfg"%OS.get_process_id()
  root.add_child(game);current_scene=game;root.gui_disable_input=true
+ for script in [game.get_script(),game.explore_access.get_script(),game.explorer_npcs.get_script(),Original,preload("res://scripts/forest/forest_university_region.gd"),preload("res://scripts/forest/forest_explore_retries.gd"),preload("res://scripts/forest/forest_east_battles.gd")]:production_sources[script.resource_path]=script.get_source_code().sha256_text()
  for i in 4:await process_frame
  game.find_child("ForestFalan",true,false).pressed.emit();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID)
  game.settings.forest_level_up_cards=false;game.equipment_hub.enter_button.pressed.emit()
  for i in 4:await physics_frame
+ set_test_seed()
  game.tuning.invincible=true;game.player.run_upgrades.damage=100000
  var cases=[[4501,Vector2i(10,12),"altar"],[15569,Vector2i(22,24),"5320"],[51805,Vector2i(10,10),"new-scientist"],[13016,Vector2i(39,18),"new-temple"]]
  if "--lizard"in OS.get_cmdline_user_args():cases=[[16520,Vector2i(10,14),"lizard"]]
@@ -44,16 +47,19 @@ func run():
   cases.append_array([[11004,Vector2i(33,21),"habaru_slot"],[11001,Vector2i(8,21),"venoa_bear_slot"],[15003,Vector2i(33,29),"undersea_slot"],[23001,Vector2i(23,9),"falken_slot"],[16508,Vector2i(25,20),"ruby_slot"],[47017,Vector2i(22,23),"grave_slot"],[15505,Vector2i(40,6),"zombie_slot"],[16503,Vector2i(25,20),"captain_slot"]])
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--source="):cases=cases.filter(func(c):return c[0]==int(arg.trim_prefix("--source=")))
-  if arg.begins_with("--skip="):cases=cases.slice(int(arg.trim_prefix("--skip=")))
-  if arg.begins_with("--limit="):cases=cases.slice(0,int(arg.trim_prefix("--limit=")))
+  if arg.begins_with("--boss="):cases=cases.filter(func(c):return c[2]==arg.trim_prefix("--boss="))
  if "--unverified"in OS.get_cmdline_user_args():
   var history=JSON.parse_string(FileAccess.get_file_as_string(ACCESS_OUT+"bosses-history.json"))if FileAccess.file_exists(ACCESS_OUT+"bosses-history.json")else{}
   var mode="headless"if DisplayServer.get_name()=="headless"else"rendered"
   cases=cases.filter(func(route):var row=history.get("%s:%s:%s:%s"%[route[0],route[2],route[3]if route.size()>3 else 0,mode],{});return not row.get("passed",false)or not row.get("retry",{}).get("passed",false))
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--skip="):cases=cases.slice(int(arg.trim_prefix("--skip=")))
+  if arg.begins_with("--limit="):cases=cases.slice(0,int(arg.trim_prefix("--limit=")))
  for route in cases:
   print("EXPLORE_BOSS_CASE ",route)
   var before_failures=failures
   if is_instance_valid(game.dialogue):game.close_boss_dialogue()
+  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.explorer_npcs.set_process(false)
   if route[0]==0 and route[2]=="5237":
    check(preload("res://scripts/forest/forest_explore_routes.gd").travel(game,100,route[1]),"Original world boss has a published walkable source field")
    for i in 10:await physics_frame
@@ -64,16 +70,19 @@ func run():
    for i in 8:await physics_frame
    check(game.model.falan_floor==route[0],"Existing legacy owner loads the boss arena")
   game.player.set_auto_attack(false)
-  if Original.generated().owns(route[0]):
-   game.player.position=game.model.world_point(Original.generated().landing(route[0],game.model.seed_value,true),.15);game.model.hero_position=game.player.position;game.player.reset_physics_interpolation()
-   for i in 6:await physics_frame
+  game.army_runtime.refresh_navigation(0)
+  var setup_at=preload("res://scripts/forest/forest_east_region.gd").source_point(100,route[1],game.model.falan_area)if route[0]==0 else Original.source_point(route[0],route[1],game.model.seed_value)if Original.owns(route[0])else Tour.Indoor.floor_info(route[0],game.model.seed_value)[1]+Vector2(route[1])*3.
+  check(setup_walkable(setup_at),"Boss test begins on legal player ground beside the original trigger")
+  game.set_process(true);game.set_physics_process(true);game.player.set_physics_process(true);game.explorer_npcs.set_process(true)
+  for i in 4:await physics_frame
   game.explore_access.map_token=[];game.explore_access._process(.2)
+  var trigger_trace=[]
   game.army_runtime.refresh_navigation(0)
   game.explore_access.map_token=[];game.explore_access._process(.2)
   if route[2]=="lizard":
    var at=Original.source_point(16520,Vector2i(10,3))
    await approach_boss(at)
-  if route[2]in["altar","5320"] or "--matrix"in OS.get_cmdline_user_args():
+  if not route[2].begins_with("new-"):
    var spots=game.explore_access.boss_spots.filter(func(s):return s.get("key","")==route[2]or s.get("actor","")==route[2]or s.get("group","")==route[2]or route[2]in s.get("actors",[]))
    check(not spots.is_empty(),"Scripted boss has a defined marked encounter location "+route[2])
    if not spots.is_empty():
@@ -81,22 +90,38 @@ func run():
     check(station.is_finite(),"Scripted boss has source-open physical approach "+route[2])
     if station.is_finite():
      var approach=station
-     for direction in 16:
-      var point=station+Vector2.from_angle(direction*TAU/16.)*2.5
-      var world=game.model.world_point(point,.15)
-      if not game.explore_access.body_clear(world)or not game.army_runtime.native.can_reach_ally(world,game.model.world_point(station,.15),.55*game.model.falan_scale):continue
-      if not game._ryo_clear_path(world+Vector3.UP*1.2,game.model.world_point(station,1.2)):continue
-      approach=point;break
+     for radius in[2.5,4.5,6.,9.]:
+      for direction in 16:
+       var point=station+Vector2.from_angle(direction*TAU/16.)*radius
+       var world=game.model.world_point(point,.15)
+       if not game.explore_access.body_clear(world)or not game.army_runtime.native.can_reach_ally(world,game.model.world_point(station,.15),.55*game.model.falan_scale):continue
+       if not game._ryo_clear_path(world+Vector3.UP*1.2,game.model.world_point(station,1.2)):continue
+       approach=point;break
+      if approach!=station:break
      check(approach!=station,"Boss marker has a walk-in approach")
      game.player.position=game.model.world_point(approach,.15);game.model.hero_position=game.player.position;game.player.reset_physics_interpolation()
      await walk_toward(station,90)
      check(game.player.position.distance_to(game.model.world_point(station,.15))<1.,"Player movement reaches the marked boss trigger")
      game.explorer_npcs.update_left=0;game.explorer_npcs._process(.2)
+     var chest_before=game.exploration_loot.nearest()
+     var chest_key=str(game.exploration_loot.slots[chest_before].get("key",""))if chest_before>=0 else ""
      press_f()
+     trigger_trace.append(trigger_state("F"))
+     if not chest_key.is_empty()and game.exploration_loot.opened_chests.has(chest_key)and not is_instance_valid(game.dialogue):
+      press_f();trigger_trace.append(trigger_state("F after collecting nearby loot"))
+     if is_instance_valid(game.dialogue)and game.dialogue.speaker=="回城傳送門":
+      var portals=game.explore_access.encounters.values().filter(func(r):return r.scope==game.explore_access.scope()and r.cleared and r.has("portal"))
+      portals.sort_custom(func(a,b):return game.player.position.distance_squared_to(game.model.world_point(a.portal))<game.player.position.distance_squared_to(game.model.world_point(b.portal)))
+      var alternatives=game.explore_access.boss_spots.filter(func(s):return s.has("fights")and not portals.is_empty()and s.at.distance_squared_to(portals[0].portal)<4.5*4.5)
+      var selected=alternatives.find(spot)
+      var options:Array=game.dialogue.pages[0].options
+      if selected>=0 and options.any(func(o):return o[0]=="challenge:%d"%selected):game.dialogue.chosen.emit("challenge:%d"%selected)
+      elif options.any(func(o):return o[0]=="retry"):game.dialogue.chosen.emit("retry")
      if is_instance_valid(game.dialogue)and game.dialogue.speaker=="選擇挑戰":
       var overlapping=game.explore_access.boss_spots.filter(func(s):return s.has("fights")and s.at.distance_squared_to(station)<5.*5.)
       var selected=overlapping.find(spot)
       if selected>=0:game.dialogue.chosen.emit(str(selected))
+      trigger_trace.append(trigger_state("select"))
      if is_instance_valid(game.dialogue) and game.dialogue.speaker=="Cross Gate":
       var challenges=game.dialogue.pages[0].options.filter(func(o):return str(o[0]).begins_with("challenge:"))
       var nearby=game.explore_access.boss_spots.filter(func(s):return s.has("fights")and s.at.distance_squared_to(station)<5.*5. and game.explore_access.gates.any(func(g):return str(g.get("actor",""))==str(s.actor) and g.at.distance_squared_to(station)<5.*5.))
@@ -111,6 +136,7 @@ func run():
       elif choices.any(func(o):return o[0]=="yes"):game.dialogue.chosen.emit("yes")
       else:await drain()
      else:await drain()
+     trigger_trace.append(trigger_state("challenge"))
   for i in 15:await physics_frame
   game.model.waves.tick(0.,game.player.position);game.army_runtime.import_arrivals();game.army_runtime.sync_compatibility();game.explore_access._process(.2)
   var bosses=game.model.enemies.values().filter(func(e):return e.get("boss",false))
@@ -119,14 +145,26 @@ func run():
   check(bosses.any(func(e):var proxy=game.army_runtime.enemy_target(e.id);return game.army_runtime.handles.has(e.id)and proxy!=null and game.forest_enemy_visible(proxy)),"Marked boss has an in-world native body in revealed arena ground")
   var record={"map":route[0],"boss":route[2],"choice":route[3]if route.size()>3 else 0,"initial_members":game.model.enemies.size(),"bosses":bosses.map(func(e):return e.get("enemy_name","")),"ordinary_F":route[2]in["altar","5320"]or "--matrix"in OS.get_cmdline_user_args(),"qualification":"Temporary hero invulnerability/damage boost; original enemy counts, phases, damage and timing retained."}
   record.source=100 if route[0]==0 and route[2]=="5237"else Original.source_id(route[0])
+  record.production_sources=production_sources
+  record.trigger_trace=trigger_trace
   record.diagnostics={"floor":game.model.falan_floor,"source":game.model.waves.patrol_source.resource_path,"endpoint":str(game.explore_access.endpoint),"endpoint_blocker":game.model.get_meta("explore_endpoint_blocker",{}),"spots":str(game.explore_access.boss_spots),"east_blockers":get_meta("east_battle_blockers",{}),"dialogue":game.dialogue.speaker if is_instance_valid(game.dialogue) else "closed"}
+  if bosses.is_empty()or game.paused:
+   record.passed=false;record.diagnostics.options=game.dialogue.pages[game.dialogue.page].get("options",[])if is_instance_valid(game.dialogue)else[]
+   boss_report.append(record);save_boss_report();continue
+  if route[0]==15518:
+   var cow_skin=int(preload("res://scripts/forest/crowd/east_region_sprites.gd").data().species.filter(func(s):return int(s.id)==101921)[0].skin)
+   check(game.model.enemies.values().any(func(e):return int(e.get("skin",-1))==cow_skin and game.army_runtime.handles.has(e.id)and game.forest_enemy_visible(game.army_runtime.enemy_target(e.id))),"Original cow has a visible native in-world body beside Alubass")
   await access_capture("boss-"+str(route[2])+"-active")
   var fight_key=""if bosses.is_empty()else game.explore_access.group(bosses[0])
   if not bosses.is_empty():await approach_boss(Vector2(bosses[0].pos.x,bosses[0].pos.z)/game.model.falan_scale)
   await fight_with_player_inputs(fight_key,record)
+  await wait_for_portal(fight_key)
   game.explore_access._process(.2)
   var returns=game.explore_access.encounters.values().filter(func(r):return r.scope==game.explore_access.scope() and r.group==fight_key and r.cleared and r.has("portal"))
   var portals=returns.map(func(r):return {"at":r.portal})
+  if portals.is_empty():await access_capture("boss-"+str(route[2])+"-unresolved")
+  record.living_arena=survivors("")
+  record.encounters=game.explore_access.encounters.values().filter(func(r):return r.scope==game.explore_access.scope()).map(func(r):return {"group":r.group,"cleared":r.cleared,"pending":r.pending,"portal":r.get("portal",null),"portal_pending":r.get("portal_pending",false),"superseded":r.get("superseded",false)})
   check(portals.size()==1,"Complete encounter produces one optional return portal "+str(route[2]))
   if not returns.is_empty():
    check(game.explore_access.pins().any(func(p):return p.label.begins_with("✓ 已擊敗")and p.at==returns[0].at),"Discovered boss pin changes to cleared after complete victory")
@@ -166,8 +204,9 @@ func run():
     if not retry_party.is_empty():await approach_boss(Vector2(retry_party[0].pos.x,retry_party[0].pos.z)/game.model.falan_scale)
     var retry_record={}
     await fight_with_player_inputs(fight_key,retry_record);game.explore_access._process(.2)
+    await wait_for_portal(fight_key,earned+1)
     check(returns[0].cleared and returns[0].has("portal") and returns[0].victories==earned+1,"Later full victory earns one fresh portal and chest generation")
-    record.retry={"passed":returns[0].cleared and returns[0].get("victories",0)==earned+1,"attack_inputs":retry_record.attack_inputs,"native_ids":retry_record.targeted_native_ids,"observations":retry_record.input_observations,"remaining":str(game.model.enemies.values()),"record":str(returns[0])}
+    record.retry={"passed":returns[0].cleared and returns[0].get("victories",0)==earned+1,"attack_inputs":retry_record.attack_inputs,"native_ids":retry_record.targeted_native_ids,"observations":retry_record.input_observations,"last_input":retry_record.get("last_input",{}),"remaining":survivors(fight_key),"record":str(returns[0])}
     if returns[0].has("portal"):
      game.player.position=game.model.world_point(returns[0].portal,.15);game.model.hero_position=game.player.position;game.player.reset_physics_interpolation()
    var gold=game.model.gold;var items:Dictionary=get_meta("university_quest_items",{}).duplicate(true);var checkpoint=game.checkpoint
@@ -181,6 +220,7 @@ func run():
  finish()
 func fight_with_player_inputs(fight_key:String,record:Dictionary):
  var attack_inputs=0;var target_ids={}
+ var last_health="";var stagnant_inputs=0
  record.input_observations=[];record.seen_boss_ids=[];record.tab_inputs=0
  for tick in 3600:
   var living=game.model.enemies.values().filter(func(e):return e.hp>0 and (fight_key.is_empty()or game.explore_access.member(e,fight_key)))
@@ -194,6 +234,9 @@ func fight_with_player_inputs(fight_key:String,record:Dictionary):
     check(body!=null and game.army_runtime.handles.has(enemy.id),"Each required boss phase enters the shared native presentation")
     record.seen_boss_ids.append(enemy.id)
   if tick%30==0:
+   var health=JSON.stringify(living.map(func(e):return [e.id,e.hp]))
+   stagnant_inputs=stagnant_inputs+1 if health==last_health else 0;last_health=health
+   if stagnant_inputs>=20:record.no_progress=true;break
    var nearest=living[0]
    for e in living:
     if e.pos.distance_squared_to(game.player.position)<nearest.pos.distance_squared_to(game.player.position):nearest=e
@@ -217,13 +260,32 @@ func fight_with_player_inputs(fight_key:String,record:Dictionary):
     var screen=game.crosshair_screen_position()
     var release=InputEventMouseButton.new();release.button_index=MOUSE_BUTTON_LEFT;release.position=screen;release.global_position=screen;release.pressed=false;game.player._input(release)
     var click=InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.position=screen;click.global_position=screen;click.pressed=true;game.player._unhandled_input(click)
-    if record.input_observations.size()<4:
-     var picked=game.enemy_near_crosshair(120.)
-     record.input_observations.append({"target":nearest.id,"hero":str(game.player.position),"target_at":str(nearest.pos),"on_floor":game.player.is_on_floor(),"playing":game.playing,"paused":game.paused,"transitioning":game.transitioning,"visible":game.forest_enemy_visible(proxy),"picked":picked.forest_id if picked!=null else -1,"mode":game.player.active_ability.mode,"selected":game.player.active_ability.selected_primary_enemy()!=null})
+    var picked=game.enemy_near_crosshair(120.);var selected=game.player.active_ability.selected_primary_enemy()
+    record.last_input={"target":nearest.id,"hero":str(game.player.position),"target_at":str(nearest.pos),"on_floor":game.player.is_on_floor(),"playing":game.playing,"paused":game.paused,"transitioning":game.transitioning,"visible":game.forest_enemy_visible(proxy),"picked":picked.forest_id if picked!=null else -1,"mode":game.player.active_ability.mode,"selected":selected!=null,"selected_id":selected.forest_id if selected!=null else -1,"proxy_at":str(proxy.global_position),"bounds":str(proxy.combat_bounds()),"query_shapes":proxy.find_children("*","CollisionShape3D",false,false).map(func(shape):return [str(shape.global_position),str(shape.shape.get_debug_mesh().get_aabb())]),"attack_line":preload("res://scripts/attack_chain.gd").clear_line(game,game.player.position+Vector3.UP*1.2,aim),"camera_line":preload("res://scripts/attack_chain.gd").clear_line(game,game.camera_rig.camera.global_position,aim)}
+    if record.input_observations.size()<4:record.input_observations.append(record.last_input)
     attack_inputs+=1;target_ids[nearest.id]=true
   await physics_frame
  var release=InputEventMouseButton.new();release.button_index=MOUSE_BUTTON_LEFT;release.pressed=false;Input.parse_input_event(release)
  record.attack_inputs=attack_inputs;record.targeted_native_ids=target_ids.keys()
+ record.survivors=survivors(fight_key)
+
+func survivors(fight_key:String)->Array:
+ return game.model.enemies.values().filter(func(e):return e.hp>0 and (fight_key.is_empty()or game.explore_access.member(e,fight_key))).map(func(e):return {"id":e.id,"hp":e.hp,"at":str(e.pos),"group":game.explore_access.group(e),"slot":e.get("university_slot",-1),"player_reach":game.army_runtime.native.can_reach_ally(game.player.position,e.pos,.55*game.model.falan_scale)})
+
+func wait_for_portal(fight_key:String,victories:int=1):
+ for frame in 180:
+  var record:Dictionary=game.explore_access.encounters.get(game.explore_access.scope()+":"+fight_key,{})
+  if record.get("cleared",false)and record.has("portal")and int(record.get("victories",0))>=victories:return
+  await physics_frame
+
+func setup_walkable(at:Vector2)->bool:
+ for ring in 9:
+  for direction in 16:
+   var point=game.model.world_point(at+Vector2.from_angle(direction*TAU/16.)*ring*1.5,.15)
+   if not game.explore_access.body_clear(point)or not game.model.terrain.disk_clear(point/game.model.falan_scale,.65):continue
+   if not game.army_runtime.native.can_reach_ally(point,point,.55*game.model.falan_scale):continue
+   game.player.position=point;game.model.hero_position=point;game.player.reset_physics_interpolation();return true
+ return false
 
 func walk_to_clear_shot(enemy):
  var at=Vector2(enemy.global_position.x,enemy.global_position.z)/game.model.falan_scale
@@ -247,6 +309,9 @@ func approach_boss(at:Vector2):
   game.player.position=world;game.model.hero_position=world;game.player.reset_physics_interpolation()
   await walk_toward(at+(point-at).normalized()*3.5,90)
   return
+func trigger_state(stage:String)->Dictionary:
+ return {"stage":stage,"speaker":game.dialogue.speaker if is_instance_valid(game.dialogue)else"closed","options":game.dialogue.pages[game.dialogue.page].get("options",[])if is_instance_valid(game.dialogue)else[],"toast":game.forest_ui.message,"active":preload("res://scripts/forest/forest_university_region.gd").active(self,game.model.falan_floor,game.model.falan_area),"victory_pending":has_meta("university_victory"),"playing":game.playing,"paused":game.paused,"transitioning":game.transitioning,"ordinary_pause":game.ordinary_pause,"hp":game.player.hp,"equipment":is_instance_valid(game.equipment_hub),"team_picker":is_instance_valid(game.team_upgrade_picker),"combined":game.army_runtime.combined_committed,"at":str(game.player.position),"spots":game.explore_access.boss_spots.map(func(s):return [s.actor if s.has("actor")else s.get("key",""),game.player.position.distance_to(game.model.world_point(s.at))])}
+
 func save_boss_report():
  var mode="headless"if DisplayServer.get_name()=="headless"else"rendered"
  var f=FileAccess.open(ACCESS_OUT+"bosses-"+mode+".json",FileAccess.WRITE)

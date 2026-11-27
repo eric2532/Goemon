@@ -168,7 +168,7 @@ static func layout(id:int)->Dictionary:
 static func point(id:int,cell:Vector2i,seed_:int=0)->Vector2:
  var origin=state(id,seed_).origin
  return origin+Vector2(cell)*3.0
-static func source_point(id:int,cell:Vector2i)->Vector2:return point(id,cell-crop(id).position)
+static func source_point(id:int,cell:Vector2i,seed_:int=0)->Vector2:return point(id,cell-crop(id,seed_).position,seed_)
 
 static func open(bits:PackedByteArray,size_:Vector2i,cell:Vector2i)->bool:
  if not Rect2i(Vector2i.ZERO,size_).has_point(cell):return false
@@ -338,7 +338,7 @@ static func interior_stair_landing(id:int,cell:Vector2i,other:Vector2i,seed_:int
   var next=cell+direction
   if seen.has(next) and int(seen[next])<distance:chosen=next;distance=int(seen[next])
  if chosen!=cell:return point(id,chosen,seed_)
- assert(false,"Source stair requires an interior landing that does not cross its own return warp")
+ assert(false,"Source stair requires an interior landing: map=%d seed=%d stair=%s other=%s"%[id,seed_,cell,other])
  return point(id,cell,seed_)
 
 static func porch_floors(placements:Array,raw:PackedByteArray,size_:Vector2i)->Array:

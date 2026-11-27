@@ -114,7 +114,7 @@ static func safe_point(id:int,preferred:Vector2,run_seed:int=0)->Vector2:
  var size:Vector2i=floor_[0]
  var origin:Vector2=floor_[1]
  var bits=walk_mask(id,size,floor_[2].hex_decode(),run_seed)
- if id==Dungeons.GRAVE:size.y+=GRAVE_MAZE_SIZE.y
+ if id==Dungeons.GRAVE and not Original.owns(id):size.y+=GRAVE_MAZE_SIZE.y
  var best=Vector2.INF
  var distance=INF
  for z in size.y:

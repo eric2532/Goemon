@@ -36,9 +36,9 @@ func _process(delta):
   if entry.record.id.begins_with("source:") and UniversityRegion.hidden_actor(game.get_tree(),entry.record.id.trim_prefix("source:")):
    if is_instance_valid(entry.node):
     entry.node.hide()
-    if entry.record.get("dialogue_owner","")=="sokia_cape_access":entry.node.set_meta("cape_battle_hidden",true)
-  elif is_instance_valid(entry.node) and entry.node.get_meta("cape_battle_hidden",false):
-   entry.node.show();entry.node.remove_meta("cape_battle_hidden")
+    entry.node.set_meta("battle_hidden",true)
+  elif is_instance_valid(entry.node) and entry.node.get_meta("battle_hidden",false):
+   entry.node.show();entry.node.remove_meta("battle_hidden")
   if not is_instance_valid(entry.node) or not entry.node.is_visible_in_tree():continue
   var at:Vector3=entry.get("interaction_point",entry.node.global_position);var d=game.player.position.distance_squared_to(at)
   if d>=reach_squared:continue

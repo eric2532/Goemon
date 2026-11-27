@@ -30890,3 +30890,52 @@ per-map checklist without treating ownership or pending items as played proof.
 The expanded graph check passed 564 assertions for 77 generated floors and 75
 fixed layouts, including six already prepared server interiors newly connected
 to Explore. Their source pixels/layouts were reused; no app was exported.
+
+The subsequent Explore pass connected the original Alubass cave configuration300
+(15–16 floors), its fixed rooms15518/15519 and the five previously staged Cape
+layouts. The original doctor/cow party11001is retained. Cow101921appends at
+East skin167through the existing importer. Its632frames across56clips preserve
+source RGBA, anchors, duration, contact and audio cues; all167earlier kits remain
+exact. This is technical preservation, not rendered appearance approval. The
+focused original-frame checks pass; native acceptance and arena review remain
+separate. The93-floor/82-fixed-layout graph result predates the three ice-room
+floors59702–59704, which were then recovered from pinned blobs with original
+NPC events. The actual field Cross Gate into59702and its F return passed8checks.
+The ice branch ends in its original food service, so no checklist boss is added.
+
+A one-second sample of the route sweep exposed repeated continental setup work.
+A diagnostic current-source run of33000recorded32.964seconds for the first geometry
+pass and29.222/29.403seconds for subsequent passes over497815placements. Model setup
+was1.482seconds cold andabout0.12seconds warm. The exact F transfer and return
+passed9checks. These are headless setup measurements, not gameplay FPS or a
+claim that the native simulation is slow. Temporary timing probes were removed.
+The existing tools/bake_east_continental_ground.gd is the intended remedy; its
+serialized geometry preservation passed4checks for33000and43000, including exact
+embedded texture pixels. Fresh rendered comparison and cached load timing must
+pass before claiming a cache speedup. The wider interaction audit remains pending.
+
+Adjacent source actors that declare the same encounter and return destination
+within8metres share Explore discovery/clearance ownership. An active battle
+blocks another automatic StandEnemy start, and a cleared original trigger stays
+quiet while looting. Explicit F challenges and portal retry remain available.
+Different encounters and distant markers keep independent ownership. Retest
+34024and15518after changes to this contract; old source-boss passes do not
+certify the revised alias handling. Long gate menus use the existing dialogue
+ScrollContainer/focus controls; the focused menu fixture checks keyboard and real
+mouse input at1280×800and1024×640; this passed10checks. Rendered review remains
+separate from those input assertions.
+
+The source encounter preparer must retain mandatory members whose optional draw
+weight is zero. The omission affected15groups, including the four elemental
+spirits and the grave flower. The recovery supplement repairs their original
+groups without shifting established species indices; six appearances append
+after the168existing native kits. The published174-variant bank passes704native
+acceptance/reuse checks. Eight fixed seeds across the first and last floors of
+all83generated branches pass2656stair connectivity checks; this has not yet
+reproduced or resolved the rare seed-specific stair assertion in the route sweep.
+The six appended models additionally pass2072complete source frames with exact
+visible RGBA/alpha, anchors, durations, contact timing and audio bytes. Invisible
+palette RGB is canonicalized to zero by the established indexed importer; source
+masters retain their original bytes. The four reused Elsa kits retain their
+existing native cue opcodes; source timing and sound bytes are verified through
+that mapping rather than assuming raw cue IDs equal native opcodes.

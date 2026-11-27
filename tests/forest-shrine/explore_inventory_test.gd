@@ -5,7 +5,7 @@ const ACCESS="res://build/Other Files/Asset Toolkit/Explore Access/"
 
 func run():
  var census=JSON.parse_string(FileAccess.get_file_as_string(ACCESS+"map-checklist.json"))
- var report={"qualification":"Runtime ownership/source contracts only. Does not establish on-foot interaction or battle completion.","maps":[],"bosses":[],"blockers":[],"missing_fixed_destinations":[]}
+ var report={"qualification":"Runtime ownership/source contracts only. Does not establish on-foot interaction or battle completion.","maps":[],"bosses":[],"native_bosses":[],"blockers":[],"missing_fixed_destinations":[]}
  var bank=East.data()
  for row in census.maps:
   var id=Original.runtime_id(int(row.map));var active=Original.owns(id)
@@ -32,7 +32,9 @@ func run():
      seen[encounter]=true;status.encounters.append(encounter)
      var zone:Dictionary=boss_bank.bosses.get(str(encounter),{})
      if zone.is_empty():status.blockers.append("Original encounter %d is not in the prepared East source bank; review its original owner."%encounter);continue
+     if zone.groups.is_empty():status.blockers.append("Original encounter %d has no prepared source party."%encounter)
      for choice in zone.groups:
+      if boss_bank.groups[choice[0]].details.is_empty():status.blockers.append("Original encounter %d group %s has no prepared members."%[encounter,choice[0]])
       for member in boss_bank.groups[choice[0]].details:
        if not source.available(int(member.species))if source==East else boss_bank.species[int(member.species)].bank not in["companion","sokia_region"]:
         var message="Original appearance %d lacks an authenticated attack contact marker (encounter %d)."%[boss_bank.species[int(member.species)].id,encounter]
@@ -40,6 +42,24 @@ func run():
      if int(zone.next_encounter)>0:pending.append(int(zone.next_encounter))
    report.bosses.append(status)
    if active and not status.blockers.is_empty():report.blockers.append(status)
+ var regional=preload("res://scripts/forest/forest_university_region.gd")
+ for key in regional.BOSSES:
+  var spec=regional.specification(key,20261127);var source=regional.bank_for(key);var payload:Dictionary=source.data()
+  var status={"source":Original.source_id(spec.map),"runtime":spec.map,"actor":"regional:"+key,"name":key,"runtime_owner":known_source(Original.source_id(spec.map)),"encounters":[],"blockers":[]}
+  var pending=[int(spec.encounter)];var seen={}
+  while not pending.is_empty():
+   var encounter:int=pending.pop_back()
+   if encounter<=0 or seen.has(encounter):continue
+   seen[encounter]=true;status.encounters.append(encounter)
+   var zone:Dictionary=payload.bosses.get(str(encounter),{})
+   if zone.is_empty()or zone.get("groups",[]).is_empty():status.blockers.append("Original encounter %d has no prepared source party."%encounter);continue
+   for choice in zone.groups:
+    for detail in payload.groups[choice[0]].details:
+     var species:Dictionary=payload.species[int(detail.species)]
+     if species.bank=="unavailable":status.blockers.append("Original appearance %d (%s): %s"%[species.id,species.name,species.get("reason","Original native action/contact contract is unavailable.")])
+   if int(zone.next_encounter)>0:pending.append(int(zone.next_encounter))
+  report.native_bosses.append(status)
+  if not status.blockers.is_empty():report.blockers.append(status)
  for warp in Original.Art.data().warps:
   if known_source(int(warp[0]))and not known_source(int(warp[3])):report.missing_fixed_destinations.append(warp)
  var file=FileAccess.open(ACCESS+"runtime-inventory.json",FileAccess.WRITE);file.store_string(JSON.stringify(report,"  "));file.close()

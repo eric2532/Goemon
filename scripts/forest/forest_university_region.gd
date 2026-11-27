@@ -240,6 +240,7 @@ static func begin(game,key:String,poison_answer:int=-1,retry:bool=false)->bool:
  var source=bank_for(key)
  var battles:Dictionary=tree.get_meta(BATTLES,{})
  var exploring=is_instance_valid(game.get("explore_access")) and game.explore_access.enabled()
+ if exploring and tree.has_meta("university_victory"):game.toast("戰鬥結算中");return false
  if battles.get(key,{}).get("complete",false):
   if not exploring or not retry:return false
   var slain:Dictionary=tree.get_meta(SLAIN,{})

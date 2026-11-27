@@ -41,7 +41,7 @@ func refresh(model)->void:
   var size:Vector2i=floor_[0]
   var pools=Tour.Indoor.RoomArt.pool_tiles(id,size)
   var walk=Tour.Indoor.walk_mask(id,size,floor_[2].hex_decode(),model.seed_value)
-  if id==Tour.Dungeons.GRAVE:size.y+=Tour.Indoor.GRAVE_MAZE_SIZE.y
+  if id==Tour.Dungeons.GRAVE and not Tour.Indoor.Original.owns(id):size.y+=Tour.Indoor.GRAVE_MAZE_SIZE.y
   bounds=Rect2(floor_[1]-Vector2.ONE*1.5,Vector2(size)*3.0)
   var image=Image.create_empty(size.x,size.y,false,Image.FORMAT_RGBA8)
   for z in size.y:

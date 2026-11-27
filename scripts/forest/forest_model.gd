@@ -157,7 +157,8 @@ func reset(value: int,config: Dictionary={},layout: Dictionary={},include_mines:
 	if falan_area=="interior" and preload("res://scripts/forest/forest_original_maps.gd").owns(falan_floor):
 		var original_floor=preload("res://scripts/forest/forest_original_maps.gd").floor_info(falan_floor,seed_value)
 		var low=Vector2i(((original_floor[1]-Vector2.ONE*1.5)/CELL).floor())
-		var high=Vector2i(((original_floor[1]+Vector2(original_floor[0])*3.0)/CELL).ceil())
+		# Native bounds subtract a half route cell; retain the last source tile's walking margin.
+		var high=Vector2i(((original_floor[1]+Vector2(original_floor[0])*3.0+Vector2.ONE*1.5)/CELL).ceil())
 		navigation_region=Rect2i(low,high-low)
 	raised_castle=terrain_source=="wind_meadow" and bool(layout.get("raised_castle",false))
 	terrain=create_terrain(terrain_source,terrain_scale,map_expansion,raised_castle,terrain_detail,falan_area)

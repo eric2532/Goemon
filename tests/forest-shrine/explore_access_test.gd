@@ -11,6 +11,7 @@ func run():
  game.find_child("ForestFalan",true,false).pressed.emit();game.choose_rogue_character(game.player.RogueRoster.KAZI_ID)
  game.settings.forest_level_up_cards=false;game.equipment_hub.enter_button.pressed.emit()
  for i in 4:await physics_frame
+ set_test_seed()
  game.tuning.invincible=true;game.player.set_auto_attack(false)
  if "--routes"in OS.get_cmdline_user_args():
   await route_checks();finish();return
@@ -90,7 +91,20 @@ func walk_toward(at:Vector2,frames:int=120):
   if Vector2(game.player.position.x,game.player.position.z).distance_squared_to(at*game.model.falan_scale)<pow(.4*game.model.falan_scale,2):break
  Input.action_release("move_forward");game.player.velocity=Vector3.ZERO
 
+func set_test_seed():
+ var seed_=20261127
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--seed="):seed_=int(arg.trim_prefix("--seed="))
+ game.run_seed=seed_;game.model.seed_value=seed_
+ print("EXPLORE_TEST_SEED ",seed_)
+
 func visit_source(id:int,cell:Vector2i):
+ if Original.generated().owns(id):
+  var point=Original.source_point(id,cell,game.model.seed_value)
+  Tour.travel(game,Original.layout(id),{"arrival":Tour.Indoor.safe_point(id,point,game.model.seed_value),"yaw":0.,"velocity":Vector3.ZERO})
+  for i in 8:await physics_frame
+  check(game.model.falan_floor==id,"Existing generated owner loads source area "+str(id))
+  return
  if Original.owns(id):
   await super.visit_source(id,cell)
   return
@@ -125,7 +139,9 @@ func route_checks():
    var target:Array=routes.ACTIONS.get(action,[])
    if action.begins_with("ice:"):target=preload("res://assets/maps/falan/university_region/ice_events.gd").EVENTS.get(action.trim_prefix("ice:"),{}).get("target",[])
    if not target.is_empty()and target not in destinations:destinations.append(target)
-   for destination in destinations:cases.append([Original.runtime_id(int(npc.source)),Vector2i(npc.cell[0],npc.cell[1]),int(destination[0]),false,Vector2i(destination[1],destination[2]),action,str(npc.id)])
+   for destination in destinations:
+    cases.append([Original.runtime_id(int(npc.source)),Vector2i(npc.cell[0],npc.cell[1]),int(destination[0]),false,Vector2i(destination[1],destination[2]),action,str(npc.id)])
+    if action=="music_secret":cases.append([4417,Vector2i(npc.cell[0],npc.cell[1]),int(destination[0]),false,Vector2i(destination[1],destination[2]),action,str(npc.id)])
   var definitions=cases.map(func(c):return {"source":Original.source_id(c[0]),"runtime":c[0],"cell":[c[1].x,c[1].y],"target":c[2],"landing":[c[4].x,c[4].y],"action":c[5],"actor":c[6],"type":"Manual NPC access","name":c[5],"evidence":"assets/maps/falan/university_region/population.json"})
   var file=FileAccess.open(ACCESS_OUT+"manual-access-routes.json",FileAccess.WRITE);file.store_string(JSON.stringify({"routes":definitions},"  "));file.close()
  if "--fields"in OS.get_cmdline_user_args():
@@ -141,14 +157,32 @@ func route_checks():
   for key in generated.SPECS:
    var spec:Dictionary=generated.SPECS[key];var first=generated.floor_id(key,1);var state=Original.state(first,game.model.seed_value)
    var landing=Vector2i(((generated.landing(first,game.model.seed_value,true)-state.origin)/3.).round())
-   cases.append([Original.runtime_id(int(spec.entry[0])),generated.entry_cell(key,game.model.seed_value),first,false,landing,"generated:"+key,"generated:"+key])
+   var entry=load("res://scripts/forest/forest_east_region.gd").prepare_field_entry(key,game.model.seed_value)if int(spec.entry[0])==100 and spec.get("east",false)else generated.entry_cell(key,game.model.seed_value)
+   cases.append([Original.runtime_id(int(spec.entry[0])),entry,first,false,landing,"generated:"+key,"generated:"+key])
+  var definitions=cases.map(func(c):return {"source":Original.source_id(c[0]),"runtime":c[0],"cell":[c[1].x,c[1].y],"target":c[2],"landing":[c[4].x,c[4].y],"action":c[5],"actor":c[6],"type":"Generated branch access","name":c[5],"seed":game.model.seed_value,"evidence":"scripts/forest/forest_original_dungeons.gd"})
+  var file=FileAccess.open(ACCESS_OUT+"generated-access-routes.json",FileAccess.WRITE);file.store_string(JSON.stringify({"routes":definitions},"  "));file.close()
+ if "--generated-floors"in OS.get_cmdline_user_args():
+  cases=[]
+  var generated=Original.generated()
+  for key in preload("res://assets/maps/falan/explore-dungeon-specs.gd").SPECS:
+   for n in range(1,generated.count(key,game.model.seed_value)+1):
+    var id=generated.floor_id(key,n);var state=Original.state(id,game.model.seed_value)
+    var links=Original.links(id,game.model.seed_value)
+    if links.size()<2:continue
+    var link:Dictionary=links[1];var target=int(link.floor);var target_state=Original.state(target,game.model.seed_value)
+    var cell=Vector2i(((link.at-state.origin)/3.).round())
+    var landing=Vector2i(((link.arrival-target_state.origin)/3.).round())+Original.crop(target).position
+    cases.append([id,cell,target,false,landing,"generated:"+key+":floor:%d"%n,"generated:"+key])
+  var definitions=cases.map(func(c):return {"source":c[0],"runtime":c[0],"cell":[c[1].x,c[1].y],"target":c[2],"landing":[c[4].x,c[4].y],"action":c[5],"actor":c[6],"type":"Generated floor stair","name":Original.title(c[0]),"seed":game.model.seed_value,"evidence":"assets/maps/falan/explore-dungeon-specs.gd"})
+  var file=FileAccess.open(ACCESS_OUT+"generated-floor-routes.json",FileAccess.WRITE);file.store_string(JSON.stringify({"routes":definitions},"  "));file.close()
  for arg in OS.get_cmdline_user_args():
   if arg.begins_with("--source="):cases=cases.filter(func(c):return c[0]==int(arg.trim_prefix("--source=")))
-  if arg.begins_with("--skip="):cases=cases.slice(int(arg.trim_prefix("--skip=")))
-  if arg.begins_with("--limit="):cases=cases.slice(0,int(arg.trim_prefix("--limit=")))
  if "--unverified"in OS.get_cmdline_user_args():
   var history=JSON.parse_string(FileAccess.get_file_as_string(ACCESS_OUT+"routes-history.json"))if FileAccess.file_exists(ACCESS_OUT+"routes-history.json")else{}
   cases=cases.filter(func(route):return not history.values().any(func(row):return row.get("passed",false)and row.get("verified_transition",false)and int(row.source)==Original.source_id(route[0])and int(row.target)==route[2]and row.get("cell","")==str(route[1])and row.get("landing","")==str(route[4])))
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--skip="):cases=cases.slice(int(arg.trim_prefix("--skip=")))
+  if arg.begins_with("--limit="):cases=cases.slice(0,int(arg.trim_prefix("--limit=")))
  for route in cases:
   print("EXPLORE_ROUTE_CASE ",route)
   var before_failures=failures
@@ -156,6 +190,10 @@ func route_checks():
   var target_runtime=route[2]if generated_target else Original.runtime_id(route[2])
   if is_instance_valid(game.dialogue):game.close_boss_dialogue()
   game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.explorer_npcs.set_process(false)
+  if game.explorer_clock.phase_floor(route[0])!=route[0]:
+   for hour in[12.,0.]:
+    game.explorer_clock.load_hour(hour)
+    if game.explorer_clock.phase_floor(route[0])==route[0]:break
   var field=route[0]in[100,300,1000,2000,2400]
   if field:
    check(preload("res://scripts/forest/forest_explore_routes.gd").travel(game,route[0],route[1]),"Published source region supplies the entrance approach")
@@ -165,7 +203,7 @@ func route_checks():
   game.explorer_npcs.prepare()
   var info=Tour.Indoor.floor_info(game.model.falan_floor,game.model.seed_value)if not field else[Vector2i.ZERO,Vector2.ZERO,""]
   var bits=Tour.Indoor.walk_mask(game.model.falan_floor,info[0],info[2].hex_decode(),game.model.seed_value)if not field else PackedByteArray()
-  var source_at=load("res://scripts/forest/forest_east_region.gd").source_point(Original.source_id(route[0]),route[1],game.model.falan_area);var prepared=false
+  var source_at=Original.source_point(route[0],route[1],game.model.seed_value)if Original.generated().owns(route[0])else load("res://scripts/forest/forest_east_region.gd").source_point(Original.source_id(route[0]),route[1],game.model.falan_area);var prepared=false
   var old_triggers=preload("res://scripts/forest/forest_explore_routes.gd").candidates(game).filter(func(g):return g.get("target",-1)==route[2]and g.get("exclude_trigger",Rect2()).has_area()).map(func(g):return g.exclude_trigger)
   for ring in 9:
    for direction in 16:
@@ -251,7 +289,7 @@ func route_checks():
   check(transferred and destination_matches(route[2],generated_target),"Actual F loads intended destination %d"%route[2])
   var entered_at=game.player.position
   if route.size()>4 and Original.owns(target_runtime):
-   var expected=Original.source_point(target_runtime,route[4])
+   var expected=Original.source_point(target_runtime,route[4],game.model.seed_value)
    check(Vector2(entered_at.x,entered_at.z).distance_to(expected*game.model.falan_scale)<8.*game.model.falan_scale,"Cross Gate reaches the selected destination entrance")
   check(game.model.gold==gold and get_meta("university_quest_items",{})==items and game.settings.explorer_quests==quests,"Explore transfer grants no prerequisite, completion or reward")
   game.explore_access._process(.2)
@@ -295,6 +333,7 @@ func leave_ordinary()->bool:
  return false
 
 func save_routes(report:Array):
+ for row in report:row.get_or_add("seed",game.model.seed_value)
  var mode="headless"if DisplayServer.get_name()=="headless"else"rendered"
  var path=ACCESS_OUT+"routes-"+mode+".json"
  var f=FileAccess.open(path,FileAccess.WRITE);f.store_string(JSON.stringify({"routes":report,"checks":checks,"failures":failures},"  "));f.close()

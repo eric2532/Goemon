@@ -1,5 +1,6 @@
 """The appended original cow preserves prior kits and the complete source motion."""
 import json
+import hashlib
 from pathlib import Path
 import struct
 import sys
@@ -41,8 +42,17 @@ class LaboratoryNativeTest(unittest.TestCase):
         self.assertEqual(json.loads((BANK / 'species.json').read_text())[:len(old_species)], old_species)
 
     def test_original_pixels_anchors_durations_contacts_and_audio(self):
-        key = 'original:2973'; skin = 167; manifest = self.new; table = self.b
-        self.assertEqual(manifest['variants'][skin]['id'], 101921)
+        self.check_original('original:2973', 167, 101921)
+
+    def test_mandatory_members_preserve_their_complete_source_motion(self):
+        species = json.loads((BANK / 'species.json').read_text())
+        for skin in range(168, 174):
+            with self.subTest(appearance=species[skin]['id']):
+                self.check_original(species[skin]['key'], skin, species[skin]['id'])
+
+    def check_original(self, key, skin, appearance):
+        manifest = self.new; table = self.b
+        self.assertEqual(manifest['variants'][skin]['id'], appearance)
         _, _, clips = cg.actor(key); source = {(c['action'], c['direction']): c for c in clips}
         idle, _, oy = cg.frame_parts(key, source[0, 4]['index'], 0)
         _, foot = body_rows(idle); shift = oy + foot - 10
@@ -66,19 +76,32 @@ class LaboratoryNativeTest(unittest.TestCase):
                     actual = Image.new('RGBA',(w,h));actual.putdata([colors[row][v] for v in images[path].crop((x,y,x+w,y+h)).getdata()])
                     image,sx,sy = cg.frame_parts(key, original['index'], index)
                     box = image.getbbox();image = image.crop(box)
-                    self.assertEqual((actual.size, actual.tobytes()), (image.size, image.tobytes()), (action,direction,index))
+                    # The indexed importer canonicalizes invisible palette RGB to zero.
+                    image = Image.alpha_composite(Image.new('RGBA', image.size), image)
+                    self.assertEqual(actual.size, image.size, (key, action, direction, index))
+                    self.assertEqual(hashlib.sha256(actual.tobytes()).hexdigest(), hashlib.sha256(image.tobytes()).hexdigest(), (key, action, direction, index))
                     self.assertEqual((ox,oy), (sx+box[0],sy+box[1]-shift), (action,direction,index))
                     frames += 1
         for direction in range(8):
             clip = source[5,direction]; cues = cg_sounds.clip_cues(clip)
             self.assertTrue(any(10000<=c['flag']<20000 for c in cues))
             expected = [clip['duration']*.03,len(cues)]
+            contact_ids = sorted({c['id'] for c in cues if 10000 <= c['flag'] < 20000})
+            sound_ids = sorted({c['id'] for c in cues if not 10000 <= c['flag'] < 20000})
+            sound_manifest = json.loads((ROOT.parent / 'Magic Power/godot/assets/sounds/manifest.json').read_text())['sounds']
             for cue in cues:
-                expected.extend([cue['atMs']*.03,(10000 if 10000<=cue['flag']<20000 else 20000)+cue['id']])
-                self.assertIn(f"{skin}:{cue['id']}", manifest['sounds'])
+                contact = 10000 <= cue['flag'] < 20000
+                opcode = ([135,138,164,165][contact_ids.index(cue['id'])] if contact else [106,112,131,157][sound_ids.index(cue['id'])]) if skin in range(168,172) else (10000 if contact else 20000)+cue['id']
+                expected.extend([cue['atMs']*.03,opcode])
+                sound = f"{skin}:{opcode if skin in range(168,172) else cue['id']}"
+                self.assertTrue(sound in manifest['sounds'], sound)
+                target = manifest['sounds'][sound]
+                published = ROOT / target.removeprefix('res://') if target.startswith('res://') else BANK / target
+                original_sound = ROOT.parent / 'Magic Power/godot/assets' / sound_manifest[str(cue['id'])]['file']
+                self.assertEqual(hashlib.sha256(published.read_bytes()).hexdigest(), hashlib.sha256(original_sound.read_bytes()).hexdigest(), (key, direction, cue['id']))
             expected += [0]*(42-len(expected))
             self.assertEqual(manifest['timelines'][(skin*8+direction)*42:(skin*8+direction+1)*42], expected)
-        (REPORT / 'original-frame-proof.json').write_text(json.dumps(dict(appearance=101921,key=key,frames=frames,clips=56,rgba_exact=True,anchors_exact=True,durations_exact=True,source_cues_exact=True,visual_verified=False),indent=2)+'\n')
+        (REPORT / ('original-frame-proof.json' if skin == 167 else f'{appearance}-original-frame-proof.json')).write_text(json.dumps(dict(appearance=appearance,key=key,frames=frames,clips=56,rgba_exact=True,anchors_exact=True,durations_exact=True,source_cues_exact=True,visual_verified=False),indent=2)+'\n')
 
 
 if __name__ == '__main__':

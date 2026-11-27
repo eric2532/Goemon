@@ -13,7 +13,7 @@ static func begin(game,record:Dictionary)->bool:
  if identity.begins_with("endpoint:"):
   return preload("res://scripts/forest/forest_explore_endpoints.gd").spawn(game,game.explore_access.endpoint)
  if identity=="undersea_slot":
-  waves.undersea_source_requested=false;waves.undersea_source_pending=false;waves.snow_pending=[];waves.snow_group_ids=[]
+  waves.undersea_source_requested=false;waves.undersea_source_pending=false;waves.snow_pending.clear();waves.snow_group_ids.clear()
   return true
  if identity=="ruby_slot":
   var ruby=game.FalanTour.Ruby;var events=game.FalanTour.RubyEvents

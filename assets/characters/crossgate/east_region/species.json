@@ -1864,5 +1864,69 @@
       "key": "ex:1727",
       "body_pixels": 84
     }
+  },
+  {
+    "id": 110352,
+    "name": "威雷",
+    "key": "v3:2",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 21
+    }
+  },
+  {
+    "id": 110358,
+    "name": "花萝",
+    "key": "v3:8",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 22
+    }
+  },
+  {
+    "id": 110364,
+    "name": "阿陀罗",
+    "key": "v3:14",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 23
+    }
+  },
+  {
+    "id": 110370,
+    "name": "恩．凯",
+    "key": "v3:20",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 24
+    }
+  },
+  {
+    "id": 104313,
+    "name": "缪丽儿",
+    "key": "joy:97",
+    "height": 2.1666666666666665,
+    "source_body_pixels": 182,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110394,
+    "name": "守墓花妖",
+    "key": "puk2:64",
+    "height": 1.9166666666666667,
+    "source_body_pixels": 161,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
   }
 ]

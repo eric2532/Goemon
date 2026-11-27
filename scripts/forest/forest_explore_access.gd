@@ -252,7 +252,15 @@ func discover(enemy:Dictionary)->String:
  if identity.begins_with("regional:"):
   var battle_key=identity.trim_prefix("regional:")
   var spec:Dictionary=preload("res://scripts/forest/forest_university_region.gd").specification(battle_key,game.model.seed_value)
-  for actor in spec.get("actors",[]):
+  var actors:Array=spec.get("actors",[]).duplicate()
+  if battle_key.begins_with("east:")and spec.has("raw_args"):
+   var original=declaration_identity(spec.raw_args)
+   var anchors=boss_spots.filter(func(s):return str(s.get("actor",""))in actors)
+   for spot in boss_spots:
+    if not spot.has("actor")or str(spot.actor)in actors or not anchors.any(func(a):return a.at.distance_squared_to(spot.at)<=8.*8.):continue
+    for declaration:String in spot.get("fights",[]):
+     if declaration_identity(declaration)==original:actors.append(str(spot.actor));break
+  for actor in actors:
    var place=scope()+":"+str(actor)
    if enemy.hp>0:
     var previous:String=places.get(place,"")
@@ -442,18 +450,24 @@ func interaction_distance_squared()->float:
  for record in encounters.values():
   if record.scope==scope()and record.cleared and record.has("portal"):distance=minf(distance,game.player.position.distance_squared_to(game.model.world_point(record.portal,.05)))
  for gate in gates:distance=minf(distance,game.player.position.distance_squared_to(game.model.world_point(gate.at,.05)))
+ for spot in boss_spots:
+  if spot.has("fights")or spot.get("manual_begin",false)or spot.get("undersea",false):distance=minf(distance,game.player.position.distance_squared_to(game.model.world_point(spot.at,.05)))
  return distance
 
 func challenge_caption(spots:Array,index:int)->String:
  var spot:Dictionary=spots[index]
  return "Explore 挑戰 · "+spot.name+(" · %d"%(index+1)if spots.filter(func(s):return s.name==spot.name).size()>1 else "")
 
+func declaration_identity(value:String)->String:
+ var fields=value.split("|",true)
+ return fields[9].strip_edges()+":"+fields[1].strip_edges()if fields.size()>9 else value
+
 func source_boss_cleared(actor:String)->bool:
  var key:String=places.get(scope()+":"+actor,"")
  if encounters.get(key,{}).get("cleared",false):return true
  var sources=boss_spots.filter(func(s):return str(s.get("actor",""))==actor or actor in s.get("actors",[]))
  for spot in boss_spots:
-  var same_trigger=sources.any(func(s):return is_same(s,spot)or s.at.distance_squared_to(spot.at)<=8.*8. and s.get("fights",[]).any(func(f):return f in spot.get("fights",[])))
+  var same_trigger=sources.any(func(s):return is_same(s,spot)or s.at.distance_squared_to(spot.at)<=8.*8. and s.get("fights",[]).any(func(f):return spot.get("fights",[]).any(func(other):return declaration_identity(f)==declaration_identity(other))))
   if same_trigger and encounters.get(scope()+":"+spot.group,{}).get("cleared",false):return true
  return false
 
@@ -484,7 +498,7 @@ func portal_menu(record:Dictionary):
   elif answer.begins_with("challenge:"):challenge(challenges[int(answer.trim_prefix("challenge:"))]))
 
 func challenge(spot:Dictionary)->bool:
- if not preload("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty() or encounters.values().any(func(r):return r.scope==scope() and r.get("pending",false)):game.toast("請先完成目前的戰鬥");return true
+ if game.get_tree().has_meta("university_victory")or not preload("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty() or encounters.values().any(func(r):return r.scope==scope() and r.get("pending",false)):game.toast("請先完成目前的戰鬥");return true
  if not game._ryo_clear_path(game.player.position+Vector3.UP*2.5*game.model.falan_scale,game.model.world_point(spot.at,2.5)):return false
  var choices=[["source","原始對話"]]
  for i in spot.fights.size():choices.append([str(i),"Explore 挑戰"+(" %d"%(i+1)if spot.fights.size()>1 else "")])

@@ -150,6 +150,7 @@ static func travel_source(game,source:int,cell:Vector2i)->bool:
  elif source==1000:layout=game.get_tree().get_meta("falan_venture").falan_areas.city
  else:layout=tour.Indoor.layout(maps.runtime_id(source))
  var arrival=source_point(source,cell,area)
+ if source not in [100,300,2000,2400,1000]and maps.owns(maps.runtime_id(source)):arrival=maps.source_point(maps.runtime_id(source),cell,game.model.seed_value)
  if source not in [100,300,2000,2400,1000]:arrival=tour.Indoor.safe_point(maps.runtime_id(source),arrival,game.model.seed_value)
  if game.get_tree().has_meta("falan_exit"):game.get_tree().remove_meta("falan_exit")
  game.transitioning=true
@@ -178,9 +179,16 @@ static func prepare_field_entry(key:String,seed_:int)->Vector2i:
  var candidates:Array=field_entries.get(str(spec.config),[])
  assert(not candidates.is_empty(),"An eastern field dungeon needs recorded reachable source cells")
  var maze=load("res://scripts/forest/forest_frostpass.gd").Maze
- var chosen:Array=maze.shuffled(candidates,maze.rng_for(spec.first,seed_))[0]
- var cell=Vector2i(chosen[0],chosen[1]);generated.set_entry_cell(key,seed_,cell)
- return cell
+ for chosen:Array in maze.shuffled(candidates,maze.rng_for(spec.first,seed_)):
+  var cell=Vector2i(chosen[0],chosen[1])
+  var placement=load("res://scripts/forest/forest_explore_routes.gd").field_destination(100,cell)
+  if placement.is_empty():continue
+  var actual=ContextRegions.frame(placement.area)*placement.arrival/3.
+  if actual.distance_squared_to(Vector2(cell))>.01:continue
+  generated.set_entry_cell(key,seed_,cell)
+  return cell
+ assert(false,"An eastern field dungeon needs a currently walkable published source entrance")
+ return Vector2i(spec.entry[1],spec.entry[2])
 
 static func links_source(source:int,seed_:int,area:String="")->Array:
  data()
@@ -198,7 +206,9 @@ static func links_source(source:int,seed_:int,area:String="")->Array:
   if not spec.get("east",false):continue
   if int(spec.entry[0])==source:
    var cell=prepare_field_entry(key,seed_)
-   if source==100 and not area.is_empty() and source_area(source,cell)!=area:continue
+   if source==100 and not area.is_empty():
+    var placement=load("res://scripts/forest/forest_explore_routes.gd").field_destination(source,cell)
+    if placement.is_empty()or placement.area!=area:continue
    var first:int=generated.floor_id(key,1)
    result.append(maps.door(source_point(source,cell,area),first,generated.landing(first,seed_,true),spec.title).merged({"walk_in":true,"east_original":true,"east_generator":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[0])==103012}))
   if not spec.end.is_empty() and int(spec.end[0])==source:
@@ -335,7 +345,7 @@ static func tick(game,delta:float):
   if actor.is_empty():continue
   var access=game.get("explore_access")
   if trigger.type=="StandEnemy"and is_instance_valid(access)and access.enabled():
-   if access.source_boss_cleared(str(trigger.actor))or not preload("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty():continue
+   if game.get_tree().has_meta("university_victory")or access.source_boss_cleared(str(trigger.actor))or not preload("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty():continue
   if context.is_empty():context=events.game_context(game,actor)
   var token="%d:%s:%s:%d"%[game.model.seed_value,trigger.actor,game.model.falan_area,game.model.falan_floor]
   if now<int(cooldown.get(token,0)):continue

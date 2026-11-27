@@ -201,7 +201,7 @@ def encounter_data(actors, scripts, dungeons, maps):
         raw = group_rows[gid]; members = []; details = []
         for index, eid in enumerate(raw[5:15]):
             weight = int(raw[15 + index] or 0)
-            if eid in ["", "0"] or not weight:
+            if eid in ["", "0"] or not weight and raw[25 + index] != "1":
                 continue
             if eid not in enemies or enemies[eid][3] not in bases:
                 blockers.append(dict(kind="missing_enemy", group=gid, id=eid)); continue

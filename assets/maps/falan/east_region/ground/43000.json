@@ -1,0 +1,31 @@
+{
+  "bake_ms": 87417.689,
+  "batches": 2656,
+  "checks": 2,
+  "failures": 0,
+  "floor_placements": 1017649,
+  "geometry_sha256": "71c604e99d619d3b0bc02cb4b55a87a720fbbbe7304320b8e22957f4b0999333",
+  "inputs": {
+    "res://assets/maps/falan/east_region/ground_motifs/data.json": "4521f5d330338d01fe00e9edfacf69c91a7a1eab732559c18912104ebebe9bfc",
+    "res://assets/maps/falan/east_region/landmarks/profiles.json": "0cbb2c2c01d55490d370d43d0c3f33f0a77f9dbb704f5ea6f5d75281c6e4d7c8",
+    "res://assets/maps/falan/sokia/fixed/catalog.json": "f48e550e36117b96cc5ca02912fc16c38f803843c38c75834e93c0ecc9d5bf39",
+    "res://assets/maps/original_crossgate/catalog.json": "ae20ed5db45e1ecfee1a8e97c4ae222677fbbaafb2d184156a28c6c8438100c0",
+    "res://assets/maps/original_crossgate/east/catalog.json": "554a2dbae3de1aaae3b05f5bde293c5c5d01054f5f68cc1d8efd3fa85379e0bc",
+    "res://assets/maps/original_crossgate/elsa/catalog.json": "27dd26c1d446649ac34df80d0dcc94bf812a5932a7fe9fc7794b513f87230861",
+    "res://assets/maps/original_crossgate/university/catalog.json": "3fb16095671047cec17293370fbed92825ae1c0f023d120dfb6af256f9aea518",
+    "res://scripts/forest/forest_coastal_mesh.gd": "5f7901e2b1454903757663c7c14f862a0467f29db5692d13f7e2b7a8c23f35f3",
+    "res://scripts/forest/forest_east_ground_motifs.gd": "4e193792fa6bb4bf40d90a55131f71dc795de77b6a3914693972f037898db52a",
+    "res://scripts/forest/forest_east_region_art.gd": "ae482b81e8e189a038f83a5e3befa2f0c2e0774d892ea0a38d0c1e12741d822e",
+    "res://scripts/forest/forest_original_map_art.gd": "b95b08989ea8f7a3800b4ef3b09d6e9d95916a8d3f19be4c5e4ce772b4b8b247",
+    "res://scripts/forest/forest_original_map_solids.gd": "5296cf8144b8c3ac0085ee50f83fc184d739c9b5ba02dbb7f4fbec05bab5f0ef",
+    "res://scripts/forest/forest_original_maps.gd": "f704dbe99d2c651336d22c8082412bdb13fb8f030552efd515eb4539b9bd522f",
+    "res://scripts/forest/forest_painterly_environment.gd": "a9c92c62700fc2aca863edddd183d7ca7f20a7cdcf26f1e640c69db917a91c1d",
+    "res://scripts/forest/forest_painterly_surface.gdshader": "73131d42dd44c51ad18c6124c4ecab5f48ec2cfd4706b23dc1671994a27add2b",
+    "res://scripts/geo.gd": "29de9eb0caa83ec2b8817fc807d4c5a49b795bea8ef76e9556de2d570eebf40f"
+  },
+  "plane0_floor_placements": 1012588,
+  "scene_sha256": "fc3db9fec15a9fae1224e8a149e7ffae312844599a57c8e1104580caf1fbd579",
+  "scope": "Every source ground chunk serialized and reloaded with identical vertex, normal, UV, transform, primitive and shader/texture-path fingerprints. Static and native collision remain with the existing runtime owner.",
+  "source": 43000,
+  "source_placements": 1047941
+}
