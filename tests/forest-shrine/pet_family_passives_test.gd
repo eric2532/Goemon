@@ -22,6 +22,7 @@ func capture(stem:String):
 
 func run():
  create_timer(180).timeout.connect(func():printerr("PET_FAMILY_PASSIVES_TIMEOUT");quit(1))
+ cfg=OS.get_temp_dir().path_join("crossgate-pet-passives-%d.cfg"%OS.get_process_id())
  DirAccess.make_dir_recursive_absolute(EVIDENCE);root.size=Vector2i(1280,800)
  unit_checks()
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
@@ -31,11 +32,22 @@ func run():
  var army=game.army_runtime;var state=game.model.team_progression
  state.cards_enabled=false;game.settings.forest_level_up_cards=false
  player.position=Vector3(-150,game.model.surface_height(-150,127),127)
+ var ui=game.forest_ui
+ var badges:Dictionary=ui.pet_passive_counts
  game.settings.forest_pet_loadout=[]
+ ui.sync()
+ check(not ui.pet_passives.visible,"Empty parties hide the passive HUD row")
  var base_crit=player.combat_tuning("critical_chance");var base_dodge=player.effective_dodge_chance()
  game.settings.forest_pet_loadout=[Pets.key(21),Pets.key(36),Pets.key(41),Pets.key(58),Pets.key(61)]
+ ui.sync();await frames()
+ check(ui.pet_passives.is_visible_in_tree() and not ui.hound_dock.visible,"Equipped passives appear even before pets are summoned")
+ check(badges.regeneration.text=="×2" and badges.critical_chance.text=="×2" and badges.dodge_chance.text=="×1","One badge per passive shows the exact number of pets contributing")
+ check(badges.regeneration.get_parent().tooltip_text.contains("+10 HP per second") and badges.critical_chance.get_parent().tooltip_text.contains("+30 percentage points") and badges.dodge_chance.get_parent().tooltip_text.contains("Bee Mirage"),"Badges explain their named, combined party bonuses")
  army.reconcile_pet_loadout();army.queue_hounds();arrive()
  check(player.health_regeneration()==10 and player.combat_tuning("critical_chance")==base_crit+30 and player.effective_dodge_chance()==base_dodge+10,"Two dragons, two mantises and a bee stack their separate player bonuses")
+ ui.sync();await frames()
+ check(ui.hound_dock.visible and ui.pet_passives.get_global_rect().position.y>=ui.hound_dock.get_global_rect().end.y,"Passive badges sit below the summoned pets' controls")
+ await capture("party-passive-hud")
  state.stat_ranks.vitality=2;state.stat_ranks.critical_chance=2
  var gear_crit:float=player.accessory_bonuses.get("critical_chance",0)
  player.accessory_bonuses.critical_chance=gear_crit+10
@@ -83,19 +95,32 @@ func run():
  check(body.pet_passive_bonus("critical_chance")==0 and body.health_regeneration()==0 and body.combat_tuning("critical_chance")==game.balance_value(body.character_id,"critical_chance"),"Player family bonuses do not leak into ordinary allied fighters")
  mirrors.dispose()
  game.back_from_equipment();await frames()
+ check(badges.critical_chance.text=="×2" and badges.critical_chance.get_parent().tooltip_text.contains("+115 percentage points"),"A legacy passive rank updates the bonus while the badge still counts its contributing pets")
  player.hp=player.max_hp-40;var hp:float=player.hp
  player._physics_process(.2)
  check(is_equal_approx(player.hp,hp+2),"The actual player physics tick heals ten HP per second")
  player.hp=player.max_hp-1;player._physics_process(.2)
  check(player.hp==player.max_hp,"Regeneration cannot exceed maximum health")
- army.recall_hounds();army.queue_hounds();arrive()
+ army.recall_hounds();ui.sync()
+ check(ui.pet_passives.is_visible_in_tree() and badges.regeneration.text=="×2","Recalling pets retains their equipped-party stacks")
+ army.queue_hounds();arrive()
  check(player.health_regeneration()==10 and state.pet_passive_level(Pets.key(41))==1,"Recall and resummon retain passive ranks and party effects")
- game.settings.forest_pet_loadout=[Pets.key(41)];army.reconcile_pet_loadout()
+ check(game.save_pet_loadout([Pets.key(41)]),"The normal Equipment save path accepts the smaller party")
+ check(badges.regeneration.text=="×1" and not badges.critical_chance.get_parent().visible and not badges.dodge_chance.get_parent().visible,"Removing party members updates and hides badges immediately")
  check(player.health_regeneration()==5 and player.combat_tuning("critical_chance")==base_crit and player.effective_dodge_chance()==base_dodge,"Removing party members immediately removes exactly their bonuses")
  check(ticket.critical_chance==100,"Already committed attack tickets retain their critical snapshot after removal")
  var retained=state.pet_stat_ranks.duplicate(true)
  game.preview_forest_map(doc.data,false,false,true)
  check(game.model.team_progression==state and state.pet_stat_ranks==retained and player.health_regeneration()==5,"Retained-run travel keeps trained passives")
+ ui=game.forest_ui;badges=ui.pet_passive_counts
+ check(ui.pet_passives.is_visible_in_tree() and badges.regeneration.text=="×1","Retained-run travel restores the current passive HUD")
+ check(game.save_pet_loadout([Pets.key(61),Pets.key(62),Pets.key(63),Pets.key(64),Pets.key(65)]),"The Equipment save path accepts five copies of the same passive")
+ check(badges.dodge_chance.text=="×5" and badges.dodge_chance.get_parent().tooltip_text.contains("+50 percentage points") and not badges.regeneration.get_parent().visible,"A full family party uses one badge with five stacks")
+ game.settings.forest_hud_scale=1.3
+ ui.sync();await frames()
+ check(root.get_visible_rect().encloses(ui.pet_passives.get_global_rect()),"Passive HUD fits a small viewport at 130% HUD scale")
+ await capture("party-passive-hud-five-stacks")
+ check(game.save_pet_loadout([Pets.key(0)]) and not ui.pet_passives.visible,"A party with only non-passive pets hides the row")
  var nodes=int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT));var resources=int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT))
  for i in 100:
   player.health_regeneration();player.combat_tuning("critical_chance");player.effective_dodge_chance()

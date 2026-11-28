@@ -173,5 +173,418 @@
     "source_keys": [
       "ex:806"
     ]
+  },
+  {
+    "id": 110590,
+    "name": "半神约尔克",
+    "reason": "Source action/contact/audio contract needs an explicit native importer extension.",
+    "candidates": [
+      {
+        "key": "puk3:74",
+        "problems": [
+          {
+            "direction": 0,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 1,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 2,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 3,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 4,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 5,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 6,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          },
+          {
+            "direction": 7,
+            "source_cues": [
+              {
+                "id": 106,
+                "file": "sounds/cgply02b.wav",
+                "frame": 4,
+                "flag": 106,
+                "atMs": 363.6363636363636
+              },
+              {
+                "id": 214,
+                "file": "sounds/cgbtl13.wav",
+                "frame": 6,
+                "flag": 20214,
+                "atMs": 545.4545454545455
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/2 cues."
+          }
+        ]
+      }
+    ],
+    "source_keys": [
+      "puk3:74"
+    ]
+  },
+  {
+    "id": 110521,
+    "name": "蛇女妖",
+    "reason": "Source action/contact/audio contract needs an explicit native importer extension.",
+    "candidates": [
+      {
+        "key": "puk3:5",
+        "problems": [
+          {
+            "direction": 0,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 1,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 2,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 3,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 4,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 5,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 6,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 7,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          }
+        ]
+      }
+    ],
+    "source_keys": [
+      "puk3:5"
+    ]
+  },
+  {
+    "id": 110523,
+    "name": "恶龙母神",
+    "reason": "Source action/contact/audio contract needs an explicit native importer extension.",
+    "candidates": [
+      {
+        "key": "puk3:7",
+        "problems": [
+          {
+            "direction": 0,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 1,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 2,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 3,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 4,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 5,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 6,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          },
+          {
+            "direction": 7,
+            "source_cues": [
+              {
+                "id": 429,
+                "file": "sounds/30fire_on.wav",
+                "frame": 1,
+                "flag": 429,
+                "atMs": 100.0
+              }
+            ],
+            "reason": "Native importer requires source contact markers and at most 20 cues; source has 0 contacts/1 cues."
+          }
+        ]
+      }
+    ],
+    "source_keys": [
+      "puk3:7"
+    ]
   }
 ]

@@ -356,6 +356,47 @@ def shore():
     return result
 
 
+def animation_clip(serial):
+    _, _, _, clip = source.scenery_frame(serial)
+    frames = [source.scenery_frame(serial, i)[:3] for i in range(len(clip['frames']))]
+    left = min(x for art, x, y in frames); top = min(y for art, x, y in frames)
+    width = max(x + art.width for art, x, y in frames) - left
+    height = max(y + art.height for art, x, y in frames) - top
+    columns = max(1, min(len(frames), int(math.sqrt(len(frames) * height / width))))
+    columns = min(columns, 8192 // width); rows = math.ceil(len(frames) / columns)
+    assert max(columns * width, rows * height) <= 16384, (serial, width, height, len(frames))
+    atlas = Image.new('RGBA', (columns * width, rows * height))
+    for i, (art, x, y) in enumerate(frames):
+        atlas.alpha_composite(art, (i % columns * width + x - left, i // columns * height + y - top))
+    return atlas, dict(frames=len(frames), columns=columns, rows=rows, size=[width, height], origin=[left, top],
+                       duration=clip['duration'], opacity=clip['opacity'], flags=clip['flags'],
+                       sha256=source.sha(atlas.tobytes()), source_key=clip['key'])
+
+
+def prepare_explore_animations():
+    data = json.loads((OUT / 'data.json').read_text())
+    catalog = json.loads((source.ROOT / 'assets/maps/original_crossgate/explore_recovered/catalog.json').read_text())
+    wanted = {str(int(g['cut'][0])) for g in catalog['graphics'].values() if g.get('animated')}
+    missing = sorted(wanted - data['animations'].keys(), key=int)
+    report = source.ROOT / 'build/Other Files/Asset Toolkit/Explore Access/Scenery animations'
+    report.mkdir(parents=True, exist_ok=True)
+    before = data['animations'].copy()
+    for serial in missing:
+        atlas, metadata = animation_clip(int(serial))
+        atlas.save(OUT / f'{serial}.png')
+        data['animations'][serial] = metadata
+    assert all(data['animations'][key] == value for key, value in before.items())
+    temporary = OUT / 'data.json.tmp'
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n'); temporary.replace(OUT / 'data.json')
+    proof = report / 'append-proof.json'
+    if not proof.exists():
+        proof.write_text(json.dumps(dict(added=missing, preserved=before), ensure_ascii=False, indent=2) + '\n')
+    else:
+        protected = json.loads(proof.read_text())['preserved']
+        assert all(data['animations'][key] == value for key, value in protected.items())
+    print('EXPLORE_SCENERY_ANIMATIONS', len(missing), 'original clips appended;', len(before), 'existing clips retained')
+
+
 def build():
     OUT.mkdir(parents=True,exist_ok=True)
     catalog=json.loads((source.OUTPUT/'catalog.json').read_text())
@@ -370,21 +411,9 @@ def build():
         if not graphic['animated']:continue
         serial=graphic['cut'][0]
         if str(serial) in animations:continue
-        _,_,_,clip=source.scenery_frame(serial)
-        frames=[source.scenery_frame(serial,i)[:3] for i in range(len(clip['frames']))]
-        left=min(x for a,x,y in frames);top=min(y for a,x,y in frames)
-        width=max(x+a.width for a,x,y in frames)-left
-        height=max(y+a.height for a,x,y in frames)-top
-        columns=max(1,min(len(frames),int(math.sqrt(len(frames)*height/width))))
-        columns=min(columns,8192//width);rows=math.ceil(len(frames)/columns)
-        assert max(columns*width,rows*height)<=16384,(serial,width,height,len(frames))
-        atlas=Image.new('RGBA',(columns*width,rows*height))
-        for i,(art,x,y) in enumerate(frames):
-            atlas.alpha_composite(art,(i%columns*width+x-left,i//columns*height+y-top))
+        atlas, metadata = animation_clip(serial)
         atlas.save(OUT/f'{serial}.png')
-        animations[str(serial)]=dict(frames=len(frames),columns=columns,rows=rows,
-            size=[width,height],origin=[left,top],duration=clip['duration'],opacity=clip['opacity'],flags=clip['flags'],
-            sha256=source.sha(atlas.tobytes()),source_key=clip['key'])
+        animations[str(serial)]=metadata
     width,height,planes=source.reference_map(59520);items=[]
     for i,serial in enumerate(planes[1]):
         if serial<1000:continue
@@ -451,8 +480,10 @@ if __name__=='__main__':
     parser.add_argument('--tower-fit-only',action='store_true')
     parser.add_argument('--tower-materials-only',action='store_true')
     parser.add_argument('--animation-flags-only',action='store_true')
+    parser.add_argument('--explore-animations-only',action='store_true')
     args=parser.parse_args()
-    if args.animation_flags_only:prepare_animation_flags()
+    if args.explore_animations_only:prepare_explore_animations()
+    elif args.animation_flags_only:prepare_animation_flags()
     elif args.tower_materials_only:prepare_tower_materials()
     elif args.tower_fit_only:prepare_tower_profile()
     elif args.return_stone_only:prepare_return_stone()

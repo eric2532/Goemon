@@ -4,7 +4,7 @@ extends RefCounted
 const KAZ_HEIGHT=preload("res://scripts/character_proportions.gd").GOEMON_HEIGHT
 const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const COMPANION_SKINS=617
-const CAVE_SKINS=192
+const CAVE_SKINS=304
 static var extra_profiles:Array=[]
 const MANTIS_SCALE=.85
 const BEE_SCALE=.8
@@ -93,7 +93,7 @@ static func body(source:Script,skin:int)->AABB:
  if family=="east_region":
   var original:Variant=source.motions().variant_sources[skin]
   if original!=null:
-   var owners={"falan_encounters":"falan_frontier","forest_grave":"grave","habaru":"habaru","venoa_route":"venoa_route","shalena":"shalena","sokia_region":"sokia_region","university_region":"university_region","elsa_region":"elsa_region","cursed_maze":"cursed_maze","beast_maze":"beast_maze"}
+   var owners={"falan_encounters":"falan_frontier","forest_grave":"grave","habaru":"habaru","venoa_route":"venoa_route","shalena":"shalena","snow_region":"snow_region","sokia_region":"sokia_region","university_region":"university_region","elsa_region":"elsa_region","cursed_maze":"cursed_maze","beast_maze":"beast_maze"}
    assert(owners.has(original.bank),"Retain the approved source body owner for copied East frames")
    return body(load("res://scripts/forest/crowd/"+owners[original.bank]+"_sprites.gd"),int(original.skin))
  var box:AABB=source.BODY

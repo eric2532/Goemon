@@ -1,5 +1,5 @@
 {
-  "bake_ms": 39856.084,
+  "bake_ms": 49222.421,
   "batches": 1144,
   "checks": 2,
   "failures": 0,
@@ -16,15 +16,15 @@
     "res://scripts/forest/forest_coastal_mesh.gd": "5f7901e2b1454903757663c7c14f862a0467f29db5692d13f7e2b7a8c23f35f3",
     "res://scripts/forest/forest_east_ground_motifs.gd": "4e193792fa6bb4bf40d90a55131f71dc795de77b6a3914693972f037898db52a",
     "res://scripts/forest/forest_east_region_art.gd": "ae482b81e8e189a038f83a5e3befa2f0c2e0774d892ea0a38d0c1e12741d822e",
-    "res://scripts/forest/forest_original_map_art.gd": "b95b08989ea8f7a3800b4ef3b09d6e9d95916a8d3f19be4c5e4ce772b4b8b247",
+    "res://scripts/forest/forest_original_map_art.gd": "d49283a6ff6a1e8acf980b3b840e3cdb01231969881a6150ea0b62ebade0d7e5",
     "res://scripts/forest/forest_original_map_solids.gd": "5296cf8144b8c3ac0085ee50f83fc184d739c9b5ba02dbb7f4fbec05bab5f0ef",
-    "res://scripts/forest/forest_original_maps.gd": "f704dbe99d2c651336d22c8082412bdb13fb8f030552efd515eb4539b9bd522f",
+    "res://scripts/forest/forest_original_maps.gd": "6b9e96d5606f975712220065e99ca7c32cd31389f449d80c69aed6d135494482",
     "res://scripts/forest/forest_painterly_environment.gd": "a9c92c62700fc2aca863edddd183d7ca7f20a7cdcf26f1e640c69db917a91c1d",
     "res://scripts/forest/forest_painterly_surface.gdshader": "73131d42dd44c51ad18c6124c4ecab5f48ec2cfd4706b23dc1671994a27add2b",
     "res://scripts/geo.gd": "29de9eb0caa83ec2b8817fc807d4c5a49b795bea8ef76e9556de2d570eebf40f"
   },
   "plane0_floor_placements": 479709,
-  "scene_sha256": "7852735b0dc3e2343924fe163b1117c24a1eb43264dcb73e30b8bacfe8705055",
+  "scene_sha256": "f3578d65d98554a23bf3a458a77d11c5465e69cb3f307546e8e3036938b5b783",
   "scope": "Every source ground chunk serialized and reloaded with identical vertex, normal, UV, transform, primitive and shader/texture-path fingerprints. Static and native collision remain with the existing runtime owner.",
   "source": 33000,
   "source_placements": 497815

@@ -307,9 +307,10 @@ func make_equipment_stats():
  content=null;pet_stats_content.hide()
 
 static func passive_texture(skin:int)->Texture2D:
- var passive=Pets.passive(skin)
- if passive.is_empty():return null
- return BEE_MIRAGE if Pets.has_bee_dodge(skin) else FAMILY_PASSIVE_ICONS[passive.stat]
+ return passive_texture_for_stat(Pets.passive(skin).get("stat",""))
+
+static func passive_texture_for_stat(stat:String)->Texture2D:
+ return BEE_MIRAGE if stat=="dodge_chance" else FAMILY_PASSIVE_ICONS.get(stat)
 
 func show_equipment_tab(show_stats:bool):
  if wearer_key.begins_with("pet:"):return

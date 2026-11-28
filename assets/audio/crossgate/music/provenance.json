@@ -134,6 +134,15 @@
       "decoded_frames": 7233239,
       "sample_rate": 44100,
       "channels": 2
+    },
+    "cgbgm_b1": {
+      "source": "BlueCrossgate/bin/bgm/cgbgm_b1.wav",
+      "source_sha256": "d37dae1c91b954891fac0a5feb6721770ffc88fb076cf63978e6e6feb57fa0cd",
+      "runtime_sha256": "52e4fb41165e4752091be3f6ae86f1ccd80d4875345bc63d7d71437c3565d29b",
+      "duration": 87.44122448979591,
+      "decoded_frames": 1928079,
+      "sample_rate": 22050,
+      "channels": 2
     }
   },
   "elsa_map_sounds": {

@@ -81,6 +81,7 @@ var wall_audio:Node3D
 var placement_audio:Node
 var chase_click_shape:=BoxShape3D.new()
 var battle_music_left=0.0
+var boss_music_left=0.0
 var battle_music_probe=0.0
 var music_resume_stream:AudioStream
 var music_resume_position=0.0
@@ -278,7 +279,7 @@ func set_phase_view():
 	if combined_power_pending_phase():return
 	if model.phase!="wave":
 		if is_instance_valid(army_runtime):army_runtime.recall_beast_pets()
-		battle_music_left=0.0;battle_music_probe=0.0
+		battle_music_left=0.0;boss_music_left=0.0;battle_music_probe=0.0
 		sync_area_music()
 	if not model.construction_completed.is_connected(_clear_construction_occupants):model.construction_completed.connect(_clear_construction_occupants)
 	if not model.wave_started.is_connected(_sync_wave_balance):model.wave_started.connect(_sync_wave_balance)
@@ -478,7 +479,7 @@ func can_talk_falken()->bool:
 	return can_talk_to_host(falken_waiting)
 func can_talk_to_host(host:MultiMeshInstance3D)->bool:
 	if not is_instance_valid(host) or not playing or model.phase!="wave" or ordinary_pause or paused or transitioning or player.hp<=0:return false
-	return player.position.distance_squared_to(host.position)<=pow(BOSS_TALK_DISTANCE*model.falan_scale,2)
+	return player.position.distance_squared_to(host.position)<=pow(BOSS_TALK_DISTANCE*model.falan_scale,2) and _ryo_clear_path(player.position+Vector3.UP*2.5*model.falan_scale,host.global_position+Vector3.UP*2.5*model.falan_scale)
 func tick_boss_host(host:MultiMeshInstance3D,hint:Label3D,talkable:bool,delta:float):
 	hint.visible=talkable
 	var pose=host.multimesh.get_instance_custom_data(0)
@@ -664,7 +665,9 @@ func _input(event):
 				var chest_index=exploration_loot.nearest()
 				var chest_distance=player.position.distance_squared_to(exploration_loot.slots[chest_index].pos) if chest_index>=0 else INF
 				var npc_distance=player.position.distance_squared_to(explorer_npcs.nearest.get("interaction_point",explorer_npcs.nearest.node.global_position)) if not explorer_npcs.nearest.is_empty() and is_instance_valid(explorer_npcs.nearest.get("node")) else INF
-				if chest_index>=0 and exploration_loot.slots[chest_index].get("boss",false) and chest_distance<explore_access.interaction_distance_squared() and chest_distance<=npc_distance:exploration_loot.open_nearest()
+				if can_talk_habaru():npc_distance=minf(npc_distance,player.position.distance_squared_to(habaru_waiting.global_position))
+				if can_talk_falken():npc_distance=minf(npc_distance,player.position.distance_squared_to(falken_waiting.global_position))
+				if chest_index>=0 and exploration_loot.slots[chest_index].get("boss",false) and not explore_access.portal_at_chest(exploration_loot.slots[chest_index]) and chest_distance<explore_access.interaction_distance_squared() and chest_distance<=npc_distance:exploration_loot.open_nearest()
 				elif explore_access.interact():pass
 				elif can_talk_habaru():show_habaru_dialogue()
 				elif can_talk_falken():show_falken_dialogue()
@@ -1255,32 +1258,40 @@ func apply_music_setting():
 func _tick_battle_music(delta:float):
 	# Probe the native spatial index after integration, never the whole army.
 	var was_battle=battle_music_left>0
+	var was_boss=boss_music_left>0
 	battle_music_left=maxf(0,battle_music_left-delta)
+	boss_music_left=maxf(0,boss_music_left-delta)
 	battle_music_probe-=delta
 	if battle_music_probe<=0:
 		battle_music_probe=AreaMusic.BATTLE_PROBE_INTERVAL
 		if player.hp>0:
 			var radius=AreaMusic.BATTLE_RADIUS*model.falan_scale
 			var center=player.global_position
+			var boss_radius=AreaMusic.BOSS_RADIUS*model.falan_scale
+			for id in army_runtime.boss_handles:
+				var boss:Dictionary=army_runtime.unit_state(army_runtime.boss_handles[id])
+				if not boss.is_empty() and boss.hp>0 and center.distance_squared_to(boss.position)<=boss_radius*boss_radius:
+					boss_music_left=AreaMusic.BATTLE_HOLD;break
 			var bounds=AABB(center-Vector3.ONE*radius,Vector3.ONE*radius*2)
 			for handle in army_runtime.query_aabb(bounds,0):
 				var enemy:Dictionary=army_runtime.unit_state(handle)
 				if not enemy.is_empty() and enemy.hp>0 and center.distance_squared_to(enemy.position)<=radius*radius:
 					battle_music_left=AreaMusic.BATTLE_HOLD;break
-	if was_battle!=(battle_music_left>0):sync_area_music()
+	if was_boss!=(boss_music_left>0) or was_battle!=(battle_music_left>0):sync_area_music()
 
 func sync_area_music():
 	var at=Vector2(player.position.x,player.position.z)/model.falan_scale
 	var stream:AudioStream=AreaMusic.STREAMS.get(AreaMusic.key(FalanTour.area(model),model.falan_floor,at))
-	if model.phase=="wave" and battle_music_left>0:stream=AreaMusic.STREAMS.b0
+	var encounter=model.phase=="wave" and (boss_music_left>0 or battle_music_left>0)
+	if encounter:stream=AreaMusic.STREAMS.b1 if boss_music_left>0 else AreaMusic.STREAMS.b0
 	if music.stream==stream:return
-	if stream==AreaMusic.STREAMS.b0:
+	if encounter and music.stream!=AreaMusic.STREAMS.b0 and music.stream!=AreaMusic.STREAMS.b1:
 		music_resume_stream=music.stream;music_resume_position=music.get_playback_position()
 	music.stop()
 	music.stream=stream
 	if stream!=null:music.stream.loop=true
 	apply_music_setting()
-	if stream!=AreaMusic.STREAMS.b0:
+	if not encounter:
 		if stream==music_resume_stream and music.playing:music.seek(music_resume_position)
 		music_resume_stream=null;music_resume_position=0.0
 
@@ -1294,7 +1305,7 @@ func button_at(parent:Control,words:String,p:Vector2,action:Callable,width:float
 	return button
 func show_title():
 	if playing:save_settings()
-	battle_music_left=0.0;battle_music_probe=0.0;music_resume_stream=null;music_resume_position=0.0
+	battle_music_left=0.0;boss_music_left=0.0;battle_music_probe=0.0;music_resume_stream=null;music_resume_position=0.0
 	if is_instance_valid(equipment_hub):equipment_hub.hide();equipment_hub.queue_free();equipment_hub=null
 	clear_dialogue()
 	if model!=null:model.team_progression.skill_food_stacks=0

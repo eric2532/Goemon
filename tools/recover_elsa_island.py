@@ -71,7 +71,12 @@ def graphic(serial):
 
 @lru_cache(maxsize=None)
 def scenery_frame(serial, frame_index=0):
-    key = next(a['key'] for a in cg.catalog()['entries'] if a['id'] == serial and a['pack']=='puk2')
+    candidates = [a['key'] for a in cg.catalog()['entries'] if a['id'] == serial]
+    preferred = [key for key in candidates if key.startswith('puk2:')]
+    # Later CUT files remain under Puk2/cutdat but reference unique PUK3 scenery.
+    choices = preferred or candidates
+    assert len(choices) == 1, ('Ambiguous CUT scenery source', serial, choices)
+    key = choices[0]
     pack, index = key.split(':')
     info = (cg.SOURCE / cg.PACKS[pack][2]).read_bytes()
     ident, address, count, _ = struct.unpack_from('<IIHH',info,int(index)*12)

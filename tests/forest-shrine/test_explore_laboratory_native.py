@@ -50,7 +50,7 @@ class LaboratoryNativeTest(unittest.TestCase):
             with self.subTest(appearance=species[skin]['id']):
                 self.check_original(species[skin]['key'], skin, species[skin]['id'])
 
-    def check_original(self, key, skin, appearance):
+    def check_original(self, key, skin, appearance, remapped_cues=False, report=REPORT):
         manifest = self.new; table = self.b
         self.assertEqual(manifest['variants'][skin]['id'], appearance)
         _, _, clips = cg.actor(key); source = {(c['action'], c['direction']): c for c in clips}
@@ -91,9 +91,10 @@ class LaboratoryNativeTest(unittest.TestCase):
             sound_manifest = json.loads((ROOT.parent / 'Magic Power/godot/assets/sounds/manifest.json').read_text())['sounds']
             for cue in cues:
                 contact = 10000 <= cue['flag'] < 20000
-                opcode = ([135,138,164,165][contact_ids.index(cue['id'])] if contact else [106,112,131,157][sound_ids.index(cue['id'])]) if skin in range(168,172) else (10000 if contact else 20000)+cue['id']
+                mapped = remapped_cues or skin in range(168,172)
+                opcode = ([135,138,164,165][contact_ids.index(cue['id'])] if contact else [106,112,131,157][sound_ids.index(cue['id'])]) if mapped else (10000 if contact else 20000)+cue['id']
                 expected.extend([cue['atMs']*.03,opcode])
-                sound = f"{skin}:{opcode if skin in range(168,172) else cue['id']}"
+                sound = f"{skin}:{opcode if mapped else cue['id']}"
                 self.assertTrue(sound in manifest['sounds'], sound)
                 target = manifest['sounds'][sound]
                 published = ROOT / target.removeprefix('res://') if target.startswith('res://') else BANK / target
@@ -101,7 +102,7 @@ class LaboratoryNativeTest(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(published.read_bytes()).hexdigest(), hashlib.sha256(original_sound.read_bytes()).hexdigest(), (key, direction, cue['id']))
             expected += [0]*(42-len(expected))
             self.assertEqual(manifest['timelines'][(skin*8+direction)*42:(skin*8+direction+1)*42], expected)
-        (REPORT / ('original-frame-proof.json' if skin == 167 else f'{appearance}-original-frame-proof.json')).write_text(json.dumps(dict(appearance=appearance,key=key,frames=frames,clips=56,rgba_exact=True,anchors_exact=True,durations_exact=True,source_cues_exact=True,visual_verified=False),indent=2)+'\n')
+        (report / ('original-frame-proof.json' if skin == 167 else f'{appearance}-original-frame-proof.json')).write_text(json.dumps(dict(appearance=appearance,key=key,frames=frames,clips=56,rgba_exact=True,anchors_exact=True,durations_exact=True,source_cues_exact=True,visual_verified=False),indent=2)+'\n')
 
 
 if __name__ == '__main__':

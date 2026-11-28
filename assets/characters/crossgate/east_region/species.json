@@ -1928,5 +1928,1473 @@
       "key": "ex:1727",
       "body_pixels": 84
     }
+  },
+  {
+    "id": 110321,
+    "name": "戴靴怪",
+    "key": "puk2:21",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 15
+    }
+  },
+  {
+    "id": 110322,
+    "name": "舞靴怪",
+    "key": "puk2:22",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 16
+    }
+  },
+  {
+    "id": 110326,
+    "name": "突击神官",
+    "key": "puk2:26",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 17
+    }
+  },
+  {
+    "id": 110319,
+    "name": "冰蜥蜴",
+    "key": "puk2:19",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 13
+    }
+  },
+  {
+    "id": 110301,
+    "name": "沙地鲨",
+    "key": "puk2:1",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 2
+    }
+  },
+  {
+    "id": 110380,
+    "name": "银狮",
+    "key": "puk2:50",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 25
+    }
+  },
+  {
+    "id": 110320,
+    "name": "金属蜥蜴",
+    "key": "puk2:20",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 14
+    }
+  },
+  {
+    "id": 110309,
+    "name": "蛋白石怪",
+    "key": "puk2:9",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 7
+    }
+  },
+  {
+    "id": 110317,
+    "name": "火蜥蜴",
+    "key": "puk2:17",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 11
+    }
+  },
+  {
+    "id": 110308,
+    "name": "大公鸡",
+    "key": "puk2:8",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 6
+    }
+  },
+  {
+    "id": 110305,
+    "name": "鸭嘴兽",
+    "key": "puk2:5",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 4
+    }
+  },
+  {
+    "id": 110306,
+    "name": "小鸭子",
+    "key": "puk2:6",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 5
+    }
+  },
+  {
+    "id": 101613,
+    "name": "蓝魔吓人箱",
+    "key": "original:2920",
+    "height": 0.7380952380952381,
+    "prepared_from": {
+      "bank": "sokia_region",
+      "skin": 8
+    }
+  },
+  {
+    "id": 106505,
+    "name": "灾害补助官",
+    "key": "ex:695",
+    "height": 1.1071428571428572,
+    "source_body_pixels": 93,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110569,
+    "name": "钢头龙",
+    "key": "puk3:53",
+    "height": 0.7976190476190477,
+    "source_body_pixels": 67,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 105014,
+    "name": "小拓",
+    "key": "ex:14",
+    "height": 0.8452380952380952,
+    "source_body_pixels": 71,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101240,
+    "name": "小蝙蝠",
+    "key": "original:2847",
+    "height": 1.0952380952380953,
+    "source_body_pixels": 92,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110323,
+    "name": "潜靴怪",
+    "key": "puk2:23",
+    "height": 0.6904761904761905,
+    "source_body_pixels": 58,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110327,
+    "name": "马汀斯",
+    "key": "puk2:27",
+    "height": 1.0714285714285714,
+    "source_body_pixels": 90,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110335,
+    "name": "暗黑龙骨",
+    "key": "puk2:35",
+    "height": 1.6547619047619047,
+    "source_body_pixels": 139,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110331,
+    "name": "盖欧鲁格",
+    "key": "puk2:31",
+    "height": 1.7023809523809523,
+    "source_body_pixels": 143,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110315,
+    "name": "大刀鸸苗",
+    "key": "puk2:15",
+    "height": 1.0714285714285714,
+    "source_body_pixels": 90,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110311,
+    "name": "钻石怪",
+    "key": "puk2:11",
+    "height": 0.5238095238095238,
+    "source_body_pixels": 44,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110377,
+    "name": "岩虫",
+    "key": "puk2:325",
+    "height": 0.5238095238095238,
+    "source_body_pixels": 44,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110336,
+    "name": "黄金龙骨",
+    "key": "puk2:36",
+    "height": 1.6547619047619047,
+    "source_body_pixels": 139,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110334,
+    "name": "龙骨",
+    "key": "puk2:34",
+    "height": 1.6547619047619047,
+    "source_body_pixels": 139,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110303,
+    "name": "岩石鲨",
+    "key": "puk2:3",
+    "height": 0.7023809523809523,
+    "source_body_pixels": 59,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110324,
+    "name": "咚咚靴怪",
+    "key": "puk2:24",
+    "height": 0.6904761904761905,
+    "source_body_pixels": 58,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110310,
+    "name": "红宝石怪",
+    "key": "puk2:10",
+    "height": 0.5238095238095238,
+    "source_body_pixels": 44,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110304,
+    "name": "雏鸟",
+    "key": "puk2:4",
+    "height": 0.5357142857142857,
+    "source_body_pixels": 45,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101611,
+    "name": "兔耳吓人箱",
+    "key": "original:2918",
+    "height": 0.7380952380952381,
+    "source_body_pixels": 62,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101614,
+    "name": "绿蛙吓人箱",
+    "key": "original:2921",
+    "height": 0.7380952380952381,
+    "source_body_pixels": 62,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110382,
+    "name": "铁狮",
+    "key": "puk2:52",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 27
+    }
+  },
+  {
+    "id": 101201,
+    "name": "使魔",
+    "key": "original:2837",
+    "height": 0.7380952380952381,
+    "source_body_pixels": 62,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110540,
+    "name": "乌贼怪",
+    "key": "puk3:151",
+    "height": 0.9642857142857143,
+    "source_body_pixels": 81,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110526,
+    "name": "魟怪",
+    "key": "puk3:10",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110531,
+    "name": "拉札魟怪",
+    "key": "puk3:15",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110510,
+    "name": "欧比尔蝙蝠",
+    "key": "v3:270",
+    "height": 0.7380952380952381,
+    "source_body_pixels": 62,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110568,
+    "name": "潜地龙",
+    "key": "puk3:52",
+    "height": 0.7976190476190477,
+    "source_body_pixels": 67,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110595,
+    "name": "布卡",
+    "key": "puk3:79",
+    "height": 0.25,
+    "source_body_pixels": 21,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110592,
+    "name": "妖化布卡",
+    "key": "puk3:76",
+    "height": 0.25,
+    "source_body_pixels": 21,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110393,
+    "name": "巨花蛇怪",
+    "key": "puk2:63",
+    "height": 1.9166666666666667,
+    "source_body_pixels": 161,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106628,
+    "name": "爱里西雅",
+    "key": "ex:723",
+    "height": 1.0476190476190477,
+    "source_body_pixels": 88,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106600,
+    "name": "乔治安娜",
+    "key": "ex:714",
+    "height": 0.8452380952380952,
+    "source_body_pixels": 71,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106729,
+    "name": "哈利耶特",
+    "key": "ex:748",
+    "height": 1.0119047619047619,
+    "source_body_pixels": 85,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106676,
+    "name": "伊莎贝尔",
+    "key": "ex:733",
+    "height": 0.9523809523809523,
+    "source_body_pixels": 80,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106339,
+    "name": "安洁可",
+    "key": "ex:590",
+    "height": 0.9523809523809523,
+    "source_body_pixels": 80,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110329,
+    "name": "伊格萨姆",
+    "key": "puk2:29",
+    "height": 1.0714285714285714,
+    "source_body_pixels": 90,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106252,
+    "name": "莉塔",
+    "key": "ex:506",
+    "height": 0.8571428571428571,
+    "source_body_pixels": 72,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106120,
+    "name": "窦梓",
+    "key": "ex:452",
+    "height": 0.7619047619047619,
+    "source_body_pixels": 64,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110383,
+    "name": "红铜怪",
+    "key": "puk2:53",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 28
+    }
+  },
+  {
+    "id": 110332,
+    "name": "北落师门",
+    "key": "puk2:32",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 19
+    }
+  },
+  {
+    "id": 100527,
+    "name": "梅兹",
+    "key": "original:2737",
+    "height": 0.9879518072289156,
+    "prepared_from": {
+      "bank": "sokia_region",
+      "skin": 17
+    }
+  },
+  {
+    "id": 110750,
+    "name": "暴龙威特",
+    "key": "puk2:332",
+    "height": 2.0,
+    "prepared_from": {
+      "bank": "university_region",
+      "skin": 3
+    }
+  },
+  {
+    "id": 107101,
+    "name": "憎恨的杀意",
+    "key": "ex:765",
+    "height": 1.369047619047619,
+    "source_body_pixels": 115,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110706,
+    "name": "幼体",
+    "key": "puk2:146",
+    "height": 1.4880952380952381,
+    "source_body_pixels": 125,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110707,
+    "name": "幼体",
+    "key": "puk2:147",
+    "height": 1.4880952380952381,
+    "source_body_pixels": 125,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110711,
+    "name": "幼体",
+    "key": "puk2:151",
+    "height": 1.4642857142857142,
+    "source_body_pixels": 123,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110709,
+    "name": "幼体",
+    "key": "puk2:149",
+    "height": 1.4642857142857142,
+    "source_body_pixels": 123,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110537,
+    "name": "巴罗尔",
+    "key": "puk3:21",
+    "height": 1.2142857142857142,
+    "source_body_pixels": 102,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110778,
+    "name": "葡萄酒粉怪",
+    "key": "puk3:90",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110538,
+    "name": "西比亚乌贼",
+    "key": "puk3:149",
+    "height": 0.9642857142857143,
+    "source_body_pixels": 81,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110539,
+    "name": "毒刺怪",
+    "key": "puk3:150",
+    "height": 0.9642857142857143,
+    "source_body_pixels": 81,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110781,
+    "name": "神秘黏液",
+    "key": "puk3:93",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110379,
+    "name": "达斯公鸡",
+    "key": "puk2:327",
+    "height": 0.5357142857142857,
+    "source_body_pixels": 45,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110506,
+    "name": "德鲁依之鬼",
+    "key": "puk3:1",
+    "height": 1.5833333333333333,
+    "source_body_pixels": 133,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110573,
+    "name": "篮尾龙",
+    "key": "puk3:57",
+    "height": 0.7976190476190477,
+    "source_body_pixels": 67,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110594,
+    "name": "寄生布卡",
+    "key": "puk3:78",
+    "height": 0.25,
+    "source_body_pixels": 21,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110505,
+    "name": "魔法师之鬼",
+    "key": "puk3:0",
+    "height": 1.5833333333333333,
+    "source_body_pixels": 133,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110398,
+    "name": "雪儿波波",
+    "key": "puk2:330",
+    "height": 0.7738095238095238,
+    "source_body_pixels": 65,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106014,
+    "name": "威顿",
+    "key": "ex:350",
+    "height": 0.8690476190476191,
+    "source_body_pixels": 73,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 105377,
+    "name": "蕾茵",
+    "key": "ex:290",
+    "height": 1.0,
+    "source_body_pixels": 84,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110548,
+    "name": "魔术机甲",
+    "key": "puk3:32",
+    "height": 1.2976190476190477,
+    "source_body_pixels": 109,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110593,
+    "name": "树精布卡",
+    "key": "puk3:77",
+    "height": 0.25,
+    "source_body_pixels": 21,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110507,
+    "name": "红鬼",
+    "key": "puk3:2",
+    "height": 1.5833333333333333,
+    "source_body_pixels": 133,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110508,
+    "name": "巫师之鬼",
+    "key": "puk3:3",
+    "height": 2.1904761904761907,
+    "source_body_pixels": 184,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 107110,
+    "name": "牙骨",
+    "key": "ex:768",
+    "height": 0.5119047619047619,
+    "source_body_pixels": 43,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110330,
+    "name": "角宿一",
+    "key": "puk2:30",
+    "height": 1.5952380952380953,
+    "source_body_pixels": 134,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 106650,
+    "name": "未净化的怨念",
+    "key": "ex:726",
+    "height": 1.1666666666666667,
+    "source_body_pixels": 98,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100552,
+    "name": "未净化的怨念",
+    "key": "original:1158",
+    "height": 0.6190476190476191,
+    "source_body_pixels": 52,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110532,
+    "name": "未净化的怨念",
+    "key": "puk3:16",
+    "height": 1.2142857142857142,
+    "source_body_pixels": 102,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 107010,
+    "name": "地底龟",
+    "key": "ex:760",
+    "height": 0.7142857142857143,
+    "source_body_pixels": 60,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110550,
+    "name": "罗查",
+    "key": "puk3:34",
+    "height": 0.7738095238095238,
+    "source_body_pixels": 65,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110528,
+    "name": "拉贾魟怪",
+    "key": "puk3:12",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110776,
+    "name": "玫瑰粉怪",
+    "key": "puk3:88",
+    "height": 0.6547619047619048,
+    "source_body_pixels": 55,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110509,
+    "name": "韦伯蝙蝠",
+    "key": "v3:269",
+    "height": 0.7380952380952381,
+    "source_body_pixels": 62,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110705,
+    "name": "试力将达夫玛",
+    "key": "puk2:145",
+    "height": 1.4880952380952381,
+    "source_body_pixels": 125,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 101413,
+    "name": "人魔草",
+    "key": "original:2886",
+    "height": 0.8,
+    "prepared_from": {
+      "bank": "snow_region",
+      "skin": 19
+    }
+  },
+  {
+    "id": 110378,
+    "name": "异界怪物",
+    "key": "puk2:326",
+    "height": 0.5357142857142857,
+    "source_body_pixels": 45,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110767,
+    "name": "真?青龙",
+    "key": "puk2:340",
+    "height": 3.011904761904762,
+    "source_body_pixels": 253,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110768,
+    "name": "真?白虎",
+    "key": "puk2:341",
+    "height": 3.3333333333333335,
+    "source_body_pixels": 280,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110769,
+    "name": "真?朱雀",
+    "key": "puk2:342",
+    "height": 3.4166666666666665,
+    "source_body_pixels": 287,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110766,
+    "name": "真?玄武",
+    "key": "puk2:164",
+    "height": 2.7738095238095237,
+    "source_body_pixels": 233,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110373,
+    "name": "布欧",
+    "key": "v3:23",
+    "height": 1.7976190476190477,
+    "source_body_pixels": 151,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110359,
+    "name": "阿堤斯",
+    "key": "v3:9",
+    "height": 1.5595238095238095,
+    "source_body_pixels": 131,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110351,
+    "name": "汤玛修",
+    "key": "v3:1",
+    "height": 1.7976190476190477,
+    "source_body_pixels": 151,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110362,
+    "name": "德利耶普",
+    "key": "v3:12",
+    "height": 1.7142857142857142,
+    "source_body_pixels": 144,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110560,
+    "name": "福尔菲斯",
+    "key": "puk3:44",
+    "height": 0.6190476190476191,
+    "source_body_pixels": 52,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110546,
+    "name": "魔术机丙",
+    "key": "puk3:30",
+    "height": 1.3095238095238095,
+    "source_body_pixels": 110,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110772,
+    "name": "阵",
+    "key": "puk3:84",
+    "height": 0.6309523809523809,
+    "source_body_pixels": 53,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110552,
+    "name": "维尔斯",
+    "key": "puk3:36",
+    "height": 0.7738095238095238,
+    "source_body_pixels": 65,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110328,
+    "name": "组员",
+    "key": "puk2:28",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 18
+    }
+  },
+  {
+    "id": 110350,
+    "name": "疯狂状态的葛拉奇",
+    "key": "v3:0",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 20
+    }
+  },
+  {
+    "id": 110381,
+    "name": "黄铜怪",
+    "key": "puk2:51",
+    "height": 1.0,
+    "prepared_from": {
+      "bank": "elsa_region",
+      "skin": 26
+    }
+  },
+  {
+    "id": 104307,
+    "name": "卡尔芬",
+    "key": "joy:93",
+    "height": 1.0952380952380953,
+    "source_body_pixels": 92,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 104347,
+    "name": "雪兔",
+    "key": "joy:203",
+    "height": 1.25,
+    "source_body_pixels": 105,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 105378,
+    "name": "菟丝",
+    "key": "ex:291",
+    "height": 1.0,
+    "source_body_pixels": 84,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100627,
+    "name": "驼兽",
+    "key": "original:1176",
+    "height": 1.130952380952381,
+    "source_body_pixels": 95,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110758,
+    "name": "白虎大人",
+    "key": "puk2:336",
+    "height": 3.3333333333333335,
+    "source_body_pixels": 280,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 107910,
+    "name": "席巴塔",
+    "key": "ex:817",
+    "height": 1.6785714285714286,
+    "source_body_pixels": 141,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110346,
+    "name": "钢人26号",
+    "key": "puk2:46",
+    "height": 2.2976190476190474,
+    "source_body_pixels": 193,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110349,
+    "name": "钢人50号",
+    "key": "puk2:49",
+    "height": 2.2976190476190474,
+    "source_body_pixels": 193,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110365,
+    "name": "疯狂状态的的库特嘉",
+    "key": "v3:15",
+    "height": 1.7142857142857142,
+    "source_body_pixels": 144,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110360,
+    "name": "疯狂状态的的克塔多",
+    "key": "v3:10",
+    "height": 1.5595238095238095,
+    "source_body_pixels": 131,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110369,
+    "name": "疯狂状态的的哈斯塔",
+    "key": "v3:19",
+    "height": 1.7976190476190477,
+    "source_body_pixels": 151,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110325,
+    "name": "修莫王",
+    "key": "puk2:25",
+    "height": 1.4047619047619047,
+    "source_body_pixels": 118,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100320,
+    "name": "吉拉",
+    "key": "original:1026",
+    "height": 1.0476190476190477,
+    "source_body_pixels": 88,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100092,
+    "name": "巴雷莉",
+    "key": "original:1669",
+    "height": 0.8809523809523809,
+    "source_body_pixels": 74,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100394,
+    "name": "伊鲁玛",
+    "key": "original:1097",
+    "height": 1.0476190476190477,
+    "source_body_pixels": 88,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100006,
+    "name": "伊佐塔",
+    "key": "original:1586",
+    "height": 0.9523809523809523,
+    "source_body_pixels": 80,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100416,
+    "name": "伍那",
+    "key": "original:1118",
+    "height": 1.0714285714285714,
+    "source_body_pixels": 90,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100164,
+    "name": "伊诺克",
+    "key": "original:158",
+    "height": 1.1547619047619047,
+    "source_body_pixels": 97,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100071,
+    "name": "莱欧尼尔",
+    "key": "original:1649",
+    "height": 1.0357142857142858,
+    "source_body_pixels": 87,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100652,
+    "name": "露比",
+    "key": "original:1182",
+    "height": 0.9047619047619048,
+    "source_body_pixels": 76,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 100577,
+    "name": "艾谢巴特",
+    "key": "original:1164",
+    "height": 0.9166666666666666,
+    "source_body_pixels": 77,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
+  },
+  {
+    "id": 110384,
+    "name": "风使者",
+    "key": "puk2:54",
+    "height": 1.8928571428571428,
+    "source_body_pixels": 159,
+    "prepared_from": null,
+    "source_scale_reference": {
+      "key": "ex:1727",
+      "body_pixels": 84
+    }
   }
 ]

@@ -15,7 +15,7 @@ static var sokia_dragon_summit_loaded=false
 static var explore_recovered_loaded=false
 const EXPLORE_RECOVERED_IDS=preload("res://assets/maps/original_crossgate/explore_recovered/map_ids.gd").IDS
 const SOKIA_SERVER_IDS=[5005,5006,5009,5010,13504,13509,13512,15549,15556,15560,15562,15577,15800]
-const EXPLORE_SERVER_IDS=[15549,15556,15560,15562,15577,15800]
+const EXPLORE_SERVER_IDS=[5005,5006,5009,5010,15549,15556,15560,15562,15577,15800]
 const SOKIA_WATER_IDS=[13503,13505,13506,13507,13508,13510,13511,13513,13514,13515]
 const SOKIA_CAPE_ACCESS_IDS=[15517,15520,15524,15528,15529]
 const FREYJA_TRIAL_IDS=[11006,11007,11008,11009,11010,11011,11013,11014,11500,11501,11502]
@@ -242,8 +242,10 @@ static func load_black_prayer():
 
 static func load_explore_recovered():
  if explore_recovered_loaded:return
- load_sokia_dragon_summit();load_sokia_cape_access()
+ load_elsa();load_sokia_dragon_summit();load_sokia_cape_access();load_sokia_water()
  var base=data();var regional:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(ROOT+"explore_recovered/catalog.json"))
+ for path in regional.get("layout_overrides",{}):
+  assert(base.maps.has(path)and base.maps[path].sha256==regional.layout_overrides[path].sha256,"Completed Explore layouts preserve the original client master: "+path)
  var offset:int=base.pages.size();var surface_offset:int=base.surface_pages.size()
  for serial in regional.graphics:
   assert(not base.graphics.has(serial),"Explore recovery reuses shared original graphics")
@@ -253,6 +255,9 @@ static func load_explore_recovered():
  for path in regional.maps:
   assert(not base.maps.has(path),"Recovered missing destinations retain one owner")
   base.maps[path]=regional.maps[path]
+ for path in regional.get("layout_overrides",{}):
+  var completed:Dictionary=regional.layout_overrides[path]
+  base.maps[path]=completed
  for key in ["pages","surface_pages","solid_pages"]:base[key].append_array(regional[key])
  explore_recovered_loaded=true
 

@@ -326,6 +326,8 @@ static func build_markers(root:Node3D,model):
     markers=markers+[{"at":Regions.frame(current).inverse()*Vector2(894,444),"caption":"Sacred Tree"}]
  var island_labels={}
  for link in markers:
+  # Explore supplies one walkable Cross Gate for each restricted entrance.
+  if combined.has("falan_areas")and load("res://scripts/forest/forest_explore_routes.gd").restricted(link):continue
   # Wind's adjacent original trigger tiles share one visible mouth/caption.
   if model.falan_area=="interior" and model.falan_floor>=59500 and model.falan_floor<59800 or Regions.Sokia.owns(model.falan_area) and int(link.get("site",-1))==15564:
    var label_key=str(link.get("to",""))+":"+str(link.get("floor",0))+":"+str(link.get("caption",""))
@@ -560,8 +562,8 @@ static func enter_link(game,current:String,link:Dictionary,p:Vector2)->bool:
   return true
  if link.get("decree_needs_blade",false):tree.set_meta(Winter.Decree.BLADE,false)
  if link.get("decree_guardians",false):
-  if not Winter.Decree.cleared(tree.get_meta(Winter.SLAIN,{}),game.model.falan_floor,game.model.seed_value):
-   game.toast("擊敗本層守護者才能解除封印")
+  if not Winter.Decree.cleared(tree.get_meta(Winter.SLAIN,{}),game.model.falan_floor,game.model.seed_value)or game.model.enemies.values().any(func(enemy):return enemy.hp>0 and enemy.has("frostpass_slot")):
+   game.toast("擊敗本層守護者與全部隨從才能解除封印")
    return true
  if link.get("beast_guardian",false) and not tree.get_meta(Winter.SLAIN,{}).has(Vector2i(Winter.Recovered.Beast.BOSS_ROOM,0)):
   game.toast("擊敗神獸史雷普尼爾才能解除封印")
@@ -706,6 +708,7 @@ static func travel(game,layout:Dictionary,link:Dictionary):
   var rotation=Regions.frame("east_gate").get_rotation()-Regions.frame("east_coast").get_rotation()
   link.yaw+=rotation
   if link.has("velocity"):link.velocity=link.velocity.rotated(Vector3.UP,rotation)
+ if is_instance_valid(game.get("explore_access")):game.explore_access.map_retiring()
  game.get_tree().set_meta("forest_custom_layout",layout.duplicate(true))
  var walking=link.has("velocity")
  game.preview_forest_map(layout,false,false,walking,true)

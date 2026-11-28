@@ -180,6 +180,12 @@ func _init(model):
 	elif Shalena.owns(model.falan_floor):
 		patrol_source=Shalena;patrol_posts.clear();patrol_frame=Transform2D.IDENTITY
 		for row in Shalena.posts(model.falan_floor,model.seed_value):patrol_posts.append(row[0]);patrol_levels.append(row[1])
+	var regional_pet_keys:Array=University.prepare(model)
+	if not regional_pet_keys.is_empty():
+		var enemy_keys:Array=model.get_meta("east_enemy_pet_keys",[]).duplicate()
+		for key in regional_pet_keys:
+			if key not in enemy_keys:enemy_keys.append(key)
+		model.set_meta("east_enemy_pet_keys",enemy_keys)
 	if not patrol_posts.is_empty() or East.owns_model(model) or Snow.owns(model.falan_floor) or University.owns(model.falan_floor) or Elsa.owns(model.falan_floor) or South.encounters_own(model):patrol_fits=preload("res://scripts/forest/crowd/pet_dimensions.gd").scales(patrol_source.ROOT,patrol_source.motions())
 	if model.falan_floor==0:
 		var elite_rng=RandomNumberGenerator.new();elite_rng.seed=model.seed_value+area.hash()
@@ -773,16 +779,32 @@ func tick_zombie_cave(hero:Vector3,formation:Array):
 	spawned=1
 	if m.falan_floor==Zombie.FINAL and not slain.has(0):m.army_runtime.game.toast(Zombie.BOSS_NAME)
 
-func tick_captain(hero:Vector3):
+func tick_captain(hero:Vector3,delta:float=0.):
 	if spawned!=0 or not is_instance_valid(m.army_runtime):return
+	spawn_clock=maxf(0.,spawn_clock-delta)
+	if spawn_clock>0.:return
 	var formation:Array=m.FalanFrontier.Regions.Sites.CAPTAIN_FORMATION
 	if Vector2(hero.x,hero.z).distance_squared_to(formation[0][0])>22.0*22.0:return
 	var slain:Dictionary=m.army_runtime.get_tree().get_meta(Captain.SLAIN,{})
+	var positions={}
+	for slot in formation.size():
+		if slain.has(slot):continue
+		var body=preload("res://scripts/forest/crowd/pet_dimensions.gd").body(Captain,int(formation[slot][1]))
+		body=AABB(body.position*Roles.MAP_ENEMY_SCALE*m.falan_scale,body.size*Roles.MAP_ENEMY_SCALE*m.falan_scale)
+		var point=reachable_encounter_point(formation[slot][0],.95 if formation[slot][1]==0 else .75,positions.values(),body)
+		if not point.is_finite():
+			m.set_meta("explore_boss_spawn_blocker",{"map":m.falan_floor,"slot":slot,"reason":"No reachable native body station beside the original captain formation."});spawn_clock=.5;return
+		positions[slot]=point
+		var adjustments:Dictionary=m.get_meta("explore_boss_placement_adjustments",{})
+		if point.distance_squared_to(m.world_point(formation[slot][0]))>.01:adjustments["captain:"+str(slot)]={"original":m.world_point(formation[slot][0]),"placed":point}
+		else:adjustments.erase("captain:"+str(slot))
+		m.set_meta("explore_boss_placement_adjustments",adjustments)
+	if m.get_meta("explore_boss_spawn_blocker",{}).get("map",-1)==m.falan_floor:m.remove_meta("explore_boss_spawn_blocker")
 	for slot in formation.size():
 		if slain.has(slot):continue
 		var at:Vector2=formation[slot][0]
 		var skin:int=formation[slot][1]
-		var enemy=spawn_enemy(Roles.SLIME,m.world_point(at),-1,skin)
+		var enemy=spawn_enemy(Roles.SLIME,positions[slot],-1,skin)
 		enemy.captain_slot=slot
 		if skin==0:mark_dungeon_boss(enemy)
 		enemy.footprint=.95 if skin==0 else .75
@@ -794,8 +816,10 @@ func tick_captain(hero:Vector3):
 func spawn_grave(slot:int,skin:int,hero:Vector3):
 	var at:Vector2=m.FalanFrontier.Regions.Sites.GRAVE_FORMATION[slot]
 	var point=reachable_encounter_point(at,1.05 if skin==2 else .78)
+	if not point.is_finite():point=reachable_encounter_point(m.FalanFrontier.Regions.Sites.GRAVE_FORMATION[0],1.05 if skin==2 else .78)
 	if not point.is_finite():
 		m.set_meta("explore_boss_spawn_blocker",{"map":m.falan_floor,"slot":slot,"reason":"No reachable native body station beside the original grave formation."});return
+	if m.get_meta("explore_boss_spawn_blocker",{}).get("slot",-1)==slot:m.remove_meta("explore_boss_spawn_blocker")
 	var enemy=spawn_enemy(Roles.SLIME,point,-1,skin)
 	enemy.grave_slot=3 if skin==2 else slot if skin!=3 else -1
 	if skin in [0,2]:mark_dungeon_boss(enemy)
@@ -803,16 +827,26 @@ func spawn_grave(slot:int,skin:int,hero:Vector3):
 	CaveProgression.apply(enemy,CaveProgression.GRAVE[skin],Grave.STATS)
 	enemy.facing=atan2(at.x-hero.x,at.y-hero.z)
 
-func reachable_encounter_point(preferred:Vector2,radius:float)->Vector3:
+func reachable_encounter_point(preferred:Vector2,radius:float,occupied:Array=[],body:AABB=AABB())->Vector3:
+	var shape_query:PhysicsShapeQueryParameters3D
+	if body.has_volume():
+		var shape=BoxShape3D.new();shape.size=Vector3(maxf(body.size.x,body.size.z),body.size.y,maxf(body.size.x,body.size.z))
+		shape_query=PhysicsShapeQueryParameters3D.new();shape_query.shape=shape
+		shape_query.collision_mask=m.army_runtime.game.player.collision_mask
+		shape_query.exclude=[m.army_runtime.game.player.get_rid()]
 	var candidates=[preferred]
 	for ring in range(1,9):
 		for direction in 16:candidates.append(preferred+Vector2.from_angle(direction*TAU/16.)*ring*.75)
 	for point:Vector2 in candidates:
 		var world=m.world_point(point)
+		if occupied.any(func(other):return world.distance_squared_to(other)<4.*m.falan_scale*m.falan_scale):continue
 		if not navigation.move_clear(world/m.falan_scale,radius):continue
 		if not m.army_runtime.native.can_reach(world,world,radius*m.falan_scale):continue
 		if not m.army_runtime.native.can_reach_ally(m.hero_position,world,.55*m.falan_scale):continue
 		if not m.army_runtime.game.explore_access.body_clear(world+Vector3.UP*.15*m.falan_scale):continue
+		if shape_query!=null:
+			shape_query.transform=Transform3D(Basis.IDENTITY,world+body.get_center()+Vector3.UP*.15*m.falan_scale)
+			if not m.army_runtime.game.player.get_world_3d().direct_space_state.intersect_shape(shape_query,1).is_empty():continue
 		return world
 	return Vector3.INF
 
@@ -886,7 +920,7 @@ func tick_map_encounters(hero:Vector3,route:bool=false):
 	if snow_group_ids.any(func(id):return m.enemies.has(id)):snow_distance=0.0;return
 	snow_group_ids.clear()
 	snow_distance+=distance
-	var encounter_step=3.0*(MAP_SWARM_RESPAWN_SCALE if swarm_active else 1.0)
+	var encounter_step=(2.5 if m.falan_floor==0 else 3.0)*(MAP_SWARM_RESPAWN_SCALE if swarm_active else 1.0)
 	if snow_distance<encounter_step and snow_pending.is_empty():return
 	# Other branches share this map; distant patrols must not suppress this corridor.
 	var nearby=AABB((hero-Vector3(24,12,24))*m.falan_scale,Vector3(48,24,48)*m.falan_scale)
@@ -915,7 +949,8 @@ func tick_map_encounters(hero:Vector3,route:bool=false):
 		if snow_pending.is_empty():return
 		if eastern and snow_pending.any(func(member):return not East.available(int(member[0]))):
 			var tree:SceneTree=m.army_runtime.get_tree();var blocked:Dictionary=tree.get_meta("east_encounter_blockers",{})
-			blocked[str(int(zone.id))]={"map":m.falan_floor,"reason":"Source group contains 107712; its original attack contact is not established."}
+			var appearances=snow_pending.filter(func(member):return not East.available(int(member[0]))).map(func(member):return int(East.data().species[int(member[0])].id))
+			blocked[str(int(zone.id))]={"map":m.falan_floor,"appearances":appearances,"reason":"Original source attack/contact contracts are unavailable; the complete party remains blocked."}
 			tree.set_meta("east_encounter_blockers",blocked);snow_pending=[];snow_distance=0.;return
 	if spawn_clock>0:return
 	spawn_clock=.2
@@ -1055,6 +1090,7 @@ func tick_university(hero:Vector3)->bool:
 			if positions.any(func(other):return other.distance_squared_to(point)<9.):continue
 			if not navigation.move_clear(point,radius):continue
 			if not m.army_runtime.native.can_reach(reach_origin*m.falan_scale,point*m.falan_scale,radius):continue
+			if not game.explore_access.body_clear(point*m.falan_scale+Vector3.UP*.15*m.falan_scale):continue
 			selected=point;break
 		if selected==Vector3.INF:return true
 		positions.append(selected);slots.append(i)
@@ -1148,8 +1184,10 @@ func tick_frostpass():
 		CaveProgression.apply(enemy,["Frost Bear" if bear else "Ridge Hound",level,440 if bear else 330,false],Roles.stats(kind))
 	spawned=1
 
-func tick_falken():
+func tick_falken(delta:float=0.):
 	if spawned!=0 or not is_instance_valid(m.army_runtime):return
+	spawn_clock=maxf(0.,spawn_clock-delta)
+	if spawn_clock>0.:return
 	var floor_id:int=m.falan_floor
 	var slain:Dictionary=m.army_runtime.get_tree().get_meta(Falken.SLAIN,{})
 	var rows=[]
@@ -1158,10 +1196,19 @@ func tick_falken():
 		rows.append([Falken.Route.point(floor_id,Falken.Route.BOSS_CELL),0])
 		for x in range(19,28,2):rows.append([Falken.Route.point(floor_id,Vector2i(x,22)),1 if x%4==3 else 2])
 	rows.append_array(Falken.Route.patrols(floor_id,m.seed_value))
+	var positions={}
+	if floor_id==Falken.ROOM:
+		for slot in rows.size():
+			if slain.has(Vector2i(floor_id,slot)):continue
+			var point=reachable_encounter_point(rows[slot][0],.9 if rows[slot][1]==0 else .7,positions.values())
+			if not point.is_finite():
+				m.set_meta("explore_boss_spawn_blocker",{"map":floor_id,"slot":slot,"reason":"No reachable native body station beside the original Falken formation."});spawn_clock=.5;return
+			positions[slot]=point
+		if m.get_meta("explore_boss_spawn_blocker",{}).get("map",-1)==floor_id:m.remove_meta("explore_boss_spawn_blocker")
 	for slot in rows.size():
 		var key=Vector2i(floor_id,slot)
 		if slain.has(key):continue
-		var enemy=spawn_enemy(Roles.SLIME,m.world_point(rows[slot][0]),-1,rows[slot][1])
+		var enemy=spawn_enemy(Roles.SLIME,positions.get(slot,m.world_point(rows[slot][0])),-1,rows[slot][1])
 		enemy.falken_slot=key
 		enemy.footprint=.9 if rows[slot][1]==0 else .7
 		enemy.patrol_radius=12.0
@@ -1219,8 +1266,12 @@ func reinforce_falken(source_id:int,skin:int):
 	var boss:Dictionary=m.enemies.get(source_id,{})
 	if boss.is_empty() or boss.skin!=0 or boss.hp<=0:return
 	if m.enemies.values().any(func(row):return row.id!=source_id and row.hp>0 and row.skin in [1,2] and row.pos.distance_to(boss.pos)<40*m.falan_scale):return
+	var occupied=m.enemies.values().filter(func(row):return row.hp>0 and row.pos.distance_to(boss.pos)<40*m.falan_scale).map(func(row):return row.pos)
 	for x in range(19,28,2):
-		var enemy=spawn_enemy(Roles.SLIME,m.world_point(Falken.Route.point(Falken.ROOM,Vector2i(x,22))),-1,skin)
+		var point=reachable_encounter_point(Falken.Route.point(Falken.ROOM,Vector2i(x,22)),.7,occupied)
+		if not point.is_finite():continue
+		occupied.append(point)
+		var enemy=spawn_enemy(Roles.SLIME,point,-1,skin)
 		enemy.falken_slot=Vector2i(Falken.ROOM,100+enemy.id);enemy.footprint=.7;enemy.patrol_radius=12.0
 		CaveProgression.apply(enemy,Falken.PROFILES[skin],Falken.STATS)
 		m.army_runtime.presentation_events.append({"kind":"hound_summon","position":enemy.pos})
@@ -1235,7 +1286,7 @@ func tick(delta:float,hero:Vector3):
 		return
 	if South.encounters_own(m):
 		hero/=m.falan_scale
-		if (m.falan_floor in [15524,15525,15526] or is_instance_valid(m.army_runtime) and UniversityRegion.active(m.army_runtime.get_tree(),m.falan_floor,m.falan_area).begins_with("sokia:")) and tick_university(hero):return
+		if (m.falan_floor in [15524,15525,15526] or is_instance_valid(m.army_runtime) and (UniversityRegion.active(m.army_runtime.get_tree(),m.falan_floor,m.falan_area).begins_with("sokia:") or str(m.army_runtime.get_tree().get_meta("university_victory","")).begins_with("sokia:"))) and tick_university(hero):return
 		if m.falan_floor in [11000,11001,11002]:tick_venoa_bears([])
 		spawn_clock=maxf(0.0,spawn_clock-delta)
 		if tick_fixed_undersea(hero):return
@@ -1262,10 +1313,10 @@ func tick(delta:float,hero:Vector3):
 		hero/=m.falan_scale
 		if Winter.LEVELS.has(m.falan_floor):tick_frostpass()
 		elif Winter.Decree.floor_number(m.falan_floor)>0 or m.falan_floor==Winter.Recovered.Beast.BOSS_ROOM or Winter.Recovered.Beast.owns(m.falan_floor):tick_holy_decree()
-		elif Falken.Route.owns(m.falan_floor):tick_falken()
+		elif Falken.Route.owns(m.falan_floor):tick_falken(delta)
 		elif m.falan_floor==11004:tick_habaru(hero)
 		elif Habaru.SLIME_CELLS.has(m.falan_floor):tick_habaru_slimes()
-		elif m.falan_floor==Captain.ROOM:tick_captain(hero)
+		elif m.falan_floor==Captain.ROOM:tick_captain(hero,delta)
 		elif m.falan_floor==Grave.ROOM:tick_grave(delta,hero)
 		elif m.falan_floor in Prayer.FLOORS:tick_black_prayer()
 		elif m.falan_floor==Ruby.ROOM:tick_ruby(hero)

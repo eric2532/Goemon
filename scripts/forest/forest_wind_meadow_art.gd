@@ -309,3 +309,37 @@ static func near_foliage_road(p:Vector2,roads:Array)->bool:
   var a:Vector2=road[0];var delta:Vector2=road[1]
   if p.distance_to(a+delta*clampf((p-a).dot(delta)/road[2],0,1))<9:return true
  return false
+
+static func recovered_canopy(material:Material)->bool:
+ if not material is ShaderMaterial:return false
+ if material.shader==Assets.WIND:return material.get_shader_parameter("canopy")==true
+ if material.shader!=preload("res://scripts/forest/forest_painterly_environment.gd").SURFACE:return false
+ var texture=material.get_shader_parameter("base_texture")
+ return texture is Texture2D and texture.resource_path.ends_with("-foliage.png")
+
+static func register_recovered_canopies(world,parent:Node3D):
+ # Source interiors create additional shared wind canopies after the outdoor scenery pass.
+ for material in Assets.wind_materials.values():
+  if material.get_shader_parameter("canopy")==true and material not in world.fog_materials:world.fog_materials.append(material)
+ var meshes={};var materials={}
+ for node:MultiMeshInstance3D in parent.find_children("*","MultiMeshInstance3D",true,false):
+  # Original map batches own their MultiMesh; keep the cached source mesh/material immutable.
+  if not node.has_meta("source_graphic")or node.material_override!=null or node.multimesh==null:continue
+  var original:Mesh=node.multimesh.mesh
+  if original==null:continue
+  if meshes.has(original):node.multimesh.mesh=meshes[original];continue
+  var owned:Mesh=null
+  for slot in original.get_surface_count():
+   var material:Material=original.surface_get_material(slot)
+   if not recovered_canopy(material)or material in world.fog_materials:continue
+   if original.get_meta("recovered_canopy_owned",false):
+    world.fog_materials.append(material);continue
+   if owned==null:owned=original.duplicate()
+   if not materials.has(material):
+    var paint:ShaderMaterial=material.duplicate()
+    if paint.shader!=Assets.WIND:paint.set_shader_parameter("canopy_layer",true)
+    materials[material]=paint;world.fog_materials.append(paint)
+   owned.surface_set_material(slot,materials[material])
+  if owned!=null:
+   owned.set_meta("recovered_canopy_owned",true);meshes[original]=owned;node.multimesh.mesh=owned
+ parent.set_meta("recovered_canopy_owned_meshes",meshes.size())

@@ -256,7 +256,14 @@ static func begin(game,key:String,poison_answer:int=-1,retry:bool=false)->bool:
   for group in chain.groups:
    for member in source.data().groups[group[0]].details:
     if source.data().species[member.species].bank=="unavailable":game.toast("原始戰鬥的攻擊時序尚待確認");return false
+    var species:Dictionary=source.data().species[member.species]
+    if species.bank=="companion"and not preload("res://scripts/forest/pet_catalog.gd").is_prepared(int(species.skin)):
+     var blocked:Dictionary=tree.get_meta("explore_boss_presentation_blockers",{})
+     blocked[key]={"map":game.model.falan_floor,"encounter":chain_id,"appearance":species.id,"reason":"Original companion texture pages were not prepared during map setup.","setup_keys":game.model.get_meta("east_enemy_pet_keys",[]),"expected_regional_keys":Bank.prepare(game.model)}
+     tree.set_meta("explore_boss_presentation_blockers",blocked);game.toast("原始戰鬥模型尚未準備");return false
   chain_id=int(chain.next_encounter)
+ var presentation_blockers:Dictionary=tree.get_meta("explore_boss_presentation_blockers",{})
+ if presentation_blockers.has(key):presentation_blockers.erase(key);tree.set_meta("explore_boss_presentation_blockers",presentation_blockers)
  if not exploring and key=="azure":
   if not has_item(tree,"azure_medicine"):game.toast("小龍需要的藥 · 先與小龍交談");return false
   # The source victory room is still unavailable; never trap a player after consuming the medicine.
@@ -347,6 +354,9 @@ static func victory(game)->bool:
  var key:String=tree.get_meta("university_victory");tree.remove_meta("university_victory")
  var spec=specification(key,game.model.seed_value)
  if int(spec.map)!=game.model.falan_floor:return false
+ # The original seal opens only after the complete five-member source formation is won.
+ if key.begins_with("east:") and int(spec.get("actor",{}).get("source",0))==16511 and int(spec.encounter)==12000:
+  var slain:Dictionary=tree.get_meta("frostpass_slain",{});slain[Vector2i(16511,0)]=true;tree.set_meta("frostpass_slain",slain)
  if is_instance_valid(game.get("explore_access")) and game.explore_access.enabled():
   var at=Vector2(game.player.position.x,game.player.position.z)/game.model.falan_scale
   game.explore_access.scripted_victory("regional:"+key,at,"Boss",spec.win)

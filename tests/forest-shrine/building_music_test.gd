@@ -1,11 +1,12 @@
 extends SceneTree
 const Music=preload("res://scripts/forest/crossgate_music.gd")
 const Tour=preload("res://scripts/forest/forest_falan_tour.gd")
+const Roles=preload("res://scripts/forest/forest_enemy_roles.gd")
 const OUT="res://build/Other Files/Asset Toolkit/Cross Gate Music/"
 var checks=0
 var failures=0
 var game
-var settings_path="user://building-music-test-%s.cfg"%OS.get_process_id()
+var settings_path="/tmp/crossgate-building-music-test-%s.cfg"%OS.get_process_id()
 func _initialize():
  create_timer(240).timeout.connect(func():printerr("MUSIC_TIMEOUT");quit(1))
  run.call_deferred()
@@ -43,7 +44,8 @@ func run():
   var village:String=Music.Regions.CONNECTED_VILLAGES[area]
   var center=Music.Regions.village_transform(village)*Music.Regions.village_bounds(village).get_center()
   check(Music.key(area,0,center)=="m3","Joined village keeps its own theme "+village)
- var config=ConfigFile.new();config.set_value("settings","music_enabled",true);config.save(settings_path)
+ var config=ConfigFile.new();config.set_value("settings","music_enabled",true)
+ check(config.save(settings_path)==OK,"Write isolated music preferences")
  game=load("res://scenes/forest_title.tscn").instantiate();game.settings_path=settings_path
  root.add_child(game);current_scene=game;await frames()
  game.settings.forest_level_up_cards=false;game.settings.forest_pet_loadout=[]
@@ -86,6 +88,7 @@ func run():
  game.music.seek(12);game.sync_area_music()
  check(game.music.get_playback_position()>10,"Same-area updates do not restart playback")
  await battle_music()
+ await boss_music()
  await elsa_music()
  game.sound_library.recording=true;game.apply_music_setting()
  check(game.music.stream_paused,"Sound Studio recording still pauses music")
@@ -179,6 +182,49 @@ func battle_music():
  check(track("f1") and game.battle_music_left==0,"Preparation clears the previous encounter")
  army.despawn(next)
  game.model.phase="wave";game.set_phase_view()
+ game.set_physics_process(true)
+func boss_music():
+ game.set_physics_process(false)
+ var army=game.army_runtime
+ var center:Vector3=game.player.global_position
+ var scale_:float=game.model.falan_scale
+ game.music.seek(12)
+ var guard=game.model.waves.spawn_enemy(0,center+Vector3.RIGHT*2*scale_)
+ var boss=game.model.waves.spawn_enemy(Roles.BOSS,center+Vector3.RIGHT*(Music.BOSS_RADIUS+5)*scale_)
+ army.import_arrivals()
+ game._tick_battle_music(.3)
+ check(track("b0"),"Distant bosses leave the nearby patrol on the ordinary theme")
+ army.set_pose(army.handles[boss.id],center+Vector3.RIGHT*24*scale_,0.)
+ game._tick_battle_music(.3)
+ check(track("b1") and game.music.playing and game.music.stream.loop,"Nearby native boss overrides the ordinary theme with the looping boss track")
+ game.music.seek(10);game._tick_battle_music(.3);game.sync_area_music()
+ check(game.music.get_playback_position()>9,"A living boss keeps the same playback position across probes")
+ game.settings.music_enabled=false;game.apply_music_setting()
+ check(track("b1") and not game.music.playing,"Boss music respects Background Music mute")
+ game.settings.music_enabled=true;game.apply_music_setting()
+ if DisplayServer.get_name()!="headless":await capture_mix("boss-mix")
+ army.apply_hit(army.handles[boss.id],{"amount":1000000.0,"direction":Vector3.FORWARD})
+ check(not army.boss_handles.has(boss.id),"Native boss death retires its music entry")
+ game._tick_battle_music(1.)
+ check(track("b1"),"Short boss phase gaps retain the boss theme")
+ game._tick_battle_music(Music.BATTLE_HOLD)
+ check(track("b0"),"A nearby retinue returns to ordinary battle music after the boss hold")
+ army.despawn(army.handles[guard.id]);game._tick_battle_music(Music.BATTLE_HOLD)
+ check(track("f1") and game.music.get_playback_position()>10,"Area playback resumes at its saved position across both combat tracks")
+
+ var floor_=11004
+ var at:Vector2=Tour.Regions.Sites.HABARU_FORMATION[0]+Vector2(0,5)
+ Tour.travel(game,Tour.Indoor.layout(floor_),{"arrival":at,"yaw":0.0});await frames()
+ check(track("d1") and is_instance_valid(game.habaru_waiting),"Habaru's waiting host keeps the cave theme")
+ game.show_habaru_dialogue()
+ check(track("d1") and is_instance_valid(game.dialogue),"Habaru's conversation keeps the cave theme")
+ game.finish_habaru_dialogue()
+ game.set_physics_process(true)
+ for i in 30:await physics_frame
+ check(track("b1") and game.music.playing,"Habaru's actual native encounter starts the boss theme after dialogue")
+ game.set_physics_process(false)
+ await visit(Tour.Regions.layout("east_gate"),"f1")
+ check(game.boss_music_left==0. and army.boss_handles.is_empty(),"Travel clears the boss timer and native boss handles")
  game.set_physics_process(true)
 func capture_mix(stem:String="freyja-mix"):
  var bus=AudioServer.get_bus_index("SFX");var was_muted=AudioServer.is_bus_mute(bus);AudioServer.set_bus_mute(bus,true)

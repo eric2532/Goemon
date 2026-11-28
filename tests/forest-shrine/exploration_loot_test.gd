@@ -224,7 +224,8 @@ func active(loot)->int:
  return loot.slots.filter(func(slot):return slot.active).size()
 
 func force_food(loot,kind:int):
- loot.drop_bag=[kind]
+ var bag:Array=loot.explore_drop_bag if loot.exploring() else loot.drop_bag
+ bag.assign([kind])
 
 func capture_loot(filename:String):
  if DisplayServer.get_name()=="headless":return

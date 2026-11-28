@@ -24,8 +24,9 @@ func run():
  var rows=[]
  for id in Original.Art.SOKIA_SERVER_IDS:
   var path=Original.path_for(id);var source:Dictionary=base.maps[path]
-  var enabled=id in[13504,13509,13512]
-  check(Original.owns(id)==enabled and source.sokia_visual_only==(not enabled),"Only individually verified Water source rooms enable normal dispatch: "+str(id))
+  var water=id in[13504,13509,13512]
+  var enabled=water or id in Original.Art.EXPLORE_SERVER_IDS and source.layout_complete
+  check(Original.owns(id)==enabled and source.sokia_visual_only==(not water),"Completed Explore dispatch preserves original source review markers: "+str(id))
   check(not source.source_flags_available and int(source.recorded)==0 and source.warp_cells.is_empty(),"Client flag/warp evidence remains unknown: "+str(id))
   var state=Original.state(id);var raw:PackedByteArray=Original.Art.raw_map(path)
   check(raw==state.raw,"Every complete server-derived source plane remains unchanged: "+str(id))
@@ -48,6 +49,6 @@ func run():
   rows.append({"id":id,"size":str(state.size),"source_stations":count,"prepared_colliders":blocks.size(),"fixed_port_candidates":source.fixed_port_candidates.size(),"event_port_candidates":source.event_port_candidates.size(),"source_flags_available":false,"route_status":source.gate_status})
   scene.queue_free();await process_frame
  var file=FileAccess.open(REVIEW+"headless-source-renderer.json",FileAccess.WRITE)
- file.store_string(JSON.stringify({"checks":checks,"failures":failures,"maps":rows,"limitations":["Prepared nodes and finite boxes do not establish rendered appearance or combat clearance.","Three Water rooms have individually verified normal dispatch; the other10remain review-only. Unknown source gate rules remain separately guarded."]},"  ")+"\n");file.close()
+ file.store_string(JSON.stringify({"checks":checks,"failures":failures,"maps":rows,"limitations":["Prepared nodes and finite boxes do not establish rendered appearance or combat clearance.","Completed source rooms have Explore owners; ordinary and quest-gated routes still need their own walking/interaction evidence."]},"  ")+"\n");file.close()
  print("SOKIA_SERVER_MAP_RESULT checks=",checks," failures=",failures)
  quit(1 if failures else 0)

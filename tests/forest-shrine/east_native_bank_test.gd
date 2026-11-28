@@ -25,12 +25,21 @@ func run():
  check(count_<=Dimensions.CAVE_SKINS,"Every recovered source appearance fits the shared bank")
  var attacks=Kit.expanded_timelines(East.timelines(),int(manifest.timeline_stride),Dimensions.CAVE_SKINS)
  var geometry=Dimensions.geometry(East,true,Roles.MAP_ENEMY_SCALE)
+ if not wind_staged and not dragon_staged:
+  var snow_skin=-1
+  for skin in count_:
+   if int(manifest.variants[skin].id)==101413:snow_skin=skin;break
+  check(snow_skin>=0,"Recovered source bank includes the authenticated snow plant")
+  if snow_skin>=0:check(Dimensions.body(East,snow_skin)==Dimensions.body(preload("res://scripts/forest/crowd/snow_region_sprites.gd"),19),"Copied snow frames retain their approved original body bounds")
  var data={"soldier_kinds":PackedInt32Array([Roles.SLIME]),"soldier_profiles":PackedFloat32Array([300,3.85,12,3.25,5,1.75]),"actions":PackedInt32Array(Kit.ACTION.values()),"status_bits":PackedInt32Array(Kit.STATUS.values()),"phase_ticks":PackedFloat32Array([36,10,36,30,30]),"contact_ticks":PackedFloat32Array([18,18,18,18]),"melee_from":Vector3(0,1,0),"melee_to":Vector3(0,1,-3),"slime_attacks":attacks,"pet_geometry":geometry,"map_enemy_scale":Roles.MAP_ENEMY_SCALE}
  data.merge({"bullet_speed":12.,"bullet_life":2.,"bullet_tail":.1,"bullet_radius":.5,"damage_taken_multiplier":1.})
  var runtime=Runtime.new()
  check(runtime.configure(null,256),"Published native bridge initializes")
  var accepted:bool=runtime.native.configure_kits(data)
  check(accepted,"Published native bridge accepts every original contact/audio cue and source body")
+ var invalid=data.duplicate(true);invalid.slime_attacks[3]=20119
+ check(not runtime.native.configure_kits(invalid),"An unauthenticated source sound cue is still rejected")
+ check(runtime.native.configure_kits(data),"Original source kits remain usable after rejecting an unknown cue")
  check(geometry.size()==(Dimensions.COMPANION_SKINS+Dimensions.CAVE_SKINS+5)*7,"Geometry offsets agree with the native capacity")
  if accepted:
   for repetition in 2:

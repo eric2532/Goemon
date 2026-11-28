@@ -76,6 +76,33 @@ static func group(zone:Dictionary,bags:Dictionary,rng:RandomNumberGenerator)->Ar
 
 static func companion(index:int)->bool:return data().species[index].bank=="companion"
 
+static func prepare(model)->Array:
+ var payload=data();var maps=load("res://scripts/forest/forest_original_maps.gd")
+ var source:int=maps.source_id(model.falan_floor);var generated=maps.generated();var branch:String=generated.branch(model.falan_floor)
+ var groups={};var pending=[];var seen={}
+ for zone in payload.zones:
+  if int(zone.map)==source:
+   for choice in zone.groups:groups[str(choice[0])]=true
+ if payload.generated.has(branch):
+  for choice in payload.generated[branch].groups:groups[str(choice[0])]=true
+ var regional=load("res://scripts/forest/forest_university_region.gd")
+ for key in regional.BOSSES:
+  var spec:Dictionary=regional.BOSSES[key]
+  if int(spec.map)==model.falan_floor or key=="dijiro"and branch=="tunnel"and generated.number(model.falan_floor)==generated.count(branch,model.seed_value):pending.append(str(int(spec.encounter)))
+ while not pending.is_empty():
+  var id:String=pending.pop_back()
+  if seen.has(id):continue
+  seen[id]=true
+  var zone:Dictionary=payload.bosses.get(id,{})
+  for choice in zone.get("groups",[]):groups[str(choice[0])]=true
+  if int(zone.get("next_encounter",0))>0:pending.append(str(int(zone.next_encounter)))
+ var members={};var keys={}
+ for id in groups:
+  for member in payload.groups[id].members:members[int(member[0])]=true
+ for index in members:
+  if companion(index):keys[str(payload.species[index].key)]=true
+ return keys.keys()
+
 static func radius(index:int)->float:
  var species:Dictionary=data().species[index]
  var dimensions=preload("res://scripts/forest/crowd/pet_dimensions.gd")

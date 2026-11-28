@@ -8,6 +8,13 @@ var game
 var checks=0
 var failures=0
 var cfg="/tmp/map-swarm-%d.cfg"%OS.get_process_id()
+
+class EncounterQuery extends Node:
+ var checks=0
+ func query_aabb(_bounds:AABB,_team:int)->Array:
+  checks+=1
+  return [1]
+
 func _initialize():
  create_timer(240,true,false,true).timeout.connect(func():printerr("MAP_SWARM_TIMEOUT");quit(1))
  run.call_deferred()
@@ -35,9 +42,20 @@ func model_checks():
  waves.tick_map_encounters(Vector3(3,0,0))
  check(waves.snow_distance==3.0,"Swarming movement encounters no longer check after three map units")
  waves.tick_map_encounters(Vector3(6,0,0))
- check(waves.snow_distance==6.0,"Walking continues accumulating toward the fifteen-unit encounter check")
+ check(waves.snow_distance==6.0,"Walking continues accumulating toward the longer outdoor swarm encounter check")
+ var query=EncounterQuery.new();model.army_runtime=query
+ waves.tick_map_encounters(Vector3(12,0,0))
+ check(query.checks==0,"Outdoor swarm still waits after twelve units walked")
+ waves.tick_map_encounters(Vector3(12.5,0,0))
+ check(query.checks==1,"Outdoor swarm checks at twelve and a half units walked")
  model.phase="preparing";model.start_wave()
  check(not waves.swarm_active,"A new run clears the food invitation")
+ waves.snow_last=Vector3.ZERO;waves.snow_distance=0.
+ waves.tick_map_encounters(Vector3(2,0,0))
+ check(query.checks==1,"Outdoor encounters wait after two units walked")
+ waves.tick_map_encounters(Vector3(2.5,0,0))
+ check(query.checks==2,"Outdoor encounters check at two and a half units walked")
+ model.army_runtime=null;query.free()
  model.phase="preparing";waves.enemy_defeated({"id":5})
  check(not waves.swarm_active,"Deaths outside active combat cannot start a swarm")
  model.reset(42,{}, {},false);model.waves.crossgate_pet_test=false;model.start_wave()

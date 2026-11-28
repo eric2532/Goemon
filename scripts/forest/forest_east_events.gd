@@ -622,6 +622,8 @@ static func show_state(game,session:Dictionary):
   stop(session,"Source actor map changed during the conversation");show_state(game,session);return
  if session.actor.get("dialogue_owner","")=="sokia_server" and (game.model.falan_area!="interior"or game.model.falan_floor!=int(session.actor.source)):
   stop(session,"Source actor map changed during the conversation");show_state(game,session);return
+ if session.actor.get("dialogue_owner","")=="explore_source" and game.model.get_instance_id()!=int(session.context.get("source_model",-1)):
+  stop(session,"Source actor map changed during the conversation");show_state(game,session);return
  if session.actor.get("dialogue_owner","")=="sokia_wind" and not load("res://scripts/forest/forest_sokia_cape.gd").on_map(game.model,session.actor):
   stop(session,"Source actor map changed during the conversation");show_state(game,session);return
  if session.status=="window":
@@ -635,6 +637,7 @@ static func show_state(game,session:Dictionary):
   if session.actor.get("dialogue_owner","")=="black_prayer":text=load("res://scripts/forest/forest_black_prayer_events.gd").data().messages.get(str(session.pending.message),text)
   elif session.actor.get("dialogue_owner","")=="sokia_cape_access":text=load("res://scripts/forest/forest_sokia_cape.gd").access().messages.get(str(session.pending.message),text)
   elif session.actor.get("dialogue_owner","")=="sokia_server":text=load("res://scripts/forest/forest_south_kili_population.gd").server_events(game.model.falan_floor).messages.get(str(session.pending.message),text)
+  elif session.actor.get("dialogue_owner","")=="explore_source":text=load("res://scripts/forest/forest_explore_routes.gd").catalog.source_events.messages.get(str(session.pending.message),text)
   elif session.actor.get("dialogue_owner","")=="sokia_wind":text=load("res://scripts/forest/forest_east_region.gd").wind_events().messages.get(str(session.pending.message),text).replace("@c","").strip_edges()
   game.show_boss_dialogue(session.actor.get("name","旅人"),[{"text":text.strip_edges(),"portrait":null,"options":options}],trigger,func():respond(game,expected,"CANCEL"))
   trigger.free();game.dialogue.chosen.connect(func(answer:String):respond(game,expected,answer))
@@ -680,7 +683,7 @@ static func respond(game,expected:int,answer:String):
   session=begin_item_context(item_id,item_data().items.get(str(item_id),{}),context) if item_id>0 else begin_context(session.actor,original,context)
   session.serial=serial
  else:
-  if session.actor.get("dialogue_owner","")in["black_prayer","sokia_server"]:session.context.now=Time.get_unix_time_from_system()
+  if session.actor.get("dialogue_owner","")in["black_prayer","sokia_server","explore_source"]:session.context.now=Time.get_unix_time_from_system()
   choose_context(session,answer)
  game.set_meta(SESSION,session);show_state(game,session)
 
@@ -704,6 +707,7 @@ static func source_actor(game,actor:Dictionary,original_script:Dictionary={})->b
  var kind=str(actor.type).to_lower()
  if kind not in ["event","watchevent","watchex","standenemy","housemaster","warp","housewarp2"]:return true
  var context=game_context(game,actor)
+ if actor.get("dialogue_owner","")=="explore_source":context.source_model=game.model.get_instance_id()
  if actor.get("dialogue_owner","")=="sokia_wind" and not context.external.has("bimage") and "appearance"in game.player.model and game.player.model.appearance.has("id"):
   context.external.bimage=int(game.player.model.appearance.id)
  if actor.get("unbounded_source_quest_items",false):context.external.itemspace=1

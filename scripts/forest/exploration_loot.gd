@@ -12,6 +12,7 @@ const BUFFS=["","","","damage_mult","max_hp","attack_speed","movement_speed","de
 const EFFECTS=["","","","Damage +30% · 10 min","Max HP +30% · 10 min","Attack speed +20% · 10 min","Movement speed +20% · 10 min","Defense +20 · 10 min","Skill size & hit radius +5% · Rest of run","Invites all enemies on this map","Damage +50% · 5 min","Magic damage +50% · 5 min","Attack speed +50% · 5 min"]
 const OYAKODON=8
 const MELON_BREAD=9
+const EXPLORE_MELON_BREAD_EXTRA_TICKETS=7
 const RED_JELLY=10
 const BLUE_JELLY=11
 const GREEN_JELLY=12
@@ -31,7 +32,11 @@ var opened_chests:Dictionary={}
 var boss_contents:Dictionary={}
 var sword_bag:Array=[]
 var reward_bag:Array=[]
+var boss_bonus_bag:Array=[]
+var elite_chance_bag:Array=[]
+var elite_gear_bag:Array=[]
 var drop_bag:Array=[]
+var explore_drop_bag:Array=[]
 var prepared_model:WeakRef
 var buff_tiles:Array[Control]=[]
 var buff_counts:Array[Label]=[]
@@ -154,23 +159,25 @@ func prepare_world():
 
 func enemy_died(event:Dictionary):
 	if event.team!=0 or game.model.phase!="wave":return
-	if not exploring() and int(event.get("unit_kind",-1))!=game.EnemyRoles.SLIME:return
-	if game.model.enemies.get(event.target_id,{}).get("elite",false):spawn_chest(0,event.position)
-	var kind=draw_food_drop()
+	var explore=exploring()
+	if not explore and int(event.get("unit_kind",-1))!=game.EnemyRoles.SLIME:return
+	if game.model.enemies.get(event.target_id,{}).get("elite",false):spawn_chest(0,event.position,"",false,true)
+	var kind=draw_food_drop(explore)
 	if kind>=0:spawn_food(kind,event.position)
 
-func draw_food_drop()->int:
-	if drop_bag.is_empty():
-		# Four misses per food keep a 20% drop rate with equal foods, without replacement.
-		drop_bag.assign(range(FOODS.size()))
-		for i in FOODS.size()*4:drop_bag.append(-1)
-		for i in range(drop_bag.size()-1,0,-1):
-			var j=rng.randi_range(0,i)
-			var kind=drop_bag[i];drop_bag[i]=drop_bag[j];drop_bag[j]=kind
-	return drop_bag.pop_back()
+func draw_food_drop(explore:bool)->int:
+	var bag=explore_drop_bag if explore else drop_bag
+	if bag.is_empty():
+		# Extra melon bread takes only miss tickets so the other foods keep their odds.
+		var extra=EXPLORE_MELON_BREAD_EXTRA_TICKETS if explore else 0
+		bag.assign(range(FOODS.size()))
+		for i in extra:bag.append(MELON_BREAD)
+		for i in FOODS.size()*4-extra:bag.append(-1)
+		shuffle_bag(bag)
+	return bag.pop_back()
 
-func spawn_chest(kind:int,point:Vector3,key:String="",boss:bool=false)->bool:
-	return _spawn(kind,point,true,key,boss)
+func spawn_chest(kind:int,point:Vector3,key:String="",boss:bool=false,elite:bool=false)->bool:
+	return _spawn(kind,point,true,key,boss,elite)
 
 func spawn_boss_chest(point:Vector3,key:String)->bool:
 	if key.is_empty() or opened_chests.has(key) or slots.any(func(slot):return slot.active and slot.get("key","")==key):return false
@@ -184,14 +191,14 @@ func spawn_boss_chest(point:Vector3,key:String)->bool:
 func spawn_food(kind:int,point:Vector3)->bool:
 	return _spawn(kind,point,false,"")
 
-func _spawn(kind:int,point:Vector3,chest:bool,key:String,boss:bool=false)->bool:
+func _spawn(kind:int,point:Vector3,chest:bool,key:String,boss:bool=false,elite:bool=false)->bool:
 	if kind<0 or kind>=(3 if chest else FOODS.size()) or not point.is_finite():return false
 	# Required chest rewards cannot be lost to a full food/chest pool.
 	if chest and slots.all(func(slot):return slot.active):slots.append({"active":false})
 	for slot in slots:
 		if slot.active:continue
 		point.y=game.model.world_height(point.x,point.z)+.05
-		slot.assign({"active":true,"chest":chest,"boss":boss,"kind":kind,"pos":point,"left":FOOD_LIFETIME,"key":key})
+		slot.assign({"active":true,"chest":chest,"boss":boss,"elite":elite,"kind":kind,"pos":point,"left":FOOD_LIFETIME,"key":key})
 		for node in batches:
 			if node.multimesh.instance_count<slots.size():node.multimesh.instance_count=nearest_po2(slots.size())
 		_sync_batches();return true
@@ -244,11 +251,21 @@ func open_nearest()->bool:
 	var index=nearest()
 	if index<0:return false
 	var slot:Dictionary=slots[index]
-	if not slot.get("boss",false) and (slot.get("reward","")=="weapon" or slot.has("sword")):
-		slot.erase("reward");slot.erase("sword")
+	if not slot.boss and not slot.elite:
+		var reward:String=slot.get("reward","")
+		if reward=="weapon" or is_accessory(reward) or slot.has("sword"):
+			slot.erase("reward");slot.erase("sword")
 	# Keep contents stable until the reward is saved, including after a failed write.
-	if not slot.has("reward"):slot.reward="weapon" if slot.get("boss",false) else draw_reward()
-	if Gear.ITEMS.get(slot.reward,{}).get("category","")=="accessories":return claim_accessory(slot)
+	if not slot.has("reward"):
+		if slot.boss:
+			slot.reward="weapon"
+		else:
+			var gear=draw_elite_gear() if slot.elite else ""
+			if gear in Gear.CHEST_WEAPONS:
+				slot.reward="weapon";slot.sword=gear
+			else:
+				slot.reward=draw_reward() if gear.is_empty() else gear
+	if is_accessory(slot.reward):return claim_accessory(slot)
 	if slot.reward!="weapon":
 		if not Nutrition.eligible(game,slot.reward):
 			game.toast("This food needs an eligible character or a selected pet below its cap.")
@@ -257,9 +274,12 @@ func open_nearest()->bool:
 		game.sound("pickup",.8,false,{},0,CHEST_SOUND)
 		return true
 	if not slot.has("sword"):slot.sword=draw_sword()
-	if not slot.has("bonus") or not slot.bonus.is_empty() and not reward_eligible(slot.bonus):
-		slot.bonus=draw_reward()
-		if boss_contents.has(slot.key):boss_contents[slot.key].bonus=slot.bonus
+	var bonus=""
+	if slot.boss:
+		if not slot.has("bonus") or not slot.bonus.is_empty() and not reward_eligible(slot.bonus):
+			slot.bonus=draw_reward(true)
+			if boss_contents.has(slot.key):boss_contents[slot.key].bonus=slot.bonus
+		bonus=slot.bonus
 	var previous:Array=game.settings.chest_swords
 	var previous_upgrades:Dictionary=game.settings.sword_upgrades
 	var previous_accessories:Dictionary=game.settings.accessory_drops
@@ -269,8 +289,8 @@ func open_nearest()->bool:
 		game.settings.sword_upgrades[slot.sword]=int(previous_upgrades.get(slot.sword,0))+1
 	else:
 		game.settings.chest_swords=Gear.sanitized_swords(previous+[slot.sword])
-	if Gear.ITEMS.get(slot.bonus,{}).get("category","")=="accessories":
-		game.settings.accessory_drops=previous_accessories.duplicate();game.settings.accessory_drops[slot.bonus]=int(previous_accessories.get(slot.bonus,0))+1
+	if is_accessory(bonus):
+		game.settings.accessory_drops=previous_accessories.duplicate();game.settings.accessory_drops[bonus]=int(previous_accessories.get(bonus,0))+1
 	if game.save_settings()!=OK:
 		game.settings.chest_swords=previous;game.settings.sword_upgrades=previous_upgrades;game.settings.accessory_drops=previous_accessories
 		game.toast("Could not save weapon. Open this chest again to retry.")
@@ -279,9 +299,8 @@ func open_nearest()->bool:
 	var item:Dictionary=Gear.item_data(slot.sword,game.settings)
 	food_icon.texture=item.icon
 	food_text.text=item.name+(" · Upgraded · ATK +%d"%roundi(item.effects.attack) if duplicate else " · Added to Equipment")
-	if slot.get("boss",false):
-		if Nutrition.ITEMS.has(slot.bonus) and Nutrition.reward(game,slot.bonus):food_text.text+="\n+ "+Nutrition.ITEMS[slot.bonus].name+" · "+Nutrition.ITEMS[slot.bonus].effect
-		elif Gear.ITEMS.has(slot.bonus):food_text.text+="\n+ "+Gear.ITEMS[slot.bonus].name
+	if Nutrition.ITEMS.has(bonus) and Nutrition.reward(game,bonus):food_text.text+="\n+ "+Nutrition.ITEMS[bonus].name+" · "+Nutrition.ITEMS[bonus].effect
+	elif is_accessory(bonus):food_text.text+="\n+ "+Gear.ITEMS[bonus].name
 	consume_chest(slot);return true
 
 func claim_accessory(slot:Dictionary)->bool:
@@ -293,8 +312,11 @@ func claim_accessory(slot:Dictionary)->bool:
 	food_icon.texture=item.icon;food_text.text=item.name+" · Collected ×%d"%game.settings.accessory_drops[slot.reward]
 	consume_chest(slot);return true
 
+func is_accessory(id:String)->bool:
+	return Gear.ITEMS.get(id,{}).get("category","")=="accessories"
+
 func reward_eligible(id:String)->bool:
-	return Gear.ITEMS.get(id,{}).get("category","")=="accessories" or Nutrition.eligible(game,id)
+	return is_accessory(id) or Nutrition.eligible(game,id)
 
 func begin_consuming(slot:Dictionary):
 	slot.flying=true;slot.flight=0.0;slot.ground=slot.pos
@@ -323,26 +345,41 @@ func consume_chest(slot:Dictionary):
 	if slot.get("boss",false):game.explore_access.invalidate()
 	slot.active=false;_sync_batches()
 
-func draw_reward()->String:
-	var rewards=Nutrition.ITEMS.keys()+Gear.ITEMS.keys().filter(func(id):return Gear.ITEMS[id].get("category","")=="accessories")
+func draw_reward(include_accessories:bool=false)->String:
+	var rewards=Nutrition.ITEMS.keys()
+	if include_accessories:rewards+=Gear.ITEMS.keys().filter(is_accessory)
 	if not rewards.any(reward_eligible):return ""
+	var bag=boss_bonus_bag if include_accessories else reward_bag
 	while true:
-		if reward_bag.is_empty():
-			reward_bag.assign(rewards)
-			for i in range(reward_bag.size()-1,0,-1):
-				var j=rng.randi_range(0,i)
-				var reward=reward_bag[i];reward_bag[i]=reward_bag[j];reward_bag[j]=reward
-		var id:String=reward_bag.pop_back()
-		if reward_eligible(id):return id
+		if bag.is_empty():
+			bag.assign(rewards)
+			shuffle_bag(bag)
+		var id:String=bag.pop_back()
+		if id in rewards and reward_eligible(id):return id
 	return ""
+
+func draw_elite_gear()->String:
+	if elite_chance_bag.is_empty():
+		elite_chance_bag.resize(100)
+		elite_chance_bag.fill(false)
+		elite_chance_bag[0]=true
+		shuffle_bag(elite_chance_bag)
+	if not elite_chance_bag.pop_back():return ""
+	if elite_gear_bag.is_empty():
+		elite_gear_bag.assign(Gear.CHEST_WEAPONS+Gear.ITEMS.keys().filter(is_accessory))
+		shuffle_bag(elite_gear_bag)
+	return elite_gear_bag.pop_back()
 
 func draw_sword()->String:
 	if sword_bag.is_empty():
-		sword_bag=Gear.CHEST_WEAPONS.duplicate()
-		for i in range(sword_bag.size()-1,0,-1):
-			var other=rng.randi_range(0,i)
-			var id=sword_bag[i];sword_bag[i]=sword_bag[other];sword_bag[other]=id
+		sword_bag.assign(Gear.CHEST_WEAPONS)
+		shuffle_bag(sword_bag)
 	return sword_bag.pop_back()
+
+func shuffle_bag(bag:Array):
+	for i in range(bag.size()-1,0,-1):
+		var j=rng.randi_range(0,i)
+		var ticket=bag[i];bag[i]=bag[j];bag[j]=ticket
 
 func sync_buffs():
 	var any_active=false;var layout_changed=false

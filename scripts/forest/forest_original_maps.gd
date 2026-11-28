@@ -67,6 +67,8 @@ static func floor_number(id:int)->int:
 static func floor_id(n:int)->int:return 51024+n/10 if n%10==0 else 51100+n
 
 static func source_id(id:int)->int:
+ # The first two generated mountain floors retain their saved runtime IDs.
+ if id in[51009,51010]:return 51301+id-51009
  if EastIndex.REVERSE_ALIASES.has(id):return EastIndex.REVERSE_ALIASES[id]
  var n=floor_number(id)
  return 24008+n if n>0 else ALIASES.get(id,id)
@@ -114,7 +116,7 @@ static func ceiling_height(id:int)->float:
  return high
 
 static func title(id:int)->String:
- if id==4100:return "阿斯提亞鎮 · 區域邊界"
+ if id==4100:return "阿斯提亞鎮"
  if id==SHALENA_SOUTH:return "莎蓮娜 · 傑諾瓦與蒂娜道路"
  if id in [SHALENA_NORTH,51024]:return "莎蓮娜 · 阿巴尼斯雪原"
  if id in [51009,51010]:return "積雪的山路 · %dF"%(1 if id==51009 else 2)
@@ -123,9 +125,8 @@ static func title(id:int)->String:
  return Art.data().maps[path_for(id)].title
 
 static func crop(id:int,seed_:int=0)->Rect2i:
- if id==4100:return Rect2i(45,115,33,25)
  if generated().owns(id):return Rect2i(Vector2i.ZERO,generated().dimensions(id,seed_))
- if source_id(id)==400:return Rect2i(110,170,510,310)
+ if source_id(id)==400:return Rect2i(110,170,510,430)
  var row:Dictionary=Art.data().maps[path_for(id,seed_)]
  return Rect2i(Vector2i.ZERO,Vector2i(row.size[0],row.size[1]))
 
@@ -155,6 +156,9 @@ static func state(id:int,seed_:int=0)->Dictionary:
    for plane in 3:raw.encode_u16(20+(plane*cells+i)*2,source.decode_u16(20+(plane*full_cells+j)*2))
    if bits_full[j>>3]&(1<<(j&7)):bits[i>>3]|=1<<(i&7)
  var result={"size":size_,"origin":-Vector2(size_/2)*3.0,"raw":raw,"bits":bits,"seed":seed_}
+ # Extend Astia around its old boundary coordinates so existing saved positions stay put.
+ if id==4100:result.origin=Vector2(-183,-381)
+ if source_id(id)==400:result.origin=Vector2(-765,-465)
  states[key]=result
  return result
 
@@ -197,6 +201,7 @@ static func patrols(id:int,seed_:int,count_:int)->Array:
  return result
 
 static func runtime_id(source:int)->int:
+ if source in[51301,51302]:return 51009+source-51301
  if EastIndex.RUNTIME_ALIASES.has(source):return EastIndex.RUNTIME_ALIASES[source]
  if source>=24009 and source<=24068:return floor_id(source-24008)
  return REVERSE.get(source,source)
@@ -213,7 +218,7 @@ static func links(id:int,seed_:int=0)->Array:
   # Superseded warp-table version: the client and reciprocal Abanis exits put this entrance on402 (182–184,161).
   if src==400 and int(values[3])==4300:continue
   var target=runtime_id(int(values[3]))
-  if src in Art.EXPLORE_RECOVERED_IDS and target in [100,300]:
+  if src in Art.EXPLORE_RECOVERED_IDS and target in [100,300,1000,1500,2000,2100,2300,2400,3000,3200]:
    var exterior=load("res://scripts/forest/forest_east_region.gd").destination_link(source_point(id,Vector2i(values[1],values[2])),target,Vector2i(values[4],values[5]))
    if not exterior.is_empty():result.append(exterior)
    continue
@@ -286,7 +291,7 @@ static func links(id:int,seed_:int=0)->Array:
    result.append(door(source_point(id,generated().entry_cell(branch_,seed_)),first,generated().landing(first,seed_,true),spec.title).merged({"region_needs":"moon_hoe" if branch_=="tunnel" else ""}))
   if branch_!="scientist" and not spec.end.is_empty() and src==spec.end[0]:
    var last:int=generated().floor_id(branch_,generated().count(branch_,seed_))
-   result.append(door(source_point(id,Vector2i(spec.end[1],spec.end[2])),last,generated().landing(last,seed_,false)))
+   result.append(door(source_point(id,Vector2i(spec.end[1],spec.end[2])),last,generated().landing(last,seed_,false)).merged({"explore_gate_only":src==47017}))
  if id==51022:
   result.append(door(source_point(id,Vector2i(7,3)),51021,source_point(51021,Vector2i(9,5))))
  if src==4419:

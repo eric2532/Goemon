@@ -134,11 +134,14 @@ func run():
  for texture in Loot.FOODS:
   var hash=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(texture.get_image().get_data())
   check(hash.finish().hex_encode()==manifest[texture.resource_path.get_file().get_basename()].rgba_sha256,"Active food pixels match the preserved original: "+texture.resource_path.get_file())
+ loot.drop_bag.clear();loot.explore_drop_bag.clear()
  for cycle in 3:
-  loot.drop_bag.clear();var counts={}
+  var arena_counts={};var explore_counts={}
   for i in Loot.FOODS.size()*5:
-   var kind=loot.draw_food_drop();counts[kind]=counts.get(kind,0)+1
-  check(counts.get(-1,0)==Loot.FOODS.size()*4 and range(Loot.FOODS.size()).all(func(kind):return counts.get(kind,0)==1),"Each full drop bag has four misses per food and one of every food")
+   var arena_kind=loot.draw_food_drop(false);arena_counts[arena_kind]=arena_counts.get(arena_kind,0)+1
+   var explore_kind=loot.draw_food_drop(true);explore_counts[explore_kind]=explore_counts.get(explore_kind,0)+1
+  check(arena_counts.get(-1,0)==52 and range(Loot.FOODS.size()).all(func(kind):return arena_counts.get(kind,0)==1),"Arena keeps one of every food per 65 deaths")
+  check(explore_counts.get(-1,0)==45 and explore_counts.get(Loot.MELON_BREAD,0)==8 and range(Loot.FOODS.size()).all(func(kind):return kind==Loot.MELON_BREAD or explore_counts.get(kind,0)==1),"Explore replaces seven misses with melon bread and preserves the other food odds")
  if DisplayServer.get_name()!="headless":
   # Retain a short real-renderer sequence for judging the food's complete motion.
   DirAccess.make_dir_recursive_absolute(OUT+"Glide Frames/")

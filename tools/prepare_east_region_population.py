@@ -46,8 +46,12 @@ def approved_height(bank, skin, manifest):
 
 def compile_script(raw):
     """Retain original conditions/window order as data; never execute source programs."""
-    lines = [[i, line] for i, line in enumerate(raw.decode("gb18030").splitlines(), 1)
-             if line.strip() and not line.lstrip().startswith("#")]
+    # Discard source comments before decoding; a few original comments contain malformed bytes.
+    lines = []
+    for i, encoded in enumerate(raw.splitlines(), 1):
+        if encoded.lstrip().startswith(b"#"): continue
+        line = encoded.decode("gb18030")
+        if line.strip(): lines.append([i, line])
     blocks = []
     for number, line in lines:
         match = re.match(r"^\s*block\b(.*)", line, re.I)
@@ -235,7 +239,7 @@ def encounter_data(actors, scripts, dungeons, maps):
                 generated=dungeons, scripted_battles=battles, blockers=blockers)
 
 
-def pack_new_species(data):
+def pack_new_species(data, prepare=True):
     """Use the existing offline native importer; preserve unsupported cue contracts explicitly."""
     sys.path.insert(0, str(ROOT.parent / "Magic Power/tools"))
     import cg_assets as cg
@@ -293,6 +297,7 @@ def pack_new_species(data):
         candidates.append(dict(id=species["id"], name=species["name"], key=selected["key"],
             height=height, source_body_pixels=foot - top, prepared_from=previous_fit,
             source_scale_reference=dict(key="ex:1727", body_pixels=reference_height)))
+    if not prepare:return candidates
     (OUT / "native-preparation-blockers.json").write_text(json.dumps(blockers, ensure_ascii=False, indent=2) + "\n")
     if candidates:
         output.mkdir(parents=True, exist_ok=True)

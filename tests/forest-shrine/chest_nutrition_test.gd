@@ -64,14 +64,12 @@ func run():
  game.camera_rig.camera.global_position=game.player.position+Vector3(6,8,15);game.camera_rig.camera.look_at(game.player.position+Vector3.UP*2)
  game.settings.forest_pet_loadout=[Pets.key(0),Pets.key(21),Pets.key(41),Pets.key(61)]
  army.reconcile_pet_loadout();army.queue_hounds();arrive()
- var accessories=loot.Gear.ITEMS.keys().filter(func(id):return loot.Gear.ITEMS[id].get("category","")=="accessories")
- var bag_size=Nutrition.ITEMS.size()+accessories.size()
  loot.reward_bag.clear();loot.rng.seed=622
  for cycle in 3:
   var counts={}
-  for i in bag_size:
+  for i in Nutrition.ITEMS.size():
    var id=loot.draw_reward();counts[id]=counts.get(id,0)+1
-  check(counts.get("weapon",0)==0 and (Nutrition.ITEMS.keys()+accessories).all(func(id):return counts.get(id,0)==1),"Regular chest bag contains every eligible food and accessory once, without weapons")
+  check(counts.size()==Nutrition.ITEMS.size() and Nutrition.ITEMS.keys().all(func(id):return counts.get(id,0)==1),"Regular chest bag contains every eligible food once")
  var baseline_hp:float=game.player.max_hp
  var baseline_damage:float=game.player.damage_multiplier()
  var baseline_magic:float=game.player.magic_damage_multiplier()

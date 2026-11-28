@@ -2,6 +2,8 @@ extends RefCounted
 ## Explicit Explore transfers bypass requirements without running quest scripts.
 static var catalog:Dictionary={}
 static var fields:Dictionary={}
+# Restore removed field links and the cliff-obstructed Imur stair using complete existing destinations.
+const RESTORED_FIELD_SITES=[410,16501,47010]
 const ACTIONS={
  "beast_entry":[16510,25,20],"beast_grayson":[16511,26,65],
  "beast_monk_room":[16514,12,17],"beast_witch_room":[16515,10,17],"beast_witch_exit":[16512,39,52],
@@ -22,6 +24,18 @@ static func data()->Dictionary:
  if catalog.is_empty():catalog=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/falan/explore-access.json"))
  return catalog.routes
 
+static func field_cell_clear(source:int,cell:Vector2i)->bool:
+ var region=load("res://scripts/forest/forest_east_region.gd");region.data()
+ var buckets:Dictionary=region.automatic_by_source.get(source,{})
+ var bucket=Vector2i(floori(float(cell.x)/8.),floori(float(cell.y)/8.))
+ for y in range(-1,2):
+  for x in range(-1,2):
+   for trigger in buckets.get(bucket+Vector2i(x,y),[]):
+    if trigger.type!="Warp"or not trigger.has("bounds"):continue
+    var b:Array=trigger.bounds
+    if Rect2i(b[0],b[1],b[2]-b[0]+1,b[3]-b[1]+1).grow(1).has_point(cell):return false
+ return true
+
 static func field_destination(source:int,cell:Vector2i)->Dictionary:
  var tour=load("res://scripts/forest/forest_falan_tour.gd");var region=load("res://scripts/forest/forest_east_region.gd")
  if source==100:cell=region.field_arrival(cell)
@@ -39,6 +53,8 @@ static func field_destination(source:int,cell:Vector2i)->Dictionary:
   for radius in [1.5,3.,4.5,6.]:
    for direction in 16:candidates.append(at+Vector2.from_angle(direction*TAU/16.)*radius)
   for point in candidates:
+   var arrival_cell=Vector2i(((tour.Regions.frame(area)*point)/3.).round())
+   if not field_cell_clear(source,arrival_cell):continue
    if source==300:
     var source_cell=Vector2i(((tour.Regions.frame(area)*point)/3.).round())
     if tour.Regions.Sokia.Data.BLOCKS[area].any(func(rect):return rect.has_point(source_cell)):continue
@@ -50,23 +66,32 @@ static func field_destination(source:int,cell:Vector2i)->Dictionary:
    return {"area":area,"arrival":point}
  return {}
 
+static func complete_destination(source:int)->bool:
+ var maps=load("res://scripts/forest/forest_original_maps.gd");var id:int=maps.runtime_id(source)
+ if not maps.owns(id)or maps.generated().owns(id)or maps.Beast.owns(id):return true
+ var row:Dictionary=maps.Art.data().maps[maps.path_for(id)]
+ if row.has("layout_complete"):return row.layout_complete
+ if row.has("restored_raw")and row.has("completion_reference")and int(row.get("reference_compared_cells",-1))==int(row.get("recorded",-2)):return true
+ return int(row.get("recorded",0))==int(row.get("cells",-1))
+
 static func can_travel(game,source:int,cell:Vector2i)->bool:
+ if not complete_destination(source):return false
  if source in [100,300]:return not field_destination(source,cell).is_empty()
  if source==15531 and cell==Vector2i(49,32):cell=load("res://scripts/forest/forest_university_region.gd").landing_cell(source,cell,Vector2i.RIGHT,game.model.seed_value)
  return load("res://scripts/forest/forest_east_region.gd").can_travel_source(game,source,cell)
 
 static func travel(game,source:int,cell:Vector2i)->bool:
  if source==15531 and cell==Vector2i(49,32):cell=load("res://scripts/forest/forest_university_region.gd").landing_cell(source,cell,Vector2i.RIGHT,game.model.seed_value)
- if source not in [100,300]:return load("res://scripts/forest/forest_east_region.gd").travel_source(game,source,cell)
+ if source not in [100,300]:return load("res://scripts/forest/forest_east_region.gd").travel_source(game,source,cell,true)
  var target=field_destination(source,cell)
  if target.is_empty():return false
  var tour=game.FalanTour;var layout:Dictionary=tour.outdoor_layout(game.get_tree().get_meta("falan_venture"),target.area)
  if game.get_tree().has_meta("falan_exit"):game.get_tree().remove_meta("falan_exit")
- game.transitioning=true;tour.travel.call_deferred(game,layout,{"arrival":target.arrival,"yaw":game.camera_rig.yaw,"velocity":Vector3.ZERO})
+ game.transitioning=true;tour.travel.call_deferred(game,layout,{"arrival":target.arrival,"yaw":game.camera_rig.yaw,"velocity":Vector3.ZERO,"preserve_checkpoint":true})
  return true
 
 static func destination_title(source:int)->String:
- var hubs={1000:"法蘭城",100:"芙蕾雅",300:"索奇亞",2000:"伊爾村",2400:"亞留特村",2100:"奇利村",3000:"迦納村",1522:"啟程之間",1530:"召喚之間",1541:"豪華屋"}
+ var hubs={1000:"法蘭城",1500:"里謝里雅堡",100:"芙蕾雅",300:"索奇亞",2000:"伊爾村",2400:"亞留特村",2100:"維諾亞村",2300:"聖拉魯卡村",3200:"奇利村",3000:"迦納村",1522:"啟程之間",1530:"召喚之間",1541:"豪華屋"}
  if hubs.has(source):return hubs[source]
  var tour=load("res://scripts/forest/forest_falan_tour.gd");var maps=tour.Winter.Recovered;var id:int=maps.runtime_id(source)
  if maps.owns(id):return maps.title(id)
@@ -78,10 +103,23 @@ static func candidates(game)->Array:
  var region=load("res://scripts/forest/forest_east_region.gd");var tour=game.FalanTour;var maps=tour.Winter.Recovered
  var model=game.model;var source:int=maps.source_id(model.falan_floor) if model.falan_area=="interior" else {"city":1000,"castle":1500,"east_gate":100,"north_coast":100,"sokia_coast":300,"sokia_desert":300,"ghana_road":300,"ghana_north_road":300}.get(model.falan_area,-1)
  if model.falan_area in tour.SouthPopulation.FREYJA_AREAS:source=100
+ if model.falan_area in region.SOURCE_VILLAGES.values():source=int(tour.Regions.Sites.VILLAGES[model.falan_area][0])
  region.data()
  var rows:Array=data().get(str(source),[]).duplicate()
  if model.falan_area in ["east_gate","north_coast"]:rows.append_array(data().get("2000" if model.falan_area=="east_gate" else "2400",[]))
  var result=[]
+ if source in[100,300]:
+  for site in tour.Regions.Sites.SITES:
+   if int(site[2])not in RESTORED_FIELD_SITES or tour.Regions.canonical_area(site[0])!=model.falan_area:continue
+   var entry:Array=[int(site[2]),site[6]]if int(site[2])in[410,47010]else tour.Dungeons.ENTRANCES[int(site[2])]
+   var target=int(entry[0])
+   var info=tour.Indoor.floor_info(target,model.seed_value)
+   var landing=Vector2i(((entry[1]-info[1])/3.).round())
+   if not can_travel(game,target,landing):continue
+   var threshold:Vector2=tour.Regions.frame(model.falan_area).inverse()*site[4]
+   # Imur's original stair is sealed by the cliff turn; use its verified road-side ground.
+   var at:Vector2=threshold+Vector2(0,12)if int(site[2])==47010 else threshold
+   result.append({"at":at,"target":target,"landing":landing,"actor":"native-arena:"+str(site[2]),"caption":destination_title(target),"exclude_trigger":Rect2(threshold-Vector2.ONE*2.15,Vector2.ONE*4.3)})
  if source in[100,300]:
   var generated=maps.generated()
   for key in generated.SPECS:
@@ -95,17 +133,28 @@ static func candidates(game)->Array:
    if model.get_meta("falan_links",[]).any(func(link):return int(link.get("floor",-1))==first and link.at.distance_squared_to(at)<9.*9. and not restricted(link)):continue
    result.append({"at":at,"target":first,"landing":landing,"actor":"generated:"+key,"caption":spec.title})
  for row in rows:
+  if row.get("access_owner","")=="falan_travel_stones":continue
+  if row.get("victory_only",row.get("type","")=="StandEnemy"):continue
   if row.get("type","")=="Warp":
    var fields=row.script.split("|",true)
-   if fields.size()>4 and fields[4]=="15" and region.can_travel_source(game,int(row.target),Vector2i(row.landing[0],row.landing[1])):continue
+   if not row.get("explore_inline",false)and fields.size()>4 and fields[4]=="15" and region.can_travel_source(game,int(row.target),Vector2i(row.landing[0],row.landing[1])):continue
   var cell=Vector2i(row.cell[0],row.cell[1])
   var at:Vector2=region.source_point(int(row.source),cell,model.falan_area)
   if int(row.source)in[100,300]and not model.terrain.mask_bounds().has_point(at):continue
   var target=int(row.target);var landing=Vector2i(row.landing[0],row.landing[1])
   if not can_travel(game,target,landing):continue
   var runtime:int=maps.runtime_id(target)
-  if model.get_meta("falan_links",[]).any(func(link):return int(link.get("floor",link.get("site",-1)))==runtime and link.at.distance_squared_to(at)<9.*9. and not restricted(link)):continue
+  # Poka stands below the level-gated ledge; its upper stair cannot replace his player-side transfer.
+  var below_ledge=int(row.source)==36003 and str(row.actor)=="306085"
+  var expected_arrival:Vector2=region.source_point(target,landing,model.falan_area)
+  if not below_ledge and model.get_meta("falan_links",[]).any(func(link):
+   if int(link.get("floor",link.get("site",-1)))!=runtime or link.at.distance_squared_to(at)>=9.*9. or restricted(link):return false
+   # A same-map door may return to the near side of a wall instead of crossing the quest barrier.
+   return runtime!=model.falan_floor or link.get("source_arrival",link.get("arrival",Vector2.INF)).distance_squared_to(expected_arrival)<.25
+  ):continue
+  if below_ledge:at+=Vector2(0,6)
   var gate={"at":at,"target":target,"landing":landing,"actor":row.actor,"caption":destination_title(target)}
+  if below_ledge:gate.caption+=" · 上層通道"
   var bucket=Vector2i(floori(float(cell.x)/8.),floori(float(cell.y)/8.))
   for trigger in region.automatic_by_source.get(int(row.source),{}).get(bucket,[]):
    if str(trigger.actor)!=str(row.actor)or trigger.type=="StandEnemy"or not trigger.has("bounds"):continue
@@ -142,7 +191,9 @@ static func candidates(game)->Array:
   var info:Array=tour.Indoor.floor_info(target,model.seed_value)
   var cell=Vector2i(((link.arrival-info[1])/3.).round())+(maps.crop(target).position if maps.owns(target)else Vector2i.ZERO)
   if not can_travel(game,maps.source_id(target),cell):continue
-  result.append({"at":link.at,"target":maps.source_id(target),"landing":cell,"actor":"restricted_door","caption":str(tour.Indoor.layout(target).get("title",destination_title(maps.source_id(target))))})
+  # Keep the original boss/seal cell visible; the Explore bypass sits beside it.
+  var frontage:Vector2=link.at+Vector2(-9.,0.)if link.get("beast_guardian",false)else link.at
+  result.append({"at":frontage,"target":maps.source_id(target),"landing":cell,"actor":"restricted_door","caption":str(tour.Indoor.layout(target).get("title",destination_title(maps.source_id(target))))})
  var groups={}
  for gate in result:groups.get_or_add(str(gate.actor)+":"+str(gate.target),[]).append(gate)
  for group_ in groups.values():

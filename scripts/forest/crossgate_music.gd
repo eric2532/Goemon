@@ -3,10 +3,12 @@ extends RefCounted
 const Regions=preload("res://scripts/forest/forest_freyja_regions.gd")
 const Original=preload("res://scripts/forest/forest_original_maps.gd")
 const BATTLE_RADIUS=16.0
+const BOSS_RADIUS=32.0
 const BATTLE_HOLD=4.0
 const BATTLE_PROBE_INTERVAL=.25
 const STREAMS={
  "b0":preload("res://assets/audio/crossgate/music/cgbgm_b0.mp3"),
+ "b1":preload("res://assets/audio/crossgate/music/cgbgm_b1.mp3"),
  "m0":preload("res://assets/audio/crossgate/music/cgbgm_m0.mp3"),
  "m1":preload("res://assets/audio/crossgate/music/cgbgm_m1.mp3"),
  "m2":preload("res://assets/audio/crossgate/music/cgbgm_m2.mp3"),

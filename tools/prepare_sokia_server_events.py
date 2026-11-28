@@ -11,7 +11,7 @@ import zlib
 
 from PIL import Image
 from prepare_east_region_population import compile_script
-from prepare_east_region_maps import active_raw
+from prepare_east_region_maps import active_raw, expanded_lookup
 from prepare_sokia_server_maps import IDS, OUT, ROOT
 from prepare_snow_region_population import rows, SOURCE as TABLES
 
@@ -50,7 +50,7 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
         for row in cg.catalog()['entries']:
             if row['key'] not in keys.setdefault(int(row['id']), []):
                 keys[int(row['id'])].append(row['key'])
-    actors = {}; excluded = []; scripts = {}; proofs = {}; images = {}; art = {}; used_messages = set(); message_repairs = []
+    actors = {}; excluded = []; scripts = {}; proofs = {}; images = {}; art = {}; used_messages = set(); message_repairs = []; script_blockers = []
     source_lines = (TABLES / 'npc.txt').read_bytes().decode('gb18030').splitlines()
     for line, text in enumerate(source_lines, 1):
         raw = text.split('\t')
@@ -72,9 +72,12 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
                     row = db.execute('SELECT pack,row,serial,x,y,w,h,east,south,ground FROM graphics WHERE serial=? ORDER BY pack_order,row LIMIT 1', (graphic,)).fetchone()
                 if row is not None:
                     lookup = lookup.copy(); lookup[graphic] = dict(row)
+                else:
+                    expanded, aliases = expanded_lookup(lib, {graphic}, lookup)
+                    if graphic in aliases:lookup = expanded
             if graphic in lookup and (graphic < 100000 or frontier and not keys.get(graphic)):
                 g = lookup[graphic]; image = lib.image_from_record(g['pack'], g['row'])
-                ox, oy = g['x'], g['y']; key = f'graphic:{graphic}'
+                ox, oy = g['x'], g['y']; key = f'graphic:{g["serial"]}'
             else:
                 candidates = keys[graphic]
                 coherent = [key for key in candidates if key.startswith('original:') and 2800 <= int(key.split(':')[1]) < 3000]
@@ -95,7 +98,12 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
                 art[token].update(body_top=top-box[1], body_foot=foot-box[1],
                                   foot_contract='Existing body_rows removes source charcoal shadow; pixels, scale and source cell unchanged.')
         script = raw[24]
-        if script.endswith('.txt'):
+        missing_script = script.endswith('.txt') and (script not in references or not (SOURCE / script).exists())
+        if missing_script:
+            assert frontier, ('Missing pinned original script', script)
+            script_blockers.append(dict(script=script, actor=ident, source=int(raw[8]), name=raw[1],
+                reason='The original event script is absent from the pinned source tree; no program, destination or reward is inferred.'))
+        elif script.endswith('.txt'):
             proof = references[script]; payload = (SOURCE / script).read_bytes()
             assert sha(payload) == proof['sha256'], script
             scripts[script] = compile_script(payload); proofs[script] = proof
@@ -111,7 +119,8 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
             for _, command in scripts[script]['lines']:
                 match = re.match(r'\s*(?:End)?Window\s+(\d+)', command, re.I)
                 if match: used_messages.add(str(int(match[1])))
-        actor = dict(id=ident, name=raw[1], type=raw[0], source=int(raw[8]), floor=int(raw[8]), area='interior',
+        canonical = {name.lower(): name for name in ['Event', 'WatchEvent', 'WatchEx', 'StandEnemy', 'HouseMaster', 'Windowman', 'TownPeople']}
+        actor = dict(id=ident, name=raw[1], type=canonical.get(raw[0].lower(), raw[0]), source=int(raw[8]), floor=int(raw[8]), area='interior',
                      cell=list(map(int, raw[9:11])), direction=direction, graphic=graphic, token=token,
                      script=script, raw=raw, source_line=line, scenery=graphic < 14000,
                      rendered_elsewhere=False, dialogue_owner='sokia_server',
@@ -123,11 +132,15 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
         actor['rendered_elsewhere'] = struct.unpack_from('<H', decoded, 20 + (cells + y*width+x)*2)[0] == graphic
         walk = zlib.decompress(base64.b64decode(source_map['walk']))
         index = y*width+x; actor['source_cell_blocked'] = not bool(walk[index >> 3] & (1 << (index & 7)))
-        if raw[0] == 'TownPeople':
+        if actor['type'] != raw[0]:actor['source_type'] = raw[0]
+        if missing_script:
+            actor['messages'] = ['原始事件腳本尚待恢復：' + script]
+            actor['quest_action'] = 'sokia_server:' + ident
+        elif actor['type'] == 'TownPeople':
             ids = [str(int(mid)) for mid in script.split('|') if mid]; assert all(mid in messages for mid in ids)
             actor['messages'] = [messages[mid] for mid in ids]
             if not ids:actor['source_dialogue_empty'] = True
-        elif raw[0] == 'Windowman':
+        elif actor['type'] == 'Windowman':
             # Source label-based signs use the existing ordinary conversation presentation.
             ids = [str(int(match[1])) for _, command in scripts[script]['lines']
                    if (match := re.match(r'\s*Window\s+(\d+)', command, re.I))]
@@ -137,7 +150,7 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
         else:
             ids = [str(int(m[1])) for _, c in scripts.get(script, {}).get('lines', []) if (m := re.match(r'\s*Window\s+(\d+)', c, re.I))]
             actor['messages'] = [messages[ids[0]]] if ids else []
-            if script in scripts or raw[0] == 'StandEnemy':
+            if script in scripts or actor['type'] == 'StandEnemy':
                 actor['quest_action'] = 'sokia_server:' + ident
         actors[ident] = actor
     if map_catalog is None and wanted_ids is None:
@@ -151,12 +164,18 @@ def prepare(map_catalog=None, wanted_ids=None, additional_ids=frozenset(), front
             enlarged.paste(atlas, (0, 0)); atlas = enlarged
         atlas.paste(image, (x+1, y+1)); art[token]['rect'] = [x+1, y+1, *image.size]
         x += image.width + 2; height = max(height, image.height + 2)
-    assert not used_messages - messages.keys(), ('Missing original source messages', sorted(used_messages - messages.keys()))
+    missing_messages = sorted(used_messages - messages.keys(), key=int)
+    assert not missing_messages or frontier, ('Missing original source messages', missing_messages)
+    message_blockers = []
+    for mid in missing_messages:
+        owners = [name for name, script in scripts.items() if any(re.match(r'\s*(?:End)?Window\s+0*' + re.escape(mid) + r'\b', command, re.I) for _, command in script['lines'])]
+        message_blockers.append(dict(message=mid, scripts=owners, reason='This original text row is absent from the pinned message table; no replacement dialogue or reward is inferred.'))
+        messages[mid] = f'原始對話（{mid}）尚待恢復。'
     data = dict(schema=1, actors=actors, excluded=excluded, art=art, scripts=scripts,
                 messages={mid: messages[mid] for mid in sorted(used_messages, key=int)}, source_provenance=proofs,
                 source_hashes={name: sha((TABLES / name).read_bytes()) for name in ['npc.txt', 'msg.txt']},
                 source_map_sha256={str(ident): row['source_floor_object_sha256'] for ident, row in maps.items()},
-                message_repairs=message_repairs,
+                message_repairs=message_repairs, message_blockers=message_blockers, script_blockers=script_blockers,
                 limitations=['Unknown original skill, inventory capacity, item-age or group predicates remain guarded by the existing event interpreter.',
                              'Presence of NPC scripts is not proof that a map is safe or that a target map has a usable runtime owner.',
                              'Server maps contain no client warp/record flags. Exact source fixed-port candidates remain separately assessed.'])

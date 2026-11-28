@@ -1,5 +1,6 @@
 extends RefCounted
 const ContextRegions=preload("res://scripts/forest/forest_freyja_regions.gd")
+const SOURCE_VILLAGES={2100:"venoa",2300:"laruka",3000:"ghana",3200:"kili"}
 ## Eastern Freyja and both continental branches use the established Explore owners.
 static var routes:Dictionary={}
 static var population:Dictionary={}
@@ -26,6 +27,8 @@ static func data()->Dictionary:
   routes.fixed_maps=routes.fixed_maps.map(func(value):return int(value))
   routes.boundaries=routes.boundaries.map(func(value):return int(value))
   routes.automatic.append_array(wind_events().automatic)
+  var explore=load("res://scripts/forest/forest_explore_routes.gd");explore.data()
+  routes.automatic.append_array(explore.catalog.get("source_events",{}).get("automatic",[]))
   var recovered:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/original_crossgate/explore_recovered/events/data.json"))
   for actor in recovered.actors.values():
    if actor.type!="StandEnemy":continue
@@ -72,6 +75,20 @@ static func residents()->Dictionary:
   for key in recovered.scripts:
    assert(not population.scripts.has(key)or population.scripts[key]==recovered.scripts[key],"Recovered scripts preserve source identity")
    population.scripts[key]=recovered.scripts[key]
+  var explore=load("res://scripts/forest/forest_explore_routes.gd");explore.data()
+  var required:Dictionary=explore.catalog.get("source_events",{})
+  for record in required.get("actors",{}).values():
+   if not record.get("explore_fight",false)and not record.get("explore_npc",false):continue
+   assert(not population.actors.any(func(a):return str(a.id)==str(record.id)),"Required original event retains one owner")
+   population.actors.append(record)
+   if record.get("explore_npc",false):
+    var art:Dictionary=population.art[record.art_reuse]
+    assert(art.rgba_sha256==record.art_rgba_sha256,"Required original NPC reuses its exact source graphic")
+    if not population.art.has(record.token):population.art[record.token]=art.duplicate()
+    population.npcs.append(record)
+  for key in required.get("scripts",{}):
+   assert(not population.scripts.has(key)or population.scripts[key]==required.scripts[key],"Required original script preserves its source")
+   population.scripts[key]=required.scripts[key]
   for record in population.actors:source_actors[str(record.id)]=record
   for record in population.npcs:
    var source=int(record.source)
@@ -80,6 +97,7 @@ static func residents()->Dictionary:
  return population
 
 static func source_area(source:int,cell:Vector2i)->String:
+ if SOURCE_VILLAGES.has(source):return SOURCE_VILLAGES[source]
  if source==300:return "ghana_road"if cell.x>=550 else"sokia_coast"
  if source==2000:return "il_village"
  if source==2400:return "alyut"
@@ -99,6 +117,8 @@ static func source_point(source:int,cell:Vector2i,area:String="")->Vector2:
   var village="il_village" if source==2000 else "alyut"
   return tour.Regions.village_transform(village)*(tour.Regions.Sites.VILLAGES[village][2]+Vector2(cell)*3.)
  if source==1000:return Vector2(cell.y-134,153-cell.x)*3.
+ if source==1500:return Vector2(cell.y-56,41-cell.x)*3.
+ if SOURCE_VILLAGES.has(source):return tour.Regions.Sites.VILLAGES[SOURCE_VILLAGES[source]][2]+Vector2(cell)*3.
  var id:int=maps.runtime_id(source)
  return maps.source_point(id,cell) if maps.owns(id) else tour.Indoor.floor_info(id)[1]+Vector2(cell)*3.
 
@@ -118,12 +138,12 @@ static func can_travel_source(game,source:int,cell:Vector2i)->bool:
   var image:Image=load("res://assets/maps/falan/east_region/"+area+"-surface.png").get_image()
   var pixel=Vector2i(((source_point(source,cell,area)-origin)/3.).round())
   return Rect2i(Vector2i.ZERO,image.get_size()).has_point(pixel) and image.get_pixelv(pixel).a>=.5 and image.get_pixelv(pixel).r<.5
- if source in [2000,2400]:
-  var village="il_village" if source==2000 else "alyut"
+ if source in [2000,2400]or SOURCE_VILLAGES.has(source):
+  var village=SOURCE_VILLAGES.get(source,"il_village" if source==2000 else "alyut")
   var mask:Texture2D=tour.Regions.village_mask(village)
   var image:Image=mask.get_meta("source_cpu_image")if mask.has_meta("source_cpu_image")else mask.get_image()
   return Rect2i(Vector2i.ZERO,image.get_size()).has_point(cell) and image.get_pixelv(cell).a>=.5 and image.get_pixelv(cell).r<.5
- if source==1000:return game.get_tree().get_meta("falan_venture",{}).get("falan_areas",{}).has("city")
+ if source in [1000,1500]:return game.get_tree().get_meta("falan_venture",{}).get("falan_areas",{}).has("city" if source==1000 else "castle")
  var id:int=maps.runtime_id(source)
  if id==tour.Indoor.RoomArt.RubySource.POST:return true
  if maps.owns(id):
@@ -137,7 +157,7 @@ static func can_travel_source(game,source:int,cell:Vector2i)->bool:
   return false
  return tour.Indoor.Data.FLOORS.has(id) or tour.Regions.Sites.ROOMS.has(id) or tour.Winter.TITLES.has(id) or tour.Winter.Decree.owns(id) or tour.Falken.owns(id) or tour.Prayer.owns(id)
 
-static func travel_source(game,source:int,cell:Vector2i)->bool:
+static func travel_source(game,source:int,cell:Vector2i,preserve_checkpoint:bool=false)->bool:
  if not can_travel_source(game,source,cell):
   var blockers:Dictionary=game.get_tree().get_meta("east_route_blockers",{})
   blockers["%d:%d:%d"%[source,cell.x,cell.y]]={"map":source,"cell":cell,"reason":"No current owner supplies this original destination."}
@@ -147,15 +167,16 @@ static func travel_source(game,source:int,cell:Vector2i)->bool:
  var area=source_area(source,cell);var layout:Dictionary
  if source in [100,300]:layout=tour.Regions.layout(area)
  elif source in [2000,2400]:layout=tour.Regions.private_source_context.layout(source,cell) if tour.Regions.private_source_context!=null else tour.Regions.layout("east_gate" if source==2000 else "north_coast")
- elif source==1000:layout=game.get_tree().get_meta("falan_venture").falan_areas.city
+ elif source in [1000,1500]:layout=game.get_tree().get_meta("falan_venture").falan_areas["city" if source==1000 else "castle"]
+ elif SOURCE_VILLAGES.has(source):layout=tour.Regions.layout(SOURCE_VILLAGES[source])
  else:layout=tour.Indoor.layout(maps.runtime_id(source))
  var arrival=source_point(source,cell,area)
- if source not in [100,300,2000,2400,1000]and maps.owns(maps.runtime_id(source)):arrival=maps.source_point(maps.runtime_id(source),cell,game.model.seed_value)
- if source not in [100,300,2000,2400,1000]:arrival=tour.Indoor.safe_point(maps.runtime_id(source),arrival,game.model.seed_value)
+ if source not in [100,300,2000,2400,1000,1500]and not SOURCE_VILLAGES.has(source)and maps.owns(maps.runtime_id(source)):arrival=maps.source_point(maps.runtime_id(source),cell,game.model.seed_value)
+ if source not in [100,300,2000,2400,1000,1500]and not SOURCE_VILLAGES.has(source):arrival=tour.Indoor.safe_point(maps.runtime_id(source),arrival,game.model.seed_value)
  if game.get_tree().has_meta("falan_exit"):game.get_tree().remove_meta("falan_exit")
  game.transitioning=true
  var yaw:float=tour.Regions.private_source_context.arrival_yaw(game,source) if tour.Regions.private_source_context!=null else game.camera_rig.yaw
- tour.travel.call_deferred(game,layout,{"arrival":arrival,"yaw":yaw,"velocity":Vector3.ZERO})
+ tour.travel.call_deferred(game,layout,{"arrival":arrival,"yaw":yaw,"velocity":Vector3.ZERO,"preserve_checkpoint":preserve_checkpoint})
  return true
 
 static func field_arrival(cell:Vector2i)->Vector2i:
@@ -165,8 +186,9 @@ static func field_arrival(cell:Vector2i)->Vector2i:
 
 static func destination_link(at:Vector2,target:int,landing:Vector2i)->Dictionary:
  var tour=load("res://scripts/forest/forest_falan_tour.gd");var maps=tour.Winter.Recovered
- if target in [100,300,2000,2400,1000]:
-  return {"at":at,"to":"east_source","east_source_return":{"map":target,"cell":landing},"caption":"芙蕾雅" if target==100 else "索奇亞"if target==300 else "返回村莊" if target in [2000,2400] else "法蘭城","door":true,"walk_in":true,"east_original":true}
+ if target in [100,300,2000,2400,1000,1500]or SOURCE_VILLAGES.has(target):
+  var caption="返回 "+str(tour.Regions.Sites.VILLAGES[SOURCE_VILLAGES[target]][1])if SOURCE_VILLAGES.has(target)else "芙蕾雅" if target==100 else "索奇亞"if target==300 else "返回村莊" if target in [2000,2400] else "里謝里雅堡" if target==1500 else "法蘭城"
+  return {"at":at,"to":"east_source","east_source_return":{"map":target,"cell":landing},"caption":caption,"door":true,"walk_in":true,"east_original":true}
  var runtime:int=maps.runtime_id(target)
  if not maps.owns(runtime) and not tour.Indoor.Data.FLOORS.has(runtime) and not tour.Regions.Sites.ROOMS.has(runtime):return {}
  var caption:String=maps.title(runtime) if maps.owns(runtime) else tour.Regions.Sites.TITLES.get(runtime,"通道")
@@ -210,10 +232,10 @@ static func links_source(source:int,seed_:int,area:String="")->Array:
     var placement=load("res://scripts/forest/forest_explore_routes.gd").field_destination(source,cell)
     if placement.is_empty()or placement.area!=area:continue
    var first:int=generated.floor_id(key,1)
-   result.append(maps.door(source_point(source,cell,area),first,generated.landing(first,seed_,true),spec.title).merged({"walk_in":true,"east_original":true,"east_generator":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[0])==103012,"explore_gate_only":source==47017}))
+   result.append(maps.door(source_point(source,cell,area),first,generated.landing(first,seed_,true),spec.title).merged({"walk_in":true,"east_original":true,"east_generator":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[0])==103012}))
   if not spec.end.is_empty() and int(spec.end[0])==source:
    var last:int=generated.floor_id(key,generated.count(key,seed_))
-   result.append(maps.door(source_point(source,Vector2i(spec.end[1],spec.end[2]),area),last,generated.landing(last,seed_,false),spec.title).merged({"walk_in":true,"east_original":true,"east_generator_return":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[1])==103012}))
+   result.append(maps.door(source_point(source,Vector2i(spec.end[1],spec.end[2]),area),last,generated.landing(last,seed_,false),spec.title).merged({"walk_in":true,"east_original":true,"east_generator_return":key,"diamond":int(spec.get("source_fixed_markers",[0,0])[1])==103012,"explore_gate_only":source==47017}))
  return result
 
 static func links(id:int,seed_:int)->Array:
@@ -344,7 +366,7 @@ static func tick(game,delta:float):
   var actor:Dictionary=source_actors.get(str(trigger.actor),{})
   if actor.is_empty():continue
   var access=game.get("explore_access")
-  if trigger.type=="StandEnemy"and is_instance_valid(access)and access.enabled():
+  if is_instance_valid(access)and access.enabled()and (trigger.type=="StandEnemy"or actor.get("explore_fight",false)):
    if game.get_tree().has_meta("university_victory")or access.source_boss_cleared(str(trigger.actor))or not preload("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty():continue
   if context.is_empty():context=events.game_context(game,actor)
   var token="%d:%s:%s:%d"%[game.model.seed_value,trigger.actor,game.model.falan_area,game.model.falan_floor]

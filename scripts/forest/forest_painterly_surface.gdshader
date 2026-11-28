@@ -67,7 +67,12 @@ void vertex(){
 }
 void fragment(){
  if(roof_cutaway_height>0.0 && CAMERA_POSITION_WORLD.y>roof_cutaway_height) discard;
- if(fog_enabled && canopy_layer && canopy_cutaway && distance(object_origin.xz,hero_position)<15.0) discard;
+ if(canopy_layer && canopy_cutaway){
+  // Clear foreground leaves along the normal view while retaining the tree trunks.
+  vec2 view_path=CAMERA_POSITION_WORLD.xz-hero_position;
+  float along=clamp(dot(world_point.xz-hero_position,view_path)/max(dot(view_path,view_path),.001),0.0,1.0);
+  if(distance(object_origin.xz,hero_position)<15.0 || distance(world_point.xz,hero_position+view_path*along)<4.0) discard;
+ }
  // The generic shop awning is baked into the mesh. Archived storefronts have exposed timber portals.
  if(falan_roof_paint.a>0.0 && local_point.z>6.14 && local_point.y>3.83 && local_point.y<4.88) discard;
  if(falan_roof_paint.a>0.0 && local_point.z>7.40 && local_point.y>2.90 && local_point.y<3.84) discard;

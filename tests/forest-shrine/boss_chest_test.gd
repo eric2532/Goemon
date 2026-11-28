@@ -22,26 +22,67 @@ func run():
  game.settings.forest_pet_loadout=[];loot.reward_bag.clear()
  for cycle in 2:
   var found={}
-  var eligible=(Nutrition.ITEMS.keys()+accessories).filter(loot.reward_eligible)
+  var eligible=Nutrition.ITEMS.keys().filter(loot.reward_eligible)
   for i in eligible.size():
    var id=loot.draw_reward();found[id]=found.get(id,0)+1
-  check(not found.has("weapon") and eligible.all(func(id):return found.get(id,0)==1),"Regular reward bag has every eligible food/accessory once, no weapons")
+  check(found.size()==eligible.size() and eligible.all(func(id):return found.get(id,0)==1),"Regular reward bag has every eligible food once")
  game.settings.forest_pet_loadout=party
- for id in accessories:
-  loot.clear();loot.spawn_chest(0,game.player.position,"regular:"+id);loot.slots[0].reward=id
-  press_f()
-  check(game.settings.accessory_drops.get(id)==1 and not loot.slots[0].active,"Actual F collects regular accessory "+id)
- loot.clear();loot.spawn_chest(2,game.player.position,"stale-weapon")
- loot.slots[0].reward="weapon";loot.slots[0].sword="weapon:SW016";loot.reward_bag=[accessories[0]]
+ for kind in 3:
+  var key="regular:%d"%kind
+  loot.clear();loot.spawn_chest(kind,game.player.position,key)
+  loot.slots[0].reward=accessories[0] if kind==0 else "weapon"
+  if kind!=0:loot.slots[0].sword="weapon:SW016"
+  loot.reward_bag=["power-steak"];press_f();loot._process(loot.CONSUME_TIME)
+  check(game.settings.accessory_drops.is_empty() and game.settings.chest_swords.is_empty() and not loot.slots[0].has("sword") and loot.opened_chests.has(key),"Each regular chest color gives food even with stale gear contents")
+ var elite_items=Gear.CHEST_WEAPONS+accessories
+ loot.rng.seed=622
+ var elite_drops=[]
+ var correct_rate=true
+ for cycle in elite_items.size():
+  var hits=0
+  for opening in 100:
+   var id:String=loot.draw_elite_gear()
+   if not id.is_empty():hits+=1;elite_drops.append(id)
+  correct_rate=correct_rate and hits==1
+ elite_drops.sort();elite_items.sort()
+ check(correct_rate and elite_drops==elite_items,"Elite shuffle bags grant one gear reward per 100 draws and cover all gear before repeating")
+ loot.clear();loot.spawn_chest(0,game.player.position,"elite-food",false,true)
+ loot.elite_chance_bag=[false];loot.reward_bag=["power-steak"];press_f();loot._process(loot.CONSUME_TIME)
+ check(game.settings.accessory_drops.is_empty() and game.settings.chest_swords.is_empty() and loot.opened_chests.has("elite-food"),"An elite chest without a gear result gives food")
+ loot.clear();loot.spawn_chest(0,game.player.position,"elite-accessory",false,true)
+ loot.elite_chance_bag=[false,true];loot.elite_gear_bag=[accessories[0]]
+ var settings_path=game.settings_path
+ game.settings_path="user://missing-elite-chest-folder/preferences.cfg";press_f()
+ check(loot.slots[0].active and game.settings.accessory_drops.is_empty(),"Failed elite accessory save leaves the same reward available")
+ game.settings_path=settings_path;press_f()
+ check(game.settings.accessory_drops=={accessories[0]:1} and loot.opened_chests.has("elite-accessory") and loot.elite_chance_bag==[false],"Retry claims one elite accessory without another draw")
+ loot.clear();loot.spawn_chest(0,game.player.position,"elite-weapon",false,true)
+ loot.elite_chance_bag=[true];loot.elite_gear_bag=["weapon:SW016"]
  press_f()
- check(game.settings.chest_swords.is_empty() and not loot.slots[0].has("sword") and loot.opened_chests.has("stale-weapon"),"Regular chest cannot grant a weapon even with stale injected contents")
+ check(game.settings.chest_swords==["weapon:SW016"] and game.settings.accessory_drops=={accessories[0]:1} and loot.opened_chests.has("elite-weapon"),"An elite weapon result saves exactly one item")
+ var army=game.army_runtime
+ var origin:Vector3=game.player.position
+ var companion_id:int=army.HOUND_ID-50000
+ check(army.spawn(companion_id,1,19,origin+Vector3.RIGHT,150,.5)!=0,"Native companion is available as an elite kill source")
+ for source in [0,companion_id]:
+  loot.clear()
+  var enemy:Dictionary=game.model.waves.spawn_enemy(game.EnemyRoles.SLIME,origin+Vector3.RIGHT*3)
+  enemy.elite=true
+  army.import_arrivals()
+  army.apply_hit(army.handles.get(enemy.id,0),{"amount":enemy.max_hp*2,"magical":true,"accuracy":100.0,"source_id":source})
+  var drops=loot.slots.filter(func(s):return s.active and s.chest)
+  check(drops.size()==1 and drops[0].elite and not drops[0].boss,"Native elite death produces one gear-eligible chest for source "+str(source))
+ game.settings.chest_swords=[];game.settings.sword_upgrades={};game.settings.accessory_drops={}
  loot.sword_bag.clear();var found=[]
  for i in Gear.CHEST_WEAPONS.size():
   loot.clear();var key="earned:%d"%i
   check(loot.spawn_boss_chest(game.player.position,key) and not loot.spawn_boss_chest(game.player.position,key),"Earned victory spawns one chest")
-  var slot:Dictionary=loot.slots[0];found.append(slot.sword);slot.bonus=accessories[i%accessories.size()]
+  var slot:Dictionary=loot.slots[0];found.append(slot.sword)
+  var accessory:String=accessories[i%accessories.size()]
+  loot.boss_bonus_bag=[accessory]
+  var before_bonus:int=game.settings.accessory_drops.get(accessory,0)
   press_f()
-  check(not slot.active and slot.sword in game.settings.chest_swords and loot.opened_chests.has(key),"Actual F saves guaranteed boss weapon and bonus")
+  check(not slot.active and slot.sword in game.settings.chest_swords and game.settings.accessory_drops.get(accessory)==before_bonus+1 and loot.opened_chests.has(key),"Actual F saves guaranteed boss weapon and bonus")
   check(not loot.spawn_boss_chest(game.player.position,key),"Claimed boss chest never respawns")
  found.sort();var expected=Gear.CHEST_WEAPONS.duplicate();expected.sort()
  check(found==expected,"Nine boss victories cover every collectible weapon before bag refill")

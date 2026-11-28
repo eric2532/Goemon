@@ -9,13 +9,14 @@ const BODY=Snow.BODY
 const STATS=Snow.STATS
 const FOOTPRINT=Snow.FOOTPRINT
 const TREE_FOOTPRINT=Snow.TREE_FOOTPRINT
-const LEGACY_OWNERS=[11003,11004,11005,11028,15505,16503,47017]
+const LEGACY_OWNERS=[11003,11004,11005,11028,15505,16503,47017,51030]
 static var population:Dictionary={}
 static var manifest:Dictionary={}
 static var sounds:Dictionary={}
 static var zone_rows:Dictionary={}
 static var world_states:Dictionary={}
 static var freyja_owner:Script
+static var inline_sources:Array=[]
 
 static func data()->Dictionary:
  if population.is_empty():
@@ -92,6 +93,22 @@ static func data()->Dictionary:
   var repaired_pools:Array=population.zones+population.generated.values().map(func(branch_):return branch_.get("pool",{}))
   for zone in repaired_pools:
    if zone.get("groups",[]).any(func(choice):return laboratory.repaired_groups.has(str(choice[0]))):zone.source_party_contract=true
+  var frontier:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/maps/original_crossgate/explore_recovered/frontier_encounters.json"))
+  assert(frontier.species.slice(0,population.species.size())==population.species,"Recovered regions preserve established species indices")
+  population.species.append_array(frontier.species.slice(population.species.size()))
+  for id in frontier.groups:
+   assert(not population.groups.has(id),"Recovered source group retains one owner")
+   population.groups[id]=frontier.groups[id]
+  for zone in frontier.zones:
+   var existing:int=population.zones.find_custom(func(old):return int(old.id)==int(zone.id))
+   if existing>=0:
+    assert(population.zones[existing].raw==zone.raw,"Recovered zone retains its exact pinned source row")
+    population.zones[existing]=zone
+   else:population.zones.append(zone)
+  for id in frontier.bosses:
+   assert(not population.bosses.has(id) or population.bosses[id].raw==frontier.bosses[id].raw,"Recovered boss retains its exact pinned source row")
+   population.bosses[id]=frontier.bosses[id]
+  population.scripted_battles.append_array(frontier.scripted_battles)
   for source_index in freyja.east_member_indices:
    assert(int(population.species[int(freyja.east_member_indices[source_index])].id)==int(freyja.species[int(source_index)].id),"Freyja retains the existing East/companion presentation indices")
   for zone in population.zones:
@@ -101,7 +118,7 @@ static func data()->Dictionary:
   for group in population.groups.values():
    for detail in group.get("details",[]):
     var raw:Array=detail.raw_enemy
-    detail.name=detail.get("name",population.species[int(detail.species)].name)
+    detail.name=detail.get("name",detail.raw_base[0]if detail.has("raw_base")else population.species[int(detail.species)].name)
     detail.level=[int(raw[4]),int(raw[5])];detail.count=[int(raw[6]),int(raw[7])]
     detail.exp_override=int(raw[9])
     assert(detail.level[0]<=detail.level[1] and detail.count[0]>=1 and detail.count[0]<=detail.count[1],"Invalid pinned East enemy range")
@@ -110,11 +127,16 @@ static func data()->Dictionary:
 static func owns(id:int)->bool:
  if id in LEGACY_OWNERS:return false
  var maps=load("res://scripts/forest/forest_original_maps.gd")
+ # Map recovery keeps the existing Cursed Maze formation and spell owner on all sixty floors.
+ if maps.floor_number(id)>0:return false
  if maps.source_id(id) in maps.Art.EXPLORE_RECOVERED_IDS:return maps.owns(id)
  if maps.source_id(id) in maps.Art.FREYJA_TRIAL_IDS or maps.source_id(id) in maps.Art.SOKIA_WIND_IDS or maps.source_id(id) in maps.Art.SOKIA_DESERT_TEMPLE_IDS or maps.source_id(id) in maps.Art.SOKIA_DRAGON_SUMMIT_IDS:return maps.owns(id)
  var branch:String=maps.generated().branch(id)
  if not branch.is_empty():return maps.generated().SPECS[branch].get("east",false)
- return maps.source_id(id) in Index.FIXED
+ if inline_sources.is_empty():
+  var access=load("res://scripts/forest/forest_explore_routes.gd");access.data()
+  inline_sources=access.catalog.get("source_events",{}).get("bank_sources",[]).map(func(source):return int(source))
+ return maps.source_id(id) in Index.FIXED or maps.source_id(id) in inline_sources
 
 static func owns_model(model)->bool:
  var context=ContextRegions.private_source_context

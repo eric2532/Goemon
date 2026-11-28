@@ -91,3 +91,14 @@ restore. The thirteen maps retain review-only flags while those per-map
 contracts are recovered; fixed ports can activate as their own contracts pass.
 This upload/geometry checkpoint does not establish quest or encounter-rule
 completion.
+
+
+Explore follow-up (2026-11-28): completed source layouts now participate in the
+explicit Explore admission list; the original review-only metadata is retained.
+The Ghana chat-locked well uses a named, interactive Cross Gate, while the
+5005/5006 house doors remain ordinary doors. Fresh rendered checks pass15
+assertions for actual walking, entry and return through both rooms. The gate
+visits the source map without running the original chat/item/reward program.
+Evidence: `Explore Access/ghana-original-well-and-house-roundtrips-clean.log`.
+This verifies these two routes; it does not sign off every remaining source
+NPC, conditional entrance or encounter listed above.

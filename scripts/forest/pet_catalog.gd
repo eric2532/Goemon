@@ -182,3 +182,11 @@ static func prepare(selected:Array,corpses:Array=[])->void:
    var page=int(page_value)
    if page not in pages:pages.append(page)
  preload("res://scripts/forest/crowd/hound_sprites.gd").prepare_pages(ROOT,source,pages)
+
+static func is_prepared(skin_:int)->bool:
+ var source=motions()
+ if skin_<0 or skin_>=source.skin_pages.size():return false
+ var mesh=preload("res://scripts/forest/crowd/hound_sprites.gd").meshes.get(ROOT)
+ if mesh==null:return false
+ var pages:Array=mesh.get_meta("prepared_pages",[])
+ return source.skin_pages[skin_].all(func(page):return pages.any(func(prepared):return int(prepared)==int(page)))

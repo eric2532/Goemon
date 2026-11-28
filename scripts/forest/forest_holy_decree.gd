@@ -151,7 +151,7 @@ static func encounters(id:int,run_seed:int=0)->Array:
 static func cleared(slain:Dictionary,id:int,run_seed:int)->bool:
  var rows=encounters(id,run_seed)
  for slot in rows.size():
-  if rows[slot][4] and not slain.has(Vector2i(id,rows[slot][5])):return false
+  if (rows[slot][4]or id in GUARDIAN_FLOORS)and not slain.has(Vector2i(id,rows[slot][5])):return false
  return true
 
 static func door(at:Vector2,target:int,arrival:Vector2,caption:String="")->Dictionary:

@@ -3,6 +3,8 @@ extends Node
 const Tour=preload("res://scripts/forest/forest_falan_tour.gd")
 const HOSPITAL_DOOR=Vector2(-153,-204)
 const HOSPITAL_LANDING=Vector2(-144,-204)
+const VICTORY_DIAMOND_SCALE=.35
+const HOSPITAL_DIAMOND_COLOR=Color(.2,1.,.55)
 const GROUP_FIELDS=["habaru_slot","venoa_bear_slot","undersea_slot","zombie_slot","captain_slot","grave_slot","ruby_slot","falken_slot","frostpass_slot","black_prayer_slot"]
 var game
 var encounters:Dictionary={}
@@ -41,10 +43,12 @@ func _process(delta):
  timer=.15
  var token=[game.model.get_instance_id(),game.world.map_features.get_instance_id()]
  if token!=map_token:
+  if is_instance_valid(visuals):visuals.queue_free()
+  if is_instance_valid(gate_visuals):gate_visuals.queue_free()
   map_token=token;visuals=null;gate_visuals=null
   prepare_gates()
-  prepare_boss_spots()
   endpoint=preload("res://scripts/forest/forest_explore_endpoints.gd").prepare(game);endpoint_ready=false
+  prepare_boss_spots()
  if gates_dirty:prepare_gates();gates_dirty=false
  if not endpoint.is_empty() and not endpoint_ready and game.model.phase=="wave":
   endpoint_ready=true
@@ -53,16 +57,27 @@ func _process(delta):
     game.model.set_meta("explore_endpoint_blocker",{"map":game.model.falan_floor,"reason":"No source-open encounter spot fits the prepared native body and player route."})
    elif game.model.has_meta("explore_endpoint_blocker"):game.model.remove_meta("explore_endpoint_blocker")
  update_boss_spots()
- for key in encounters:
-  var record:Dictionary=encounters[key]
-  if record.scope!=scope():continue
-  if record.get("pending",false):
-   var alive=game.model.enemies.values().any(func(e):return e.hp>0 and member(e,record.group))
-   var phases_complete=record.group!="grave_slot" or game.get_tree().get_meta(Tour.Grave.SLAIN,{}).has(3)
-   if not alive and phases_complete:record.pending=false;won(key,record.at)
+ resolve_pending()
  rebuild_visuals()
  for key in rewards.get(scope(),{}):
   if not game.exploration_loot.opened_chests.has(key):game.exploration_loot.spawn_boss_chest(game.model.world_point(rewards[scope()][key]),key)
+
+func resolve_pending():
+ for key in encounters:
+  var record:Dictionary=encounters[key]
+  if record.scope!=scope()or not record.get("pending",false):continue
+  if int(record.get("pending_model",-1))!=game.model.get_instance_id():record.pending=false;continue
+  var alive=game.model.enemies.values().any(func(e):return e.hp>0 and member(e,record.group))
+  var phases_complete=record.group!="grave_slot"or game.get_tree().get_meta(Tour.Grave.SLAIN,{}).has(3)
+  if not alive and phases_complete:won(key,record.at)
+
+func map_retiring():
+ if not enabled()or game.army_runtime.configured_model!=game.model:return
+ var bookmark=pending_return;pending_return={}
+ resolve_pending()
+ pending_return=bookmark
+ for record in encounters.values():
+  if record.scope==scope()and not record.cleared:record.pending=false;record.erase("pending_model")
 
 func prepare_gates():
  if is_instance_valid(gate_visuals):gate_visuals.queue_free()
@@ -80,7 +95,14 @@ func prepare_gates():
   var win:Array=record.win;var cell=Vector2i(win[1],win[2])
   if not preload("res://scripts/forest/forest_explore_routes.gd").can_travel(game,int(win[0]),cell):
    record.win_blocker={"map":win[0],"cell":cell,"reason":"Original post-victory destination is not available."};continue
-  var station=safe_station(record.get("portal",record.at)+Vector2(7.5,0))
+  var portal:Vector2=record.get("portal",record.at);var direction=Vector2.RIGHT
+  var native_exits=game.model.get_meta("falan_links",[]).filter(func(link):return int(link.get("floor",-1))==Tour.Winter.Recovered.runtime_id(int(win[0])))
+  native_exits.sort_custom(func(a,b):return a.at.distance_squared_to(portal)<b.at.distance_squared_to(portal))
+  # Stay on the arena side of an ordinary exit that opens after victory.
+  if not native_exits.is_empty()and portal.distance_squared_to(native_exits[0].at)<30.*30.:
+   var away:Vector2=portal-native_exits[0].at
+   if away.length_squared()>.01:direction=away.normalized()
+  var station=safe_station(portal+direction*7.5)
   if not station.is_finite():continue
   gates.append({"at":station,"target":int(win[0]),"landing":cell,"actor":"victory","caption":"出口 · "+preload("res://scripts/forest/forest_explore_routes.gd").destination_title(int(win[0]))})
  for candidate in preload("res://scripts/forest/forest_explore_routes.gd").candidates(game):
@@ -103,13 +125,18 @@ func prepare_gates():
  for gate in gates:
   if drawn.any(func(point):return point.distance_squared_to(gate.at)<1.):continue
   drawn.append(gate.at)
-  var host=Node3D.new();host.position=game.model.world_point(gate.at)/game.model.falan_scale;gate_visuals.add_child(host)
+  var host=Node3D.new();host.set_meta("explore_gate",gate.duplicate());host.position=game.model.world_point(gate.at)/game.model.falan_scale;gate_visuals.add_child(host)
   Tour.build_diamond(host,Vector3.ZERO)
-  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=30;label.pixel_size=.012
+  var diamond=host.get_child(0);diamond.scale=Vector3.ONE*.6;diamond.position.y=1.6
+  if gate.get("actor","")=="victory":
+   diamond.scale=Vector3.ONE*VICTORY_DIAMOND_SCALE;diamond.position.y=10.*VICTORY_DIAMOND_SCALE
+   diamond.set_meta("explore_portal_role","original_exit")
+  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=30;label.pixel_size=.00065;label.fixed_size=true
   var names=PackedStringArray()
   for other in gates:
    if other.at.distance_squared_to(gate.at)<1.:names.append(other.caption)
   label.text="F · Cross Gate\n"+"\n".join(names);label.position=Vector3.UP*5.;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.visibility_range_end=30.;host.add_child(label)
+  if gate.get("actor","")=="victory":label.position.y=7.
 
 func prepare_boss_spots():
  for spot in boss_spots:
@@ -121,7 +148,10 @@ func prepare_boss_spots():
   var spec:Dictionary=regional.specification(key,game.model.seed_value)
   if game.model.falan_area!="interior" or int(spec.map)!=game.model.falan_floor:continue
   var at=maps.point(game.model.falan_floor,spec.cell,game.model.seed_value) if maps.generated().owns(game.model.falan_floor) else maps.source_point(game.model.falan_floor,spec.cell)
-  var spot={"at":at,"key":key,"name":key,"group":"regional:"+key,"actors":spec.get("actors",[])}
+  for entry in game.explorer_npcs.actors:
+   if str(entry.record.id).trim_prefix("source:")in spec.get("actors",[])and entry.has("interaction_point"):
+    at=Vector2(entry.interaction_point.x,entry.interaction_point.z)/game.model.falan_scale;break
+  var spot={"at":at,"key":key,"name":key,"group":"regional:"+key,"actors":spec.get("actors",[]).duplicate()}
   var source=regional.bank_for(key);var zone:Dictionary=source.data().bosses.get(str(spec.encounter),{})
   if zone.is_empty():continue
   var party:Dictionary=source.data().groups[zone.groups[0][0]]
@@ -129,11 +159,16 @@ func prepare_boss_spots():
   if key in ["lizard","zombie","dijiro"]:
    spot.manual_begin=true
    var skin:int=source.data().species[int(member_.species)].skin
-   if not source.companion(int(member_.species)):
-    var box=preload("res://scripts/forest/crowd/pet_dimensions.gd").body(source,skin)
-    var host=game.prepare_boss_host(source.make_mesh(),"ExploreBossWaiting_"+key,at,box,float(source.motions().variants[skin].standing_height),spot.name)
-    host.set_instance_shader_parameter("map_enemy_scale",preload("res://scripts/forest/forest_enemy_roles.gd").MAP_ENEMY_SCALE)
-    host.multimesh.set_instance_custom_data(0,Color(skin,0,0,0));host.get_child(0).text="Boss · "+spot.name
+   var companion:bool=source.companion(int(member_.species));var pets=preload("res://scripts/forest/pet_catalog.gd");var sprites=preload("res://scripts/forest/crowd/hound_sprites.gd")
+   var mesh=sprites.meshes.get(pets.ROOT)if companion else source.make_mesh()
+   if mesh!=null and (not companion or pets.is_prepared(skin)):
+    var dimensions=preload("res://scripts/forest/crowd/pet_dimensions.gd")
+    var box=dimensions.companion_body(skin)if companion else dimensions.body(source,skin)
+    var height=box.end.y if companion else float(source.motions().variants[skin].standing_height)
+    var host=game.prepare_boss_host(mesh,"ExploreBossWaiting_"+key,at,box,height,spot.name)
+    if companion:sprites.apply_world_scale(host,game.model)
+    else:host.set_instance_shader_parameter("map_enemy_scale",preload("res://scripts/forest/forest_enemy_roles.gd").MAP_ENEMY_SCALE)
+    host.multimesh.set_instance_custom_data(0,Color(skin,0,0,0));host.get_child(0).hide()
     spot.host=host
   boss_spots.append(spot)
  if game.model.falan_floor==game.Habaru.ROOM:
@@ -142,7 +177,13 @@ func prepare_boss_spots():
   boss_spots.append({"at":Tour.Regions.Sites.VENOA_BOSS_AT,"key":"","name":game.model.waves.CaveProgression.HABARU[game.Habaru.VENOA_BOSS_SKIN][0],"group":"venoa_bear_slot"})
  if game.model.falan_floor==game.Falken.ROOM:
   boss_spots.append({"at":game.Falken.Route.point(game.Falken.ROOM,game.Falken.Route.BOSS_CELL),"key":"","name":"法爾肯","group":"falken_slot"})
+ var guardian=Tour.Winter.Decree.GUARDIAN_FLOORS.find(game.model.falan_floor)
+ if guardian>=0:
+  var at=maps.source_point(game.model.falan_floor,Tour.Winter.Decree.Recovered.GUARD_CELLS[guardian])
+  var name_="凱法 / 帕布提斯馬"if guardian==Tour.Winter.Decree.GUARDIAN_FLOORS.size()-1 else Tour.Winter.Decree.TITLES[game.model.falan_floor].get_slice(" · ",1)
+  boss_spots.append({"at":at,"key":"","name":name_,"group":"frostpass_slot"})
  var legacy={11004:"habaru_slot",15505:"zombie_slot",16503:"captain_slot",47017:"grave_slot",game.Falken.ROOM:"falken_slot",Tour.Ruby.ROOM:"ruby_slot"}
+ for floor_:int in Tour.Winter.Decree.GUARDIAN_FLOORS:legacy[floor_]="frostpass_slot"
  if game.model.falan_floor==15505:
   boss_spots.append({"at":Tour.Regions.Sites.ZOMBIE_FORMATIONS[15505][0][0],"key":"","name":game.model.waves.CaveProgression.ZOMBIE[0][0],"group":"zombie_slot"})
  if game.model.falan_floor==16503:
@@ -179,10 +220,12 @@ func prepare_boss_spots():
   for declaration in matches:fights.append_array(declaration.declarations)
   var spot={"at":at,"key":"","actor":str(record.id),"record":record,"fights":fights,"name":record.name,"group":"trigger:"+str(record.id)}
   boss_spots.append(spot)
+ var region=load("res://scripts/forest/forest_east_region.gd")
  var source_id:int=maps.source_id(game.model.falan_floor) if game.model.falan_area=="interior" else {"city":1000,"castle":1500,"east_gate":100,"north_coast":100}.get(game.model.falan_area,-1)
+ if game.model.falan_area in region.SOURCE_VILLAGES.values():source_id=int(Tour.Regions.Sites.VILLAGES[game.model.falan_area][0])
  if game.model.falan_area in Tour.SouthPopulation.FREYJA_AREAS:source_id=100
  if game.model.falan_area in Tour.SouthPopulation.SOKIA_AREAS:source_id=300
- var region=load("res://scripts/forest/forest_east_region.gd");region.residents()
+ region.residents()
  var boss_catalog:Dictionary=preload("res://scripts/forest/forest_explore_routes.gd").catalog.get("bosses",{})
  var declarations:Array=boss_catalog.get(str(source_id),[]).duplicate()
  var terminal=region.terminal_record(game.model)
@@ -209,14 +252,18 @@ func prepare_boss_spots():
   var at=safe_station(original)
   if not at.is_finite() or at.distance_squared_to(original)>8.*8.:continue
   boss_spots.append({"at":at,"key":"","actor":actor,"record":record,"fights":declaration.declarations,"name":record.name,"group":"trigger:"+actor})
+ if not endpoint.is_empty():boss_spots.append({"at":endpoint.at,"key":"","name":endpoint.name,"group":"endpoint:"+str(endpoint.key)})
  for spot in boss_spots:
   var place=scope()+":"+str(spot.get("actor",""))
   if places.has(place) and encounters.has(places[place]):spot.group=encounters[places[place]].group
-  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=32;label.pixel_size=.014;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
+  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=32;label.pixel_size=.00065;label.fixed_size=true;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
   label.text="⚔ Boss · "+spot.name;label.position=game.model.world_point(spot.at,5.)/game.model.falan_scale;label.visibility_range_end=55.;game.world.map_features.add_child(label);spot.label=label
 
 func update_boss_spots():
  for spot in boss_spots:
+  if not endpoint.is_empty()and spot.group=="endpoint:"+str(endpoint.key):
+   spot.at=endpoint.at
+   if is_instance_valid(spot.get("label")):spot.label.position=game.model.world_point(spot.at,5.)/game.model.falan_scale
   var key=scope()+":"+spot.group
   if not encounters.has(key):encounters[key]={"scope":scope(),"group":spot.group,"at":spot.at,"name":spot.name,"cleared":false,"discovered":false,"pending":false}
   var record:Dictionary=encounters[key]
@@ -243,7 +290,9 @@ func member(enemy:Dictionary,identity:String)->bool:
  if identity.begins_with("regional:"):return enemy.get("university_battle","")==identity.trim_prefix("regional:")
  if identity.begins_with("elsa:"):return enemy.get("elsa_battle","")==identity.trim_prefix("elsa:")
  if identity=="undersea_slot":return enemy.has(identity) or enemy.get("explore_undersea_member",false)
- if identity in ["venoa_bear_slot","zombie_slot","frostpass_slot"]:return enemy.has(identity) and enemy.get("boss",false)
+ # Guardian rooms contain their original retinue, not wandering corridor patrols.
+ if identity=="frostpass_slot":return enemy.has(identity)and (enemy.get("boss",false)or game.model.falan_floor in Tour.Winter.Decree.GUARDIAN_FLOORS)
+ if identity in ["venoa_bear_slot","zombie_slot"]:return enemy.has(identity) and enemy.get("boss",false)
  if identity.begins_with("unit:"):return str(enemy.id)==identity.trim_prefix("unit:")
  return enemy.has(identity)
 
@@ -288,24 +337,40 @@ func defeated(enemy:Dictionary):
  var record:Dictionary=encounters[key];record.discovered=true
  # Scripted owners decide when their complete phase chain has ended.
  if record.group.begins_with("regional:") or record.group.begins_with("elsa:"):return
- record.pending=true
+ record.pending=true;record.pending_model=game.model.get_instance_id()
 
 func scripted_victory(identity:String,at:Vector2,name_:String="Boss",win:Array=[]):
  var key=scope()+":"+identity
  if not encounters.has(key):encounters[key]={"scope":scope(),"group":identity,"at":at,"name":name_,"discovered":true,"cleared":false,"pending":false}
  encounters[key].win=win
  if game.model.enemies.values().any(func(e):return e.hp>0 and member(e,identity)):
-  encounters[key].pending=true
+  encounters[key].pending=true;encounters[key].pending_model=game.model.get_instance_id()
   return
  won(key,encounters[key].at)
 
 func won(key:String,at:Vector2):
  var record:Dictionary=encounters[key]
  if record.cleared:return
- record.cleared=true;record.discovered=true;record.at=at
+ record.cleared=true;record.discovered=true;record.at=at;record.pending=false;record.erase("pending_model")
+ if not record.has("win"):
+  var actors=[]
+  for spot in boss_spots:
+   if spot.group==record.group:actors.append_array(spot.get("actors",[]))
+  var source:int=Tour.Winter.Recovered.source_id(game.model.falan_floor);var wins=[]
+  for route in preload("res://scripts/forest/forest_explore_routes.gd").data().get(str(source),[]):
+   if str(route.actor)not in actors or not route.get("victory_only",route.get("type","")=="StandEnemy"):continue
+   var win=[int(route.target),int(route.landing[0]),int(route.landing[1])]
+   if int(route.target)==source and Vector2(route.cell[0],route.cell[1]).distance_to(Vector2(route.landing[0],route.landing[1]))<=1.:continue
+   if win not in wins:wins.append(win)
+  if wins.size()==1:record.win=wins[0]
  record.victories=int(record.get("victories",0))+1
- var station=safe_station(at,true)
- if not station.is_finite():station=safe_station(at)
+ var portal_at=at
+ # The original bridge's side pillars obscure Yamabuki's retry view; its centre approach aisle is open.
+ if game.model.falan_floor==35006 and record.group.begins_with("regional:east:313002:"):portal_at=Tour.Winter.Recovered.source_point(35006,Vector2i(10,10))
+ # Chichi's three original exits share the cliff edge; use the open grass beside their captions.
+ if game.model.falan_floor==43000 and record.group.begins_with("regional:east:305108:"):portal_at=at+Vector2(-9,3)
+ var station=safe_station(portal_at,true)
+ if not station.is_finite():station=safe_station(portal_at)
  if station.is_finite():record.portal=station
  else:record.portal_pending=true
  record.chest_key="boss:%s:%d"%[key,record.victories]
@@ -322,6 +387,8 @@ func place_chest(record:Dictionary):
  game.exploration_loot.spawn_boss_chest(game.model.world_point(station),record.chest_key)
 
 func safe_station(at:Vector2,avoid_gates:bool=false,exclude_trigger:Rect2=Rect2())->Vector2:
+ var path_start=player_path_start()
+ if not path_start.is_finite():return Vector2.INF
  var candidates=[at]
  var player_at=Vector2(game.player.position.x,game.player.position.z)/game.model.falan_scale
  var edges=[]
@@ -347,10 +414,24 @@ func safe_station(at:Vector2,avoid_gates:bool=false,exclude_trigger:Rect2=Rect2(
   if game.model.get_meta("falan_links",[]).any(func(link):return point.distance_squared_to(link.at)<4.5*4.5):continue
   if not game.model.terrain.disk_clear(ground/game.model.falan_scale,.65):continue
   if game.model.scenery_obstacles.values().any(func(box):return box.grow(.65).has_point(ground/game.model.falan_scale)):continue
-  var from=game.player.position;from.y=game.model.world_height(from.x,from.z)
-  if not game.army_runtime.native.can_reach_ally(from,ground,.55*game.model.falan_scale):continue
+  if not game.army_runtime.native.can_reach_ally(path_start,ground,.55*game.model.falan_scale):continue
   return point
  return Vector2.INF
+
+func player_path_start()->Vector3:
+ var player=game.player;var scale_=game.model.falan_scale;var native=game.army_runtime.native
+ var start=player.position;start.y=game.model.world_height(start.x,start.z)
+ if native.can_reach_ally(start,start,.55*scale_):return start
+ # Certify a short physical walk off a navigation boundary after combat.
+ var at=Vector2(player.position.x,player.position.z)/scale_
+ for ring in range(1,4):
+  for direction in 16:
+   var point=game.model.world_point(at+Vector2.from_angle(direction*TAU/16.)*ring*.75,.15)
+   if not game.model.terrain.disk_clear(point/scale_,.55)or not body_clear(point):continue
+   if not native.can_reach_ally(point,point,.55*scale_):continue
+   if player.test_move(player.global_transform,point-player.global_position):continue
+   return point
+ return Vector3.INF
 
 func body_clear(point:Vector3)->bool:
  for child in game.player.get_children():
@@ -377,13 +458,17 @@ func rebuild_visuals():
   var record:Dictionary=encounters[key]
   if record.scope!=scope() or not record.cleared:continue
   if not record.has("portal"):continue
-  var host=Node3D.new();host.name="BossReturnPortal";host.position=game.model.world_point(record.portal)/game.model.falan_scale;host.scale=Vector3.ONE*.55;visuals.add_child(host)
+  var host=Node3D.new();host.name="BossReturnPortal";host.set_meta("explore_encounter",key);host.position=game.model.world_point(record.portal)/game.model.falan_scale;host.scale=Vector3.ONE*VICTORY_DIAMOND_SCALE;visuals.add_child(host)
   Tour.build_diamond(host,Vector3.ZERO)
-  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=30;label.pixel_size=.018
-  label.text="F · 法蘭城東醫院外";label.position=Vector3.UP*5.8;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;host.add_child(label)
+  host.get_child(0).position.y=10.
+  var diamond=host.get_child(0);diamond.modulate=HOSPITAL_DIAMOND_COLOR;diamond.set_meta("explore_portal_role","hospital_return")
+  for glow in diamond.get_children():
+   if glow is OmniLight3D:glow.light_color=Color("45ffa3")
+  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=30;label.pixel_size=.00065/VICTORY_DIAMOND_SCALE;label.fixed_size=true
+  label.text="F · 返回法蘭城\n東醫院外";label.position=Vector3.UP*12.5;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;host.add_child(label)
  for key in rewards.get(scope(),{}):
   if game.exploration_loot.opened_chests.has(key):continue
-  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=28;label.pixel_size=.012
+  var label=Label3D.new();label.font=preload("res://scripts/forest/preparation_skin.gd").FONT;label.font_size=28;label.pixel_size=.00065;label.fixed_size=true
   label.text="F · Boss 武器寶箱";label.position=game.model.world_point(rewards[scope()][key],3.)/game.model.falan_scale
   label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;label.visibility_range_end=35.;visuals.add_child(label)
 
@@ -392,10 +477,13 @@ func interact()->bool:
  var at=Vector2(game.player.position.x,game.player.position.z)/game.model.falan_scale
  var nearby=gates.filter(func(g):return at.distance_squared_to(g.at)<4.*4. and game._ryo_clear_path(game.player.position+Vector3.UP*2.5*game.model.falan_scale,game.model.world_point(g.at,2.5*game.model.falan_scale)))
  nearby.sort_custom(func(a,b):return at.distance_squared_to(a.at)<at.distance_squared_to(b.at))
+ # Preserve the original waiting boss conversation when its host is closer than a bypass gate.
+ var waiting=game.habaru_waiting if game.can_talk_habaru()else game.falken_waiting if game.can_talk_falken()else null
+ if is_instance_valid(waiting)and (nearby.is_empty()or game.player.position.distance_squared_to(waiting.global_position)<=game.player.position.distance_squared_to(game.model.world_point(nearby[0].at))):return false
  var portals=encounters.values().filter(func(r):return r.scope==scope() and r.has("portal") and r.cleared and at.distance_squared_to(r.portal)<=4.*4.)
  portals.sort_custom(func(a,b):return at.distance_squared_to(a.portal)<at.distance_squared_to(b.portal))
  for record in portals:
-  if not nearby.is_empty() and at.distance_squared_to(nearby[0].at)<at.distance_squared_to(record.portal):break
+  if not nearby.is_empty() and nearby[0].at.distance_squared_to(record.portal)>=4.5*4.5 and at.distance_squared_to(nearby[0].at)<at.distance_squared_to(record.portal):break
   if boss_spots.any(func(s):return (s.has("fights") or s.get("manual_begin",false) or s.get("undersea",false)) and at.distance_squared_to(s.at)<at.distance_squared_to(record.portal) and at.distance_squared_to(s.at)<5.*5.):break
   var npc:Dictionary=game.explorer_npcs.nearest
   if not npc.is_empty() and game.player.position.distance_squared_to(npc.get("interaction_point",npc.node.global_position))<game.player.position.distance_squared_to(game.model.world_point(record.portal)):break
@@ -428,22 +516,32 @@ func interact()->bool:
     return challenge(spot)
   return false
  var npc:Dictionary=game.explorer_npcs.nearest
- var talk=not npc.is_empty() and nearby.any(func(g):return str(g.get("actor",""))==str(npc.record.id).trim_prefix("source:"))
+ var native_talk=is_instance_valid(waiting)
+ var talk=native_talk or not npc.is_empty() and nearby.any(func(g):return str(g.get("actor",""))==str(npc.record.id).trim_prefix("source:"))
  var challenges=boss_spots.filter(func(s):return s.has("fights") and at.distance_squared_to(s.at)<5.*5. and nearby.any(func(g):return g.at.distance_squared_to(s.at)<4.5*4.5) and game._ryo_clear_path(game.player.position+Vector3.UP*2.5*game.model.falan_scale,game.model.world_point(s.at,2.5)))
  if nearby.size()==1 and not talk and challenges.is_empty():enter_gate(nearby[0]);return true
  var choices=[]
  for i in nearby.size():choices.append([str(i),nearby[i].caption])
- if talk:choices.append(["talk","與"+str(npc.record.name)+"交談"])
+ if talk:choices.append(["talk","與"+("熊弟"if waiting==game.habaru_waiting else"法爾肯")+"交談"if native_talk else"與"+str(npc.record.name)+"交談"])
  for i in challenges.size():choices.append(["challenge:%d"%i,challenge_caption(challenges,i)])
  choices.append(["cancel","離開"])
  var label=Label3D.new()
  game.show_boss_dialogue("Cross Gate",[{"text":"Explore 通路 · 不會完成任務或領取獎勵。","portrait":null,"options":choices}],label,game.close_boss_dialogue);label.free()
  game.dialogue.chosen.connect(func(answer:String):
   game.close_boss_dialogue()
-  if answer=="talk" and talk:game.explorer_npcs.interact()
+  if answer=="talk" and talk:
+   if native_talk:
+    if waiting==game.habaru_waiting:game.show_habaru_dialogue()
+    else:game.show_falken_dialogue()
+   else:game.explorer_npcs.interact()
   if answer.begins_with("challenge:"):challenge(challenges[int(answer.trim_prefix("challenge:"))])
   if answer.is_valid_int()and int(answer)>=0 and int(answer)<nearby.size():enter_gate(nearby[int(answer)]))
  return true
+
+func portal_at_chest(chest:Dictionary)->bool:
+ var at=Vector2(chest.pos.x,chest.pos.z)
+ # A co-located reward must not steal the portal menu through ground-height rounding.
+ return encounters.values().any(func(r):return r.scope==scope()and r.cleared and r.has("portal")and at.distance_squared_to(r.portal*game.model.falan_scale)<.001*.001)
 
 func interaction_distance_squared()->float:
  var distance=INF
@@ -473,8 +571,12 @@ func source_boss_cleared(actor:String)->bool:
 
 func portal_menu(record:Dictionary):
  var choices=[["return","法蘭城東醫院外"]]
+ var exits=gates.filter(func(g):return g.at.distance_squared_to(record.portal)<4.5*4.5 and game._ryo_clear_path(game.player.position+Vector3.UP*2.5*game.model.falan_scale,game.model.world_point(g.at,2.5*game.model.falan_scale)))
+ for i in exits.size():choices.append(["gate:%d"%i,exits[i].caption])
  var chest=game.exploration_loot.nearest()
- if chest>=0 and game.exploration_loot.slots[chest].get("boss",false):choices.append(["loot","開啟 Boss 武器寶箱"])
+ if chest>=0:
+  var slot:Dictionary=game.exploration_loot.slots[chest]
+  choices.append(["loot","開啟 Boss 武器寶箱"if slot.get("boss",false)else"開啟 精英寶箱"if slot.get("elite",false)else"開啟 食物寶箱"])
  if preload("res://scripts/forest/forest_explore_retries.gd").supported(record.group):choices.append(["retry","再挑戰"])
  var npc:Dictionary=game.explorer_npcs.nearest
  if not npc.is_empty():choices.append(["talk","與"+str(npc.record.name)+"交談"])
@@ -490,11 +592,12 @@ func portal_menu(record:Dictionary):
    game.transitioning=true
    Tour.travel.call_deferred(game,venture.falan_areas.city,{"arrival":HOSPITAL_LANDING,"yaw":PI*.5,"velocity":Vector3.ZERO,"preserve_checkpoint":true})
   elif answer=="retry":
-   var before:Dictionary=record.duplicate();record.cleared=false;record.pending=false;record.erase("portal");invalidate()
+   var before:Dictionary=record.duplicate();record.cleared=false;record.pending=false;record.erase("portal");invalidate();gates_dirty=true
    if not preload("res://scripts/forest/forest_explore_retries.gd").begin(game,record):
     record.merge(before,true);invalidate();game.toast("此戰鬥暫時無法重新開始")
   elif answer=="talk" and not npc.is_empty():game.explorer_npcs.interact()
   elif answer=="loot":game.exploration_loot.open_nearest()
+  elif answer.begins_with("gate:"):enter_gate(exits[int(answer.trim_prefix("gate:"))])
   elif answer.begins_with("challenge:"):challenge(challenges[int(answer.trim_prefix("challenge:"))]))
 
 func challenge(spot:Dictionary)->bool:
@@ -519,7 +622,7 @@ func challenge(spot:Dictionary)->bool:
 
 func enter_gate(gate:Dictionary):
  if gate.get("back",false):
-  game.transitioning=true;Tour.travel.call_deferred(game,gate.layout,{"arrival":gate.arrival,"yaw":game.camera_rig.yaw,"velocity":Vector3.ZERO});return
+  game.transitioning=true;Tour.travel.call_deferred(game,gate.layout,{"arrival":gate.arrival,"yaw":game.camera_rig.yaw,"velocity":Vector3.ZERO,"preserve_checkpoint":true});return
  var bookmark={"layout":game.get_tree().get_meta("forest_custom_layout").duplicate(true),"arrival":gate.at}
  if preload("res://scripts/forest/forest_explore_routes.gd").travel(game,gate.target,gate.landing):pending_return=bookmark
 
@@ -529,7 +632,7 @@ func pins()->Array:
  for record in encounters.values():
   if record.scope!=scope() or not record.discovered or record.get("superseded",false):continue
   result.append({"at":record.at,"label":("✓ 已擊敗 · " if record.cleared else "⚔ 未擊敗 · ")+record.name,"color":Color("88d9aa") if record.cleared else Color("f6856b")})
-  if record.cleared and record.has("portal"):result.append({"at":record.portal,"label":"◇ 返回法蘭城東醫院外","color":Color("ffe264")})
+  if record.cleared and record.has("portal"):result.append({"at":record.portal,"label":"◇ 返回法蘭城東醫院外","color":HOSPITAL_DIAMOND_COLOR})
  for key in rewards.get(scope(),{}):
   if not game.exploration_loot.opened_chests.has(key):result.append({"at":rewards[scope()][key],"label":"▣ Boss 武器寶箱","color":Color("f6c575")})
  return result

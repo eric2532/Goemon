@@ -43,6 +43,7 @@ var presentation_frames=0
 var import_rows_visited=0
 var arrival_rows:Array[Dictionary]=[]
 var arrival_ids:Dictionary={}
+var boss_handles:Dictionary={}
 var pending_hounds:Array[int]=[]
 var beast_pet_orders:Dictionary={}
 var recalled_pet_mana:Dictionary={}
@@ -223,6 +224,7 @@ func import_arrivals():
    var appearing:bool=native.begin_enemy_arrival(handle)
    assert(appearing,"Invalid Cursed Maze reinforcement")
   if row.get("boss",false):
+   boss_handles[row.id]=handle
    var configured:bool=native.set_boss_reactions(handle,0.0 if row.has("frostpass_slot") else .05,0.0 if row.has("frostpass_slot") else .75)
    assert(configured,"Invalid boss reaction chances")
   elif row.get("patrol_radius",0.0)>0:
@@ -580,7 +582,9 @@ func publish_model_rows(requested:PackedInt64Array=PackedInt64Array()):
   if not fresh.is_empty():count=native.sync_model_rows_for(fresh)
  if count>0:model_rows_written+=count;model_rows_publications+=1
  profile_mark("model_rows",clock)
-func _enemy_retired(id:int)->void:pending_retirements[id]=true
+func _enemy_retired(id:int)->void:
+ boss_handles.erase(id)
+ pending_retirements[id]=true
 func set_guard(handle:int,point:Vector3,radius:float):native.set_guard(handle,point,radius)
 func target_actor(id:int)->Node3D:return ally_target(id) if id<0 else enemy_target(id)
 func summon(slot:int)->bool:return game.explorer_helpers.request(slot)
@@ -654,6 +658,7 @@ func clear():
   if is_instance_valid(unit) and unit.get("director")!=null:unit.handle=0;unit.hp=0;unit.state="idle";unit.dead=false;unit.targetable=false
  allies.clear()
  super.clear()
+ boss_handles.clear()
  hound_order=HoundOrder.DEFEND;hound_order_serial=0;hound_focus_target=0;hound_focus_actor=null
  hound_attack_move=Vector3(INF,0,0)
  recalled_pet_mana.clear();pet_participants.clear()

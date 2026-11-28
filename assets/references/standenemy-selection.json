@@ -1,0 +1,120 @@
+{
+  "binary_git_blob": "402d215aab0b5262d646f2b26e28d171857f49eb",
+  "binary_sha256": "1507af36fe9e57a848e16b1f3e6f4d60237d0dcfa684c3d6c81065799347d3c6",
+  "source_url": "https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/cgmsv.exe",
+  "qualification": "Original field parser, bounded integer RNG and StandEnemy selector executed; only pure CRT, mutex, RNG raw sample, work lookup, encounter lookup and construction are hooked. No server started.",
+  "parser_rva": "0x121b3f",
+  "selector_rva": "0x1395ae",
+  "rng_rva": "0x9327",
+  "max_encounters": 16,
+  "meaning": "One uniformly selected original encounter per activation; comma entries are alternatives, not phases.",
+  "parser_cases": [
+    {
+      "field": 9,
+      "raw": "9034,9035,9036",
+      "count": 3,
+      "encounters": [
+        9034,
+        9035,
+        9036
+      ]
+    },
+    {
+      "field": 9,
+      "raw": "12008",
+      "count": 1,
+      "encounters": [
+        12008
+      ]
+    },
+    {
+      "field": 9,
+      "raw": "9034,9034,9035",
+      "count": 3,
+      "encounters": [
+        9034,
+        9034,
+        9035
+      ]
+    },
+    {
+      "field": 9,
+      "raw": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",
+      "count": 16,
+      "encounters": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "selection_cases": [
+    {
+      "random_value": 0,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9034,
+      "construction_calls": 1
+    },
+    {
+      "random_value": 1,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9035,
+      "construction_calls": 1
+    },
+    {
+      "random_value": 2,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9036,
+      "construction_calls": 1
+    },
+    {
+      "random_value": 3,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9034,
+      "construction_calls": 1
+    },
+    {
+      "random_value": 4,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9035,
+      "construction_calls": 1
+    },
+    {
+      "random_value": 5,
+      "index_range": [
+        0,
+        2
+      ],
+      "encounter": 9036,
+      "construction_calls": 1
+    }
+  ]
+}

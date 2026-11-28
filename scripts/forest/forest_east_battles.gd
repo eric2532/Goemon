@@ -3,6 +3,7 @@ extends RefCounted
 static var specifications:Dictionary={}
 static var run:Variant=null
 static var item_serial=0
+static var encounter_bags:Dictionary={}
 const LEGACY=[11004,15505,16503,47017]
 
 static func owns(key:String)->bool:return key.begins_with("east:")
@@ -10,26 +11,43 @@ static func bank()->Script:return load("res://scripts/forest/crowd/east_region_s
 
 static func specification(key:String)->Dictionary:return specifications.get(key,{})
 
+# Pinned StandEnemy parser/selector proof: assets/references/standenemy-selection.json.
+static func encounter_choices(raw_args:String)->Array[int]:
+ var fields=raw_args.split("|",true);var result:Array[int]=[]
+ if fields.size()<10:return result
+ var entries=fields[9].split(",",true)
+ if entries.size()>16:return result
+ for entry in entries:
+  var value=entry.strip_edges()
+  if not value.is_valid_int()or int(value)<=0:return []
+  result.append(int(value))
+ return result
+
 static func begin(game,actor:Dictionary,raw_args:String)->bool:
- if actor.get("item_use",false) and not bank().owns_model(game.model):
+ if (actor.get("item_use",false)or game.model.falan_floor not in LEGACY) and not bank().owns_model(game.model):
   var blocked:Dictionary=game.get_tree().get_meta("east_battle_blockers",{})
-  blocked[str(actor.id)]={"reason":"The current map uses a different prepared native appearance/timeline bank; this held-item formation cannot safely share its skin slots.","area":game.model.falan_area,"floor":game.model.falan_floor}
-  game.get_tree().set_meta("east_battle_blockers",blocked);game.toast("此地的道具戰鬥尚未開放");return false
+  blocked[str(actor.id)]={"reason":"The current map uses a different prepared native appearance/timeline bank; this source formation cannot safely share its skin slots.","area":game.model.falan_area,"floor":game.model.falan_floor}
+  game.get_tree().set_meta("east_battle_blockers",blocked);game.toast("此地的原始戰鬥模型尚未準備");return false
  var token=[game.get_instance_id(),game.model.seed_value]
- if run!=token:run=token;specifications.clear();item_serial=0
+ if run!=token:run=token;specifications.clear();item_serial=0;encounter_bags.clear()
  var args=raw_args.split("|",true)
- if args.size()<10 or not args[9].is_valid_int():game.toast("原始戰鬥定義缺少遭遇編號");return false
- var encounter=int(args[9]);var source=bank();var payload:Dictionary=source.data()
+ var choices=encounter_choices(raw_args)
+ if choices.is_empty():game.toast("原始戰鬥定義缺少遭遇編號");return false
+ var source=bank();var payload:Dictionary=source.data()
  if actor.get("item_use",false) and not load("res://scripts/forest/forest_university_region.gd").active(game.get_tree(),game.model.falan_floor,game.model.falan_area).is_empty():
   game.toast("請先完成目前的戰鬥");return false
- if not payload.bosses.has(str(encounter)):game.toast("原始戰鬥資料尚待恢復");return false
- var seen={};var pending=[encounter]
+ if choices.any(func(id):return not payload.bosses.has(str(id))):game.toast("原始戰鬥資料尚待恢復");return false
+ var seen={};var pending=choices.duplicate()
  while not pending.is_empty():
   var next:int=pending.pop_back()
   if next<=0 or seen.has(next):continue
   seen[next]=true
   var zone:Dictionary=payload.bosses.get(str(next),{})
   if zone.is_empty():return false
+  if zone.groups.is_empty() or not zone.get("preparation_blockers",[]).is_empty():
+   var blocked:Dictionary=game.get_tree().get_meta("east_battle_blockers",{})
+   blocked[str(actor.id)]={"encounter":next,"reason":"Original party distribution is incomplete.","details":zone.get("preparation_blockers",[])}
+   game.get_tree().set_meta("east_battle_blockers",blocked);game.toast("原始敵方編隊資料尚待確認");return false
   for group in zone.groups:
    for member in payload.groups[group[0]].details:
     if not source.available(int(member.species)):
@@ -42,10 +60,11 @@ static func begin(game,actor:Dictionary,raw_args:String)->bool:
      var prepared:Array=meshes[source.ROOT].get_meta("prepared_pages",[]) if meshes.has(source.ROOT) else []
      if not source.motions().skin_pages[skin].all(func(page):return prepared.any(func(value):return int(value)==int(page))):
       var blockers:Dictionary=game.get_tree().get_meta("east_battle_blockers",{})
-      blockers[str(actor.id)]={"encounter":encounter,"appearance":int(payload.species[int(member.species)].id),"reason":"Held-item source texture pages were not prepared during setup; keep the item and reopen its Equipment use flow."}
+      blockers[str(actor.id)]={"encounter":next,"appearance":int(payload.species[int(member.species)].id),"reason":"Held-item source texture pages were not prepared during setup; keep the item and reopen its Equipment use flow."}
       game.get_tree().set_meta("east_battle_blockers",blockers)
       game.toast("請先在裝備頁準備這件道具");return false
   if int(zone.next_encounter)>0:pending.append(int(zone.next_encounter))
+ var encounter:int=choices[0]if choices.size()==1 else source.Snow.draw(encounter_bags,str(actor.id)+":"+args[9],choices,game.model.waves.rng)
  var win=[]
  var target=args[1].split(",",false)
  if target.size()==4 and target[0]=="0" and target[1].is_valid_int() and int(target[1])>0:win=[int(target[1]),int(target[2]),int(target[3])]

@@ -1289,6 +1289,13 @@ blue custom item. Regeneration commands are in the weapon asset guide.
 
 ## Encounter battle music — 2026-11-25
 
+On 2026-11-28, the original `cgbgm_b1` boss theme gained priority within 32
+map units of a living boss. The same quarter-second probe reads the native
+army's active boss handles and keeps the regular spatial query. Confirm with
+Habaru: the cave theme plays through the conversation, then the boss theme
+starts when the fight begins. After four quiet seconds, nearby regular enemies
+can keep the normal battle theme playing, or the current area theme resumes.
+
 Living native enemies within 16 map units now select the original Cross Gate
 `cgbgm_b0` battle theme. Four quiet active seconds restore the area's theme,
 resuming its saved playback position when the theme is unchanged. Preparation,
@@ -30668,10 +30675,17 @@ caps and the authored combat clocks are preserved. Soup 15008/15007 replaces the
 old chest magic/ward jelly art while keeping those meals' effects and IDs.
 Pet mana broth 15066 keeps its party MP bonus without sharing the invitation icon.
 
-The new death-outcome shuffle bag contains 13 food tickets and 52 misses, preserving
-20% drops and equal food proportions without replacement before refill. This
-follows the user's marble-bag direction for new gameplay distributions. The
-existing chest and weapon bags keep their owners.
+The original death-outcome shuffle bag contains 13 food tickets and 52 misses.
+Explore now uses its own 65-ticket bag with eight melon breads, one of each
+other food and 45 misses. Both bags draw without replacement and refill when
+empty. The chest and weapon bags still use their existing owners.
+
+Outdoor movement encounters now check every 2.5 map units, down from 3. The
+fivefold swarm interval still applies, so outdoor checks during the swarm are
+12.5 units apart. Interiors keep the three-unit base. Both use the existing
+local query, source group limits and spawn clearance. To feel the pacing in
+Play Goemon, walk through an outdoor encounter zone and clear each group before
+continuing. This tuning changes how often a fight can start.
 
 Current food checks pass 133 headless/143 desktop assertions through Play Goemon;
 all 16 chest meals and restart/save behavior pass 384 headless checks. Food checks
@@ -30824,19 +30838,27 @@ Retries reset only that encounter's combat ledger. Taking the optional portal
 uses normal travel with checkpoint preservation, to outdoor city point
 (-144, -204), east of hospital doorway (-153, -204).
 
-Collectible weapons now come only from earned boss chests. Their existing
-nine-weapon shuffle bag is unchanged. Regular chests use all 16 eligible chest
-foods and 13 accessories, without weapon tickets; boss chests draw a guaranteed
-weapon plus the same nonweapon bonus pool. Accessories record collected counts
-without changing existing loadouts. A failed settings save rolls back collection,
-upgrade and accessory changes together. Earned unclaimed chest keys/contents
-survive arena travel in the current run and do not duplicate on restoration.
-The existing prepared loot renderer, native deaths and original item art are
-reused. No new per-enemy targeting, renderer or combat owner is added.
+Regular chests draw from eligible foods. Boss chests draw one guaranteed weapon
+from the nine-weapon shuffle bag, plus a food or accessory bonus. Native elite
+deaths still guarantee one chest. Opening it draws from a shuffled bag of one
+gear result and 99 food results. A gear result gives one weapon or accessory
+from a separate shuffle bag containing one ticket per collectible item.
+Accessories record collected counts without changing existing loadouts. A
+failed settings save rolls back collection, upgrade and accessory changes
+together and keeps the selected reward available for retry. Earned unclaimed
+boss chest keys and contents survive arena travel in the current run and do not
+duplicate on restoration. This uses the existing loot renderer, native death
+events and item art.
 
-Focused current checks passed: nutrition/restart 384, weapon collection/combat
-227, weapon upgrades 116, axes 157, and boss-chest interaction/retry 68 headless
-assertions (the earlier rendered version passed 64). The latter uses native Habaru-party deaths for
+The elite gear change passed 384 nutrition/restart checks and 63 headless chest
+interaction checks. These cover the full elite gear bag, equipment save retries,
+native player and companion kills on fixture elites, and the original Habaru
+victory. Asset preservation also passed.
+
+Before the elite gear change, focused checks passed: nutrition/restart 384,
+weapon collection/combat 227, weapon upgrades 116, axes 157, and boss-chest
+interaction/retry 68 headless assertions (the earlier rendered version passed
+64). The latter uses native Habaru-party deaths for
 setup, real movement/F to loot, and two original-dialogue victories with hospital
 return. Separate normal attack-input checks of the wind-tower source boss and
 new prison/temple endpoints passed 20 assertions with temporary hero invulnerability
@@ -30939,3 +30961,371 @@ palette RGB is canonicalized to zero by the established indexed importer; source
 masters retain their original bytes. The four reused Elsa kits retain their
 existing native cue opcodes; source timing and sound bytes are verified through
 that mapping rather than assuming raw cue IDs equal native opcodes.
+
+The later frontier pass reached 224 variants and passed 906 published-native
+acceptance/reuse checks. All 50 additions after the 174-kit baseline preserved
+22,192 original frames. Forty fixed seeds across all 83 branches passed 13,280
+stair checks; the historical rare stair failure remains unreproduced. These are
+source/native correctness results, not current FPS measurements. The subsequent
+417-map recovery has 261 prepared variants and passes 1,054 native checks. Its
+87 additions since the 174-kit baseline preserve 36,976 original source frames;
+the complete latest 224-kit prefix is unchanged. New source cue 286 retains
+distinct contact/audio tags 10286/20286, rather than changing combat timing.
+
+A rendered boss check exposed missing companion texture pages despite a live
+native collision body and positive visibility flags. University-region setup
+now collects the current map's companion keys, including every required boss
+phase, into the existing shared pet preparation. The fight guard checks loaded
+pages without loading assets during combat. JSON page values must be compared
+as integers against prepared-page metadata. Do not prepare just one boss on
+interaction: that can evict the selected companions' pages from the shared mesh.
+The stricter fixture requires the actual renderer mesh and original pages for
+every phase; older boss records without `prepared-original-pages-v1` remain
+pending. The rendered Abyss and zombie runs passed 22 and 17 checks,
+respectively, with actual movement, attack/F inputs, first victory and outdoor
+hospital return. Retry was not enabled in those runs, so they do not certify
+repeat victory. The fixture now always repeats a boss encounter; its history
+and checklist require the recorded retry to pass. The zombie's original proximity trigger remains intact; its
+waiting model is checked from outside that trigger. Later broad checks and the
+Cross Gate Mirror Image test are still required after these shared setup edits.
+
+The outdoor Cape cow-ghost fight could finish without settling victory: the
+source owner excluded completed battles from its active key, and its outer map
+then skipped the regional victory processor. The South owner now processes a
+pending Cape victory before returning to ambient encounters. A focused fresh
+run passed 19 first-victory/return checks; repeat victory remains a separate
+pending result. Explore gates also defer to the closer original waiting host
+for 熊弟/法爾肯, preserving their original conversations instead of silently
+selecting a nearby bypass route. Verify both original dialogue and retry after
+changing this interaction priority.
+
+Recovered scenery uses the existing animated-scenery owner. The latest source
+proof covers 105 clips and 1,040 frames with exact visible pixels, anchors,
+durations, opacity and flags, preserving the original 96-clip baseline. Three
+checks pass; this does not establish rendered appearance for every new map.
+Pinned script comments containing malformed bytes are skipped before decoding,
+while malformed executable commands still fail preparation. Two regression
+checks preserve all readable command lines across 1,007 pinned scripts and
+retain their full original source hashes. Current frontier runtime ownership,
+entrance traversal and boss completion remain separate checklist fields.
+
+The November28 continuation publishes496 recovered layouts after adding the
+source-confirmed housing frontages. HouseWarp2 uses the pinned houseroom table's
+room/template and arrival coordinates; Explore never purchases property or
+changes property records. Working original doors suppress duplicate gates.
+The source table's three unowned setup-room aliases in map999 are kept outside
+the normal frontage list. Five source-script checks pass, including housing
+coordinates, missing-script preservation and complete-versus-partial snapshots.
+Restored-cell counts alone do not prove completeness: original empty cells may
+already match the reference. Retain the authenticated whole-map comparison.
+
+The275-variant native bank passes1,112 acceptance/reuse checks, including the
+copied Snow body contract. Three original-frame/prefix/party checks also pass;
+all101 additions since174 retain41,944 original frames. Asset preservation
+passes and the319-asset audit has no read errors. These are correctness results;
+they do not establish current FPS or the appearance of every recovered map.
+The continental ground cache was rebuilt for both original owners and passed
+its exact serialized geometry/material/texture fingerprint checks. Fresh cached
+load timing and rendered comparison remain pending.
+
+Use the moving native proxy when aiming a rendered encounter fixture. A source
+compatibility row retains its initial spawn position; aiming at that stale row
+can falsely report an unreachable guard after it walks behind scenery. The
+captain's actual-body input/retry check passes37 assertions; its rendered review
+remains separate. The Ghosthound's full party and repeated victory pass58 checks
+after source formations also check the actual player capsule against physical
+scenery. Do not replace source members, reduce counts or disable collision to
+make these tests pass.
+
+Source Encount win destinations are optional exits after full victory, never
+pre-fight requirement-bypass gates. In a small arena an exit and hospital portal
+may share a safe station. The portal menu must expose both destinations and must
+not let tiny floating-point position differences silently choose the exit.
+The new --victory-exits fixture walks and interacts with the original victory
+exit, returns to the arena, then retries the encounter and uses its later portal.
+That new coverage remains in progress. Entrance fixtures now also walk to the
+destination return gate; old gate records without return_walked remain pending
+in the joined checklist. Ordinary door records already use actual exit walks.
+
+The83-branch ending review is in major-dungeon-endpoints.json. It distinguishes
+original encounters, dungeon continuations, source quest/transit endings and
+new Goemon endpoints. New fixed Babel endpoints32106/32115 reuse their own local
+enemy pools and original layouts; the final branch uses its water-blue mouse,
+not its unavailable original hatchling attack sheet. Snow/Babel and other new
+endpoint placement, full retries and rendered visibility are still being
+verified. The wider Explore goal is unfinished; no app was exported.
+
+The subsequent snapshot comparison found74 incomplete active layouts after
+accounting for the existing Water Cave override. Seventy-one match every
+recorded tuple; two more retain only their existing entrance-stair variations.
+The published73 completions pass a full cell/flag/source-blob preservation check,
+five script/metadata checks and asset preservation; the319-asset audit has no
+read errors. Existing source catalogs and masters remain unchanged. The shared
+map loader loads Elsa before applying these authenticated completions, validates
+their original hashes before mutation, and retains one source owner. A fresh
+inventory runs without script errors:1,667 registered fixed owners, no missing
+fixed or script destinations, and only campus4400 still incomplete. Its pinned
+reference differs at3,427 of15,610 recorded cells, so no hybrid layout is
+published. This does not certify walking every route or viewing every map.
+
+All40 housing frontages pass368 actual entrance/return checks:31 use the repaired
+gate path, while nine retain their ordinary doors. The rune/ruin guard306344
+passes43 full-victory/original-exit/arena-return/retry/hospital assertions after
+the combined portal menu fix. A further32-case boss batch passes31 cases and
+retains one training-room approach failure for investigation. The examiner's
+source room is reached through the original46042 staircase connection; do not
+interpret a failed direct path from the first arrival component as permission
+to move the NPC, increase talk range or remove its walls. Rendered review,
+remaining boss/entrance batches and current Mirror Image results are pending.
+
+
+### Explore source continuation — 2026-11-28
+
+The current shared East bank contains290 original appearances in304 reserved
+native cave slots. The15 additions reuse three prepared Elsa bodies and twelve
+original imports. Both native/Godot capacity constants and the published native
+binary were updated together. Compared with288 slots, the42-value timeline
+rows add21504 bytes and fitted geometry adds448 bytes once per kit, with no new
+per-enemy simulation fields. Source cue20260 is appearance110360's original
+attack audio; the unauthenticated contact code10260 remains rejected.
+
+Fresh checks pass1172 assertions through the published Godot native bridge,
+including two complete spawn/despawn passes, the final reserved slot and
+one-past-capacity rejection. The C++ pet-geometry/contact regression passes.
+Three source-preservation tests compare the established275 kits and all added
+frames/cues against their original sources. The Cross Gate Mirror Image sweep
+passes721 assertions over9060 steps, including the nine Kaz copies. Asset
+preservation and original player audio checks pass. These technical results do
+not establish rendered appearance, current FPS or long-session resource growth.
+Evidence is under `build/Other Files/Asset Toolkit/Explore Access/`, especially
+`expanded-290-native-bank-contracts-clean.log`, `expanded-290-native-source-proof.log`,
+`expanded-304-native-mirror-clean.log` and `ktado-original-audio-native-rebuild.log`.
+
+The source command census now covers enabled scripts in existing towns and
+native interiors as well as recovered regions. Required transfers use named
+Explore gates without running their condition/reward programs. Existing city
+travel stones retain their E menu. Numeric multi-destination Warp commands
+retain every explicit destination as a choice. Two absent scripts and two
+malformed command forms remain separate source blockers; no numeric alias or
+random destination is inferred. Publication is not traversal evidence.
+
+Fresh actual-control checks pass23 assertions for the Falan inn back door and
+Venoa locked frontage,27 for the nine ordinary housing doors, and39 for the
+training examiner. The latter walks the original46041/46042 stairs, wins the
+full encounter, follows its original victory exit, retries, wins again and
+uses the later portal to the east hospital. Its earlier failures came from a
+test path search that excluded the original maze's long detour. Keep ordinary
+routes intact when a complete player-body path already works. The full Explore
+checklist and rendered boss reviews remain unfinished; no app was exported.
+
+
+The captain's full body clearance now supplements the existing native/player
+route checks at initial party placement. Two original guard stations needed
+nearby adjustments; all five original enemies and their source frames remain.
+Fresh headless and rendered runs each pass39 checks, including two full
+victories and the hospital portal. The phase capture shows the captain and
+retinue; the initial entry view includes foreground treasure chests. Four fixed
+Goemon endpoints pass108 rendered checks. Snow's boss is visible once approached
+through the existing trees; its entry view is still partly screened by foliage.
+No tree or original map layout was removed for that review.
+
+A co-located Ruby weapon chest exposed a real F-priority failure: a microscopic
+position/ground rounding difference made the chest take the first interaction.
+Co-located boss chests now retain the portal menu, with its normal sight/range
+checks. The same menu can open nearby food and elite chests. Fresh60-check
+coverage earns the portal through combat, collects each chest type, retries,
+wins again and returns to the hospital. Loot distributions remain the user's
+newer rule: regular food only, elite1%gear shuffle bag, boss weapon plus the
+existing food/accessory bonus.
+
+Leaving a partly defeated native party also exposed a stale pending victory on
+arena reentry. Pending deaths now belong to their original model instance.
+Travel resolves a genuine completed victory before retiring that map and drops
+unfinished pending checks. The11-check Habaru stair exit/reentry regression and
+43-check completed ruin exit/return/retry run pass. This changes no quest,
+home-point or inventory state merely for traveling. Full all-map/all-boss QA
+continues; source graph ownership remains distinct from interaction evidence.
+
+
+## Restored inline source formations and native bank 300 — 2026-11-28
+
+The closed source audit identified twelve omitted inline StandEnemy roles. Eight
+now use the existing East/University native formation owner; the original zombie,
+lizard, Falken and final dual kings alias their established owners. Source NPC rows and scripts
+remain unchanged. The shared bank now contains 300 variants at the existing 304
+capacity; no native capacity or binary change was needed. The ten appended
+appearances are 100320, 100092, 100394, 100006, 100416, 100164, 100071, 100652,
+100577 and 110384. Source preparation includes 792 groups, 615 zones and 169
+boss pools; incomplete original distributions remain blocked.
+
+Fresh evidence is under Asset Toolkit/Explore Access: inline-300-native-bank.log
+passes 1,212 checks, including both full bank reuse passes; source-frame and
+pre-append preservation pass all three tests in 204.967 seconds. The asset audit
+reads 319 assets without errors, and all three preservation/audio/cosmetic checks
+pass. These are technical results, without a frame-time or gameplay-smoothness
+claim. The earlier 721-check Mirror result predates this bank append.
+
+An actual Sleipnir test exposed JSON number types in the new ownership list:
+Array.has with an integer did not match the decoded float, so the old one-horse
+owner survived. Ownership now converts and caches the source IDs at setup. It
+performs no new per-frame asset preparation. Source battle entry also refuses an
+incompatible native bank. A regional spot duplicates its actor list before adding
+aliases, preserving the read-only original BOSSES constant. Source enemy names
+fall back to their original enemy-base row, since one appearance can have several
+roles and names.
+
+Sleipnir's restored five-member formation passes 53 final rendered checks with actual walking, input combat, original victory exit, retry, a later victory and the east-hospital return. Its entrance gem moves beside the seal; duplicate restricted native captions are omitted in Explore. The restored native dual kings pass 50 rendered checks, preserving their cursed spell bank, both native deaths and original seal ledger. An early generic replacement was superseded. The eleven-role rendered matrix passes 531 checks, but its generic dual-king record is superseded by that original-owner rerun. Viewed elemental and lizard combat captures have visible models but crowded melee views; the technical visibility predicate is not a claim of an unobscured silhouette.
+
+The entrance fixture now sets the actual Tina day/night phase instead of crediting
+the clock-normalized daytime map as a night visit. Earlier unproven night records
+were held pending and are being replaced by exact-phase route checks. Eight pinned
+script tests pass. Three arena return typos are repaired only in Explore extraction,
+scoped to their exact script SHA-256 and line13; pinned sibling programs corroborate
+1496(15,7). Original script bytes are preserved. Five other malformed Warp commands
+and three missing original scripts remain unresolved. The full map/boss/NPC audit
+is still unfinished; no app was exported.
+
+
+The full pinned Astia layout replaces an obsolete runtime crop while retaining
+its old coordinate basis. The tunnel arrival is a separate original walk district;
+no invented road joins it to the distant house. Original NPC Hank now reuses the
+exact prepared source bitmap/direction and supplies the ordinary conversation and
+an Explore-only exit. Its 20-check rendered walk/F/exit/return keeps item18640,
+gold, quests and home unchanged. The southern Shalena crop is extended to include
+the original road; a 737-step actual walk from source(304,429) reaches the flower
+field entrance and returns, passing13 rendered checks.
+
+Four source maps (30195,32050,32051,32203) had local EX floor IDs colliding with
+unrelated original UI icons. Exact SHA-scoped namespace recovery reuses existing
+EX64x47 art and changes only aliases/walk bits; all raw cells, flags and original
+masters remain byte-exact. This is reviewed binding inference, not evidence from
+a prefixed filename. The landing preflight now checks3722 original arrivals and
+retains10 failures (eight incompatible Campus4400 landings and two malformed
+reward-branch sea coordinates). Actual route checks remain separate.
+
+The walking fixture first plans bounded32/128-cell margins, then the full map
+when needed. Short Tina planning took24ms; the original training maze genuinely
+needed the full1495-step400x401 fallback (779ms) and passed40 stair/retry checks.
+These are test-driver costs, not gameplay frame-time measurements. The shadow
+terminal is attached only to its declared generated branch, passes57 rendered
+boss/retry/return checks, and unused source777 templates remain archival.
+Explore entrance gems and optional return gems use smaller local presentation;
+ordinary doors and their original marker owner are unchanged. The whole Explore
+map/NPC/boss verification is still active, with exact blockers in the checklist.
+
+
+### Original runtime identity and completed-map fitting — 2026-11-28
+
+Recovered palace source maps51009/51010 use1051009/1051010 at runtime. The first
+two snow-mountain floors retain their saved runtime IDs51009/51010, but now use
+the already reserved generated source identities51301/51302. Both directions are
+explicit. This prevents the mountain from selecting palace doors, NPCs, scenery
+classification and enemy banks. The recovered palace masters and saved floor IDs
+are preserved. The refreshed census covers3416 source/native rows and2970 owners;
+all twelve Beast floors and both special snow floors pass56 rendered stair checks.
+The corrected inventory passes17 checks. A preceding Beast fixture incorrectly
+used seed0 for setup/targets; it now uses the same active seed as the map owner.
+
+The original minotaur victory exits revealed a separate field-arrival loop: the
+source destination665,184 is also a day/night automatic cave trigger. Explore
+arrival selection now excludes nearby original Warp footprints using the existing
+three-by-three trigger buckets, and selects adjacent legal ground. Ordinary
+entrances and quest execution are unchanged. Both original triggers pass49
+rendered checks each, including original exit/back, retry and hospital return.
+The initial331-check batch had five failures; retain that failed log and credit
+the corrected per-actor runs instead. Small return gems now float above the hero;
+viewed minotaur captures show the actual diamond as well as its caption and pin.
+
+Namespace review expanded the initial four repairs to nineteen exact-SHA maps.
+The additional fifteen had1483 floor cells whose local EX IDs selected unrelated
+small original UI graphics. Existing EX art covers every binding except one
+72x103 chair (EX235045,row3590). That original bitmap is decoded into a small128x128
+page using the existing atlas/solid helpers; its exact RGBA, origin and footprint
+are checked. Existing pages, original client tuples and flags are preserved.
+Eight newly blocked cells in the comparison are water cells covered by the
+original EX prop footprints; no road is invented or removed. The binding remains
+a reviewed namespace inference, with actual route checks recorded separately.
+
+Completed Sokia layouts exposed missing derived fitting entries, notably cliff
+12563 in13014. Existing fitting dictionaries are copied intact into the completed
+overrides, and missing visible/solid bounds are measured with the original alpha
+and >45RGB cliff rules. Seventeen overrides now carry that setup data. Fixed-map
+lookup uses it without changing original masters or existing fits. The first
+nine-door Sokia run had27 passing assertions but a script error and is withheld;
+the corrected rerun passes27 checks without script errors. Source preservation
+passes three tests covering73 completions,19 bindings, exact chair pixels and the
+Sokia fit entries. Asset audit reads319 assets without errors; all three toolkit
+checks pass. The continental caches were rebuilt after the identity change and
+pass four serialized-geometry/UV/material/texture checks. These are technical
+results, not a gameplay frame-time measurement. Full Explore verification remains
+active, including the additional namespace routes and original Dabi gallery exit.
+
+The recovered-art loader also needs the original Water provider:35 existing
+graphic IDs were omitted across23605,32036,32037 and32064. Loading that existing
+catalog fixes both world and minimap references; no new bitmap was necessary.
+An actual-loader inventory now checks86097 required IDs and173 page paths with
+zero missing graphics or pages. The first eighteen namespace entrance/leave
+cases pass171 rendered checks without script errors; the earlier run with two
+missing9670 errors remains failed. Original Dabi actor1101960 passes44 checks,
+including its original post-victory gallery32065, retry and hospital return.
+The three original Lion trials5303/5301/5302 each pass39 rendered checks, including
+their normal onward exits and repeat victories. The phase-view fixture now walks
+to an unobstructed view before checking its camera ray and records the obstruction
+when that fails; boss placements and original arenas are unchanged. Full
+entrance-to-boss journeys remain separate from these local arena checks. The
+post-provider continental rebake passes four checks; the final toolkit check
+passes all three checks. None of these results establishes gameplay frame time.
+
+
+## Continuous Explore route evidence — 2026-11-28
+
+The complete Habaru journey passes63 rendered checks after one initial Alyut street setup: village gate, existing dry trail, both cave floors, original 熊弟 dialogue, full ten-member victory, earned weapon chest, retry through the original conversation, second full victory and the outdoor east-hospital return. The two-line return caption is raised locally so it stays separate from the original exit label. The small gem and actual outdoor frontage were visually reviewed. Invulnerability and increased hero damage are test qualifications; source enemy counts, phases and timing remain intact.
+
+Zombie passes38 and Captain44 rendered continuous-route checks. Their existing native field entries had been unconditionally removed by the newer source-route replacement; Explore now adds named Cross Gates at those old approaches. Zombie enters the original B1 before its ordinary laboratory stair. The old doors, arena layouts and normal exit behavior remain. The walking fixture now permits leaving its starting doorway and allows enough time for the actual winding route; the earlier failed runs remain unverified. No movement speed or interaction range changed.
+
+Wine-cellar NPC checks pass8 from the real source arrival, with the original NPC positions retained. Venoa undersea stair escape passes3. Beetle1102215 choice0 passes38 after the visibility oracle adopted the existing camera exclusions for invisible water-navigation boundaries; physical movement/combat collisions remain unchanged. The beetle body was reviewed in its captured frame. These are interaction and preservation results, without a new FPS or long-session smoothness claim. The full map/boss/NPC audit remains unfinished. The per-map checklist now attaches continuous journeys separately from direct boss setup evidence.
+
+
+Imur's old native field stair is physically obstructed at the cliff turn. A continuous actual-control diagnostic followed the normal Ghana north road to local(31.06066,-91.93934), then failed every certified stair approach. Explore now places its existing diamond at that road-side station and enters the complete original forest47010, with a bookmark return. Its11-check rendered entry/return preserves home, gold, quest items and flags. The old stair and map layout remain. The full four-maze journey is a separate result in restored-imur-four-mazes-boss-journey-rendered.log; entrance proof alone does not certify the graveyard boss. Current pinned script tests pass8 and asset preservation passes all3.
+
+
+The complete Imur walk now passes77 checks from one normal Ghana-road setup, through the new field gate, all four mazes and their intervening forest stairs, to the graveyard encounter, retry and later hospital return. Its ghost models are visible in the reviewed close combat capture. A separate graveyard capture found the y16 caption above the camera frame; the final two-line caption is y12.5 on the existing .35-scale host. Habaru52/0 and graveyard48/0 rendered reruns verify its screen anchor and show both gem and caption. The eight-choice source matrix passes331/0 for307368,306127,306161,306345,307009,305069,306346 and306062; original bodies were reviewed, with crowded views and Aigi's full body clearer on retry. Source/frame and action contracts remain separate from unobscured framing. The latest asset check passes all3. The complete Explore audit is still unfinished.
+
+
+Cursed guardian full-formation and visible-retry correction (2026-11-28)
+
+The five original Cursed guardians now each pass69 rendered interaction checks; the two-king finale passes54. Recovery had let later Cursed floors select the East bank. The shared owner check now keeps all60 floors on their original native formation/spell bank. Explore guardian aliases share one native encounter marker, and victory includes every required guard. Killing only the boss must leave both portal and new weapon chest absent and the original seal closed; each first and retried fight exercises that order before finishing the guards. The existing native combat, spell owner, original counts, source trigger and map layout remain. The pinned Cursed source check passes5 tests; final asset preservation passes all3. These are correctness results, without a fresh FPS or long-session smoothness claim.
+
+A separate16-choice source batch passes666 rendered checks. Its initial images were reviewed; crowds and foreground objects still affect framing. Yamabuki313002 was fully hidden behind a bridge pillar in the earlier setup, so those images were not accepted as visibility proof. Its focused original-entry walk now passes40, with the original body and trigger unchanged. The earned return station uses the open central source aisle(10,10); reviewed retry and portal captures show the model, diamond and caption. The complete Explore audit remains unfinished.
+
+
+Ordinary doorway test setup correction (2026-11-28)
+
+Eleven completed rendered entrance cases add113 checks without failures; the final case was stopped for diagnosis, so the interrupted batch is not a clean terminal result. Bella33000→37002 then passes3 actual entry/exit checks. Its original trigger precedes a closed source cell and the surrounding cliff blocks a ray into that cell. The test now chooses source-open approach ground and physically presses toward the doorway with normal capsule collision, rather than demanding a clear ray or planned path into the closed cell behind the trigger. The existing doorway and game geometry remain unchanged. Same-source cases can retain the already-loaded source room between completed roundtrips; no gameplay cache or movement change was made.
+
+
+Poka lower-ledge Explore entrance (2026-11-28)
+
+A24-case actual-control entrance sweep passes23 cases and exposes one Poka failure (256 checks,2 failed assertions). The original NPC306085 at36003(7,3) sends eligible level70 players to36003(10,2). A nearby same-map stair on a disconnected upper ledge had suppressed the Explore gate. Only this actor now keeps the bypass. Its diamond sits six local units south of the original NPC and reads 布朗山入口 · 上層通道, avoiding the original model overlap. The final normal-entry walk uses33 planned points and passes12 rendered gate/return checks; the reviewed capture shows the diamond, caption and separate miner. His actual prompt/conversation passes4 with original placement and no proxy. The original upper stair into2603000 and its exit pass3 separately. This does not certify all17 maze floors. The original level check, source Warp tuple, map layout and normal doors remain unchanged; gate travel grants no level, quest completion, reward or home change. Source preservation passes8 and asset checks pass all3. These are correctness/visibility results, without fresh FPS or long-session evidence.
+
+
+Explore original alternatives and foreground visibility — 2026-11-28
+
+The pinned original StandEnemy parser and selector now have an executable byte proof in assets/references/standenemy-selection.json, reproduced by tools/recover_standenemy_selection.py. Field9 accepts at most16 comma-separated IDs, preserving order/duplicates, and selects one encounter per activation. They are alternatives, not mandatory successive phases. The existing East owner preflights all alternatives and their required phase groups before drawing with its existing shuffle-bag helper. A fresh source challenge draws the next ticket; Retry preserves its selected encounter. The three untouched ninja actors80072/73/74 each exercised9036,9034,9035 in a472-check rendered run, including nine Retry victories and hospital returns. All nine initial phase captures were reviewed: native hound, cat and mouse bodies are visible, with crowded corridor framing. Source-byte preservation passes1, runtime parser checks12 and refreshed inventory17. Only the three false syntax blockers were removed; nine current actor/owner contract flags remain.
+
+Four exact co-located TuTu waiting copies5591/5595/5596/5597 had covered the selected battle body. Waiting presentation now shares hide/restore aliases only when original source, cell, graphic and name all match. Original fight identities, scripts, placement and phase decisions stay separate. The final114 rendered checks verify all four hide during each selected fight and restore after full victory; the three initial bodies were reviewed. A separate120-check source46010 rerun identifies each current return caption by encounter metadata instead of Godot's renamed sibling node.
+
+Recovered leaf materials were missing the existing live-player canopy update, and the old local cutaway left leaves between the normal camera and hero. Source map setup now registers late-created Wind canopies and owns leaf-only painterly material bindings, reusing one mesh clone per shared source mesh in that scene. Trunks, mesh arrays, textures, original palette and alpha are unchanged. Both existing shaders retain their local cutaway and clear only a4m corridor of foreground leaf fragments from camera to hero. There is no new simulation, renderer, per-frame scene scan or asset load. The10 preservation checks include repeat setup and cached-scene reconnection. This is a visibility correction; no frame-time improvement was measured.
+
+Chichi305108 now passes49 final rendered checks from its source-open south-side setup. Initial and retried original bodies are visible after the leaf correction. Its three original cliff-side exits had overlapped the return caption, so only its return seed moves to open grass at encounter+(-9,3), still checked by the shared safe-station routine. Reviewed captures show its return diamond, separate hospital caption and retained weapon chest. Original challenge, party, map, NPCs and exits remain. Examiner306246 passes41 from the broad walkable room side77,58, with actual walk/F, original fight, retry and hospital return. Its reviewed initial/retry frames show the body and the return capture shows a clear diamond/caption beside unclaimed loot. Earlier actor-centred test setup chose a tiny pocket against a wall; direct safe-cell setup is not a normal-route certificate. Use connected room-side or actual entrance setups when checking an obstructed actor.
+
+The final49/41 runs have no ScriptError or Metal fence timeout. An earlier registration-only forest run completed checks but reported a Metal fence timeout; it is not clean rendering or performance evidence. The final asset check passes all3. The joined checklist currently has256 entrance declarations,81 source boss actors with strict Retry,79 rendered actors and10 Goemon endpoints. Four full field journeys remain archived separately. This does not complete the3416-map Explore audit, all ordinary routes, required NPCs or major fixed-dungeon ending classification. No app export or FPS/long-session signoff was made. Latest loot policy remains regular food only, elite1% gear and guaranteed boss weapon plus existing bonus.
+
+
+Post-victory portal playtest checkpoint — 2026-11-28 (paused at user request)
+
+The latest user direction preserves both intentional post-victory portals and their destinations/interactions. The original exit remains gold; the hospital return is emerald, including its Explore minimap diamond. Both reuse the original animated diamond atlas at .35 world scale and the same local visual height. Original-exit labels rise to7 local units so nearby ordinary entrance labels stay readable. No source texture, collision, quest, inventory, gold or home logic changes for this visual polish. The focused source46042 examiner run passes53 rendered checks:actual approach/challenge/full win, matching44.64/44.53pixel heights in the balanced normal-camera view, distinct colors, destination labels, original46043 exit/back, Retry and later outdoor east-hospital return. The final pair capture was reviewed and asset checks pass all3.
+
+The preceding24-case route sweep passes272 checks but exposed an insufficient same-map ordinary-loop match. Suppression now compares the original arrival for same-map doors; a return to the near side of a wall cannot replace the distinct Explore crossing. Both source33246 barrier and33247 entry routes pass23 focused checks, superseding the misleading first ordinary-loop proof. The joined checklist now has281 entrance declarations,81 source actors with strict Retry and79 rendered actors; the full normal-route/NPC/dungeon-ending audit remains unfinished. Exact source blockers remain separate. The old15-check smoke run used a global diamond-pin count and is not accepted portal evidence.
+
+No further route batch was started after the user requested this final polish and pause. The complete checkpoint is build/Other Files/Asset Toolkit/Explore Access/continuation-state.json; the concise playtest note is PLAYTEST-CHECKPOINT.txt in that folder. No app export or new FPS/long-session signoff. Resume goal work only when the user asks.

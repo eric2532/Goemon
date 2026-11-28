@@ -74,7 +74,17 @@ const PreparationSkin=preload("res://scripts/forest/preparation_skin.gd")
 const MERCENARY_SHORTCUTS=[2,0,1,4,3] # Ninja, Dragoon, Ranger, Explorer, Knight.
 var helper_portraits: Array[TextureRect]=[]
 const Pets=preload("res://scripts/forest/pet_catalog.gd")
+const Status=preload("res://scripts/forest/character_status_panel.gd")
 var hound_dock:Panel
+var pet_passives:HBoxContainer
+var pet_passive_counts:Dictionary={}
+var shown_pet_passive_counts:Dictionary={}
+var shown_pet_passive_bonuses:Dictionary={}
+const PET_PASSIVE_BONUS_LABELS={
+	"regeneration":"+%d HP per second",
+	"critical_chance":"+%d percentage points of critical chance (total capped at 100%%)",
+	"dodge_chance":"+%d percentage points of dodge chance (total capped at 100%%)",
+}
 var hound_heads:Array[TextureRect]=[]
 var hound_health_bars:Array[ProgressBar]=[]
 const PET_STANCES=[
@@ -211,21 +221,32 @@ func make_hero_dock():
 	food_effects=GridContainer.new();food_effects.name="FoodEffects";food_effects.columns=6;food_effects.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	food_effects.add_theme_constant_override("h_separation",4);food_effects.add_theme_constant_override("v_separation",4)
 	add_child(food_effects);food_effects.hide()
-	hound_dock=Panel.new();hound_dock.name="GuardHoundHealth";hound_dock.size=Vector2(214,72)
+	hound_dock=Panel.new();hound_dock.name="GuardHoundHealth";hound_dock.size=Vector2(214,80)
 	hound_dock.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	hound_dock.add_theme_stylebox_override("panel",skin.attack_style())
 	hero_dock.add_child(hound_dock);hound_dock.hide()
+	var pet_health_track=StyleBoxFlat.new()
+	pet_health_track.bg_color=Color("191713")
+	pet_health_track.border_color=Color("8f7a58")
+	pet_health_track.set_border_width_all(1)
+	pet_health_track.set_corner_radius_all(3)
 	for i in Pets.MAX_ACTIVE:
 		hound_heads.append(dock_icon(hound_dock,null,Vector2(10+i*42,2),Vector2(25,25)))
-		var bar=meter(hound_dock,"PetHealth%d"%i,Color("62c477"));bar.max_value=1.0;bar.step=0.0
-		bar.position=Vector2(4+i*42,29);bar.size=Vector2(38,4);hound_health_bars.append(bar)
+		var bar=ProgressBar.new()
+		bar.name="PetHealth%d"%i;bar.show_percentage=false;bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		bar.max_value=1.0;bar.step=0.0;bar.value=1.0
+		bar.add_theme_stylebox_override("background",pet_health_track)
+		bar.add_theme_stylebox_override("fill",health_styles[0])
+		bar.position=Vector2(4+i*42,29);bar.size=Vector2(38,10)
+		hound_dock.add_child(bar);hound_health_bars.append(bar)
 	for i in PET_STANCES.size():
-		var icon=dock_icon(hound_dock,PET_STANCES[i][0],Vector2(4+i*54,36),Vector2(50,20))
+		var icon=dock_icon(hound_dock,PET_STANCES[i][0],Vector2(4+i*54,44),Vector2(50,20))
 		icon.texture_filter=Control.TEXTURE_FILTER_NEAREST;hound_stance_icons.append(icon)
-		var caption=dock_label(hound_dock,PET_STANCE_LABELS[i],Vector2(2+i*54,56),11)
+		var caption=dock_label(hound_dock,PET_STANCE_LABELS[i],Vector2(2+i*54,64),11)
 		caption.size=Vector2(54,16);caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		caption.add_theme_color_override("font_shadow_color",Color.BLACK);caption.add_theme_constant_override("shadow_outline_size",2)
 		hound_stance_labels.append(caption)
+	make_pet_passives()
 	for i in range(2):
 		var tile=Panel.new();tile.position=Vector2(256+i*58,10);tile.size=Vector2(52,64);tile.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		tile.add_theme_stylebox_override("panel",skin.attack_style());hero_dock.add_child(tile)
@@ -499,6 +520,9 @@ func sync_character()->Dictionary:
 			attack_cooldowns[0].text="READY" if controls.fraction()>=1 else "%.1f"%maxf(0,controls.FULL_CHARGE_TIME-controls.elapsed)
 			primary_icon.modulate=Color("ffe4a5")
 	return equipped
+func health_band(fraction:float)->int:
+	return 2 if fraction<=.25 else (1 if fraction<=.5 else 0)
+
 func sync_health():
 	var p=game.player
 	if last_health_fighter!=p.character_id or not is_equal_approx(last_health_max,p.max_hp) or p.hp>last_health:
@@ -508,25 +532,81 @@ func sync_health():
 	last_health=p.hp;last_health_max=p.max_hp;last_health_fighter=p.character_id
 	player_health_bar.max_value=p.max_hp;player_health_bar.value=p.hp
 	var fraction=clampf(p.hp/maxf(1,p.max_hp),0,1)
-	var level=2 if fraction<=.25 else (1 if fraction<=.5 else 0)
+	var level=health_band(fraction)
 	if level!=health_level:
 		health_level=level;player_health_bar.add_theme_stylebox_override("fill",health_styles[level])
 	health_gloss.size.x=maxf(0,(player_health_bar.size.x-6)*fraction);health_gloss.visible=fraction>.02
 	health.text="%d / %d"%[ceili(p.hp),ceili(p.max_hp)]
 	player_mana_bar.max_value=maxf(1,p.max_mana);player_mana_bar.value=clampf(p.mana,0,p.max_mana)
 	mana.text="%d / %d"%[ceili(player_mana_bar.value),ceili(p.max_mana)]
+func make_pet_passives():
+	pet_passives=HBoxContainer.new()
+	pet_passives.name="PetPassives"
+	pet_passives.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	pet_passives.add_theme_constant_override("separation",4)
+	hero_dock.add_child(pet_passives)
+	pet_passives.hide()
+	var tile_style=skin.attack_style()
+	for passive in Pets.PASSIVES.values():
+		var tile=Panel.new()
+		tile.name=passive.stat
+		tile.custom_minimum_size=Vector2(58,34)
+		tile.mouse_filter=Control.MOUSE_FILTER_PASS
+		tile.add_theme_stylebox_override("panel",tile_style)
+		tile.accessibility_name=passive.name
+		pet_passives.add_child(tile)
+		dock_icon(tile,Status.passive_texture_for_stat(passive.stat),Vector2(3,2),Vector2(30,30))
+		var count=dock_label(tile,"",Vector2(32,0),14)
+		count.size=Vector2(24,34)
+		count.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		count.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+		pet_passive_counts[passive.stat]=count
+
+func sync_pet_passives():
+	var player=game.player
+	if not player.uses_pet_passives():
+		pet_passives.hide()
+		return
+	var selected:Array=game.settings.forest_pet_loadout
+	var counts={}
+	var bonuses={}
+	for key in selected:
+		var pet_skin=Pets.skin(key)
+		var passive=Pets.passive(pet_skin)
+		if passive.is_empty():continue
+		var stat:String=passive.stat
+		counts[stat]=counts.get(stat,0)+1
+		bonuses[stat]=bonuses.get(stat,0.0)+Pets.passive_value(pet_skin,player.team_progression.pet_passive_level(key))
+	pet_passives.visible=not counts.is_empty()
+	if counts==shown_pet_passive_counts and bonuses==shown_pet_passive_bonuses:return
+	shown_pet_passive_counts=counts
+	shown_pet_passive_bonuses=bonuses
+	for stat in pet_passive_counts:
+		var count:Label=pet_passive_counts[stat]
+		var tile:Panel=count.get_parent()
+		var stacks:int=counts.get(stat,0)
+		tile.visible=stacks>0
+		if stacks==0:continue
+		count.text="×%d"%stacks
+		var bonus:String=PET_PASSIVE_BONUS_LABELS[stat]%bonuses[stat]
+		tile.tooltip_text="%s · %d %s\n%s"%[tile.accessibility_name,stacks,"pet" if stacks==1 else "pets",bonus]
+		tile.accessibility_description=tile.tooltip_text
+
 func sync_hound_health():
 	var any_alive=false
+	var selection:Array=game.settings.forest_pet_loadout
 	for i in hound_heads.size():
-		var selection:Array=game.settings.forest_pet_loadout
 		var skin:int=Pets.skin(selection[i]) if i<selection.size() else -1
 		var fraction:float=game.army_runtime.hound_health_fraction(skin) if skin>=0 and is_instance_valid(game.army_runtime) else 0.0
 		var head=hound_heads[i]
+		var bar=hound_health_bars[i]
 		head.texture=Pets.portrait(skin) if skin>=0 else null
-		head.modulate.a=fraction
 		head.visible=fraction>0.0
-		hound_health_bars[i].value=fraction
-		hound_health_bars[i].visible=head.visible
+		var level=health_band(fraction)
+		if level!=health_band(bar.value):
+			bar.add_theme_stylebox_override("fill",health_styles[level])
+		bar.value=fraction
+		bar.visible=head.visible
 		any_alive=any_alive or head.visible
 	hound_dock.visible=any_alive
 	if any_alive:
@@ -726,9 +806,12 @@ func sync_hud_layout(prep: bool):
 		for hub in [shrine_health_dock,hero_dock,wave_countdown]:hub.scale=Vector2.ONE*factor
 	wave_countdown.pivot_offset=Vector2(140,0)
 	var top_shift=112*factor if wave_countdown.visible and size.x-44<(2*hero_dock.size.x+312)*factor else 0.0
-	var hound_space=80 if hound_dock.visible and hound_dock.get_parent()==hero_dock else 0
+	var hound_space=hound_dock.size.y+8 if hound_dock.visible and hound_dock.get_parent()==hero_dock else 0.0
+	pet_passives.position=Vector2(12,128+hound_space)
+	pet_passives.size=pet_passives.get_combined_minimum_size()
+	var passive_space=pet_passives.size.y+6 if pet_passives.visible else 0.0
 	hero_dock.offset_top=28+top_shift
-	hero_dock.offset_bottom=168+top_shift+hound_space
+	hero_dock.offset_bottom=168+top_shift+hound_space+passive_space
 	food_effects.size=food_effects.get_combined_minimum_size();food_effects.scale=Vector2.ONE*factor
 	food_effects.position=Vector2((size.x-food_effects.size.x*factor)*.5,size.y-food_effects.size.y*factor-(76 if prep else 16))
 	var left_hud_bottom=hero_dock.get_global_rect().end.y
@@ -829,6 +912,7 @@ func sync():
 	if is_instance_valid(master_chief_hud):master_chief_hud.sync()
 	hero_dock.visible=not is_instance_valid(overlay) and not (is_instance_valid(master_chief_hud) and master_chief_hud.visible and game.player.spell_loadout.assignments(18).is_empty())
 	sync_hound_health()
+	sync_pet_passives()
 	sync_hud_layout(prep)
 	enemy_minimap.set_active(game.playing and m.phase=="wave" and (not game.paused or view_settings_preview) and not game.transitioning and not game.won and game.player.hp>0 and not is_instance_valid(overlay) and not game.rogue_roster_open and (not game.settings_open or view_settings_preview))
 	# Combat captures the cursor for aiming; mouse selection belongs to the building map.

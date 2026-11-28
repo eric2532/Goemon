@@ -70,6 +70,7 @@ int main(){
  for(size_t i=0;i<companions.hound_attacks.size();i+=HOUND_TIMELINE_STRIDE){companions.hound_attacks[i]=30;companions.hound_attacks[i+1]=1;companions.hound_attacks[i+2]=15;companions.hound_attacks[i+3]=i/(8*HOUND_TIMELINE_STRIDE)>=41?138:131;}
  for(int cue:{110,138,191,117,143,161}){auto trial=companions;trial.hound_attacks[3]=cue;assert(valid_kit_data(trial));}
  for(int sound:{0,112,114,116,152,159,162,164,165,171,173,175,180,182,183,184,187,190,214,254,255,282,288,290,296,301,314,316,318,319,321,332,429})for(int tag:{10000,20000}){auto trial=companions;trial.hound_attacks[3]=tag+sound;assert(valid_kit_data(trial));}
+ auto ktado=companions;ktado.slime_attacks[3]=20260;assert(valid_kit_data(ktado));ktado.slime_attacks[3]=10260;assert(!valid_kit_data(ktado));
  for(int cue:{0,162,173,180,183,184,187,282,301,316,318,319,321,332,20188}){auto trial=companions;trial.hound_attacks[3]=cue;assert(!valid_kit_data(trial));}
  // Dragon-lizard 138 and bee 143 are impacts; swings, aura and buzz are presentation cues.
  for(int cue:{110,138,191,117,143,161,20131,10140,20180,20183,10184,10187,10000})for(float tick:{0.f,15.f}){

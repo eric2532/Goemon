@@ -30,7 +30,12 @@ void vertex(){
  tint=COLOR.rgb*foliage_tint;
 }
 void fragment(){
- if(canopy && canopy_cutaway && distance(world.xz,hero_position)<10.0){discard;}
+ if(canopy && canopy_cutaway){
+  // Clear foreground leaves along the normal view while retaining the tree trunks.
+  vec2 view_path=CAMERA_POSITION_WORLD.xz-hero_position;
+  float along=clamp(dot(world.xz-hero_position,view_path)/max(dot(view_path,view_path),.001),0.0,1.0);
+  if(distance(world.xz,hero_position)<10.0 || distance(world.xz,hero_position+view_path*along)<4.0) discard;
+ }
  vec4 source=use_source_paint ? texture(source_paint,UV) : vec4(1.0);
  if(source_cutout && source.a<.5){discard;}
  vec3 paint=tint*source.rgb;

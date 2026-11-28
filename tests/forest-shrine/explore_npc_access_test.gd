@@ -15,31 +15,48 @@ func run():
  var report=[]
  var floors=[1121,1112,1101]
  if "--wind"in OS.get_cmdline_user_args():floors=[15569]
+ for arg in OS.get_cmdline_user_args():
+  if arg.begins_with("--source="):floors=[int(arg.trim_prefix("--source="))]
  for id in floors:
-  Tour.travel(game,Tour.Indoor.layout(id),{"arrival":Tour.Indoor.safe_point(id,Vector2.ZERO),"yaw":0.,"velocity":Vector3.ZERO})
+  var arrival=Vector2.ZERO
+  for arg in OS.get_cmdline_user_args():
+   if arg.begins_with("--arrival="):
+    var cell=arg.trim_prefix("--arrival=").split(",")
+    assert(cell.size()==2 and cell[0].is_valid_int()and cell[1].is_valid_int())
+    arrival=Original.source_point(id,Vector2i(int(cell[0]),int(cell[1])),game.model.seed_value)
+  Tour.travel(game,Tour.Indoor.layout(id),{"arrival":Tour.Indoor.safe_point(id,arrival),"yaw":0.,"velocity":Vector3.ZERO})
   for i in 8:await physics_frame
   game.army_runtime.refresh_navigation(0)
   game.explorer_npcs.map_signature=[];game.explorer_npcs._process(.2)
   game.explore_access.map_token=[];game.explore_access._process(.2)
   var entries=game.explorer_npcs.actors.duplicate()
+  var floor_info=Tour.Indoor.floor_info(id,game.model.seed_value)
+  var walk_bits=Tour.Indoor.walk_mask(id,floor_info[0],floor_info[2].hex_decode(),game.model.seed_value)
   for entry in entries:
-   var before=failures;var original:Vector3=entry.node.global_position
-   var interaction:Vector3=entry.get("interaction_point",original);var chosen=Vector3.INF;var approach=Vector3.INF
+   var before=failures;var original:Vector3=entry.node.global_position;var setup=game.player.position
+   var interaction:Vector3=entry.get("interaction_point",original);var chosen=Vector3.INF;var approach=Vector3.INF;var walked_from_entry=false
    for radius in[1.,1.8,2.4,3.2,4.3]:
     if entry.has("interaction_point") and radius>2.5:continue
     for direction in 16:
      var offset=Vector2.from_angle(direction*TAU/16.)*radius
      var at=Vector2(interaction.x,interaction.z)/game.model.falan_scale+offset
      var point=game.model.world_point(at,.15)
-     if not game.explore_access.body_clear(point) or not game.army_runtime.native.can_reach_ally(game.player.position,point,.55*game.model.falan_scale):continue
-     if not game._ryo_clear_path(point+Vector3.UP*2.5,interaction+Vector3.UP*2.5):continue
+     if not Original.open(walk_bits,floor_info[0],Vector2i(((at-floor_info[1])/3.).round())):continue
+     if not game.explore_access.body_clear(point)or not game.model.terrain.disk_clear(point/game.model.falan_scale,.55):continue
+     if not game.army_runtime.native.can_reach_ally(point,point,.55*game.model.falan_scale):continue
+     if not game.army_runtime.native.can_reach_ally(game.player.position,point,.55*game.model.falan_scale):
+      if walked_from_entry:continue
+      walked_from_entry=true;await walk_toward(at,1200,true)
+      if game.player.position.distance_to(point)>1.:continue
+     # The actual prompt owns counter/anchor occlusion; a ray to the occupied center rejects valid player-side prompts.
      game.player.position=point;game.model.hero_position=point;game.camera_rig.yaw=atan2(point.x-interaction.x,point.z-interaction.z)
      game.explorer_npcs.update_left=0;game.explorer_npcs._process(.2)
      if game.explorer_npcs.nearest.get("record",{}).get("id","")!=entry.record.id:continue
      for side in 16:
       var start_at=at+Vector2.from_angle(side*TAU/16.)*2.
       var start=game.model.world_point(start_at,.15)
-      if not game.explore_access.body_clear(start):continue
+      if not Original.open(walk_bits,floor_info[0],Vector2i(((start_at-floor_info[1])/3.).round())):continue
+      if not game.model.terrain.disk_clear(start/game.model.falan_scale,.55)or not game.explore_access.body_clear(start):continue
       if not game._ryo_clear_path(start+Vector3.UP*1.2,point+Vector3.UP*1.2):continue
       if not game.army_runtime.native.can_reach_ally(start,point,.55*game.model.falan_scale):continue
       chosen=point;approach=start;break
@@ -74,7 +91,7 @@ func run():
      game.explorer_npcs.update_left=0;game.explorer_npcs._process(.2)
      check(game.explorer_npcs.nearest.get("record",{}).get("id","")==entry.record.id,"Removing the obstruction restores the same local NPC prompt")
     await access_capture("npc-%d-%s"%[id,entry.record.id.validate_filename()])
-   report.append({"map":id,"npc":entry.record.id,"name":entry.record.name,"original":str(original),"interaction":str(interaction),"proxy":entry.has("interaction_point"),"passed":before==failures})
-   var file=FileAccess.open(ACCESS_OUT+("npc-wind-"if "--wind"in OS.get_cmdline_user_args()else"npc-")+("headless"if DisplayServer.get_name()=="headless"else"rendered")+".json",FileAccess.WRITE);file.store_string(JSON.stringify({"npcs":report,"checks":checks,"failures":failures},"  "));file.close()
+   report.append({"map":id,"npc":entry.record.id,"name":entry.record.name,"original":str(original),"interaction":str(interaction),"proxy":entry.has("interaction_point"),"setup":str(setup),"passed":before==failures})
+   var file=FileAccess.open(ACCESS_OUT+("npc-map-%d-"%id if Array(OS.get_cmdline_user_args()).any(func(arg):return arg.begins_with("--source="))else"npc-wind-"if "--wind"in OS.get_cmdline_user_args()else"npc-")+("headless"if DisplayServer.get_name()=="headless"else"rendered")+".json",FileAccess.WRITE);file.store_string(JSON.stringify({"npcs":report,"checks":checks,"failures":failures},"  "));file.close()
  print("EXPLORE_NPC_RESULT checks=",checks," failures=",failures)
  finish()

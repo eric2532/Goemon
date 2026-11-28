@@ -1609,8 +1609,11 @@ func combat_tuning(key: String)->float:
 func effective_dodge_chance()->float:
 	return minf(combat_tuning("dodge_chance")+pet_passive_bonus("dodge_chance"),100.0)
 
+func uses_pet_passives()->bool:
+	return not ai_controlled and uses_level_stats() and RogueRoster.is_crossgate_fighter(character_id)
+
 func pet_passive_bonus(stat:String)->float:
-	if ai_controlled or not uses_level_stats() or not RogueRoster.is_crossgate_fighter(character_id):return 0.0
+	if not uses_pet_passives():return 0.0
 	return team_progression.party_passive_bonus(game.settings.forest_pet_loadout,stat)
 
 func health_regeneration()->float:

@@ -54,10 +54,10 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
   if undersea and kind==roles.SLIME:stats.merge(Undersea.STATS,true)
   if snow and kind==roles.SLIME:stats.merge(preload("res://scripts/forest/crowd/snow_region_sprites.gd").STATS,true)
   if university and kind==roles.SLIME:stats.merge(University.STATS,true)
-  if eastern and kind==roles.SLIME:stats.merge(East.STATS,true)
   if elsa and kind==roles.SLIME:stats.merge(preload("res://scripts/forest/crowd/elsa_region_sprites.gd").STATS,true)
   if cursed and kind==roles.SLIME:stats.merge(Cursed.STATS,true)
   if beast and kind==roles.SLIME:stats.merge(Beast.STATS,true)
+  if eastern and kind==roles.SLIME:stats.merge(East.STATS,true)
   for key in ["hp","speed","damage","range","turn_speed","stride"]:profiles.append(stats[key])
  var boss:Dictionary=model.waves.role_stats(4)
  var enemy_size:float=model.balance.enemy_size_mult
@@ -86,10 +86,11 @@ static func from_model(model:RefCounted,damage_taken_multiplier:float=1.0,game:N
  result.cave_sprites=Habaru if bear_cave or habaru_passage else Zombie if zombie else Captain if captain else Grave if grave else Ruby if ruby else Falken if falken else Undersea if undersea else model.waves.patrol_source if frontier else Cursed if cursed else Beast if beast else null
  if snow:result.cave_sprites=preload("res://scripts/forest/crowd/snow_region_sprites.gd")
  if university:result.cave_sprites=University
- if eastern:result.cave_sprites=East
  if elsa:result.cave_sprites=preload("res://scripts/forest/crowd/elsa_region_sprites.gd")
  if model.falan_floor in [11000,11001,11002]:result.cave_sprites=preload("res://scripts/forest/crowd/venoa_route_sprites.gd")
  if tina_flowers:result.cave_sprites=preload("res://scripts/forest/crowd/tina_creatures.gd")
+ # Match Waves.setup: an explicit East owner supplies the whole prepared native bank.
+ if eastern:result.cave_sprites=East
  var dimensions=preload("res://scripts/forest/crowd/pet_dimensions.gd")
  result.enemy_charge=dimensions.exploring(model)
  result.map_enemy_scale=roles.MAP_ENEMY_SCALE

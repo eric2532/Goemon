@@ -282,6 +282,7 @@ func make_map_features():
 		if not cave_walls.is_empty():model.set_meta("cave_combat_walls",cave_walls)
 		preload("res://scripts/forest/forest_falan_tour.gd").build_markers(map_features,model)
 	if meadow:preload("res://scripts/forest/forest_wind_meadow_art.gd").build(self,map_features)
+	preload("res://scripts/forest/forest_wind_meadow_art.gd").register_recovered_canopies(self,map_features)
 	if kai:preload("res://scripts/forest/forest_kai_highway_art.gd").build(self,map_features)
 	if blood_gulch:preload("res://scripts/forest/forest_blood_gulch_art.gd").build(self,map_features)
 	terrain_rids=[base_ground_collision.get_rid()]

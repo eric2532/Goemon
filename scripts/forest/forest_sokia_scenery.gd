@@ -199,6 +199,10 @@ static func ghana_rows()->Array:
 static var crossing_regions:Script
 static func fixed_map(id:int)->Dictionary:
  var original=load("res://scripts/forest/forest_original_map_art.gd")
+ if id in original.EXPLORE_RECOVERED_IDS:
+  original.load_explore_recovered()
+  var completed:Dictionary=original.data().maps.get("BlueCrossgate/map/0/%d.dat"%id,{})
+  if completed.get("fixed_bounds_complete",false):return completed
  if id in original.SOKIA_CAPE_ACCESS_IDS:
   original.load_sokia_cape_access()
   return original.data().maps.get("BlueCrossgate/map/0/%d.dat"%id,{})

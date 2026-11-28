@@ -1,6 +1,6 @@
 # Original Cross Gate area and battle music
 
-The fourteen `cgbgm_*.mp3` streams and four PUK2 area streams come from the preserved client at
+The fifteen `cgbgm_*.mp3` streams and four PUK2 area streams come from the preserved client at
 `../Magic Power/data/crossgate/source/BlueCrossgate/bin/bgm/`. The original WAVs
 remain untouched. `provenance.json` records source and runtime SHA-256 hashes,
 original durations and decoded frame counts. Preparation uses the existing
@@ -10,9 +10,8 @@ FFmpeg installation:
 ffmpeg -i SOURCE.wav -c:a libmp3lame -q:a 2 OUTPUT.mp3
 ```
 
-Keep the original sample rate (22050 Hz, or 44100 Hz for PUK2 ruins), stereo, complete duration and gain. These are
-compressed playback copies, not lossless masters. The fourteen files total
-about 19.9 MiB; the four PUK2 streams are additional. Do not substitute the client's `Blue_*` or other-game tracks.
+Keep the original sample rate (22050 Hz, or 44100 Hz for PUK2 ruins), stereo, complete duration and gain.
+These compressed copies are for playback. Use the original client tracks listed below.
 
 `scripts/forest/crossgate_music.gd` owns selection. It preloads the streams;
 the existing single music player loops them, retains its -9 dB mix and honors
@@ -23,6 +22,7 @@ character selection and initial Equipment stay silent until Enter Map.
 | Location | Original file stem |
 | --- | --- |
 | Nearby enemy encounter | `cgbgm_b0` |
+| Nearby boss encounter | `cgbgm_b1` |
 | Falan city, city shops and Falan Arena | `cgbgm_m1` |
 | Castle and royal rooms | `cgbgm_m0` |
 | Freyja fields, gate approaches and connecting roads | `cgbgm_f1` |
@@ -58,18 +58,19 @@ changes theme without reloading the world. The two joined maps do one bounded
 area check per physics step; a change swaps an already prepared stream. Normal
 phase/map updates keep playback position when the theme is unchanged.
 
-Combat uses the original `cgbgm_b0` battle track while living native enemies
-are within 16 map units of the player. One local native spatial query every
-0.25 active seconds runs after army integration; exact 3D distance rejects
-farther enemies, including distant floors. Allies, training dummies and idle
-boss dialogue hosts do not trigger it. Four quiet seconds restore the current area theme at its previous
-position when the theme is unchanged. Pauses freeze the encounter timer;
-preparation, map travel and returning to title clear the encounter. The same
-player and prepared streams honor mute, master volume and recording pause.
-There is no separate boss theme or additional music setting.
+Combat uses `cgbgm_b0` for living native enemies within 16 map units. A live
+boss within 32 map units takes priority with `cgbgm_b1`, the original standard
+boss track. Every 0.25 active seconds, the game checks the native army's active
+boss handles and makes one local spatial query for enemies. Both checks use 3D
+distance. Idle dialogue hosts remain on the area theme. Each combat track holds
+for four seconds after its last detection. Remaining nearby enemies can keep
+the regular battle theme playing after a boss goes down. Once combat ends,
+the game resumes the area's saved playback position if the area theme still
+matches. Pauses freeze the timers. Preparation, map travel and returning to
+title clear them. The same player honors mute, master volume and recording pause.
 
-Evidence: original `bgm.cf` identifies sounds 200–204 (town/castle), 205
-(original `cgbgm_b0` battle track), 209–211
+The original `bgm.cf` identifies sounds 200–204 (town/castle), 205
+(`cgbgm_b0`), 206 (`cgbgm_b1`), 209–211
 (fields), 212–216 (dungeons). The pinned
 [server dungeon table](https://github.com/linv2/Crossgate_Docker/blob/dd8690ed3df11e4eb5a038a54079a8f40d8e93b3/gmsv/data/dungeonconf.txt)
 assigns sound 214 to Black Prayer, Laurence Tower and Bezerem, and 213 to the

@@ -33,7 +33,7 @@ func _process(delta):
  var reach_squared=pow(5.0*game.model.falan_scale,2);var distance=reach_squared;var front_choice=false
  var forward=Vector3.FORWARD.rotated(Vector3.UP,game.camera_rig.yaw)
  for entry in actors:
-  if entry.record.id.begins_with("source:") and UniversityRegion.hidden_actor(game.get_tree(),entry.record.id.trim_prefix("source:")):
+  if entry.record.id.begins_with("source:") and entry.battle_aliases.any(func(id):return UniversityRegion.hidden_actor(game.get_tree(),id)):
    if is_instance_valid(entry.node):
     entry.node.hide()
     entry.node.set_meta("battle_hidden",true)
@@ -78,6 +78,18 @@ func prepare():
    if sprite.has_meta("npc_record"):continue
    actors.append({"node":sprite,"record":{"id":"falan:%s:%d"%[area,i],"name":rows[i][2],"type":"FalanCitizen","portrait":sprite.texture,"messages":["你好。這裡的詳細對話尚待恢復。"] if regional_villagers else FalanDialogue.lines_for(rows[i])}})
  if groups.is_empty():return
+ # Original quest variants can share one waiting body; hide all its copies during the selected fight.
+ var waiting={}
+ for entry in actors:
+  if not entry.record.id.begins_with("source:"):continue
+  entry.battle_aliases=[entry.record.id.trim_prefix("source:")]
+  var original:Dictionary=entry.node.get_meta("npc_record",{})
+  if not original.has("source")or not original.has("cell")or not original.has("graphic"):continue
+  var key="%s:%s:%s:%s"%[original.source,str(original.cell),original.graphic,original.name]
+  waiting.get_or_add(key,[]).append(entry)
+ for copies in waiting.values():
+  var ids=copies.map(func(entry):return entry.record.id.trim_prefix("source:"))
+  for entry in copies:entry.battle_aliases=ids
  prepare_interaction_points()
  hint=Label3D.new();hint.font=preload("res://scripts/forest/preparation_skin.gd").FONT;hint.font_size=36;hint.pixel_size=.014
  if Tour.SouthPopulation.owns(game.model):hint.pixel_size=.009
@@ -117,12 +129,15 @@ func prepare_interaction_points():
    if not game.model.terrain.disk_clear(point/game.model.falan_scale,.55):continue
    var from=game.player.position;from.y=game.model.world_height(from.x,from.z)
    if not game.army_runtime.native.can_reach_ally(from,point,.55*game.model.falan_scale):continue
-   if not counter_segment(id,at,p,origin,size_,bits):continue
+   var surface=Vector2i(-1,-1)
+   if str(entry.record.id).trim_prefix("source:")=="5269"and id==15539:surface=Vector2i(20,8)
+   if str(entry.record.id).trim_prefix("source:")=="1102643"and id==4409:surface=Vector2i(58,43)
+   if not counter_segment(id,at,p,origin,size_,bits,surface):continue
    if point.distance_squared_to(entry.node.global_position)<pow(4.5*game.model.falan_scale,2) and game._ryo_clear_path(point+Vector3.UP*2.5*game.model.falan_scale,entry.node.global_position+Vector3.UP*2.5):ordinary=true;break
    if not proxy.is_finite():proxy=point
   if not ordinary and proxy.is_finite():entry.interaction_point=proxy
 
-func counter_segment(id:int,from:Vector2,to:Vector2,origin:Vector2,size_:Vector2i,bits:PackedByteArray)->bool:
+func counter_segment(id:int,from:Vector2,to:Vector2,origin:Vector2,size_:Vector2i,bits:PackedByteArray,surface:Vector2i=Vector2i(-1,-1))->bool:
  var maps=Tour.Winter.Recovered;var raw=PackedByteArray()
  if maps.owns(id):raw=maps.state(id,game.model.seed_value).raw
  var allowed=["counter","coast_counter","coast_display","civic_counter","table","fence","grille","railing","display_bench","display_cabinet"]
@@ -133,11 +148,12 @@ func counter_segment(id:int,from:Vector2,to:Vector2,origin:Vector2,size_:Vector2
   if not Rect2i(Vector2i.ZERO,size_).has_point(cell):return false
   crossed[cell]=true
   if crossed.size()>2:return false
-  var fixture=false
+  # These original mural/dragon triggers occupy their own blocked anchor cell.
+  var fixture=cell==surface
   if not raw.is_empty():
    var serial=raw.decode_u16(20+(size_.x*size_.y+cell.y*size_.x+cell.x)*2)
    var art:Dictionary=maps.Art.data().graphics.get(str(serial),{})
-   fixture=not art.is_empty() and maps.Forms.kind(serial,false,art) in allowed
+   fixture=fixture or not art.is_empty() and maps.Forms.kind(serial,false,art) in allowed
   else:
    for row in Tour.Indoor.RoomArt.Coastal.Data.ROOMS.get(id,Tour.Indoor.RoomArt.Data.FIXTURES.get(id,[])):
     if Rect2i(row[0],row[1]).has_point(cell) and row[2] in allowed:fixture=true;break
