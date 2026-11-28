@@ -1,5 +1,41 @@
 # Keeping Goemon smooth
 
+## BW033 bow and Barrage Shadows — 2026-11-28
+
+Barrage Shadows used to clear every active shadow at the start of a successful
+recast. New casts now lease free bodies in the existing pool, and each group
+expires 30 seconds after its own cast. With a regular bow, the 22-second
+cooldown gives the groups up to eight seconds together. To see the overlap,
+cast on open ground in Play Goemon, wait for the skill key to become ready,
+and cast again. Try it at level 30 to see the count go from seven to fourteen.
+This fixes summon ownership and expiry. No frame-time improvement was measured.
+
+BW033 adds 500 ATK and triples base attack speed under the existing 3× combat
+cap. Compare an ordinary bow and BW033 with the same Lancelot loadout through
+Play Goemon. The attack should reach the original release frame sooner and
+emit one stronger arrow. The icon is original graphic 20832 (`original:13504`).
+
+While BW033 is active, the equipped 亂射影分身 skill uses level 30 and can
+recast as soon as mana allows. At 50 maximum mana, 2 mana per second and 35
+mana per cast, three seven-shadow groups can overlap within their separate
+30-second lifetimes. Equipment setup prepares that capacity and more arrow
+slots for the faster bow. The native army and projectile pool still own the
+active bodies and arrows. Individual volleys use the caster's current 亂射
+level. Switching weapons restores the learned shadow level and normal cooldown.
+
+The focused launcher fixture is `tests/forest-shrine/lancelot_shadows_test.gd`.
+It compares normal arrow damage and release timing, equips the collected bow,
+then exercises overlapping casts, resource reuse and switching back. The
+shared Mirror Image movement fixture covers copied loadouts separately.
+Fresh verification passed 103 Metal checks, including all fourteen ordinary-bow
+shadows firing across two casts and 63 arrows from all 21 BW033 shadows with
+zero projectile pool misses. The BW033 hotbar rejects a recast one physics
+frame below 35 mana and accepts it at 35. With casts at 0, 10 and 27.5 seconds,
+the fixture brackets each group's own expiry at 30, 40 and 57.5 seconds.
+The launcher’s headless Mirror Image fixture
+passed 721 checks, including nine Kaz copies, with no script errors. The BW033
+captures and verification logs are in `build/Other Files/Asset Toolkit/BW033/`.
+
 ## Clothing accessories 21669 and 21678 — 2026-11-27
 
 Equipment → Accessories offers **#21669 · Shadow Vest** and **#21678 · Evasion

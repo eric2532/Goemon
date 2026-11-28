@@ -190,7 +190,7 @@ static func all()->Dictionary:
  _spells[BEARS].description="Summon five fast 穴熊 guards with 150 HP, 50 mana and 50 damage per basic hit. They spread out to protect you. Repeat casts add more guards without a cooldown."
  _spells[RANDOM_SHOT].required_weapon="bow"
  _spells[BARRAGE_SHADOWS].required_weapon="bow"
- _spells[BARRAGE_SHADOWS].description="Requires an active Bow. Create stationary shadows for 30s that fire using your current 亂射 level. Solid cover blocks arrows. 22s cooldown."
+ _spells[BARRAGE_SHADOWS].description="Requires an active Bow. Each cast adds stationary shadows for 30s that fire using your current 亂射 level. Solid cover blocks arrows. 22s cooldown. With BW033 active, the skill is level 30 and has no cooldown."
  _spells[BODYGUARD].description="Automatic while equipped, with any weapon. 50% shuffle-bag chance at level 1, +1 percentage point per additional level (79% at level 30), to interrupt your action, dash in front of an ally within 12 m, push them clear without interrupting their action and take their hit. Pets jump in, then attack the closest reachable enemy. No mana cost. Each additional level reduces only the intercepted hit's damage by 1%, reaching 29% at level 30."
  _spells[COUNTER].required_weapon="polearm"
  _spells[COUNTER].description="Requires an active Spear (Polearm). Always active while equipped: automatically retaliate after taking damage. Skill level sets damage and hit count; consecutive triggers speed up the counters."

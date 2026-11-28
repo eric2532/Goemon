@@ -954,7 +954,7 @@ func sync():
 		var cooldown=game.player.spell_loadout.cooldown_for(action) if icon_loadout.has(action) else 0.0
 		if kazi_combo or blade_dance or shin_combo:cooldown=game.player.active_ability.combo_cooldown
 		elif random_shot:cooldown=game.player.active_ability.random_shot_cooldown
-		elif barrage_shadows:cooldown=game.player.active_ability.mirror_cooldown
+		elif barrage_shadows:cooldown=game.player.active_ability.shadow_mirror_cooldown()
 		elif shin_sure:cooldown=game.player.active_ability.shin_sure_cooldown
 		elif shin_double_edge:cooldown=game.player.active_ability.shin_double_edge_cooldown
 		elif shin_two_birds:cooldown=game.player.active_ability.shin_two_birds_cooldown
@@ -998,7 +998,9 @@ func sync():
 		if kagerou:button.tooltip_text+="\n"+game.player.spell_loadout.Catalog.KAGEROU_DESCRIPTION
 		elif kazi_combo:button.tooltip_text+="\n"+game.player.spell_loadout.Catalog.KAZ_COMBO_DESCRIPTION+" Invulnerable while charging and striking."
 		elif random_shot:button.tooltip_text+="\nRequires an active Bow. Original shine, then rapid arrows at visible targets. Solid cover blocks arrows. 5s cooldown."
-		elif barrage_shadows:button.tooltip_text+="\nRequires an active Bow. Shadows stay in place for 30s and use your current 亂射 level. Solid cover blocks arrows. 22s cooldown."
+		elif barrage_shadows:
+			button.tooltip_text+="\nRequires an active Bow. Each cast adds stationary shadows for 30s that fire using your current 亂射 level. Solid cover blocks arrows."
+			button.tooltip_text+=" No cooldown while BW033 is active." if game.player.accessory_bonuses.get("barrage_shadows_max",0)>0 else " 22s cooldown."
 		elif shin_combo:button.tooltip_text+="\nBlink and strike nearby enemies. Invulnerable while charging and striking."
 		elif shin_sure:button.tooltip_text+="\nEmpower the normal weapon or arrow contact. Explosions show confirmed hits and add no extra damage. 5s cooldown."
 		elif shin_double_edge:button.tooltip_text+="\n"+game.player.spell_loadout.Catalog.all()[game.player.spell_loadout.Catalog.DOUBLE_EDGE].description

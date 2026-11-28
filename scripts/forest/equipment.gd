@@ -11,7 +11,8 @@ const SLOTS=WEAPON_SLOTS+ACCESSORY_SLOTS
 const LEGACY_SLOTS=["1","2","3","4","5","6","7","8","9","10"]
 const CHEST_SWORDS=["weapon:SW016","weapon:SW020","weapon:SW042","weapon:SW052","weapon:SW082","weapon:SW101"]
 const CHEST_AXES=["weapon:AX018","weapon:AX013","weapon:AX024"]
-const CHEST_WEAPONS=CHEST_SWORDS+CHEST_AXES
+const CHEST_BOWS=["weapon:BW033"]
+const CHEST_WEAPONS=CHEST_SWORDS+CHEST_AXES+CHEST_BOWS
 static var ITEMS={
  "weapon:sword":{"name":"Sword","weapon":"sword","icon":preload("res://assets/ui/crossgate/weapons/defaults/sword.png")},
  "weapon:SW016":{"name":"SW016 · Lv3 Sword","weapon":"sword","level":3,"description":"ATK +55 · Dodge chance +10 percentage points.","effects":{"attack":55.0,"dodge_chance":10.0},"icon":preload("res://assets/items/crossgate/swords/sw016.png")},
@@ -27,6 +28,7 @@ static var ITEMS={
  "weapon:AX024":{"name":"AX024 · Lv8 Axe","weapon":"axe","level":8,"description":"ATK +500 · Accuracy −10 · A connected normal hit triggers an extra level 4 乾坤 strike.","effects":{"attack":500.0,"axe_sure_strike":4.0},"icon":preload("res://assets/items/crossgate/axes/ax024.png")},
  "weapon:polearm":{"name":"Spear","weapon":"polearm","icon":preload("res://assets/ui/crossgate/weapons/defaults/polearm.png")},
  "weapon:bow":{"name":"Bow","weapon":"bow","icon":preload("res://assets/ui/crossgate/weapons/defaults/bow.png")},
+ "weapon:BW033":{"name":"BW033 · Lv10 Bow","weapon":"bow","level":10,"description":"ATK +500 · Attack speed +200% · 亂射影分身 Lv30, no cooldown.","effects":{"attack":500.0,"attack_speed":2.0,"barrage_shadows_max":1.0},"icon":preload("res://assets/items/crossgate/bows/bw033.png")},
  "weapon:staff":{"name":"Staff","weapon":"staff","icon":preload("res://assets/ui/crossgate/weapons/defaults/staff.png")},
  "weapon:unarmed":{"name":"Boxing Gloves","weapon":"unarmed","icon":preload("res://assets/ui/crossgate/weapons/defaults/boxing-gloves-red.png")},
  "weapon:boomerang":{"name":"Boomerang","weapon":"boomerang","description":"Curves out and returns to you. Hits each enemy once per throw.","icon":preload("res://assets/ui/crossgate/weapons/defaults/boomerang.png")},

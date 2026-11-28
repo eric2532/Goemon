@@ -112,6 +112,7 @@ static func effective(hero:Hero,id:String,key:String,extra_card:String="",extra_
  return result
 
 static func level_for(hero:Hero,id:String)->int:
+ if id==Catalog.BARRAGE_SHADOWS and hero.accessory_bonuses.get("barrage_shadows_max",0)>0:return Levels.MAX_LEVEL
  if hero.team_progression!=null and hero.get("pet_key") is String:return pet_level_for(hero.team_progression,hero.pet_key,id)
  return int(hero.team_progression.skill_levels.get(Levels.family(id),1)) if hero.team_progression!=null else 1
 

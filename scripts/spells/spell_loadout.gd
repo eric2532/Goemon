@@ -470,7 +470,7 @@ func cooldown_for(action:String)->float:
  if Catalog.Roster.is_crossgate_fighter(hero.character_id) and id==Catalog.DOUBLE_EDGE:return hero.active_ability.shin_double_edge_cooldown
  if Catalog.Roster.is_crossgate_fighter(hero.character_id) and id==Catalog.MEDITATION:return hero.active_ability.shin_meditation_cooldown
  if Catalog.Roster.is_crossgate_fighter(hero.character_id) and id==Catalog.RANDOM_SHOT:return hero.active_ability.random_shot_cooldown
- if Catalog.Roster.is_crossgate_fighter(hero.character_id) and id==Catalog.BARRAGE_SHADOWS:return hero.active_ability.mirror_cooldown
+ if Catalog.Roster.is_crossgate_fighter(hero.character_id) and id==Catalog.BARRAGE_SHADOWS:return hero.active_ability.shadow_mirror_cooldown()
  if hero.character_id==Catalog.Roster.KAZI_ID and id==Catalog.COMBO:return hero.active_ability.combo_cooldown
  var key="%d:%s"%[hero.character_id,id]
  return instances[key].cooldown_remaining() if instances.has(key) else 0.0

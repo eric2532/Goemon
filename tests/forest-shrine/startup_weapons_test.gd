@@ -9,15 +9,17 @@ func run():
  for node in [game,game.player,game.camera_rig,game.army_runtime]:node.set_process(false);node.set_physics_process(false)
  var p=game.player;p.select_character(37)
  game.settings.chest_swords=[];game.settings.sword_upgrades={}
- check(Gear.CHEST_WEAPONS.all(func(id):return Gear.can_equip(Gear.character_key(37),id,game.settings)),"All nine swords and axes are usable immediately on a compatible fighter")
- for id in Gear.CHEST_WEAPONS:
+ var shin_weapons=Gear.CHEST_SWORDS+Gear.CHEST_AXES
+ check(shin_weapons.all(func(id):return Gear.can_equip(Gear.character_key(37),id,game.settings)),"All nine swords and axes are usable immediately on a compatible fighter")
+ for id in shin_weapons:
   equip_sword(id)
   check(p.accessory_bonuses.attack==Gear.ITEMS[id].effects.attack,"Uncollected test weapon applies its real stats: "+id)
  check(game.settings.chest_swords.is_empty() and game.settings.sword_upgrades.is_empty(),"Testing access preserves actual discoveries and upgrade ranks")
  game.load_settings()
  check(game.settings.chest_swords.is_empty() and Gear.can_equip(Gear.character_key(37),"weapon:AX024",game.settings),"Reload preserves testing access without saving fake discoveries")
  game.show_equipment_hub(true);await frames(3)
- check(Gear.CHEST_WEAPONS.all(func(id):return id in game.equipment_hub.available_items()),"Equipment displays all nine collectible weapons at startup")
+ check(shin_weapons.all(func(id):return id in game.equipment_hub.available_items()),"Equipment displays all nine collectible swords and axes for Shin at startup")
+ check(Gear.can_equip(Gear.character_key(43),"weapon:BW033",game.settings),"The uncollected BW033 is immediately available to Lancelot with the testing flag")
  game.back_from_equipment();game.paused=false;paused=false
  Gear.test_all_weapons=false
  check(not Gear.can_equip(Gear.character_key(37),"weapon:AX024",game.settings),"Removing testing flag restores ordinary collection locks")

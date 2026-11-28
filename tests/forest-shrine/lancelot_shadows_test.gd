@@ -1,22 +1,127 @@
 extends "res://tests/forest-shrine/crossgate_shin_skills_test.gd"
 const SHADOW_OUT="res://build/Other Files/Asset Toolkit/Mirror Movement/Archer/"
+const BOW_OUT="res://build/Other Files/Asset Toolkit/BW033/"
+const Gear=preload("res://scripts/forest/equipment.gd")
 const Pool=preload("res://scripts/character_projectile_pool.gd")
 const Balance=preload("res://scripts/spells/skill_balance.gd")
+const BOW="weapon:BW033"
 var shot_counts={}
 var arrow_samples=[]
 var live_arrows:Array[Node3D]=[]
 var measure_shadows=false
 
-func capture(filename:String):
+func capture(filename:String,directory:String=SHADOW_OUT):
  if DisplayServer.get_name()=="headless":return
  game.forest_ui.sync()
  await RenderingServer.frame_post_draw
- check(root.get_texture().get_image().save_png(SHADOW_OUT+filename)==OK,"Captured "+filename)
+ check(root.get_texture().get_image().save_png(directory+filename)==OK,"Captured "+filename)
+
+func normal_arrow(enemy:Ninja)->Vector2:
+ var p=game.player;var kit=p.active_ability
+ for arrow in live_arrows:
+  if arrow.pool_live:arrow.retire()
+ live_arrows.clear();kit.cancel(true);kit.clear_cooldowns();p.attack_chain.reset()
+ kit.primary_tab_target=weakref(enemy)
+ tap("light_attack")
+ for frame in 90:
+  step_player(1)
+  if live_arrows.is_empty():continue
+  var damage:float=live_arrows[0].damage/p.damage_multiplier()
+  live_arrows[0].retire();kit.cancel(true)
+  return Vector2(damage,frame+1)
+ return Vector2.ZERO
+
+func check_bw033(home:Vector3,enemy:Ninja):
+ var p=game.player;var kit=p.active_ability;var army=game.army_runtime
+ var owner=Gear.character_key(Roster.LANCELOT_ID);var shadow_skill=Balance.Catalog.BARRAGE_SHADOWS
+ var mirrors=kit.mirrors
+ fresh();settle(home);measure_shadows=false
+ Balance.set_level(p,shadow_skill,2)
+ var ordinary=normal_arrow(enemy);var base_speed:float=p.base_attack_speed_multiplier()
+ check(ordinary.x>0,"Ordinary bow releases at least one real basic arrow")
+ check(not Gear.can_equip(owner,BOW,game.settings),"BW033 follows normal collectible weapon ownership")
+ game.exploration_loot.clear();game.exploration_loot.sword_bag=[BOW]
+ check(game.exploration_loot.spawn_chest(0,home,"bw033-fixture",true),"The test chest spawns on the active map")
+ game.exploration_loot.slots[0].reward="weapon";game.exploration_loot.slots[0].bonus=""
+ check(game.exploration_loot.open_nearest() and BOW in game.settings.chest_swords,"A weapon chest grants and saves BW033")
+ game.show_equipment_hub(true);await frames(3)
+ var hub=game.equipment_hub
+ check(BOW in hub.available_items() and Gear.ITEMS[BOW].level==10,"Lancelot's Weapons page lists the level 10 bow")
+ hub.select_item(hub.collection.find(BOW));hub.equip_selected()
+ check(Gear.equipped(game.settings.gear_loadouts,Roster.LANCELOT_ID)==BOW and p.model.current_weapon()=="bow","Normal Equipment flow equips BW033 in the existing bow stance")
+ check(FileAccess.get_sha256(Gear.ITEMS[BOW].icon.resource_path)=="ce7117b909a8dcf958523ba8f473458da103253caca713da89febf0843d19d7e","BW033 keeps the exact archived icon bytes")
+ await capture("equipment.png",BOW_OUT)
+ game.back_from_equipment();game.paused=false;paused=false
+ check(is_equal_approx(p.base_attack_speed_multiplier(),base_speed*3.0) and p.attack_speed_multiplier()<=p.ATTACK_SPEED_CAP,"BW033 triples base attack speed and uses the existing combat cap")
+ var special=normal_arrow(enemy)
+ check(is_equal_approx(special.x-ordinary.x,500.0) and special.y>0 and special.y<ordinary.y,"Real LMB arrows gain exactly 500 base damage and release sooner")
+ check(Balance.level_for(p,shadow_skill)==30 and Balance.level_for(p,Balance.Catalog.RANDOM_SHOT)==1 and p.team_progression.skill_levels["barrage-shadows"]==2,"Only the shadow skill is effectively maxed and its learned level stays saved")
+ check(mirrors.bodies.size()>=21,"The maximum mana-supported shadow overlap is prepared before input")
+ kit.mirror_cooldown=22.0;p.mana=p.max_mana
+ var cost=Balance.Catalog.mana_cost(shadow_skill)
+ press(KEY_1)
+ check(mirrors.handles.size()==7 and is_equal_approx(mirrors.bodies[0].damage_multiplier(),p.damage_multiplier()*1.29) and is_equal_approx(p.mana,p.max_mana-cost),"BW033 immediately casts seven level 30 shadows through the hotbar at the normal mana cost")
+ check(p.spell_loadout.cooldown_for("equip")==0.0,"An earlier cooldown cannot block BW033 and is hidden while equipped")
+ game.forest_ui.sync()
+ check(game.forest_ui.loadout_cooldowns[0].text=="Lv 30" and "No cooldown" in game.forest_ui.loadout_buttons[0].tooltip_text,"The equipped skill HUD displays Lv 30 and no cooldown")
+ game.camera_rig.camera.global_position=home+Vector3(0,18,30)
+ game.camera_rig.camera.look_at(home+Vector3(0,1,-4))
+ await capture("seven-shadows.png",BOW_OUT)
+ var prepared=mirrors.bodies.duplicate();var pool=Pool.service(game);var created=pool.created;var misses=pool.misses
+ var nodes=get_node_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
+ var cast_frames=[0,600,1650]
+ var groups=[mirrors.handles.duplicate()]
+ for i in range(1,cast_frames.size()):
+  var previous=mirrors.handles.duplicate()
+  var before_threshold=(cast_frames[i]-cast_frames[i-1]-1)*STEP
+  p.tick_mana(before_threshold);mirrors.tick(before_threshold)
+  var mana_before:float=p.mana
+  press(KEY_1)
+  check(mirrors.handles==previous and p.mana==mana_before,"BW033 recast waits until the full mana cost is available")
+  p.tick_mana(STEP);mirrors.tick(STEP)
+  press(KEY_1)
+  var group=mirrors.handles.slice(previous.size())
+  groups.append(group)
+  check(group.size()==7 and previous.all(func(handle):return army.valid(handle)) and mirrors.bodies==prepared and is_zero_approx(p.mana),"BW033 recasts at exactly 35 mana and adds seven shadows to the earlier groups")
+ await capture("twenty-one-shadows.png",BOW_OUT)
+ check(get_node_count()==nodes and Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)<=resources and pool.created==created and pool.misses==misses,"Cooldown-free recasts reuse warmed shadow and projectile resources")
+ p.mana=0;var previous=mirrors.handles.duplicate();press(KEY_1)
+ check(mirrors.handles==previous,"Insufficient mana leaves the current shadow group intact")
+ measure_shadows=true;shot_counts.clear();arrow_samples.clear()
+ for frame in 120:
+  army.step(STEP,{"targets":army.external_targets()})
+  for arrow in live_arrows:
+   if arrow.pool_live:arrow._physics_process(STEP)
+  live_arrows=live_arrows.filter(func(arrow):return arrow.pool_live)
+  game.crowd.army.presentation.tick(STEP)
+ var boosted=arrow_samples.all(func(sample):return sample.ticket.skill_level==1 and is_equal_approx(sample.damage,750.0*.85*p.damage_multiplier()*1.29))
+ check(shot_counts.size()==21 and boosted,"Overlapping shadows fire boosted arrows at the caster's separate 亂射 level (%d shooters, %d arrows)"%[shot_counts.size(),arrow_samples.size()])
+ check(pool.created==created and pool.misses==misses,"The overlapping volleys fit the warmed arrow pool")
+ measure_shadows=false
+ var elapsed_frames=cast_frames.back()+120
+ for i in groups.size():
+  var expiry_frame=cast_frames[i]+1800
+  mirrors.tick((expiry_frame-elapsed_frames-1)*STEP)
+  check(groups[i].all(func(handle):return army.valid(handle)),"BW033 group %d survives until just before its own 30-second mark"%(i+1))
+  mirrors.tick(2*STEP)
+  check(groups[i].all(func(handle):return not army.valid(handle)) and groups.slice(i+1).all(func(later):return later.all(func(handle):return army.valid(handle))),"BW033 group %d expires at its own 30-second mark while newer groups stay active"%(i+1))
+  elapsed_frames=expiry_frame+1
+ p.mana=p.max_mana
+ game.settings.weapon_slot_unlocks[owner]=2
+ check(game.save_equipment_loadouts({owner:{"1":BOW,"2":"weapon:bow","active_weapon":"1"}},{},{}),"BW033 and the ordinary bow can share the same saved gear loadout")
+ check(Gear.cycle(p) and Balance.level_for(p,shadow_skill)==2 and is_equal_approx(p.base_attack_speed_multiplier(),base_speed) and not p.accessory_bonuses.has("attack"),"Switching to the ordinary bow restores its stats and the learned shadow level")
+ check(p.spell_loadout.cooldown_for("equip")>0,"Switching away restores the existing ordinary cooldown")
+ mirrors.clear()
+ kit.clear_cooldowns();press(KEY_1)
+ var regular_handles=mirrors.handles.duplicate();press(KEY_1)
+ check(regular_handles.size()==1 and mirrors.handles==regular_handles and kit.mirror_cooldown>0,"Ordinary bow still uses one learned-level shadow and the normal recast lock")
 
 func run():
  create_timer(240).timeout.connect(func():printerr("LANCELOT_SHADOW_TIMEOUT");quit(1))
  root.size=Vector2i(1280,800);root.set_flag(Window.FLAG_NO_FOCUS,true)
  DirAccess.make_dir_recursive_absolute(SHADOW_OUT)
+ DirAccess.make_dir_recursive_absolute(BOW_OUT)
+ cfg=ProjectSettings.globalize_path(BOW_OUT).path_join("fixture-%d.cfg"%OS.get_process_id())
  var doc=load("res://scripts/forest/forest_map_document.gd").new();doc.load_wind_meadow()
  await setup_fixture(doc.data)
  game.set_process(false);game.army_runtime.set_physics_process(false);game.army_runtime.set_process(false)
@@ -82,7 +187,8 @@ func run():
  check(not kit.kagerou_enabled,"Key 6 toggles 陽炎 off")
  kit.cancel(true);fresh();settle(home);dummy.position=home+Vector3.DOWN*100
  army.set_navigation(9933,army.navigation_data(game.model));army.record_events=false;game.hit_stop=0
- var point=home+Vector3.FORWARD*18
+ var point=home+Vector3.FORWARD*10
+ point.y=game.model.world_height(point.x,point.z)
  var row=game.model.waves.spawn_enemy(0,point);row.hp=100000000;row.max_hp=row.hp
  army.import_arrivals();army.sync_targets()
  var enemy:Ninja=game.actors[row.id]
@@ -97,7 +203,7 @@ func run():
  var expected_skill=Balance.effective(p,"lancelot/random-shot","damage")
  var target_health:float=army.unit_state(enemy.handle).hp
  var mirrors=kit.mirrors
- Balance.set_level(p,"lancelot/barrage-shadows",1)
+ Balance.set_level(p,"lancelot/barrage-shadows",1);p.mana=p.max_mana
  press(KEY_1)
  check(mirrors.handles.size()==1 and is_equal_approx(mirrors.bodies[0].damage_multiplier(),p.damage_multiplier()),"Level 1 creates one shadow at 100% caster damage")
  await capture("level-01-one-shadow.png")
@@ -123,26 +229,27 @@ func run():
  check(army.worker_jobs>worker_jobs and shot_seen and enemy.hp<target_health,"Stationary shadow shoots and damages the distant enemy through the native worker (released %s, target HP %.0f)"%[shot_seen,enemy.hp])
  army.set_pose(enemy.handle,point,0);army.sync_targets()
  target_health=enemy.hp
- mirrors.clear();kit.clear_cooldowns()
+ mirrors.clear();kit.clear_cooldowns();p.mana=p.max_mana
  Balance.set_level(p,"lancelot/barrage-shadows",30)
  Balance.set_level(p,"lancelot/random-shot",30)
  press(KEY_1)
  check(mirrors.handles.size()==7 and is_equal_approx(mirrors.left,30),"Key 1 summons seven level-30 native shadows for 30 seconds")
  if mirrors.handles.size()!=7:
   game.queue_free();paused=false;await frames(4);quit(1);return
- var handles=mirrors.handles.duplicate();var bodies=mirrors.bodies.duplicate()
- var positions=mirrors.bodies.map(func(body):return body.position)
+ var handles=mirrors.handles.duplicate();var bodies=mirrors.bodies.slice(0,handles.size())
+ var prepared=mirrors.bodies.duplicate();var positions=bodies.map(func(body):return body.position)
  check(bodies.all(func(body):return body.character_id==Roster.LANCELOT_ID and body.model.variant_skin==visual.variant_skin and is_equal_approx(body.model.sprite.modulate.a,.65)),"All shadows retain the selected skin with 30% less transparency (65% opacity)")
  check(visual.sprite.modulate==Color.WHITE,"The original Lancelot stays opaque")
  press(KEY_1)
- check(mirrors.handles==handles and kit.mirror_cooldown>0,"The existing mirror cooldown prevents immediate replacement")
+ check(mirrors.handles==handles and kit.mirror_cooldown>0,"The existing mirror cooldown blocks an immediate second cast")
  game.camera_rig.camera.global_position=home+Vector3(0,18,30)
  game.camera_rig.camera.look_at(home+Vector3(0,1,-4))
  measure_shadows=true
  var times=[]
- for i in 1600:
+ for i in 1326:
   var started=Time.get_ticks_usec()
   army.step(STEP,{"targets":army.external_targets()})
+  kit.tick_timers(STEP);p.tick_mana(STEP)
   for arrow in live_arrows:
    if arrow.pool_live:arrow._physics_process(STEP)
   live_arrows=live_arrows.filter(func(arrow):return arrow.pool_live)
@@ -152,16 +259,44 @@ func run():
    await capture("level-30-seven-shadows.png")
   if i==400:p.position=home+Vector3(25,0,0)
   if i%60==0:await physics_frame
- check(shot_counts.size()==7 and shot_counts.values().all(func(count):return count>=64),"Every shadow repeats complete level-30 thirty-two-arrow 亂射 volleys")
+ check(shot_counts.size()==7 and shot_counts.values().all(func(count):return count>=64),"Every shadow repeats complete level-30 thirty-two-arrow 亂射 volleys (%s)"%[shot_counts.values()])
  check(arrow_samples.all(func(sample):return is_equal_approx(sample.damage,expected_damage) and is_equal_approx(sample.ticket.skill_damage,expected_skill) and is_equal_approx(sample.ticket.damage_multiplier,expected_chain) and sample.ticket.allied and sample.ticket.action=="lancelot_random_shot"),"Every shadow arrow matches Lancelot's level, attack allocation, food, run and skill damage without player hit-stop ownership")
  check(army.unit_state(enemy.handle).hp<target_health,"Shadow arrows deal real damage to the native enemy")
  check(bodies.all(func(body):return body.action_history.all(func(index):return index==0) and body.actions.size()==1),"Shadows use only 亂射, never normal attacks or other skills")
  for i in 7:check(Vector2(bodies[i].position.x-positions[i].x,bodies[i].position.z-positions[i].z).length()<.08,"Shadow %d stays where it was left, even after Lancelot moves"%i)
  check(game.hit_stop==0 and p.impact_pause==0,"Simultaneous shadow impacts do not pause the player")
+ settle(home)
+ var first_left:float=mirrors.left
+ var mana_before:float=p.mana
+ var first_shots=arrow_samples.size()
+ press(KEY_1)
+ var second=mirrors.handles.slice(7)
+ var new_bodies=prepared.slice(7,14)
+ check(second.size()==7 and mirrors.handles.slice(0,7)==handles and handles.all(func(handle):return army.valid(handle)),"Recasting after the cooldown keeps all seven original shadows and adds seven more")
+ check(mirrors.bodies==prepared and is_equal_approx(mana_before-p.mana,loadout.Catalog.mana_cost(loadout.Catalog.BARRAGE_SHADOWS)),"Recast uses prepared bodies and charges mana once")
+ game.camera_rig.camera.global_position=home+Vector3(0,18,30)
+ game.camera_rig.camera.look_at(home+Vector3(0,1,-4))
+ var overlap_steps=420
+ for i in overlap_steps:
+  army.step(STEP,{"targets":army.external_targets()})
+  for arrow in live_arrows:
+   if arrow.pool_live:arrow._physics_process(STEP)
+  live_arrows=live_arrows.filter(func(arrow):return arrow.pool_live)
+  game.crowd.army.presentation.tick(STEP)
+  if i%60==0:await physics_frame
+ var overlap_owners=arrow_samples.slice(first_shots).map(func(sample):return sample.owner)
+ check(overlap_owners.any(func(copy):return copy in bodies) and overlap_owners.any(func(copy):return copy in new_bodies) and second.all(func(handle):return army.valid(handle)),"Both overlapping shadow groups fire through the native army (%d distinct shadow shooters since first cast)"%shot_counts.size())
+ await capture("level-30-two-shadow-groups.png")
+ mirrors.tick(first_left-overlap_steps*STEP+.01)
+ check(handles.all(func(handle):return not army.valid(handle)) and second.all(func(handle):return army.valid(handle)),"The original group expires on its own timer while the second remains")
+ check(bodies.all(func(copy):return not copy.leased and not copy.visible and copy.shadow_source==null),"First-group expiry releases its bodies and caster references")
+ mirrors.tick(mirrors.left+.01)
+ check(mirrors.handles.is_empty() and second.all(func(handle):return not army.valid(handle)),"The second group expires on its own timer")
  await frames(2)
  var nodes=get_node_count();var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
  var created=pool.created;var misses=pool.misses
  for repeat_ in 6:
+  mirrors.clear()
   p.position=home
   check(mirrors.cast(),"Repeated shadow cast reuses seven prepared bodies")
   for i in 180:
@@ -171,7 +306,7 @@ func run():
    live_arrows=live_arrows.filter(func(arrow):return arrow.pool_live)
    game.crowd.army.presentation.tick(STEP)
   army.presentation_events.clear()
- check(mirrors.bodies==bodies and get_node_count()==nodes and Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)<=resources,"Repeated seven-shadow use retains warmed nodes/resources")
+ check(mirrors.bodies==prepared and get_node_count()==nodes and Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)<=resources,"Repeated seven-shadow use retains warmed nodes/resources")
  check(pool.created==created and pool.misses==misses,"Repeated simultaneous volleys retain the prepared projectile capacity")
  # An existing shadow reads the caster's current arrow level at the next volley.
  var body=bodies[0]
@@ -192,13 +327,14 @@ func run():
  mirrors.tick(.02)
  check(mirrors.handles.is_empty() and handles.all(func(handle):return not army.valid(handle)) and bodies.all(func(body):return not body.leased and body.shadow_source==null and not body.visible),"Expiry retires native handles, visuals and source references")
  check(bodies.all(func(body):return pool.all.values().all(func(group):return group.all(func(arrow):return not arrow.pool_live or arrow.hero!=body))),"Expiry releases in-flight shadow arrows and old damage tickets")
- kit.clear_cooldowns();settle(home);press(KEY_1)
+ kit.clear_cooldowns();settle(home);p.mana=p.max_mana;press(KEY_1)
  check(mirrors.handles.size()==7,"Key 1 can summon again after expiry")
  p.select_character(Roster.MAZE_ID)
  check(mirrors.handles.is_empty(),"Switching character clears the shadow group")
- p.select_character(Roster.LANCELOT_ID);fresh();settle(home);kit.clear_cooldowns();press(KEY_1)
+ p.select_character(Roster.LANCELOT_ID);fresh();settle(home);kit.clear_cooldowns();p.mana=p.max_mana;press(KEY_1)
  kit.die()
  check(mirrors.handles.is_empty(),"Player death clears the shadow group")
+ await check_bw033(home,enemy)
  times.sort()
  print("LANCELOT_SHADOW_PERFORMANCE step_p95_us=%d step_max_us=%d pool_created=%d pool_misses=%d arrows=%d"%[times[int(times.size()*.95)],times.back(),pool.created,pool.misses,arrow_samples.size()])
  var config=game.settings_path;game.queue_free();current_scene=null;paused=false;await frames(4)

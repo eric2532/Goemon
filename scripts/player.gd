@@ -1429,7 +1429,7 @@ func magic_spell_damage(spell_base:float)->float:
 func base_attack_speed_multiplier()->float:
 	var melee_speed=CROSSGATE_MELEE_SPEED if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon() not in ["bow","kunai","boomerang"] else 1.0
 	if RogueRoster.is_crossgate_fighter(character_id) and model!=null and model.current_weapon()=="unarmed":melee_speed*=CROSSGATE_FIST_SPEED
-	return melee_speed*combat_tuning("attack_speed")*progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)*(team_progression.multiplier("character_speed") if team_progression!=null else 1.0)*(team_progression.stat_attack_multiplier() if uses_level_stats() else 1.0)
+	return melee_speed*combat_tuning("attack_speed")*progression.attack_multiplier()*pickup_multiplier("attack_speed")*(1.0+.05*run_upgrades.tempo)*(team_progression.multiplier("character_speed") if team_progression!=null else 1.0)*(team_progression.stat_attack_multiplier() if uses_level_stats() else 1.0)*(1.0+float(accessory_bonuses.get("attack_speed",0.0)))
 func attack_speed_multiplier()->float:
 	var chain_rate=active_ability.ranger_fire_rate_multiplier() if is_rogue_character() and active_ability!=null and active_ability.class_id=="ranger" else attack_chain.multiplier()
 	return minf(ATTACK_SPEED_CAP,base_attack_speed_multiplier()*chain_rate*(spell_loadout.attack_multiplier() if spell_loadout!=null and not spell_loadout.dispatching else 1.0))

@@ -74,12 +74,18 @@ spells and ladders. Bonuses survive area travel and fighter changes, but reset
 on title/new run. Player stats keep the existing combat, animation and projectile
 owners; food does not change native enemy/ally profiles or saved balance values.
 
-Chests mix run-only nutrition with the existing nine swords/axes documented
-in `swords/README.md` and `axes/README.md`. Their reward bag contains four weapon
+Chests mix run-only nutrition with ten collectible weapons, including the
+swords and axes documented in `swords/README.md` and `axes/README.md`. Their reward bag contains four weapon
 marbles and one of each of the sixteen foods below. Draw without replacement,
 then refill and reshuffle. Capped rewards and pet meals without a selected party
-are skipped. Weapon draws still use the separate nine-weapon shuffle bag.
+are skipped. Weapon draws use a separate ten-weapon shuffle bag.
 Acquired weapons persist in Equipment; duplicates retain their upgrade rule.
+
+**BW033 · Lv10 Bow** uses the original inventory graphic 20832 (`original:13504`)
+from the Cross Gate Weapon Catalog. The active bow adds 500 ATK and 200% base
+attack speed, subject to the shared 3× combat cap. It temporarily sets 亂射影分身
+to level 30 and removes its cooldown. The skill still costs 35 mana per cast,
+and its shadows still fire at the equipped character's current 亂射 level.
 
 At area entry, up to twelve chests outside or three inside are placed on
 reachable, clear navigation cells, at least twelve world metres apart. A fixed

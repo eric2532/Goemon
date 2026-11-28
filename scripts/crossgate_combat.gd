@@ -114,7 +114,8 @@ func prepare_projectiles():
  var id:String=preload("res://scripts/spells/spell_catalog.gd").RANDOM_SHOT
  var count_=int(Skills.effective(hero,id,"count")) if Skills.all().has(id) else 1
  if mirrors!=null:mirrors.prepare_count()
- Pool.service(game).warm(hero,Shot,"crossgate_arrow",{"kind":"crossgate_arrow"},count_+ceili(count_/RANDOM_SHOT_RATE)+ceili(projectile_range()/Shot.THROWN_SPEED/cadence)+1)
+ var gear_speed=minf(hero.ATTACK_SPEED_CAP,1.0+float(hero.accessory_bonuses.get("attack_speed",0.0)))
+ Pool.service(game).warm(hero,Shot,"crossgate_arrow",{"kind":"crossgate_arrow"},count_+ceili(count_/RANDOM_SHOT_RATE)+ceili(projectile_range()/Shot.THROWN_SPEED/cadence*gear_speed)+1)
 
 func projectile_range()->float:return Shot.THROWN_RANGE*hero.pickup_multiplier("range")*float(hero.accessory_bonuses.get("range",1.0))
 
@@ -163,12 +164,16 @@ func prepare_shadow_mirrors():
   if mirrors==null:mirrors=load("res://scripts/warcraft_mirrors.gd").new(hero,5,true)
   mirrors.prepare_count()
 
+func shadow_mirror_cooldown()->float:
+ return 0.0 if hero.accessory_bonuses.get("barrage_shadows_max",0)>0 else mirror_cooldown
+
 func start_shadow_mirrors():
  if hero.model.current_weapon()!="bow":return
- if mirrors==null or hero.hp<=0 or hero.dodge_time>0 or not hero.is_on_floor() or is_attacking() or mirror_cooldown>0:return
+ if mirrors==null or hero.hp<=0 or hero.dodge_time>0 or not hero.is_on_floor() or is_attacking() or shadow_mirror_cooldown()>0:return
  if not hero.spend_skill_mana(Skills.Catalog.BARRAGE_SHADOWS):return
  if mirrors.cast():
-  mirror_cooldown=preload("res://scripts/warcraft_kit.gd").MIRROR_COOLDOWN
+  if hero.accessory_bonuses.get("barrage_shadows_max",0)<=0:
+   mirror_cooldown=preload("res://scripts/warcraft_kit.gd").MIRROR_COOLDOWN
   link_primary_combo()
   hero.play_sound("cg_mirror_charge",.8)
  else:

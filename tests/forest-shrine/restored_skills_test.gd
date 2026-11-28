@@ -10,7 +10,7 @@ func planted():
  var p=game.player
  p.active_ability.cancel(true);p.active_ability.clear_cooldowns();p.attack_chain.reset()
  p.position=home;p.velocity=Vector3.DOWN;p.move_and_slide()
- p.dodge_time=0;p.impact_pause=0;p.invuln=0;game.hit_stop=0
+ p.dodge_time=0;p.impact_pause=0;p.invuln=0;p.mana=p.max_mana;game.hit_stop=0
 
 func capture_skill(stem:String):
  if DisplayServer.get_name()=="headless":return
@@ -90,13 +90,16 @@ func run():
  p.select_character(37);equip_weapon(37,"bow");planted()
  Skills.set_level(p,Catalog.BARRAGE_SHADOWS,30);key(1)
  check(p.active_ability.mirrors.handles.size()==7,"Leveling a borrowed barrage prepares its larger shadow count")
+ p.active_ability.tick_timers(22.0);p.active_ability.mirrors.tick(22.0);p.mana=p.max_mana;key(1)
+ check(p.active_ability.mirrors.handles.size()==14,"Borrowed Barrage Shadows stacks the second cast too")
  p.active_ability.mirrors.clear()
  p.select_character(43);equip_weapon(43,"bow");planted()
  Skills.set_level(p,Catalog.BARRAGE_SHADOWS,30);Skills.set_level(p,Catalog.RANDOM_SHOT,1)
  var kit=p.active_ability;var mirrors=kit.mirrors
  key(1)
  check(mirrors.handles.size()==7 and mirrors.left==30 and p.spell_loadout.cooldown_for("equip")==22,"Key 1 creates seven level-30 stationary shadows and starts the existing cooldown")
- var handles=mirrors.handles.duplicate();var bodies=mirrors.bodies.duplicate();var positions=bodies.map(func(body):return body.position)
+ var handles=mirrors.handles.duplicate();var bodies=mirrors.bodies.slice(0,handles.size());var positions=bodies.map(func(body):return body.position)
+ var prepared=mirrors.bodies.duplicate()
  key(1);check(mirrors.handles==handles,"Cooldown blocks immediate recast")
  var health:float=enemy.hp
  for i in 360:
@@ -115,7 +118,8 @@ func run():
  var nodes=get_node_count();var created=pool.created;var misses=pool.misses
  var resources=Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)
  for repeat_ in 5:
-  kit.clear_cooldowns();key(1)
+  mirrors.clear()
+  kit.clear_cooldowns();p.mana=p.max_mana;key(1)
   for i in 180:
    army.step(DT,{"targets":army.external_targets()})
    for shot in weapon_shots:
@@ -125,7 +129,7 @@ func run():
    if is_instance_valid(game.native_ink_feedback):game.native_ink_feedback.tick(DT)
  if is_instance_valid(game.native_ink_feedback):game.native_ink_feedback.tick(2)
  await frames(3)
- check(mirrors.bodies==bodies and get_node_count()==nodes and pool.created==created and pool.misses==misses,"Repeated seven-shadow casts reuse warmed bodies and arrows")
+ check(mirrors.bodies==prepared and get_node_count()<=nodes and pool.created==created and pool.misses==misses,"Repeated seven-shadow casts reuse warmed bodies and arrows")
  check(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)<=resources,"Repeated shadow casts do not grow warmed resources")
  print("RESTORED_POOL nodes=",nodes," after=",get_node_count()," created=",created," after=",pool.created," misses=",misses," after=",pool.misses)
  check(p.spell_loadout.equip(43,"equip","") and mirrors.handles.is_empty(),"Unequipping barrage retires its native shadows")

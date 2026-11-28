@@ -9,7 +9,7 @@ var left=0.0
 var shape=CapsuleShape3D.new()
 var runtime:Node
 var shadow_barrage=false
-var summon_ticket:Dictionary={}
+var shadow_lifetimes:Dictionary[int,float]={}
 func _init(caster:Hero,count:int=Kit.MIRROR_COUNT,barrage:bool=false):
  shadow_barrage=barrage
  hero=caster;shape.radius=.4;shape.height=2.6
@@ -24,7 +24,14 @@ func required_count()->int:
  return int(Skills.effective(hero,skill_id(),"count")) if hero.RogueRoster.is_crossgate_fighter(hero.character_id) else Kit.MIRROR_COUNT
 
 func prepare_count():
- while bodies.size()<required_count():make_body(hero.character_id,true)
+ var count=required_count()
+ # Prepare every group that can overlap at the normal cast cadence.
+ if shadow_barrage:
+  if hero.accessory_bonuses.get("barrage_shadows_max",0)>0 or hero.game.settings.get("disable_character_cooldowns",false):
+   var mana_cost=Skills.Catalog.mana_cost(skill_id())
+   count*=floori((hero.max_mana+hero.MANA_REGEN*Kit.MIRROR_TIME)/mana_cost)
+  else:count*=ceili(Kit.MIRROR_TIME/Kit.MIRROR_COOLDOWN)
+ while bodies.size()<count:make_body(hero.character_id,true)
 func make_body(character:int,assault_copy:bool=false):
  var body=load("res://scripts/forest/crowd/mirror_body.gd").new()
  body.game=hero.game;body.character_id=character;body.assault_copy=assault_copy
@@ -79,29 +86,45 @@ func clear_point(desired:Vector3,used:Array[Vector3],separation:float)->Vector3:
 func cast()->bool:
  var count=required_count()
  if not is_instance_valid(runtime) or bodies.size()<count:return false
- summon_ticket=hero.attack_chain.make_ticket(skill_id())
  runtime.finish_integration()
  var direction=hero.combat_attack_direction();direction.y=0;direction=direction.normalized()
  if direction.is_zero_approx():direction=hero.facing
  var spread=clampf(hero.model.scale.x*1.25,4.0,8.0)
  var points:Array[Vector3]=[]
+ var occupied:Array[Vector3]=[]
+ if shadow_barrage:
+  for body in bodies:
+   if body.leased:occupied.append(body.global_position)
  for i in count:
   var radial=direction.rotated(Vector3.UP,TAU*i/count)
-  var point=clear_point(hero.global_position+radial*spread,points,spread*.65)
-  if not point.is_finite():point=clear_point(hero.global_position+radial*1.5,points,1.4)
+  var point=clear_point(hero.global_position+radial*spread,occupied,spread*.65)
+  if not point.is_finite():point=clear_point(hero.global_position+radial*1.5,occupied,1.4)
   if not point.is_finite():return false
-  points.append(point)
- clear()
+  points.append(point);occupied.append(point)
+ if not shadow_barrage:clear()
+ var slots:Array[int]=[]
+ for slot in bodies.size():
+  if not bodies[slot].leased:slots.append(slot)
+  if slots.size()==count:break
+ # A live cooldown-setting change can exceed the overlap prepared at setup.
+ while slots.size()<count:
+  slots.append(bodies.size());make_body(hero.character_id,true)
+ var previous_size=handles.size()
+ var ticket=hero.attack_chain.make_ticket(skill_id())
  for i in count:
-  var id=-int(hero.get_instance_id())*1024-i-1
+  var slot=slots[i]
+  var body=bodies[slot]
+  # Shadows use each body's identity in a separate range from ordinary copies.
+  var id=-int(body.get_instance_id())*1024-512 if shadow_barrage else -int(hero.get_instance_id())*1024-i-1
   var health=hero.max_hp-hero.level_health_bonus()-(500 if hero.character_id==33 and hero.active_ability.demon else 0)
   var handle:int=runtime.spawn(id,1,100+hero.character_id,points[i],health,.4)
-  if handle==0:clear();return false
-  handles.append(handle)
-  var body=bodies[i];body.copy_from(hero);body.native_handle=handle;body.global_position=points[i];body.facing=direction;body.ai_aim=points[i]+direction*50
+  if handle==0:return abort_cast(slots,i,previous_size)
+  if slot>=handles.size():handles.resize(slot+1)
+  handles[slot]=handle
+  body.copy_from(hero);body.native_handle=handle;body.global_position=points[i];body.facing=direction;body.ai_aim=points[i]+direction*50
   if hero.RogueRoster.is_crossgate_fighter(hero.character_id):
    body.shadow_source=hero
-   var damage_factor=float(summon_ticket.get("skill_rules",{}).get("damage",1.0))*Skills.effective(hero,skill_id(),"damage")
+   var damage_factor=float(ticket.get("skill_rules",{}).get("damage",1.0))*Skills.effective(hero,skill_id(),"damage")
    body.copied_damage=hero.damage_multiplier()*damage_factor
    body.copied_magic_damage=hero.magic_damage_multiplier()*damage_factor
    body.copied_base_damage=hero.base_damage_multiplier()*damage_factor
@@ -117,13 +140,22 @@ func cast()->bool:
   if hero.RogueRoster.is_crossgate_fighter(body.character_id) and (body.model.current_weapon() in ["bow","boomerang"] or body.model.fighter.strike=="throw"):
    approach=Vector3.ZERO
    reach=minf(body.active_ability.projectile_range(),200.0)
-  if not runtime.native.set_mirror(handle,body.actions.size(),speed,reach,approach):clear();return false
+  if not runtime.native.set_mirror(handle,body.actions.size(),speed,reach,approach):return abort_cast(slots,i+1,previous_size)
   if body.spell_reach>0:runtime.native.set_mirror_spell_reach(handle,minf(body.spell_reach,200.0))
- for body in bodies.slice(0,count):
-  runtime.presentation_events.append({"kind":"hound_summon","position":body.global_position})
+ for slot in slots:
+  if shadow_barrage:shadow_lifetimes[slot]=Kit.MIRROR_TIME
+  runtime.presentation_events.append({"kind":"hound_summon","position":bodies[slot].global_position})
  left=Kit.MIRROR_TIME
- runtime.mirror_action.connect(_action);runtime.mirrors_advanced.connect(tick)
+ if not runtime.mirror_action.is_connected(_action):runtime.mirror_action.connect(_action)
+ if not runtime.mirrors_advanced.is_connected(tick):runtime.mirrors_advanced.connect(tick)
  return true
+func abort_cast(slots:Array[int],spawned:int,previous_size:int)->bool:
+ for i in spawned:retire_slot(slots[i])
+ handles.resize(previous_size)
+ return false
+func retire_slot(slot:int):
+ if runtime.valid(handles[slot]):runtime.despawn(handles[slot])
+ handles[slot]=0;shadow_lifetimes.erase(slot);bodies[slot].retire()
 func _action(event:Dictionary):
  for i in handles.size():
   if int(event.get("ticket_id",0))==handles[i] and runtime.valid(handles[i]):
@@ -143,8 +175,11 @@ func tick(delta:float):
  var living=false
  for i in handles.size():
   if handles[i]==0:continue
+  if shadow_barrage:
+   shadow_lifetimes[i]-=delta
+   if shadow_lifetimes[i]<=0:retire_slot(i);continue
   var state:Dictionary=runtime.unit_state(handles[i])
-  if state.is_empty() or state.hp<=0:bodies[i].retire();handles[i]=0;continue
+  if state.is_empty() or state.hp<=0:retire_slot(i);continue
   living=true
   if state.frozen>0 or state.stun>0:continue
   var body=bodies[i];body.step(delta,state)
@@ -157,7 +192,7 @@ func clear():
   if runtime.mirrors_advanced.is_connected(tick):runtime.mirrors_advanced.disconnect(tick)
   for handle in handles:
    if runtime.valid(handle):runtime.despawn(handle)
- handles.clear();left=0
+ handles.clear();shadow_lifetimes.clear();left=0
  for body in bodies:
   if is_instance_valid(body):body.retire()
 func dispose():
